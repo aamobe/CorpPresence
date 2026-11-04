@@ -52,7 +52,7 @@ internal static class WaterHooks
             Patch("OnLiquidChanged", nameof(SilverBlood.AfterLiquidChanged), typeof(GameItem), typeof(bool));
             Patch("OnLiquidContainerPourInto", nameof(SilverBlood.AfterPourInto), typeof(GameItem), typeof(GameItem), typeof(bool));
             _installed = true;
-            ModLog.Info("[水质初始化验证] 原版容器初始化完成后安装公司液体补丁和固定水质键兼容层");
+            ModLog.Info("[水质初始化验证] 原版容器初始化完成，已安装公司液体联动补丁");
         }
         catch (Exception error)
         {

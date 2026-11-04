@@ -40,23 +40,6 @@ internal static class WaterContracts
     }
     public static void Preflight()
     {
-        foreach(var binding in WaterCompatibility.Bindings)
-        {
-            int fields=0,reads=0;
-            Visit(binding.Resolve(),(op,member)=>
-            {
-                if(op==OpCodes.Ldsfld && member is FieldInfo field && field.DeclaringType==typeof(WaterFeatureHelper) && WaterGrades.FromField(field.Name)!=null)fields++;
-                if(member is MethodInfo method && ((method.DeclaringType==typeof(WaterFeatureHelper)&&method.Name=="GetCurrentWaterDisplay") || (method.DeclaringType==typeof(ItemFeature)&&(method.Name=="GetBaseRealDisplay"||method.Name=="GetBaseFakeDisplay"))))reads++;
-            });
-            if(fields!=binding.Fields || reads!=binding.Reads)throw new InvalidOperationException("原版水质判断结构不受支持："+binding.TypeName+"."+binding.Method);
-        }
-        int current=0,contains=0;
-        Visit(typeof(WaterHelper).GetMethod("WillAcceptWater"),(op,member)=>
-        {
-            if(member is MethodInfo method && method.DeclaringType==typeof(WaterFeatureHelper)&&method.Name=="GetCurrentWaterDisplay")current++;
-            if(member is MethodInfo method2 && method2.DeclaringType==typeof(List<string>)&&method2.Name=="Contains")contains++;
-        });
-        if(current!=1||contains!=1)throw new InvalidOperationException("原版水质收购函数结构不受支持");
         foreach(var type in new[]{typeof(WaterScannerUIManager),typeof(ChemScannerUIManager)})
         {
             int names=0;Visit(type.GetMethod("RefreshUI",BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic),(op,member)=>

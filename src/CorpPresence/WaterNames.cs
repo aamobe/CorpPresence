@@ -21,7 +21,6 @@ internal static partial class WaterNames
         }
         return value;
     }
-    public static string ForGrade(WaterGrade grade) => Get(grade == WaterGrade.Unknown ? "mech_unknown_water" : GradeKeys[(int)grade]);
     public static string ForPurity(int purity)
     {
         var grade = WaterGrades.Of(purity);
@@ -34,16 +33,6 @@ internal static partial class WaterNames
         if (liquid.identifier == "corp_isomer_raw") return L.T("粗异构蛋白", "Raw Isomer Protein");
         if (liquid.identifier == "corp_isomer") return L.T("异构蛋白", "Isomer Protein");
         return LiquidKeys.TryGetValue(liquid.identifier, out var key) ? Get(key) : liquid.displayName;
-    }
-    public static void AfterRealDisplay(ItemFeature __instance, ref string __result, bool __runOriginal)
-    {
-        if (__runOriginal && WaterIdentity.IsWater(__instance) && __instance.realCondition != null)
-            __result = ForPurity(__instance.realCondition.customValue);
-    }
-    public static void AfterFakeDisplay(ItemFeature __instance, ref string __result, bool __runOriginal)
-    {
-        if (__runOriginal && WaterIdentity.IsWater(__instance) && __instance.fakeCondition != null)
-            __result = ForPurity(__instance.fakeCondition.customValue);
     }
     public static void AfterLabeledString(GameItem currentWaterContainer, ref string __result, bool __runOriginal)
     {
