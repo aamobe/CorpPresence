@@ -171,7 +171,6 @@ internal static class Hooks
 		{
 			throw new InvalidOperationException("液体补丁资源尚未就绪");
 		}
-		WaterContracts.Preflight();
 		InstallGameplay(h);
 		WaterHooks.Install(h.Id, waterFailure);
 	}

@@ -7,11 +7,11 @@ internal sealed class ResourceBootstrap : MonoBehaviour
 {
 	private Action _complete;
 
-	private Action _abort;
+	private Action<Exception> _abort;
 
 	private Action<ModItemDirectory> _directory;
 
-	public void Configure(Action complete, Action abort)
+	public void Configure(Action complete, Action<Exception> abort)
 	{
 		_complete = complete;
 		_abort = abort;
@@ -53,11 +53,11 @@ internal sealed class ResourceBootstrap : MonoBehaviour
 				complete();
 			}
 		}
-		catch
+		catch (Exception error)
 		{
-			Action abort = _abort;
+			Action<Exception> abort = _abort;
 			Detach();
-			abort?.Invoke();
+			abort?.Invoke(error);
 			throw;
 		}
 	}

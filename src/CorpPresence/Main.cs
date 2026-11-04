@@ -35,7 +35,14 @@ public class Main : IMod
 
 	public void OnEnable()
 	{
-		if (_runtime.Start(EnableCore))
+		bool started;
+		try { started = _runtime.Start(EnableCore); }
+		catch (Exception error)
+		{
+			ReportStartupRollback(error);
+			throw;
+		}
+		if (started)
 		{
 			_bootstrap.Tick();
 		}
@@ -65,7 +72,7 @@ public class Main : IMod
 	{
 		_runtime.Own(SilverBlood.InstallResources, SilverBlood.UninstallResources);
 		_runtime.Own(Tobacco.RegisterPlant, Tobacco.UnregisterPlant);
-		_runtime.Own(() => Hooks.InstallResources(_harmony, AbortWaterStartup), WaterHooks.Uninstall);
+		_runtime.Own(() => Hooks.InstallResources(_harmony, ReportWaterRollback), WaterHooks.Uninstall);
 		_runtime.Own(Hooks.InstallEvents, Hooks.UninstallEvents);
 		_runtime.Own(CorpPresence.Malice.Malice.Install, CorpPresence.Malice.Malice.Uninstall);
 		_runtime.Own(Noop, CatalogPricing.Reset);
@@ -86,10 +93,17 @@ public class Main : IMod
 		_runtime.Stop();
 	}
 
-	private void AbortWaterStartup(Exception error)
+	private static void ReportWaterRollback(Exception error)
+	{
+		ModLog.Warn("[水质身份兼容] 安装失败，已尝试撤销本轮水质补丁。公司物品注册保留：" + error);
+		RollbackNotice.Queue(fullRollback: false);
+	}
+
+	private void ReportStartupRollback(Exception error)
 	{
 		_runtime.Stop();
-		ModLog.Warn("[水质身份兼容] 安装失败，已执行公司运行时回滚；如有撤销失败请以完整日志为准。保留原版容器初始化结果：" + error);
+		ModLog.Error("公司增强初始化失败，已执行运行时回滚：" + error);
+		RollbackNotice.Queue(fullRollback: true);
 	}
 
 	private static void Noop()
@@ -102,7 +116,7 @@ public class Main : IMod
 		UnityEngine.Object.DontDestroyOnLoad(_bootstrapObject);
 		_bootstrapObject.hideFlags = HideFlags.HideAndDontSave;
 		_bootstrap = _bootstrapObject.AddComponent<ResourceBootstrap>();
-		_bootstrap.Configure(CompleteStartup, _runtime.Stop);
+		_bootstrap.Configure(CompleteStartup, ReportStartupRollback);
 	}
 
 	private void DestroyBootstrap()

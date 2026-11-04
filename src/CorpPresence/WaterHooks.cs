@@ -41,11 +41,12 @@ internal static class WaterHooks
 
     public static void AfterNativeContainer(GameItem item, bool __runOriginal)
     {
-        if (!__runOriginal || _owner == null || _installed || _installing) return;
+        if (!__runOriginal || _owner == null || _abort == null || _installed || _installing) return;
         // No changing global names, existing features, purity, or buyer requirements.
         _installing = true;
         try
         {
+            WaterContracts.Preflight();
             WaterCompatibility.Install(_owner);
             Patch("UpdateWaterFeature", nameof(SilverBlood.AfterUpdateWaterFeature), typeof(GameItem), typeof(bool));
             Patch("OnLiquidChanged", nameof(SilverBlood.AfterLiquidChanged), typeof(GameItem), typeof(bool));
@@ -57,7 +58,7 @@ internal static class WaterHooks
         {
             // Never turn optional compatibility installation into a failed native
             // bottle constructor during save loading. Report the full failure and
-            // roll back the company runtime through its owner.
+            // roll back only the independently owned water patches.
             var abort = _abort;
             Exception failure = error;
             try { Uninstall(); }

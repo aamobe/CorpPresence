@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
@@ -18,7 +19,24 @@ internal static partial class WaterCompatibility
     public static void Install(Harmony owner)
     {
         var transpiler = new HarmonyMethod(typeof(WaterCompatibility), nameof(Transpile));
-        foreach (var binding in Bindings) owner.Patch(binding.Resolve(), transpiler: transpiler);
+        foreach (var binding in Bindings)
+        {
+            var target = binding.Resolve();
+            try
+            {
+                owner.Patch(target, transpiler: transpiler);
+            }
+            catch (Exception error)
+            {
+                var patches = Harmony.GetPatchInfo(target);
+                var sources = patches?.Transpilers
+                    .Where(patch => patch.owner != owner.Id)
+                    .Select(patch => patch.owner)
+                    .Distinct() ?? Enumerable.Empty<string>();
+                throw new InvalidOperationException(
+                    $"水质补丁目标 {binding.TypeName}.{binding.Method}，其他 transpiler：[{string.Join(", ", sources)}]", error);
+            }
+        }
         owner.Patch(AccessTools.Method(typeof(WaterHelper), "WillAcceptWater"), transpiler: new HarmonyMethod(typeof(WaterCompatibility), nameof(AcceptanceTranspile)));
         Patch(owner, typeof(ItemFeature), "IsFeatureMatch", typeof(WaterIdentity), nameof(WaterIdentity.BeforeFeatureMatch), true);
         Patch(owner, typeof(ItemFeature), "GetBaseRealDisplay", typeof(WaterNames), nameof(WaterNames.AfterRealDisplay));
