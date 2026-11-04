@@ -6,17 +6,17 @@
 
 ## 从源码构建
 
-需要 .NET 8 SDK 和本地安装的《Probably Stolen》。将 `GameManagedDir` 指向游戏安装目录下的 `Probably Stolen_Data/Managed`。
+需要 .NET 8 SDK 和本地安装的《Probably Stolen》。将 `GameManaged` 指向游戏安装目录下的 `Probably Stolen_Data/Managed`。
 
 ```powershell
-dotnet build ./src/CorpPresence.csproj -c Release "-p:GameManagedDir=F:/SteamLibrary/steamapps/common/Probably Stolen/Probably Stolen_Data/Managed"
+dotnet build ./src/CorpPresence.csproj -c Release "-p:GameManaged=F:/SteamLibrary/steamapps/common/Probably Stolen/Probably Stolen_Data/Managed"
 ```
 
 输出为 `src/bin/Release/netstandard2.1/CorpPresence.dll`。将它与仓库根目录的 `manifest.xml` 一同放入游戏的 MOD 目录。若已订阅工坊版，请确保游戏只加载一份相同 MOD ID 的副本。
 
 ## 权限与反馈
 
-模组声明「外部反射」和「运行时加载或生成代码」权限。前者用于访问原版内部接口，后者用于在运行时修正扫描仪的液体名称显示。反馈 BUG 时请附游戏和 MOD 版本、复现步骤，以及相关日志片段。
+反馈 BUG 时请附游戏和模组版本、复现步骤以及相关日志片段。普通版 0.9.6 的清单未声明额外权限。液体相关改动见 [兼容边界](docs/water-compatibility.md)。
 
 ## Rights / 权利说明
 

@@ -11,25 +11,20 @@ internal static class Settings
 
 	private const string Unlimited = "不限";
 
-	private static readonly string[] Days = Enumerable.Range(1, 30).Select((int n) =>
-	{
-		int num = n;
-		return num.ToString();
-	}).ToArray();
+	private static readonly string[] Days = (from n in Enumerable.Range(1, 30)
+		select n.ToString()).ToArray();
 
 	private static ConfigEntry<string> _portraits;
 
+	// 0.9.2 加回高清立绘（旧版立绘，只分 2K、4K 两档，不用多级纹理）；放在最后，已存的选项不变
 	private static readonly string[] PortraitSets = new string[3] { "平滑新版立绘 / New, smooth", "像素化新版立绘 / New, pixel", "高清立绘 / HD" };
 
 	private static ConfigEntry<string> _restock;
 
 	private static readonly Dictionary<string, ConfigEntry<string>> PeriodEntries = new Dictionary<string, ConfigEntry<string>>();
 
-	private static readonly string[] PeriodDays = Enumerable.Range(3, 19).Select((int n) =>
-	{
-		int num = n;
-		return num.ToString();
-	}).ToArray();
+	private static readonly string[] PeriodDays = (from n in Enumerable.Range(3, 19)
+		select n.ToString()).ToArray();
 
 	private static ConfigEntry<string> _panelScale;
 
@@ -89,21 +84,8 @@ internal static class Settings
 		["mentor"] = ("导师", "The Mentor")
 	};
 
-	public static int PortraitSet
-	{
-		get
-		{
-			if (!(_portraits?.Value == PortraitSets[1]))
-			{
-				if (!(_portraits?.Value == PortraitSets[2]))
-				{
-					return 1;
-				}
-				return 3;
-			}
-			return 2;
-		}
-	}
+	// 1 = 平滑新版，2 = 像素化新版，3 = 高清立绘
+	public static int PortraitSet => _portraits?.Value == PortraitSets[1] ? 2 : _portraits?.Value == PortraitSets[2] ? 3 : 1;
 
 	public static float PanelScale
 	{
@@ -252,11 +234,8 @@ internal static class Settings
 	public static void Init(string modId)
 	{
 		ModConfig config = ModConfig.For(modId);
-		_cap = config.Define("DailyCap", "不限", "来访 / Visits", () => L.T("每天最多几位公司人物", "Max company characters per day"), new string[1] { "不限" }.Concat(Enumerable.Range(1, 6).Select((int n) =>
-		{
-			int num2 = n;
-			return num2.ToString();
-		})).ToArray(), () => L.T("超出的人顺延到第二天：剧情优先，其次是最久没来的。花钱请来的客流、贵宾、实验室访客不算在内。", "Extra visitors are pushed to the next day: story first, then whoever has waited longest. Paid foot traffic, VIPs and lab buyers don't count."));
+		_cap = config.Define("DailyCap", "不限", "来访 / Visits", () => L.T("每天最多几位公司人物", "Max company characters per day"), new string[1] { "不限" }.Concat(from n in Enumerable.Range(1, 6)
+			select n.ToString()).ToArray(), () => L.T("超出的人顺延到第二天：剧情优先，其次是最久没来的。花钱请来的客流、贵宾、实验室访客不算在内。", "Extra visitors are pushed to the next day: story first, then whoever has waited longest. Paid foot traffic, VIPs and lab buyers don't count."));
 		_limits = config.Define("OrderLimits", defaultValue: false, "订货 / Orders", () => L.T("订货每周限量", "Weekly order limits"), () => L.T("打开后，各公司电话订货的每样货每周限量，按一份的基础价值分阶：\n", "When on, each item ordered by phone has a weekly limit, tiered by its base value:\n") + L.T("50₵ 以下 20 份，200₵ 以下 10 份，300₵ 以下 5 份，300₵ 及以上 3 份。\n", "under 50₵: 20, under 200₵: 10, under 300₵: 5, 300₵ and up: 3.\n") + L.T("海明威限量包装、免疫宁整箱这些独家货不管开不开都按原来的限量。", "Exclusives like Hemingway Limited Edition and the Immunivax case keep their own limits either way."));
 		_orderEvents = config.Define("OrderEvents", defaultValue: true, "订货 / Orders", () => L.T("事件影响订货", "Events affect orders"), () => L.T("打开后，原版市场事件（某类物品涨价、降价）也会影响电话订货的单价：事件让这类物品涨多少、跌多少，订货价就跟着涨跌多少，和店里同类物品的估价一致。\n", "When on, vanilla market events (a type of item going up or down in price) also change phone order prices: the order price rises or falls by as much as the event moves that type of item, matching how the shop values it.\n") + L.T("下单时按当时的价格结算，之后事件结束也不退差价。星际客改装盲盒、各公司的固定价设备不受影响。\n关闭：订货价不看事件（以前的做法）。", "You pay the price at the time of ordering; nothing is refunded when the event ends. The Spacer grab box and fixed-price machines are not affected.\nOff: order prices ignore events (the old behaviour)."));
 		_orderFactor = config.Define("OrderMarkup", "1.1", "订货 / Orders", () => L.T("订购溢价（倍）", "Order markup (x)"), Factors, () => L.T("电话订货的价格 = 物品价值 × 这个倍数（默认 1.1）。合作档位越高每档便宜 0.05：签约 ×1.1、长期客户 ×1.05、合作伙伴 ×1.0（按默认值）。\n子午线高端配件、利维坦也按这个倍数（不看档位）。星际客改装盲盒固定 500₵。", "Phone order price = item value × this (default 1.1). Each higher cooperation tier is 0.05 cheaper: Signed ×1.1, Regular ×1.05, Partner ×1.0 (at the default).\nMeridian's high-end attachments and the Leviathan use this multiplier too (regardless of tier). The Spacer grab box is a fixed 500₵."));
@@ -300,7 +279,8 @@ internal static class Settings
 			else
 			{
 				string name = character.Name;
-				text2 = character.Name;
+				string name2 = character.Name;
+				text2 = name2;
 				text = name;
 			}
 			string section = "来访：" + text + " / Visits: " + text2;
