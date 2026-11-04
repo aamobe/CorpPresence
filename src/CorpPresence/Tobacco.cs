@@ -1,0 +1,444 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using CorpPresence.UI;
+using UnityEngine;
+
+namespace CorpPresence;
+
+internal static class Tobacco
+{
+	public const string SeedId = "corp_presence_tobacco_seed";
+
+	public const string LeafId = "corp_presence_tobacco_leaf";
+
+	public const string LooseId = "corp_presence_loose_cigarette";
+
+	public const string RollerId = "corp_presence_rolling_machine";
+
+	public const string PackerId = "corp_presence_packaging_machine";
+
+	public const string StampId = "corp_presence_hemingway_stamp";
+
+	public const string PlantSprite = "corp_presence_tobacco_leaf_p";
+
+	public const int LeafPower = 5;
+
+	public const int CigsPerLeaf = 2;
+
+	public const int CigsPerPack = 3;
+
+	public const int PackerPower = 8;
+
+	public const int PacksPerNight = 2;
+
+	public const int StampUses = 8;
+
+	private const int SpeedScale = 100;
+
+	private const string CarryTag = "CORP_PACK_CARRY_INT";
+
+	internal static readonly Dictionary<string, Goods.Def> Defs = new Dictionary<string, Goods.Def>
+	{
+		["tobacco_seed"] = new Goods.Def
+		{
+			Name = "烟草种子",
+			NameEn = "Tobacco Seeds",
+			Value = 20L,
+			Company = "pastel",
+			Art = "tobacco_seed",
+			Fallback = "kotton_plant_seed",
+			Manufacturer = "pastel",
+			Types = new string[1] { "SEED" },
+			W = 1,
+			H = 1,
+			Shell = Empty,
+			Setup = InitSeed,
+			Desc = "种在水培机里，大约 4 晚收一茬烟叶，并返还 1 颗种子。",
+			DescEn = "Grow it in a hydroponic unit. Harvest tobacco leaves in about 4 nights and get 1 seed back.",
+			Flavor = "帕斯泰尔的经济作物。娇气、吃水。",
+			FlavorEn = "A pastel cash crop. Fussy and thirsty."
+		},
+		["tobacco_leaf"] = new Goods.Def
+		{
+			Name = "烟叶",
+			NameEn = "Tobacco Leaves",
+			Value = 30L,
+			Company = "pastel",
+			Art = "tobacco_leaf",
+			Fallback = "fillerweed",
+			Types = new string[1] { "SUBSTANCE" },
+			W = 1,
+			H = 2,
+			Shell = Empty,
+			Desc = "放进卷烟机，每片可以卷成 2 支私制散烟。",
+			DescEn = "Put it in a cigarette roller: each leaf can be rolled into 2 loose cigarettes.",
+			Flavor = "刚收下来的一捆烟叶。",
+			FlavorEn = "A fresh bundle of tobacco leaves."
+		},
+		["loose_cigarette"] = new Goods.Def
+		{
+			Name = "私制散烟",
+			NameEn = "Loose Cigarettes",
+			Value = 20L,
+			Company = "pastel",
+			Art = "loose_cigarette",
+			Fallback = "cig_red",
+			Types = new string[3] { "SUBSTANCE", "MAKESHIFT", "CONTRABAND" },
+			W = 1,
+			H = 1,
+			Shell = Empty,
+			Setup = InitLoose,
+			VanillaUse = true,
+			Desc = "能直接抽。放进分装机，3 支封成 1 包海明威。私人作坊的货，没交税，按违禁品算。",
+			DescEn = "Can be smoked. A packaging machine seals 3 into a pack of Hemingways. Untaxed backroom goods, treated as contraband.",
+			Flavor = "没有牌子的手卷烟，卷纸发黄，粗细不一。",
+			FlavorEn = "An unbranded hand-rolled cigarette in yellowed paper."
+		},
+		["rolling_machine"] = new Goods.Def
+		{
+			Name = "卷烟机",
+			NameEn = "Cigarette Roller",
+			Value = 300L,
+			Company = "pastel",
+			Art = "rolling_machine",
+			Fallback = "bottle_printer",
+			Manufacturer = "pastel",
+			Types = new string[2] { "MACHINE", "LOWTECH" },
+			W = 3,
+			H = 2,
+			Shell = BuildRoller,
+			OnNew = (GameItem m) =>
+			{
+				AddManual(m, RollerManual);
+			},
+			Desc = "放进烟叶、插上电池，按“卷烟”当场卷好：每片烟叶卷成 2 支私制散烟，耗 5 电。",
+			DescEn = "Load tobacco leaves and a battery, then press Roll: each leaf becomes 2 loose cigarettes on the spot and uses 5 charge.",
+			Flavor = "海明威分部淘汰下来的旧卷烟机。漆面磨得发白，侧面还留着半个红标。",
+			FlavorEn = "An old roller retired by the Hemingway division. The paint is worn pale, with half a red logo left on the side."
+		},
+		["packaging_machine"] = new Goods.Def
+		{
+			Name = "分装机",
+			NameEn = "Packaging Machine",
+			Value = 350L,
+			Company = "pastel",
+			Art = "packaging_machine",
+			Fallback = "furnace",
+			Manufacturer = "pastel",
+			Types = new string[1] { "MACHINE" },
+			W = 3,
+			H = 3,
+			Shell = BuildPacker,
+			OnNew = (GameItem m) =>
+			{
+				AddManual(m, PackerManual);
+			},
+			Desc = "放进私制散烟、插上电池，每晚把 3 支散烟封成 1 包海明威正品，默认每晚 2 包，耗 8 电。性能模组多封（也多用散烟），效率模组省电。标签槽里放着标签戳时，封出来的是限量包装。",
+			DescEn = "Load loose cigarettes and a battery. Each night it seals 3 cigarettes into 1 genuine Hemingway pack, 2 packs by default, using 8 charge. Performance modules seal more (using more cigarettes); efficiency modules save power. With a label stamp in the label slot, packs come out as Limited Edition.",
+			Flavor = "帕斯泰尔正规的分装设备。用了它，你的烟就是海明威。",
+			FlavorEn = "Proper pastel packaging equipment. Run your smokes through it and they're Hemingways."
+		},
+		["hemingway_stamp"] = new Goods.Def
+		{
+			Name = "海明威标签戳",
+			NameEn = "Hemingway Label Stamp",
+			Value = 400L,
+			Company = "pastel",
+			Art = "hemingway_stamp",
+			Fallback = "food_stamp",
+			Manufacturer = "pastel",
+			Types = new string[3] { "TOOL", "CONTRABAND", "NOT_FOR_RESALE" },
+			W = 1,
+			H = 2,
+			Shell = Empty,
+			Setup = InitStamp,
+			Desc = "放进分装机的标签槽。可以用 8 次，只在分装机里管用。",
+			DescEn = "Put it in a packaging machine's label slot. 8 uses; only works in the packaging machine.",
+			Flavor = "分部印限量包装用的标签戳，手柄上缠着一圈胶带。外面买不到。",
+			FlavorEn = "The division's stamp for Limited Edition packaging, tape wrapped around the handle. You can't buy one outside."
+		}
+	};
+
+	private static Sprite _overlay;
+
+	private static PlantDefinition _ownedPlant;
+
+	private static (string Zh, string En) RollerManual => (Zh: "放入：把烟叶放进烟叶槽，把能量电池放进电池槽。\n卷烟：按“卷烟”，每片烟叶当场卷成 2 支私制散烟，每片耗 5 电；电量不够就停。\n注意：私制散烟是违禁品。", En: "Load: put tobacco leaves in the leaf tray and an energy cell in the battery slot.\nRoll: press Roll. Each leaf becomes 2 loose cigarettes on the spot, using 5 charge per leaf; it stops when the charge runs out.\nNote: loose cigarettes are contraband.");
+
+	private static (string Zh, string En) PackerManual => (Zh: "放入：把私制散烟放进散烟槽（最多 12 支），把能量电池放进电池槽。\n分装：每晚把 3 支散烟封成 1 包海明威正品，默认每晚 2 包，耗 8 电。\n限量：标签槽里放着海明威标签戳时，封出来的是限量包装，每包用掉标签戳 1 次。\n[模组影响]：\n效率影响功耗\n性能影响每晚封装数量（也多用散烟）\n质量无影响", En: "Load: put loose cigarettes in the cigarette tray (up to 12) and an energy cell in the battery slot.\nPackaging: each night, 3 cigarettes are sealed into 1 genuine pack of Hemingways, 2 packs per night by default, using 8 charge.\nLimited: with a Hemingway label stamp in the label slot, packs come out as Limited Edition, using 1 stamp use each.\n[Module effects]:\nEfficiency affects power use\nPerformance affects packs per night (and uses more cigarettes)\nQuality has no effect");
+
+	private static GameItem Empty()
+	{
+		return ItemDirectory.CreateEmptyItem();
+	}
+
+	public static void RegisterPlant()
+	{
+		if (!GameResources.Ready)
+		{
+			throw new InvalidOperationException("烟草资源尚未就绪");
+		}
+		if (!PlantRegistry.Contains("corp_presence_tobacco_seed"))
+		{
+			_ownedPlant = new PlantDefinition("corp_presence_tobacco_seed", "Tobacco", "corp_presence_tobacco_leaf", 28, 10).Nutriment(300, 100, 60).Contaminant(1.1).Water(150)
+				.ReturnsSeeds()
+				.Innate("sparse")
+				.Innate("thirsty")
+				.Innate("frail")
+				.Innate("complex_genome")
+				.OnHarvest(Harvest);
+			PlantRegistry.Add(_ownedPlant);
+		}
+	}
+
+	public static void UnregisterPlant()
+	{
+		if (_ownedPlant != null && PlantRegistry.Get("corp_presence_tobacco_seed") == _ownedPlant)
+		{
+			PlantRegistry.Remove("corp_presence_tobacco_seed");
+		}
+		_ownedPlant = null;
+	}
+
+	private static void Harvest(PlantHarvestContext ctx)
+	{
+		ctx.OutputById("corp_presence_tobacco_seed");
+		ctx.OutputById("corp_presence_tobacco_leaf", Math.Max(1, ctx.harvestCount));
+	}
+
+	private static void InitSeed(GameItem item)
+	{
+		RegisterPlant();
+		HydroponicHelper.InitSeedItem(item, "corp_presence_tobacco_seed");
+	}
+
+	private static void InitLoose(GameItem item)
+	{
+		ContrabandHelper.InitContrabandItem(item, 1);
+		item.EnableTag("CIGARETTE_TAG");
+		ConsumableHelper.InitNicotine(item, 1);
+		item.AddAmenities("amenities_substance", 1, 7);
+	}
+
+	private static void InitStamp(GameItem item)
+	{
+		ContrabandHelper.InitContrabandItem(item, 3);
+		item.EnableTag("NOT_FOR_RESALE");
+		DurabilityHelper.InitItemWithDurability(item, 8);
+	}
+
+	public static Sprite PlantOverlay()
+	{
+		if (_overlay != null)
+		{
+			return _overlay;
+		}
+		Sprite sprite = RenderHandler.TryLoadFromAtlas("Items/items_hydroponic_plant", "coffee_bean_p");
+		Texture2D texture2D = Tex.Art("pastel", "tobacco_leaf_p");
+		if (texture2D == null)
+		{
+			return sprite;
+		}
+		float pixelsPerUnit = ((sprite != null) ? sprite.pixelsPerUnit : 100f);
+		Vector2 pivot = ((sprite != null) ? new Vector2(sprite.pivot.x / sprite.rect.width, sprite.pivot.y / sprite.rect.height) : new Vector2(0.5f, 0.5f));
+		_overlay = Sprite.Create(texture2D, new Rect(0f, 0f, texture2D.width, texture2D.height), pivot, pixelsPerUnit);
+		_overlay.name = "corp_presence_tobacco_leaf_p";
+		_overlay.hideFlags = HideFlags.HideAndDontSave;
+		return _overlay;
+	}
+
+	private static GameItem BuildRoller()
+	{
+		GameSlotInventory battery = new GameSlotInventory();
+		GameGridInventory input = new GameGridInventory(4, 4);
+		GameGridInventory output = new GameGridInventory(6, 4);
+		GameSlotInventory gameSlotInventory = new GameSlotInventory();
+		MachineryButton machineryButton = new MachineryButton(L.T("卷烟", "Roll"));
+		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("烟叶", "Leaves"), input, "input"), MachineHelper.Panel(L.T("散烟", "Cigarettes"), output, "output"), MachineHelper.Panel(L.T("操作", "Control"), MachineryStack.Vertical(machineryButton), "control"), MachineHelper.NotePanel(gameSlotInventory));
+		MachineHelper.SetupManualSlot(gameSlotInventory);
+		GameItem machine = Empty().SetContentWindow(contentWindow);
+		machine.EnableTag("CONTAINER_TAG");
+		MachineHelper.SetupBatterySlot(battery, machine);
+		MachineryHelper.InitMachinery(machine);
+		input.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(item) && item.identifier == "corp_presence_tobacco_leaf";
+		output.mayInventoryAddItemFunc = (GameItem _, GameInventory _) => false;
+		MachineUpgrade.Attach(machine, 1, input, output);
+		machineryButton.SetCallback(() =>
+		{
+			Roll(machine, battery, input, output);
+		});
+		return machine;
+	}
+
+	private static void Roll(GameItem machine, GameSlotInventory battery, GameInventory input, GameInventory output)
+	{
+		try
+		{
+			GameItem childItem = battery.childItem;
+			int amount = 5 - MachineUpgrade.PowerCut(machine);
+			int num = 0;
+			foreach (GameItem item in input.childItems.ToList())
+			{
+				if (item?.identifier != "corp_presence_tobacco_leaf")
+				{
+					continue;
+				}
+				if (childItem == null || !PowerHelper.CanDrawPowerSource(childItem, amount))
+				{
+					break;
+				}
+				List<GameItem> list = new List<GameItem>();
+				for (int i = 0; i < 2; i++)
+				{
+					GameItem gameItem = Goods.Make("loose_cigarette");
+					if (gameItem == null)
+					{
+						break;
+					}
+					GeneralHelper.SetItemOwned(gameItem);
+					list.Add(gameItem);
+				}
+				if (list.Count < 2 || !Put(output, list))
+				{
+					foreach (GameItem item2 in list)
+					{
+						item2.Destroy();
+					}
+					break;
+				}
+				PowerHelper.DrawPowerSource(childItem, amount);
+				item.Destroy();
+				num++;
+			}
+			if (num > 0)
+			{
+				ModLog.Info($"卷烟机：卷了 {num} 片烟叶，出 {num * 2} 支散烟");
+			}
+		}
+		catch (Exception ex)
+		{
+			ModLog.Warn("卷烟失败：" + ex.Message);
+		}
+	}
+
+	private static GameItem BuildPacker()
+	{
+		GameSlotInventory battery = new GameSlotInventory();
+		GameGridInventory modules = new GameGridInventory("10000010001000001110000010001000001", 7);
+		GameGridInventory input = new GameGridInventory(6, 2);
+		GameSlotInventory label = new GameSlotInventory(1, 2);
+		GameGridInventory output = new GameGridInventory(6, 4);
+		GameSlotInventory gameSlotInventory = new GameSlotInventory();
+		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"), MachineHelper.Panel(L.T("散烟", "Cigarettes"), input, "input"), MachineHelper.Panel(L.T("标签戳", "Label stamp"), label, "input"), MachineHelper.Panel(L.T("成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
+		MachineHelper.SetupManualSlot(gameSlotInventory);
+		GameItem machine = Empty().SetContentWindow(contentWindow);
+		machine.EnableTag("CONTAINER_TAG");
+		machine.EnableTag("STANDARD_MACHINE_TAG");
+		MachineHelper.SetupBatterySlot(battery, machine);
+		MachineryHelper.InitMachinery(machine, 8);
+		machine.ModifyTag("BASE_PROCESSING_SPEED_TAG", (TagState s) =>
+		{
+			s.Enable().SetInt(200);
+		});
+		machine.ModifyTag("CURRENT_PROCESSING_SPEED_TAG", (TagState s) =>
+		{
+			s.Enable().SetInt(200);
+		});
+		MachineHelper.SetupModuleBay(modules, machine);
+		input.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(item) && item.identifier == "corp_presence_loose_cigarette";
+		label.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(item) && item.identifier == "corp_presence_hemingway_stamp";
+		output.mayInventoryAddItemFunc = (GameItem _, GameInventory _) => false;
+		MachineUpgrade.Attach(machine, 1, input, output);
+		machine.onCycleEndSlotItemFunc = (GameItem _, GameInventory _, SlotMarker _) =>
+		{
+			Pack(machine, battery, modules, input, label, output);
+		};
+		return machine;
+	}
+
+	private static void Pack(GameItem machine, GameSlotInventory battery, GameGridInventory modules, GameInventory input, GameSlotInventory label, GameInventory output)
+	{
+		try
+		{
+			ModuleHelper.ComputeModuleEffect(modules.childItems.ToList(), machine);
+			ModuleHelper.ApplyBasicModuleEffect(modules, null, machine);
+			int num = Math.Max(0, machine.GetTagReadonly("CURRENT_PROCESSING_SPEED_TAG").GetInt());
+			int num2 = (machine.IsTag("CORP_PACK_CARRY_INT") ? machine.GetTagReadonly("CORP_PACK_CARRY_INT").GetInt() : 0);
+			List<GameItem> list = input.childItems.Where((GameItem i) => i?.identifier == "corp_presence_loose_cigarette").ToList();
+			int num3 = num + num2;
+			int packs = Math.Min(num3 / 100, list.Count / 3);
+			if (packs <= 0 || !MachineHelper.TryDrawCyclePower(machine, battery))
+			{
+				return;
+			}
+			int made = 0;
+			for (int num4 = 0; num4 < packs; num4++)
+			{
+				GameItem childItem = label.childItem;
+				bool flag = childItem != null && DurabilityHelper.GetRealDurability(childItem) > 0;
+				GameItem gameItem = PastelCo.GenuineHemingway(flag);
+				if (gameItem == null)
+				{
+					break;
+				}
+				GeneralHelper.SetItemOwned(gameItem);
+				if (!ProductionOutput.TryAdd(output, gameItem))
+				{
+					gameItem.Destroy();
+					break;
+				}
+				for (int num5 = 0; num5 < 3; num5++)
+				{
+					list[made * 3 + num5].Destroy();
+				}
+				made++;
+				if (flag)
+				{
+					DurabilityHelper.ChangeDurability(childItem, -1);
+					if (DurabilityHelper.GetRealDurability(childItem) <= 0)
+					{
+						childItem.Destroy();
+					}
+				}
+			}
+			int left = Math.Min(99, Math.Max(0, num3 - made * 100));
+			machine.ModifyTag("CORP_PACK_CARRY_INT", (TagState s) =>
+			{
+				s.Enable().SetInt((made == packs) ? left : 0);
+			});
+			if (made > 0)
+			{
+				MachineHelper.OnMachineActioned(machine, modules);
+			}
+			PastelCo.CountPacks(made);
+			ModLog.Info($"分装机：封了 {made} 包（速度 {num}，耗电 {MachineryHelper.GetMachinePowerUsage(machine)}）");
+		}
+		catch (Exception ex)
+		{
+			ModLog.Warn("分装失败：" + ex.Message);
+		}
+	}
+
+	internal static void AddManual(GameItem machine, (string Zh, string En) text)
+	{
+		GameItem gameItem = DirectoryMaster.Item("postit", isOwned: false);
+		if (gameItem != null)
+		{
+			string displayName = machine.GetDisplayName();
+			gameItem.name = L.T(displayName + "说明", displayName + " Instructions");
+			gameItem.shortDescription = L.T(displayName + "使用方法。", "How to use the " + displayName + ".");
+			gameItem.flavorText = L.T(text.Zh, text.En);
+			gameItem.SetGameItemType("DOCUMENT");
+			gameItem.EnableTag("IMPORTANT_TAG");
+			gameItem.EnableTag("MACHINE_MANUAL_TAG");
+			gameItem.unitValue = 0L;
+			GraphUtils.TryAcceptAll(machine, gameItem);
+		}
+	}
+
+	internal static bool Put(GameInventory inv, List<GameItem> items)
+	{
+		return ProductionOutput.TryAddBatch(inv, items);
+	}
+}
