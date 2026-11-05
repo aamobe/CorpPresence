@@ -11,9 +11,20 @@ internal static class Crates
 
 	public const int InnerH = 10;
 
-	private static readonly List<GameItem> PendingDestroy = new List<GameItem>();
+	private static readonly List<(GameItem Item, StoreSession Session)> PendingDestroy = new List<(GameItem, StoreSession)>();
+	private static bool _cleaning;
+	private static long _cleanupGeneration;
 
 	private static readonly ConditionalWeakTable<GameItem, GameInventory> Inner = new ConditionalWeakTable<GameItem, GameInventory>();
+	private static readonly ConditionalWeakTable<GameItem, CleanupBinding> CleanupBindings = new ConditionalWeakTable<GameItem, CleanupBinding>();
+
+	private sealed class CleanupBinding
+	{
+		public StoreSession Session;
+		public long Generation;
+		public GameInventory Inventory;
+		public Action<GameItem, GameInventory, SlotMarker> Callback;
+	}
 
 	public static string GoodsKey(Company c)
 	{
@@ -34,20 +45,59 @@ internal static class Crates
 		item3.EnableTag("CONTAINER_TAG");
 		Inner.AddOrUpdate(item3, item2);
 		item2.mayInventoryAddItemFunc = (GameItem _, GameInventory _) => CrateFillGate.Allows(item2);
-		item2.onSlotRemoveItemEndFunc = (Action<GameItem, GameInventory, SlotMarker>)Delegate.Combine(item2.onSlotRemoveItemEndFunc, (Action<GameItem, GameInventory, SlotMarker>)((GameItem _, GameInventory box, SlotMarker _) =>
-		{
-			try
-			{
-				if (box.childItems.Count == 0 && !PendingDestroy.Contains(item3))
-				{
-					PendingDestroy.Add(item3);
-				}
-			}
-			catch
-			{
-			}
-		}));
+		BindCleanup(item3, item2, StoreSession.Capture());
 		return item3;
+	}
+
+	private static void BindCleanup(GameItem crate, GameInventory inventory, StoreSession session)
+	{
+		if (!CleanupBindings.TryGetValue(crate, out var binding))
+		{
+			binding = new CleanupBinding();
+			CleanupBindings.Add(crate, binding);
+		}
+		if (!ReferenceEquals(binding.Inventory, inventory))
+		{
+			if (binding.Inventory != null && binding.Callback != null)
+				binding.Inventory.onSlotRemoveItemEndFunc -= binding.Callback;
+			binding.Inventory = inventory;
+			binding.Callback = (GameItem _, GameInventory box, SlotMarker _) =>
+			{
+				try
+				{
+					if (binding.Generation == _cleanupGeneration && binding.Session.IsCurrent
+						&& ReferenceEquals(box, binding.Inventory) && box.childItems.Count == 0
+						&& !PendingDestroy.Exists(entry => ReferenceEquals(entry.Item, crate)))
+						PendingDestroy.Add((crate, binding.Session));
+				}
+				catch { }
+			};
+			inventory.onSlotRemoveItemEndFunc += binding.Callback;
+		}
+		binding.Session = session;
+		binding.Generation = _cleanupGeneration;
+	}
+
+	// Once after native load: only items present in this store's owned inventory
+	// graphs may acquire the fresh session. Includes the back counter and afterhours.
+	public static void RebindLoaded()
+	{
+		StoreSession session = StoreSession.Capture();
+		var emporium = EmporiumEntry.Instance;
+		if (!session.IsCurrent || emporium == null) return;
+		var items = emporium.GetAllOwnedItems();
+		if (items == null) return;
+		foreach (GameItem crate in items)
+		{
+			if (!session.IsCurrent || !ReferenceEquals(emporium, EmporiumEntry.Instance)) return;
+			if (crate == null || crate.parentInventory == null || StorePlacement.Destroyed(crate)) continue;
+			string key = Goods.IdOf(crate);
+			if (key == null || !key.StartsWith("crate_", StringComparison.Ordinal)) continue;
+			GameInventory inventory = InnerOf(crate);
+			if (inventory == null || !session.IsCurrent) continue;
+			Inner.AddOrUpdate(crate, inventory);
+			BindCleanup(crate, inventory, session);
+		}
 	}
 
 	public static GameInventory InnerOf(GameItem crate)
@@ -186,9 +236,15 @@ internal static class Crates
 		return gameItem;
 	}
 
+	public static void Reset()
+	{
+		PendingDestroy.Clear();
+		unchecked { _cleanupGeneration++; }
+	}
+
 	public static void Tick()
 	{
-		if (PendingDestroy.Count == 0)
+		if (_cleaning || PendingDestroy.Count == 0)
 		{
 			return;
 		}
@@ -201,21 +257,30 @@ internal static class Crates
 		}
 		catch
 		{
+			return;
 		}
-		GameItem[] array = PendingDestroy.ToArray();
-		foreach (GameItem gameItem in array)
+		long generation = _cleanupGeneration;
+		_cleaning = true;
+		try
 		{
-			try
+			int remaining = PendingDestroy.Count;
+			while (remaining-- > 0 && generation == _cleanupGeneration && PendingDestroy.Count > 0)
 			{
-				if (Count(gameItem) == 0)
+				var entry = PendingDestroy[0];
+				PendingDestroy.RemoveAt(0);
+				try
 				{
-					gameItem.Destroy();
+					if (!entry.Session.IsCurrent || entry.Item == null || Absorbed(entry.Item)) continue;
+					GameInventory inventory = InnerOf(entry.Item);
+					if (inventory != null && inventory.childItems.Count == 0 && generation == _cleanupGeneration && entry.Session.IsCurrent)
+						entry.Item.Destroy();
+				}
+				catch (Exception error)
+				{
+					try { ModLog.Warn("配送空箱清理失败，保留物品：" + error.Message); } catch { }
 				}
 			}
-			catch
-			{
-			}
 		}
-		PendingDestroy.Clear();
+		finally { _cleaning = false; }
 	}
 }

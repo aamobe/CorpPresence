@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -128,8 +128,9 @@ internal static class Forge
 			Art = "forge_furnace",
 			Fallback = "furnace",
 			Types = new string[1] { "MACHINE" },
-			W = 3,
-			H = 3,
+			W = 2,
+			H = 2,
+			Shape = "##|##",
 			Shell = BuildFurnace,
 			OnNew = (GameItem m) =>
 			{
@@ -151,6 +152,7 @@ internal static class Forge
 			Types = new string[2] { "MACHINE", "LOWTECH" },
 			W = 3,
 			H = 2,
+			Shape = "###|###",
 			Shell = BuildAnvil,
 			OnNew = (GameItem m) =>
 			{
@@ -261,6 +263,18 @@ internal static class Forge
 		catch (Exception ex)
 		{
 			ModLog.Warn("定制刀奢侈品分类失败：" + ex.Message);
+		}
+	}
+
+	public static void AfterStoreLoaded()
+	{
+		if (SaveSlot.CurrentStore == null || EmporiumEntry.Instance == null)
+		{
+			return;
+		}
+		foreach (GameItem allItem in EmporiumEntry.Instance.GetAllItems())
+		{
+			ApplyLuxury(allItem);
 		}
 	}
 

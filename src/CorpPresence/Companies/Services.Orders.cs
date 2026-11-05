@@ -78,7 +78,8 @@ internal static partial class Services
 		{
 			RecordLimited(s, item2.Id, item2.WindowDays, item2.Count, orderDay, period, item2.Key);
 		}
-		AddCoop(c, (double)num / Settings.CoopCredits, "电话订货");
+		if (c is not JacksonContact)
+			AddCoop(c, (double)num / Settings.CoopCredits, "电话订货");
 		try { ModLog.Info($"{c.Name}订单：{order.Items.Count} 件，{num}₵，第 {order.Day} 天送达"); } catch { }
 		return null;
 	}

@@ -43,6 +43,10 @@ internal static class RebelStory
 
 	public const string BombTag = "CORP_REBEL_BOMB";
 
+	private static bool _orderingBomb;
+
+	public static bool Ch2ReorderOpen => Malice.On && R?.Active == 2 && R.Ch2Route == "bribe" && R.Ch2BombDay < 0;
+
 	private static readonly string[] Corps = new string[5] { "pastel", "solana", "carmicheal", "meridian", "davre" };
 
 	private static readonly string[] Ch1Ids = new string[2] { "dream_dust", "fanta_pill" };
@@ -135,9 +139,17 @@ internal static class RebelStory
 
 	public static void OnDayStart()
 	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
+		if (!isCurrent()) return;
 		RebelState r = R;
 		MaliceState maliceState = MaliceState.Get();
-		if (r == null || maliceState == null || Rebels.Arrested || Rebels.Cut || !maliceState.OdinMet)
+		if (r == null || maliceState == null)
+		{
+			return;
+		}
+		bool num = maliceState.OdinMet && !Rebels.OdinUnavailable;
+		bool flag = DeliverDueBomb(r);
+		if (!num || !isCurrent())
 		{
 			return;
 		}
@@ -154,13 +166,12 @@ internal static class RebelStory
 		{
 			StartCh3();
 		}
-		if (r.Active == 2 && r.Ch2BombDay >= 0 && Day >= r.Ch2BombDay)
+		bool present = default(bool);
+		if (flag)
 		{
-			r.Ch2BombDay = -1;
-			GiveBomb();
 			Envoy.Book("rebel:odinbomb", Day + 1);
 		}
-		else if (r.Active == 2 && r.Ch2Route == "bribe" && r.Ch2BombDay < 0 && !Envoy.Booked("rebel:odinbomb") && HoldsBomb())
+		else if (r.Active == 2 && r.Ch2Route == "bribe" && r.Ch2BombDay < 0 && !Envoy.Booked("rebel:odinbomb") && TryFindBomb(out present) && present)
 		{
 			Envoy.Book("rebel:odinbomb", Day);
 		}
@@ -225,6 +236,9 @@ internal static class RebelStory
 		RebelState r = R;
 		switch (kind)
 		{
+		case "rebel:envoybomb":
+			if (!MaliceGuards.CanDeliverBomb(MaliceState.Get()?.Envoy.Ch2, Day, MaliceState.Get()?.Envoy.BombDeadline ?? -1, Rebels.OdinUnavailable, Envoy.BombBuyerId)) return null;
+			return Buyer(kind, Envoy.BombBuyerId, new string[] { L.T("电话里说的礼物呢？交给我。", "Where is the gift you called about? Hand it over.") }, Array.Empty<string>(), 5000, talkFirst: true);
 		case "rebel:ch1":
 			return Envoy.Talk(kind, OdinName, "wanted4", new string[3]
 			{
@@ -469,28 +483,73 @@ internal static class RebelStory
 
 	public static string BribeMeridian()
 	{
+		return OrderBomb(replacement: false);
+	}
+
+	public static string ReorderBomb()
+	{
+		return OrderBomb(replacement: true);
+	}
+
+	private static string OrderBomb(bool replacement)
+	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
 		RebelState r = R;
-		if (!Ch2BribeOpen)
+		if (!isCurrent() || _orderingBomb || !(replacement ? Ch2ReorderOpen : Ch2BribeOpen))
 		{
 			return L.T("现在不需要。", "Not needed right now.");
 		}
+		if (replacement)
+		{
+			if (!TryFindBomb(out var present))
+			{
+				return L.T("暂时无法检查库存，尚未扣款。", "Inventory could not be checked. You have not been charged.");
+			}
+			if (present)
+			{
+				return L.T("库存里还有任务炸弹，无需补订。", "The mission bomb is still in storage.");
+			}
+		}
+		if (!isCurrent() || !ReferenceEquals(r, R))
+			return L.T("存档已变化，预约已停止，尚未扣款。", "The save changed; booking stopped before payment.");
 		int num = Ch2BribePrice();
 		PlayerStore store = Store;
 		if (store.GetCash() < num)
 		{
 			return L.T("现金不够", "Not enough cash");
 		}
-		store.PayMoney(num, playRegisterSound: true);
-		r.Ch2Route = "bribe";
-		r.Ch2BombDay = Day + 1;
-		return null;
-	}
-
-	private static bool HoldsBomb()
-	{
+		int num2 = Day + 1;
+		_orderingBomb = true;
 		try
 		{
-			return Store.FindAllItem(isOwn: false).Any((GameItem i) => i?.IsTag("CORP_REBEL_BOMB") ?? false);
+			if (!isCurrent() || !ReferenceEquals(r, R))
+				return L.T("存档已变化，预约已停止，尚未扣款。", "The save changed; booking stopped before payment.");
+			store.PayMoney(num, playRegisterSound: true);
+			if (!isCurrent() || !ReferenceEquals(r, R))
+				return L.T("存档已变化，已停止旧预约。", "The save changed; the old booking was stopped.");
+			r.Ch2Route = "bribe";
+			r.Ch2BombDay = num2;
+			ModLog.Info($"子午线炸弹已付款 {num}₵，预定第 {num2} 天开店送达。");
+			return null;
+		}
+		finally
+		{
+			_orderingBomb = false;
+		}
+	}
+
+	private static bool TryFindBomb(out bool present)
+	{
+		present = false;
+		try
+		{
+			EmporiumEntry instance = EmporiumEntry.Instance;
+			if (SaveSlot.CurrentStore == null || instance == null)
+			{
+				return false;
+			}
+			present = Store.FindAllItem(isOwn: false).Any(IsMissionBomb) || instance.GetAllItems().Any(IsMissionBomb);
+			return true;
 		}
 		catch
 		{
@@ -498,24 +557,83 @@ internal static class RebelStory
 		}
 	}
 
-	private static void GiveBomb()
+	private static bool IsMissionBomb(GameItem item)
 	{
+		if (item != null && !StorePlacement.Destroyed(item))
+		{
+			return item.IsTag("CORP_REBEL_BOMB");
+		}
+		return false;
+	}
+
+	private static bool DeliverDueBomb(RebelState state)
+	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
+		if (!isCurrent() || !ReferenceEquals(state, R)) return false;
+		if (state.Active != 2 || state.Ch2BombDay < 0 || Day < state.Ch2BombDay)
+		{
+			return false;
+		}
+		if (!TryFindBomb(out var present))
+		{
+			ModLog.Warn("子午线炸弹暂无法核对库存，保留已付款订单。");
+			return false;
+		}
+		if (!isCurrent() || (!present && !GiveBomb()))
+		{
+			return false;
+		}
+		if (!isCurrent() || !ReferenceEquals(state, R)) return false;
+		state.Ch2BombDay = -1;
+		ModLog.Info(present ? "子午线炸弹订单已结清，库存中已有任务炸弹。" : "子午线炸弹已确认入库。");
+		if (!present)
+		{
+			Notify(L.T("子午线送来的炸弹已入库。", "The bomb from Meridian has been delivered."));
+		}
+		return true;
+	}
+
+	private static bool GiveBomb()
+	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
+		GameItem gameItem = null;
 		try
 		{
-			GameItem gameItem = DirectoryMaster.Item("c4");
+			gameItem = ItemRegistry.Create("c4");
+			if (gameItem == null)
+			{
+				ModLog.Warn("子午线炸弹物品工厂不可用，保留已付款订单。");
+				return false;
+			}
 			gameItem.EnableTag("CORP_REBEL_BOMB");
 			gameItem.SetName(L.T("子午线的“样品”", "Meridian “Sample”"));
 			gameItem.shortDescription = L.T("子午线私下送来的炸药。奥丁会来买。", "Explosives Meridian sent on the quiet. Odin will come for it.");
-			if (!StorePlacement.Place(gameItem))
+			if (isCurrent() && StorePlacement.Place(gameItem))
 			{
-				ModLog.Warn("恶意巨企：店里所有库存都放满了，" + gameItem.identifier + " 没送到");
+				return true;
 			}
-			Notify(L.T("子午线的人送来了一颗炸弹。明天奥丁来买。", "A Meridian courier dropped off a bomb. Odin comes for it tomorrow."));
+			ModLog.Warn("子午线炸弹未能入库，保留订单，下次开店重试。");
 		}
 		catch (Exception ex)
 		{
 			ModLog.Warn("子午线炸弹生成失败：" + ex.Message);
 		}
+		if (StorePlacement.Attached(gameItem))
+		{
+			return true;
+		}
+		try
+		{
+			if (gameItem != null && !StorePlacement.Destroyed(gameItem))
+			{
+				gameItem.Destroy();
+			}
+		}
+		catch (Exception ex2)
+		{
+			ModLog.Warn("未送达的炸弹清理失败：" + ex2.Message);
+		}
+		return false;
 	}
 
 	private static void StartCh3()
@@ -529,6 +647,7 @@ internal static class RebelStory
 
 	private static StoreClient Seller(string kind)
 	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
 		try
 		{
 			string text = L.T("子午线的人", "Meridian Man");
@@ -548,6 +667,7 @@ internal static class RebelStory
 			Dialogue dialogue = new Dialogue().SetText(text, L.T("清缴“多出来”的货。你要的话便宜给你。", "Surplus from the crackdown. Cheap, if you want it."));
 			dialogue.SetEndAction(() =>
 			{
+				if (!isCurrent()) return;
 				if (!placed)
 				{
 					placed = true;
@@ -556,6 +676,7 @@ internal static class RebelStory
 					System.Random random = new System.Random();
 					for (int i = 0; i < 3; i++)
 					{
+						if (!isCurrent()) return;
 						try
 						{
 							GameItem gameItem = DirectoryMaster.Item(array[random.Next(array.Length)], isOwned: false);
@@ -575,6 +696,7 @@ internal static class RebelStory
 			client.mainDialogue = dialogue;
 			client.allDoneDialogue = new Dialogue().SetText(text, L.T("回见。", "Later.")).SetEndAction(() =>
 			{
+				if (!isCurrent()) return;
 				try
 				{
 					Store.RemoveNotOwnedItemFromTable();
@@ -742,6 +864,7 @@ internal static class RebelStory
 
 	private static StoreClient Buyer(string kind, string id, string[] lines, string[] tags, int budget, bool talkFirst)
 	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
 		try
 		{
 			StoreClient client = new StoreClient
@@ -769,6 +892,7 @@ internal static class RebelStory
 			}
 			dialogue2.SetEndAction(() =>
 			{
+				if (!isCurrent()) return;
 				Envoy.Done(kind);
 				client.OnIntroduced();
 			});

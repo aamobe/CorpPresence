@@ -539,6 +539,7 @@ internal static class Goods
 		};
 		ExtraArt = new Dictionary<string, (string, string)>
 		{
+			["rat_wheel_generator_occupied"] = ("husbandry", "rat_wheel_generator_retrofit_occupied"),
 			["candle_lit"] = ("solana", "solana_candle_lit"),
 			["hemingway_limited"] = ("pastel", "hemingway_limited"),
 			["sb_stage_small"] = ("carmicheal", "silverblood_small"),
@@ -572,6 +573,7 @@ internal static class Goods
 		{
 			Defs[def2.Key] = def2.Value;
 		}
+		Defs[RatWheelGenerator.GoodsKey] = RatWheelGenerator.Definition();
 		foreach (KeyValuePair<string, Def> def3 in Forge.Defs)
 		{
 			Defs[def3.Key] = def3.Value;
@@ -602,7 +604,7 @@ internal static class Goods
 		}
 		try
 		{
-			item.flavorText = ((d.Desc == null) ? "" : d.LFlavor);
+			item.flavorText = d.Desc == null ? "" : d.LFlavor ?? "";
 		}
 		catch
 		{
@@ -877,6 +879,8 @@ internal static class Goods
 				return true;
 			}
 			string text = spritePath.Substring("corp_med_".Length);
+			// State variants must keep the explicit machine footprint, not infer it from alpha.
+			if (text == RatWheelGenerator.GoodsKey + "_occupied") text = RatWheelGenerator.GoodsKey;
 			if (Defs.TryGetValue(text, out var value) || BatteryState(text, out value, out var _))
 			{
 				__result = ShapeBuilderOf(value);

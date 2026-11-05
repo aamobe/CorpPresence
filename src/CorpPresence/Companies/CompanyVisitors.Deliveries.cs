@@ -33,9 +33,7 @@ internal static partial class CompanyVisitors
 		bool done = false;
 		bool IsCurrent()
 		{
-			return GameResources.Ready && GameResources.Generation == generation && store != null && root != null && c != null && s?.Orders != null && orders != null
-				&& ReferenceEquals(SaveSlot.CurrentStore, store) && store.runID == run
-				&& ReferenceEquals(CorpState.Current, root) && root.RunId == run
+			return StoreSession.Matches(store, root, run, generation) && c != null && s?.Orders != null && orders != null
 				&& root.Companies != null && root.Companies.TryGetValue(c.Id, out CompanyState current)
 				&& ReferenceEquals(current, s) && SaveSlot.CanWrite("CorpPresence");
 		}
@@ -79,11 +77,14 @@ internal static partial class CompanyVisitors
 
 	private static void Deliver(Company company, CompanyState state, List<Order> orders, Func<bool> isCurrent)
 	{
-		foreach (var order in orders) order.Day = Day + 1;
+		foreach (var order in orders) { if (!isCurrent()) return; order.Day = Day + 1; }
 		if (!CounterFull())
 		{
 			foreach (var order in orders)
+			{
+				if (!isCurrent()) return;
 				OrderContents.ExpandModBoxes(order, SpacerCo.RollModBox);
+			}
 		}
 
 		var failed = new HashSet<string>(StringComparer.Ordinal);
@@ -107,7 +108,8 @@ internal static partial class CompanyVisitors
 						try
 						{
 							item = MakeOrdered(company, id);
-							if (item == null)
+							if (!isCurrent()) return;
+							if (item == null || item.parentInventory != null || StorePlacement.Destroyed(item))
 							{
 								failed.Add(id);
 								continue;
@@ -129,6 +131,7 @@ internal static partial class CompanyVisitors
 				}
 				if (packed.Count == 0 || !isCurrent() || !TryPlaceDelivery(crate)) break;
 				placed = true;
+				if (!isCurrent()) return;
 				foreach (var entry in packed) entry.Order.Items.Remove(entry.Id);
 			}
 			finally
@@ -144,11 +147,13 @@ internal static partial class CompanyVisitors
 		if (!isCurrent()) return;
 		foreach (var order in orders)
 		{
+			if (!isCurrent()) return;
 			if (order.Cash > 0)
 			{
 				try { CompanyMoney.DeliverCash(PlayerStore.Instance, order); }
 				catch (Exception error) { ModLog.Warn("返点发放失败，明天再送：" + error.Message); }
 			}
+			if (!isCurrent()) return;
 			if (order.Items.Count == 0 && order.Cash == 0) state.Orders.Remove(order);
 		}
 
@@ -168,7 +173,7 @@ internal static partial class CompanyVisitors
 
 	private static void DiscardUnshipped(GameItem item)
 	{
-		try { item?.Destroy(); }
+		try { if (item != null && item.parentInventory == null && !StorePlacement.Destroyed(item)) item.Destroy(); }
 		catch (Exception error) { ModLog.Warn("清理未交付物品失败：" + error.Message); }
 	}
 
@@ -207,7 +212,7 @@ internal static partial class CompanyVisitors
 		{
 			return CarmichaelCo.MakeGenuine(id);
 		}
-		return Goods.MakeSpecial(id) ?? DirectoryMaster.Item(id, isOwned: false);
+		return Goods.MakeSpecial(id) ?? ItemRegistry.Create(id);
 	}
 
 }

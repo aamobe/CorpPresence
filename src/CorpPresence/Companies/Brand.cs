@@ -26,10 +26,11 @@ internal static class Brand
 			"printed_gun", "handmade_pistol", "heavy_handmade_pistol", "handmade_pistol_frame", "heavy_handmade_pistol_frame", "small_pistol_ammo", "small_pistol_ammo_p", "small_pistol_ammo_nl", "heavy_pistol_ammo", "heavy_pistol_ammo_p",
 			"heavy_pistol_ammo_nl", "fanta_pill", "unlicensed_phagimycin_pill", "caffeine_pill", "salve", "red_beer", "@zhuoyue_battery", "@anchor_cell", "@mutual_medkit", "@freedom_walkman"
 		},
-		["davre"] = new string[13]
+		["davre"] = new string[]
 		{
 			"processed_meat", "cup_noodle", "water_tablet", "water_tablet_container", "water_test_strip", "water_test_container", "aquascan", "uv_filter", "ribwich", "@leviathan",
-			"@fresh_meat_can", "@meat_grinder", "@canning_machine"
+			"@fresh_meat_can", "@meat_grinder", "@canning_machine",
+			"@fish_mince", "@crab_stick", "@fish_can", "@seafood_sealer"
 		}
 	};
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using CorpPresence.Runtime;
 using CorpPresence.UI;
 using HarmonyLib;
 using UnityEngine;
@@ -25,8 +26,8 @@ internal static class Hooks
 		Patch<SaveManager>(h, "DecodeNodes", typeof(ItemTags), null, "AfterDecode", new Type[1] { typeof(List<SaveItemNode>) });
 		Patch<SaveManager>(h, "EncodeNode", typeFromHandle2, "BeforeEncode", null, new Type[1] { typeof(GameItem) });
 		Patch<PlayerStore>(h, "SaveGame", typeFromHandle, "BeforeSave");
-		Patch<PlayerStore>(h, "LoadGame", typeFromHandle, null, nameof(AfterLoadGame));
-		Patch<PlayerStore>(h, "StartNewGame", typeFromHandle, null, "ResetState");
+		Patch<PlayerStore>(h, "LoadGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(AfterLoadGame));
+		Patch<PlayerStore>(h, "StartNewGame", typeFromHandle, nameof(BeforeStoreTransition), "ResetState");
 #if TESTKIT
 		SaveDiag.Install(h);   // 测试版：存档出错时把出错物品写进日志
 #endif
@@ -672,11 +673,28 @@ internal static class Hooks
 	private static void AfterLoadGame(bool __runOriginal)
 	{
 		ResetState();
-		if (__runOriginal) Guard("清理旧药品的纯度特征", ItemTags.RemoveRestoredMedicinePurity);
+		if (__runOriginal)
+		{
+			LoadedItemRepair.Request(() =>
+			{
+				Guard("读档后配送箱清理绑定", Crates.RebindLoaded);
+				Guard("清理旧药品的纯度特征", ItemTags.RemoveRestoredMedicinePurity);
+				Guard("读档后定制刀分类", Forge.AfterStoreLoaded);
+			});
+			Guard("读档后公司物品修复", LoadedItemRepair.Tick);
+		}
+	}
+
+	private static void BeforeStoreTransition()
+	{
+		LoadedItemRepair.Reset();
+		Guard("换档配送清理", Crates.Reset);
+		Guard("换档估价清理", CatalogPricing.Reset);
 	}
 
 	private static void ResetState()
 	{
+		BeforeStoreTransition();
 		CorpState.Current = null;
 		Services.ResetNightly();
 		Engine.BuyActive = false;

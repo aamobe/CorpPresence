@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CorpPresence.Malice;
@@ -182,6 +182,7 @@ internal static partial class CompanyWindow
 		if (c != null)
 		{
 			Ui.ClearHoverCache();
+			ResetStoryGuide();
 			_company = c;
 			Theme theme;
 			if (c is SolanaCo || c is EnvoyCo)
@@ -196,7 +197,7 @@ internal static partial class CompanyWindow
 			{
 				theme = Theme.Rebel();
 			}
-			else if (c is SpacerCo)
+			else if (c is SpacerCo || c is JacksonContact)
 			{
 				theme = Theme.Spacer();
 			}
@@ -225,6 +226,10 @@ internal static partial class CompanyWindow
 			{
 				size = new Vector2(860f, 640f);
 			}
+			else if (c is JacksonContact)
+			{
+				size = new Vector2(700f, 365f);
+			}
 			else if (c is SpacerCo || c is RebelCo)
 			{
 				size = new Vector2(820f, 640f);
@@ -251,6 +256,7 @@ internal static partial class CompanyWindow
 
 	public static void Close()
 	{
+		ResetStoryGuide();
 		Visible = false;
 		Pointer.PendingClick = null;
 		InputShield.Update(visible: false, default);
@@ -313,7 +319,7 @@ internal static partial class CompanyWindow
 			return false;
 		}
 		Vector2 local = Pointer.Local;
-		bool flag = local.x > _rect.width - 40f && local.y < 34f;
+		bool flag = local.x > _rect.width - (_company is JacksonContact ? 40f : 220f) && local.y < 38f;
 		if ((local.y >= 80f) | flag)
 		{
 			return false;
@@ -351,7 +357,15 @@ internal static partial class CompanyWindow
 		Ui.Clip = null;
 		try
 		{
-			if (_company is EnvoyCo)
+			if (_guideStage != 0)
+			{
+				DrawStoryGuide();
+			}
+			else if (_company is JacksonContact)
+			{
+				DrawJackson();
+			}
+			else if (_company is EnvoyCo)
 			{
 				DrawEnvoy();
 			}
@@ -382,6 +396,10 @@ internal static partial class CompanyWindow
 			else
 			{
 				DrawPastel();
+			}
+			if (_company is not JacksonContact && _guideStage == 0 && Ui.Button(new Rect(_rect.width - 214f, 8f, 170f, 24f), L.T("剧情流程与条件", "Story requirements"), _theme.BtnStyle))
+			{
+				_guideStage = 1;
 			}
 			if (Ui.Button(new Rect(_rect.width - 34f, 8f, 26f, 22f), "×", _theme.BtnStyle))
 			{

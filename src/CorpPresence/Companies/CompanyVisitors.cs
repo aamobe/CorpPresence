@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CorpPresence.Malice;
@@ -453,7 +453,7 @@ internal static partial class CompanyVisitors
 					string[] array = stock;
 					foreach (string text2 in array)
 					{
-						GameItem gameItem = ((!(text2 == "@hemingway")) ? DirectoryMaster.Item(text2, isOwned: false) : PastelCo.GenuineHemingway());
+						GameItem gameItem = ((!(text2 == "@hemingway")) ? ItemRegistry.Create(text2) : PastelCo.GenuineHemingway());
 						if (gameItem != null && !PlayerStore.Instance.TryAddDirectSellingItemToTable(gameItem))
 						{
 							ModLog.Info("货商摆货：柜台放满了，少摆了 " + text2);

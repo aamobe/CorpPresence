@@ -214,7 +214,7 @@ internal static partial class Services
 		Order order;
 		try
 		{
-			List<string> machines = DavreCo.CanningMachines.Select(m => m.Id).ToList();
+			List<string> machines = new List<string> { Canning.Grinder, Canning.Canner };
 			if (machines.Count == 0 || machines.Any(string.IsNullOrEmpty))
 				return L.T("设备明细未就绪，尚未扣款。", "Equipment details not ready. You have not been charged.");
 			order = new Order { Day = Day + 1, Items = machines };

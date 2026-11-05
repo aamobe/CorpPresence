@@ -104,7 +104,7 @@ internal static class Notebook
 	private static List<long> Collect()
 	{
 		List<long> list = (from c in Companies.All
-			where c.Active && (Companies.StateOf(c)?.CardGiven ?? false)
+			where Phone.Available(c) && Phone.IsOurs(c.PhoneNumber, c)
 			select c.PhoneNumber).ToList();
 		Dictionary<long, StorePhoneClient> dictionary = PlayerStore.Instance?.PhoneClientDict;
 		if (dictionary == null || !dictionary.ContainsKey(78625L) || dictionary[78625L] == null)

@@ -14,8 +14,11 @@ internal readonly struct StoreSession
 
     public static StoreSession Capture() => GameResources.Ready ? new StoreSession(SaveSlot.CurrentStore, CorpState.Get()) : default;
 
-    public bool IsCurrent => GameResources.Ready && GameResources.Generation == _generation && _store != null && _root != null
-        && ReferenceEquals(SaveSlot.CurrentStore, _store) && _store.runID == _run
-        && ReferenceEquals(CorpState.Current, _root) && _root.RunId == _run && _root.IsBoundTo(_store);
+    public bool IsCurrent => Matches(_store, _root, _run, _generation);
+
+    internal static bool Matches(PlayerStore store, CorpState root, string run, long generation) =>
+        GameResources.Ready && GameResources.Generation == generation && store != null && root != null
+        && ReferenceEquals(SaveSlot.CurrentStore, store) && store.runID == run
+        && ReferenceEquals(CorpState.Current, root) && root.RunId == run && root.IsBoundTo(store);
 }
 

@@ -46,6 +46,10 @@ internal static class Envoy
 
 	public const string BombTag = "CORP_ENVOY_BOMB";
 
+	internal const string BombBuyerId = "rebel_odin_envoy_bomb";
+
+	internal static bool CanCallBombOdin => Malice.On && S?.Ch2 == "bomb" && Day < S.BombDeadline && !Rebels.OdinUnavailable;
+
 	private static readonly string[] AidCorps = new string[2] { "pastel", "carmicheal" };
 
 	private static readonly string[] Corps = new string[5] { "pastel", "solana", "carmicheal", "meridian", "davre" };
@@ -199,6 +203,11 @@ internal static class Envoy
 		{
 			Book("ch2", Day);
 		}
+		if (MaliceGuards.CanPauseBombDeadline(s.Ch2, Day, s.BombDeadline, s.BombPauseDay, Rebels.OdinUnavailable))
+		{
+			s.BombDeadline++;
+			s.BombPauseDay = Day;
+		}
 		if (s.Ch2 == "bomb" && Day > s.BombDeadline)
 		{
 			s.Ch2 = "malice";
@@ -315,6 +324,28 @@ internal static class Envoy
 		}
 	}
 
+
+	private static bool AidContactsReady()
+	{
+		string[] aidCorps = AidCorps;
+		int num = 0;
+		while (num < aidCorps.Length)
+		{
+			Company company = Companies.Find(aidCorps[num]);
+			if (company != null && company.Active)
+			{
+				CompanyState companyState = Companies.StateOf(company);
+				if (companyState != null && companyState.CardGiven)
+				{
+					num++;
+					continue;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+
 	private static void TrackCash()
 	{
 		EnvoyState s = S;
@@ -327,7 +358,7 @@ internal static class Envoy
 				s.RichDay = Day;
 				ModLog.Info($"恶意巨企：现金第一次超过 {3000}（第 {Day} 天）");
 			}
-			if (s.RichDay >= 0 && (cash < 2500 || Day >= s.RichDay + 4))
+			if (s.RichDay >= 0 && AidContactsReady() && (cash < 2500 || Day >= s.RichDay + 4))
 			{
 				Book("aid", Day);
 			}
@@ -372,7 +403,7 @@ internal static class Envoy
 		}
 		foreach (EnvoyVisit item in s.Visits.Where((EnvoyVisit v) => v.Day <= Day && v.QueuedDay != Day).ToList())
 		{
-			if (!Rebels.Arrested || !OdinComes(item.Kind))
+			if ((item.Kind != "aid" || AidContactsReady()) && (!OdinComes(item.Kind) || !Rebels.OdinUnavailable))
 			{
 				StoreClient storeClient = Create(item.Kind);
 				if (storeClient == null)
@@ -498,7 +529,7 @@ internal static class Envoy
 				{
 					Say(PayServiceFee());
 				}),
-				Opt(L.T("东西给我吧。", "Give me the gift."), L.T("两周之内。打电话叫他来，卖给他就行。办成了，订购服务的订阅费我想我可以帮您免去。", "Within two weeks. Call him over and sell it to him. Do this, and I believe I can waive your subscription fees."), AcceptBomb),
+				Opt(L.T("东西给我吧。", "Give me the gift."), L.T("两周之内。在反抗军电话的任务页预约奥丁来收礼物，再卖给他。办成了，订购服务的订阅费我想我可以帮您免去。", "Within two weeks. Book Odin to collect the gift through the Tasks page on the Resistance phone, then sell it to him. Do this, and I believe I can waive your subscription fees."), AcceptBomb),
 				Opt(L.T("都不干。", "Neither."), L.T("那么巨企的订货通道，暂时可能就不对您开放了。当然想通了打我电话。", "Then the corporate ordering channel may be closed to you for a while. Do call me when you've reconsidered."), RefuseCh2)
 			}, null);
 		case "channel":
@@ -700,13 +731,15 @@ internal static class Envoy
 		}
 		s.Ch2 = "bomb";
 		s.BombDeadline = Day + 14;
+		s.BombPauseDay = -1;
 		Done("ch2");
 		try
 		{
-			GameItem gameItem = DirectoryMaster.Item("c4");
+			GameItem gameItem = ItemRegistry.Create("c4");
+			if (gameItem == null) return;
 			gameItem.EnableTag("CORP_ENVOY_BOMB");
 			gameItem.SetName(L.T("撒该的礼物", "Zacchaeus's Gift"));
-			gameItem.shortDescription = L.T("把他卖给该买的人。", "Sell it to the one who should buy it.");
+			gameItem.shortDescription = L.T("只能交给通过反抗军电话预约来收礼物的奥丁。", "Deliver only to Odin booked through the Resistance phone to collect this gift.");
 			if (!StorePlacement.Place(gameItem))
 			{
 				ModLog.Warn("恶意巨企：店里所有库存都放满了，" + gameItem.identifier + " 没送到");
@@ -727,39 +760,61 @@ internal static class Envoy
 	public static void SoldToClient(StoreClient client, GameItem item, int amount)
 	{
 		EnvoyState s = S;
-		if (s == null || item == null)
+		if (s != null && item != null)
 		{
-			return;
-		}
-		if (s.Ch2 == "bomb" && item.IsTag("CORP_ENVOY_BOMB") && client != null)
-		{
-			string identifier = client.identifier;
-			if ((identifier != null && identifier.StartsWith("wanted4")) || client.identifier == "malice_fence")
+			if (IsProtectedBomb(item) && CanReceiveBomb(client))
 			{
 				s.Ch2 = "bombdone";
 				s.SubFree = true;
 				s.BombSoldDay = Day;
+				Done("rebel:envoybomb");
 				Notify(L.T("礼物送到了。撒该说，巨企的订购服务以后不收订阅费了。", "The gift was delivered. Zacchaeus says corporate ordering services are now subscription-free."));
 			}
-		}
-		if (s.Ch2 == "malice" && Day < s.ChannelUntil && IsCorpProduct(item))
-		{
-			s.ChannelFee += (int)Math.Round((double)amount * 0.05);
+			if (s.Ch2 == "malice" && Day < s.ChannelUntil && IsCorpProduct(item))
+			{
+				s.ChannelFee += (int)Math.Round((double)amount * 0.05);
+			}
 		}
 	}
 
 	public static bool ClientBuys(StoreClient client, GameItem item)
 	{
-		if (Malice.On && S?.Ch2 == "bomb" && item.IsTag("CORP_ENVOY_BOMB"))
+		if (IsProtectedBomb(item))
 		{
-			string identifier = client.identifier;
-			if (identifier == null || !identifier.StartsWith("wanted4"))
-			{
-				return client.identifier == "malice_fence";
-			}
-			return true;
+			return CanReceiveBomb(client);
 		}
 		return false;
+	}
+
+
+	internal static bool IsProtectedBomb(GameItem item)
+	{
+		if (Malice.On && item != null)
+		{
+			return item.IsTag("CORP_ENVOY_BOMB");
+		}
+		return false;
+	}
+
+
+	internal static bool CanReceiveBomb(StoreClient client)
+	{
+		return MaliceGuards.CanDeliverBomb(S?.Ch2, Day, S?.BombDeadline ?? (-1), Rebels.OdinUnavailable, client?.identifier);
+	}
+
+
+	internal static string CallBombOdin()
+	{
+		if (!CanCallBombOdin)
+		{
+			return L.T("现在无法预约奥丁，或已来不及在期限内到达。", "Odin cannot be booked, or cannot arrive before the deadline.");
+		}
+		if (Booked("rebel:envoybomb"))
+		{
+			return L.T("已经约好了。", "Already booked.");
+		}
+		Book("rebel:envoybomb", Day + 1);
+		return null;
 	}
 
 	private static bool IsCorpProduct(GameItem item)
@@ -1130,6 +1185,7 @@ internal static class Envoy
 
 	internal static StoreClient Talk(string kind, string name, string sprite, string[] lines, string ask, (string Label, string Reply, Action Then)[] choices, Action onEnd, string faction = "FACTION_UPPER_LEVEL")
 	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
 		try
 		{
 			StoreClient storeClient = new StoreClient
@@ -1145,6 +1201,7 @@ internal static class Envoy
 			storeClient.CompleteClientCreation();
 			Action endAction = () =>
 			{
+				if (!isCurrent()) return;
 				try
 				{
 					onEnd?.Invoke();
@@ -1153,6 +1210,7 @@ internal static class Envoy
 				{
 					ModLog.Warn("恶意巨企：" + kind + " 收尾失败：" + ex2.Message);
 				}
+				if (!isCurrent()) return;
 				Done(kind);
 				try
 				{
@@ -1182,6 +1240,7 @@ internal static class Envoy
 					Action act = item2;
 					dialogue3.AddChoice(Compat.ChoiceIcon(), label, "", dialogue4, () =>
 					{
+						if (!isCurrent()) return;
 						try
 						{
 							act?.Invoke();

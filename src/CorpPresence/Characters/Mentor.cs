@@ -86,9 +86,9 @@ internal sealed class Mentor : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[3]
 			{
-				L.T("码头的货，大半都得过我们的手。", "Most of the cargo at the docks passes through our hands."),
-				L.T("这是巢火和解放者，我们手搓的。", "This is the Nestfire and the Liberator. We made them by hand."),
-				Character.Act(L.T("便签放在柜台上", "leaves a note on the counter"), L.T("有事，打这个。", "Need something, call this."))
+				L.T("好久不见。", "Long time no see."),
+				L.T("我给你带了些家伙什——巢火和解放者，本地产，纯手搓。", "Brought you some hardware—the Nestfire and the Liberator. Locally made, all by hand."),
+				Character.Act(L.T("便签放在柜台上", "leaves a note on the counter"), L.T("码头的货大半都得过我们的手，有事打这个。", "Most of the cargo at the docks passes through our hands. Need anything, call this number."))
 			};
 			visit.Exit = Nod;
 			visit.Discount = 30;
@@ -98,10 +98,12 @@ internal sealed class Mentor : Character
 		case 2:
 		{
 			Visit visit = new Visit();
-			visit.Lines = new string[2]
+			visit.Lines = new string[4]
 			{
-				L.T("要加入星际客联盟吗。", "Want to join the Spacer Alliance?"),
-				L.T("黑市，革命军，下层区，记住我们是一个整体。", "The Black Market, the Revolution, the Lower Levels. Remember, we are one whole.")
+				L.T("最近听到有别人在推荐你这里。", "I've heard people recommending your shop lately."),
+				L.T("做的不错，继续保持。", "Good work. Keep it up."),
+				L.T("......", "......"),
+				L.T("我带来一批新货。", "I brought some new stock.")
 			};
 			visit.Exit = Nod;
 			visit.Discount = 30;
@@ -111,12 +113,13 @@ internal sealed class Mentor : Character
 		default:
 		{
 			Visit visit = new Visit();
-			visit.Lines = new string[2]
+			visit.Lines = new string[3]
 			{
-				L.T("星际客也有自己的港口。", "Spacers have their own port too."),
-				Character.Act(L.T("敲了敲柜台", "knocks on the counter"), L.T("你这儿也算一个。", "Yours counts as one too."))
+				L.T("最近局势更严峻了。", "Things have been getting worse lately."),
+				L.T("记得么？黑市、革命军、下层区是一个整体。", "Remember? The Black Market, the Revolution and the Lower Levels stand as one."),
+				L.T("遇到危险立刻求援，我们会帮你。", "If you're in danger, call for help right away. We'll help you.")
 			};
-			visit.Exit = Nod;
+			visit.Exit = L.T("保重。", "Take care.");
 			visit.TalkOnly = true;
 			return visit;
 		}

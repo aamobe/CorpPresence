@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CorpPresence;
@@ -105,20 +105,29 @@ internal static class ItemTags
 		{
 			return value;
 		}
-		GameItem gameItem = DirectoryMaster.Item(legacyId, isOwned: false) ?? throw new InvalidOperationException("物品标签模板缺失：" + legacyId);
-		string[] array = new string[gameItem.itemTypes.Count];
-		for (int i = 0; i < array.Length; i++)
-		{
-			array[i] = gameItem.itemTypes[i];
-		}
+		GameItem gameItem = ItemRegistry.Create(legacyId) ?? throw new InvalidOperationException("物品标签模板缺失：" + legacyId);
 		try
 		{
-			gameItem.Destroy();
+			string[] array = new string[gameItem.itemTypes.Count];
+			for (int i = 0; i < array.Length; i++)
+			{
+				array[i] = gameItem.itemTypes[i];
+			}
+			return InheritedCache[legacyId] = array;
 		}
-		catch
+		finally
 		{
+			try
+			{
+				if (gameItem.parentInventory == null && !StorePlacement.Destroyed(gameItem))
+				{
+					gameItem.Destroy();
+				}
+			}
+			catch
+			{
+			}
 		}
-		return InheritedCache[legacyId] = array;
 	}
 
 	public static void AfterDecode(GameItem __result)

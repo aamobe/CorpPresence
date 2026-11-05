@@ -163,7 +163,7 @@ internal static partial class CompanyWindow
 	{
 		Theme theme = _theme;
 		DavreCo c = (DavreCo)_company;
-		GUI.Label(new Rect(r.x, r.y, r.width, 66f), L.T("绞肉机把生肉绞成肉糜、营养果绞成果糊，罐装机每晚把肉糜和果糊封成罐头：合成档出“泥炭”，鲜肉档出鲜肉罐头。", "The grinder turns raw meat into mince and nutrifruit into paste; each night the canner seals mince and paste into cans: Peat on Synthetic, fresh meat on Fresh."), theme.Wrap);
+		GUI.Label(new Rect(r.x, r.y, r.width, 66f), L.T("绞肉机可处理生肉、营养果和鱼片。罐装机制作泥炭和鲜肉罐头，水产封装机制作风味蟹肉棒和鱼罐头。", "The grinder handles raw meat, nutrifruit and fish fillets. The canner makes Peat and fresh meat cans. The seafood sealer makes crab sticks and canned fish."), theme.Wrap);
 		float num = r.y + 76f;
 		if (!DavreCo.CanningOpen && !DavreCo.CanningOffered)
 		{
@@ -187,6 +187,8 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(r.x, num, r.width, 20f), L.T("原价，明天到货，不限量。", "List price, delivered tomorrow, no limit."), theme.Small);
 		num += 28f;
 		(string, string)[] canningMachines = DavreCo.CanningMachines;
+		float rowHeight = Mathf.Min(108f, (r.yMax - 26f - num) / canningMachines.Length);
+		float iconSize = Mathf.Max(0f, rowHeight - 12f);
 		for (int i = 0; i < canningMachines.Length; i++)
 		{
 			(string, string) tuple = canningMachines[i];
@@ -194,22 +196,22 @@ internal static partial class CompanyWindow
 			string item2 = tuple.Item2;
 			Brand.Entry entry = Brand.Info(item);
 			int num3 = (int)Goods.ValueOf(item2);
-			Rect position = new Rect(r.x, num, 96f, 96f);
+			Rect position = new Rect(r.x, num, iconSize, iconSize);
 			GUI.Box(position, GUIContent.none, theme.CellBox);
 			if (entry.Icon != null)
 			{
-				Ui.Image(new Rect(position.x + 4f, position.y + 4f, 88f, 88f), entry.Icon);
+				Ui.Image(new Rect(position.x + 4f, position.y + 4f, iconSize - 8f, iconSize - 8f), entry.Icon);
 			}
-			GUI.Label(new Rect(position.xMax + 16f, num + 14f, 260f, 26f), entry.Name, theme.Body);
-			GUI.Label(new Rect(position.xMax + 16f, num + 44f, 200f, 22f), $"{num3}₵", theme.Price);
+			GUI.Label(new Rect(position.xMax + 16f, num + 4f, 260f, 26f), entry.Name, theme.Body);
+			GUI.Label(new Rect(position.xMax + 16f, num + 30f, 200f, 22f), $"{num3}₵", theme.Price);
 			bool enabled2 = GUI.enabled;
 			GUI.enabled = Cash >= num3;
-			if (Ui.Button(new Rect(r.xMax - 170f, num + 30f, 160f, 36f), L.T("订一台", "Order one"), theme.BtnHotStyle))
+			if (Ui.Button(new Rect(r.xMax - 170f, num + 10f, 160f, 36f), L.T("订一台", "Order one"), theme.BtnHotStyle))
 			{
 				Toast(Services.OrderCanningMachine(c, item, num3) ?? _company.FrontDeskDone);
 			}
 			GUI.enabled = enabled2;
-			num += 108f;
+			num += rowHeight;
 		}
 		GUI.Label(new Rect(r.x, r.yMax - 22f, 200f, 20f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
 	}

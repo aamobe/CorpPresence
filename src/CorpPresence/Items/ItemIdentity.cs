@@ -7,7 +7,7 @@ internal static class ItemIdentity
 {
 	internal sealed record Entry(string Id, string LegacyId, string LegacySprite, string Goods, string Company);
 
-	public static IReadOnlyList<Entry> All { get; } = Array.AsReadOnly(new Entry[68]
+	public static IReadOnlyList<Entry> All { get; } = Array.AsReadOnly(new Entry[]
 	{
 		Good("stamina", "pink_alt_injector"),
 		Good("painblock", "pink_alt_injector"),
@@ -43,6 +43,11 @@ internal static class ItemIdentity
 		Good("fresh_meat_can", "ammo_box"),
 		Good("meat_grinder", "ammo_box"),
 		Good("canning_machine", "ammo_box"),
+		Good("fish_mince", "ammo_box"),
+		Good("crab_stick", "ammo_box"),
+		Good("fish_can", "ammo_box"),
+		Good("seafood_sealer", "ammo_box"),
+		Good(RatWheelGenerator.GoodsKey, "ammo_box"),
 		Good("forged_billet", "ammo_box"),
 		Good("custom_dagger", "ammo_box"),
 		Good("custom_saber", "ammo_box"),

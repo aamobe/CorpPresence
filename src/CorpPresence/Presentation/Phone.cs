@@ -85,9 +85,12 @@ internal static class Phone
 		return true;
 	}
 
+	public static bool Available(Company c) =>
+		c.Active && (c is JacksonContact || (Companies.StateOf(c)?.CardGiven ?? false));
+
 	private static void Sync(Company c, StorePhoneClient client)
 	{
-		bool flag = c.Active && (Companies.StateOf(c)?.CardGiven ?? false);
+		bool flag = Available(c);
 		client.phoneState = ((!flag) ? StorePhoneClient.PhoneState.NotResponding : StorePhoneClient.PhoneState.Regular);
 		client.dialedBefore = flag;
 	}

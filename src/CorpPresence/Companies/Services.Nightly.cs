@@ -16,10 +16,11 @@ internal static partial class Services
 		_closedDay = -1;
 	}
 
-	private static void NightLog(string text, string color = null)
+	private static void NightLog(string text, string color = null, Func<bool> isCurrent = null)
 	{
 		try
 		{
+			if (isCurrent != null && !isCurrent()) return;
 			PlayerStore instance = SaveSlot.CurrentStore;
 			if (instance == null) return;
 			if (color == null) instance.AddNightLog(text);
@@ -42,36 +43,39 @@ internal static partial class Services
 			if (root == null) return;
 			string run = store.runID;
 			long generation = GameResources.Generation;
-			bool IsCurrent() => GameResources.Ready && GameResources.Generation == generation && ReferenceEquals(SaveSlot.CurrentStore, store) && store.runID == run && ReferenceEquals(CorpState.Current, root);
+			bool IsCurrent() => StoreSession.Matches(store, root, run, generation);
+			bool CanSettle() => IsCurrent() && SaveSlot.CanWrite("CorpPresence") && (!Settings.MaliceMode || SaveSlot.CanWrite("CorpPresence.Malice"));
 			if (Settings.MaliceMode) CorpPresence.Malice.MaliceState.Get();
 			if (!SaveSlot.CanWrite("CorpPresence") || (Settings.MaliceMode && !SaveSlot.CanWrite("CorpPresence.Malice")))
 			{
-				if (IsCurrent()) RescueCrates();
+				if (IsCurrent()) RescueCrates(IsCurrent);
 				return;
 			}
 			foreach (Company company in Companies.All)
 			{
-				if (!IsCurrent()) break;
+				if (!CanSettle()) break;
 				CompanyState state;
 				try
 				{
 					state = Companies.StateOf(company);
 					if (state?.Orders == null || state.Visitors == null || state.LimitedBought == null) continue;
-					if (!IsCurrent()) break;
+					if (!CanSettle() || !root.Companies.TryGetValue(company.Id, out var current) || !ReferenceEquals(current, state)) break;
 					if (!NightSettlement.TryBegin(state, day)) continue;
 				}
 				catch (Exception error) { WarnNightService("读取夜间公司状态", error); continue; }
+				bool CanSettleCompany() => CanSettle() && root.Companies != null
+					&& root.Companies.TryGetValue(company.Id, out var current) && ReferenceEquals(current, state);
 				try
 				{
-					if (state.TrafficOn) Nightly(company, state, company is SpacerCo ? SpacerCo.MutualFee : PastelCo.TrafficFee, "traffic", day);
+					if (CanSettleCompany() && state.TrafficOn) Nightly(company, state, company is SpacerCo ? SpacerCo.MutualFee : PastelCo.TrafficFee, "traffic", day, CanSettleCompany);
 				}
 				catch (Exception error) { WarnNightService("夜间服务扣费", error); }
-				if (!IsCurrent()) break;
+				if (!CanSettleCompany()) break;
 				state.VipOn = false;
-				try { Rebate(company, state, day + 1); }
+				try { Rebate(company, state, day + 1, CanSettleCompany); }
 				catch (Exception error) { WarnNightService("登记公司返点", error); }
 			}
-			if (IsCurrent()) RescueCrates();
+			if (IsCurrent()) RescueCrates(IsCurrent);
 		}
 		finally { _nightlyRunning = false; }
 	}
@@ -81,11 +85,13 @@ internal static partial class Services
 		try { ModLog.Warn(stage + "失败：" + error.Message); } catch { }
 	}
 
-	private static void RescueCrates()
+	private static void RescueCrates(Func<bool> isCurrent)
 	{
 		try
 		{
-			GameGridInventory gameGridInventory = EmporiumEntry.Instance?.frontInvinvElement;
+			if (!isCurrent()) return;
+			var emporium = EmporiumEntry.Instance;
+			GameGridInventory gameGridInventory = emporium?.frontInvinvElement;
 			if (gameGridInventory == null)
 			{
 				return;
@@ -94,10 +100,13 @@ internal static partial class Services
 			int num2 = 0;
 			foreach (GameItem item in gameGridInventory.childItems.ToList())
 			{
+				if (!isCurrent() || !ReferenceEquals(EmporiumEntry.Instance, emporium)) return;
 				string text = Goods.IdOf(item);
 				if (text != null && text.StartsWith("crate_"))
 				{
-					GraphUtils.EmporiumTryAdd(EmporiumEntry.Instance.invElement, item);
+					if (!isCurrent()) return;
+					GraphUtils.EmporiumTryAdd(emporium.invElement, item);
+					if (!isCurrent()) return;
 					if (item.parentInventory == gameGridInventory)
 					{
 						num2++;
@@ -108,13 +117,14 @@ internal static partial class Services
 					}
 				}
 			}
+			if (!isCurrent()) return;
 			if (num > 0)
 			{
-				NightLog(L.T($"柜台上的 {num} 只送货箱已收进背包。", $"{num} delivery crate(s) left on the counter were moved into your bag."));
+				NightLog(L.T($"柜台上的 {num} 只送货箱已收进背包。", $"{num} delivery crate(s) left on the counter were moved into your bag."), isCurrent: isCurrent);
 			}
 			if (num2 > 0)
 			{
-				NightLog(L.T($"背包放不下，柜台上还有 {num2} 只送货箱，过夜会被清掉。", $"Your bag is full: {num2} delivery crate(s) remain on the counter and will be cleared overnight."), "9c3738");
+				NightLog(L.T($"背包放不下，柜台上还有 {num2} 只送货箱，过夜会被清掉。", $"Your bag is full: {num2} delivery crate(s) remain on the counter and will be cleared overnight."), "9c3738", isCurrent);
 			}
 		}
 		catch (Exception ex)
@@ -123,8 +133,9 @@ internal static partial class Services
 		}
 	}
 
-	private static void Nightly(Company c, CompanyState s, int fee, string kind, int day)
+	private static void Nightly(Company c, CompanyState s, int fee, string kind, int day, Func<bool> isCurrent)
 	{
+		if (!isCurrent()) return;
 		string text;
 		if (kind == "vip")
 		{
@@ -136,6 +147,7 @@ internal static partial class Services
 		}
 		Visitor visitor = new Visitor { Day = day + 1, Kind = kind };
 		string paymentError = Pay(c, fee, kind);
+		if (!isCurrent()) return;
 		if (paymentError != null)
 		{
 			if (kind == "traffic")
@@ -146,7 +158,7 @@ internal static partial class Services
 			{
 				s.VipOn = false;
 			}
-			NightLog(L.T(c.Name + "的" + text + "未结算，已暂停：" + paymentError, c.Name + " " + text + " paused: " + paymentError), "9c3738");
+			NightLog(L.T(c.Name + "的" + text + "未结算，已暂停：" + paymentError, c.Name + " " + text + " paused: " + paymentError), "9c3738", isCurrent);
 			try { ModLog.Info(c.Name + "的" + text + "已暂停：" + paymentError); } catch { }
 		}
 		else
@@ -161,13 +173,14 @@ internal static partial class Services
 			{
 				text2 = ((c is SpacerCo) ? L.T("明天会多来几位星际客", "More Spacers will come by tomorrow") : L.T("明天会多来几位下层区顾客", "More Lower Levels customers will come by tomorrow"));
 			}
-			NightLog(L.T($"{c.Name}{text}已付 {fee} 信用点，{text2}。", $"{c.Name} {text}: paid {fee} credits. {text2}."));
+			NightLog(L.T($"{c.Name}{text}已付 {fee} 信用点，{text2}。", $"{c.Name} {text}: paid {fee} credits. {text2}."), isCurrent: isCurrent);
 			try { ModLog.Info($"{c.Name}{text}：扣 {fee}₵，第 {day + 1} 天生效"); } catch { }
 		}
 	}
 
-	private static void Rebate(Company c, CompanyState s, int tomorrow)
+	private static void Rebate(Company c, CompanyState s, int tomorrow, Func<bool> isCurrent)
 	{
+		if (!isCurrent()) return;
 		if (s.DealerJoined && tomorrow > s.DealerSinceDay && (tomorrow - s.DealerSinceDay) % PastelCo.RebatePeriod == 0)
 		{
 			double amount = Math.Round(s.WeekSales * 0.1);
@@ -183,7 +196,7 @@ internal static partial class Services
 					Cash = num
 				});
 				s.WeekSales = 0.0;
-				NightLog(L.T($"{c.Name}返点 {num} 信用点，送货员明天带来。", $"{c.Name} rebate: {num} credits. The courier brings it tomorrow."), "5c6f46");
+				NightLog(L.T($"{c.Name}返点 {num} 信用点，送货员明天带来。", $"{c.Name} rebate: {num} credits. The courier brings it tomorrow."), "5c6f46", isCurrent);
 			}
 			else s.WeekSales = 0.0;
 			try { ModLog.Info($"{c.Name}本周返点 {num}₵"); } catch { }

@@ -50,10 +50,11 @@ internal sealed class DavreCo : Company
 
 	public const string CanningSet = "@canning_set";
 
-	public static readonly (string Id, string Goods)[] CanningMachines = new (string, string)[2]
+	public static readonly (string Id, string Goods)[] CanningMachines =
 	{
 		("@meat_grinder", "meat_grinder"),
-		("@canning_machine", "canning_machine")
+		("@canning_machine", "canning_machine"),
+		(Canning.SeafoodSealerOrder, "seafood_sealer")
 	};
 
 	private const int GhostSample = 9700;

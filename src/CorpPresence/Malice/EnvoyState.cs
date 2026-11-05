@@ -28,6 +28,8 @@ internal sealed class EnvoyState
 
 	public int BombDeadline { get; set; } = -1;
 
+	public int BombPauseDay { get; set; } = -1;
+
 	public int BombSoldDay { get; set; } = -1;
 
 	public int RetaliateFrom { get; set; } = -1;

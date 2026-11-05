@@ -30,7 +30,7 @@ internal static class MachineUpgrade
 
 	private const int PowerCost = 3;
 
-	private static readonly string[] CapMachines = new string[5] { "rolling_machine", "meat_grinder", "packaging_machine", "canning_machine", "forge_furnace" };
+	private static readonly string[] CapMachines = new string[6] { "rolling_machine", "meat_grinder", "packaging_machine", "canning_machine", "seafood_sealer", "forge_furnace" };
 
 	private static readonly string[] PowerMachines = new string[3] { "rolling_machine", "meat_grinder", "forge_anvil" };
 

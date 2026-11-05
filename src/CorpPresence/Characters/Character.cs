@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace CorpPresence;
 
@@ -124,7 +124,7 @@ internal abstract class Character
 
 	public virtual GameItem MakeItem(string id)
 	{
-		return Goods.MakeSpecial(id) ?? DirectoryMaster.Item(id, isOwned: false);
+		return Goods.MakeSpecial(id) ?? ItemRegistry.Create(id);
 	}
 
 	protected static string Act(string action, string line)

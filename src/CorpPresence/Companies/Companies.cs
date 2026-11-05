@@ -5,7 +5,7 @@ namespace CorpPresence;
 
 internal static class Companies
 {
-	public static readonly Company[] All = new Company[8]
+	public static readonly Company[] All = new Company[9]
 	{
 		new PastelCo(),
 		new SolanaCo(),
@@ -14,7 +14,8 @@ internal static class Companies
 		new MeridianCo(),
 		new DavreCo(),
 		new RebelCo(),
-		new EnvoyCo()
+		new EnvoyCo(),
+		new JacksonContact()
 	};
 
 	public static Company Find(string id)

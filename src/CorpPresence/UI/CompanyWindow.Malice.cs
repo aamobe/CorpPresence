@@ -55,7 +55,7 @@ internal static partial class CompanyWindow
 			string text2 = envoyState.Ch2 switch
 			{
 				"refused" => L.T("你拒绝了他。巨企的订货暂不开放，直到你交钱或收下礼物并办成。", "You turned him down. Corporate ordering stays closed until you pay or take the gift and deliver it."), 
-				"bomb" => (L.En ? $"Sell the gift to Odin before day {envoyState.BombDeadline} (call him over; if he's been arrested, sell it through the underground buyer)." : $"礼物要在第 {envoyState.BombDeadline} 天之前卖给奥丁（打他的电话叫他来；他被捕了就通过地下买家卖出）。"), 
+				"bomb" => (L.En ? $"Book Odin through the Resistance Tasks page and deliver the gift by day {envoyState.BombDeadline}. The deadline pauses while he is unavailable." : $"在反抗军“任务”页预约奥丁，于第 {envoyState.BombDeadline} 天（含）之前交礼物；奥丁不可用时暂停期限。"), 
 				"bombdone" => L.T("礼物送到了。巨企订购服务不收订阅费。", "Gift delivered. Corporate ordering services are subscription-free."), 
 				"malice" => (L.En ? $"Corporate malice: channel fees until day {envoyState.ChannelUntil}. {envoyState.ChannelFee}₵ so far this week; he collects on day {envoyState.ChannelDue}." : $"巨企恶意：渠道费收到第 {envoyState.ChannelUntil} 天，这一期已记 {envoyState.ChannelFee}₵，第 {envoyState.ChannelDue} 天他来收。"), 
 				_ => L.T("已结清。", "Settled."), 
@@ -227,6 +227,8 @@ internal static partial class CompanyWindow
 				Toast(RebelStory.CallOdin() ?? L.T("他明天来。", "He'll come tomorrow."));
 			}
 		}
+		if (Envoy.CanCallBombOdin && Ui.Button(new Rect(r.x, r.y + 150f, 360f, 34f), L.T("预约奥丁收取撒该的礼物", "Book Odin to collect Zacchaeus's gift"), theme.BtnHotStyle))
+			Toast(Envoy.CallBombOdin() ?? L.T("奥丁明天来收礼物。", "Odin will collect the gift tomorrow."));
 	}
 
 }

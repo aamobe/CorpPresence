@@ -104,6 +104,9 @@ internal static partial class CompanyWindow
 	}
 
 	private static void DrawMeridianOrder(Rect r, CatalogEntry[] entries, string note)
+		=> DrawEquipmentOrder(r, entries, note, MeridianUnitPrice, L.T("提交申领", "Submit requisition"));
+
+	private static void DrawEquipmentOrder(Rect r, CatalogEntry[] entries, string note, Func<CatalogEntry, int> unitPrice, string submitLabel)
 	{
 		Theme theme = _theme;
 		int num = _company.CatalogTier(State);
@@ -131,7 +134,7 @@ internal static partial class CompanyWindow
 				num4 += 36f;
 				continue;
 			}
-			int num5 = MeridianUnitPrice(catalogEntry);
+			int num5 = unitPrice(catalogEntry);
 			if (num5 <= 0)
 			{
 				GUI.Label(new Rect(num2, num4, r.xMax - num2, 34f), L.T("暂不可用", "Unavailable"), theme.Small);
@@ -153,15 +156,15 @@ internal static partial class CompanyWindow
 			GUI.Label(new Rect(num3, num4, r.xMax - num3, 34f), (value > 0) ? $"{num5 * value}₵" : "—", theme.Center);
 			num4 += 36f;
 		}
-		int num6 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => MeridianUnitPrice(kv.Key) * kv.Value);
+		int num6 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => unitPrice(kv.Key) * kv.Value);
 		float num7 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num7, 200f, 22f), (L.En ? $"Total {num6}₵" : $"合计 {num6}₵"), theme.Price);
 		GUI.Label(new Rect(r.x, num7 + 22f, 200f, 20f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
 		bool enabled = GUI.enabled;
 		GUI.enabled = (num6 > 0 && num6 <= Cash) & flag;
-		if (Ui.Button(new Rect(r.xMax - 170f, num7 + 2f, 160f, 36f), L.T("提交申领", "Submit requisition"), theme.BtnHotStyle))
+		if (Ui.Button(new Rect(r.xMax - 170f, num7 + 2f, 160f, 36f), submitLabel, theme.BtnHotStyle))
 		{
-			string text = Services.PlaceOrder(_company, Cart, MeridianUnitPrice);
+			string text = Services.PlaceOrder(_company, Cart, unitPrice);
 			if (text == null)
 			{
 				Cart.Clear();

@@ -9,9 +9,9 @@ namespace CorpPresence;
 public class Main : IMod
 {
 #if WATER_TRACE
-    public const string Version = "0.9.6-watertrace";
+    public const string Version = "0.9.7-watertrace";
 #else
-    public const string Version = "0.9.6";
+    public const string Version = "0.9.7";
 #endif
     public const string DisplayName = "CorpPresence";
     private Harmony _harmony;
@@ -28,12 +28,16 @@ public class Main : IMod
 
     public void OnEnable()
     {
-        if (_runtime.Start(EnableCore)) _bootstrap.Tick();
+        bool started;
+        try { started = _runtime.Start(EnableCore); }
+        catch (System.Exception error) { ReportStartupRollback(error); throw; }
+        if (started) _bootstrap.Tick();
     }
 
     private void EnableCore()
     {
         _runtime.Own(GameResources.Begin, GameResources.Reset);
+        _runtime.Own(Noop, LoadedItemRepair.Reset);
         _runtime.Own(ItemRegistry.Install, ItemRegistry.Uninstall);
         _runtime.Own(() => Hooks.InstallCore(_harmony), () => _harmony?.UnpatchAll(_harmony.Id));
         _runtime.Own(CreateBootstrap, DestroyBootstrap);
@@ -52,6 +56,8 @@ public class Main : IMod
         Hooks.InstallResources(_harmony); // The core owner release also covers a partial resource install.
         _runtime.Own(Hooks.InstallEvents, Hooks.UninstallEvents);
         _runtime.Own(Malice.Malice.Install, Malice.Malice.Uninstall);
+        _runtime.Own(Noop, CatalogPricing.Reset);
+        _runtime.Own(Noop, Crates.Reset);
         ItemRegistry.Activate();
         _runtime.Own(Noop, Tex.ReleaseUi);
         _runtime.Own(Noop, Theme.ResetCachedFont);
@@ -64,6 +70,13 @@ public class Main : IMod
     }
 
     public void OnDisable() => _runtime.Stop();
+    private void ReportStartupRollback(System.Exception error)
+    {
+        _runtime.Stop();
+        try { ModLog.Error("公司增强初始化失败，已执行运行时回滚：" + error); }
+        catch { }
+        RollbackNotice.Queue();
+    }
     private static void Noop() { }
 
     private void CreateBootstrap()
@@ -72,7 +85,7 @@ public class Main : IMod
         Object.DontDestroyOnLoad(_bootstrapObject);
         _bootstrapObject.hideFlags = HideFlags.HideAndDontSave;
         _bootstrap = _bootstrapObject.AddComponent<ResourceBootstrap>();
-        _bootstrap.Configure(CompleteStartup, _runtime.Stop);
+        _bootstrap.Configure(CompleteStartup, ReportStartupRollback);
     }
 
     private void DestroyBootstrap()

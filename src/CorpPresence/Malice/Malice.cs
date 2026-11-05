@@ -146,7 +146,7 @@ internal static class Malice
 
 	public static bool Subscribed(Company c)
 	{
-		if (!Envoy.SubscriptionFree)
+		if (!SubscriptionWaived(c))
 		{
 			CorpTerms corpTerms = TermsOf(c);
 			if (corpTerms != null)
@@ -158,6 +158,11 @@ internal static class Malice
 		return true;
 	}
 
+	public static bool SubscriptionWaived(Company c)
+	{
+		return Applies(c) && Envoy.SubscriptionFree;
+	}
+
 	public static bool IsMembership(Company c)
 	{
 		return c?.Id == "solana";
@@ -165,6 +170,7 @@ internal static class Malice
 
 	public static int SubscriptionPrice(Company c)
 	{
+		if (SubscriptionWaived(c)) return 0;
 		CorpTerms corpTerms = TermsOf(c);
 		if (corpTerms == null || !corpTerms.Subscribed)
 		{
@@ -188,6 +194,9 @@ internal static class Malice
 
 	public static string Subscribe(Company c)
 	{
+		// Entitlement also guards stale UI callbacks. Do not spend cash or
+		// vouchers, extend paid terms, or award cooperation for a waived fee.
+		if (SubscriptionWaived(c)) return null;
 		CorpTerms corpTerms = TermsOf(c);
 		if (corpTerms == null)
 		{
@@ -406,6 +415,7 @@ internal static class Malice
 		foreach (string text in corpIds)
 		{
 			Company company = Companies.Find(text);
+			if (SubscriptionWaived(company)) continue;
 			if (company != null && maliceState.Corps.TryGetValue(text, out var value) && value.Subscribed)
 			{
 				if (value.SubUntil == Day && value.AutoRenew)
@@ -455,6 +465,7 @@ internal static class Malice
 
 	private static void TryAutoRenew(Company c, CorpTerms t)
 	{
+		if (SubscriptionWaived(c)) return;
 		PlayerStore instance = PlayerStore.Instance;
 		int num = SubscriptionPrice(c);
 		int num2 = ((!instance.IsPropertyPaid) ? instance.GetRentValue() : 0);

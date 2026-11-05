@@ -25,7 +25,12 @@ internal static class MalicePanel
 		GUI.Label(new Rect(r.x, y, r.width, 24f), flag ? L.T("基础会员", "Basic membership") : L.T("订购服务", "Ordering service"), t.Body);
 		y += 26f;
 		string text;
-		if (Malice.Subscribed(c))
+		bool waived = Malice.SubscriptionWaived(c);
+		if (waived)
+		{
+			text = L.T("已获免订阅费权益，无需开通或续费。商品货款照常结算。", "Subscription fees are waived. No activation or renewal is needed; goods are charged normally.");
+		}
+		else if (Malice.Subscribed(c))
 		{
 			text = (L.En ? $"Active through day {corpTerms.SubUntil - 1}." : $"已开通，有效到第 {corpTerms.SubUntil - 1} 天（含）。");
 		}
@@ -39,6 +44,8 @@ internal static class MalicePanel
 		}
 		GUI.Label(new Rect(r.x, y, r.width, 40f), text, t.Wrap);
 		y += 42f;
+		if (!waived)
+		{
 		int num = Malice.SubscriptionPrice(c);
 		string text2;
 		if (corpTerms.Subscribed)
@@ -60,6 +67,7 @@ internal static class MalicePanel
 		y += 38f;
 		GUI.Label(new Rect(r.x, y, r.width, 40f), L.T("续费每次管 7 天，最多提前续一周，到期前一天提醒。自动续费只在扣完后还够交房租时才扣。", "Each renewal covers 7 days, at most one week ahead; you get a reminder the day before. Auto-renew only charges if you can still pay rent afterwards."), t.Small);
 		y += 44f;
+		}
 		if (!flag)
 		{
 			Ui.Fill(new Rect(r.x, y, r.width, 1f), t.Line);
@@ -96,6 +104,12 @@ internal static class MalicePanel
 			{
 				Say(RebelStory.BribeMeridian() ?? L.T("明天送到。", "Arrives tomorrow."));
 			}
+			y += 36f;
+		}
+		if (c.Id == "meridian" && RebelStory.Ch2ReorderOpen)
+		{
+			if (Ui.Button(new Rect(r.x, y, 340f, 30f), L.T("检查库存并补订炸弹", "Check storage and reorder bomb"), t.BtnHotStyle))
+				Say(RebelStory.ReorderBomb() ?? L.T("补订成功，明天送到。", "Replacement ordered. Arrives tomorrow."));
 			y += 36f;
 		}
 		Ui.Fill(new Rect(r.x, y, r.width, 1f), t.Line);

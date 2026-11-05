@@ -208,6 +208,7 @@ internal static partial class SilverBlood
 			Types = new string[1] { "MACHINE" },
 			W = 3,
 			H = 3,
+			Shape = "###|###|###",
 			Shell = BuildReactor,
 			OnNew = (GameItem m) =>
 			{

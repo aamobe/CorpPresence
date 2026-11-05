@@ -139,6 +139,11 @@ internal static partial class SilverBlood
 		catch
 		{
 		}
+		if (Malice.Envoy.IsProtectedBomb(gameItem))
+		{
+			__result = Malice.Envoy.CanReceiveBomb(__instance);
+			return;
+		}
 		Func<StoreClient, GameItem, bool> f = Ext.ClientBuys;
 		if (!__result && f != null && __instance != null && gameItem != null)
 		{

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CorpPresence;
@@ -15,6 +15,10 @@ internal static class ItemRegistry
 	private static ModItemDirectory _pendingDirectory;
 
 	private static Action<ModItemDirectory> _onInit;
+
+	private static int _reportedRegisteredCount;
+
+	private static bool _hasReportedSummary;
 
 	public static void Install()
 	{
@@ -41,6 +45,9 @@ internal static class ItemRegistry
 		Registered.Clear();
 		_directory = null;
 		_pendingDirectory = null;
+		Reported.Clear();
+		_reportedRegisteredCount = 0;
+		_hasReportedSummary = false;
 	}
 
 	public static void Activate()
@@ -101,7 +108,12 @@ internal static class ItemRegistry
 				Warn("register:" + entry.Id, "注册 " + entry.Id + " 失败：" + ex.Message);
 			}
 		}
-		ModLog.Info($"公司独立物品目录：{Registered.Count}/{ItemIdentity.All.Count} 已注册");
+		if (!_hasReportedSummary || _reportedRegisteredCount != Registered.Count)
+		{
+			ModLog.Info($"公司独立物品目录：{Registered.Count}/{ItemIdentity.All.Count} 已注册");
+			_reportedRegisteredCount = Registered.Count;
+			_hasReportedSummary = true;
+		}
 	}
 
 	public static bool IsAvailable(string id)
@@ -139,6 +151,11 @@ internal static class ItemRegistry
 		if (gameItem != null && gameItem.identifier == id)
 		{
 			return gameItem;
+		}
+		if (gameItem != null && gameItem.parentInventory == null && !StorePlacement.Destroyed(gameItem))
+		{
+			try { gameItem.Destroy(); }
+			catch (Exception ex) { Warn("discard:" + id, "回收错误身份的临时物品失败：" + id + "；" + ex.Message); }
 		}
 		Warn("create:" + id, "物品工厂返回了不匹配的身份：" + id);
 		return null;

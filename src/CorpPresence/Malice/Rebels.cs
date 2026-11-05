@@ -29,6 +29,8 @@ internal static class Rebels
 
 	public static bool Arrested => MaliceState.Get()?.OdinArrested ?? false;
 
+	internal static bool OdinUnavailable => Arrested || Cut || Blacklisted;
+
 	public static bool Blacklisted
 	{
 		get
