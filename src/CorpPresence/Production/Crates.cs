@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using CorpPresence.Malice;
@@ -136,16 +136,13 @@ internal static class Crates
 		}
 	}
 
-	private static bool InCrate(GameItem crate, GameItem item)
+	private static long Units(GameItem crate, string identifier)
 	{
-		try
-		{
-			return GraphUtils.FindAllChildrenType<GameItem>(Compat.Cast<GraphNodeStorage>(crate)).Contains(item);
-		}
-		catch
-		{
-			return false;
-		}
+		long units = 0;
+		foreach (GameItem child in GraphUtils.FindAllChildrenType<GameItem>(Compat.Cast<GraphNodeStorage>(crate)))
+			if (child != null && string.Equals(child.identifier, identifier, StringComparison.Ordinal))
+				units += Math.Max(0, child.unitCount);
+		return units;
 	}
 
 	private static bool Absorbed(GameItem item)
@@ -180,7 +177,10 @@ internal static class Crates
 		catch
 		{
 		}
-		int num = Count(crate);
+		int expected = item.unitCount;
+		if (expected <= 0) return false;
+		string identifier = item.identifier;
+		long before = Units(crate, identifier);
 		object previousFill = CrateFillGate.Enter(gameInventory);
 		try
 		{
@@ -194,22 +194,13 @@ internal static class Crates
 		{
 			CrateFillGate.Restore(previousFill);
 		}
-		// The normal path does not need another two recursive inventory scans.
-		if (item.parentInventory == gameInventory || Absorbed(item)) return true;
-		int num2;
-		if (Count(crate) <= num && !InCrate(crate, item))
-		{
-			num2 = (Absorbed(item) ? 1 : 0);
-			if (num2 == 0)
-			{
-				ModLog.Warn($"送货箱装不进：{item.identifier}（箱里已有 {num} 件）");
-			}
-		}
-		else
-		{
-			num2 = 1;
-		}
-		return (byte)num2 != 0;
+		// A merge transfers units without parenting or destroying the source.
+		// Count the goods actually received, including when a UI callback threw
+		// after native acceptance. Never treat destruction alone as delivery.
+		long received = Units(crate, identifier) - before;
+		if (received == expected) return true;
+		ModLog.Warn($"送货箱数量核验失败：{identifier}，应入箱 {expected}，实增 {received}，源剩余 {item.unitCount}（箱内对象 {Count(crate)}）");
+		return false;
 	}
 
 	public static GameItem MakeFilled(string crateKey, params string[] goods)

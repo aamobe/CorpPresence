@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using CorpPresence.Runtime;
 using CorpPresence.UI;
 using HarmonyLib;
@@ -9,9 +9,9 @@ namespace CorpPresence;
 public class Main : IMod
 {
 #if WATER_TRACE
-    public const string Version = "0.9.7fix-watertrace";
+    public const string Version = "0.9.7compat-watertrace";
 #else
-    public const string Version = "0.9.7fix";
+    public const string Version = "0.9.7compat";
 #endif
     public const string DisplayName = "CorpPresence";
     private Harmony _harmony;
@@ -103,7 +103,7 @@ public class Main : IMod
         _host = new GameObject("CorpPresence_Host");
         Object.DontDestroyOnLoad(_host);
         _host.hideFlags = HideFlags.HideAndDontSave;
-        _host.AddComponent<Host>();
+        _host.AddComponent<Host>().Configure(_harmony);
     }
 
     private void DestroyHost()

@@ -1,13 +1,16 @@
-using System;
+﻿using System;
 using CorpPresence.Malice;
 using CorpPresence.Runtime;
 using CorpPresence.UI;
 using UnityEngine;
+using HarmonyLib;
 
 namespace CorpPresence;
 
 internal sealed class Host : MonoBehaviour
 {
+    private Harmony _pendingCompatibility;
+    public void Configure(Harmony harmony) => _pendingCompatibility = harmony;
     private readonly RuntimeTask[] _updates = {
         new RuntimeTask("读档后公司物品修复", LoadedItemRepair.Tick, Report),
         new RuntimeTask("面板更新", CompanyWindow.Tick, Report),
@@ -21,6 +24,14 @@ internal sealed class Host : MonoBehaviour
 
     private void Update()
     {
+        // ModLoader loads DLLs and invokes OnEnable synchronously. The first
+        // frame runs after all companions have loaded, unlike resource startup.
+        if (_pendingCompatibility != null)
+        {
+            var harmony = _pendingCompatibility;
+            _pendingCompatibility = null;
+            NeonCompatibility.Install(harmony);
+        }
         float now = Time.unscaledTime;
         for (int i = 0; i < _updates.Length; i++) _updates[i].Run(now);
 #if TESTKIT

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +23,7 @@ internal static partial class Services
 
     private static bool CanRecoverBloodSample(GameItem item)
     {
-        if (!SilverBlood.IsRecoverySample(item)) return false;
+        if (!ShopInventory.Contains(item) || !SilverBlood.IsRecoverySample(item)) return false;
         for (var container = item.parentInventory?.GetParentItem(); container != null;
              container = container.parentInventory?.GetParentItem())
         {

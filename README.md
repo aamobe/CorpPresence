@@ -16,7 +16,7 @@ dotnet build ./src/CorpPresence.csproj -c Release "-p:GameManaged=F:/SteamLibrar
 
 ## 权限与反馈
 
-反馈 BUG 时请附游戏和模组版本、复现步骤以及相关日志片段。普通版 0.9.7fix 的清单未声明额外权限。液体相关改动见 [兼容边界](docs/water-compatibility.md)。
+反馈 BUG 时请附游戏和模组版本、复现步骤以及相关日志片段。0.9.7 兼容修复版（0.9.7compat）的清单声明外部反射权限，用于可选 Neon Undertow 兼容钩子；DLL 与清单需成对更新。液体相关改动见 [兼容边界](docs/water-compatibility.md)，本次兼容改动见 [兼容修复说明](docs/compatibility-0.9.7.md)。
 
 ## Rights / 权利说明
 
