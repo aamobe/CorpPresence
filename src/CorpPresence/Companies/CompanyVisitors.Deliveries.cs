@@ -92,7 +92,11 @@ internal static partial class CompanyVisitors
 		{
 			if (!orders.Any(order => order.Items.Any(id => id != "@modbox" && !failed.Contains(id)))) break;
 			var crate = Goods.Make(Crates.GoodsKey(company));
-			if (crate == null) break;
+			if (crate == null)
+			{
+				ModLog.Warn($"{company.Name}配送箱未就绪：{Crates.GoodsKey(company)}，保留订单，明天重试。");
+				break;
+			}
 
 			var packed = new List<(Order Order, string Id, GameItem Item)>();
 			bool placed = false;

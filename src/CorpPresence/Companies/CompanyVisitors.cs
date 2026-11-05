@@ -199,6 +199,7 @@ internal static partial class CompanyVisitors
 
 	private static StoreClient Courier(Company c, CompanyState s, List<Order> orders, bool card = false)
 	{
+		bool jackson = c is JacksonContact;
 		bool flag = c is SolanaCo;
 		bool flag2 = c is CarmichaelCo;
 		bool flag3 = c is SpacerCo;
@@ -209,7 +210,11 @@ internal static partial class CompanyVisitors
 		string text;
 		if (L.En)
 		{
-			if (flag6)
+			if (jackson)
+			{
+				text = "Dr. Jackson's Courier";
+			}
+			else if (flag6)
 			{
 				text = "Resistance Runner";
 			}
@@ -233,6 +238,10 @@ internal static partial class CompanyVisitors
 			{
 				text = (flag ? "Solana Courier" : "pastel Courier");
 			}
+		}
+		else if (jackson)
+		{
+			text = "杰克逊博士送货员";
 		}
 		else if (flag6)
 		{
@@ -281,7 +290,11 @@ internal static partial class CompanyVisitors
 			string item;
 			if (L.En)
 			{
-				if (flag6)
+				if (jackson)
+				{
+					item = "Machines and custom parts from Jackson's workshop. He tuned them himself. Check the order and sign.";
+				}
+				else if (flag6)
 				{
 					item = "Odin sent this. Don't ask where it came from.";
 				}
@@ -305,6 +318,10 @@ internal static partial class CompanyVisitors
 				{
 					item = (flag ? "Solana Biogenics, personal delivery. Please sign." : "pastel delivery! I'll leave it right here.");
 				}
+			}
+			else if (jackson)
+			{
+				item = "杰克逊工作间的货。机器和配件都是博士亲手调过的，核对一下，签收吧。";
 			}
 			else if (flag6)
 			{

@@ -9,9 +9,9 @@ namespace CorpPresence;
 public class Main : IMod
 {
 #if WATER_TRACE
-    public const string Version = "0.9.7-watertrace";
+    public const string Version = "0.9.7fix-watertrace";
 #else
-    public const string Version = "0.9.7";
+    public const string Version = "0.9.7fix";
 #endif
     public const string DisplayName = "CorpPresence";
     private Harmony _harmony;

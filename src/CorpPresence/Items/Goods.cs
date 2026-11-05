@@ -519,6 +519,23 @@ internal static class Goods
 				Flavor = "送货员留下的箱子。",
 				FlavorEn = "A crate the courier left behind."
 			},
+			["crate_jackson_private"] = new Def
+			{
+				Name = "杰克逊博士送货箱",
+				NameEn = "Dr. Jackson's Delivery Crate",
+				Value = 0L,
+				Company = "jackson_private",
+				Art = "crate",
+				Fallback = "ammo_box",
+				Types = Array.Empty<string>(),
+				W = 3,
+				H = 2,
+				Crate = true,
+				Desc = "杰克逊工作间寄来的机器与改装配件。只能取、不能放，取空后箱子自动消失。",
+				DescEn = "Machines and custom parts from Jackson's workshop. Take items out; nothing can be put in. The crate disappears once empty.",
+				Flavor = "箱面印着齿轮标记。博士做的东西，也由他自己调试。",
+				FlavorEn = "A gear marks the front. Jackson builds his own equipment and tunes it himself."
+			},
 			["crate_spacer"] = new Def
 			{
 				Name = "星际客联盟货箱",

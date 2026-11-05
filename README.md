@@ -16,7 +16,7 @@ dotnet build ./src/CorpPresence.csproj -c Release "-p:GameManaged=F:/SteamLibrar
 
 ## 权限与反馈
 
-反馈 BUG 时请附游戏和模组版本、复现步骤以及相关日志片段。普通版 0.9.7 的清单未声明额外权限。液体相关改动见 [兼容边界](docs/water-compatibility.md)。
+反馈 BUG 时请附游戏和模组版本、复现步骤以及相关日志片段。普通版 0.9.7fix 的清单未声明额外权限。液体相关改动见 [兼容边界](docs/water-compatibility.md)。
 
 ## Rights / 权利说明
 

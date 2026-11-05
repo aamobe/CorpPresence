@@ -31,6 +31,7 @@ internal static class ItemIdentity
 		Good("crate_carmicheal", "ammo_box"),
 		Good("crate_meridian", "ammo_box"),
 		Good("crate_spacer", "ammo_box"),
+		Good("crate_jackson_private", "ammo_box"),
 		Good("tobacco_seed", "kotton_seed"),
 		Good("tobacco_leaf", "ammo_box"),
 		Good("loose_cigarette", "ammo_box"),

@@ -2,8 +2,16 @@ namespace CorpPresence;
 
 internal sealed class JacksonContact : Company
 {
-    private static readonly string[] Greeting = { "我这里有些养鼠设备。你需要什么？" };
-    private static readonly string[] GreetingEn = { "I have some rat-keeping equipment. What do you need?" };
+    private static readonly string[] Greeting =
+    {
+        "杰克逊。机器改装是我的老本行。我自己做的几台机器和配件，最近正好有些能出手。",
+        "工作台上刚腾出点地方。我做的机器和改装配件，想看看吗？"
+    };
+    private static readonly string[] GreetingEn =
+    {
+        "Jackson here. Custom modifications are my trade. I've got a few machines and parts I built myself that I can let go.",
+        "I've just cleared some space on the workbench. Want to see the machines and custom parts I've been working on?"
+    };
     private static readonly CatalogEntry[] Equipment =
     {
         new() { Id = "@" + RatWheelGenerator.GoodsKey, MinTier = 0 },
@@ -17,7 +25,7 @@ internal sealed class JacksonContact : Company
     public override long PhoneNumber => 52746L;
     public override string[] TierNames => System.Array.Empty<string>();
     public override string[] FrontDesk => L.T(Greeting, GreetingEn);
-    public override string FrontDeskDone => L.T("记下了，明天送到。", "Got it. I'll send it tomorrow.");
+    public override string FrontDeskDone => L.T("记下了。我收拾好，明天托人给你送过去。", "Got it. I'll pack it up and have someone bring it over tomorrow.");
     public override string CardFlavor => "";
     public override string DeskName => L.T("杰克逊博士", "Dr. Jackson");
     public override string DeskAsk => "";
