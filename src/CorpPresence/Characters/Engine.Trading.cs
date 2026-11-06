@@ -106,7 +106,7 @@ internal static partial class Engine
         return true;
     }
 
-    private static void TopUp(Character c, string[] pool, long total, int count)
+    private static void TopUp(Character c, string[] pool, long total, int count, bool requireExtra)
     {
         StoreSession session = StoreSession.Capture();
         PlayerStore store = SaveSlot.CurrentStore;
@@ -114,13 +114,14 @@ internal static partial class Engine
         int cash = store.GetCash();
         long target = Math.Min(cash / 4, 4000);
         int remaining = Math.Clamp(3 + cash / 1000, 3, 10) - count;
-        if (remaining <= 0 || total >= target || CompanyVisitors.CounterFull()) return;
+        if (remaining <= 0 || (!requireExtra && total >= target) || CompanyVisitors.CounterFull()) return;
         var candidates = new List<(string Id, long Value)>();
         foreach (string id in pool.Distinct()) { if (!session.IsCurrent) return; candidates.Add((id, ValueOf(c, id))); }
         System.Random random = new System.Random();
-        while (session.IsCurrent && remaining > 0 && total < target && !CompanyVisitors.CounterFull())
+        while (session.IsCurrent && remaining > 0 && candidates.Count > 0 &&
+               (total < target || requireExtra) && !CompanyVisitors.CounterFull())
         {
-            long each = (target - total) / remaining;
+            long each = Math.Max(0, target - total) / remaining;
             int first = -1, second = -1;
             long firstDistance = long.MaxValue, secondDistance = long.MaxValue;
             for (int i = 0; i < candidates.Count; i++)
@@ -133,7 +134,16 @@ internal static partial class Engine
                 { second = i; secondDistance = distance; }
             }
             int chosen = second < 0 || random.Next(2) == 0 ? first : second;
-            total += Place(c, candidates[chosen].Id, owned: false);
+            if (TryPlace(c, candidates[chosen].Id, owned: false, out long value))
+            {
+                total += value;
+                requireExtra = false;
+            }
+            else if (requireExtra)
+            {
+                candidates.RemoveAt(chosen);
+                continue;
+            }
             remaining--;
         }
     }

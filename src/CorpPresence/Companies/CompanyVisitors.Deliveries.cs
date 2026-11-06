@@ -102,6 +102,9 @@ internal static partial class CompanyVisitors
 			bool placed = false;
 			try
 			{
+				// A free cell does not mean the actual crate will fit. Probe with the
+				// real shell before creating the order items.
+				if (!isCurrent() || !CounterMayFit(crate) || !isCurrent()) break;
 				foreach (var order in orders)
 				{
 					foreach (string id in order.Items)
@@ -116,6 +119,7 @@ internal static partial class CompanyVisitors
 							if (item == null || item.parentInventory != null || StorePlacement.Destroyed(item))
 							{
 								failed.Add(id);
+								ModLog.Warn($"{company.Name}配送无法生成可装箱的物品：{id}，保留订单。");
 								continue;
 							}
 							if (Crates.Put(crate, item))
@@ -179,6 +183,22 @@ internal static partial class CompanyVisitors
 	{
 		try { if (item != null && item.parentInventory == null && !StorePlacement.Destroyed(item)) item.Destroy(); }
 		catch (Exception error) { ModLog.Warn("清理未交付物品失败：" + error.Message); }
+	}
+
+	private static bool CounterMayFit(GameItem crate)
+	{
+		try
+		{
+			var counter = EmporiumEntry.Instance?.frontInvinvElement;
+			if (counter == null) return true;
+			GeneralHelper.SetItemOwned(crate);
+			return counter.TryFindOneValidInventorySlot(crate) != null;
+		}
+		catch
+		{
+			// If a custom inventory throws during the probe, keep the normal placement path.
+			return true;
+		}
 	}
 
 	private static bool TryPlaceDelivery(GameItem crate)

@@ -140,6 +140,13 @@ internal static partial class CompanyWindow
 				_orderPage++;
 			}
 		}
+		var prices = new Dictionary<CatalogEntry, int>();
+		int QuotedUnitPrice(CatalogEntry item)
+		{
+			if (!prices.TryGetValue(item, out int price))
+				prices[item] = price = SpacerUnitPrice(item);
+			return price;
+		}
 		foreach (CatalogEntry item in list.Skip(_orderPage * num6).Take(num6))
 		{
 			Ui.Fill(new Rect(r.x, num4 + 31f, r.width, 1f), theme.Line);
@@ -154,7 +161,7 @@ internal static partial class CompanyWindow
 				num4 += 33f;
 				continue;
 			}
-			int num9 = SpacerUnitPrice(item);
+			int num9 = QuotedUnitPrice(item);
 			if (num9 <= 0)
 			{
 				GUI.Label(status, L.T("暂不可用", "Unavailable"), theme.Small);
@@ -173,22 +180,23 @@ internal static partial class CompanyWindow
 			{
 				Cart.Remove(item);
 			}
-			GUI.Label(columns.Subtotal, (value > 0) ? $"{num9 * value}₵" : "—", theme.Center);
+			GUI.Label(columns.Subtotal, (value > 0) ? $"{(long)num9 * value}₵" : "—", theme.Center);
 			num4 += 33f;
 		}
 		if (page == "阵线")
 		{
 			DrawSpacerCredits(new Rect(r.x, num4 + 16f, r.width, 160f));
 		}
-		int num10 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => SpacerUnitPrice(kv.Key) * kv.Value);
+		int num10 = 0;
+		bool validTotal = Cart.All(kv => OrderAmounts.TryAdd(ref num10, QuotedUnitPrice(kv.Key), kv.Value, kv.Key.Bundle, out _));
 		float num11 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num11, 260f, 22f), (L.En ? L.Translate((System.FormattableString)$"Total {num10}₵ (all pages)") : $"合计 {num10}₵（各页合计）"), theme.Price);
-		int cashDue = DrawCheckoutBalance(new Rect(r.x, num11 + 22f, r.width - 150f, 20f), num10);
+		GUI.Label(new Rect(r.x, num11, 260f, 22f), !validTotal ? "—" : (L.En ? L.Translate((System.FormattableString)$"Total {num10}₵ (all pages)") : $"合计 {num10}₵（各页合计）"), theme.Price);
+		int cashDue = validTotal ? DrawCheckoutBalance(new Rect(r.x, num11 + 22f, r.width - 150f, 20f), num10) : 0;
 		bool enabled2 = GUI.enabled;
-		GUI.enabled = enabled2 && num10 > 0 && Services.CanAfford(cashDue) && flag;
+		GUI.enabled = enabled2 && validTotal && num10 > 0 && Services.CanAfford(cashDue) && flag;
 		if (Ui.Button(new Rect(r.xMax - 150f, num11 + 2f, 140f, 36f), L.T("下单", "Order"), theme.BtnHotStyle))
 		{
-			string text2 = Services.PlaceOrder(_company, Cart, SpacerUnitPrice);
+			string text2 = Services.PlaceOrder(_company, Cart, QuotedUnitPrice);
 			if (text2 == null)
 			{
 				Cart.Clear();

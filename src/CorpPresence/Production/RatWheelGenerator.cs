@@ -17,8 +17,8 @@ internal static class RatWheelGenerator
         Art = "rat_wheel_generator_retrofit", Fallback = "animal_cage", W = 4, H = 3,
         Shape = "####|####|####",
         Types = new[] { "MACHINE" }, Shell = Build,
-        Desc = "每只亚成年及以上的活鼠每晚为两个充电槽各提供 2 kJ。8 只即可让每槽达到每晚 16 kJ 的充电上限，不超过电池自身容量。笼格可放清扫机，并设有原版喂食器槽。",
-        DescEn = "Each live adolescent or older rat provides 2 kJ to each charging slot per night. Eight rats reach the nightly limit of 16 kJ per slot, without exceeding battery capacity. Accepts a cage cleaning robot and has the vanilla feeder slot.",
+        Desc = "在笼里养活鼠，在充电槽放普通可充电电池。每只亚成年及以上活鼠每晚为两个槽各充 2 kJ，每槽上限 16 kJ，不超过电池容量。笼格可放清扫机，并保留原版喂食器槽。",
+        DescEn = "Keep live rats in the cage and put standard rechargeable batteries in the charging slots. Each live adolescent or older rat provides 2 kJ per slot per night, up to 16 kJ per slot and within battery capacity. The cage accepts a cleaning robot and retains its feeder slot.",
         Flavor = "笼子里装了跑轮，笼子外接了两个充电槽。电池插好以后，剩下的就看老鼠了。",
         FlavorEn = "Wheels inside the cage, two charging slots outside. Once the batteries are in, the rest is up to the rats."
     };

@@ -51,7 +51,7 @@ internal static partial class CompanyWindow
 
 	private static int ItemListValue(CatalogEntry entry)
 	{
-		int value = entry.BaseValue();
+		int value = entry.ListValue();
 		return value < 0 ? value : value / Math.Max(1, entry.Bundle);
 	}
 

@@ -231,7 +231,7 @@ internal sealed class CarmichaelCo : Company
 		StoreSession session = StoreSession.Capture();
 		if (!session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) { TraceEscape("发放暂停：会话失效或存档不可写"); return false; }
 		var store = EmporiumEntry.Instance;
-		if (store == null || (store.frontInvinvElement == null && store.invElement == null)) { TraceEscape("发放暂停：柜台/店铺库存尚未就绪"); return false; }
+		if (store == null || (store.invElement == null && store.backInvinvElement == null)) { TraceEscape("发放暂停：主库存/后柜台尚未就绪"); return false; }
 		_escapeSpawning = true;
 		GameItem item = null;
 		try
@@ -242,26 +242,16 @@ internal sealed class CarmichaelCo : Company
 			if (!session.IsCurrent) { TraceEscape("生成后会话改变，停止发放"); return false; }
 			ContrabandHelper.InitContrabandItem(item, 3);
 			GeneralHelper.SetItemOwned(item);
-			// Native direct-selling placement destroys an unplaced item. Probe and
-			// transfer without that destructive failure, then use native store fallback.
-			if (store.frontInvinvElement != null && GraphUtils.CanAccept(store.frontInvinvElement, item))
-				GraphUtils.TryAcceptAll(store.frontInvinvElement, item);
-			if (!EscapeAttached(item))
-			{
-				if (item is GameItemElement element && element.IsDestroyed()) { TraceEscape("柜台尝试后对象已销毁，保留资格，不重复使用该对象"); return false; }
-				TraceEscape("柜台未接收，尝试原版店铺库存回退");
-				GraphUtils.EmporiumTryAdd(store.invElement ?? store.frontInvinvElement, item);
-			}
-			if (!EscapeAttached(item)) { TraceEscape("发放失败：原版回退后仍未入库，禁止标记已发放"); return false; }
+			if (!EscapeePlacement.TryPlace(store, item)) { TraceEscape("可存档库存未接收，保留发放资格"); return false; }
 			if (!session.IsCurrent) { TraceEscape("入库后会话改变，不提交当前发放标记"); return false; }
-			TraceEscape(ReferenceEquals(item.parentInventory, store.frontInvinvElement) ? "落点确认：前柜台" : ReferenceEquals(item.parentInventory, store.invElement) ? "落点确认：店铺主库存" : "落点确认：原版回退接受的其他库存/容器");
+			TraceEscape(ReferenceEquals(item.parentInventory, store.invElement) ? "落点确认：店铺主库存" : "落点确认：后柜台");
 			try
 			{
 				var ui = StoreUIManager.Instance;
 				var notifier = ReputationUIManager.Instance;
 				if (ui != null && notifier != null)
 				{
-					ui.Notify(L.T("门外好像有动静。", "There seems to be something moving outside the door."));
+					ui.Notify(L.T("店里有动静。看看主库存和后柜台。", "Something is moving inside. Check the main inventory and the back counter."));
 					notifier.notifierTimer += 2f;
 				}
 			}
@@ -270,7 +260,7 @@ internal sealed class CarmichaelCo : Company
 		}
 		catch (Exception error)
 		{
-			bool attached = EscapeAttached(item);
+			bool attached = EscapeePlacement.IsSaved(store, item);
 			TraceEscape($"发放异常：{error.GetType().Name}: {error.Message}；实物已入库={attached}");
 			return attached && session.IsCurrent;
 		}

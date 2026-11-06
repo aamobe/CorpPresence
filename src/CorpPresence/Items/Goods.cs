@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CorpPresence.Malice;
 using CorpPresence.UI;
 using UnityEngine;
@@ -58,6 +59,8 @@ internal static class Goods
 		public Action<GameItem> Setup;
 
 		public Action<GameItem> OnNew;
+
+		public (string Zh, string En) Manual;
 
 		public string LName => L.T(Name, NameEn ?? Name);
 
@@ -173,6 +176,7 @@ internal static class Goods
 				Types = new string[1] { "MEDICAL" },
 				W = 4,
 				H = 1,
+				Shape = "####",
 				Usable = true,
 				Flavor = "一种长效体能改善药剂，能使人体质略微改善。卡迈克尔尚未上市的新品，只向部门经理级别的内部人员开放申请通道。注射后，每天在垃圾场的拾荒次数上限永久 +1（设置“服务强度”为原版时累计最多 +2）。",
 				FlavorEn = "A long-acting performance drug that slightly improves your constitution. An unreleased Carmicheal product; only insiders at department-manager level can apply for it. After injecting, your daily scavenging attempts in the Dumping Grounds permanently increase by 1 (at most +2 in total when Service strength is set to Vanilla)."
@@ -556,6 +560,15 @@ internal static class Goods
 		};
 		ExtraArt = new Dictionary<string, (string, string)>
 		{
+#if PREVIEW_ART
+			["rolling_machine_running"] = ("pastel", "rolling_machine_running"),
+			["packaging_machine_running"] = ("pastel", "packaging_machine_running"),
+			["meat_grinder_running"] = ("davre", "meat_grinder_running"),
+			["canning_machine_running"] = ("davre", "canning_machine_running"),
+			["seafood_sealer_running"] = ("davre", "seafood_sealer_running"),
+			["forge_furnace_running"] = ("forge", "forge_furnace"),
+			["isomer_reactor_running"] = ("carmicheal", "isomer_reactor_running"),
+#endif
 			["rat_wheel_generator_occupied"] = ("husbandry", "rat_wheel_generator_retrofit_occupied"),
 			["candle_lit"] = ("solana", "solana_candle_lit"),
 			["hemingway_limited"] = ("pastel", "hemingway_limited"),
@@ -640,6 +653,7 @@ internal static class Goods
 		if (item != null && goodsId != null && Defs.TryGetValue(goodsId, out var value))
 		{
 			ApplyText(item, value);
+			if (value.Manual.Zh != null) Tobacco.RefreshManual(item, value);
 		}
 	}
 
@@ -684,11 +698,12 @@ internal static class Goods
 	{
 		ItemIdentity.Entry entry = ItemIdentity.ForGoods(id);
 		GameItem gameItem = (((object)entry != null && entry.Goods != null) ? ItemRegistry.Create(entry.Id) : null);
-		if (gameItem != null && Defs.TryGetValue(id, out var value) && value.OnNew != null)
+		if (gameItem != null && Defs.TryGetValue(id, out var value))
 		{
 			try
 			{
-				value.OnNew(gameItem);
+				value.OnNew?.Invoke(gameItem);
+				if (value.Manual.Zh != null) Tobacco.AddManual(gameItem, value.Manual);
 			}
 			catch (Exception ex)
 			{
@@ -863,6 +878,33 @@ internal static class Goods
 		}
 	}
 
+	internal static void RestoreLegacyFootprints()
+	{
+		var store = EmporiumEntry.Instance;
+		if (store == null) return;
+		foreach (GameItem item in store.GetAllItems())
+		{
+			string key = IdOf(item);
+			if (key is "stamina" or "forge_furnace") RestoreFixedFootprint(item, Defs[key]);
+		}
+	}
+
+	private static void RestoreFixedFootprint(GameItem item, Def value)
+	{
+		if (item.parentInventory is not GameGridInventory inventory) return;
+		GridShape old = item.shape;
+		if (old.width == value.W && old.height == value.H &&
+			Enumerable.Range(0, value.W).All(x => Enumerable.Range(0, value.H).All(y => old.GetLocal(x, y) != 0)))
+			return;
+
+		GridShape placed = item.modifiedShape;
+		var replacement = new GridShapeBuilder(value.W, value.H).SetDataFill(1);
+		GridShape candidate = replacement.SetTransform(placed).Build();
+		if (!inventory.CheckShapePlacement(item, candidate, new List<GameItem>())) return;
+		item.SetSprite(item.spriteAtlasPath, item.spritePath);
+		item.SetShape(replacement.SetTransform(old).Build());
+	}
+
 	public static string IdOf(GameItem item)
 	{
 		try
@@ -1025,6 +1067,11 @@ internal static class Goods
 
 	private static GridShapeBuilder ShapeBuilderOf(Def d)
 	{
+		// Machine housing can have openings, but the entire base needs clear space.
+		if (d.Types != null && Array.IndexOf(d.Types, "MACHINE") >= 0)
+		{
+			return new GridShapeBuilder(d.W, d.H).SetDataFill(d.W, d.H, 1);
+		}
 		if (d.Shape != null)
 		{
 			string[] array = d.Shape.Split('|');
@@ -1108,6 +1155,10 @@ internal static class Goods
 			{
 				Defs.TryGetValue("candle", out value2);
 			}
+			else if (text.EndsWith("_running", StringComparison.Ordinal))
+			{
+				Defs.TryGetValue(text.Substring(0, text.Length - "_running".Length), out value2);
+			}
 		}
 		else
 		{
@@ -1144,6 +1195,19 @@ internal static class Goods
 		value.name = name;
 		value.hideFlags = HideFlags.HideAndDontSave;
 		return Sprites[name] = value;
+	}
+
+	internal static Sprite FindLegacyFurnaceSprite(string name)
+	{
+		string cacheKey = name + "@2x2";
+		if (Sprites.TryGetValue(cacheKey, out var cached) && cached != null) return cached;
+		Sprite original = FindSprite(name);
+		if (original == null) return null;
+		Vector2 pivot = new Vector2(original.pivot.x / original.rect.width, original.pivot.y / original.rect.height);
+		Sprite scaled = Sprite.Create(original.texture, original.rect, pivot, original.pixelsPerUnit * 1.5f);
+		scaled.name = name;
+		scaled.hideFlags = HideFlags.HideAndDontSave;
+		return Sprites[cacheKey] = scaled;
 	}
 
 	private static bool BatteryState(string key, out Def d, out string suffix)

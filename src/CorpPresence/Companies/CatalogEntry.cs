@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CorpPresence;
 
@@ -22,6 +23,7 @@ internal sealed class CatalogEntry
 	public int Bundle;
 
 	private GameItem _sample;
+	private (string, int)[] _samplePermits;
 
 	private WeakReference<PlayerStore> _sampleStore;
 
@@ -95,6 +97,9 @@ internal sealed class CatalogEntry
 		{
 			return false;
 		}
+		if (_samplePermits == null ? currentStore.ActivePermits != null
+			: currentStore.ActivePermits == null || !_samplePermits.SequenceEqual(currentStore.ActivePermits))
+			return false;
 		if (_sampleData == null)
 		{
 			return currentStore.modData == null;
@@ -126,6 +131,7 @@ internal sealed class CatalogEntry
 				sample.Destroy();
 			}
 			_sample = null;
+			_samplePermits = null;
 			_sampleStore = null;
 			_sampleData = null;
 			_sampleRun = (_sampleId = (_samplePage = null));
@@ -158,7 +164,23 @@ internal sealed class CatalogEntry
 		}
 	}
 
-	private bool TryValues(bool includeEvents, out long baseline, out long eventValue)
+	private static long TagOrderMarkup(GameItem item, PlayerStore store)
+	{
+		int contraband = item.IsTag("CONTRABAND_ITEM_TAG") ? item.GetTagReadonly("CONTRABAND_LEVEL")?.GetString() switch
+		{
+			"CONTRABAND_LEVEL_LOW" => store.contrabandMarkupLow,
+			"CONTRABAND_LEVEL_MID" => store.contrabandMarkupMid,
+			"CONTRABAND_LEVEL_HIGH" => store.contrabandMarkupHigh,
+			"CONTRABAND_LEVEL_CRITICAL" => store.contrabandMarkupCritial,
+			_ => 0
+		} : 0;
+		int restricted = item.IsGameItemType("RESTRICTED_1") ? store.contrabandMarkupLow / 2
+			: item.IsGameItemType("RESTRICTED_2") ? store.contrabandMarkupMid / 2
+			: item.IsGameItemType("RESTRICTED_3") ? store.contrabandMarkupHigh / 2 : 0;
+		return (long)contraband + restricted;
+	}
+
+	private bool TryValues(bool includeEvents, out long baseline, out long eventValue, bool includeTagMarkup = false)
 	{
 		baseline = (eventValue = 0L);
 		if (_reading || !GameResources.Ready || CatalogPricing.IsResetting || SaveSlot.CurrentStore == null)
@@ -186,12 +208,15 @@ internal sealed class CatalogEntry
 				{
 					return false;
 				}
+				// Native item creation classifies contraband against the current permits.
+				var permits = currentStore.ActivePermits?.ToArray();
 				GameItem gameItem = Make();
 				if (gameItem == null)
 				{
 					return false;
 				}
 				_sample = gameItem;
+				_samplePermits = permits;
 				CatalogPricing.Track(this);
 				_retired = false;
 				_sampleStore = new WeakReference<PlayerStore>(currentStore);
@@ -210,7 +235,11 @@ internal sealed class CatalogEntry
 			}
 			GameItem sample = _sample;
 			baseline = sample.GetCurrentValue(useRetailMarkup: false, withChild: true, includeEvents: false, forceMarkup: false, 0L);
-			eventValue = ((includeEvents && baseline > 0) ? sample.GetCurrentValue(useRetailMarkup: false, withChild: true, includeEvents: true, forceMarkup: false, 0L) : baseline);
+			long tagMarkup = includeTagMarkup ? TagOrderMarkup(sample, currentStore) : 0;
+			bool applyEvents = includeEvents && baseline > 0;
+			eventValue = (applyEvents || tagMarkup != 0)
+				? sample.GetCurrentValue(useRetailMarkup: false, withChild: true, includeEvents: applyEvents, forceMarkup: false, extraMarketMod: tagMarkup)
+				: baseline;
 			if (baseline < 0 || eventValue < 0 || !SampleIsCurrent() || sample.parentInventory != null)
 			{
 				ReleaseQuoteSample();
@@ -257,26 +286,22 @@ internal sealed class CatalogEntry
 		return total;
 	}
 
+	public int ListValue()
+	{
+		if (Id == "@modbox") return 500;
+		int bundle = Bundle;
+		return TryValues(Settings.OrderEvents, out _, out var value, includeTagMarkup: true)
+			&& Bundle == bundle && TryTotal(value, bundle, out var total) ? total : -1;
+	}
+
 	public int Quote(double rate)
 	{
 		if (double.IsNaN(rate) || double.IsInfinity(rate) || rate <= 0.0)
 		{
 			return 0;
 		}
-		double num;
-		if (Id == "@modbox")
-		{
-			num = 500.0;
-		}
-		else
-		{
-			int bundle = Bundle;
-			if (!TryValues(Settings.OrderEvents, out var _, out var eventValue) || Bundle != bundle || !TryTotal(eventValue, bundle, out var total))
-			{
-				return 0;
-			}
-			num = total;
-		}
+		int num = ListValue();
+		if (num < 0) return 0;
 		double num2 = Math.Round(num * rate);
 		if (double.IsNaN(num2) || double.IsInfinity(num2) || num2 > 2147483647.0)
 		{

@@ -36,6 +36,8 @@ internal static partial class CompanyVisitors
 							foreach (Order order in due) order.Day = Day + 1;
 							if (card) state.CardCourierDay = Day;
 							ServiceRetry.Succeeded(state);
+							if (c is JacksonContact && due.Count > 0)
+								LogScheduled($"杰克逊配送：第 {Day} 天已排入送货员，待签收 {due.Sum(order => order.Items.Count)} 件。");
 						}
 						else ServiceRetry.Failed(state, Time.unscaledTime);
 					}

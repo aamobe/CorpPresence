@@ -108,10 +108,7 @@ internal static class Tobacco
 			W = 3,
 			H = 2,
 			Shell = BuildRoller,
-			OnNew = (GameItem m) =>
-			{
-				AddManual(m, RollerManual);
-			},
+			Manual = RollerManual,
 			Desc = "放进烟叶、插上电池，按“卷烟”当场卷好：每片烟叶卷成 2 支私制散烟，耗 5 电。",
 			DescEn = "Load tobacco leaves and a battery, then press Roll: each leaf becomes 2 loose cigarettes on the spot and uses 5 charge.",
 			Flavor = "海明威分部淘汰下来的旧卷烟机。漆面磨得发白，侧面还留着半个红标。",
@@ -130,10 +127,7 @@ internal static class Tobacco
 			W = 3,
 			H = 3,
 			Shell = BuildPacker,
-			OnNew = (GameItem m) =>
-			{
-				AddManual(m, PackerManual);
-			},
+			Manual = PackerManual,
 			Desc = "放进私制散烟、插上电池，每晚把 3 支散烟封成 1 包海明威正品，默认每晚 2 包，耗 8 电。性能模组多封（也多用散烟），效率模组省电。标签槽里放着标签戳时，封出来的是限量包装。",
 			DescEn = "Load loose cigarettes and a battery. Each night it seals 3 cigarettes into 1 genuine Hemingway pack, 2 packs by default, using 8 charge. Performance modules seal more (using more cigarettes); efficiency modules save power. With a label stamp in the label slot, packs come out as Limited Edition.",
 			Flavor = "帕斯泰尔正规的分装设备。用了它，你的烟就是海明威。",
@@ -162,9 +156,9 @@ internal static class Tobacco
 
 	private static Sprite _overlay;
 
-	private static (string Zh, string En) RollerManual => (Zh: "放入：把烟叶放进烟叶槽，把能量电池放进电池槽。\n卷烟：按“卷烟”，每片烟叶当场卷成 2 支私制散烟，每片耗 5 电；电量不够就停。\n注意：私制散烟是违禁品。", En: "Load: put tobacco leaves in the leaf tray and an energy cell in the battery slot.\nRoll: press Roll. Each leaf becomes 2 loose cigarettes on the spot, using 5 charge per leaf; it stops when the charge runs out.\nNote: loose cigarettes are contraband.");
+	private static (string Zh, string En) RollerManual => (Zh: "把烟叶放进烟叶槽，接好电源，按「卷烟」。每片当场卷成 2 支私制散烟，默认耗 5 电。电量或成品空间不足时停止。\n私制散烟是违禁品。", En: "Load tobacco leaves, connect power, then press Roll. Each leaf makes 2 loose cigarettes on the spot for 5 charge by default. Rolling stops when power or output space runs out.\nLoose cigarettes are contraband.");
 
-	private static (string Zh, string En) PackerManual => (Zh: "放入：把私制散烟放进散烟槽（最多 12 支），把能量电池放进电池槽。\n分装：每晚把 3 支散烟封成 1 包海明威正品，默认每晚 2 包，耗 8 电。\n限量：标签槽里放着海明威标签戳时，封出来的是限量包装，每包用掉标签戳 1 次。\n[模组影响]：\n效率影响功耗\n性能影响每晚封装数量（也多用散烟）\n质量无影响", En: "Load: put loose cigarettes in the cigarette tray (up to 12) and an energy cell in the battery slot.\nPackaging: each night, 3 cigarettes are sealed into 1 genuine pack of Hemingways, 2 packs per night by default, using 8 charge.\nLimited: with a Hemingway label stamp in the label slot, packs come out as Limited Edition, using 1 stamp use each.\n[Module effects]:\nEfficiency affects power use\nPerformance affects packs per night (and uses more cigarettes)\nQuality has no effect");
+	private static (string Zh, string En) PackerManual => (Zh: "把私制散烟放进散烟槽，接好电源，等待过夜。每 3 支散烟封成 1 包海明威，默认每晚最多 2 包，启动耗 8 电。\n标签槽放入海明威标签戳时可封限量包装，每包消耗 1 次使用次数。\n性能模组增加封装数量，效率模组降低耗电。", En: "Load loose cigarettes, connect power and wait overnight. Every 3 loose cigarettes make 1 pack of Hemingways. It makes up to 2 packs per night by default, using 8 charge per run.\nA Hemingway stamp in the label slot makes Limited Edition packs and uses 1 stamp charge per pack.\nPerformance modules add packs. Efficiency modules reduce power use.");
 
 	private static GameItem Empty()
 	{
@@ -251,6 +245,7 @@ internal static class Tobacco
 		input.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(item) && item.identifier == "corp_presence_tobacco_leaf";
 		output.mayInventoryAddItemFunc = (GameItem _, GameInventory _) => false;
 		MachineUpgrade.Attach(machine, 1, input, output);
+		MachineAppearance.WatchOutput(machine, output);
 		machineryButton.SetCallback(() =>
 		{
 			Roll(machine, battery, input, output);
@@ -341,6 +336,10 @@ internal static class Tobacco
 		{
 			Pack(machine, battery, modules, input, label, output);
 		};
+		MachineAppearance.WatchCycle(machine, output, () =>
+			input.childItems.Count(item => item?.identifier == "corp_presence_loose_cigarette") >= 3 &&
+			MachineAppearance.CanPowerCycle(machine, battery, "CORP_PACK_CARRY_INT")
+				? "packet_red_cigarette" : null);
 		return machine;
 	}
 
@@ -415,7 +414,7 @@ internal static class Tobacco
 			string displayName = machine.GetDisplayName();
 			gameItem.name = L.T(displayName + "说明", L.Translate((FormattableString)$"{displayName} Instructions"));
 			gameItem.shortDescription = L.T(displayName + "使用方法。", L.Translate((FormattableString)$"How to use the {displayName}."));
-			gameItem.flavorText = L.T(text.Zh, text.En);
+			gameItem.flavorText = ManualText(machine, text);
 			gameItem.SetGameItemType("DOCUMENT");
 			gameItem.EnableTag("IMPORTANT_TAG");
 			gameItem.EnableTag("MACHINE_MANUAL_TAG");
@@ -423,6 +422,35 @@ internal static class Tobacco
 			GraphUtils.TryAcceptAll(machine, gameItem);
 		}
 	}
+
+	internal static void RefreshManual(GameItem machine, Goods.Def definition)
+	{
+		if (machine.contentWindow?.childElement is not MachineryPanelRow row) return;
+		var storage = new List<GraphNodeStorage>();
+		row.GetPanel("note")?.CollectStorage(storage);
+		if (storage.Count != 1 || storage[0] is not GameSlotInventory slot) return;
+		var note = slot.childItem;
+		if (note?.identifier != "postit" || !note.IsTag("MACHINE_MANUAL_TAG")) return;
+
+		bool hasMatchingTitle = note.name == definition.Name + "说明" ||
+			note.name == definition.NameEn + " Instructions" ||
+			note.name == LocalizedManualTitle(definition.NameEn, "ru") ||
+			note.name == LocalizedManualTitle(definition.NameEn, "fr");
+		if (hasMatchingTitle) note.flavorText = ManualText(machine, definition.Manual);
+	}
+
+	private static string ManualText(GameItem machine, (string Zh, string En) text)
+	{
+		string description = L.T(text.Zh, text.En);
+#if PREVIEW_ART
+		if (Goods.IdOf(machine) is "meat_grinder" or "rolling_machine")
+			description += "\n" + L.T("成品槽有成品时显示运行图，取空后恢复静态图。", "The active sprite stays visible until the output tray is emptied.");
+#endif
+		return description;
+	}
+
+	private static string LocalizedManualTitle(string machineName, string locale) =>
+		string.Format(TextTranslations.Select("{0} Instructions", locale), TextTranslations.Select(machineName, locale));
 
 	internal static bool Put(GameInventory inv, List<GameItem> items)
 	{

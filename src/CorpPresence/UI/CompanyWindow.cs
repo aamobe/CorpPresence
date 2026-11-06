@@ -294,7 +294,7 @@ internal static partial class CompanyWindow
 	private static void Toast(string text)
 	{
 		_toast = text;
-		_toastUntil = Time.unscaledTime + 3f;
+		_toastUntil = Time.unscaledTime + 3f + ReadingPace.NoticeExtraSeconds;
 	}
 
 	public static void Tick()

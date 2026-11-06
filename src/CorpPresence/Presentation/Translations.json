@@ -1,4 +1,28 @@
 {
+  "The active sprite stays visible until the output tray is emptied.": [
+    "Рабочий вид машины отображается, пока на выходе есть продукция.",
+    "La machine garde son apparence active jusqu’à ce que le bac de sortie soit vidé."
+  ],
+  "The first input yields {0} portions for {1} charge. The tray fits all of them.": [
+    "Из первой порции сырья получится {0} порц. за {1} ед. заряда. На выходе хватит места на все порции.",
+    "Le premier ingrédient donne {0} portions pour {1} unités de charge. Le bac peut toutes les recevoir."
+  ],
+  "Inputs and speed allow up to {0} batches for {1} charge. The tray fits the first batch.": [
+    "Сырья и скорости хватит максимум на {0} партий за {1} ед. заряда. Первая партия помещается на выходе.",
+    "Les ingrédients et la vitesse permettent jusqu’à {0} lots pour {1} unités de charge. Le bac peut recevoir le premier lot."
+  ],
+  "The tray cannot fit all {0} items from this batch.": [
+    "На выходе не хватает места на все {0} изделий этой партии.",
+    "Le bac de sortie ne peut pas recevoir les {0} produits du lot."
+  ],
+  "4 fish mince + 100 mL of Basewater or better → 1 crab stick. Requires reusable printer plastic.": [
+    "4 порции рыбного фарша + 100 мл базовой воды или чище → 1 крабовая палочка. Нужен многоразовый пластик для принтера.",
+    "4 portions de hachis de poisson + 100 mL d’eau de base ou de meilleure qualité → 1 bâtonnet de crabe. Plastique réutilisable requis."
+  ],
+  "1 dead, whole adolescent common tilapia + 100 mL of Basewater or better → 1 can of fish.": [
+    "1 целая забитая молодая обыкновенная тиляпия + 100 мл базовой воды или чище → 1 банка рыбы.",
+    "1 tilapia commun adolescent, abattu et entier + 100 mL d’eau de base ou de meilleure qualité → 1 boîte de poisson."
+  ],
   "Fish Mince": [
     "Рыбный фарш",
     "Poisson haché"
@@ -51,9 +75,9 @@
     "Генератор с крысиными колёсами",
     "Générateur à roues pour rats"
   ],
-  "Each live adolescent or older rat provides 2 kJ to each charging slot per night. Eight rats reach the nightly limit of 16 kJ per slot, without exceeding battery capacity. Accepts a cage cleaning robot and has the vanilla feeder slot.": [
-    "Каждая живая крыса подросткового возраста или старше за ночь даёт по 2 кДж на каждое зарядное гнездо. Восемь крыс дают ночной максимум — 16 кДж на гнездо, в пределах ёмкости батареи. В клетку можно поместить робота-уборщика. Предусмотрено гнездо для кормушки.",
-    "Chaque rat vivant, adolescent ou plus âgé, fournit 2 kJ par nuit à chaque emplacement de charge. Avec huit rats, on atteint la limite de 16 kJ par nuit et par emplacement, sans dépasser la capacité de la batterie. La cage accepte un robot nettoyeur et dispose d’un emplacement pour mangeoire."
+  "Keep live rats in the cage and put standard rechargeable batteries in the charging slots. Each live adolescent or older rat provides 2 kJ per slot per night, up to 16 kJ per slot and within battery capacity. The cage accepts a cleaning robot and retains its feeder slot.": [
+    "Держите живых крыс в клетке, а в зарядные отсеки ставьте обычные аккумуляторы. Каждая живая крыса подросткового возраста или старше даёт по 2 кДж на отсек за ночь. Предел — 16 кДж на отсек с учётом ёмкости аккумулятора. В клетку можно поставить робота-уборщика, отсек кормушки сохранён.",
+    "Gardez des rats vivants dans la cage et placez des batteries rechargeables standard dans les logements de charge. Chaque rat adolescent ou plus âgé fournit 2 kJ par logement et par nuit, jusqu’à 16 kJ par logement dans la limite de la capacité de la batterie. La cage accepte un robot nettoyeur et conserve son logement de mangeoire."
   ],
   "Wheels inside the cage, two charging slots outside. Once the batteries are in, the rest is up to the rats.": [
     "В клетке — колёса, снаружи — два зарядных гнезда. Вставьте батареи, а дальше дело за крысами.",
@@ -95,9 +119,9 @@
     "Тонкое металлическое кольцо охватывает корпус шприца.",
     "Un fin anneau métallique entoure le corps de la seringue."
   ],
-  "There seems to be something moving outside the door.": [
-    "Кажется, за дверью что-то шевелится.",
-    "On dirait que quelque chose bouge derrière la porte."
+  "Something is moving inside. Check the main inventory and the back counter.": [
+    "В магазине что-то шевелится. Проверьте основной инвентарь и задний прилавок.",
+    "Quelque chose bouge dans la boutique. Vérifiez le stock principal et le comptoir arrière."
   ],
   "Doreen": [
     "Дорин",
@@ -843,6 +867,14 @@
     "Сегодня закупаешься?",
     "Tu refais ton stock aujourd’hui ?"
   ],
+  "Just here to look around and check what you're cleared to sell. Looks good so far. I brought a couple of boxes of rubber rounds. No permit needed for those. Interested?": [
+    "Я сегодня просто заглянул, посмотреть, чем тебе можно торговать. Пока всё выглядит неплохо. Принёс пару коробок патронов с резиновыми пулями. На них разрешение не нужно. Возьмёшь?",
+    "Je passe juste voir les lieux et vérifier ce que tu peux vendre. Ça m’a l’air pas mal. J’ai apporté deux boîtes de cartouches à balles en caoutchouc. Pas besoin de permis pour ça. Ça t’intéresse ?"
+  ],
+  "You'll need the right sales permit for the guns I brought today. For now, just have a look.": [
+    "На оружие, которое я сегодня принёс, нужно соответствующее разрешение на продажу. Пока можешь просто посмотреть.",
+    "Il te faut le bon permis de vente pour les armes que j’ai apportées aujourd’hui. Pour l’instant, tu peux regarder."
+  ],
   "Standard live rounds require a Class I ammunition sales permit.": [
     "Для продажи обычных боевых патронов нужно разрешение I класса на продажу боеприпасов.",
     "Les cartouches ordinaires à balles réelles exigent un permis de vente de munitions de classe I."
@@ -1519,9 +1551,13 @@
     "Меня послал Один.",
     "Odin m’envoie."
   ],
-  "I take anything, cash. Don't expect top price.": [
-    "Беру всё, плачу наличными. Больших денег не жди.",
-    "Je prends de tout, en liquide. T’attends pas à en tirer un bon prix."
+  "I take anything, cash. Just make sure it checks out.": [
+    "Беру всё, плачу наличными. Только товар должен пройти проверку.",
+    "Je prends de tout, en liquide. Assure-toi juste que la marchandise passe le contrôle."
+  ],
+  "The underground buyer caught the fraud and called off the deal. Support points -{0}, Resistance reputation -5.": [
+    "Скупщик раскрыл обман и отменил сделку. Очки поддержки: −{0}, репутация у Сопротивления: −5.",
+    "Le receleur a démasqué la fraude et annulé la vente. Points de soutien : −{0}, réputation auprès de la Résistance : −5."
   ],
   "All chapters: Malice mode on, envoy not gone; checked at opening.": [
     "Для всех глав: включён режим «Корпоративная злоба», посланник ещё не ушёл. Проверяется при открытии магазина.",
@@ -2187,9 +2223,9 @@
     "Мясорубка",
     "Hachoir à viande"
   ],
-  "Load raw meat or nutrifruit and a battery, then press Grind: standard and small cuts become prime mince, morsels become scrap mince, nutrifruit becomes nutrifruit paste. Prime mince takes 275 calories per portion and scrap mince 200, 2 charge each; paste takes 240 calories per portion, 1 charge each.": [
-    "Загрузите сырое мясо или нутрифрукт, вставьте батарею и нажмите «Измельчить». Из стандартных и мелких кусков получается отборный фарш, из обрезков — фарш из обрезков, из нутрифрукта — паста. На порцию отборного фарша нужно 275 ккал, на порцию фарша из обрезков — 200 ккал. Оба расходуют по 2 ед. заряда. Для порции пасты нужно 240 ккал и 1 ед. заряда.",
-    "Chargez de la viande crue ou du nutrifruit, insérez une batterie, puis appuyez sur « Hacher ». Les morceaux de taille normale ou petite donnent du hachis de premier choix, les chutes du hachis de chutes et le nutrifruit de la purée. Une portion de hachis de premier choix nécessite 275 kcal, une portion de hachis de chutes 200 kcal, et chacune consomme 2 unités de charge. Une portion de purée nécessite 240 kcal et 1 unité de charge."
+  "Connect power, load raw meat, suitable fish fillets or nutrifruit, and press Grind. Prime mince takes 275 kcal per portion and scrap mince takes 200 kcal, each using 2 charge by default. Fish mince takes 200 kcal and nutrifruit paste takes 240 kcal per portion, each using 1 charge by default.": [
+    "Подключите питание, загрузите сырое мясо, пригодное рыбное филе или питательный плод и нажмите кнопку измельчения. На порцию отборного фарша нужно 275 ккал, обычного — 200 ккал. Расход по умолчанию — 2 ед. заряда на порцию. На рыбный фарш нужно 200 ккал, на пасту из плодов — 240 ккал. Расход — 1 ед. заряда на порцию.",
+    "Branchez une source d’énergie, chargez de la viande crue, des filets de poisson adaptés ou des nutrifruits, puis lancez le broyage. Une portion de hachis de choix demande 275 kcal, et une portion de hachis ordinaire 200 kcal, à raison de 2 unités de charge par portion par défaut. Une portion de hachis de poisson demande 200 kcal, et une portion de pâte de nutrifruit 240 kcal, à raison de 1 unité de charge."
   ],
   "A commercial grinder issued by Davre. There's still grease on the blades.": [
     "Промышленная мясорубка от «Давре». На лезвиях всё ещё есть жир.",
@@ -2919,13 +2955,13 @@
     "Визиты: {0}",
     "Visites : {0}"
   ],
-  "Load raw meat or nutrifruit and connect a power source, then press Grind. Standard and small cuts make prime mince, and morsels make scrap mince. Prime mince needs 275 kcal per portion and scrap mince needs 200 kcal. Both cost 2 charge per portion.\nNutrifruit paste needs 240 kcal and 1 charge per portion. When space or power runs short, the grinder makes a partial batch and shows the remaining calories under Paste Reserve. Clear the output or restore power and press Grind again. Any reserve under 240 kcal carries over to the next fruit.\nMince from prion-infected meat carries prions too.": [
-    "Загрузите сырое мясо или нутрифрукт, подключите источник питания и нажмите «Измельчить». Из стандартных и мелких кусков получается отборный фарш, из обрезков — фарш из обрезков. На порцию отборного фарша нужно 275 ккал, на порцию фарша из обрезков — 200 ккал. Оба расходуют по 2 ед. заряда на порцию.\nДля порции пасты из нутрифрукта нужно 240 ккал и 1 ед. заряда. При нехватке места или питания мясорубка выдаёт неполную партию, а оставшиеся калории видны в разделе «Запас калорий для пасты». Освободите лоток или восстановите питание, затем снова нажмите «Измельчить». Остаток меньше 240 ккал прибавится к следующему плоду.\nФарш из заражённого прионами мяса тоже содержит прионы.",
-    "Chargez de la viande crue ou du nutrifruit, branchez une source d’alimentation, puis appuyez sur « Hacher ». Les morceaux de taille normale ou petite donnent du hachis de premier choix et les chutes donnent du hachis de chutes. Une portion de hachis de premier choix nécessite 275 kcal, une portion de hachis de chutes 200 kcal, et chacune consomme 2 unités de charge.\nUne portion de purée de nutrifruit nécessite 240 kcal et 1 unité de charge. Si la place ou la charge vient à manquer, le hachoir produit un lot partiel et affiche les calories restantes sous « Réserve pour la purée ». Videz le bac de sortie ou rétablissez l’alimentation, puis appuyez à nouveau sur « Hacher ». Tout reste inférieur à 240 kcal s’ajoute au fruit suivant.\nLe hachis de viande infectée par des prions en contient lui aussi."
+  "Load raw meat, suitable fish fillets or nutrifruit, connect power, then press Grind. Standard and small cuts make prime mince, and morsels make scrap mince. Prime mince takes 275 kcal per portion and scrap mince 200 kcal, at 2 charge each by default. Suitable fillets yield 1 portion of fish mince per 200 kcal, at 1 charge by default.\nNutrifruit yields 1 paste per 240 kcal, at 1 charge by default. After a partial run, unused calories remain in Paste Reserve. Clear the output or restore power and press Grind again. Less than 240 kcal carries over to the next fruit.\nPrions carry over into the product.": [
+    "Загрузите сырое мясо, пригодное рыбное филе или питательный плод, подключите питание и запустите измельчение. Из обычных и мелких кусков мяса получается отборный фарш, из обрезков — обычный. На порцию нужно 275 и 200 ккал соответственно, по 2 ед. заряда по умолчанию. Пригодное филе даёт порцию рыбного фарша за 200 ккал и 1 ед. заряда.\nНа порцию пасты из плодов нужно 240 ккал и 1 ед. заряда. После неполной переработки оставшиеся калории сохраняются в запасе. Освободите выход или восстановите питание и снова запустите измельчение. Остаток менее 240 ккал перейдёт к следующему плоду.\nПрионы попадают в готовый продукт.",
+    "Chargez de la viande crue, des filets de poisson adaptés ou des nutrifruits, branchez une source d’énergie, puis lancez le broyage. Les morceaux normaux et petits donnent du hachis de choix, les chutes du hachis ordinaire. Comptez respectivement 275 et 200 kcal par portion, et 2 unités de charge par défaut. Les filets adaptés donnent une portion de hachis de poisson pour 200 kcal et 1 unité de charge.\nUne portion de pâte demande 240 kcal et 1 unité de charge. Après un broyage partiel, les calories restantes sont mises en réserve. Libérez de la place en sortie ou rétablissez l’alimentation, puis relancez le broyage. Un reste de moins de 240 kcal s’ajoute au prochain fruit.\nLes prions se retrouvent dans le produit."
   ],
-  "Load: put mince in the mince tray, nutrifruit paste in the paste tray, and an energy cell in the battery slot. Whole nutrifruit must be ground into paste first.\nModes:\nSynthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat\nFresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat\nCans overnight, 2 batches by default, using 8 charge. Mince for the other mode stays in the tray. Stops when the output is full.\n[Module effects]:\nEfficiency affects power use\nPerformance affects batches per night (and uses more ingredients)\nQuality has no effect": [
-    "Загрузка. Положите фарш и пасту из нутрифрукта в соответствующие лотки, а энергоячейку — в слот батареи. Цельный нутрифрукт сначала измельчите в пасту.\nРежимы:\n«Синтетика»: 3 порции пасты из нутрифрукта + 1 порция фарша из обрезков → 4 банки «Торфа»\n«Свежее мясо»: 2 порции отборного фарша + 1 порция пасты из нутрифрукта → 1 банка мясных консервов\nКонсервирует за ночь, по умолчанию 2 партии за 8 ед. заряда. Фарш для другого режима остаётся в лотке. При заполнении лотка готовой продукции машина останавливается.\n[Действие модулей]\nЭффективность влияет на расход энергии\nПроизводительность влияет на число партий за ночь и расход сырья\nКачество ни на что не влияет",
-    "Chargement. Mettez le hachis et la purée de nutrifruit dans leurs bacs respectifs, et une cellule d’énergie dans l’emplacement de batterie. Les nutrifruits entiers doivent d’abord être réduits en purée.\nModes :\nSynthétique : 3 portions de purée de nutrifruit + 1 portion de hachis de chutes → 4 boîtes de Tourbe\nViande fraîche : 2 portions de hachis de premier choix + 1 portion de purée de nutrifruit → 1 boîte de viande fraîche\nLa mise en conserve se fait la nuit, par défaut 2 lots pour 8 unités de charge. Le hachis réservé à l’autre mode reste dans le bac. La machine s’arrête lorsque le bac de sortie est plein.\n[Effets des modules]\nL’efficacité influe sur la consommation d’énergie\nLa performance influe sur le nombre de lots par nuit et la consommation d’ingrédients\nLa qualité est sans effet"
+  "Load mince and nutrifruit paste in their trays, connect power and select a mode. Grind whole nutrifruit into paste first.\nSynthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat.\nFresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat.\nUp to 2 batches per night by default, using 8 charge per run. The output tray must fit the whole batch. Mince for the other mode stays in the tray.\nCheck Production checks the current setup. Last cycle reports the latest result since loading the save.\nPerformance modules add batches. Efficiency modules reduce power use.": [
+    "Загрузите фарш и пасту из плодов в соответствующие отсеки, подключите питание и выберите режим. Целые плоды сначала измельчите в пасту.\nСинтетический: 3 порции пасты + 1 порция обычного фарша → 4 банки «Торфа».\nСвежий: 2 порции отборного фарша + 1 порция пасты → 1 банка свежего мяса.\nПо умолчанию до 2 партий за ночь, 8 ед. заряда за запуск. На выходе должно хватать места на всю партию. Фарш для другого режима остаётся в отсеке.\nПроверка производства оценивает текущие условия. Последний цикл показывает результат с момента загрузки сохранения.\nМодули производительности увеличивают число партий, модули эффективности снижают расход заряда.",
+    "Placez le hachis et la pâte de nutrifruit dans leurs bacs, branchez une source d’énergie et choisissez un mode. Broyez les nutrifruits entiers au préalable.\nSynthétique : 3 portions de pâte + 1 portion de hachis ordinaire → 4 boîtes de Tourbe.\nFrais : 2 portions de hachis de choix + 1 portion de pâte → 1 boîte de viande fraîche.\nJusqu’à 2 lots par nuit par défaut, pour 8 unités de charge par cycle. Le bac de sortie doit pouvoir recevoir le lot entier. Le hachis de l’autre mode reste dans son bac.\nVérifier la production contrôle les conditions actuelles. Dernier cycle indique le dernier résultat depuis le chargement de la sauvegarde.\nLes modules de performance augmentent le nombre de lots. Les modules d’efficacité réduisent la consommation."
   ],
   "Load: put metal ingots in the ingot tray (High purity or better; check with a magnifier or flashlight) and an energy cell in the battery slot.\nForging: each night 1 ingot becomes 1 forged billet, 2 per night by default, using 15 charge.\n[Module effects]:\nEfficiency affects power use\nPerformance affects billets per night (and uses more ingots)\nQuality has no effect": [
     "Загрузка. Положите металлические слитки в лоток для слитков. Нужна высокая чистота или выше, её можно проверить лупой или фонариком. Вставьте энергоячейку в слот батареи.\nКовка. За ночь из каждого слитка получается 1 кованая заготовка, по умолчанию 2 заготовки за 15 ед. заряда.\n[Действие модулей]\nЭффективность влияет на расход энергии\nПроизводительность влияет на число заготовок за ночь и расход слитков\nКачество ни на что не влияет",
@@ -2935,17 +2971,17 @@
     "Загрузка. Положите кованые заготовки в лоток, ёмкость с водой — в закалочную ванну, а энергоячейку — в слот батареи.\nКовка. Выберите модель и нажмите «Ковать». На кинжал нужна 1 заготовка, на саблю — 2, на мачете — 3. На заготовку уходит 100 мл воды и 6 ед. заряда.\nЗакалка. Состояние клинка зависит от качества воды.\nЧистая → Новое\nВысшего качества → Отличное\nБазового качества → Хорошее\nПризрачная, ржавая → Удовлетворительное\nИз стоков → Плохое\nКлинки в отличном или лучшем состоянии считаются предметами роскоши.",
     "Chargement. Mettez les ébauches forgées dans leur bac, un récipient d’eau dans le bac de trempe et une cellule d’énergie dans l’emplacement de batterie.\nForgeage. Choisissez un modèle et appuyez sur « Forger ». Une dague nécessite 1 ébauche, un sabre 2 et une machette 3. Chaque ébauche consomme 100 mL d’eau et 6 unités de charge.\nTrempe. La qualité de l’eau détermine l’état de la lame.\nEau pure → Neuf\nEau supérieure → Excellent\nEau standard → Bon\nEau spectrale ou rouillée → Passable\nEau de caniveau → Mauvais\nUne lame en état excellent ou supérieur compte comme objet de luxe."
   ],
-  "Load: put tobacco leaves in the leaf tray and an energy cell in the battery slot.\nRoll: press Roll. Each leaf becomes 2 loose cigarettes on the spot, using 5 charge per leaf; it stops when the charge runs out.\nNote: loose cigarettes are contraband.": [
-    "Загрузка. Положите табачные листья в лоток, а энергоячейку — в слот батареи.\nСкрутка. Нажмите «Скрутить». Из каждого листа сразу получается 2 самокрутки за 5 ед. заряда. Когда заряд кончается, машинка останавливается.\nСамокрутки считаются контрабандой.",
-    "Chargement. Placez les feuilles de tabac dans leur bac et une cellule d’énergie dans l’emplacement de batterie.\nRoulage. Appuyez sur « Rouler ». Chaque feuille donne aussitôt 2 cigarettes en vrac et consomme 5 unités de charge. La rouleuse s’arrête quand la charge est épuisée.\nLes cigarettes en vrac sont de la contrebande."
+  "Load tobacco leaves, connect power, then press Roll. Each leaf makes 2 loose cigarettes on the spot for 5 charge by default. Rolling stops when power or output space runs out.\nLoose cigarettes are contraband.": [
+    "Загрузите табачные листья, подключите питание и запустите скрутку. Из каждого листа сразу получается 2 сигареты россыпью, по умолчанию за 5 ед. заряда. Скрутка останавливается, когда не хватает заряда или места на выходе.\nСигареты россыпью считаются контрабандой.",
+    "Chargez les feuilles de tabac, branchez une source d’énergie, puis lancez le roulage. Chaque feuille donne aussitôt 2 cigarettes en vrac pour 5 unités de charge par défaut. La machine s’arrête si la charge ou la place en sortie manque.\nLes cigarettes en vrac sont de la contrebande."
   ],
-  "Load: put loose cigarettes in the cigarette tray (up to 12) and an energy cell in the battery slot.\nPackaging: each night, 3 cigarettes are sealed into 1 genuine pack of Hemingways, 2 packs per night by default, using 8 charge.\nLimited: with a Hemingway label stamp in the label slot, packs come out as Limited Edition, using 1 stamp use each.\n[Module effects]:\nEfficiency affects power use\nPerformance affects packs per night (and uses more cigarettes)\nQuality has no effect": [
-    "Загрузка. Положите самокрутки в лоток для сигарет (до 12 шт.), а энергоячейку — в слот батареи.\nУпаковка. За ночь машина запечатывает по 3 сигареты в настоящую пачку «Хемингуэй», по умолчанию 2 пачки за 8 ед. заряда.\nОграниченная серия. Если в слоте для этикеток стоит штамп «Хемингуэй», пачки выпускаются ограниченной серией. На каждую пачку расходуется 1 применение штампа.\n[Действие модулей]\nЭффективность влияет на расход энергии\nПроизводительность влияет на число пачек за ночь и расход сигарет\nКачество ни на что не влияет",
-    "Chargement. Placez les cigarettes en vrac dans leur bac (12 au maximum) et une cellule d’énergie dans l’emplacement de batterie.\nEmballage. Chaque nuit, la machine scelle 3 cigarettes par paquet authentique de Hemingway, par défaut 2 paquets pour 8 unités de charge.\nÉdition limitée. Si un tampon d’étiquette Hemingway est installé, les paquets sortent en édition limitée. Chaque paquet consomme 1 utilisation du tampon.\n[Effets des modules]\nL’efficacité influe sur la consommation d’énergie\nLa performance influe sur le nombre de paquets par nuit et la consommation de cigarettes\nLa qualité est sans effet"
+  "Load loose cigarettes, connect power and wait overnight. Every 3 loose cigarettes make 1 pack of Hemingways. It makes up to 2 packs per night by default, using 8 charge per run.\nA Hemingway stamp in the label slot makes Limited Edition packs and uses 1 stamp charge per pack.\nPerformance modules add packs. Efficiency modules reduce power use.": [
+    "Загрузите сигареты россыпью, подключите питание и оставьте машину на ночь. Каждые 3 сигареты дают 1 пачку «Хемингуэй». По умолчанию до 2 пачек за ночь, 8 ед. заряда за запуск.\nШтамп «Хемингуэй» в отсеке этикеток даёт пачки ограниченной серии. На пачку тратится одно применение штампа.\nМодули производительности увеличивают число пачек, модули эффективности снижают расход заряда.",
+    "Chargez les cigarettes en vrac, branchez une source d’énergie et attendez le lendemain. Chaque groupe de 3 cigarettes donne 1 paquet de Hemingway. Jusqu’à 2 paquets par nuit par défaut, pour 8 unités de charge par cycle.\nUn tampon Hemingway dans le logement à étiquette permet de produire des paquets en édition limitée. Chaque paquet consomme une utilisation.\nLes modules de performance augmentent le nombre de paquets. Les modules d’efficacité réduisent la consommation."
   ],
-  "Load: put a container of isomer solution in the solution slot and an energy cell in the battery slot.\nReact: each night it makes one dose by purity, using 30 ml of isomer per dose.\n97%+ → Rejuvenation Serum\n88%+ → Implant Compatibility Agent\n60%+ → Isomer Repair Gel\nFor refining, see the Silver Blood Refining Handbook.\n[Module effects]:\nEfficiency affects power use\nPerformance affects speed\nQuality counts half toward speed": [
-    "Загрузка. Поставьте ёмкость с раствором изомера в слот для раствора, а энергоячейку — в слот батареи.\nРеакция. За ночь получается одна доза в зависимости от чистоты. На дозу нужно 30 мл изомера.\nОт 97% → омолаживающая сыворотка\nОт 88% → препарат для совместимости с имплантатами\nОт 60% → изомерный восстанавливающий гель\nПорядок очистки описан в руководстве по очистке серебряной крови.\n[Действие модулей]\nЭффективность влияет на расход энергии\nПроизводительность влияет на скорость\nВлияние качества на скорость учитывается наполовину",
-    "Chargement. Placez un récipient de solution d’isomère dans l’emplacement prévu et une cellule d’énergie dans l’emplacement de batterie.\nRéaction. Chaque nuit, le réacteur produit une dose selon la pureté. Il faut 30 mL d’isomère par dose.\nÀ partir de 97 % → sérum de rajeunissement\nÀ partir de 88 % → agent de compatibilité des implants\nÀ partir de 60 % → gel réparateur d’isomère\nPour le raffinage, consultez le Guide de raffinage du sang d’argent.\n[Effets des modules]\nL’efficacité influe sur la consommation d’énergie\nLa performance influe sur la vitesse\nLa qualité compte pour moitié dans le calcul de la vitesse"
+  "Load a container of activated isomer solution, connect power and wait overnight. Each dose needs 30 mL of isomer in the solution. Up to 1 dose per night by default, using 8 charge per run.\n97%+ → Rejuvenation Serum\n88%+ → Implant Compatibility Agent\n60%+ → Isomer Repair Gel\nSee the Silver Blood Refining Handbook for refining. Efficiency modules reduce power use. Performance affects speed, and quality counts half toward speed.": [
+    "Загрузите ёмкость с раствором активированного изомера, подключите питание и оставьте реактор на ночь. Для дозы требуется 30 мл изомера в растворе. По умолчанию до 1 дозы за ночь, 8 ед. заряда за запуск.\nОт 97% → сыворотка омоложения\nОт 88% → средство совместимости имплантов\nОт 60% → изомерный восстанавливающий гель\nОчистка описана в руководстве по серебряной крови. Модули эффективности снижают расход заряда. Производительность повышает скорость, а качество учитывается с коэффициентом ½.",
+    "Chargez un récipient de solution d’isomère activé, branchez une source d’énergie et attendez le lendemain. Chaque dose demande 30 mL d’isomère dans la solution. Jusqu’à 1 dose par nuit par défaut, pour 8 unités de charge par cycle.\n97 % ou plus → sérum de rajeunissement\n88 % ou plus → agent de compatibilité des implants\n60 % ou plus → gel réparateur isomère\nConsultez le manuel de raffinage du sang argenté. Les modules d’efficacité réduisent la consommation. La performance influe sur la vitesse, et la qualité compte pour moitié."
   ],
   "画面 / Display": [
     "Экран",
@@ -3843,9 +3879,9 @@
     "Сегодня уже заказывали.",
     "Commande déjà passée aujourd’hui."
   ],
-  "The grinder handles raw meat, nutrifruit and fish fillets. The canner makes Peat and fresh meat cans. The seafood sealer makes crab sticks and canned fish.": [
-    "Мясорубка перемалывает сырое мясо, нутрифрукт и рыбное филе. Консервная машина делает «Торф» и консервы из свежего мяса. Упаковочная машина делает крабовые палочки и рыбные консервы.",
-    "Le hachoir traite la viande crue, le nutrifruit et les filets de poisson. La sertisseuse produit des conserves de Tourbe et de viande fraîche. La conditionneuse produit des bâtonnets saveur crabe et du poisson en conserve."
+  "Press Grind to process raw meat, nutrifruit or suitable fish fillets. The canner makes Peat or fresh meat cans overnight. The sealer has Crab Stick, Canned Fish and Galaxy Blend modes.": [
+    "Измельчитель по кнопке перерабатывает сырое мясо, питательные плоды и пригодное рыбное филе. Консервная машина за ночь делает «Торф» или консервы из свежего мяса. У упаковщика три режима: крабовые палочки, рыбные консервы и галактическая смесь.",
+    "Le broyeur traite sur commande la viande crue, les nutrifruits et les filets de poisson adaptés. La sertisseuse produit de la Tourbe ou des conserves de viande fraîche pendant la nuit. La scelleuse propose trois modes : bâtonnets de crabe, poisson en conserve et mélange galactique."
   ],
   "List price, delivered tomorrow, no limit.": [
     "Цена по каталогу, доставка завтра, без лимита.",
@@ -3895,9 +3931,9 @@
     "Цена за шт. {0}₵",
     "Prix unitaire {0}₵"
   ],
-  "Workshop-built machines & custom parts. List prices; delivery tomorrow.": [
-    "Машины и модификации из мастерской. Цены по каталогу, доставка завтра.",
-    "Machines et pièces modifiées fabriquées à l’atelier. Prix catalogue, livraison demain."
+  "Workshop-built machines & custom parts. Delivery tomorrow.": [
+    "Машины и модификации из мастерской. Доставка завтра.",
+    "Machines et pièces modifiées fabriquées à l’atelier. Livraison demain."
   ],
   "Place order": [
     "Сделать заказ",
@@ -4070,6 +4106,18 @@
   "Pay {0}₵": [
     "Заплатить {0}₵",
     "Payer {0}₵"
+  ],
+  "Pay in full ({0}₵)": [
+    "Погасить долг полностью ({0}₵)",
+    "Régler la totalité ({0}₵)"
+  ],
+  "There is no aid balance due.": [
+    "Долга по субсидии нет.",
+    "Il ne reste rien à rembourser sur l’aide."
+  ],
+  "Finish the repayment conversation at the counter first.": [
+    "Сначала закончите разговор о выплате у прилавка.",
+    "Terminez d’abord la discussion sur le remboursement au comptoir."
   ],
   "Pay Zacchaeus {0}₵, then 1000₵ to make peace on the Resistance's line: the Resistance is back in touch (no more underground buyers) and your corporate perks stay.": [
     "Заплатите Закхею {0}₵, затем 1000₵ по линии Сопротивления за примирение. Сопротивление возобновит связь, а льготы корпораций сохранятся. Подпольные скупщики больше не придут.",
@@ -4419,9 +4467,9 @@
     "Лаборатории нужны товары ниже. Список обновляется раз в {0} дн. Пригласите закупщика, и он придёт на следующий день.",
     "Le laboratoire a besoin des articles ci-dessous. La liste change tous les {0} jours. Réservez un acheteur et il passera le lendemain."
   ],
-  "Black Gold Members may claim one bottle of SYNC Neuroactive Perfume every {0} days, hand-delivered the next day.": [
-    "Участники со статусом «Чёрное золото» могут получить флакон нейроактивных духов SYNC каждые {0} дн. Курьер доставит на следующий день.",
-    "Les membres Or noir peuvent recevoir un flacon de parfum neuroactif SYNC tous les {0} jours. Livraison en main propre le lendemain."
+  "Black Gold Members may claim one bottle of Pheromone Perfume every {0} days, hand-delivered the next day.": [
+    "Участники со статусом «Чёрное золото» могут получить флакон духов с феромонами каждые {0} дн. Курьер доставит на следующий день.",
+    "Les membres Or noir peuvent recevoir un flacon de parfum aux phéromones tous les {0} jours. Livraison en main propre le lendemain."
   ],
   "The Mentor: ": [
     "Наставник: ",

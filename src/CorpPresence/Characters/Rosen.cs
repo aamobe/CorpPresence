@@ -186,17 +186,18 @@ internal sealed class Rosen : Character
 		{
 		case 1:
 		{
+			string round = SaleBlocked(Ammo) == null ? Ammo : AmmoNL;
 			Visit visit = new Visit();
-			visit.Lines = new string[4]
+			visit.Lines = new string[3]
 			{
 				L.T("子午线兵工，罗森。", "Meridian Ballistics. Rosen."),
-				L.T("子午线致力于生产标准化军用机械<i>（官方腔调）</i>。", "Meridian is committed to manufacturing standardized military machinery. <i>(in an official tone)</i>"),
 				Character.Act(L.T("拿出一把哨兵3型给你看", "takes out a Sentinel Mk. III to show you"), ""),
-				AmmoTerms
+				round == AmmoNL
+					? L.T("今天就是过来看看，确认一下你这边的资格。看着还不错。我带了几盒橡胶弹，这个不用证。要吗？", "Just here to look around and check what you're cleared to sell. Looks good so far. I brought a couple of boxes of rubber rounds. No permit needed for those. Interested?")
+					: AmmoTerms
 			};
 			visit.Exit = Bye;
 			visit.Discount = Disc;
-			string round = SaleBlocked(Ammo) == null ? Ammo : AmmoNL;
 			visit.Stock = new[] { Sentinel, round, round };
 			return LicensedOffer(visit);
 		}
@@ -256,8 +257,10 @@ internal sealed class Rosen : Character
 		string[] requirements = visit.Stock.Select(SaleBlocked).Where(reason => reason != null).Distinct().ToArray();
 		if (requirements.Length == 0) return visit;
 		visit.Stock = visit.Stock.Where(id => SaleBlocked(id) == null).ToArray();
-		visit.Lines = visit.Lines.Concat(requirements).ToArray();
 		visit.TalkOnly = visit.Stock.Length == 0;
+		visit.Lines = visit.TalkOnly
+			? visit.Lines.Append(L.T("今天带来的枪得有对应的售卖许可才能卖。你先看看就行。", "You'll need the right sales permit for the guns I brought today. For now, just have a look.")).ToArray()
+			: visit.Lines.Concat(requirements).ToArray();
 		return visit;
 	}
 

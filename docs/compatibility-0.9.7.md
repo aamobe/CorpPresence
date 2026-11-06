@@ -8,6 +8,8 @@
 
 ## Neon Undertow
 
+以下是 0.9.7compat 的历史行为。当前源码已撤除该钩子。
+
 针对本地检查的 0.15.9，在 `WaterSellerPack.NeonFish.Fish(GameItem)` 上增加可选前置钩子，只有 `FISH_CORP_SILVERBLOOD` 被排除。其余物种保留原判断。可选挂载延后至运行时首帧，避免公司先加载时查找不到稍后加载的 Neon。兼容钩子与公司 Harmony 实例一起卸载；类型缺失时跳过，接口变化或挂载异常时记录警告，不阻止公司启动。不修改第三方磁盘文件、既有基因或全局水缓存；对方其他独立规则不由此钩子接管。
 
 ## 回收范围
@@ -18,6 +20,6 @@
 
 - `tools/RestorationChecks/State/run.py`：30 项状态及配送检查，游戏接口替身。
 - `dotnet run --project tools/ShopInventoryChecks/Checks.csproj -c Release`：7 项回收边界检查，游戏接口替身。
-- `tools/NeonCompatibilityChecks/run.ps1`：6 项可选兼容检查，使用游戏 Harmony，在 .NET Framework 进程中对测试接口挂钩，验证只排除本物种、其他物种保留、卸载恢复和无 Neon 情形。
+- 0.9.7compat 曾使用游戏 Harmony 执行 6 项可选兼容检查；旧检查已随钩子移除。
 
 尚未完成实际游戏联合验证。新增 `reflection-external` 权限仅为可选跨 Mod 兼容钩子，更新应替换 DLL 和清单两个文件。

@@ -77,7 +77,7 @@ internal static partial class Engine
 					if (!visitSession.IsCurrent) return;
 					if (v.Extra.Length != 0)
 					{
-						TopUp(c, v.Extra, num2, v.Stock.Length);
+						TopUp(c, v.Extra, num2, v.Stock.Length, v.RequireExtra);
 					}
 					if (!visitSession.IsCurrent) return;
 					if (v.Buy || v.Both)
@@ -176,7 +176,8 @@ internal static partial class Engine
 			dialogue2.NextDialogue().SetText(c.Name, v.Exit).SetEndAction(endAction);
 		}
 		client.mainDialogue = dialogue;
-		if (!v.Both)
+		// A buying visit uses the game's post-deal dialogue until its budget runs out.
+		if (!v.Both && !v.Buy)
 		{
 			client.acceptDealDialogue = Exit(c, v.Exit, visitSession);
 		}

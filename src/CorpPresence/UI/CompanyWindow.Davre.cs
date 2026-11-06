@@ -160,7 +160,7 @@ internal static partial class CompanyWindow
 	{
 		Theme theme = _theme;
 		DavreCo c = (DavreCo)_company;
-		GUI.Label(new Rect(r.x, r.y, r.width, 66f), L.T("绞肉机可处理生肉、营养果和鱼片。罐装机制作泥炭和鲜肉罐头，水产封装机制作风味蟹肉棒和鱼罐头。", "The grinder handles raw meat, nutrifruit and fish fillets. The canner makes Peat and fresh meat cans. The seafood sealer makes crab sticks and canned fish."), theme.Wrap);
+		GUI.Label(new Rect(r.x, r.y, r.width, 66f), L.T("绞肉机按按钮加工生肉、营养果和合格鱼片。罐装机过夜制作泥炭或鲜肉罐头。封装机有蟹肉棒、鱼罐头和繁星果糊三档。", "Press Grind to process raw meat, nutrifruit or suitable fish fillets. The canner makes Peat or fresh meat cans overnight. The sealer has Crab Stick, Canned Fish and Galaxy Blend modes."), theme.Wrap);
 		float num = r.y + 76f;
 		if (!DavreCo.CanningOpen && !DavreCo.CanningOffered)
 		{

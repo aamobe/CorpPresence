@@ -157,12 +157,9 @@ internal static partial class Canning
 			W = 2,
 			H = 3,
 			Shell = BuildGrinder,
-			OnNew = (GameItem m) =>
-			{
-				Tobacco.AddManual(m, GrinderManual);
-			},
-			Desc = "放进生肉或营养果、插上电池，按“绞碎”当场绞好：标准、小块生肉出精肉糜，碎块、小碎块出杂肉糜，营养果出营养果糊。精肉糜每 275 热量 1 份，杂肉糜每 200 热量 1 份，每份耗 2 电；营养果糊每 240 热量 1 份，每份耗 1 电。",
-			DescEn = "Load raw meat or nutrifruit and a battery, then press Grind: standard and small cuts become prime mince, morsels become scrap mince, nutrifruit becomes nutrifruit paste. Prime mince takes 275 calories per portion and scrap mince 200, 2 charge each; paste takes 240 calories per portion, 1 charge each.",
+			Manual = GrinderManual,
+			Desc = "接好电源，放入生肉、合格鱼片或营养果，按「绞碎」当场加工。精肉糜每 275 千卡出 1 份，杂肉糜每 200 千卡出 1 份，各默认耗 2 电。鱼肉糜每 200 千卡出 1 份，营养果糊每 240 千卡出 1 份，各默认耗 1 电。",
+			DescEn = "Connect power, load raw meat, suitable fish fillets or nutrifruit, and press Grind. Prime mince takes 275 kcal per portion and scrap mince takes 200 kcal, each using 2 charge by default. Fish mince takes 200 kcal and nutrifruit paste takes 240 kcal per portion, each using 1 charge by default.",
 			Flavor = "达夫雷下发的商用绞肉机。刀口上还有没擦干净的油。",
 			FlavorEn = "A commercial grinder issued by Davre. There's still grease on the blades."
 		},
@@ -178,13 +175,9 @@ internal static partial class Canning
 			Types = new string[1] { "MACHINE" },
 			W = 3,
 			H = 3,
-			// Keep the pre-remaster footprint when art alpha changes.
-			Shape = "##.|###|###",
+			Shape = "###|###|###",
 			Shell = BuildCanner,
-			OnNew = (GameItem m) =>
-			{
-				Tobacco.AddManual(m, CannerManual);
-			},
+			Manual = CannerManual,
 			Desc = "放进肉糜和营养果糊、插上电池，每晚封罐，默认每晚 2 批，耗 8 电。合成档：3 营养果糊 + 1 杂肉糜 → 4 罐“泥炭”。鲜肉档：2 精肉糜 + 1 营养果糊 → 1 罐鲜肉罐头。性能模组多做批次（也多用原料），效率模组省电。",
 			DescEn = "Load mince, nutrifruit paste and a battery; it cans overnight, 2 batches per night by default, using 8 charge. Synthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat. Fresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat. Performance modules run more batches (using more ingredients); efficiency modules save power.",
 			Flavor = "达夫雷为了和帕斯泰尔抢食品市场，下发给小店的商用封罐设备。",
@@ -193,10 +186,10 @@ internal static partial class Canning
 	};
 
 	private static (string Zh, string En) GrinderManual => (
-		Zh: "把生肉或营养果放进原料槽，接上电源，再按「绞碎」。标准、小块生肉出精肉糜，碎块、小碎块出杂肉糜。精肉糜每 275 千卡出 1 份，杂肉糜每 200 千卡出 1 份，各耗 2 电。\n营养果糊每 240 千卡出 1 份，耗 1 电。槽位或电量不足时，果糊分批产出，剩余热量保存在机器里，可在「果糊热量储存」查看。取走成品或补充电量后，再按「绞碎」即可继续。不足 240 千卡的零头会与下次放入的果子合算。\n带朊病毒的肉绞出的肉糜也带朊病毒。",
-		En: "Load raw meat or nutrifruit and connect a power source, then press Grind. Standard and small cuts make prime mince, and morsels make scrap mince. Prime mince needs 275 kcal per portion and scrap mince needs 200 kcal. Both cost 2 charge per portion.\nNutrifruit paste needs 240 kcal and 1 charge per portion. When space or power runs short, the grinder makes a partial batch and shows the remaining calories under Paste Reserve. Clear the output or restore power and press Grind again. Any reserve under 240 kcal carries over to the next fruit.\nMince from prion-infected meat carries prions too.");
+		Zh: "把生肉、合格鱼片或营养果放进原料槽，接好电源，再按「绞碎」。标准、小块生肉出精肉糜，碎块、小碎块出杂肉糜。精肉糜每 275 千卡出 1 份，杂肉糜每 200 千卡出 1 份，各默认耗 2 电。合格鱼片每 200 千卡出 1 份鱼肉糜，默认耗 1 电。\n营养果每 240 千卡出 1 份果糊，默认耗 1 电。只要已产出果糊，因电量或空间不足而没用完的热量就会存入「果糊热量储存」。取走成品或补电后，再按「绞碎」可继续。不足 240 千卡的零头留到下一次。\n带朊病毒的原料会污染成品。",
+		En: "Load raw meat, suitable fish fillets or nutrifruit, connect power, then press Grind. Standard and small cuts make prime mince, and morsels make scrap mince. Prime mince takes 275 kcal per portion and scrap mince 200 kcal, at 2 charge each by default. Suitable fillets yield 1 portion of fish mince per 200 kcal, at 1 charge by default.\nNutrifruit yields 1 paste per 240 kcal, at 1 charge by default. After a partial run, unused calories remain in Paste Reserve. Clear the output or restore power and press Grind again. Less than 240 kcal carries over to the next fruit.\nPrions carry over into the product.");
 
-	private static (string Zh, string En) CannerManual => (Zh: "放入：把肉糜放进肉糜槽、营养果糊放进果糊槽，把能量电池放进电池槽。整个的营养果要先用绞肉机绞成果糊。\n档位：\n合成档：3 营养果糊 + 1 杂肉糜 → 4 罐“泥炭”\n鲜肉档：2 精肉糜 + 1 营养果糊 → 1 罐鲜肉罐头\n每晚封罐，默认 2 批，耗 8 电。不对档的肉糜留在槽里不动。成品槽放满就停。\n[模组影响]：\n效率影响功耗\n性能影响每晚批数（也多用原料）\n质量无影响", En: "Load: put mince in the mince tray, nutrifruit paste in the paste tray, and an energy cell in the battery slot. Whole nutrifruit must be ground into paste first.\nModes:\nSynthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat\nFresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat\nCans overnight, 2 batches by default, using 8 charge. Mince for the other mode stays in the tray. Stops when the output is full.\n[Module effects]:\nEfficiency affects power use\nPerformance affects batches per night (and uses more ingredients)\nQuality has no effect");
+	private static (string Zh, string En) CannerManual => (Zh: "把肉糜和营养果糊放入对应槽位，接好电源并选档。整个营养果要先绞成果糊。\n合成档：3 份营养果糊 + 1 份杂肉糜 → 4 罐泥炭。\n鲜肉档：2 份精肉糜 + 1 份营养果糊 → 1 罐鲜肉罐头。\n默认每晚最多 2 批，启动耗 8 电。每批都要有空间放下整批成品。不对档的肉糜留在槽里。\n「检查生产条件」检查当前条件。「最近结算」显示本次读档后最近一轮的结果。\n性能模组增加批次，效率模组降低耗电。", En: "Load mince and nutrifruit paste in their trays, connect power and select a mode. Grind whole nutrifruit into paste first.\nSynthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat.\nFresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat.\nUp to 2 batches per night by default, using 8 charge per run. The output tray must fit the whole batch. Mince for the other mode stays in the tray.\nCheck Production checks the current setup. Last cycle reports the latest result since loading the save.\nPerformance modules add batches. Efficiency modules reduce power use.");
 
 	public static int KcalOf(string minceId)
 	{
@@ -327,6 +320,7 @@ internal static partial class Canning
 		input.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(item) && MinceOf(item) != null;
 		output.mayInventoryAddItemFunc = (GameItem _, GameInventory _) => false;
 		MachineUpgrade.Attach(machine, 1, input, output);
+		MachineAppearance.WatchOutput(machine, output);
 		void RefreshReserve()
 		{
 			long kcal = StoredFruitKcal(machine);
@@ -396,8 +390,8 @@ internal static partial class Canning
 					if (num6 == 0)
 						ProductionNotice(L.T("可以绞碎。首份原料不足以产出一份，余量会累计。", "Ready to grind. The first input adds to the stored remainder."));
 					else
-						CheckFirstOutput(output, () => MakeMince(text, mixed, prion),
-							L.T($"首份原料可产出 {num6} 份，需 {num6 * num} 电。已确认成品槽能放入首件。", L.Translate((System.FormattableString)$"The first input yields {num6} portions for {num6 * num} charge. The tray fits the first item.")));
+						CheckOutput(output, () => MakeMince(text, mixed, prion),
+							L.T($"首份原料可产出 {num6} 份，需 {num6 * num} 电。成品槽能放下这些成品。", L.Translate((System.FormattableString)$"The first input yields {num6} portions for {num6 * num} charge. The tray fits all of them.")), num6);
 					return;
 				}
 				List<GameItem> list = new List<GameItem>();
@@ -477,7 +471,7 @@ internal static partial class Canning
 			if (portions == 0)
 				ProductionNotice(L.T($"共 {total:N0} 千卡。未满 240 千卡的热量会储存起来。", L.Translate((System.FormattableString)$"{total:N0} kcal total. The grinder stores any remainder under 240 kcal.")));
 			else
-				CheckFirstOutput(output, () => MakeMince(PasteId, "", prion),
+				CheckOutput(output, () => MakeMince(PasteId, "", prion),
 					L.T($"热量够做 {portions:N0} 份果糊，每份耗 {power} 电。成品槽能放下首份，本次产量视空间和电量而定。",
 						L.Translate((System.FormattableString)$"Calories for {portions:N0} portions at {power} charge each. The first fits. Batch size depends on space and power.")));
 			return false;
@@ -654,6 +648,16 @@ internal static partial class Canning
 		{
 			Can(machine, battery, modules, mince, fruit, output, report: text => lastResult = text);
 		};
+		MachineAppearance.WatchCycle(machine, output, () =>
+		{
+			bool isFresh = IsFresh(machine);
+			Recipe recipe = isFresh ? Fresh : Synthetic;
+			return MachineAppearance.CanPowerCycle(machine, battery, "CORP_CAN_CARRY_INT") &&
+				mince.childItems.Count(item => item?.identifier == recipe.Mince) >= recipe.MinceN &&
+				fruit.childItems.Count(item => item?.identifier == PasteId) >= recipe.FruitN
+				? isFresh ? CanId : "processed_meat"
+				: null;
+		}, () => IsFresh(machine) ? Fresh.OutN : Synthetic.OutN);
 		return machine;
 	}
 
@@ -668,6 +672,7 @@ internal static partial class Canning
 		{
 			s.Enable().SetBool(on);
 		});
+		MachineAppearance.Rearm(machine);
 	}
 
 	private static void Can(GameItem machine, GameSlotInventory battery, GameGridInventory modules, GameInventory mince, GameInventory fruit, GameInventory output, bool inspect = false, Action<string> report = null)
@@ -695,7 +700,7 @@ internal static partial class Canning
 				else if (!PowerHelper.CanDrawPowerSource(battery.childItem, power))
 					ProductionNotice(L.T($"需要可供 {power} 电的电源。", L.Translate((System.FormattableString)$"A power source with {power} charge is required.")));
 				else
-					CheckFirstOutput(output, r.Make, L.T($"原料和速度支持 {batches} 批，需 {power} 电。已确认成品槽能放入首件。", L.Translate((System.FormattableString)$"Inputs and speed support {batches} batches for {power} charge. The tray fits the first item.")));
+					CheckOutput(output, r.Make, L.T($"原料和速度最多支持 {batches} 批，本次需 {power} 电。成品槽能放下首批。", L.Translate((System.FormattableString)$"Inputs and speed allow up to {batches} batches for {power} charge. The tray fits the first batch.")), r.OutN);
 				return;
 			}
 			if (batches <= 0)
@@ -764,7 +769,7 @@ internal static partial class Canning
 
 	private static void ProductionNotice(string message) => StoreUIManager.Instance?.Notify(message);
 
-	private static void CheckFirstOutput(GameInventory output, Func<GameItem> make, string ready)
+	private static void CheckOutput(GameInventory output, Func<GameItem> make, string ready, int count = 1)
 	{
 		var product = make();
 		if (product == null)
@@ -772,16 +777,18 @@ internal static partial class Canning
 			ProductionNotice(L.T("成品尚未就绪。", "The product is unavailable."));
 			return;
 		}
-		var previous = output.mayInventoryAddItemFunc;
 		try
 		{
 			GeneralHelper.SetItemOwned(product);
-			output.mayInventoryAddItemFunc = (_, _) => true;
-			ProductionNotice(GraphUtils.CanAccept(output, product) ? ready : L.T("成品槽空间不足。", "The output tray is full."));
+			if (MachineAppearance.CanFitOutput(output, product, count))
+				ProductionNotice(ready);
+			else if (count == 1)
+				ProductionNotice(L.T("成品槽空间不足。", "The output tray is full."));
+			else
+				ProductionNotice(L.T($"成品槽放不下这批的 {count} 件成品。", L.Translate((System.FormattableString)$"The tray cannot fit all {count} items from this batch.")));
 		}
 		finally
 		{
-			output.mayInventoryAddItemFunc = previous;
 			product.Destroy();
 		}
 	}

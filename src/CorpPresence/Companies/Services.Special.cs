@@ -123,9 +123,7 @@ internal static partial class Services
 		Order order;
 		try
 		{
-			string item = Engine.Any("neuroactive_perfume", "@elixir", "@mask");
-			if (string.IsNullOrEmpty(item)) return L.T("赠礼暂未就绪", "Gift not ready");
-			order = new Order { Day = Day + 1, Kind = "gift", Items = new List<string> { item } };
+			order = new Order { Day = Day + 1, Kind = "gift", Items = new List<string> { "pheromone_perfume" } };
 		}
 		catch { return L.T("赠礼暂未就绪", "Gift not ready"); }
 		companyState.Orders.Add(order);

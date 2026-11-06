@@ -47,6 +47,7 @@ internal static class Hooks
 		Patch<StoreClientManager>(h, "GenerateClient", typeFromHandle, null, "AfterGenerateClient");
 		Patch<PlayerStore>(h, "GetNextClient", typeFromHandle, "BeforeNextClient");
 		Patch<GameItem>(h, "GetNegociatedValue", typeFromHandle, null, "AfterNegociatedValue");
+		Patch<StoreClient>(h, nameof(StoreClient.ClientExposeFeature), typeof(Malice.Rebels), nameof(Malice.Rebels.BeforeClientExposeFeature), null, new[] { typeof(GameItem) });
 		Patch<StoreClient>(h, "OnItemSold", typeFromHandle, null, "AfterClientSold", new Type[2]
 		{
 			typeof(GameItem),
@@ -67,6 +68,17 @@ internal static class Hooks
 		Patch<PhoneUIManager>(h, "WillAnswerCall", typeFromHandle, null, "AfterWillAnswer", new Type[1] { typeof(long) });
 		Patch<PhoneUIManager>(h, "HandleCall", typeFromHandle, "BeforeHandleCall", null, new Type[1] { typeof(long) });
 		Patch<StorePhoneClient>(h, "GetLocalizedDisplayName", typeFromHandle, null, "AfterPhoneName");
+		Patch<DialoguePhoneUIManager>(h, nameof(DialoguePhoneUIManager.DisplayClientText), typeof(PhoneDialogueLayout),
+			postfix: nameof(PhoneDialogueLayout.AfterClientText), args: new[] { typeof(Dialogue) });
+		Patch<DialoguePhoneUIManager>(h, nameof(DialoguePhoneUIManager.DisplayerPlayerText), typeof(PhoneDialogueLayout),
+			postfix: nameof(PhoneDialogueLayout.AfterPlayerText), args: new[] { typeof(Dialogue) });
+		Patch<DialogUIManager>(h, nameof(DialogUIManager.ScaleByDialogSpeed), typeof(ReadingPace),
+			postfix: nameof(ReadingPace.AfterDialoguePause), args: new[] { typeof(float) });
+		Patch<StoreUIManager>(h, "GetLocaleSpeedMultiplier", typeof(ReadingPace), postfix: nameof(ReadingPace.AfterTypewriterSpeed));
+		Patch<ReputationUIManager>(h, nameof(ReputationUIManager.Notify), typeof(ReadingPace),
+			postfix: nameof(ReadingPace.AfterNotification), args: new[] { typeof(string), typeof(string) });
+		Patch<ReputationUIManager>(h, nameof(ReputationUIManager.NotifyReputation), typeof(ReadingPace),
+			postfix: nameof(ReadingPace.AfterNotification), args: new[] { typeof(string), typeof(int) });
 		Patch<GameItemElement>(h, "ResolveSpriteByName", typeFromHandle, "BeforeResolveSprite", null, new Type[1] { typeof(string) });
 		Patch<GameItemElement>(h, "ResolveItemSprite", typeFromHandle, "BeforeResolveItemSprite");
 		Patch<SpriteDict>(h, "GetSprite", typeFromHandle, "BeforeGetSprite", null, new Type[1] { typeof(string) });
@@ -106,6 +118,8 @@ internal static class Hooks
 		});
 		Patch(h, AccessTools.Method(typeof(ChemicalHelper), "HandleTemperatureReaction", new Type[1] { typeof(GameItem) }), "ChemicalHelper.HandleTemperatureReaction", typeof(SilverBlood), null, "AfterTemperatureReaction");
 		Patch<MaterialDirectory>(h, "MetalIngot", typeof(MachineUpgrade), null, "AfterMakeIngot");
+		Patch<MachineHelper>(h, nameof(MachineHelper.GetBodyStorage), typeof(Canning), null, nameof(Canning.AfterMachineBodyStorage),
+			new[] { typeof(GameItem), typeof(int) });
 		Patch<MaterialDirectory>(h, "Electronic", typeof(MachineUpgrade), null, "AfterMakeElectronic");
 		Patch<HealthData>(h, "IsSentinel", typeof(SilverBlood), null, "AfterIsSentinel");
 		Patch<StartingPerk>(h, "IsSentinel", typeof(SilverBlood), null, "AfterIsSentinel");
@@ -359,6 +373,14 @@ internal static class Hooks
 	{
 		try
 		{
+#if PREVIEW_ART
+			Sprite appearance = MachineAppearance.SpriteOverride(__instance);
+			if (appearance != null)
+			{
+				__result = appearance;
+				return false;
+			}
+#endif
 			return BeforeResolveSprite(__instance?.spritePath, ref __result);
 		}
 		catch
@@ -717,6 +739,7 @@ internal static class Hooks
 			{
 				Guard("读档后配送箱清理绑定", Crates.RebindLoaded);
 				Guard("清理旧药品的纯度特征", ItemTags.RemoveRestoredMedicinePurity);
+				Guard("修复旧物品占格", Goods.RestoreLegacyFootprints);
 				Guard("读档后定制刀分类", Forge.AfterStoreLoaded);
 			});
 			Guard("读档后公司物品修复", LoadedItemRepair.Tick);

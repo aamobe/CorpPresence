@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using CorpPresence.UI;
 
 namespace CorpPresence.Malice;
@@ -229,7 +230,7 @@ internal static class Rebels
 			string text = L.T("地下买家", "Underground Buyer");
 			StoreClient storeClient = new StoreClient
 			{
-				identifier = "malice_fence",
+				identifier = FenceId,
 				displayName = text,
 				spriteName = SpriteDict.GetRandomRevSpriteName(),
 				clientFaction = "FACTION_REVOLUTION",
@@ -243,10 +244,11 @@ internal static class Rebels
 				num = (int)((double)num * 1.5);
 			}
 			storeClient.SetBudget(num);
-			storeClient.mainDialogue.SetText(text, L.T("奥丁让我来的。", "Odin sent me.")).NextDialogue().SetText(text, L.T("什么都收，现钱。价钱别指望太高。", "I take anything, cash. Don't expect top price."));
+			storeClient.mainDialogue.SetText(text, L.T("奥丁让我来的。", "Odin sent me.")).NextDialogue().SetText(text, L.T("什么都收，现钱。货得经得起查。", "I take anything, cash. Just make sure it checks out."));
 			storeClient.clientBuyingTagList.Add("ALL_TYPE");
+			storeClient.canClientExposeFeature = ClientCanExposeFunc.TradeBoardExposeCapacity;
 			storeClient.AddBasicDialog();
-			storeClient.CompleteClientCreation();
+			storeClient.CompleteClientCreation(true);
 			return storeClient;
 		}
 		catch (Exception ex)
@@ -254,6 +256,52 @@ internal static class Rebels
 			ModLog.Warn("地下买家生成失败：" + ex.Message);
 			return null;
 		}
+	}
+
+	public static bool BeforeClientExposeFeature(StoreClient __instance, GameItem __0)
+	{
+		if (!Malice.On || __instance.identifier != FenceId)
+			return true;
+
+		var store = PlayerStore.Instance;
+		var visitor = store?.currentClientInstance;
+		if (visitor == null || !ReferenceEquals(visitor.GetClientBlueprint(), __instance)
+			|| !__instance.clientBuyingTagList.Contains("ALL_TYPE") || __0 == null)
+			return false;
+
+		foreach (ItemFeature feature in __0.itemFeatures)
+		{
+			if (!__instance.CanClientExposeThisFeature(feature))
+				continue;
+
+			// Stop accepting goods immediately, including the rest of a bulk sale.
+			// The same buyer can inspect several items before the placement call returns.
+			__instance.clientBuyingTagList.Remove("ALL_TYPE");
+			DialogUIManager.Instance.StartCoroutine(LeaveAfterInspection(() =>
+			{
+				if (ReferenceEquals(PlayerStore.Instance, store) && ReferenceEquals(store.currentClientInstance, visitor))
+					store.DismissCurrentClient(callNextWhenPossible: false);
+			}));
+
+			var state = MaliceState.Get();
+			int lost = state == null ? 0 : Math.Min(20, Math.Max(0, state.RebelPoints));
+			if (state != null)
+				state.RebelPoints -= lost;
+			StoreReputation.ModReputationRaw(Faction, -5);
+			feature.ExposeFeature(lowkey: true, playBad: true);
+			Notify(L.T($"地下买家识破了造假，终止交易。助力点 -{lost}，反抗军声望 -5。",
+				L.Translate((FormattableString)$"The underground buyer caught the fraud and called off the deal. Support points -{lost}, Resistance reputation -5.")));
+			break;
+		}
+		// Vanilla exposure charges reputation for each feature and resumes bargaining.
+		return false;
+	}
+
+	private static IEnumerator LeaveAfterInspection(Action leave)
+	{
+		// The base game still uses the active visitor after the inspection returns.
+		yield return null;
+		leave();
 	}
 
 	public static StoreClient SpawnVisitor(Company c, string kind)

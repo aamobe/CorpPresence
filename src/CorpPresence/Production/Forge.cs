@@ -125,17 +125,19 @@ internal static class Forge
 			NameEn = "Precision Forge",
 			Value = 400L,
 			Company = "forge",
-			Art = "forge_furnace",
 			Fallback = "furnace",
 			Types = new string[1] { "MACHINE" },
+#if PREVIEW_ART
+			Art = "forge_furnace_open",
+			W = 3,
+			H = 3,
+#else
+			Art = "forge_furnace",
 			W = 2,
 			H = 2,
-			Shape = "##|##",
+#endif
 			Shell = BuildFurnace,
-			OnNew = (GameItem m) =>
-			{
-				Tobacco.AddManual(m, FurnaceManual);
-			},
+			Manual = FurnaceManual,
 			Desc = "放进高纯度以上的金属锭、插上电池，每晚把 1 块锭炼成 1 块精锻钢胚，默认每晚 2 块，耗 15 电。性能模组多炼（也多用锭），效率模组省电。",
 			DescEn = "Load high-purity or better metal ingots and a battery. Each night it turns 1 ingot into 1 forged billet, 2 per night by default, using 15 charge. Performance modules make more (using more ingots); efficiency modules save power.",
 			Flavor = "罗森的旧炉子。炉膛里的火一夜都不灭。",
@@ -154,10 +156,7 @@ internal static class Forge
 			H = 2,
 			Shape = "###|###",
 			Shell = BuildAnvil,
-			OnNew = (GameItem m) =>
-			{
-				Tobacco.AddManual(m, AnvilManual);
-			},
+			Manual = AnvilManual,
 			Desc = "放进精锻钢胚、水箱里放装水的容器，选好款式按“锻造”：短刀 1 块、军刀 2 块、砍刀 3 块钢胚，每块用水 100 毫升、耗 6 电。水越干净，刀的成色越好。",
 			DescEn = "Load forged billets and a water container, pick a style and press Forge: 1 billet for a dagger, 2 for a saber, 3 for a machete; 100 ml of water and 6 charge per billet. The cleaner the water, the better the blade.",
 			Flavor = "机械锻锤压着铁砧，旁边挂着一只淬火水槽。",
@@ -320,6 +319,9 @@ internal static class Forge
 		{
 			Smelt(machine, battery, modules, input, output);
 		};
+		MachineAppearance.WatchCycle(machine, output, () =>
+			input.childItems.Any(IsGoodIngot) && MachineAppearance.CanPowerCycle(machine, battery, CarryTag)
+				? "corp_presence_forged_billet" : null);
 		return machine;
 	}
 

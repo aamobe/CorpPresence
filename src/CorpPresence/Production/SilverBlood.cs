@@ -210,10 +210,7 @@ internal static partial class SilverBlood
 			H = 3,
 			Shape = "###|###|###",
 			Shell = BuildReactor,
-			OnNew = (GameItem m) =>
-			{
-				Tobacco.AddManual(m, ReactorManual);
-			},
+			Manual = ReactorManual,
 			Desc = "放进装着活化异构蛋白溶液的容器、插上电池，每晚按纯度做成药：97% 以上回春药剂，88% 以上义体兼容剂，60% 以上异构修复凝胶。每份用 30 毫升异构蛋白，默认每晚 1 份，耗 8 电。",
 			DescEn = "Load a container of activated isomer solution and a battery. Each night it turns it into medicine by purity: 97%+ Rejuvenation Serum, 88%+ Implant Compatibility Agent, 60%+ Isomer Repair Gel. 30 ml of isomer per dose, 1 dose per night by default, using 8 charge.",
 			Flavor = "实验室的密封反应釜，玻璃釜身里是银色的液体。",
@@ -340,7 +337,7 @@ internal static partial class SilverBlood
 		}
 	}
 
-	private static (string Zh, string En) ReactorManual => (Zh: "放入：把装着异构蛋白溶液的容器放进溶液槽，把能量电池放进电池槽。\n反应：每晚按纯度做一份药，每份用 30 毫升异构蛋白。\n97% 以上 → 回春药剂\n88% 以上 → 义体兼容剂\n60% 以上 → 异构修复凝胶\n提纯步骤见《银血提纯手册》。\n[模组影响]：\n效率影响功耗\n性能影响速度\n质量按一半折算成速度", En: "Load: put a container of isomer solution in the solution slot and an energy cell in the battery slot.\nReact: each night it makes one dose by purity, using 30 ml of isomer per dose.\n97%+ → Rejuvenation Serum\n88%+ → Implant Compatibility Agent\n60%+ → Isomer Repair Gel\nFor refining, see the Silver Blood Refining Handbook.\n[Module effects]:\nEfficiency affects power use\nPerformance affects speed\nQuality counts half toward speed");
+	private static (string Zh, string En) ReactorManual => (Zh: "把装有活化异构蛋白溶液的容器放进溶液槽，接好电源，等待过夜。每份药需要溶液中含有 30 毫升异构蛋白。默认每晚最多 1 份，启动耗 8 电。\n97% 以上 → 回春药剂\n88% 以上 → 义体兼容剂\n60% 以上 → 异构修复凝胶\n提纯见《银血提纯手册》。效率模组降低耗电。性能影响速度，质量按一半折算成速度。", En: "Load a container of activated isomer solution, connect power and wait overnight. Each dose needs 30 mL of isomer in the solution. Up to 1 dose per night by default, using 8 charge per run.\n97%+ → Rejuvenation Serum\n88%+ → Implant Compatibility Agent\n60%+ → Isomer Repair Gel\nSee the Silver Blood Refining Handbook for refining. Efficiency modules reduce power use. Performance affects speed, and quality counts half toward speed.");
 
 	private static GameItem Empty()
 	{

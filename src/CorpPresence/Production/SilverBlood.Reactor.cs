@@ -40,6 +40,16 @@ internal static partial class SilverBlood
 		{
 			React(machine, battery, modules, tank, output);
 		};
+		MachineAppearance.WatchCycle(machine, output, () =>
+		{
+			GameItem solution = tank.childItem;
+			if (solution == null || IsomerMl(solution) < 30 ||
+				!MachineAppearance.CanPowerCycle(machine, battery, "CORP_SB_REACTOR_CARRY_INT",
+					Math.Max(0, ModuleHelper.GetAjustedQuality(machine)) / 2))
+				return null;
+			string product = ProductFor(Purity(solution));
+			return product == null ? null : "corp_presence_" + product;
+		});
 		return machine;
 	}
 

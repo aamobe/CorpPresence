@@ -134,7 +134,7 @@ internal static partial class CompanyWindow
 	{
 		Theme theme = _theme;
 		CompanyState state = State;
-		GUI.Label(new Rect(r.x, r.y, r.width, 60f), (L.En ? L.Translate((System.FormattableString)$"Black Gold Members may claim one bottle of SYNC Neuroactive Perfume every {SolanaCo.GiftPeriod} days, hand-delivered the next day.") : $"黑金会员每 {SolanaCo.GiftPeriod} 天可领取一瓶“同步”神经活性香水，次日专人送达。"), theme.Wrap);
+		GUI.Label(new Rect(r.x, r.y, r.width, 60f), (L.En ? L.Translate((System.FormattableString)$"Black Gold Members may claim one bottle of Pheromone Perfume every {SolanaCo.GiftPeriod} days, hand-delivered the next day.") : $"黑金会员每 {SolanaCo.GiftPeriod} 天可领取一瓶费洛蒙香水，次日专人送达。"), theme.Wrap);
 		bool flag = Services.GiftReady(state);
 		bool enabled = GUI.enabled;
 		GUI.enabled = flag;

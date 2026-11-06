@@ -1,0 +1,23 @@
+公司增强 CorpPresence 0.9.8fix2
+
+- 配送前按配送箱实际尺寸检查柜台空间。暂时放不下或无法生成的货物保留在订单里。
+- 收购物品的公司访客首轮成交后继续按原版收购流程交易。
+- 逃逸的银血三叶蜥优先放入主库存，必要时放入可存档的后柜台。入库后才标记已发放。
+- 封装机正确识别原版模组槽。补全三个档位的配方提示。罐装机合成档的检查会确认成品槽能否容纳首批四罐。
+- 绞肉机补齐鱼片加工和果糊余量说明。同步机器说明纸条和游玩流程。
+- 体力增强剂明确占 4×1。旧档相邻格可用时补齐占格。
+- 瑟琳日常来访带 1–2 瓶香水，其余商品沿用按价格补货的规则。
+- 撒该电话支持一次还清剩余扶持金。地下买家识破造假后会终止交易。
+- 放慢柜台文字和对话节奏，延长顶部及公司面板提示的停留时间。电话正文气泡按可用宽度换行。
+
+CorpPresence 0.9.8fix2
+
+- Couriers check whether the actual crate fits. Orders are retained when goods cannot be placed or created.
+- Company buyers use the normal trade flow after the first deal.
+- Escaped Silverblood specimens are delivered to the main inventory or the saved back counter and only marked delivered after placement.
+- The sealer recognizes its vanilla module bay. All three modes show their recipes. The canner checks space for all four cans in the first Synthetic batch.
+- Updated grinder instructions for fish fillets and the paste reserve, along with machine manuals and the player guide.
+- The stamina booster occupies 4×1. Existing boosters recover the missing cell on load when space permits.
+- Seline brings one or two perfumes on daily visits, alongside goods selected by the existing price rules.
+- The remaining aid balance can be paid in full by calling Zacchaeus. Underground buyers end the transaction if they detect fraud.
+- Slower counter text and dialogue pacing, longer notices, and wrapping for phone dialogue.

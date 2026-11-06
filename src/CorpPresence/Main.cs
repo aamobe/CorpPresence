@@ -8,10 +8,15 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-#if WATER_TRACE
-    public const string Version = "0.9.8-watertrace";
+#if PREVIEW_ART
+    private const string ReleaseVersion = "0.9.8fix2-preview";
 #else
-    public const string Version = "0.9.8";
+    private const string ReleaseVersion = "0.9.8fix2";
+#endif
+#if WATER_TRACE
+    public const string Version = ReleaseVersion + "-watertrace";
+#else
+    public const string Version = ReleaseVersion;
 #endif
     public const string DisplayName = "CorpPresence";
     private Harmony _harmony;
@@ -62,6 +67,7 @@ public class Main : IMod
         _runtime.Own(Noop, Tex.ReleaseUi);
         _runtime.Own(Noop, Theme.ResetCachedFont);
         _runtime.Own(Noop, Portraits.ResetSceneReferences);
+        _runtime.Own(Noop, PhoneDialogueLayout.Reset);
         _runtime.Own(Noop, Notebook.Destroy);
         _runtime.Own(Noop, InputShield.Destroy);
         _runtime.Own(Noop, CompanyWindow.ReleaseUi);
@@ -103,7 +109,7 @@ public class Main : IMod
         _host = new GameObject("CorpPresence_Host");
         Object.DontDestroyOnLoad(_host);
         _host.hideFlags = HideFlags.HideAndDontSave;
-        _host.AddComponent<Host>().Configure(_harmony);
+        _host.AddComponent<Host>();
     }
 
     private void DestroyHost()

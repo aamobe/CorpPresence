@@ -55,6 +55,19 @@ internal static partial class Canning
 
     private static bool IsWaterContainer(GameItem item) => item != null && item.IsTag("LIQUID_CONTAINER_TAG");
 
+    internal static void AfterMachineBodyStorage(GameItem machine, int index, ref GraphNodeStorage __result)
+    {
+        if (index == 1 && Goods.IdOf(machine) == "seafood_sealer" &&
+            machine.contentWindow?.childElement is MachineryPanelRow row)
+        {
+            // The base game uses storage 1 for module operations. Keep the saved
+            // panel order intact and resolve the sealer's module panel by role.
+            var storage = new System.Collections.Generic.List<GraphNodeStorage>();
+            row.GetPanel("module")?.CollectStorage(storage);
+            if (storage.Count == 1 && storage[0] is GameGridInventory bay) __result = bay;
+        }
+    }
+
     private static GameItem BuildSeafoodSealer()
     {
         var battery = new GameSlotInventory();
@@ -69,18 +82,23 @@ internal static partial class Canning
             if (!on || machine == null) return;
             machine.DisableTag(FishModeTag);
             machine.DisableTag(GalaxyModeTag);
-        });
+            MachineAppearance.Rearm(machine);
+        }).SetDescription(L.T("4 份鱼肉糜 + 100 毫升基础水或更高档的水 → 1 份风味蟹肉棒。需放入可复用的 3D 打印耗材。",
+            "4 fish mince + 100 mL of Basewater or better → 1 crab stick. Requires reusable printer plastic."));
         var fish = new MachineryRadioButton(L.T("鱼罐头档", "Canned Fish"), false, on =>
         {
             if (!on || machine == null) return;
             machine.EnableTag(FishModeTag);
             machine.DisableTag(GalaxyModeTag);
-        });
+            MachineAppearance.Rearm(machine);
+        }).SetDescription(L.T("1 条已宰杀、未切片的亚成年普通罗非鱼 + 100 毫升基础水或更高档的水 → 1 罐鱼罐头。",
+            "1 dead, whole adolescent common tilapia + 100 mL of Basewater or better → 1 can of fish."));
         var galaxy = new MachineryRadioButton(L.T("繁星果糊档", "Galaxy Blend"), false, on =>
         {
             if (!on || machine == null) return;
             machine.DisableTag(FishModeTag);
             machine.EnableTag(GalaxyModeTag);
+            MachineAppearance.Rearm(machine);
         }).SetDescription(L.T("1 份营养果糊 → 1 份繁星果糊（无需水或耗材）",
             "1 nutrifruit paste → 1 Galaxy Blend (no water or printer plastic)"));
         new MachineryRadioGroup().Add(crab).Add(fish).Add(galaxy);
@@ -120,6 +138,18 @@ internal static partial class Canning
             try { RunSealer(machine, battery.childItem, modules, water.childItem, ingredients, plastic, output, inspect: false); }
             catch (Exception error) { ModLog.Warn("水产封装结算失败：" + error); }
         };
+        MachineAppearance.WatchCycle(machine, output, () =>
+        {
+            if (!MachineAppearance.CanPowerCycle(machine, battery, SealerCarryTag)) return null;
+            if (machine.IsTag(GalaxyModeTag))
+                return TakeIngredients(ingredients, item => item.identifier == PasteId, 1, null) ? "galaxy_blend" : null;
+            if (!CanUseSealerWater(water.childItem)) return null;
+            if (machine.IsTag(FishModeTag))
+                return TakeIngredients(ingredients, IsWholeTilapia, 1, null) ? "corp_presence_fish_can" : null;
+            return plastic.childItem?.identifier == "printer_plastic" &&
+                TakeIngredients(ingredients, item => item.identifier == FishMinceId, 4, null)
+                ? "corp_presence_crab_stick" : null;
+        });
         return machine;
     }
 
@@ -130,7 +160,7 @@ internal static partial class Canning
         {
             if (item == null || item.unitCount <= 0 || !GeneralHelper.IsItemOwned(item) || !accepts(item)) continue;
             int taken = Math.Min(count, item.unitCount);
-            batch.Add((item, taken));
+            batch?.Add((item, taken));
             count -= taken;
             if (count == 0) return true;
         }
@@ -170,6 +200,12 @@ internal static partial class Canning
         }
     }
 
+    private static bool HasSealerWaterVolume(GameItem water) =>
+        IsWaterContainer(water) && WaterHelper.GetTotalVolume(water) >= WaterMl * 1000;
+
+    private static bool CanUseSealerWater(GameItem water) =>
+        HasSealerWaterVolume(water) && WaterFeatureHelper.GetPurityArrayIndex(WaterHelper.GetWaterPurity(water)) <= 2;
+
     private static string SealBatch(GameItem machine, GameItem battery, int power, GameItem water,
         GameInventory ingredients, GameSlotInventory plastic, GameInventory output, bool inspect, out bool sealedBatch)
     {
@@ -196,7 +232,7 @@ internal static partial class Canning
 
         if (usesWater)
         {
-            if (!IsWaterContainer(water) || WaterHelper.GetTotalVolume(water) < WaterMl * 1000)
+            if (!HasSealerWaterVolume(water))
                 return L.T("需要一个装有至少 100 毫升水的容器。", "Load a container with at least 100 mL of water.");
             if (WaterFeatureHelper.GetPurityArrayIndex(WaterHelper.GetWaterPurity(water)) > 2)
                 return L.T("水质须为基础水或更高档。", "Use Basewater or better.");

@@ -190,9 +190,12 @@ internal static class Envoy
 			}
 			else if (AidCorps.Any((string id) => !Malice.Subscribed(Companies.Find(id))))
 			{
+				string lapsed = string.Join(", ", AidCorps.Select(Companies.Find)
+					.Where(company => !Malice.Subscribed(company)).Select(company => company.Name));
 				s.Aid = "repay5";
 				s.RepayLeft = AidRepayWeeks;
 				s.RepayDue = Day + 7;
+				ModLog.Info($"恶意巨企：第 {Day} 天扶持金转还款，订购服务已到期：{lapsed}");
 				Notify(L.T($"帕斯泰尔或卡迈克尔的订阅断了。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", L.Translate((System.FormattableString)$"Your Pastel or Carmicheal subscription lapsed. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks.")));
 			}
 		}
@@ -514,6 +517,7 @@ internal static class Envoy
 				GiveItem("friend_medal");
 			});
 		case "repay":
+			if (s.Aid != "repay5" && s.Aid != "plan6") return null;
 			return Talk(kind, name, Sprite, new string[1] { L.T($"这周的 {Installment}₵。", L.Translate((System.FormattableString)$"This week's {Installment}₵.")) }, L.T($"还剩 {s.RepayLeft} 期。", L.Translate((System.FormattableString)$"{s.RepayLeft} installment(s) left.")), new (string, string, Action)[2]
 			{
 				Opt(L.T($"给你 {Installment}₵。", L.Translate((System.FormattableString)$"Here's {Installment}₵.")), L.T("合作愉快。", "A pleasure."), PayInstallment),
@@ -684,6 +688,7 @@ internal static class Envoy
 	{
 		EnvoyState s = S;
 		s.Aid = "done";
+		s.RepayLeft = 0;
 		s.RepayDue = -1;
 		s.LateWeeks = 0;
 		if (!s.Medal)
@@ -694,6 +699,31 @@ internal static class Envoy
 	}
 
 	public static int RepaymentPlanWeeks(EnvoyState state) => Math.Clamp(state.RepayLeft, 0, AidRepayWeeks) + ReplanFeeInstallments;
+
+	public static int PayoffAmount(EnvoyState state) => state?.Aid switch
+	{
+		"repay5" or "plan6" => Math.Clamp(state.RepayLeft, 0, AidRepayWeeks + ReplanFeeInstallments) * Installment,
+		"punished" => RepaymentPlanWeeks(state) * Installment,
+		_ => 0
+	};
+
+	public static string PayOffAid()
+	{
+		EnvoyState state = S;
+		PlayerStore store = Store;
+		int amount = PayoffAmount(state);
+		if (store == null || amount <= 0)
+			return L.T("现在没有待还的扶持金。", "There is no aid balance due.");
+		if (store.currentClientInstance?.GetClientBlueprint()?.identifier == "envoy_repay")
+			return L.T("请先结束柜台上的还款对话。", "Finish the repayment conversation at the counter first.");
+		if (store.GetCash() < amount)
+			return L.T("现金不够", "Not enough cash");
+		store.PayMoney(amount, playRegisterSound: true);
+		FinishRepayment();
+		Done("repay");
+		store.storeClientManager?.clientStack?.RemoveAll(client => client?.identifier == "envoy_repay");
+		return null;
+	}
 
 	public static string AgreePlan()
 	{

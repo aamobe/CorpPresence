@@ -38,6 +38,14 @@ internal static partial class CompanyWindow
 		};
 		GUI.Label(new Rect(rect.x, y, rect.width, 44f), text, theme.Wrap);
 		y += 48f;
+		int payoff = Envoy.PayoffAmount(envoyState);
+		if (payoff > 0)
+		{
+			string label = L.T($"一次还清（{payoff}₵）", L.Translate((FormattableString)$"Pay in full ({payoff}₵)"));
+			if (Ui.Button(new Rect(rect.x, y, 220f, 34f), label, theme.BtnHotStyle))
+				Toast(Envoy.PayOffAid() ?? L.T("已结清。", "Settled."));
+			y += 42f;
+		}
 		if (envoyState.Aid == "punished")
 		{
 			int weeks = Envoy.RepaymentPlanWeeks(envoyState);

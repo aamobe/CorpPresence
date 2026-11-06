@@ -1,0 +1,11 @@
+公司增强 CorpPresence 0.9.8fix
+
+- 各公司电话目录的标价和订货价现按原版规则计入违禁、受限等级加价。开启「事件影响订货」时，两栏也会反映适用的市场事件。地下买家的收购价不变。
+- 调整罗森首访时推介橡胶弹的对白，以及没有可售枪械时的对白。来访条件和供货规则不变。
+- 移除 Neon Undertow 专用兼容钩子和为它声明的外部反射权限。启用 Neon 不会阻止公司增强启动。
+
+CorpPresence 0.9.8fix
+
+- Phone catalogs now include vanilla contraband and restricted-item markups in both list values and order prices. Both columns reflect applicable market events when the order-events setting is enabled. Underground buyer prices are unchanged.
+- Revised Rosen's dialogue when offering rubber rounds on his first visit and when he has no firearms he can sell. Visit requirements and stock rules are unchanged.
+- Removed the Neon Undertow compatibility hook and its external reflection capability. Enabling Neon does not prevent CorpPresence from starting.

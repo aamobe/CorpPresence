@@ -102,6 +102,7 @@ internal static class MachineUpgrade
 				}
 				machine.contentWindow?.Validate();
 				machine.Validate();
+				MachineAppearance.Rearm(machine);
 			}
 		}
 		catch (Exception ex)

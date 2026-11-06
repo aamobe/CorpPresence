@@ -7,7 +7,7 @@ class Company {public string Id="pastel",CharacterId="character",Name="Company";
 class CompanyState {public bool TrafficOn,VipOn,DealerJoined;public int DealerSinceDay;public double WeekSales;public List<Visitor> Visitors=new();public Dictionary<string,int> LimitedBought=new();public List<Order> Orders=new();}
 class Order {public int Day,Cash;public string Kind;public List<string> Items=new();}
 class GameInventory {public List<GameItem> childItems=new();public Func<GameItem,GameInventory,SlotMarker,int> maxSlotAmountItemFunc;public Func<GameItem,GameInventory,bool> mayInventoryAddItemFunc;public Action<GameItem,GameInventory,SlotMarker> onSlotRemoveItemEndFunc;}
-class GameGridInventory:GameInventory {public bool CanTakeAnything()=>true;}
+class GameGridInventory:GameInventory {public bool HasCrateSlot=true;public bool CanTakeAnything()=>true;public SlotMarker TryFindOneValidInventorySlot(GameItem item)=>HasCrateSlot?new SlotMarker():null;}
 class GameItemElement:GameItem {public bool IsDestroyed()=>DestroyCount>0;}
 class GraphNodeStorage {}
 class SlotMarker {}
@@ -15,9 +15,9 @@ class PixelWindow {public GameInventory Inventory;}
 static class DirectoryUtils {public static (PixelWindow,GameInventory) CreateInventoryWindow(int w,int h){var inv=new GameInventory();return (new PixelWindow{Inventory=inv},inv);}}
 static class ItemDirectory {public static GameItem CreateEmptyItem()=>new GameItem();}
 static class Compat {public static T Cast<T>(object value)=>(T)value;}
-static class GraphUtils {public static void EmporiumTryAdd(GameInventory inventory,GameItem item){}public static int Capacity=2;public static bool Stacking,IgnoreDeclaredLimit;public static List<T> FindChildrenType<T>(GraphNodeStorage node)=>new(){(T)(object)((GameItem)node).Inner};public static List<T> FindAllChildrenType<T>(GraphNodeStorage node)=>((GameItem)node).Inner.childItems.Cast<T>().ToList();public static void TryAcceptAll(GameInventory inv,GameItem item){if(Stacking){var cap=IgnoreDeclaredLimit?5:(inv.maxSlotAmountItemFunc?.Invoke(item,inv,null)??5);var target=inv.childItems.FirstOrDefault(x=>x.identifier==item.identifier&&x.unitCount<cap);if(target!=null){target.unitCount+=item.unitCount;item.unitCount=0;return;}}if(inv.childItems.Count>=Capacity)return; inv.childItems.Add(item);item.parentInventory=inv;}}
+static class GraphUtils {public static void EmporiumTryAdd(GameInventory inventory,GameItem item){}public static bool CanAccept(GameInventory inventory,GameItem item)=>inventory.childItems.Count<Capacity;public static int Capacity=2;public static bool Stacking,IgnoreDeclaredLimit;public static List<T> FindChildrenType<T>(GraphNodeStorage node)=>new(){(T)(object)((GameItem)node).Inner};public static List<T> FindAllChildrenType<T>(GraphNodeStorage node)=>((GameItem)node).Inner.childItems.Cast<T>().ToList();public static void TryAcceptAll(GameInventory inv,GameItem item){if(Stacking){var cap=IgnoreDeclaredLimit?5:(inv.maxSlotAmountItemFunc?.Invoke(item,inv,null)??5);var target=inv.childItems.FirstOrDefault(x=>x.identifier==item.identifier&&x.unitCount<cap);if(target!=null){target.unitCount+=item.unitCount;item.unitCount=0;return;}}if(inv.childItems.Count>=Capacity)return; inv.childItems.Add(item);item.parentInventory=inv;}}
 class ItemMouseDragHandler {public static ItemMouseDragHandler current;public bool IsDraggingItem;}
-class EmporiumEntry {public static EmporiumEntry Instance;public GameGridInventory frontInvinvElement;public GameInventory invElement;public List<GameItem> OwnedItems=new();public List<GameItem> GetAllOwnedItems(bool isBurglary=false,bool includeAfterhour=true)=>OwnedItems;}
+class EmporiumEntry {public static EmporiumEntry Instance;public GameGridInventory frontInvinvElement;public GameInventory invElement,backInvinvElement;public List<GameItem> OwnedItems=new();public List<GameItem> GetAllOwnedItems(bool isBurglary=false,bool includeAfterhour=true)=>OwnedItems;}
 class StoreClient {}
 class Client {public StoreClient GetClientBlueprint()=>null;}
 class DialogUIManager {public void CurrentClientLeave(){}}
