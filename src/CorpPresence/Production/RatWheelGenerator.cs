@@ -18,7 +18,9 @@ internal static class RatWheelGenerator
         Shape = "####|####|####",
         Types = new[] { "MACHINE" }, Shell = Build,
         Desc = "每只亚成年及以上的活鼠每晚为两个充电槽各提供 2 kJ。8 只即可让每槽达到每晚 16 kJ 的充电上限，不超过电池自身容量。笼格可放清扫机，并设有原版喂食器槽。",
-        DescEn = "Each live adolescent or older rat provides 2 kJ to each charging slot per night. Eight rats reach the nightly limit of 16 kJ per slot, without exceeding battery capacity. Accepts a cage cleaning robot and has the vanilla feeder slot."
+        DescEn = "Each live adolescent or older rat provides 2 kJ to each charging slot per night. Eight rats reach the nightly limit of 16 kJ per slot, without exceeding battery capacity. Accepts a cage cleaning robot and has the vanilla feeder slot.",
+        Flavor = "笼子里装了跑轮，笼子外接了两个充电槽。电池插好以后，剩下的就看老鼠了。",
+        FlavorEn = "Wheels inside the cage, two charging slots outside. Once the batteries are in, the rest is up to the rats."
     };
 
     private static bool IsRat(GameItem item) =>
@@ -45,7 +47,7 @@ internal static class RatWheelGenerator
         var panels = (MachineryPanelRow)machine.contentWindow.childElement;
         panels.Add(MachineHelper.Panel(L.T("充电槽 1", "Charge slot 1"), first, "rat_charge_1"));
         panels.Add(MachineHelper.Panel(L.T("充电槽 2", "Charge slot 2"), second, "rat_charge_2"));
-        panels.Add(new MachineryPanel(L.T($"每槽每晚最多 {MaxNightlyEnergyPerBattery} kJ", $"Max {MaxNightlyEnergyPerBattery} kJ/slot/night")));
+        panels.Add(new MachineryPanel(L.T($"每槽每晚最多 {MaxNightlyEnergyPerBattery} kJ", L.Translate((System.FormattableString)$"Max {MaxNightlyEnergyPerBattery} kJ/slot/night"))));
         // The center column follows the cage width, so keep the two slots in the side columns.
         panels.SetDisplayOrder(1, 0, 2, 3, 5, 4);
         panels.SetColumns(3);

@@ -35,7 +35,20 @@ new string[6] { "Open-Source Arms", "Back-Alley Pharmacy", "Dock Supplies", "Mut
  private static string _lastExtra;
  private static string[] _lastCombined;
 
- public static string[] Get(int index, bool english) => (english ? English : Chinese)[index];
+ private static readonly System.Lazy<string[][]> Russian = new(() => TranslateEnglish("ru"));
+ private static readonly System.Lazy<string[][]> French = new(() => TranslateEnglish("fr"));
+
+ private static string[][] TranslateEnglish(string locale) =>
+     System.Array.ConvertAll(English, group => System.Array.ConvertAll(group, line => TextTranslations.Select(line, locale)));
+
+ public static string[] Get(int index, bool english)
+ {
+     if (!english) return Chinese[index];
+     string locale = L.Locale;
+     if (locale.StartsWith("ru", System.StringComparison.OrdinalIgnoreCase)) return Russian.Value[index];
+     if (locale.StartsWith("fr", System.StringComparison.OrdinalIgnoreCase)) return French.Value[index];
+     return English[index];
+ }
 
  // Exactly one cached extension. Dynamic labels cannot grow a dictionary.
  public static string[] Append(string[] basis, string extra)

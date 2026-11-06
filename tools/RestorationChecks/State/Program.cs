@@ -49,7 +49,7 @@ static class MeridianCo {public static GameItem MakeNew(string id)=>Goods.Factor
 static class DavreCo {public static GameItem MakePrebuilt(string id)=>Goods.Factory();}
 class SpacerCo:Company {public const int MutualFee=10;public static GameItem MakeGun(string id)=>Goods.Factory();public static string RollModBox()=>"a";}
 static class Settings {public static bool OrderEvents=true,OrderLimits=true,MaliceMode;}
-static class L {public static bool En;public static string T(string zh,string en)=>En?en:zh;}
+static class L {public static bool En;public static string T(string zh,string en)=>En?en:zh;public static string Translate(FormattableString text)=>text.ToString();}
 static class ModLog {public static void Warn(string s){}public static void Info(string s){}}
 static class Ext {public static Func<CatalogEntry,int?> Limit;public static T Ask<T>(string s,Func<T> f,T other)=>f();}
 static class StorePlacement {public static bool Destroyed(GameItem i)=>i.DestroyCount>0;}

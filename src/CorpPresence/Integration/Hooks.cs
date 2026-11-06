@@ -31,6 +31,8 @@ internal static class Hooks
 		Patch<PlayerStore>(h, "SaveGame", typeFromHandle, "BeforeSave");
 		Patch<PlayerStore>(h, "LoadGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(AfterLoadGame));
 		Patch<PlayerStore>(h, "StartNewGame", typeFromHandle, nameof(BeforeStoreTransition), "ResetState");
+		Patch(h, AccessTools.Method(typeof(ModConfigWindow), nameof(ModConfigWindow.Open), new[] { typeof(LoadedMod) }),
+			"ModConfigWindow.Open", typeof(ConfigLocalization), postfix: nameof(ConfigLocalization.AfterOpen));
 #if TESTKIT
 		SaveDiag.Install(h);   // 测试版：存档出错时把出错物品写进日志
 #endif

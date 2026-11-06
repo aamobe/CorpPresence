@@ -299,7 +299,7 @@ internal sealed class Milo : Character
 				L.T("是我，米洛。", "It's me, Milo."),
 				Character.Act(L.T("小声", "quietly"), L.T("店长，我们的香烟生意怕是要黄了。", "Boss, I'm afraid our cigarette business might be finished.")),
 				L.T("上面追查到我这儿了。", "The higher-ups have traced it back to me."),
-				Character.Act(L.T("搓了搓手", "rubs his hands"), L.T($"不过，我认识这片的主管。{PastelCo.Bribe}块，这事就当没发生。", $"But I know the supervisor for this area. {PastelCo.Bribe} credits, and it's like none of this ever happened.")),
+				Character.Act(L.T("搓了搓手", "rubs his hands"), L.T($"不过，我认识这片的主管。{PastelCo.Bribe}块，这事就当没发生。", L.Translate((System.FormattableString)$"But I know the supervisor for this area. {PastelCo.Bribe} credits, and it's like none of this ever happened."))),
 				L.T("不过有条件，之后你的烟也得装进海明威的盒子里。", "There's a condition, though. Your cigarettes will have to go in Hemingway boxes from now on, too.")
 			},
 			Exit = Character.Act(L.T("看了看表", "checks his watch"), L.T("还有三家要跑。", "Three more shops to hit.")),
@@ -308,7 +308,7 @@ internal sealed class Milo : Character
 		};
 		v.Choices = new Choice[2]
 		{
-			new Choice(L.T($"给你，{PastelCo.Bribe}。", $"Here, {PastelCo.Bribe}."), L.T("行。分装机我给你带来了，从今往后，你做的就是正品。", "All right. I've brought you a packaging machine. From now on, what you make is genuine."), () =>
+			new Choice(L.T($"给你，{PastelCo.Bribe}。", L.Translate((System.FormattableString)$"Here, {PastelCo.Bribe}.")), L.T("行。分装机我给你带来了，从今往后，你做的就是正品。", "All right. I've brought you a packaging machine. From now on, what you make is genuine."), () =>
 			{
 				if (PastelCo.PayBribe(deliver: false))
 				{

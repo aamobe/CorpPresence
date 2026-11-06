@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CorpPresence.Malice;
@@ -347,7 +347,7 @@ internal static partial class CompanyVisitors
 			{
 				item = (flag ? "索拉纳生物，专人配送。请签收。" : "帕斯泰尔送货！东西给你放这儿了。");
 			}
-			list2.Add(item);
+			list2.Add(L.Translate(item));
 		}
 		if (orders.Any((Order o) => o.Kind == "swap"))
 		{
@@ -363,11 +363,11 @@ internal static partial class CompanyVisitors
 		}
 		if (num > 0)
 		{
-			list.Add(L.T($"这是这一期的返点，{num}₵。", $"Here's your rebate: {num}₵."));
+			list.Add(L.T($"这是这一期的返点，{num}₵。", L.Translate((System.FormattableString)$"Here's your rebate: {num}₵.")));
 		}
 		if (card)
 		{
-			list.Add(flag3 ? L.T("导师让我带张便签。", "The Mentor asked me to bring you a note.") : L.T((Engine.Find(c.CharacterId)?.Name ?? c.Name) + "让我把名片带给你。", (Engine.Find(c.CharacterId)?.Name ?? c.Name) + " asked me to bring you a card."));
+			list.Add(flag3 ? L.T("导师让我带张便签。", "The Mentor asked me to bring you a note.") : L.T((Engine.Find(c.CharacterId)?.Name ?? c.Name) + "让我把名片带给你。", L.Translate((System.FormattableString)$"{Engine.Find(c.CharacterId)?.Name ?? c.Name} asked me to bring you a card.")));
 		}
 		string text2;
 		if (L.En)
@@ -413,6 +413,7 @@ internal static partial class CompanyVisitors
 		{
 			text2 = (flag ? "<i>（微微欠身）</i>祝您愉快。" : "<i>（点点头）</i>下回见。");
 		}
+		text = L.Translate(text);
 		StoreClient storeClient = new StoreClient
 		{
 			identifier = $"corp_{c.Id}_courier_{Day}",
@@ -434,7 +435,7 @@ internal static partial class CompanyVisitors
 		{
 			dialogue2 = dialogue2.NextDialogue().SetText(text, list[num2]);
 		}
-		Dialogue dialogue3 = dialogue2.NextDialogue().SetText(text, text2);
+		Dialogue dialogue3 = dialogue2.NextDialogue().SetText(text, L.Translate(text2));
 		dialogue2.SetEndAction(CreateDeliveryReceipt(c, s, orders, card));
 		dialogue3.SetEndAction(CreateCourierLeave(storeClient));
 		storeClient.mainDialogue = dialogue;

@@ -169,7 +169,7 @@ internal static partial class CompanyVisitors
 			{
 				StoreUIManager.Instance?.Notify(L.T(
 					$"{company.Name}还有 {pending} 件货未送达，明天再送来。",
-					$"{company.Name} has {pending} items left to deliver tomorrow."));
+					L.Translate((System.FormattableString)$"{company.Name} has {pending} items left to deliver tomorrow.")));
 			}
 			catch { }
 		}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -398,7 +398,7 @@ internal static class Forge
 						s.Enable().SetInt(k);
 					});
 				}
-			}).SetDescription(L.T($"{Blades[i].Billets} 块钢胚，{Blades[i].Billets * 100} 毫升水", $"{Blades[i].Billets} billet(s), {Blades[i].Billets * 100} ml of water"));
+			}).SetDescription(L.T($"{Blades[i].Billets} 块钢胚，{Blades[i].Billets * 100} 毫升水", L.Translate((System.FormattableString)$"{Blades[i].Billets} billet(s), {Blades[i].Billets * 100} ml of water")));
 			machineryRadioGroup.Add(radios[i]);
 		}
 		MachineryButton machineryButton = new MachineryButton(L.T("锻造", "Forge"));
@@ -454,21 +454,21 @@ internal static class Forge
 			List<GameItem> list = input.childItems.Where((GameItem i) => i?.identifier == "corp_presence_forged_billet").ToList();
 			if (list.Count < blade.Billets)
 			{
-				Tell(L.T($"钢胚不够，要 {blade.Billets} 块", $"Not enough billets: need {blade.Billets}"));
+				Tell(L.T($"钢胚不够，要 {blade.Billets} 块", L.Translate((System.FormattableString)$"Not enough billets: need {blade.Billets}")));
 				return;
 			}
 			GameItem childItem = water.childItem;
 			int num = blade.Billets * 100;
 			if (childItem == null || WaterHelper.GetCurrentCapacityML(childItem) < num)
 			{
-				Tell(L.T($"水箱里的水不够，要 {num} 毫升", $"Not enough water in the tank: need {num} ml"));
+				Tell(L.T($"水箱里的水不够，要 {num} 毫升", L.Translate((System.FormattableString)$"Not enough water in the tank: need {num} ml")));
 				return;
 			}
 			GameItem childItem2 = battery.childItem;
 			int num2 = blade.Billets * (6 - MachineUpgrade.PowerCut(machine));
 			if (childItem2 == null || !PowerHelper.CanDrawPowerSource(childItem2, num2))
 			{
-				Tell(L.T($"电量不够，要 {num2} 电", $"Not enough charge: need {num2}"));
+				Tell(L.T($"电量不够，要 {num2} 电", L.Translate((System.FormattableString)$"Not enough charge: need {num2}")));
 				return;
 			}
 			ItemFeatureList.EquipmentCondition equipmentCondition = ConditionOf(WaterFeatureHelper.GetPurityArrayIndex(WaterHelper.GetWaterPurity(childItem)));

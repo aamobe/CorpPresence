@@ -27,7 +27,7 @@ internal static partial class CompanyWindow
 			Ui.Fill(new Rect(20f, 80f, 560f, 4f), theme.Hot);
 			GUI.Label(new Rect(36f, 16f, 520f, 64f), _company.Name + L.T(" · 军械申领表", " · Ordnance Requisition Form"), theme.InvTitle);
 		}
-		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? $"Form MRD-{_company.PhoneNumber}   Day {Day}" : $"表 MRD-{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
+		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? L.Translate((System.FormattableString)$"Form MRD-{_company.PhoneNumber}   Day {Day}") : $"表 MRD-{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
 		Ui.Fill(new Rect(20f, 100f, width - 40f, 2f), theme.Ink);
 		GUI.Label(new Rect(24f, 106f, width - 48f, 22f), L.T("订货处：", "Order desk: ") + _desk, theme.Body);
 		Rect position = new Rect(20f, 136f, 220f, height - 156f);
@@ -40,7 +40,7 @@ internal static partial class CompanyWindow
 			Ui.Image(new Rect(r2.x + 2f, r2.y + 2f, r2.width - 4f, r2.height - 4f), texture2D);
 		}
 		GUI.Label(new Rect(position.x + 10f, r2.yMax + 4f, 200f, 20f), L.T("经办：罗森（驻站负责人）", "Handled by: Rosen (Station Manager)"), theme.Small);
-		GUI.Label(new Rect(position.x + 10f, r2.yMax + 28f, 200f, 22f), (L.En ? "License: " + TierLabel(state) : "许可：" + TierLabel(state)), theme.Body);
+		GUI.Label(new Rect(position.x + 10f, r2.yMax + 28f, 200f, 22f), (L.En ? L.Translate("License: ") + TierLabel(state) : "许可：" + TierLabel(state)), theme.Body);
 		CoopBar(new Rect(position.x + 10f, r2.yMax + 54f, 200f, 8f));
 		GUI.Label(new Rect(position.x + 10f, r2.yMax + 64f, 200f, 20f), NextTierHint(), theme.Small);
 		float num = r2.yMax + 96f;
@@ -83,7 +83,7 @@ internal static partial class CompanyWindow
 			{
 				_partsPage++;
 			}
-			DrawMeridianOrder(rect2, MeridianCo.Parts.Skip(_partsPage * 8).Take(8).ToArray(), (L.En ? $"Vanilla attachments, steady supply, at {MeridianCo.PartsRate:0.0}x value. Counts as the same daily order as standard issue." : $"原版配件，稳定供货，按价值的 {MeridianCo.PartsRate:0.0} 倍。和制式订货算同一天的一单。"));
+			DrawMeridianOrder(rect2, MeridianCo.Parts.Skip(_partsPage * 8).Take(8).ToArray(), (L.En ? L.Translate((System.FormattableString)$"Vanilla attachments, steady supply, at {MeridianCo.PartsRate:0.0}x value. Counts as the same daily order as standard issue.") : $"原版配件，稳定供货，按价值的 {MeridianCo.PartsRate:0.0} 倍。和制式订货算同一天的一单。"));
 			break;
 		}
 		case 2:
@@ -126,7 +126,7 @@ internal static partial class CompanyWindow
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(catalogEntry)), theme.Center);
 			string blocked = _company is MeridianCo ? Rosen.SaleBlocked(catalogEntry.Id) : null;
 			if (blocked == null && catalogEntry.MinTier > num)
-				blocked = L.En ? "Opens at " + _company.TierNames[catalogEntry.MinTier - 1] : _company.TierNames[catalogEntry.MinTier - 1] + "开放";
+				blocked = L.En ? L.Translate((System.FormattableString)$"Opens at {_company.TierNames[catalogEntry.MinTier - 1]}") : _company.TierNames[catalogEntry.MinTier - 1] + "开放";
 			if (blocked != null)
 			{
 				GUI.Label(status, blocked, theme.Small);
@@ -158,7 +158,7 @@ internal static partial class CompanyWindow
 		}
 		int num6 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => unitPrice(kv.Key) * kv.Value);
 		float num7 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num7, 200f, 22f), (L.En ? $"Total {num6}₵" : $"合计 {num6}₵"), theme.Price);
+		GUI.Label(new Rect(r.x, num7, 200f, 22f), (L.En ? L.Translate((System.FormattableString)$"Total {num6}₵") : $"合计 {num6}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num7 + 22f, r.width - 170f, 20f), num6);
 		bool enabled = GUI.enabled;
 		GUI.enabled = enabled && num6 > 0 && Services.CanAfford(cashDue) && flag;
@@ -211,18 +211,18 @@ internal static partial class CompanyWindow
 		float num = r.y + 76f;
 		if (!MeridianCo.ForgeOpen && !MeridianCo.ForgeOffered)
 		{
-			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? $"Rosen will come to teach you once cooperation reaches {60}." : $"合作度到 {60} 后，罗森会上门来教。"), theme.Wrap);
+			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? L.Translate((System.FormattableString)$"Rosen will come to teach you once cooperation reaches {60}.") : $"合作度到 {60} 后，罗森会上门来教。"), theme.Wrap);
 			return;
 		}
 		if (!MeridianCo.ForgeOpen)
 		{
 			int fee = MeridianCo.ForgeFee;
-			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? $"Rosen already came by. The full kit is {fee}₵: precision forge and anvil, plus 3 billets, delivered tomorrow." : $"罗森来教过了。整套工具 {fee}₵：精锻熔炉、锻台，附 3 块钢胚，明天送到。"), theme.Wrap);
+			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? L.Translate((System.FormattableString)$"Rosen already came by. The full kit is {fee}₵: precision forge and anvil, plus 3 billets, delivered tomorrow.") : $"罗森来教过了。整套工具 {fee}₵：精锻熔炉、锻台，附 3 块钢胚，明天送到。"), theme.Wrap);
 			float num2 = r.yMax - 44f;
 			int cashDue = DrawCheckoutBalance(new Rect(r.x, num2 + 22f, r.width - 170f, 20f), fee);
 			bool enabled = GUI.enabled;
 			GUI.enabled = enabled && Services.CanAfford(cashDue);
-			if (Ui.Button(new Rect(r.xMax - 170f, num2 + 2f, 160f, 36f), (L.En ? $"Buy kit ({fee}₵)" : $"补办（{fee}₵）"), theme.BtnHotStyle))
+			if (Ui.Button(new Rect(r.xMax - 170f, num2 + 2f, 160f, 36f), (L.En ? L.Translate((System.FormattableString)$"Buy kit ({fee}₵)") : $"补办（{fee}₵）"), theme.BtnHotStyle))
 			{
 				Toast(MeridianCo.MakeUpForge() ?? _company.FrontDeskDone);
 			}
@@ -258,7 +258,7 @@ internal static partial class CompanyWindow
 			GUI.enabled = enabled2;
 			num += 108f;
 		}
-		GUI.Label(new Rect(r.x, r.yMax - 22f, 200f, 20f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
+		GUI.Label(new Rect(r.x, r.yMax - 22f, 200f, 20f), (L.En ? L.Translate((System.FormattableString)$"Cash {Cash}₵") : $"现金 {Cash}₵"), theme.Small);
 	}
 
 	private static void DrawMeridianRefurb(Rect r)
@@ -267,13 +267,13 @@ internal static partial class CompanyWindow
 		CompanyState state = State;
 		if (_company.Tier(state) < 2)
 		{
-			GUI.Label(new Rect(r.x, r.y, r.width, 40f), (L.En ? "Opens at " + _company.TierNames[1] + "." : _company.TierNames[1] + "开放。"), theme.Wrap);
+			GUI.Label(new Rect(r.x, r.y, r.width, 40f), (L.En ? L.Translate((System.FormattableString)$"Opens at {_company.TierNames[1]}.") : _company.TierNames[1] + "开放。"), theme.Wrap);
 			return;
 		}
 		ScanRefurb();
 		int ownFee = MeridianCo.RefurbishFee(ownMake: true);
 		int otherFee = MeridianCo.RefurbishFee(ownMake: false);
-		GUI.Label(new Rect(r.x, r.y, r.width, 44f), L.T($"厂家返修，保证成功，一次升一档，最高到“优秀”。子午线的枪每把 {ownFee}₵，别家的 {otherFee}₵。每 {MeridianCo.RefurbishGap} 天一次，每次最多 {MeridianCo.RefurbishMax} 把，第二天送回。", $"Factory refurbishment, guaranteed: one condition grade up each time, up to “Excellent”. {ownFee}₵ per Meridian gun, {otherFee}₵ for other makes. Once every {MeridianCo.RefurbishGap} days, up to {MeridianCo.RefurbishMax} guns each time, returned the next day."), theme.Wrap);
+		GUI.Label(new Rect(r.x, r.y, r.width, 44f), L.T($"厂家返修，保证成功，一次升一档，最高到“优秀”。子午线的枪每把 {ownFee}₵，别家的 {otherFee}₵。每 {MeridianCo.RefurbishGap} 天一次，每次最多 {MeridianCo.RefurbishMax} 把，第二天送回。", L.Translate((System.FormattableString)$"Factory refurbishment, guaranteed: one condition grade up each time, up to “Excellent”. {ownFee}₵ per Meridian gun, {otherFee}₵ for other makes. Once every {MeridianCo.RefurbishGap} days, up to {MeridianCo.RefurbishMax} guns each time, returned the next day.")), theme.Wrap);
 		float num = r.y + 54f;
 		Ui.Fill(new Rect(r.x, num, r.width, 26f), theme.Ink);
 		GUI.Label(new Rect(r.x + 8f, num, 260f, 26f), L.T("枪", "Gun"), theme.InvBody);
@@ -295,13 +295,13 @@ internal static partial class CompanyWindow
 		}
 		if (_refurbCount > RefurbRows.Count)
 		{
-			GUI.Label(new Rect(r.x + 8f, num, r.width, 22f), (L.En ? $"{_refurbCount - RefurbRows.Count} more; send them next time." : $"另有 {_refurbCount - RefurbRows.Count} 把，下次再送。"), theme.Small);
+			GUI.Label(new Rect(r.x + 8f, num, r.width, 22f), (L.En ? L.Translate((System.FormattableString)$"{_refurbCount - RefurbRows.Count} more; send them next time.") : $"另有 {_refurbCount - RefurbRows.Count} 把，下次再送。"), theme.Small);
 		}
 		int num2 = Services.RefurbishNextDay(state);
 		bool flag = Day >= num2;
 		int num3 = RefurbRows.Sum(((string Name, string From, string To, int Fee) x) => x.Fee);
 		float num4 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num4, 300f, 22f), flag ? (L.En ? $"{RefurbRows.Count} guns this time, {num3}₵" : $"本次 {RefurbRows.Count} 把，{num3}₵") : (L.En ? $"Next drop-off: day {num2}" : $"下次可送：第 {num2} 天"), flag ? theme.Price : theme.Body);
+		GUI.Label(new Rect(r.x, num4, 300f, 22f), flag ? (L.En ? L.Translate((System.FormattableString)$"{RefurbRows.Count} guns this time, {num3}₵") : $"本次 {RefurbRows.Count} 把，{num3}₵") : (L.En ? L.Translate((System.FormattableString)$"Next drop-off: day {num2}") : $"下次可送：第 {num2} 天"), flag ? theme.Price : theme.Body);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num4 + 22f, r.width - 170f, 20f), flag ? num3 : 0);
 		bool enabled = GUI.enabled;
 		GUI.enabled = enabled && flag && RefurbRows.Count > 0 && Services.CanAfford(cashDue);

@@ -32,11 +32,11 @@ internal static class MalicePanel
 		}
 		else if (Malice.Subscribed(c))
 		{
-			text = (L.En ? $"Active through day {corpTerms.SubUntil - 1}." : $"已开通，有效到第 {corpTerms.SubUntil - 1} 天（含）。");
+			text = (L.En ? L.Translate((System.FormattableString)$"Active through day {corpTerms.SubUntil - 1}.") : $"已开通，有效到第 {corpTerms.SubUntil - 1} 天（含）。");
 		}
 		else if (corpTerms.Subscribed)
 		{
-			text = (L.En ? $"Expired (paused since day {corpTerms.SubUntil})." : $"已到期（第 {corpTerms.SubUntil} 天起暂停）。") + (Malice.Lapsed(corpTerms) ? L.T("断供超过一周，再续要加复通费。", " Lapsed over a week: reactivation fee applies.") : "");
+			text = (L.En ? L.Translate((System.FormattableString)$"Expired (paused since day {corpTerms.SubUntil}).") : $"已到期（第 {corpTerms.SubUntil} 天起暂停）。") + (Malice.Lapsed(corpTerms) ? L.T("断供超过一周，再续要加复通费。", " Lapsed over a week: reactivation fee applies.") : "");
 		}
 		else
 		{
@@ -50,11 +50,11 @@ internal static class MalicePanel
 		string text2;
 		if (corpTerms.Subscribed)
 		{
-			text2 = (L.En ? $"Renew one week ({num}₵)" : $"续费一周（{num}₵）");
+			text2 = (L.En ? L.Translate((System.FormattableString)$"Renew one week ({num}₵)") : $"续费一周（{num}₵）");
 		}
 		else
 		{
-			text2 = (flag ? (L.En ? $"Become a basic member ({num}₵ a week)" : $"成为基础会员（{num}₵ 一周）") : (L.En ? $"Subscribe ({num}₵, first week included)" : $"开通（{num}₵，含第一周）"));
+			text2 = (flag ? (L.En ? L.Translate((System.FormattableString)$"Become a basic member ({num}₵ a week)") : $"成为基础会员（{num}₵ 一周）") : (L.En ? L.Translate((System.FormattableString)$"Subscribe ({num}₵, first week included)") : $"开通（{num}₵，含第一周）"));
 		}
 		if (Ui.Button(new Rect(r.x, y, 260f, 32f), text2, t.BtnHotStyle))
 		{
@@ -85,22 +85,22 @@ internal static class MalicePanel
 				}
 				else
 				{
-					text4 = ((num2 < i) ? L.T("合作度未到", "Cooperation too low") : (L.En ? $"Can apply ({Malice.ApplyFee[i]}₵)" : $"可申请（{Malice.ApplyFee[i]}₵）"));
+					text4 = ((num2 < i) ? L.T("合作度未到", "Cooperation too low") : (L.En ? L.Translate((System.FormattableString)$"Can apply ({Malice.ApplyFee[i]}₵)") : $"可申请（{Malice.ApplyFee[i]}₵）"));
 				}
 				GUI.Label(new Rect(r.x, y, 260f, 28f), text3 + "：" + text4, t.Small);
-				if (corpTerms.Unlocked == i - 1 && num2 >= i && Ui.Button(new Rect(r.x + 270f, y, 200f, 28f), (L.En ? $"Apply ({Malice.ApplyFee[i]}₵)" : $"申请（{Malice.ApplyFee[i]}₵）"), t.BtnStyle))
+				if (corpTerms.Unlocked == i - 1 && num2 >= i && Ui.Button(new Rect(r.x + 270f, y, 200f, 28f), (L.En ? L.Translate((System.FormattableString)$"Apply ({Malice.ApplyFee[i]}₵)") : $"申请（{Malice.ApplyFee[i]}₵）"), t.BtnStyle))
 				{
 					Say(Malice.ApplyUnlock(c) ?? L.T("已解锁。", "Unlocked."));
 				}
 				y += 32f;
 			}
-			GUI.Label(new Rect(r.x, y, r.width, 40f), (L.En ? $"Signed-tier goods need no application. Weekly limits: {Malice.TierLimit[1]} / {Malice.TierLimit[2]} / {Malice.TierLimit[3]} per tier." : $"签约档的货不用申请。每周限量：签约档 {Malice.TierLimit[1]} 份，{c.TierNames[1]} {Malice.TierLimit[2]} 份，{c.TierNames[2]} {Malice.TierLimit[3]} 份。"), t.Small);
+			GUI.Label(new Rect(r.x, y, r.width, 40f), (L.En ? L.Translate((System.FormattableString)$"Signed-tier goods need no application. Weekly limits: {Malice.TierLimit[1]} / {Malice.TierLimit[2]} / {Malice.TierLimit[3]} per tier.") : $"签约档的货不用申请。每周限量：签约档 {Malice.TierLimit[1]} 份，{c.TierNames[1]} {Malice.TierLimit[2]} 份，{c.TierNames[2]} {Malice.TierLimit[3]} 份。"), t.Small);
 			y += 44f;
 		}
 		if (c.Id == "meridian" && RebelStory.Ch2BribeOpen)
 		{
 			int num3 = RebelStory.Ch2BribePrice();
-			if (Ui.Button(new Rect(r.x, y, 300f, 30f), (L.En ? $"Quiet payment ({num3}₵, a “sample” arrives tomorrow)" : $"私下打点（{num3}₵，明天送“样品”）"), t.BtnHotStyle))
+			if (Ui.Button(new Rect(r.x, y, 300f, 30f), (L.En ? L.Translate((System.FormattableString)$"Quiet payment ({num3}₵, a “sample” arrives tomorrow)") : $"私下打点（{num3}₵，明天送“样品”）"), t.BtnHotStyle))
 			{
 				Say(RebelStory.BribeMeridian() ?? L.T("明天送到。", "Arrives tomorrow."));
 			}
@@ -114,9 +114,9 @@ internal static class MalicePanel
 		}
 		Ui.Fill(new Rect(r.x, y, r.width, 1f), t.Line);
 		y += 8f;
-		GUI.Label(new Rect(r.x, y, r.width, 24f), (L.En ? $"Vouchers: {corpTerms.Vouchers}₵" : $"代金券余额：{corpTerms.Vouchers}₵"), t.Body);
+		GUI.Label(new Rect(r.x, y, r.width, 24f), (L.En ? L.Translate((System.FormattableString)$"Vouchers: {corpTerms.Vouchers}₵") : $"代金券余额：{corpTerms.Vouchers}₵"), t.Body);
 		y += 26f;
-		GUI.Label(new Rect(r.x, y, r.width, 40f), L.T($"在{c.Name}每笔实付现金每满 {Malice.VoucherDivisor}₵ 返 1₵ 代金券。代金券只在该公司使用，付款时优先抵扣。", $"Earn 1₵ in vouchers per {Malice.VoucherDivisor}₵ paid in cash on each purchase. Vouchers are used first and only at {c.Name}."), t.Wrap);
+		GUI.Label(new Rect(r.x, y, r.width, 40f), L.T($"在{c.Name}每笔实付现金每满 {Malice.VoucherDivisor}₵ 返 1₵ 代金券。代金券只在该公司使用，付款时优先抵扣。", L.Translate((System.FormattableString)$"Earn 1₵ in vouchers per {Malice.VoucherDivisor}₵ paid in cash on each purchase. Vouchers are used first and only at {c.Name}.")), t.Wrap);
 		if (!string.IsNullOrEmpty(_msg) && Time.unscaledTime < _msgUntil)
 		{
 			GUI.Label(new Rect(r.x, r.yMax - 26f, r.width, 24f), _msg, t.Body);

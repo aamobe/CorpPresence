@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CorpPresence.Malice;
 using System.Text;
 
@@ -28,17 +28,18 @@ internal static class StoryGuide
 			bool flag = character.IsSide(i);
 			int num = (flag ? character.SideAfter(i) : character.PrevMain(i));
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.AppendLine(L.T(string.Format("第 {0} 章（{1}）", i, flag ? "支线" : "主线"), string.Format("Chapter {0} ({1})", i, flag ? "side story" : "main story")));
+			stringBuilder.AppendLine(string.Format(L.T("第 {0} 章（{1}）", "Chapter {0} ({1})"), i,
+				flag ? L.T("支线", "side story") : L.T("主线", "main story")));
 			stringBuilder.AppendLine(L.T("预约条件（须同时满足）：", "Booking requirements (all required):"));
-			stringBuilder.AppendLine(L.T($"• {Faction(character)}声望 ≥ {thresholds[i - 1]}。", $"• {Faction(character)} reputation ≥ {thresholds[i - 1]}."));
-			stringBuilder.AppendLine((num == 0) ? L.T("• 无前置章节。", "• No previous chapter required.") : L.T($"• 主线进度达到第 {num} 章；本章尚未完成。", $"• Main progress at least chapter {num}; this chapter not completed."));
+			stringBuilder.AppendLine(L.T($"• {Faction(character)}声望 ≥ {thresholds[i - 1]}。", L.Translate((System.FormattableString)$"• {Faction(character)} reputation ≥ {thresholds[i - 1]}.")));
+			stringBuilder.AppendLine((num == 0) ? L.T("• 无前置章节。", "• No previous chapter required.") : L.T($"• 主线进度达到第 {num} 章；本章尚未完成。", L.Translate((System.FormattableString)$"• Main progress at least chapter {num}; this chapter not completed.")));
 			if (character.IsBuyChapter(i))
 			{
-				stringBuilder.AppendLine(L.T($"• 店内持有符合收购要求的物品 ≥ {character.BuyGoodsNeeded} 件；本章不检查现金门槛。", $"• Hold at least {character.BuyGoodsNeeded} qualifying item(s) in the shop; no cash gate for this chapter."));
+				stringBuilder.AppendLine(L.T($"• 店内持有符合收购要求的物品 ≥ {character.BuyGoodsNeeded} 件；本章不检查现金门槛。", L.Translate((System.FormattableString)$"• Hold at least {character.BuyGoodsNeeded} qualifying item(s) in the shop; no cash gate for this chapter.")));
 			}
 			else
 			{
-				stringBuilder.AppendLine(L.T($"• 现金 > {character.CashFor(i)}₵（恰好相等不满足）。", $"• Cash > {character.CashFor(i)}₵ (equality does not qualify)."));
+				stringBuilder.AppendLine(L.T($"• 现金 > {character.CashFor(i)}₵（恰好相等不满足）。", L.Translate((System.FormattableString)$"• Cash > {character.CashFor(i)}₵ (equality does not qualify).")));
 			}
 			string text = Extra(character.Id, i);
 			if (text.Length > 0)
@@ -46,7 +47,7 @@ internal static class StoryGuide
 				stringBuilder.AppendLine(text);
 			}
 			stringBuilder.AppendLine();
-			stringBuilder.AppendLine(L.T($"关店时检索，满足后预约次日。按预计来访日计算，距该人物上次剧情至少 {Settings.StoryGap(character)} 天（当前设置）。已有剧情预约先完成，主线优先于支线；不同人物独立判断。", $"Checked at closing for the next day. The planned visit must be at least {Settings.StoryGap(character)} day(s) after this character's last story (current setting). Existing story bookings are handled first; main stories take priority over side stories. Characters are checked independently."));
+			stringBuilder.AppendLine(L.T($"关店时检索，满足后预约次日。按预计来访日计算，距该人物上次剧情至少 {Settings.StoryGap(character)} 天（当前设置）。已有剧情预约先完成，主线优先于支线；不同人物独立判断。", L.Translate((System.FormattableString)$"Checked at closing for the next day. The planned visit must be at least {Settings.StoryGap(character)} day(s) after this character's last story (current setting). Existing story bookings are handled first; main stories take priority over side stories. Characters are checked independently.")));
 			stringBuilder.AppendLine(L.T("这是触发条件说明，不会替你完成任务、补发物品或改变存档。", "This guide does not complete tasks, grant items, or change your save."));
 			array[i - 1] = stringBuilder.ToString();
 		}

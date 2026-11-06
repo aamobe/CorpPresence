@@ -167,7 +167,7 @@ internal static partial class CompanyWindow
 			string listPrice = ItemListPrice(ItemListValue(catalogEntry2), labeled: true);
 			if (flag4)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 44f, rect.width, 22f), (L.En ? "Unlocks at " + _company.TierNames[catalogEntry2.MinTier - 1] : _company.TierNames[catalogEntry2.MinTier - 1] + "解锁"), theme.Center);
+				GUI.Label(new Rect(rect.x, rect.y + 44f, rect.width, 22f), (L.En ? L.Translate((System.FormattableString)$"Unlocks at {_company.TierNames[catalogEntry2.MinTier - 1]}") : _company.TierNames[catalogEntry2.MinTier - 1] + "解锁"), theme.Center);
 				GUI.Label(new Rect(rect.center.x, rect.y + 66f, rect.width / 2f, 22f), listPrice, theme.Center);
 				continue;
 			}
@@ -185,7 +185,7 @@ internal static partial class CompanyWindow
 			int num7 = Math.Min(10, Services.Left(state, catalogEntry2));
 			if (catalogEntry2.Limit() > 0)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 54f, rect.width, 16f), (L.En ? $"{num7} left {Services.PeriodWord}" : $"{Services.PeriodWord}还剩 {num7}"), theme.Small);
+				GUI.Label(new Rect(rect.x, rect.y + 54f, rect.width, 16f), (L.En ? L.Translate((System.FormattableString)$"{num7} left {Services.PeriodWord}") : $"{Services.PeriodWord}还剩 {num7}"), theme.Small);
 			}
 			Cart.TryGetValue(catalogEntry2, out var value);
 			value = Ui.Qty(new Rect(rect.x + 6f, rect.yMax - 28f, rect.width - 12f, 24f), value, Math.Min(10, num7), theme.BtnStyle, theme.Center);
@@ -207,7 +207,7 @@ internal static partial class CompanyWindow
 		int fee = PastelCo.Bribe;
 		bool enabled = GUI.enabled;
 		GUI.enabled = enabled && Services.CanAfford(Services.CashDue(_company, fee));
-		if (Ui.Button(new Rect(cell.x + 8f, cell.yMax - 30f, cell.width - 16f, 26f), (L.En ? $"Pay {fee}₵" : $"补交 {fee}₵"), theme.BtnHotStyle))
+		if (Ui.Button(new Rect(cell.x + 8f, cell.yMax - 30f, cell.width - 16f, 26f), (L.En ? L.Translate((System.FormattableString)$"Pay {fee}₵") : $"补交 {fee}₵"), theme.BtnHotStyle))
 		{
 			Toast(PastelCo.PayBribe(deliver: true) ? L.T("分装机明天送到。", "The packaging machine arrives tomorrow.") : L.T("现金不够", "Not enough cash"));
 		}
@@ -219,10 +219,10 @@ internal static partial class CompanyWindow
 		Theme theme = _theme;
 		CompanyState state = State;
 		GUI.Label(new Rect(r.x + 10f, r.y + 4f, r.width - 20f, 30f), L.T("下层合作商", "Lower Dealer"), theme.Title);
-		GUI.Label(new Rect(r.x + 10f, r.y + 40f, r.width - 20f, 120f), L.T("成为帕斯泰尔的特约经销点。\n\n", "Become a pastel partner outlet.\n\n") + (L.En ? $"· Regular rebate: every {PastelCo.RebatePeriod} days, {0.1:P0} of what you sold in pastel products, paid back by the courier.\n" : $"· 定期返点：每 {PastelCo.RebatePeriod} 天，把这段时间你卖出的帕斯泰尔产品按售价的 {0.1:P0} 返现，由送货员带来。\n") + L.T("· 解锁“下层客流”：帕斯泰尔会把下层区的熟客介绍到你店里。", "· Unlocks “Lower Foot Traffic”: pastel sends Lower Levels regulars to your shop."), theme.Wrap);
+		GUI.Label(new Rect(r.x + 10f, r.y + 40f, r.width - 20f, 120f), L.T("成为帕斯泰尔的特约经销点。\n\n", "Become a pastel partner outlet.\n\n") + (L.En ? L.Translate((System.FormattableString)$"· Regular rebate: every {PastelCo.RebatePeriod} days, {0.1:P0} of what you sold in pastel products, paid back by the courier.\n") : $"· 定期返点：每 {PastelCo.RebatePeriod} 天，把这段时间你卖出的帕斯泰尔产品按售价的 {0.1:P0} 返现，由送货员带来。\n") + L.T("· 解锁“下层客流”：帕斯泰尔会把下层区的熟客介绍到你店里。", "· Unlocks “Lower Foot Traffic”: pastel sends Lower Levels regulars to your shop."), theme.Wrap);
 		if (!state.DealerJoined)
 		{
-			if (Ui.Button(new Rect(r.x + 10f, r.y + 180f, 220f, 34f), (L.En ? $"Join (one-time {PastelCo.DealerFee}₵)" : $"加盟（一次性 {PastelCo.DealerFee}₵）"), theme.BtnHotStyle))
+			if (Ui.Button(new Rect(r.x + 10f, r.y + 180f, 220f, 34f), (L.En ? L.Translate((System.FormattableString)$"Join (one-time {PastelCo.DealerFee}₵)") : $"加盟（一次性 {PastelCo.DealerFee}₵）"), theme.BtnHotStyle))
 			{
 				Toast(Services.JoinDealer(_company) ?? L.T("欢迎加入帕斯泰尔！", "Welcome to pastel!"));
 			}
@@ -231,8 +231,8 @@ internal static partial class CompanyWindow
 		{
 			int num = Day - state.DealerSinceDay;
 			int num2 = PastelCo.RebatePeriod - num % PastelCo.RebatePeriod;
-			GUI.Label(new Rect(r.x + 10f, r.y + 180f, r.width - 20f, 24f), (L.En ? $"Dealer for {num} days. Sold {state.WeekSales:0}₵ of pastel products this period." : $"已加盟 {num} 天。本期已卖出 {state.WeekSales:0}₵ 的帕斯泰尔产品。"), theme.Body);
-			GUI.Label(new Rect(r.x + 10f, r.y + 208f, r.width - 20f, 24f), (L.En ? $"Expected rebate {state.WeekSales * 0.1:0}₵, settles in {num2} days." : $"预计返点 {state.WeekSales * 0.1:0}₵，{num2} 天后结算。"), theme.Body);
+			GUI.Label(new Rect(r.x + 10f, r.y + 180f, r.width - 20f, 24f), (L.En ? L.Translate((System.FormattableString)$"Dealer for {num} days. Sold {state.WeekSales:0}₵ of pastel products this period.") : $"已加盟 {num} 天。本期已卖出 {state.WeekSales:0}₵ 的帕斯泰尔产品。"), theme.Body);
+			GUI.Label(new Rect(r.x + 10f, r.y + 208f, r.width - 20f, 24f), (L.En ? L.Translate((System.FormattableString)$"Expected rebate {state.WeekSales * 0.1:0}₵, settles in {num2} days.") : $"预计返点 {state.WeekSales * 0.1:0}₵，{num2} 天后结算。"), theme.Body);
 		}
 	}
 
@@ -243,7 +243,7 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(r.x + 10f, r.y + 4f, r.width - 20f, 30f), L.T("下层客流", "Lower Foot Traffic"), theme.Title);
 		int fee = PastelCo.TrafficFee;
 		int cashDue = Services.CashDue(_company, fee);
-		GUI.Label(new Rect(r.x + 10f, r.y + 40f, r.width - 20f, 100f), (L.En ? $"{fee}₵ per night. pastel sends Lower Levels regulars over: the next day, 1–2 extra Lower Levels customers come looking for food and daily goods.\n\nPauses automatically when you are short on cash." : $"每晚 {fee}₵。帕斯泰尔把下层区的熟客介绍过来：第二天会额外来 1–2 位想买食物、日用品的下层区顾客。\n\n现金不够时自动暂停。") + (!Services.CanAfford(cashDue) ? (L.En ? $"\n(You have {Cash}₵ and need {cashDue}₵ in cash.)" : $"\n（现有现金 {Cash}₵，需付现金 {cashDue}₵。）") : ""), theme.Wrap);
+		GUI.Label(new Rect(r.x + 10f, r.y + 40f, r.width - 20f, 100f), (L.En ? L.Translate((System.FormattableString)$"{fee}₵ per night. pastel sends Lower Levels regulars over: the next day, 1–2 extra Lower Levels customers come looking for food and daily goods.\n\nPauses automatically when you are short on cash.") : $"每晚 {fee}₵。帕斯泰尔把下层区的熟客介绍过来：第二天会额外来 1–2 位想买食物、日用品的下层区顾客。\n\n现金不够时自动暂停。") + (!Services.CanAfford(cashDue) ? (L.En ? L.Translate((System.FormattableString)$"\n(You have {Cash}₵ and need {cashDue}₵ in cash.)") : $"\n（现有现金 {Cash}₵，需付现金 {cashDue}₵。）") : ""), theme.Wrap);
 		if (Ui.Button(new Rect(r.x + 10f, r.y + 160f, 180f, 34f), state.TrafficOn ? L.T("已开启（点击关闭）", "On (click to turn off)") : L.T("开启", "Turn on"), state.TrafficOn ? theme.BtnStyle : theme.BtnHotStyle))
 		{
 			state.TrafficOn = !state.TrafficOn;
@@ -266,7 +266,7 @@ internal static partial class CompanyWindow
 		}
 		GUI.Label(new Rect(r.x + 6f, r.y + 104f, 130f, 22f), L.T("米洛", "Milo"), theme.Center);
 		GUI.Label(new Rect(r.x + 144f, r.y + 10f, 300f, 22f), "“" + MiloLines[Day % MiloLines.Length] + "”", theme.Body);
-		GUI.Label(new Rect(r.x + 144f, r.y + 40f, 300f, 22f), (L.En ? $"Cooperation {state.Coop}  ·  {TierLabel(state)}" : $"合作度 {state.Coop}  ·  {TierLabel(state)}"), theme.Body);
+		GUI.Label(new Rect(r.x + 144f, r.y + 40f, 300f, 22f), (L.En ? L.Translate((System.FormattableString)$"Cooperation {state.Coop}  ·  {TierLabel(state)}") : $"合作度 {state.Coop}  ·  {TierLabel(state)}"), theme.Body);
 		CoopBar(new Rect(r.x + 144f, r.y + 66f, 300f, 12f));
 		GUI.Label(new Rect(r.x + 144f, r.y + 82f, 300f, 20f), NextTierHint(), theme.Small);
 		if (_module != 0 || !PastelUnlocked(0, out var _))
@@ -274,8 +274,8 @@ internal static partial class CompanyWindow
 			return;
 		}
 		int num = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => PastelUnitPrice(kv.Key) * kv.Value);
-		GUI.Label(new Rect(r.xMax - 180f, r.y + 12f, 170f, 22f), (L.En ? $"Total {num}₵" : $"合计 {num}₵"), theme.Price);
-		GUI.Label(new Rect(r.xMax - 180f, r.y + 36f, 170f, 22f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
+		GUI.Label(new Rect(r.xMax - 180f, r.y + 12f, 170f, 22f), (L.En ? L.Translate((System.FormattableString)$"Total {num}₵") : $"合计 {num}₵"), theme.Price);
+		GUI.Label(new Rect(r.xMax - 180f, r.y + 36f, 170f, 22f), (L.En ? L.Translate((System.FormattableString)$"Cash {Cash}₵") : $"现金 {Cash}₵"), theme.Small);
 		int cashDue = DrawVoucherDetails(new Rect(r.xMax - 320f, r.y + 108f, 310f, 20f), num);
 		bool enabled2 = GUI.enabled;
 		GUI.enabled = enabled2 && num > 0 && Services.CanAfford(cashDue) && Services.CanOrderToday(_company);

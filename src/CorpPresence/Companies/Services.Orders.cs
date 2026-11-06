@@ -51,7 +51,7 @@ internal static partial class Services
 		CatalogEntry catalogEntry = purchases.FirstOrDefault(kv => kv.Value > Left(s, kv.Key)).Key;
 		if (catalogEntry != null)
 		{
-			return L.T($"{catalogEntry.Name()}超出限购，还能订 {Left(s, catalogEntry)} 份", $"{catalogEntry.Name()} is over the limit. You can order {Left(s, catalogEntry)} more");
+			return L.T($"{catalogEntry.Name()}超出限购，还能订 {Left(s, catalogEntry)} 份", L.Translate((System.FormattableString)$"{catalogEntry.Name()} is over the limit. You can order {Left(s, catalogEntry)} more"));
 		}
 		int num = 0;
 		int orderDay = Day;
@@ -117,9 +117,9 @@ internal static partial class Services
 		{
 			if (e.WindowDays <= 0)
 			{
-				return L.T($"\u3000{PeriodWord}剩 {num}", $"  {num} left {PeriodWord}");
+				return L.T($"\u3000{PeriodWord}剩 {num}", L.Translate((System.FormattableString)$"  {num} left {PeriodWord}"));
 			}
-			return L.T($"\u3000剩余 {num}", $"  {num} left");
+			return L.T($"\u3000剩余 {num}", L.Translate((System.FormattableString)$"  {num} left"));
 		}
 		return "";
 	}

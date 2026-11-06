@@ -243,7 +243,7 @@ internal static class RebelStory
 			return Envoy.Talk(kind, OdinName, "wanted4", new string[3]
 			{
 				L.T("你帮了我们不少。我想请你再帮一个忙。", "You've helped us a lot. I need one more favor."),
-				L.T($"弄一瓶毒药给我们。弄不到的话，价值 {100}₵ 的梦尘和芬太片也行。", $"Get us a bottle of poison. If you can't, Dream Dust and Phanta Pills worth {100}₵ will do."),
+				L.T($"弄一瓶毒药给我们。弄不到的话，价值 {100}₵ 的梦尘和芬太片也行。", L.Translate((System.FormattableString)$"Get us a bottle of poison. If you can't, Dream Dust and Phanta Pills worth {100}₵ will do.")),
 				L.T("准备好了就打我们的电话，我会叫人来取。", "When it's ready, call us and I'll send someone.")
 			}, null, null, () =>
 			{
@@ -253,8 +253,8 @@ internal static class RebelStory
 			return Envoy.Talk(kind, OdinName, "wanted4", new string[3]
 			{
 				L.T("我们需要一批炸药，子午线的重火力也勉强可以。", "We need explosives. Meridian's heavy firepower would do in a pinch."),
-				L.T($"子午线那边我知道你有关系可以打点：合作关系够的话 {200}₵，不然 {500}₵，他们会送一颗炸弹过来，我来买。", $"I know you have connections at Meridian, so they can be bought: {200}₵ if you're on good terms, {500}₵ otherwise. They'll send a bomb, and I'll buy it."),
-				L.T($"不然的话，通过地下买家卖出价值 {1000}₵ 的武器。", $"Otherwise, sell {1000}₵ worth of weapons through the underground buyer.")
+				L.T($"子午线那边我知道你有关系可以打点：合作关系够的话 {200}₵，不然 {500}₵，他们会送一颗炸弹过来，我来买。", L.Translate((System.FormattableString)$"I know you have connections at Meridian, so they can be bought: {200}₵ if you're on good terms, {500}₵ otherwise. They'll send a bomb, and I'll buy it.")),
+				L.T($"不然的话，通过地下买家卖出价值 {1000}₵ 的武器。", L.Translate((System.FormattableString)$"Otherwise, sell {1000}₵ worth of weapons through the underground buyer."))
 			}, null, null, () =>
 			{
 				r.Active = 2;
@@ -457,7 +457,7 @@ internal static class RebelStory
 			{
 			case 1:
 				Rebels.AddPoints(100, "反抗军第 1 章");
-				Notify(L.T($"奥丁收到了东西。反抗军助力点 +{100}。", $"Odin got what he needed. +{100} support points."));
+				Notify(L.T($"奥丁收到了东西。反抗军助力点 +{100}。", L.Translate((System.FormattableString)$"Odin got what he needed. +{100} support points.")));
 				break;
 			case 2:
 				Notify(L.T("奥丁：“谢了。之后武器可能会涨价，囤点货吧。”", "Odin: “Thanks. Weapon prices might go up soon. Stock up.”"));

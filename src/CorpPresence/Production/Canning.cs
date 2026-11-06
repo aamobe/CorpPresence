@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,9 +59,17 @@ internal static partial class Canning
 
 	internal static readonly Dictionary<string, Goods.Def> Defs = new Dictionary<string, Goods.Def>
 	{
-		["fish_mince"] = SeafoodFood("鱼肉糜", "Fish Mince", 29, "fish_mince", 200, false),
-		["crab_stick"] = SeafoodFood("风味蟹肉棒", "Crab-flavored Stick", 195, "crab_stick", 800, false, luxury: true),
-		["fish_can"] = SeafoodFood("达夫雷鱼罐头", "Davre Canned Fish", 125, "fish_can", 600, true, luxury: true),
+		["fish_mince"] = SeafoodFood("鱼肉糜", "Fish Mince", 29, "fish_mince", 200, false,
+			("用鱼片绞成的肉糜。放进封装机，4 份可做 1 份风味蟹肉棒。", "Ground fish fillets. Four portions make one crab-flavored stick in a sealer."),
+			("一小堆粉红色的碎肉。凑近了还有股鱼腥味。", "A small heap of pink mince. Up close, it still smells of fish.")),
+		["crab_stick"] = SeafoodFood("风味蟹肉棒", "Crab-flavored Stick", 195, "crab_stick", 800, false,
+			("用鱼肉糜压制成型的蟹味食品。", "A crab-flavored food pressed from fish mince."),
+			("没人说是鳕鱼做的，可以开心的吃一辈子。", "Nobody said it was made from cod. You can happily eat it for the rest of your life."),
+			luxury: true),
+		["fish_can"] = SeafoodFood("达夫雷鱼罐头", "Davre Canned Fish", 125, "fish_can", 600, true,
+			("用普通罗非鱼整条封装的罐头。", "A whole common tilapia, sealed in a can."),
+			("达夫雷把「整鱼入罐」印在了正面。掀开盖子，确实还能认出是条鱼。", "Davre printed “WHOLE FISH” on the front. Lift the lid and you can still tell it's a fish."),
+			luxury: true),
 		["seafood_sealer"] = SeafoodSealerDef(),
 		["fine_mince"] = new Goods.Def
 		{
@@ -131,8 +139,8 @@ internal static partial class Canning
 			H = 2,
 			Shell = Empty,
 			Setup = InitCan,
-			Desc = "据说每个人吃下的第一口都会（太空脏话）",
-			DescEn = "They say everyone's first bite makes them go (space expletive).",
+			Desc = "用精肉糜和营养果糊封成的鲜肉罐头。",
+			DescEn = "Fresh meat canned with prime mince and nutrifruit paste.",
 			Flavor = "和“泥炭”同一条罐装线，装的是真肉。达夫雷可不往下层区卖这种“宝贝”。",
 			FlavorEn = "Same canning line as Peat, but this one has real meat in it. Davre doesn't sell this kind of \"treasure\" in the Lower Levels."
 		},
@@ -322,7 +330,7 @@ internal static partial class Canning
 		void RefreshReserve()
 		{
 			long kcal = StoredFruitKcal(machine);
-			reserve.SetText(L.T($"已存 {kcal:N0} 千卡\n可再加工 {kcal / PasteKcal:N0} 份", $"Stored {kcal:N0} kcal\n{kcal / PasteKcal:N0} portions ready"));
+			reserve.SetText(L.T($"已存 {kcal:N0} 千卡\n可再加工 {kcal / PasteKcal:N0} 份", L.Translate((System.FormattableString)$"Stored {kcal:N0} kcal\n{kcal / PasteKcal:N0} portions ready")));
 		}
 		machine.onLoaded += _ => RefreshReserve();
 		contentWindow.openCallback += RefreshReserve;
@@ -380,7 +388,7 @@ internal static partial class Canning
 				int num = Math.Max(0, powerPerPortion - cut);
 				if (num6 > 0 && (childItem == null || !PowerHelper.CanDrawPowerSource(childItem, num6 * num)))
 				{
-					if (inspect) ProductionNotice(L.T($"首份原料需要可供 {num6 * num} 电的电源。", $"The first input requires a power source with {num6 * num} charge."));
+					if (inspect) ProductionNotice(L.T($"首份原料需要可供 {num6 * num} 电的电源。", L.Translate((System.FormattableString)$"The first input requires a power source with {num6 * num} charge.")));
 					break;
 				}
 				if (inspect)
@@ -389,7 +397,7 @@ internal static partial class Canning
 						ProductionNotice(L.T("可以绞碎。首份原料不足以产出一份，余量会累计。", "Ready to grind. The first input adds to the stored remainder."));
 					else
 						CheckFirstOutput(output, () => MakeMince(text, mixed, prion),
-							L.T($"首份原料可产出 {num6} 份，需 {num6 * num} 电。已确认成品槽能放入首件。", $"The first input yields {num6} portions for {num6 * num} charge. The tray fits the first item."));
+							L.T($"首份原料可产出 {num6} 份，需 {num6 * num} 电。已确认成品槽能放入首件。", L.Translate((System.FormattableString)$"The first input yields {num6} portions for {num6 * num} charge. The tray fits the first item.")));
 					return;
 				}
 				List<GameItem> list = new List<GameItem>();
@@ -461,17 +469,17 @@ internal static partial class Canning
 		bool prion = (stored > 0 && machine.GetTagReadonly(PoolPrion(PasteId)).GetBool()) || fruit?.IsTag(Prion) == true;
 		if (portions > 0 && !PowerHelper.CanDrawPowerSource(battery, power))
 		{
-			ProductionNotice(L.T($"电力不足。做一份果糊需 {power} 电。", $"Insufficient power. One portion of paste needs {power} charge."));
+			ProductionNotice(L.T($"电力不足。做一份果糊需 {power} 电。", L.Translate((System.FormattableString)$"Insufficient power. One portion of paste needs {power} charge.")));
 			return false;
 		}
 		if (inspect)
 		{
 			if (portions == 0)
-				ProductionNotice(L.T($"共 {total:N0} 千卡。未满 240 千卡的热量会储存起来。", $"{total:N0} kcal total. The grinder stores any remainder under 240 kcal."));
+				ProductionNotice(L.T($"共 {total:N0} 千卡。未满 240 千卡的热量会储存起来。", L.Translate((System.FormattableString)$"{total:N0} kcal total. The grinder stores any remainder under 240 kcal.")));
 			else
 				CheckFirstOutput(output, () => MakeMince(PasteId, "", prion),
 					L.T($"热量够做 {portions:N0} 份果糊，每份耗 {power} 电。成品槽能放下首份，本次产量视空间和电量而定。",
-						$"Calories for {portions:N0} portions at {power} charge each. The first fits. Batch size depends on space and power."));
+						L.Translate((System.FormattableString)$"Calories for {portions:N0} portions at {power} charge each. The first fits. Batch size depends on space and power.")));
 			return false;
 		}
 
@@ -487,7 +495,7 @@ internal static partial class Canning
 		machine.ModifyTag(PoolPrion(PasteId), tag => tag.Enable().SetBool(left > 0 && prion));
 		fruit?.Destroy();
 		if (left >= PasteKcal)
-			ProductionNotice(L.T($"本次绞出 {made:N0} 份果糊，剩余 {left:N0} 千卡已储存。", $"Made {made:N0} portions of paste and stored {left:N0} kcal."));
+			ProductionNotice(L.T($"本次绞出 {made:N0} 份果糊，剩余 {left:N0} 千卡已储存。", L.Translate((System.FormattableString)$"Made {made:N0} portions of paste and stored {left:N0} kcal.")));
 		return true;
 	}
 
@@ -685,14 +693,14 @@ internal static partial class Canning
 				else if (batches <= 0)
 					ProductionNotice(L.T("当前加工进度不足一批。", "Current processing progress is below one batch."));
 				else if (!PowerHelper.CanDrawPowerSource(battery.childItem, power))
-					ProductionNotice(L.T($"需要可供 {power} 电的电源。", $"A power source with {power} charge is required."));
+					ProductionNotice(L.T($"需要可供 {power} 电的电源。", L.Translate((System.FormattableString)$"A power source with {power} charge is required.")));
 				else
-					CheckFirstOutput(output, r.Make, L.T($"原料和速度支持 {batches} 批，需 {power} 电。已确认成品槽能放入首件。", $"Inputs and speed support {batches} batches for {power} charge. The tray fits the first item."));
+					CheckFirstOutput(output, r.Make, L.T($"原料和速度支持 {batches} 批，需 {power} 电。已确认成品槽能放入首件。", L.Translate((System.FormattableString)$"Inputs and speed support {batches} batches for {power} charge. The tray fits the first item.")));
 				return;
 			}
 			if (batches <= 0)
 			{
-				report?.Invoke(L.T($"未加工：当前档位肉糜 {list.Count}/{r.MinceN}，果糊 {list2.Count}/{r.FruitN}，加工速度 {num}。请核对档位、原料数量和模组。", $"Stopped: matching mince {list.Count}/{r.MinceN}, paste {list2.Count}/{r.FruitN}, speed {num}. Check mode, ingredients and modules."));
+				report?.Invoke(L.T($"未加工：当前档位肉糜 {list.Count}/{r.MinceN}，果糊 {list2.Count}/{r.FruitN}，加工速度 {num}。请核对档位、原料数量和模组。", L.Translate((System.FormattableString)$"Stopped: matching mince {list.Count}/{r.MinceN}, paste {list2.Count}/{r.FruitN}, speed {num}. Check mode, ingredients and modules.")));
 				return;
 			}
 			if (!PowerHelper.CanDrawPowerSource(battery.childItem, MachineryHelper.GetMachinePowerUsage(machine)))
@@ -735,7 +743,7 @@ internal static partial class Canning
 				}
 				done++;
 			}
-			report?.Invoke(L.T($"完成 {done}/{batches} 批。", $"Completed {done}/{batches} batches.") + failure);
+			report?.Invoke(L.T($"完成 {done}/{batches} 批。", L.Translate((System.FormattableString)$"Completed {done}/{batches} batches.")) + failure);
 			int left = Math.Min(99, Math.Max(0, num3 - done * 100));
 			machine.ModifyTag("CORP_CAN_CARRY_INT", (TagState s) =>
 			{

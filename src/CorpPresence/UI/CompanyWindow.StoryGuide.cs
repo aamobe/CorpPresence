@@ -9,7 +9,7 @@ internal static partial class CompanyWindow
 	private static int _guideStage;
 	private static int _guidePage;
 	private static string[] _guidePages;
-	private static bool _guideEnglish;
+	private static string _guideLocale;
 	private static int _currentGuidePage;
 	private static GUIStyle _currentGuideStyle;
 
@@ -31,7 +31,7 @@ internal static partial class CompanyWindow
 			if (Ui.Button(new Rect(32f, 230f, 200f, 34f), L.T("确定，查看流程", "Confirm: view guide"), _theme.BtnHotStyle))
 			{
 				_guidePages = StoryGuide.Build(_company);
-				_guideEnglish = L.En;
+				_guideLocale = L.Locale;
 				_guidePage = 0;
 				MarkCurrentGuidePage();
 				_guideStage = 2;
@@ -42,10 +42,10 @@ internal static partial class CompanyWindow
 			}
 			return;
 		}
-		if (_guidePages == null || _guideEnglish != L.En)
+		if (_guidePages == null || _guideLocale != L.Locale)
 		{
 			_guidePages = StoryGuide.Build(_company);
-			_guideEnglish = L.En;
+			_guideLocale = L.Locale;
 			_guidePage = 0;
 			MarkCurrentGuidePage();
 		}

@@ -331,7 +331,7 @@ internal sealed class CatalogEntry
 	{
 		// Resolve the current language from our owned sample; never destroy a factory
 		// result that has become attached to player inventory during a callback.
-		string label = L.En ? LabelEn : Label;
+		string label = L.T(Label, LabelEn);
 		if (!string.IsNullOrEmpty(label)) return label;
 		if (!TryValues(false, out _, out _)) return Id;
 		try

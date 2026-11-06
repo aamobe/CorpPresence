@@ -183,7 +183,7 @@ internal sealed class Doreen : Character
 				L.T("达夫雷正在扩产。", "Davre is expanding production."),
 				Character.Act(L.T("压低声音", "lowers her voice"), L.T("帕斯泰尔要往食品这块伸手，总部决定先占住市场。", "Pastel is looking to move into food, so HQ has decided to secure the market first.")),
 				L.T("他们批了一批设备，专门下发给你这种小店。", "They've approved a batch of equipment specifically for small shops like yours."),
-				L.T($"一台绞肉机，一台罐装机。手续费{DavreCo.CanningFee}₵，机器就归你。原料得你自己找。", $"One grinder, one canner. Pay the {DavreCo.CanningFee}₵ handling fee and they're yours. You'll have to find your own raw materials.")
+				L.T($"一台绞肉机，一台罐装机。手续费{DavreCo.CanningFee}₵，机器就归你。原料得你自己找。", L.Translate((System.FormattableString)$"One grinder, one canner. Pay the {DavreCo.CanningFee}₵ handling fee and they're yours. You'll have to find your own raw materials."))
 			},
 			Exit = L.T("再见。", "Goodbye. ") + Bye,
 			TalkOnly = true,

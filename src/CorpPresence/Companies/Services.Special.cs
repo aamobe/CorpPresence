@@ -54,7 +54,7 @@ internal static partial class Services
 		}
 		if (Day < VipNextDay(companyState))
 		{
-			return L.T($"第 {VipNextDay(companyState)} 天才能再预约", $"You can book again on day {VipNextDay(companyState)}");
+			return L.T($"第 {VipNextDay(companyState)} 天才能再预约", L.Translate((System.FormattableString)$"You can book again on day {VipNextDay(companyState)}"));
 		}
 		int day = Day;
 		int fee = SolanaCo.VipFee;
@@ -155,7 +155,7 @@ internal static partial class Services
 		}
 		if (Day < StaminaNextDay(companyState))
 		{
-			return L.T($"批次未到，第 {StaminaNextDay(companyState)} 天可申领", $"Batch not ready. Available on day {StaminaNextDay(companyState)}");
+			return L.T($"批次未到，第 {StaminaNextDay(companyState)} 天可申领", L.Translate((System.FormattableString)$"Batch not ready. Available on day {StaminaNextDay(companyState)}"));
 		}
 		int day = Day;
 		int fee = CarmichaelCo.StaminaFee;

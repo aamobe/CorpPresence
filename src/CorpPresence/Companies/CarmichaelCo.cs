@@ -195,7 +195,7 @@ internal sealed class CarmichaelCo : Company
 		if (!state.CreatureGiven)
 		{
 			if ((long)day < (long)state.EscapeDay + 1) { TraceEscape("尚未到首次出现日：新闻排期日的次日开店才发放"); return; }
-			if (SpawnEscapee(L.T("柜台底下有什么东西在动。", "Something is moving under the counter.")))
+			if (SpawnEscapee())
 			{ state.CreatureGiven = true; TraceEscape("提交：CreatureGiven=True，已确认实物入库"); }
 			else TraceEscape("首次发放未完成，CreatureGiven不变，下次开店重试");
 			return;
@@ -208,7 +208,7 @@ internal sealed class CarmichaelCo : Company
 		{ state.CreatureLostDay = day; TraceEscape("已标记发放但未找到活体：按原规则开始5天补发等待"); }
 		else if ((long)day - state.CreatureLostDay >= 5)
 		{
-			if (SpawnEscapee(L.T("柜台底下又有东西在动。看来逃出来的不止一只。", "Something is moving under the counter again. More than one got out, it seems.")))
+			if (SpawnEscapee())
 			{ state.CreatureLostDay = -1; TraceEscape("补发提交：已确认实物入库"); }
 			else TraceEscape("补发未完成，保留原等待日期");
 		}
@@ -225,7 +225,7 @@ internal sealed class CarmichaelCo : Company
 		try { ModLog.Info("[三叶蜥发放验证] " + text); } catch { }
 	}
 
-	private static bool SpawnEscapee(string notice)
+	private static bool SpawnEscapee()
 	{
 		if (_escapeSpawning) { TraceEscape("忽略重复进入发放"); return false; }
 		StoreSession session = StoreSession.Capture();
@@ -255,7 +255,17 @@ internal sealed class CarmichaelCo : Company
 			if (!EscapeAttached(item)) { TraceEscape("发放失败：原版回退后仍未入库，禁止标记已发放"); return false; }
 			if (!session.IsCurrent) { TraceEscape("入库后会话改变，不提交当前发放标记"); return false; }
 			TraceEscape(ReferenceEquals(item.parentInventory, store.frontInvinvElement) ? "落点确认：前柜台" : ReferenceEquals(item.parentInventory, store.invElement) ? "落点确认：店铺主库存" : "落点确认：原版回退接受的其他库存/容器");
-			try { SilverBlood.Tell(notice); } catch (Exception error) { TraceEscape("实物已入库，提示显示失败：" + error.Message); }
+			try
+			{
+				var ui = StoreUIManager.Instance;
+				var notifier = ReputationUIManager.Instance;
+				if (ui != null && notifier != null)
+				{
+					ui.Notify(L.T("门外好像有动静。", "There seems to be something moving outside the door."));
+					notifier.notifierTimer += 2f;
+				}
+			}
+			catch (Exception error) { TraceEscape("实物已入库，提示显示失败：" + error.Message); }
 			return session.IsCurrent;
 		}
 		catch (Exception error)

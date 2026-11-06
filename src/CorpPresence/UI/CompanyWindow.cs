@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CorpPresence.Malice;
@@ -116,14 +116,14 @@ internal static partial class CompanyWindow
 		{
 			int voucherDeduction = amount - cashDue;
 			GUI.Label(r, L.T($"代金券抵扣 {voucherDeduction}₵ · 应付现金 {cashDue}₵",
-				$"Vouchers −{voucherDeduction}₵ · Cash due {cashDue}₵"), _theme.Small);
+				L.Translate((System.FormattableString)$"Vouchers −{voucherDeduction}₵ · Cash due {cashDue}₵")), _theme.Small);
 		}
 		return cashDue;
 	}
 
 	private static int DrawCheckoutBalance(Rect r, int amount)
 	{
-		GUI.Label(new Rect(r.x, r.y, 120f, r.height), L.T($"现金 {Cash}₵", $"Cash {Cash}₵"), _theme.Small);
+		GUI.Label(new Rect(r.x, r.y, 120f, r.height), L.T($"现金 {Cash}₵", L.Translate((System.FormattableString)$"Cash {Cash}₵")), _theme.Small);
 		return DrawVoucherDetails(new Rect(r.x + 126f, r.y, r.width - 126f, r.height), amount);
 	}
 
@@ -523,7 +523,7 @@ internal static partial class CompanyWindow
 		int num = _company.NextTierAt(state);
 		if (num != 0)
 		{
-			return (L.En ? $"{num - state.Coop} more to “{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”" : $"距“{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”还差 {num - state.Coop} 点");
+			return (L.En ? L.Translate((System.FormattableString)$"{num - state.Coop} more to “{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”") : $"距“{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”还差 {num - state.Coop} 点");
 		}
 		return L.T("已是最高档", "Top tier reached");
 	}

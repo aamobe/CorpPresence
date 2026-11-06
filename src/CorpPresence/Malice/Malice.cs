@@ -234,9 +234,9 @@ internal static class Malice
 		}
 		if (IsMembership(c))
 		{
-			return L.T($"需要{c.Name}的基础会员（{SubscriptionPrice(c)}₵ 一周），在“巨企合约”页开通。", $"Requires a {c.Name} basic membership ({SubscriptionPrice(c)}₵ a week). Sign up on the Corporate Terms page.");
+			return L.T($"需要{c.Name}的基础会员（{SubscriptionPrice(c)}₵ 一周），在“巨企合约”页开通。", L.Translate((System.FormattableString)$"Requires a {c.Name} basic membership ({SubscriptionPrice(c)}₵ a week). Sign up on the Corporate Terms page."));
 		}
-		return L.T($"{c.Name}的订购服务未开通或已到期，请在“巨企合约”页开通（{SubscriptionPrice(c)}₵）。", $"{c.Name}'s ordering service isn't active. Subscribe on the Corporate Terms page ({SubscriptionPrice(c)}₵).");
+		return L.T($"{c.Name}的订购服务未开通或已到期，请在“巨企合约”页开通（{SubscriptionPrice(c)}₵）。", L.Translate((System.FormattableString)$"{c.Name}'s ordering service isn't active. Subscribe on the Corporate Terms page ({SubscriptionPrice(c)}₵)."));
 	}
 
 	private static int CatalogTier(Company c, CompanyState s, int coopTier)
@@ -267,7 +267,7 @@ internal static class Malice
 		}
 		if (c.Tier(companyState) < num)
 		{
-			return L.T("合作度要先到“" + c.TierNames[num - 1] + "”", "Reach “" + c.TierNames[num - 1] + "” first");
+			return L.T("合作度要先到“" + c.TierNames[num - 1] + "”", L.Translate("Reach “") + c.TierNames[num - 1] + L.Translate("” first"));
 		}
 		string text = Services.Pay(c, ApplyFee[num], "unlock");
 		if (text != null)
@@ -421,11 +421,11 @@ internal static class Malice
 				else if (value.SubUntil == Day + 1 && value.RemindedDay != Day)
 				{
 					value.RemindedDay = Day;
-					Notify(L.T($"{company.Name}的订购服务明天到期，续费 {200}₵。", $"{company.Name}'s ordering service expires tomorrow. Renewal is {200}₵."));
+					Notify(L.T($"{company.Name}的订购服务明天到期，续费 {200}₵。", L.Translate((System.FormattableString)$"{company.Name}'s ordering service expires tomorrow. Renewal is {200}₵.")));
 				}
 				else if (value.SubUntil == Day)
 				{
-					Notify(L.T(company.Name + "的订购服务今天起暂停。", company.Name + "'s ordering service is paused from today."));
+					Notify(L.T(company.Name + "的订购服务今天起暂停。", company.Name + L.Translate("'s ordering service is paused from today.")));
 				}
 			}
 		}
@@ -469,17 +469,17 @@ internal static class Malice
 		int num2 = ((!instance.IsPropertyPaid) ? instance.GetRentValue() : 0);
 		if (instance.GetCash() - Math.Max(0, num - t.Vouchers) < num2)
 		{
-			Notify(L.T(c.Name + "的订购服务到期：现金扣完不够交房租，没有自动续费。", c.Name + "'s ordering service expired: not renewed automatically, it would leave you short for rent."));
+			Notify(L.T(c.Name + "的订购服务到期：现金扣完不够交房租，没有自动续费。", c.Name + L.Translate("'s ordering service expired: not renewed automatically, it would leave you short for rent.")));
 			return;
 		}
 		string text = Subscribe(c);
 		if (text != null)
 		{
-			Notify(L.T(c.Name + "自动续费失败：", c.Name + " auto-renewal failed: ") + text);
+			Notify(L.T(c.Name + "自动续费失败：", c.Name + L.Translate(" auto-renewal failed: ")) + text);
 		}
 		else
 		{
-			Notify(L.T($"{c.Name}的订购服务已自动续费 {num}₵。", $"{c.Name}'s ordering service was renewed automatically for {num}₵."));
+			Notify(L.T($"{c.Name}的订购服务已自动续费 {num}₵。", L.Translate((System.FormattableString)$"{c.Name}'s ordering service was renewed automatically for {num}₵.")));
 		}
 	}
 

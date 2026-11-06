@@ -270,7 +270,7 @@ internal sealed class Rosen : Character
 				L.T("店长，对锻造有兴趣吗？", "Interested in forging, boss?"),
 				Character.Act(L.T("把一块钢坯放在柜台上", "sets a steel billet on the counter"), L.T("把高纯度的金属锭塞进炉子里烧一夜，出来的就是这个。", "Stick a high-purity ingot in the forge overnight and this is what comes out.")),
 				L.T("我不小心买多了一套…呃不是，我在传播这门手艺。", "I bought one kit too many by mistake… uh, I mean, I'm passing on the craft."),
-				L.T($"整套家伙只要{MeridianCo.ForgeFee}₵，还送你三块钢坯，练手足够用了。", $"The whole kit's yours for {MeridianCo.ForgeFee}₵. I'll throw in three steel billets. Plenty to practice with.")
+				L.T($"整套家伙只要{MeridianCo.ForgeFee}₵，还送你三块钢坯，练手足够用了。", L.Translate((System.FormattableString)$"The whole kit's yours for {MeridianCo.ForgeFee}₵. I'll throw in three steel billets. Plenty to practice with."))
 			},
 			Exit = L.T("保重，兄弟。", "Take care, brother."),
 			TalkOnly = true,

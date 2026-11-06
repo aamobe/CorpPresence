@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -46,7 +46,7 @@ internal static partial class Services
         int day = Day;
         int nextDay = BloodRecoveryNextDay(state);
         if (day < nextDay)
-            return L.T($"第 {nextDay} 天可再次回收。", $"Recovery opens again on day {nextDay}.");
+            return L.T($"第 {nextDay} 天可再次回收。", L.Translate((System.FormattableString)$"Recovery opens again on day {nextDay}."));
 
         var samples = BloodRecoverySamples();
         if (samples.Count == 0)
@@ -68,7 +68,7 @@ internal static partial class Services
         store.ModCash(payment, playSound: false);
         state.BloodRecoveryLastDay = day;
         ModLog.Info($"卡迈克尔银血回收：{recovered} 支，到账 {payment}₵，下次第 {day + BloodRecoveryGap} 天");
-        return L.T($"已回收 {recovered} 支银血，到账 {payment}₵。", $"Collected {recovered} Silver Blood samples. Received {payment}₵.");
+        return L.T($"已回收 {recovered} 支银血，到账 {payment}₵。", L.Translate((System.FormattableString)$"Collected {recovered} Silver Blood samples. Received {payment}₵."));
     }
 
     private static bool TryCollectBloodSample(GameItem sample)

@@ -243,7 +243,9 @@ internal sealed class SpacerCo : Company
 			{
 				return TechCreditsZh;
 			}
-			return TechCreditsEn;
+			return TextTranslations.HasLocale(L.Locale)
+				? Array.ConvertAll(TechCreditsEn, line => (L.Translate(line.Company), L.Translate(line.Tech)))
+				: TechCreditsEn;
 		}
 	}
 

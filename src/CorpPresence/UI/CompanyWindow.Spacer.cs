@@ -31,13 +31,13 @@ internal static partial class CompanyWindow
 			Ui.Fill(new Rect(20f, 20f, 420f, 56f), theme.Ink);
 			GUI.Label(new Rect(36f, 20f, 400f, 56f), _company.Name, theme.InvTitle);
 		}
-		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? $"{_company.PhoneNumber}   Day {Day}" : $"{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
+		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? L.Translate((System.FormattableString)$"{_company.PhoneNumber}   Day {Day}") : $"{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
 		Ui.Fill(new Rect(20f, 100f, width - 40f, 2f), theme.Ink);
 		GUI.Label(new Rect(24f, 106f, width - 48f, 22f), L.T("导师：", "The Mentor: ") + _desk, theme.Body);
 		Rect position = new Rect(20f, 136f, 190f, height - 156f);
 		GUI.Box(position, GUIContent.none, theme.CellBox);
-		GUI.Label(new Rect(position.x + 10f, position.y + 8f, 170f, 22f), (L.En ? "Node: " + TierLabel(state) : "节点：" + TierLabel(state)), theme.Body);
-		GUI.Label(new Rect(position.x + 10f, position.y + 32f, 170f, 20f), (L.En ? $"Trust {state.Coop}" : $"信任度 {state.Coop}"), theme.Small);
+		GUI.Label(new Rect(position.x + 10f, position.y + 8f, 170f, 22f), (L.En ? L.Translate("Node: ") + TierLabel(state) : "节点：" + TierLabel(state)), theme.Body);
+		GUI.Label(new Rect(position.x + 10f, position.y + 32f, 170f, 20f), (L.En ? L.Translate((System.FormattableString)$"Trust {state.Coop}") : $"信任度 {state.Coop}"), theme.Small);
 		CoopBar(new Rect(position.x + 10f, position.y + 54f, 170f, 8f));
 		GUI.Label(new Rect(position.x + 10f, position.y + 64f, 170f, 20f), NextTierHint(), theme.Small);
 		float num = position.y + 96f;
@@ -62,7 +62,7 @@ internal static partial class CompanyWindow
 			}
 			else if (SpacerPages[_module] == "阵线" && _company.Tier(state) < 2)
 			{
-				GUI.Label(new Rect(rect2.x, rect2.y, rect2.width, 40f), (L.En ? "Only at " + _company.TierNames[1] + "." : _company.TierNames[1] + "才有。"), theme.Wrap);
+				GUI.Label(new Rect(rect2.x, rect2.y, rect2.width, 40f), (L.En ? L.Translate((System.FormattableString)$"Only at {_company.TierNames[1]}.") : _company.TierNames[1] + "才有。"), theme.Wrap);
 			}
 			else if (SpacerPages[_module] == "目录")
 			{
@@ -149,7 +149,7 @@ internal static partial class CompanyWindow
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(item)), theme.Center);
 			if (item.MinTier > num)
 			{
-				GUI.Label(status, (L.En ? "At " + _company.TierNames[item.MinTier - 1] : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
+				GUI.Label(status, (L.En ? L.Translate((System.FormattableString)$"At {_company.TierNames[item.MinTier - 1]}") : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
 				Cart.Remove(item);
 				num4 += 33f;
 				continue;
@@ -182,7 +182,7 @@ internal static partial class CompanyWindow
 		}
 		int num10 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => SpacerUnitPrice(kv.Key) * kv.Value);
 		float num11 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num11, 260f, 22f), (L.En ? $"Total {num10}₵ (all pages)" : $"合计 {num10}₵（各页合计）"), theme.Price);
+		GUI.Label(new Rect(r.x, num11, 260f, 22f), (L.En ? L.Translate((System.FormattableString)$"Total {num10}₵ (all pages)") : $"合计 {num10}₵（各页合计）"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num11 + 22f, r.width - 150f, 20f), num10);
 		bool enabled2 = GUI.enabled;
 		GUI.enabled = enabled2 && num10 > 0 && Services.CanAfford(cashDue) && flag;
@@ -224,10 +224,10 @@ internal static partial class CompanyWindow
 		CompanyState state = State;
 		if (_company.Tier(state) < 2)
 		{
-			GUI.Label(new Rect(r.x, r.y, r.width, 40f), (L.En ? "Only at " + _company.TierNames[1] + "." : _company.TierNames[1] + "才有。"), theme.Wrap);
+			GUI.Label(new Rect(r.x, r.y, r.width, 40f), (L.En ? L.Translate((System.FormattableString)$"Only at {_company.TierNames[1]}.") : _company.TierNames[1] + "才有。"), theme.Wrap);
 			return;
 		}
-		GUI.Label(new Rect(r.x, r.y, r.width, 90f), (L.En ? $"Spacers at the docks are short on food, water and medicine. With this on, the Alliance points people your way every night: the next day, 1–2 extra Spacers come by to buy whatever they need.\n\n{SpacerCo.MutualFee}₵ per night. Stops automatically when you are short on cash." : $"码头上的星际客缺吃、缺水、缺药。开着这个，联盟每晚把人往你这儿指：第二天多来 1–2 位星际客，缺什么买什么。\n\n每晚 {SpacerCo.MutualFee}₵。现金不够时自动停。"), theme.Wrap);
+		GUI.Label(new Rect(r.x, r.y, r.width, 90f), (L.En ? L.Translate((System.FormattableString)$"Spacers at the docks are short on food, water and medicine. With this on, the Alliance points people your way every night: the next day, 1–2 extra Spacers come by to buy whatever they need.\n\n{SpacerCo.MutualFee}₵ per night. Stops automatically when you are short on cash.") : $"码头上的星际客缺吃、缺水、缺药。开着这个，联盟每晚把人往你这儿指：第二天多来 1–2 位星际客，缺什么买什么。\n\n每晚 {SpacerCo.MutualFee}₵。现金不够时自动停。"), theme.Wrap);
 		if (Ui.Button(new Rect(r.x, r.y + 110f, 200f, 34f), state.TrafficOn ? L.T("开着（点击关掉）", "On (click to turn off)") : L.T("开", "Turn on"), state.TrafficOn ? theme.BtnStyle : theme.BtnHotStyle))
 		{
 			state.TrafficOn = !state.TrafficOn;

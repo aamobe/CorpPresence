@@ -193,7 +193,7 @@ internal static class Envoy
 				s.Aid = "repay5";
 				s.RepayLeft = AidRepayWeeks;
 				s.RepayDue = Day + 7;
-				Notify(L.T($"帕斯泰尔或卡迈克尔的订阅断了。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", $"Your Pastel or Carmicheal subscription lapsed. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks."));
+				Notify(L.T($"帕斯泰尔或卡迈克尔的订阅断了。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", L.Translate((System.FormattableString)$"Your Pastel or Carmicheal subscription lapsed. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks.")));
 			}
 		}
 		if ((s.Aid == "repay5" || s.Aid == "plan6") && s.RepayDue >= 0 && s.RepayDue <= Day && !Booked("repay"))
@@ -216,7 +216,7 @@ internal static class Envoy
 			s.ChannelUntil = Day + ChannelWeeks * 7;
 			s.ChannelDue = Day + 7;
 			s.ChannelFee = 0;
-			Notify(L.T($"礼物逾期未送达。接下来 {ChannelWeeks * 7} 天，卖出巨企目录商品时按成交额的 {ChannelRate * 100:0}% 计提渠道费。", $"The gift missed its deadline. For the next {ChannelWeeks * 7} days, the corporations charge {ChannelRate * 100:0}% of each catalog sale as a channel fee."));
+			Notify(L.T($"礼物逾期未送达。接下来 {ChannelWeeks * 7} 天，卖出巨企目录商品时按成交额的 {ChannelRate * 100:0}% 计提渠道费。", L.Translate((System.FormattableString)$"The gift missed its deadline. For the next {ChannelWeeks * 7} days, the corporations charge {ChannelRate * 100:0}% of each catalog sale as a channel fee.")));
 		}
 		if (s.Ch2 == "malice" && s.ChannelDue >= 0 && s.ChannelDue <= Day && !Booked("channel"))
 		{
@@ -493,7 +493,7 @@ internal static class Envoy
 			{
 				L.T("您好。我是撒该·索恩，联合站区管理处站长。", "Good day. I'm Zacchaeus Thorne, director of the Joint District Administration."),
 				L.T("我们注意到您的生意最近不错，想必很需要一笔扶持金来扩大规模。", "We've noticed business has been good lately. Surely you could use a grant to expand."),
-				L.T($"管理处可以提供一笔 {2000}₵ 扶持金，甚至不用您偿还。条件很简单：连续三周订阅帕斯泰尔和卡迈克尔的订购服务，我的朋友们最近需要扩大市场。", $"The Administration can offer a {2000}₵ grant, and you needn't even repay it. One simple condition: keep Pastel and Carmicheal's ordering services subscribed for three weeks straight. My friends are looking to expand their market.")
+				L.T($"管理处可以提供一笔 {2000}₵ 扶持金，甚至不用您偿还。条件很简单：连续三周订阅帕斯泰尔和卡迈克尔的订购服务，我的朋友们最近需要扩大市场。", L.Translate((System.FormattableString)$"The Administration can offer a {2000}₵ grant, and you needn't even repay it. One simple condition: keep Pastel and Carmicheal's ordering services subscribed for three weeks straight. My friends are looking to expand their market."))
 			}, L.T("您意下如何？", "What do you say?"), new (string, string, Action)[2]
 			{
 				Opt(L.T("我接受。", "I accept."), L.T("明智。钱已经放在柜台上了。", "Wise. The money is on your counter."), AcceptAid),
@@ -514,20 +514,20 @@ internal static class Envoy
 				GiveItem("friend_medal");
 			});
 		case "repay":
-			return Talk(kind, name, Sprite, new string[1] { L.T($"这周的 {Installment}₵。", $"This week's {Installment}₵.") }, L.T($"还剩 {s.RepayLeft} 期。", $"{s.RepayLeft} installment(s) left."), new (string, string, Action)[2]
+			return Talk(kind, name, Sprite, new string[1] { L.T($"这周的 {Installment}₵。", L.Translate((System.FormattableString)$"This week's {Installment}₵.")) }, L.T($"还剩 {s.RepayLeft} 期。", L.Translate((System.FormattableString)$"{s.RepayLeft} installment(s) left.")), new (string, string, Action)[2]
 			{
-				Opt(L.T($"给你 {Installment}₵。", $"Here's {Installment}₵."), L.T("合作愉快。", "A pleasure."), PayInstallment),
+				Opt(L.T($"给你 {Installment}₵。", L.Translate((System.FormattableString)$"Here's {Installment}₵.")), L.T("合作愉快。", "A pleasure."), PayInstallment),
 				Opt(L.T("这周拿不出来。", "I can't pay this week."), L.T("我会如实记下的。", "I'll note that accurately."), MissInstallment)
 			}, null);
 		case "ch2":
 			return Talk(kind, name, Sprite, new string[3]
 			{
 				L.T("生意兴隆。管理处其实一直在为您的店铺提供看不见的服务，我觉得您需要做出一些表示。", "Business is thriving. The Administration has quietly been providing your shop with services you never see. I think a gesture of thanks is in order."),
-				L.T($"这些服务的费用是 {1500}₵。", $"Those services come to {1500}₵."),
+				L.T($"这些服务的费用是 {1500}₵。", L.Translate((System.FormattableString)$"Those services come to {1500}₵.")),
 				L.T("或者……您可以帮我们一个小忙。有一件东西，需要送到一位叫奥丁的人手里，我当然知道您和他很熟。", "Or... you could do us a small favor. There's a package that needs to reach a man named Odin. I know you two are well acquainted.")
 			}, L.T("您选哪一样？", "Which will it be?"), new (string, string, Action)[3]
 			{
-				Opt(L.T($"我付 {1500}₵。", $"I'll pay {1500}₵."), L.T("感谢您的配合。", "Thank you for your cooperation."), () =>
+				Opt(L.T($"我付 {1500}₵。", L.Translate((System.FormattableString)$"I'll pay {1500}₵.")), L.T("感谢您的配合。", "Thank you for your cooperation."), () =>
 				{
 					Say(PayServiceFee());
 				}),
@@ -595,7 +595,7 @@ internal static class Envoy
 		}
 		return Talk("coin:" + companyId, character.Name, sprite, new string[2]
 		{
-			L.T(company.Name + "让我把这个交给你。", company.Name + " asked me to give you this."),
+			L.T(company.Name + "让我把这个交给你。", company.Name + L.Translate(" asked me to give you this.")),
 			L.T("他们说，你是被选中的人。", "They say you're one of the chosen.")
 		}, null, null, () =>
 		{
@@ -618,7 +618,7 @@ internal static class Envoy
 		{
 			if (!Malice.Subscribed(Companies.Find(id)))
 			{
-				Notify(L.T("记得开通" + Companies.Find(id).Name + "的订购服务（援助条件）。", "Remember to subscribe to " + Companies.Find(id).Name + "'s ordering service (aid condition)."));
+				Notify(L.T("记得开通" + Companies.Find(id).Name + "的订购服务（援助条件）。", L.Translate("Remember to subscribe to ") + Companies.Find(id).Name + L.Translate("'s ordering service (aid condition).")));
 			}
 		}
 		ModLog.Info($"恶意巨企：接受援助 {2000}₵");
@@ -675,7 +675,7 @@ internal static class Envoy
 				s.LateWeeks++;
 				s.RepayDue = Day + 7;
 				int surcharge = LateOrderSurchargePercent(s.LateWeeks);
-				Notify(L.T($"这期没交，顺延一周。巨企订货价格累计 +{surcharge}%，还完恢复。", $"Missed: pushed back a week. Corporate order prices are now +{surcharge}% until you finish paying."));
+				Notify(L.T($"这期没交，顺延一周。巨企订货价格累计 +{surcharge}%，还完恢复。", L.Translate((System.FormattableString)$"Missed: pushed back a week. Corporate order prices are now +{surcharge}% until you finish paying.")));
 			}
 		}
 	}
@@ -934,7 +934,7 @@ internal static class Envoy
 		{
 			s.ChannelDue = s.ChannelUntil;
 		}
-		Notify(L.T($"本期渠道费 {balance}₵，实收 {paid}₵。", $"Channel fees for this collection: {balance}₵ due, {paid}₵ collected."));
+		Notify(L.T($"本期渠道费 {balance}₵，实收 {paid}₵。", L.Translate((System.FormattableString)$"Channel fees for this collection: {balance}₵ due, {paid}₵ collected.")));
 	}
 
 	private static void JoinCorps()
@@ -1224,7 +1224,7 @@ internal static class Envoy
 			}
 			if (flag)
 			{
-				Notify(L.T($"撒该的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", $"Zacchaeus's number ({company.PhoneNumber}) is now in the notebook by the phone."));
+				Notify(L.T($"撒该的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", L.Translate((System.FormattableString)$"Zacchaeus's number ({company.PhoneNumber}) is now in the notebook by the phone.")));
 			}
 		}
 	}

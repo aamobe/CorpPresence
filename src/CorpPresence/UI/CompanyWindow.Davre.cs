@@ -26,7 +26,7 @@ internal static partial class CompanyWindow
 			Ui.Fill(new Rect(20f, 16f, 560f, 64f), theme.Accent);
 			GUI.Label(new Rect(36f, 16f, 520f, 64f), _company.Name + L.T(" · 供货单", " · Supply Order"), theme.InvTitle);
 		}
-		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? $"Order DAV-{_company.PhoneNumber}   Day {Day}" : $"单号 DAV-{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
+		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? L.Translate((System.FormattableString)$"Order DAV-{_company.PhoneNumber}   Day {Day}") : $"单号 DAV-{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
 		Ui.Fill(new Rect(20f, 100f, width - 40f, 2f), theme.Accent);
 		GUI.Label(new Rect(24f, 106f, width - 48f, 22f), L.T("订货中心：", "Order center: ") + _desk, theme.Body);
 		Rect position = new Rect(20f, 136f, 220f, height - 156f);
@@ -39,7 +39,7 @@ internal static partial class CompanyWindow
 			Ui.Image(new Rect(r2.x + 2f, r2.y + 2f, r2.width - 4f, r2.height - 4f), texture2D);
 		}
 		GUI.Label(new Rect(position.x + 10f, r2.yMax + 4f, 200f, 20f), L.T("供货专员：多琳", "Supply rep: Doreen"), theme.Small);
-		GUI.Label(new Rect(position.x + 10f, r2.yMax + 28f, 200f, 22f), (L.En ? "Tier: " + TierLabel(state) : "档位：" + TierLabel(state)), theme.Body);
+		GUI.Label(new Rect(position.x + 10f, r2.yMax + 28f, 200f, 22f), (L.En ? L.Translate("Tier: ") + TierLabel(state) : "档位：" + TierLabel(state)), theme.Body);
 		CoopBar(new Rect(position.x + 10f, r2.yMax + 54f, 200f, 8f));
 		GUI.Label(new Rect(position.x + 10f, r2.yMax + 64f, 200f, 20f), NextTierHint(), theme.Small);
 		float num = r2.yMax + 96f;
@@ -107,7 +107,7 @@ internal static partial class CompanyWindow
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(catalogEntry)), theme.Center);
 			if (catalogEntry.MinTier > num)
 			{
-				GUI.Label(status, (L.En ? "Opens at " + _company.TierNames[catalogEntry.MinTier - 1] : _company.TierNames[catalogEntry.MinTier - 1] + "开放"), theme.Small);
+				GUI.Label(status, (L.En ? L.Translate((System.FormattableString)$"Opens at {_company.TierNames[catalogEntry.MinTier - 1]}") : _company.TierNames[catalogEntry.MinTier - 1] + "开放"), theme.Small);
 				Cart.Remove(catalogEntry);
 				num4 += 36f;
 				continue;
@@ -136,7 +136,7 @@ internal static partial class CompanyWindow
 		}
 		int num6 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => DavreUnitPrice(kv.Key) * kv.Value);
 		float num7 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num7, 200f, 22f), (L.En ? $"Total {num6}₵" : $"合计 {num6}₵"), theme.Price);
+		GUI.Label(new Rect(r.x, num7, 200f, 22f), (L.En ? L.Translate((System.FormattableString)$"Total {num6}₵") : $"合计 {num6}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num7 + 22f, r.width - 170f, 20f), num6);
 		bool enabled = GUI.enabled;
 		GUI.enabled = enabled && num6 > 0 && Services.CanAfford(cashDue) && flag;
@@ -164,18 +164,18 @@ internal static partial class CompanyWindow
 		float num = r.y + 76f;
 		if (!DavreCo.CanningOpen && !DavreCo.CanningOffered)
 		{
-			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? $"Doreen will come to talk once cooperation reaches {60}." : $"合作度到 {60} 后，多琳会上门来谈。"), theme.Wrap);
+			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? L.Translate((System.FormattableString)$"Doreen will come to talk once cooperation reaches {60}.") : $"合作度到 {60} 后，多琳会上门来谈。"), theme.Wrap);
 			return;
 		}
 		if (!DavreCo.CanningOpen)
 		{
 			int fee = DavreCo.CanningFee;
-			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? $"Doreen already made the offer. {fee}₵ fee for one grinder and one canner, delivered tomorrow." : $"多琳问过你了。手续费 {fee}₵，绞肉机和罐装机各一台，明天送到。"), theme.Wrap);
+			GUI.Label(new Rect(r.x, num, r.width, 44f), (L.En ? L.Translate((System.FormattableString)$"Doreen already made the offer. {fee}₵ fee for one grinder and one canner, delivered tomorrow.") : $"多琳问过你了。手续费 {fee}₵，绞肉机和罐装机各一台，明天送到。"), theme.Wrap);
 			float num2 = r.yMax - 44f;
 			int cashDue = DrawCheckoutBalance(new Rect(r.x, num2 + 22f, r.width - 170f, 20f), fee);
 			bool enabled = GUI.enabled;
 			GUI.enabled = enabled && Services.CanAfford(cashDue);
-			if (Ui.Button(new Rect(r.xMax - 170f, num2 + 2f, 160f, 36f), (L.En ? $"Sign up ({fee}₵)" : $"补办（{fee}₵）"), theme.BtnHotStyle))
+			if (Ui.Button(new Rect(r.xMax - 170f, num2 + 2f, 160f, 36f), (L.En ? L.Translate((System.FormattableString)$"Sign up ({fee}₵)") : $"补办（{fee}₵）"), theme.BtnHotStyle))
 			{
 				Toast(Services.MakeUpCanning(c) ?? _company.FrontDeskDone);
 			}
@@ -213,7 +213,7 @@ internal static partial class CompanyWindow
 			GUI.enabled = enabled2;
 			num += rowHeight;
 		}
-		GUI.Label(new Rect(r.x, r.yMax - 22f, 200f, 20f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
+		GUI.Label(new Rect(r.x, r.yMax - 22f, 200f, 20f), (L.En ? L.Translate((System.FormattableString)$"Cash {Cash}₵") : $"现金 {Cash}₵"), theme.Small);
 	}
 
 	private static int LeviathanPrice()
@@ -242,7 +242,7 @@ internal static partial class CompanyWindow
 		int num = davreCo.LeviathanLimit(state);
 		int num2 = DavreCo.LeviathanUsed(state);
 		int num3 = LeviathanPrice();
-		GUI.Label(new Rect(r.x, r.y, r.width, 66f), L.T("照着海德拉做的。铁锈水、幽灵水都能净化成基础水，沟渠水不行。耐久 600，能净化 60 升。\n", "Modeled on the HydraTech. Purifies Rustwater and Ghostwater to Basewater, but not Gutterflow. 600 durability, good for 60 liters.\n") + (L.En ? $"{num} per restock period (2 from {_company.TierNames[2]}), {num3}₵ each, delivered tomorrow." : $"每个补货周期可订 {num} 台（{_company.TierNames[2]}起 2 台），每台 {num3}₵，明天到货。"), theme.Wrap);
+		GUI.Label(new Rect(r.x, r.y, r.width, 66f), L.T("照着海德拉做的。铁锈水、幽灵水都能净化成基础水，沟渠水不行。耐久 600，能净化 60 升。\n", "Modeled on the HydraTech. Purifies Rustwater and Ghostwater to Basewater, but not Gutterflow. 600 durability, good for 60 liters.\n") + (L.En ? L.Translate((System.FormattableString)$"{num} per restock period (2 from {_company.TierNames[2]}), {num3}₵ each, delivered tomorrow.") : $"每个补货周期可订 {num} 台（{_company.TierNames[2]}起 2 台），每台 {num3}₵，明天到货。"), theme.Wrap);
 		Texture2D icon = Brand.Info("@leviathan").Icon;
 		Rect position = new Rect(r.x, r.y + 80f, 136f, 136f);
 		GUI.Box(position, GUIContent.none, theme.CellBox);
@@ -250,11 +250,11 @@ internal static partial class CompanyWindow
 		{
 			Ui.Image(new Rect(position.x + 4f, position.y + 4f, 128f, 128f), icon);
 		}
-		GUI.Label(new Rect(position.xMax + 20f, position.y + 10f, 240f, 26f), (L.En ? $"Ordered {Services.PeriodWord}: {num2}/{num}" : $"{Services.PeriodWord}已订 {num2}/{num} 台"), theme.Body);
-		GUI.Label(new Rect(position.xMax + 20f, position.y + 40f, 300f, 22f), (L.En ? $"Restocks on day {Services.NextRestockDay}" : $"第 {Services.NextRestockDay} 天补货"), theme.Small);
+		GUI.Label(new Rect(position.xMax + 20f, position.y + 10f, 240f, 26f), (L.En ? L.Translate((System.FormattableString)$"Ordered {Services.PeriodWord}: {num2}/{num}") : $"{Services.PeriodWord}已订 {num2}/{num} 台"), theme.Body);
+		GUI.Label(new Rect(position.xMax + 20f, position.y + 40f, 300f, 22f), (L.En ? L.Translate((System.FormattableString)$"Restocks on day {Services.NextRestockDay}") : $"第 {Services.NextRestockDay} 天补货"), theme.Small);
 		GUI.Label(new Rect(r.xMax - 170f, position.y + 10f, 160f, 26f), ItemListPrice(ItemListValue(_leviathan), labeled: true), theme.Center);
 		float num4 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num4, 200f, 22f), (L.En ? $"Unit price {num3}₵" : $"单价 {num3}₵"), theme.Price);
+		GUI.Label(new Rect(r.x, num4, 200f, 22f), (L.En ? L.Translate((System.FormattableString)$"Unit price {num3}₵") : $"单价 {num3}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num4 + 22f, r.width - 170f, 20f), num3);
 		bool enabled = GUI.enabled;
 		GUI.enabled = enabled && num3 > 0 && num2 < num && Services.CanAfford(cashDue);

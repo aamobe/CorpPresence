@@ -413,8 +413,8 @@ internal static class Tobacco
 		if (gameItem != null)
 		{
 			string displayName = machine.GetDisplayName();
-			gameItem.name = L.T(displayName + "说明", displayName + " Instructions");
-			gameItem.shortDescription = L.T(displayName + "使用方法。", "How to use the " + displayName + ".");
+			gameItem.name = L.T(displayName + "说明", L.Translate((FormattableString)$"{displayName} Instructions"));
+			gameItem.shortDescription = L.T(displayName + "使用方法。", L.Translate((FormattableString)$"How to use the {displayName}."));
 			gameItem.flavorText = L.T(text.Zh, text.En);
 			gameItem.SetGameItemType("DOCUMENT");
 			gameItem.EnableTag("IMPORTANT_TAG");

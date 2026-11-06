@@ -156,8 +156,8 @@ internal static partial class SilverBlood
 			Usable = true,
 			Desc = "患哨兵崩溃综合征时可以注射：每针兼当一针免疫宁，累计 3 针彻底治愈。没有这个病的人用不了。",
 			DescEn = "Can be injected if you have Sentinel Collapse Syndrome: each shot also counts as an Immunivax shot, and 3 shots in total cure it for good. Useless to anyone without the disease.",
-			Flavor = "（危险描述）",
-			FlavorEn = "(Dangerous description)"
+			Flavor = "药液晃动时泛着一点金属光。卡迈克尔的标签上印着「仅限确诊患者使用」。",
+			FlavorEn = "The liquid has a faint metallic sheen when shaken. The Carmicheal label reads “For confirmed cases only.”"
 		},
 		["implant_compat"] = new Goods.Def
 		{
@@ -172,8 +172,8 @@ internal static partial class SilverBlood
 			W = 4,
 			H = 1,
 			Shell = Empty,
-			Desc = "减轻身体对义体的排异。（卖给改造体应该有彩蛋）",
-			DescEn = "Reduces the body's rejection of implants. (Selling it to augmented customers should have an easter egg)",
+			Desc = "卡迈克尔为义体排异配制的药剂。",
+			DescEn = "A Carmicheal preparation for implant rejection.",
 			Flavor = "针管上有一圈细金属环。",
 			FlavorEn = "A thin metal ring around the barrel."
 		},

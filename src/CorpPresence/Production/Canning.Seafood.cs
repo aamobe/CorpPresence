@@ -16,13 +16,16 @@ internal static partial class Canning
     private const int SealPower = 6;
     private const int CannerBaseValue = 350;
 
-    private static Goods.Def SeafoodFood(string zh, string en, int price, string art, int kcal, bool canned, bool luxury = false)
+    private static Goods.Def SeafoodFood(string zh, string en, int price, string art, int kcal, bool canned,
+        (string Zh, string En) description, (string Zh, string En) flavor, bool luxury = false)
     {
         return new Goods.Def
         {
             Name = zh, NameEn = en, Value = price, Company = "davre", Manufacturer = "davre",
             Art = art, Fallback = "processed_meat", W = 2, H = 1,
             Types = luxury ? new[] { "FOOD", "PROCESSED_FOOD", "LUXURY_ITEM" } : new[] { "FOOD" },
+            Desc = description.Zh, DescEn = description.En,
+            Flavor = flavor.Zh, FlavorEn = flavor.En,
             Shell = Empty,
             Setup = item =>
             {
@@ -40,7 +43,9 @@ internal static partial class Canning
         Art = "seafood_sealer", Fallback = "furnace", W = 3, H = 3,
         Types = new[] { "MACHINE" }, Shell = BuildSeafoodSealer,
         Desc = "过夜或充能时封装，每次启动默认耗 6 电。蟹肉棒档每批用 4 份鱼肉糜，槽中须放 1 个可重复使用的 3D 打印耗材。鱼罐头档每批用 1 条已宰杀、未切片的亚成年普通罗非鱼。这两档每批需 100 毫升基础水或更高档的水。繁星果糊档每批用 1 份营养果糊制成 1 份繁星果糊，无需水或耗材。性能模组增加批次，效率模组降低耗电。",
-        DescEn = "Runs overnight or when turbo boosted, using 6 charge per run by default. Crab Stick mode uses 4 fish mince per batch and requires a reusable printer plastic item. Canned Fish mode uses one dead, whole adolescent common tilapia per batch. Both modes use 100 mL of Basewater or better per batch. Galaxy Blend mode turns 1 nutrifruit paste into 1 Galaxy Blend without water or printer plastic. Performance modules add batches and efficiency modules reduce power use."
+        DescEn = "Runs overnight or when turbo boosted, using 6 charge per run by default. Crab Stick mode uses 4 fish mince per batch and requires a reusable printer plastic item. Canned Fish mode uses one dead, whole adolescent common tilapia per batch. Both modes use 100 mL of Basewater or better per batch. Galaxy Blend mode turns 1 nutrifruit paste into 1 Galaxy Blend without water or printer plastic. Performance modules add batches and efficiency modules reduce power use.",
+        Flavor = "达夫雷给小店用的封装设备。水槽边贴着一行小字「换档前请清洗」。",
+        FlavorEn = "A Davre sealer for small shops. A label by the water tray reads “Clean before switching modes.”"
     };
 
     private static bool IsWholeTilapia(GameItem item) =>
@@ -197,7 +202,7 @@ internal static partial class Canning
                 return L.T("水质须为基础水或更高档。", "Use Basewater or better.");
         }
         if (power > 0 && !PowerHelper.CanDrawPowerSource(battery, power))
-            return L.T($"需要 {power} 电。", $"{power} charge is required.");
+            return L.T($"需要 {power} 电。", L.Translate((System.FormattableString)$"{power} charge is required."));
 
         var product = galaxy ? ItemRegistry.Create("galaxy_blend") : Goods.Make(fish ? "fish_can" : "crab_stick");
         if (product == null) return L.T("成品尚未就绪。", "The product is unavailable.");

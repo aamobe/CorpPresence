@@ -1334,7 +1334,7 @@ internal static class Goods
 				return;
 			}
 			meds.StaminaShots++;
-			text = ((Settings.VanillaServices && meds.StaminaShots > 2) ? L.T($"你注射了体力增强剂，但身体已经适应了。\n拾荒次数上限最多 +{2}，这一针没有再增加（设置“服务强度”为原版）。", $"You inject the Stamina Booster, but your body has adapted.\nScavenging attempts are capped at +{2}; this shot adds nothing more (Service strength is set to Vanilla).") : L.T($"你注射了体力增强剂。\n每天在垃圾场的拾荒次数上限 +1（已注射 {meds.StaminaShots} 针）。", $"You inject the Stamina Booster.\nDaily scavenging attempts in the Dumping Grounds +1 ({meds.StaminaShots} injected so far)."));
+			text = ((Settings.VanillaServices && meds.StaminaShots > 2) ? L.T($"你注射了体力增强剂，但身体已经适应了。\n拾荒次数上限最多 +{2}，这一针没有再增加（设置“服务强度”为原版）。", L.Translate((System.FormattableString)$"You inject the Stamina Booster, but your body has adapted.\nScavenging attempts are capped at +{2}; this shot adds nothing more (Service strength is set to Vanilla).")) : L.T($"你注射了体力增强剂。\n每天在垃圾场的拾荒次数上限 +1（已注射 {meds.StaminaShots} 针）。", L.Translate((System.FormattableString)$"You inject the Stamina Booster.\nDaily scavenging attempts in the Dumping Grounds +1 ({meds.StaminaShots} injected so far).")));
 			break;
 		case 9:
 			if (!(id == "painblock"))

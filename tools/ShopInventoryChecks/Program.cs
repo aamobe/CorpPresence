@@ -22,6 +22,6 @@ namespace CorpPresence {
  class PlayerStore{public static PlayerStore Instance;public int Cash;public int GetCash()=>Cash;public void ModCash(int n,bool playSound)=>Cash+=n;}
  static class SilverBlood{public static bool IsRecoverySample(GameItem i)=>i!=null&&i.identifier=="blood"&&i.parentInventory!=null&&!i.Destroyed;}
  static partial class Services{public static int Day;}
- static class L{public static string T(string a,string b)=>a;}
+ static class L{public static string T(string a,string b)=>a; public static string Translate(FormattableString text)=>text.ToString();}
  static class ModLog{public static void Warn(string s){}public static void Info(string s){}}
 }

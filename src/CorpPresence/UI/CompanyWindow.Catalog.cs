@@ -58,7 +58,7 @@ internal static partial class CompanyWindow
 	private static string ItemListPrice(int value, bool labeled = false)
 	{
 		string amount = value < 0 ? "—" : $"{value}₵";
-		return labeled ? L.T($"标价 {amount}", $"List {amount}") : amount;
+		return labeled ? L.T($"标价 {amount}", L.Translate((System.FormattableString)$"List {amount}")) : amount;
 	}
 
 	private static void DrawBrand(Rect r)
@@ -75,7 +75,7 @@ internal static partial class CompanyWindow
 				num++;
 			}
 		}
-		GUI.Label(new Rect(r.x, r.y, r.width, 22f), (L.En ? $"Recorded {num}/{array.Length}   Products you buy, sell or receive from this company get recorded here" : $"已收录 {num}/{array.Length}\u3000买进、卖出或拿到过的本公司产品会收录进来"), theme.Small);
+		GUI.Label(new Rect(r.x, r.y, r.width, 22f), (L.En ? L.Translate((System.FormattableString)$"Recorded {num}/{array.Length}   Products you buy, sell or receive from this company get recorded here") : $"已收录 {num}/{array.Length}\u3000买进、卖出或拿到过的本公司产品会收录进来"), theme.Small);
 		int num2 = Mathf.Max(3, (int)((r.width + 6f) / 124f));
 		float num3 = (r.width - 6f * (float)(num2 - 1)) / (float)num2;
 		int num4 = (array.Length + num2 - 1) / num2;

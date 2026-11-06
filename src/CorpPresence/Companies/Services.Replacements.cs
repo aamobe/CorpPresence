@@ -44,7 +44,7 @@ internal static partial class Services
 		}
 		if (Day < SwapNextDay(companyState))
 		{
-			return L.T($"第 {SwapNextDay(companyState)} 天才能再申请", $"You can apply again on day {SwapNextDay(companyState)}");
+			return L.T($"第 {SwapNextDay(companyState)} 天才能再申请", L.Translate((System.FormattableString)$"You can apply again on day {SwapNextDay(companyState)}"));
 		}
 		List<GameItem> list = FakesOwned().Take(6).ToList();
 		if (list.Count == 0)
@@ -133,11 +133,11 @@ internal static partial class Services
 		}
 		if (c.Tier(companyState) < 2)
 		{
-			return L.T(c.TierNames[1] + "才开放", "Opens at " + c.TierNames[1]);
+			return L.T(c.TierNames[1] + "才开放", L.Translate((System.FormattableString)$"Opens at {c.TierNames[1]}"));
 		}
 		if (Day < RefurbishNextDay(companyState))
 		{
-			return L.T($"第 {RefurbishNextDay(companyState)} 天才能再送", $"You can send again on day {RefurbishNextDay(companyState)}");
+			return L.T($"第 {RefurbishNextDay(companyState)} 天才能再送", L.Translate((System.FormattableString)$"You can send again on day {RefurbishNextDay(companyState)}"));
 		}
 		List<GameItem> list = RefurbishCandidates().Take(3).ToList();
 		if (list.Count == 0)

@@ -130,7 +130,7 @@ internal static class Phone
 			CompanyState companyState = Companies.StateOf(company);
 			if (companyState != null && companyState.CardGiven && StoreReputation.IsPerkUnlocked("LLAVOIDED"))
 			{
-				StoreUIManager.Instance?.Notify(L.T(company.Name + "拒接了你的电话：你在下层区“狗嫌人厌”，供货商都不愿和你来往。", company.Name + " won't take your call: you're a pariah in the Lower Levels, and no supplier wants to deal with you."));
+				StoreUIManager.Instance?.Notify(L.T(company.Name + "拒接了你的电话：你在下层区“狗嫌人厌”，供货商都不愿和你来往。", company.Name + L.Translate(" won't take your call: you're a pariah in the Lower Levels, and no supplier wants to deal with you.")));
 			}
 		}
 	}

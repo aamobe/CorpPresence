@@ -134,7 +134,7 @@ internal static class Rebels
 			catch
 			{
 			}
-			Notify(L.T($"反抗军的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", $"The Resistance's number ({company.PhoneNumber}) is now in the notebook by the phone."));
+			Notify(L.T($"反抗军的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", L.Translate((System.FormattableString)$"The Resistance's number ({company.PhoneNumber}) is now in the notebook by the phone.")));
 		}
 		int num = 0;
 		string[] factions = RebelCo.Factions;
@@ -209,7 +209,7 @@ internal static class Rebels
 		int num = FenceCost();
 		if (maliceState.RebelPoints < num)
 		{
-			return L.T($"助力点不够（要 {num} 点）。", $"Not enough support points (need {num}).");
+			return L.T($"助力点不够（要 {num} 点）。", L.Translate((System.FormattableString)$"Not enough support points (need {num})."));
 		}
 		maliceState.RebelPoints -= num;
 		maliceState.FenceDay = Day;

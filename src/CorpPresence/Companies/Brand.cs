@@ -96,7 +96,7 @@ internal static class Brand
 
 	public static Entry Info(string key)
 	{
-		string key2 = (L.En ? "en:" : "zh:") + key;
+		string key2 = L.Locale + ":" + key;
 		if (Cache.TryGetValue(key2, out var value))
 		{
 			return value;
