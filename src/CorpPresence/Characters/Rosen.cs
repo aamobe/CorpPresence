@@ -22,6 +22,28 @@ internal sealed class Rosen : Character
 
 	public const string Rifle = "@rosen_rifle";
 
+	public static string SaleBlocked(string id)
+	{
+		// Match GunsItemDirectory, including the base revolver and shotgun used by the handmade models.
+		var (type, level) = id switch
+		{
+			Ammo => ("AMMUNITION", 1),
+			AmmoAP => ("AMMUNITION", 2),
+			Sentinel or Revolver => ("FIREARM", 2),
+			Peacemaker or Bulwark or Rifle => ("FIREARM", 3),
+			_ => (null, 0)
+		};
+		if (level == 0 || (PlayerStore.Instance?.ActivePermits != null && PermitHelper.HavePermit(type, level)))
+			return null;
+		return id switch
+		{
+			Ammo => L.T("普通实弹需要一级售卖许可。", "Standard live rounds require a Class I ammunition sales permit."),
+			AmmoAP => L.T("穿甲弹需要二级售卖许可。", "Armor-piercing rounds require a Class II ammunition sales permit."),
+			Sentinel or Revolver => L.T("需要二级枪械售卖许可。", "Requires a Class II firearm sales permit."),
+			_ => L.T("需要三级枪械售卖许可。", "Requires a Class III firearm sales permit.")
+		};
+	}
+
 	public override string Id => "rosen";
 
 	public override string Name => L.T("罗森", "Rosen");
@@ -41,6 +63,7 @@ internal sealed class Rosen : Character
 	public override int BuyGoodsNeeded => 1;
 
 	private static string Bye => L.T("保重。", "Take care.");
+	private static string AmmoTerms => L.T("橡胶弹不用证。普通实弹看一级，穿甲弹看二级。", "Rubber rounds are over the counter. Live rounds need Class I. Armor-piercing needs Class II.");
 
 	private static int Disc
 	{
@@ -58,7 +81,7 @@ internal sealed class Rosen : Character
 	{
 		L.T("哨兵3型不会卡壳。至少宣传上是这样。", "The Sentinel Mk. III doesn't jam. At least, that's what the ads say."),
 		L.T("就属治安部用那些橡胶头的软弹最多。报告上写着好看一点。", "Nobody uses more of those rubber-tipped rounds than Security. Looks a little better on the reports."),
-		L.T("穿甲弹贵一点，毕竟明面上不让卖。", "AP rounds cost more. They're not supposed to be sold openly, after all."),
+		L.T("穿甲弹贵一点。真用得上再买。", "AP rounds cost more. Buy them if you need them."),
 		Character.Act(L.T("敲了敲右臂", "taps his right arm"), L.T("每年都得回厂保养一次。", "Back to the factory once a year for maintenance.")),
 		L.T("这道疤？演习。谁知道演习上的是实弹。", "This scar? A drill. Who knew they were using live rounds?"),
 		L.T("子午线可从来不卖给黑市，我们的活计只是损耗大了一点。", "Meridian never sells to the Black Market. We just lose a little more stock on the job.")
@@ -113,6 +136,7 @@ internal sealed class Rosen : Character
 
 	public override GameItem MakeItem(string id)
 	{
+		if (SaleBlocked(id) != null) return null;
 		bool flag;
 		switch (id)
 		{
@@ -163,30 +187,34 @@ internal sealed class Rosen : Character
 		case 1:
 		{
 			Visit visit = new Visit();
-			visit.Lines = new string[3]
+			visit.Lines = new string[4]
 			{
 				L.T("子午线兵工，罗森。", "Meridian Ballistics. Rosen."),
 				L.T("子午线致力于生产标准化军用机械<i>（官方腔调）</i>。", "Meridian is committed to manufacturing standardized military machinery. <i>(in an official tone)</i>"),
-				Character.Act(L.T("把一把哨兵3型放在柜台上", "sets a Sentinel Mk. III on the counter"), "")
+				Character.Act(L.T("拿出一把哨兵3型给你看", "takes out a Sentinel Mk. III to show you"), ""),
+				AmmoTerms
 			};
 			visit.Exit = Bye;
 			visit.Discount = Disc;
-			visit.Stock = new string[3] { "@glock_receiver", "heavy_pistol_ammo", "heavy_pistol_ammo" };
-			return visit;
+			string round = SaleBlocked(Ammo) == null ? Ammo : AmmoNL;
+			visit.Stock = new[] { Sentinel, round, round };
+			return LicensedOffer(visit);
 		}
 		case 2:
 		{
 			Visit visit = new Visit();
-			visit.Lines = new string[3]
+			visit.Lines = new string[4]
 			{
-				L.T("和平使者，标准军备，要么？", "The Peacemaker. Standard issue. Want one?"),
+				L.T("和平使者，标准军备。枪要按证卖。", "The Peacemaker. Standard issue. Show me the permit if you want one."),
 				L.T("（指了指左脸那道疤）我身上绝大部分疤痕都是它留下的。", "(points at the scar on his left cheek) Most of my scars came from one of these."),
-				L.T("所以，我知道它有多好用。", "So I know just how well it works.")
+				L.T("所以，我知道它有多好用。", "So I know just how well it works."),
+				AmmoTerms
 			};
 			visit.Exit = L.T("保重，再见。", "Take care. See you around.");
 			visit.Discount = Disc;
-			visit.Stock = new string[3] { "@smg", "heavy_pistol_ammo", "heavy_pistol_ammo" };
-			return visit;
+			string round = SaleBlocked(Ammo) == null ? Ammo : AmmoNL;
+			visit.Stock = new[] { Peacemaker, round, round };
+			return LicensedOffer(visit);
 		}
 		case 3:
 		{
@@ -201,7 +229,7 @@ internal sealed class Rosen : Character
 			visit.Exit = Bye;
 			visit.Discount = Disc;
 			visit.Stock = new string[1] { "@shotgun" };
-			return visit;
+			return LicensedOffer(visit);
 		}
 		case 5:
 			return ForgeLesson();
@@ -218,9 +246,19 @@ internal sealed class Rosen : Character
 			visit.Exit = Character.Act(L.T("摸摸木盒", "runs a hand over the wooden case"), L.T("保养好它们。", "Take care of them."));
 			visit.Discount = Disc;
 			visit.Stock = new string[2] { "@rosen_revolver", "@rosen_rifle" };
-			return visit;
+			return LicensedOffer(visit);
 		}
 		}
+	}
+
+	private static Visit LicensedOffer(Visit visit)
+	{
+		string[] requirements = visit.Stock.Select(SaleBlocked).Where(reason => reason != null).Distinct().ToArray();
+		if (requirements.Length == 0) return visit;
+		visit.Stock = visit.Stock.Where(id => SaleBlocked(id) == null).ToArray();
+		visit.Lines = visit.Lines.Concat(requirements).ToArray();
+		visit.TalkOnly = visit.Stock.Length == 0;
+		return visit;
 	}
 
 	private static Visit ForgeLesson()
@@ -261,10 +299,14 @@ internal sealed class Rosen : Character
 		string[] options = Talk;
 		List<string> list = new List<string>();
 		list.Add(Engine.Any(L.T("子午线例行补货<i>（哈欠）</i>。", "Meridian. Routine restock. <i>(yawns)</i>"), L.T("罗森。老样子。", "Rosen. Same as usual."), L.T("补货。", "Restock.")));
+		list.Add(AmmoTerms);
 		list.Add(Engine.Any(options));
 		List<string> list2 = list;
-		List<string> list3 = Engine.Pick(new string[4] { "heavy_pistol_ammo", "heavy_pistol_ammo", "heavy_pistol_ammo_p", "heavy_pistol_ammo_nl" }, 3, 5).ToList();
-		list3.Add((s.Chapter >= 3) ? Engine.Any("@glock_receiver", "@smg", "@shotgun") : Engine.Any("@glock_receiver", "@smg"));
+		string[] ammoPool = new[] { Ammo, Ammo, AmmoAP, AmmoNL }.Where(id => SaleBlocked(id) == null).ToArray();
+		List<string> list3 = Engine.Pick(ammoPool, 3, 5).ToList();
+		string[] guns = (s.Chapter >= 3 ? new[] { Sentinel, Peacemaker, Bulwark } : new[] { Sentinel, Peacemaker })
+			.Where(id => SaleBlocked(id) == null).ToArray();
+		if (guns.Length > 0) list3.Add(Engine.Any(guns));
 		Visit visit = new Visit
 		{
 			Exit = Bye,
@@ -272,33 +314,34 @@ internal sealed class Rosen : Character
 			Both = true,
 			Wrong = L.T("只收材料。", "Materials only.")
 		};
-		if (s.Order != null)
+		if (s.Order != null && SaleBlocked(s.Order) == null)
 		{
 			list3.Add(s.Order);
 			list2.Add(Character.Act(L.T("放下一个木盒", "sets down a wooden case"), L.T("你订的“手工艺品”。", "Here's that “handicraft” you ordered.")));
 		}
 		if (s.Chapter >= 4)
 		{
-			visit.Ask = L.T("要一把？", "Want one?");
-			visit.Choices = new Choice[3]
+			var choices = new List<Choice>();
+			string reply = L.T("下周给你带来。手工制作，快不了。", "I'll bring it by next week. I make these by hand. Can't rush it.");
+			foreach (var (id, label) in new[]
 			{
-				new Choice(L.T("要把左轮。", "I'll take a revolver."), L.T("下周给你带来。手工制作，快不了。", "I'll bring it by next week. I make these by hand. Can't rush it."), () =>
-				{
-					s.Order = "@rosen_revolver";
-				}),
-				new Choice(L.T("要把猎枪。", "I'll take a hunting rifle."), L.T("下周给你带来。手工制作，快不了。", "I'll bring it by next week. I make these by hand. Can't rush it."), () =>
-				{
-					s.Order = "@rosen_rifle";
-				}),
-				new Choice(L.T("不用。", "No thanks."), L.T("……行。", "…All right."), () =>
-				{
-					s.Order = null;
-				})
-			};
+				(Revolver, L.T("要把左轮。", "I'll take a revolver.")),
+				(Rifle, L.T("要把猎枪。", "I'll take a hunting rifle."))
+			})
+			{
+				if (SaleBlocked(id) != null) continue;
+				choices.Add(new Choice(label, reply, () => { if (SaleBlocked(id) == null) s.Order = id; }));
+			}
+			if (choices.Count > 0)
+			{
+				visit.Ask = L.T("要一把？", "Want one?");
+				choices.Add(new Choice(L.T("不用。", "No thanks."), L.T("……行。", "…All right."), () => s.Order = null));
+				visit.Choices = choices.ToArray();
+			}
 		}
 		visit.Lines = list2.ToArray();
 		visit.Stock = list3.ToArray();
-		visit.Extra = new string[4] { "heavy_pistol_ammo", "heavy_pistol_ammo", "heavy_pistol_ammo_p", "heavy_pistol_ammo_nl" };
+		visit.Extra = ammoPool;
 		return visit;
 	}
 }

@@ -323,18 +323,18 @@ internal sealed class MeridianCo : Company
 
 	public static int RefurbishFee(GameItem item)
 	{
-		int basePrice;
+		bool ownMake = false;
 		try
 		{
-			TagState tagReadonly = item.GetTagReadonly("manufacturer");
-			basePrice = ((tagReadonly != null && tagReadonly.GetString() == "meridian") ? 60 : 120);
+			ownMake = item.GetTagReadonly("manufacturer")?.GetString() == "meridian";
 		}
 		catch
 		{
-			basePrice = 120;
 		}
-		return Services.Fee("meridian", "refurbish", basePrice);
+		return RefurbishFee(ownMake);
 	}
+
+	public static int RefurbishFee(bool ownMake) => Services.Fee("meridian", "refurbish", ownMake ? RefurbishOwn : RefurbishOther);
 
 	public static GameItem MakeRefurbished(string entry)
 	{

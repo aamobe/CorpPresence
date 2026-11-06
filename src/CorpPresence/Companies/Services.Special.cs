@@ -11,17 +11,29 @@ internal static partial class Services
 		int num = PeriodIndex("lab", 7);
 		if (s.LabWeek != num || s.LabList.Count == 0)
 		{
-			Random rng = new Random(num * 7919 + 13);
-			List<string> prepared = new List<string> { "blue_blood_bag" };
-			foreach (string item in SolanaCo.LabPool.OrderBy((string _) => rng.Next()).Take(2))
-			{
-				prepared.Add(item);
-			}
-			s.LabList = prepared;
+			s.LabList = CreateLabList(num);
 			s.LabWeek = num;
 			s.LabBooked = false;
 		}
 		return s.LabList;
+	}
+
+	private static List<string> CreateLabList(int period)
+	{
+		Random rng = new Random(period * 7919 + 13);
+		List<string> list = new List<string> { "blue_blood_bag" };
+		list.AddRange(SolanaCo.LabPool.OrderBy(_ => rng.Next()).Take(2));
+		return list;
+	}
+
+	internal static IReadOnlyList<string> LabListForVisit(CompanyState state, Visitor visit)
+	{
+		if (visit.LabItems != null) return visit.LabItems;
+		// Legacy bookings stored only the scheduled arrival day.
+		int period = (Math.Max(1, visit.Day) - 1) / SolanaCo.LabPeriod;
+		return visit.LabItems = state.LabWeek == period && state.LabList.Count > 0
+			? new List<string>(state.LabList)
+			: CreateLabList(period);
 	}
 
 	public static int VipNextDay(CompanyState s)
@@ -70,7 +82,8 @@ internal static partial class Services
 		}
 		string readiness = Pay(c, 0, "lab");
 		if (readiness != null) return readiness;
-		try { LabListThisWeek(companyState); }
+		List<string> list;
+		try { list = LabListThisWeek(companyState); }
 		catch { return L.T("采购清单暂未就绪", "Procurement list not ready"); }
 		if (companyState.LabBooked)
 		{
@@ -79,7 +92,8 @@ internal static partial class Services
 		companyState.Visitors.Add(new Visitor
 		{
 			Day = Day + 1,
-			Kind = "lab"
+			Kind = "lab",
+			LabItems = new List<string>(list)
 		});
 		companyState.LabBooked = true;
 		return null;

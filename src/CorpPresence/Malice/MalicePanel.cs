@@ -116,7 +116,7 @@ internal static class MalicePanel
 		y += 8f;
 		GUI.Label(new Rect(r.x, y, r.width, 24f), (L.En ? $"Vouchers: {corpTerms.Vouchers}₵" : $"代金券余额：{corpTerms.Vouchers}₵"), t.Body);
 		y += 26f;
-		GUI.Label(new Rect(r.x, y, r.width, 40f), (L.En ? $"Cash spent at {c.Name} returns 1/{10} as vouchers; vouchers are used first. Only valid at {c.Name}." : $"在{c.Name}花的现金返 1/{10} 代金券；付款时先扣代金券。只能在{c.Name}用。"), t.Small);
+		GUI.Label(new Rect(r.x, y, r.width, 40f), L.T($"在{c.Name}每笔实付现金每满 {Malice.VoucherDivisor}₵ 返 1₵ 代金券。代金券只在该公司使用，付款时优先抵扣。", $"Earn 1₵ in vouchers per {Malice.VoucherDivisor}₵ paid in cash on each purchase. Vouchers are used first and only at {c.Name}."), t.Wrap);
 		if (!string.IsNullOrEmpty(_msg) && Time.unscaledTime < _msgUntil)
 		{
 			GUI.Label(new Rect(r.x, r.yMax - 26f, r.width, 24f), _msg, t.Body);

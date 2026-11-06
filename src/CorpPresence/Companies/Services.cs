@@ -115,6 +115,26 @@ internal static partial class Services
 		}
 	}
 
+	public static bool IsWaterSaleItem(GameItem item)
+	{
+		return item?.IsGameItemType("WATER") == true && WaterHelper.GetWaterPurity(item) > 0;
+	}
+
+	public static void OnItemWaterSold(GameItem item, int amount, StoreClient client)
+	{
+		if (amount <= 0 || !IsWaterSaleItem(item)) return;
+		// Sales to Davre's own visitors already receive the direct company trade award.
+		if (CompanyOfClient(client?.identifier ?? "")?.Id == "davre") return;
+		OnWaterSold(amount);
+	}
+
+	public static void OnWaterSold(int amount)
+	{
+		Company davre = Companies.Find("davre");
+		if (davre != null)
+			AddCoop(davre, amount / (3.0 * Settings.CoopCredits), "卖出水");
+	}
+
 	public static void OnChapterDone(string charId)
 	{
 		Company company = Companies.ByCharacter(charId);
@@ -242,6 +262,17 @@ internal static partial class Services
 			return Math.Max(0, Ext.Ask("ServicePrice", () => f(c, key, basePrice), basePrice));
 		}
 		return basePrice;
+	}
+
+	public static int CashDue(Company c, int amount)
+	{
+		return Math.Max(0, amount) - CorpPresence.Malice.Malice.VoucherDeduction(c, amount);
+	}
+
+	public static bool CanAfford(int cashDue)
+	{
+		PlayerStore store = SaveSlot.CurrentStore;
+		return store != null && (cashDue <= 0 || store.CanPay(cashDue));
 	}
 
 	public static string Pay(Company c, int amount, string what)

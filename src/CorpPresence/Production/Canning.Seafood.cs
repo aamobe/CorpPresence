@@ -9,19 +9,20 @@ internal static partial class Canning
     private const string FishMinceId = "corp_presence_fish_mince";
     internal const string SeafoodSealerOrder = "@seafood_sealer";
     private const string FishModeTag = "CORP_SEAL_WHOLE_FISH_BOOL";
+    private const string GalaxyModeTag = "CORP_SEAL_GALAXY_BLEND_BOOL";
     private const string SealerCarryTag = "CORP_SEAL_CARRY_INT";
     private const string BatteryEnergyTag = "power_source_item_energy";
     private const int WaterMl = 100;
     private const int SealPower = 6;
     private const int CannerBaseValue = 350;
 
-    private static Goods.Def SeafoodFood(string zh, string en, int price, string art, int kcal, bool canned, bool processed = false)
+    private static Goods.Def SeafoodFood(string zh, string en, int price, string art, int kcal, bool canned, bool luxury = false)
     {
         return new Goods.Def
         {
             Name = zh, NameEn = en, Value = price, Company = "davre", Manufacturer = "davre",
             Art = art, Fallback = "processed_meat", W = 2, H = 1,
-            Types = processed ? new[] { "FOOD", "PROCESSED_FOOD" } : new[] { "FOOD" },
+            Types = luxury ? new[] { "FOOD", "PROCESSED_FOOD", "LUXURY_ITEM" } : new[] { "FOOD" },
             Shell = Empty,
             Setup = item =>
             {
@@ -38,8 +39,8 @@ internal static partial class Canning
         Value = CannerBaseValue, Company = "davre", Manufacturer = "davre",
         Art = "seafood_sealer", Fallback = "furnace", W = 3, H = 3,
         Types = new[] { "MACHINE" }, Shell = BuildSeafoodSealer,
-        Desc = "过夜或充能时封装水产。每次启动默认耗 6 电，每批耗 100 毫升基础水或更高档的水。蟹肉棒档每批用 4 份鱼肉糜，槽中须放 1 个可重复使用的 3D 打印耗材。鱼罐头档每批用 1 条已宰杀、未切片的亚成年普通罗非鱼。性能模组增加批次，效率模组降低耗电。",
-        DescEn = "Seals seafood overnight or when turbo boosted. Each run uses 6 charge by default and each batch needs 100 mL of Basewater or better. Crab Stick mode uses 4 fish mince per batch and requires a reusable printer plastic item. Canned Fish mode uses one dead, whole adolescent common tilapia per batch. Performance modules add batches and efficiency modules reduce power use."
+        Desc = "过夜或充能时封装，每次启动默认耗 6 电。蟹肉棒档每批用 4 份鱼肉糜，槽中须放 1 个可重复使用的 3D 打印耗材。鱼罐头档每批用 1 条已宰杀、未切片的亚成年普通罗非鱼。这两档每批需 100 毫升基础水或更高档的水。繁星果糊档每批用 1 份营养果糊制成 1 份繁星果糊，无需水或耗材。性能模组增加批次，效率模组降低耗电。",
+        DescEn = "Runs overnight or when turbo boosted, using 6 charge per run by default. Crab Stick mode uses 4 fish mince per batch and requires a reusable printer plastic item. Canned Fish mode uses one dead, whole adolescent common tilapia per batch. Both modes use 100 mL of Basewater or better per batch. Galaxy Blend mode turns 1 nutrifruit paste into 1 Galaxy Blend without water or printer plastic. Performance modules add batches and efficiency modules reduce power use."
     };
 
     private static bool IsWholeTilapia(GameItem item) =>
@@ -58,22 +59,33 @@ internal static partial class Canning
         var output = new GameGridInventory(4, 2);
         var plastic = new GameSlotInventory();
         GameItem machine = null;
-        bool FishMode() => machine.IsTag(FishModeTag);
         var crab = new MachineryRadioButton(L.T("蟹肉棒档", "Crab Stick"), true, on =>
         {
-            if (on) machine?.DisableTag(FishModeTag);
+            if (!on || machine == null) return;
+            machine.DisableTag(FishModeTag);
+            machine.DisableTag(GalaxyModeTag);
         });
         var fish = new MachineryRadioButton(L.T("鱼罐头档", "Canned Fish"), false, on =>
         {
-            if (on) machine?.EnableTag(FishModeTag);
+            if (!on || machine == null) return;
+            machine.EnableTag(FishModeTag);
+            machine.DisableTag(GalaxyModeTag);
         });
-        new MachineryRadioGroup().Add(crab).Add(fish);
+        var galaxy = new MachineryRadioButton(L.T("繁星果糊档", "Galaxy Blend"), false, on =>
+        {
+            if (!on || machine == null) return;
+            machine.DisableTag(FishModeTag);
+            machine.EnableTag(GalaxyModeTag);
+        }).SetDescription(L.T("1 份营养果糊 → 1 份繁星果糊（无需水或耗材）",
+            "1 nutrifruit paste → 1 Galaxy Blend (no water or printer plastic)"));
+        new MachineryRadioGroup().Add(crab).Add(fish).Add(galaxy);
         var check = new MachineryButton(L.T("检查生产条件", "Check Production"));
+        var modeControls = MachineryStack.Vertical(crab, fish, galaxy, check).SetAlign(MachineryStack.Align.Start);
         // Display the module bay after power while keeping the saved inventory order.
         var window = MachineHelper.CreateMachineryWindow(true, new[] { 0, 6 }, MachineHelper.PowerPanel(battery),
             MachineHelper.Panel(L.T("水槽", "Water"), water, "water"),
             MachineHelper.Panel(L.T("原料", "Ingredients"), ingredients, "input"),
-            MachineHelper.Panel(L.T("档位", "Mode"), MachineryStack.Vertical(crab, fish, check), "control"),
+            MachineHelper.Panel(L.T("档位", "Mode"), modeControls, "control"),
             MachineHelper.Panel(L.T("成品", "Output"), output, "output"),
             MachineHelper.Panel(L.T("3D 打印耗材（可复用）", "Reusable 3D Material"), plastic, "plastic"),
             MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"));
@@ -88,10 +100,10 @@ internal static partial class Canning
         MachineUpgrade.Attach(machine, 2, ingredients, output);
         water.mayInventoryAddItemFunc = (item, _) => GeneralHelper.IsItemOwned(item) && IsWaterContainer(item);
         ingredients.mayInventoryAddItemFunc = (item, _) => GeneralHelper.IsItemOwned(item) &&
-            (item.identifier == FishMinceId || IsWholeTilapia(item));
+            (item.identifier == FishMinceId || item.identifier == PasteId || IsWholeTilapia(item));
         plastic.mayInventoryAddItemFunc = (item, _) => GeneralHelper.IsItemOwned(item) && item.identifier == "printer_plastic";
         output.mayInventoryAddItemFunc = (_, _) => false;
-        void SyncMode() => (FishMode() ? fish : crab).SetOn(on: true);
+        void SyncMode() => (machine.IsTag(GalaxyModeTag) ? galaxy : machine.IsTag(FishModeTag) ? fish : crab).SetOn(on: true);
         machine.onLoaded += _ => SyncMode();
         window.openCallback += SyncMode;
         check.SetCallback(() =>
@@ -157,9 +169,16 @@ internal static partial class Canning
         GameInventory ingredients, GameSlotInventory plastic, GameInventory output, bool inspect, out bool sealedBatch)
     {
         sealedBatch = false;
+        bool galaxy = machine.IsTag(GalaxyModeTag);
         bool fish = machine.IsTag(FishModeTag);
+        bool usesWater = !galaxy;
         var batch = new List<(GameItem Item, int Count)>();
-        if (fish)
+        if (galaxy)
+        {
+            if (!TakeIngredients(ingredients, item => item.identifier == PasteId, 1, batch))
+                return L.T("需要 1 份营养果糊。", "Load 1 nutrifruit paste.");
+        }
+        else if (fish)
         {
             if (!TakeIngredients(ingredients, IsWholeTilapia, 1, batch))
                 return L.T("需要一条已宰杀、未切片的亚成年普通罗非鱼。", "Load one dead, whole adolescent common tilapia.");
@@ -170,14 +189,17 @@ internal static partial class Canning
             return L.T("需要 4 份鱼肉糜和 1 个 3D 打印耗材。", "Load 4 fish mince and 1 printer plastic.");
         }
 
-        if (!IsWaterContainer(water) || WaterHelper.GetTotalVolume(water) < WaterMl * 1000)
-            return L.T("需要一个装有至少 100 毫升水的容器。", "Load a container with at least 100 mL of water.");
-        if (WaterFeatureHelper.GetPurityArrayIndex(WaterHelper.GetWaterPurity(water)) > 2)
-            return L.T("水质须为基础水或更高档。", "Use Basewater or better.");
+        if (usesWater)
+        {
+            if (!IsWaterContainer(water) || WaterHelper.GetTotalVolume(water) < WaterMl * 1000)
+                return L.T("需要一个装有至少 100 毫升水的容器。", "Load a container with at least 100 mL of water.");
+            if (WaterFeatureHelper.GetPurityArrayIndex(WaterHelper.GetWaterPurity(water)) > 2)
+                return L.T("水质须为基础水或更高档。", "Use Basewater or better.");
+        }
         if (power > 0 && !PowerHelper.CanDrawPowerSource(battery, power))
             return L.T($"需要 {power} 电。", $"{power} charge is required.");
 
-        var product = Goods.Make(fish ? "fish_can" : "crab_stick");
+        var product = galaxy ? ItemRegistry.Create("galaxy_blend") : Goods.Make(fish ? "fish_can" : "crab_stick");
         if (product == null) return L.T("成品尚未就绪。", "The product is unavailable.");
         bool committed = false;
         try
@@ -200,7 +222,7 @@ internal static partial class Canning
             if (!ProductionOutput.TryAdd(output, product))
                 return L.T("成品槽空间不足。", "The output tray is full.");
 
-            var liquids = Liquid.Liquids.Select(liquid => liquid.currentPart).ToArray();
+            var liquids = usesWater ? Liquid.Liquids.Select(liquid => liquid.currentPart).ToArray() : Array.Empty<string>();
             var amounts = liquids.Select(tag => water.GetTagReadonly(tag).GetInt()).ToArray();
             int charge = power > 0 ? battery.GetTagReadonly(BatteryEnergyTag).GetInt() : 0;
             bool measureCharge = power > 0 && battery.IsTag("power_source_item") &&
@@ -209,15 +231,20 @@ internal static partial class Canning
             bool paid = false;
             try
             {
-                int volumeBefore = WaterHelper.GetTotalVolume(water);
-                WaterHelper.RemoveMl(water, WaterMl);
-                if (volumeBefore - WaterHelper.GetTotalVolume(water) == WaterMl * 1000)
+                bool waterPaid = true;
+                if (usesWater)
+                {
+                    int volumeBefore = WaterHelper.GetTotalVolume(water);
+                    WaterHelper.RemoveMl(water, WaterMl);
+                    waterPaid = volumeBefore - WaterHelper.GetTotalVolume(water) == WaterMl * 1000;
+                }
+                if (waterPaid)
                 {
                     paid = power == 0 || PowerHelper.DrawPowerSource(battery, power);
                     if (measureCharge)
                     {
                         int remaining = battery.GetTagReadonly(BatteryEnergyTag).GetInt();
-                        ModLog.Info($"水产封装机扣电：{charge} → {remaining}，应扣 {power} 电，供电结果={paid}");
+                        ModLog.Info($"封装机扣电：{charge} → {remaining}，应扣 {power} 电，供电结果={paid}");
                         paid = paid && charge - remaining == power;
                     }
                 }
@@ -237,10 +264,12 @@ internal static partial class Canning
                         battery.ModifyTag(BatteryEnergyTag, tag => tag.Enable().SetInt(charge));
                         PowerHelper.UpdateEnergyCreditSprite(battery);
                     }
-                    WaterFeatureHelper.OnLiquidContainerPourOutOf(water);
+                    if (usesWater) WaterFeatureHelper.OnLiquidContainerPourOutOf(water);
                 }
             }
-            if (!paid) return L.T("扣水或供电失败，本批未封装。", "Water or power draw failed. No batch was sealed.");
+            if (!paid) return usesWater
+                ? L.T("扣水或供电失败，本批未封装。", "Water or power draw failed. No batch was sealed.")
+                : L.T("供电失败，本批未封装。", "Power draw failed. No batch was sealed.");
 
             // Irreversible ingredient disposal begins after the water and power commit.
             committed = true;

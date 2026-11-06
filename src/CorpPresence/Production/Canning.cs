@@ -60,8 +60,8 @@ internal static partial class Canning
 	internal static readonly Dictionary<string, Goods.Def> Defs = new Dictionary<string, Goods.Def>
 	{
 		["fish_mince"] = SeafoodFood("鱼肉糜", "Fish Mince", 29, "fish_mince", 200, false),
-		["crab_stick"] = SeafoodFood("风味蟹肉棒", "Crab-flavored Stick", 185, "crab_stick", 800, false, processed: true),
-		["fish_can"] = SeafoodFood("达夫雷鱼罐头", "Davre Canned Fish", 119, "fish_can", 600, true, processed: true),
+		["crab_stick"] = SeafoodFood("风味蟹肉棒", "Crab-flavored Stick", 195, "crab_stick", 800, false, luxury: true),
+		["fish_can"] = SeafoodFood("达夫雷鱼罐头", "Davre Canned Fish", 125, "fish_can", 600, true, luxury: true),
 		["seafood_sealer"] = SeafoodSealerDef(),
 		["fine_mince"] = new Goods.Def
 		{
@@ -184,7 +184,9 @@ internal static partial class Canning
 		}
 	};
 
-	private static (string Zh, string En) GrinderManual => (Zh: "放入：把生肉或营养果放进原料槽，把能量电池放进电池槽。\n绞碎：按“绞碎”当场绞好。标准、小块生肉出精肉糜，碎块、小碎块出杂肉糜，营养果出营养果糊（大小果都按热量算）。精肉糜每 275 热量出 1 份，杂肉糜每 200 热量出 1 份，每份耗 2 电；营养果糊每 240 热量出 1 份，每份耗 1 电。不够 1 份的零头记在机器里，下次接着算。电量不够就停。\n注意：带朊病毒的肉绞出来的肉糜也带朊病毒。", En: "Load: put raw meat or nutrifruit in the ingredient tray and an energy cell in the battery slot.\nGrind: press Grind. Standard and small cuts become prime mince; morsels become scrap mince; nutrifruit becomes nutrifruit paste (any size, counted by calories). Prime mince takes 275 calories per portion and scrap mince 200, 2 charge each; paste takes 240 calories per portion, 1 charge each. Leftovers are kept in the machine for next time. It stops when the charge runs out.\nNote: mince from prion-infected meat carries prions too.");
+	private static (string Zh, string En) GrinderManual => (
+		Zh: "把生肉或营养果放进原料槽，接上电源，再按「绞碎」。标准、小块生肉出精肉糜，碎块、小碎块出杂肉糜。精肉糜每 275 千卡出 1 份，杂肉糜每 200 千卡出 1 份，各耗 2 电。\n营养果糊每 240 千卡出 1 份，耗 1 电。槽位或电量不足时，果糊分批产出，剩余热量保存在机器里，可在「果糊热量储存」查看。取走成品或补充电量后，再按「绞碎」即可继续。不足 240 千卡的零头会与下次放入的果子合算。\n带朊病毒的肉绞出的肉糜也带朊病毒。",
+		En: "Load raw meat or nutrifruit and connect a power source, then press Grind. Standard and small cuts make prime mince, and morsels make scrap mince. Prime mince needs 275 kcal per portion and scrap mince needs 200 kcal. Both cost 2 charge per portion.\nNutrifruit paste needs 240 kcal and 1 charge per portion. When space or power runs short, the grinder makes a partial batch and shows the remaining calories under Paste Reserve. Clear the output or restore power and press Grind again. Any reserve under 240 kcal carries over to the next fruit.\nMince from prion-infected meat carries prions too.");
 
 	private static (string Zh, string En) CannerManual => (Zh: "放入：把肉糜放进肉糜槽、营养果糊放进果糊槽，把能量电池放进电池槽。整个的营养果要先用绞肉机绞成果糊。\n档位：\n合成档：3 营养果糊 + 1 杂肉糜 → 4 罐“泥炭”\n鲜肉档：2 精肉糜 + 1 营养果糊 → 1 罐鲜肉罐头\n每晚封罐，默认 2 批，耗 8 电。不对档的肉糜留在槽里不动。成品槽放满就停。\n[模组影响]：\n效率影响功耗\n性能影响每晚批数（也多用原料）\n质量无影响", En: "Load: put mince in the mince tray, nutrifruit paste in the paste tray, and an energy cell in the battery slot. Whole nutrifruit must be ground into paste first.\nModes:\nSynthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat\nFresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat\nCans overnight, 2 batches by default, using 8 charge. Mince for the other mode stays in the tray. Stops when the output is full.\n[Module effects]:\nEfficiency affects power use\nPerformance affects batches per night (and uses more ingredients)\nQuality has no effect");
 
@@ -286,7 +288,7 @@ internal static partial class Canning
 		case "small_fish_fillet":
 		case "fish_fillet":
 		case "large_fish_fillet":
-			return FishMinceId;
+			return GutterflowPelletHelper.IsTainted(meat) ? null : FishMinceId;
 		default:
 			return null;
 		}
@@ -300,7 +302,15 @@ internal static partial class Canning
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
 		MachineryButton machineryButton = new MachineryButton(L.T("绞碎", "Grind"));
 		var check = new MachineryButton(L.T("检查生产条件", "Check Production"));
-		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("原料", "Ingredients"), input, "input"), MachineHelper.Panel(L.T("成品", "Output"), output, "output"), MachineHelper.Panel(L.T("操作", "Control"), MachineryStack.Vertical(machineryButton, check), "control"), MachineHelper.NotePanel(gameSlotInventory));
+		var reserve = new MachineryText(uppercase: false);
+		var resume = new MachineryText(L.T("清出空间或补电后\n按「绞碎」继续", "Clear space or restore power\nthen press Grind to resume"), uppercase: false);
+		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true,
+			MachineHelper.PowerPanel(battery),
+			MachineHelper.Panel(L.T("原料", "Ingredients"), input, "input"),
+			MachineHelper.Panel(L.T("成品", "Output"), output, "output"),
+			MachineHelper.Panel(L.T("操作", "Control"), MachineryStack.Vertical(machineryButton, check), "control"),
+			MachineHelper.Panel(L.T("果糊热量储存", "Paste Reserve"), MachineryStack.Vertical(reserve, resume), "control"),
+			MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		GameItem machine = Empty().SetContentWindow(contentWindow);
 		machine.EnableTag("CONTAINER_TAG");
@@ -309,10 +319,19 @@ internal static partial class Canning
 		input.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(item) && MinceOf(item) != null;
 		output.mayInventoryAddItemFunc = (GameItem _, GameInventory _) => false;
 		MachineUpgrade.Attach(machine, 1, input, output);
+		void RefreshReserve()
+		{
+			long kcal = StoredFruitKcal(machine);
+			reserve.SetText(L.T($"已存 {kcal:N0} 千卡\n可再加工 {kcal / PasteKcal:N0} 份", $"Stored {kcal:N0} kcal\n{kcal / PasteKcal:N0} portions ready"));
+		}
+		machine.onLoaded += _ => RefreshReserve();
+		contentWindow.openCallback += RefreshReserve;
+		RefreshReserve();
 		check.SetCallback(() => Grind(machine, battery, input, output, inspect: true));
 		machineryButton.SetCallback(() =>
 		{
 			Grind(machine, battery, input, output);
+			RefreshReserve();
 		});
 		return machine;
 	}
@@ -323,12 +342,25 @@ internal static partial class Canning
 		{
 			GameItem childItem = battery.childItem;
 			int cut = MachineUpgrade.PowerCut(machine);
+			int pastePower = Math.Max(0, PastePower - cut);
+			if (StoredFruitKcal(machine) >= PasteKcal)
+			{
+				GrindFruit(machine, childItem, output, null, pastePower, inspect);
+				return;
+			}
 			int num2 = 0;
 			foreach (GameItem item in input.childItems.ToList())
 			{
 				string text = MinceOf(item);
 				if (text == null)
 				{
+					continue;
+				}
+				if (text == PasteId)
+				{
+					bool processed = GrindFruit(machine, childItem, output, item, pastePower, inspect);
+					if (inspect) return;
+					if (!processed || StoredFruitKcal(machine) >= PasteKcal) break;
 					continue;
 				}
 				int num3 = item.GetTagReadonly("CALORIE_VALUE_TAG").GetInt();
@@ -344,7 +376,7 @@ internal static partial class Canning
 				bool prion = item.IsTag("ANIMAL_PRION_TAG") || (num4 > 0 && machine.GetTagReadonly(PoolPrion(text)).GetBool());
 				int num5 = KcalOf(text);
 				int num6 = (num4 + num3) / num5;
-				int powerPerPortion = text == FishMinceId ? 1 : (text == PasteId ? PastePower : MincePower);
+				int powerPerPortion = text == FishMinceId ? 1 : MincePower;
 				int num = Math.Max(0, powerPerPortion - cut);
 				if (num6 > 0 && (childItem == null || !PowerHelper.CanDrawPowerSource(childItem, num6 * num)))
 				{
@@ -400,11 +432,126 @@ internal static partial class Canning
 				ModLog.Info($"绞肉机：绞出 {num2} 份");
 			}
 			else if (inspect && !input.childItems.Any(item => MinceOf(item) != null))
-				ProductionNotice(L.T("请放入可绞碎的生肉、鱼片或营养果。", "Load raw meat, fish fillets, or nutrifruit."));
+				ProductionNotice(L.T("请放入生肉、合格鱼片或营养果。劣质鱼肉无法绞碎。", "Load raw meat, clean fish fillets, or nutrifruit. Trash-grade fish cannot be ground."));
 		}
 		catch (Exception ex)
 		{
 			ModLog.Warn("绞肉失败：" + ex.Message);
+		}
+	}
+
+	private static long StoredFruitKcal(GameItem machine)
+	{
+		TagState stored = machine.GetTagReadonly(PoolKcal(PasteId));
+		return Math.Max(0, Math.Max(stored.GetInt(), stored.GetLong()));
+	}
+
+	private static bool GrindFruit(GameItem machine, GameItem battery, GameInventory output, GameItem fruit, int power, bool inspect)
+	{
+		long stored = StoredFruitKcal(machine);
+		long added = fruit == null ? 0 : (long)fruit.GetTagReadonly("CALORIE_VALUE_TAG").GetInt() * fruit.unitCount;
+		if (fruit != null && added <= 0)
+		{
+			ProductionNotice(L.T("这份营养果没有可加工的热量。", "This nutrifruit has no calories to process."));
+			return false;
+		}
+
+		long total = stored + added;
+		long portions = total / PasteKcal;
+		bool prion = (stored > 0 && machine.GetTagReadonly(PoolPrion(PasteId)).GetBool()) || fruit?.IsTag(Prion) == true;
+		if (portions > 0 && !PowerHelper.CanDrawPowerSource(battery, power))
+		{
+			ProductionNotice(L.T($"电力不足。做一份果糊需 {power} 电。", $"Insufficient power. One portion of paste needs {power} charge."));
+			return false;
+		}
+		if (inspect)
+		{
+			if (portions == 0)
+				ProductionNotice(L.T($"共 {total:N0} 千卡。未满 240 千卡的热量会储存起来。", $"{total:N0} kcal total. The grinder stores any remainder under 240 kcal."));
+			else
+				CheckFirstOutput(output, () => MakeMince(PasteId, "", prion),
+					L.T($"热量够做 {portions:N0} 份果糊，每份耗 {power} 电。成品槽能放下首份，本次产量视空间和电量而定。",
+						$"Calories for {portions:N0} portions at {power} charge each. The first fits. Batch size depends on space and power."));
+			return false;
+		}
+
+		int made = portions == 0 ? 0 : PlaceFruitPaste(output, battery, portions, power, prion);
+		if (portions > 0 && made == 0)
+		{
+			ProductionNotice(L.T("果糊未产出。请检查成品槽和电源。", "No paste produced. Check the output tray and power source."));
+			return false;
+		}
+
+		long left = total - made * (long)PasteKcal;
+		machine.ModifyTag(PoolKcal(PasteId), tag => tag.Enable().SetLong(left).SetInt((int)Math.Min(left, int.MaxValue)));
+		machine.ModifyTag(PoolPrion(PasteId), tag => tag.Enable().SetBool(left > 0 && prion));
+		fruit?.Destroy();
+		if (left >= PasteKcal)
+			ProductionNotice(L.T($"本次绞出 {made:N0} 份果糊，剩余 {left:N0} 千卡已储存。", $"Made {made:N0} portions of paste and stored {left:N0} kcal."));
+		return true;
+	}
+
+	private static int PlaceFruitPaste(GameInventory output, GameItem battery, long portions, int power, bool prion)
+	{
+		var originalStacks = output.childItems.Where(item => item.identifier == PasteId).ToDictionary(item => item, item => item.unitCount);
+		long originalUnits = originalStacks.Values.Sum(count => (long)count);
+		var products = new List<GameItem>();
+		int made = 0;
+		bool paid = false;
+		try
+		{
+			while (made < portions && PowerHelper.CanDrawPowerSource(battery, checked((made + 1) * power)))
+			{
+				GameItem paste = MakeMince(PasteId, "", prion);
+				if (paste == null) break;
+				products.Add(paste);
+				ProductionOutput.TryAdd(output, paste);
+				// A stacking mod can transfer the portion without parenting its source.
+				long units = output.childItems.Where(item => item.identifier == PasteId).Sum(item => (long)item.unitCount);
+				long received = units - originalUnits - made;
+				if (received == 0) break;
+				if (received != 1) return 0;
+				made++;
+			}
+
+			paid = made > 0 && TryPayFruitPower(battery, made * power);
+			return paid ? made : 0;
+		}
+		finally
+		{
+			if (!paid)
+			{
+				foreach (var stack in originalStacks)
+					if (stack.Key.unitCount != stack.Value)
+						stack.Key.SetUnitCount(stack.Value);
+			}
+			foreach (GameItem product in products)
+				if ((!paid || product.parentInventory != output) && !StorePlacement.Destroyed(product))
+				{
+					try { product.Destroy(); }
+					catch (Exception error) { ModLog.Warn("回收未入槽果糊失败：" + error.Message); }
+				}
+		}
+	}
+
+	private static bool TryPayFruitPower(GameItem battery, int power)
+	{
+		if (power == 0) return true;
+		if (!battery.IsTag("power_source_item") || CurrentConverterHelper.IsCurrentConverter(battery) ||
+			HypertechBatteryHelper.IsHypertechBattery(battery))
+			return PowerHelper.DrawPowerSource(battery, power);
+
+		int before = battery.GetTagReadonly(BatteryEnergyTag).GetInt();
+		bool paid = false;
+		try
+		{
+			paid = PowerHelper.DrawPowerSource(battery, power) && before - battery.GetTagReadonly(BatteryEnergyTag).GetInt() == power;
+			return paid;
+		}
+		finally
+		{
+			if (!paid && battery.GetTagReadonly(BatteryEnergyTag).GetInt() != before)
+				PowerHelper.SetPowerSourceAt(battery, before);
 		}
 	}
 

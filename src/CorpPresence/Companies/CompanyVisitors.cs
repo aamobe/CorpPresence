@@ -86,7 +86,7 @@ internal static partial class CompanyVisitors
 			LogScheduled($"索拉纳引荐的贵宾今天来，安排预算 {budget}₵");
 			return true;
 		case "lab":
-			return Insert(manager, LabBuyer(c, state));
+			return Insert(manager, LabBuyer(c, state, visit));
 		default:
 			// Preserve the extension's existing null-as-cancel convention.
 			Func<Company, string, StoreClient> spawn = Ext.SpawnVisitor;
@@ -507,10 +507,10 @@ internal static partial class CompanyVisitors
 		return client;
 	}
 
-	private static StoreClient LabBuyer(Company c, CompanyState s)
+	private static StoreClient LabBuyer(Company c, CompanyState s, Visitor visit)
 	{
 		string text = L.T("索拉纳采购员", "Solana Buyer");
-		HashSet<string> list = new HashSet<string>(s.LabList);
+		HashSet<string> list = new HashSet<string>(Services.LabListForVisit(s, visit));
 		StoreClient client = new StoreClient
 		{
 			identifier = $"corp_{c.Id}_lab_{Day}",
@@ -560,14 +560,9 @@ internal static partial class CompanyVisitors
 
 	public static double LabMultiplier(StoreClient client, GameItem item)
 	{
-		CompanyState companyState = Companies.StateOf(Companies.Find("solana"));
-		if (companyState == null)
-		{
-			return 1.0;
-		}
 		try
 		{
-			return companyState.LabList.Contains(item.identifier) ? SolanaCo.LabMultiplier(item.identifier) : 1.0;
+			return client.willAcceptItem?.Invoke(item) == true ? SolanaCo.LabMultiplier(item.identifier) : 1.0;
 		}
 		catch
 		{

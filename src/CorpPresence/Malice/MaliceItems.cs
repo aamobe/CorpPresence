@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using CorpPresence.UI;
+using UnityEngine;
 
 namespace CorpPresence.Malice;
 
@@ -16,10 +18,58 @@ internal static class MaliceItems
 	public static readonly string[] CoinCompanies = new string[5] { "pastel", "solana", "carmicheal", "meridian", "davre" };
 
 	internal static readonly Dictionary<string, Goods.Def> Defs = BuildDefs();
+	private static Sprite _platinumCoin;
 
 	public static string Coin(string companyId)
 	{
 		return "fate_coin_" + companyId;
+	}
+
+	internal static Sprite PlatinumCoin(Sprite original)
+	{
+		if (_platinumCoin != null) return _platinumCoin;
+		if (original == null) return null;
+		Texture2D crop = Tex.FromSprite(original);
+		if (crop == null || !crop.isReadable) return original;
+
+		Texture2D texture = null;
+		try
+		{
+			Color32[] pixels = crop.GetPixels32();
+			for (int i = 0; i < pixels.Length; i++) pixels[i] = PlatinumShade(pixels[i]);
+			texture = new Texture2D(crop.width, crop.height, TextureFormat.RGBA32, mipChain: false)
+			{
+				filterMode = FilterMode.Point,
+				wrapMode = TextureWrapMode.Clamp,
+				hideFlags = HideFlags.HideAndDontSave
+			};
+			texture.SetPixels32(pixels);
+			texture.Apply(updateMipmaps: false);
+			Vector2 pivot = new Vector2(original.pivot.x / original.rect.width, original.pivot.y / original.rect.height);
+			Sprite sprite = Sprite.Create(texture, new Rect(0f, 0f, crop.width, crop.height), pivot, original.pixelsPerUnit);
+			sprite.name = "corp_med_fate_coin_platinum";
+			sprite.hideFlags = HideFlags.HideAndDontSave;
+			return _platinumCoin = sprite;
+		}
+		catch (Exception error)
+		{
+			if (texture != null) UnityEngine.Object.Destroy(texture);
+			ModLog.Warn("命运硬币换色失败：" + error.Message);
+			return original;
+		}
+	}
+
+	private static Color32 PlatinumShade(Color32 pixel)
+	{
+		if (pixel.a < 128) return pixel;
+		int lightness = (54 * pixel.r + 183 * pixel.g + 19 * pixel.b) >> 8;
+		return lightness switch
+		{
+			< 55 => new Color32(0x29, 0x22, 0x34, pixel.a),
+			< 118 => new Color32(0x6D, 0x6E, 0x7D, pixel.a),
+			< 170 => new Color32(0xB7, 0xB9, 0xC0, pixel.a),
+			_ => new Color32(0xEF, 0xEA, 0xDF, pixel.a)
+		};
 	}
 
 	private static Dictionary<string, Goods.Def> BuildDefs()

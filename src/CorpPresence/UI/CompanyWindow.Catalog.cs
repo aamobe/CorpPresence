@@ -8,6 +8,58 @@ namespace CorpPresence.UI;
 
 internal static partial class CompanyWindow
 {
+	private static (Rect Item, Rect Unit, Rect Quantity, Rect Subtotal, Rect ListPrice) OrderColumns(Rect row)
+	{
+		const float listWidth = 78f;
+		const float subtotalWidth = 64f;
+		const float quantityWidth = 120f;
+		const float unitWidth = 78f;
+		float listX = row.xMax - listWidth;
+		float subtotalX = listX - subtotalWidth;
+		float quantityX = subtotalX - quantityWidth;
+		float unitX = quantityX - unitWidth;
+		return (new Rect(row.x + 8f, row.y, unitX - row.x - 10f, row.height),
+			new Rect(unitX, row.y, unitWidth, row.height),
+			new Rect(quantityX, row.y, quantityWidth, row.height),
+			new Rect(subtotalX, row.y, subtotalWidth, row.height),
+			new Rect(listX, row.y, listWidth, row.height));
+	}
+
+	private static void DrawOrderHeader(Rect row, GUIStyle nameStyle, GUIStyle priceStyle)
+	{
+		var columns = OrderColumns(row);
+		GUI.Label(columns.Item, L.T("品名", "Item"), nameStyle);
+		GUI.Label(columns.Unit, L.T("订货价", "Order price"), priceStyle);
+		GUI.Label(columns.Quantity, L.T("数量", "Qty"), priceStyle);
+		GUI.Label(columns.Subtotal, L.T("小计", "Subtotal"), priceStyle);
+		GUI.Label(columns.ListPrice, L.T("物品标价", "Item value"), priceStyle);
+	}
+
+	private static void DrawOrderItem(Rect cell, CatalogEntry entry, CompanyState state, Theme theme)
+	{
+		string name = entry.Name();
+		string quota = Services.LeftText(state, entry);
+		if (quota.Length == 0)
+		{
+			GUI.Label(cell, name, theme.Body);
+			return;
+		}
+		float half = cell.height / 2f;
+		GUI.Label(new Rect(cell.x, cell.y, cell.width, half + 2f), name, theme.Body);
+		GUI.Label(new Rect(cell.x, cell.y + half - 1f, cell.width, half + 1f), quota.TrimStart(), theme.Small);
+	}
+
+	private static int ItemListValue(CatalogEntry entry)
+	{
+		int value = entry.BaseValue();
+		return value < 0 ? value : value / Math.Max(1, entry.Bundle);
+	}
+
+	private static string ItemListPrice(int value, bool labeled = false)
+	{
+		string amount = value < 0 ? "—" : $"{value}₵";
+		return labeled ? L.T($"标价 {amount}", $"List {amount}") : amount;
+	}
 
 	private static void DrawBrand(Rect r)
 	{

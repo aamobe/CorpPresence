@@ -28,9 +28,9 @@ internal static partial class CompanyWindow
 		y += 30f;
 		string text = envoyState.Aid switch
 		{
-			"active" => (L.En ? $"Support period: keep Pastel and Carmicheal subscribed until day {envoyState.AidStart + 21}." : $"扶持期：第 {envoyState.AidStart + 21} 天之前，帕斯泰尔和卡迈克尔的订购服务不能断。"), 
-			"repay5" => (L.En ? $"Repaying: {envoyState.RepayLeft} installments of {800}₵ left; he collects on day {envoyState.RepayDue}. Missing one brings a penalty." : $"还款中：还剩 {envoyState.RepayLeft} 期，每期 {800}₵，第 {envoyState.RepayDue} 天他来收。交不上会受罚。"), 
-			"plan6" => (L.En ? $"Repayment plan: {envoyState.RepayLeft} installments of {800}₵ left; he collects on day {envoyState.RepayDue}." : $"还款计划：还剩 {envoyState.RepayLeft} 期，每期 {800}₵，第 {envoyState.RepayDue} 天他来收。") + ((envoyState.LateWeeks > 0) ? (L.En ? $" {envoyState.LateWeeks} week(s) late: corporate orders +{envoyState.LateWeeks * 10}%." : $"已拖 {envoyState.LateWeeks} 周，巨企订货 +{envoyState.LateWeeks * 10}%。") : ""), 
+			"active" => L.T($"扶持期：第 {envoyState.AidStart + Envoy.AidWeeks * 7} 天之前，帕斯泰尔和卡迈克尔的订购服务不能断。", $"Support period: keep Pastel and Carmicheal subscribed until day {envoyState.AidStart + Envoy.AidWeeks * 7}."),
+			"repay5" => L.T($"还款中：还剩 {envoyState.RepayLeft} 期，每期 {Envoy.Installment}₵，第 {envoyState.RepayDue} 天他来收。交不上会受罚。", $"Repaying: {envoyState.RepayLeft} installments of {Envoy.Installment}₵ left; he collects on day {envoyState.RepayDue}. Missing one brings a penalty."),
+			"plan6" => L.T($"还款计划：还剩 {envoyState.RepayLeft} 期，每期 {Envoy.Installment}₵，第 {envoyState.RepayDue} 天他来收。", $"Repayment plan: {envoyState.RepayLeft} installments of {Envoy.Installment}₵ left; he collects on day {envoyState.RepayDue}.") + ((envoyState.LateWeeks > 0) ? L.T($"已拖 {envoyState.LateWeeks} 周，巨企订货 +{Envoy.LateOrderSurchargePercent(envoyState.LateWeeks)}%。", $" {envoyState.LateWeeks} week(s) late: corporate orders +{Envoy.LateOrderSurchargePercent(envoyState.LateWeeks)}%.") : ""),
 			"punished" => L.T("惩罚中：所有公司服务暂停（反抗军除外），每天少一位顾客。", "Penalty: all company services are suspended (except the Resistance), and one fewer customer comes each day."), 
 			"done" => L.T("已结清。", "Settled."), 
 			"declined" => L.T("你拒绝了援助。", "You declined the aid."), 
@@ -38,12 +38,12 @@ internal static partial class CompanyWindow
 		};
 		GUI.Label(new Rect(rect.x, y, rect.width, 44f), text, theme.Wrap);
 		y += 48f;
-		if (envoyState.Aid == "punished" && Ui.Button(new Rect(rect.x, y, 360f, 34f), (L.En ? $"Agree to repay: {800}₵ a week for {6} weeks" : $"答应还款：每周 {800}₵，{6} 周"), theme.BtnHotStyle))
-		{
-			Toast(Envoy.AgreePlan() ?? _company.FrontDeskDone);
-		}
 		if (envoyState.Aid == "punished")
 		{
+			int weeks = Envoy.RepaymentPlanWeeks(envoyState);
+			string label = L.T($"改签：每周 {Envoy.Installment}₵，共 {weeks} 期（含违约费）", $"Reschedule: {weeks} × {Envoy.Installment}₵ (incl. penalty)");
+			if (Ui.Button(new Rect(rect.x, y, 360f, 34f), label, theme.BtnHotStyle))
+				Toast(Envoy.AgreePlan() ?? _company.FrontDeskDone);
 			y += 42f;
 		}
 		if (envoyState.Ch2 != "")
@@ -55,9 +55,13 @@ internal static partial class CompanyWindow
 			string text2 = envoyState.Ch2 switch
 			{
 				"refused" => L.T("你拒绝了他。巨企的订货暂不开放，直到你交钱或收下礼物并办成。", "You turned him down. Corporate ordering stays closed until you pay or take the gift and deliver it."), 
+				Envoy.BombPending => L.T("礼物等待领取。请留出库存空间，领取成功后才开始计时。", "The gift is waiting to be claimed. Make room in the shop. The timer starts once you receive it."),
 				"bomb" => (L.En ? $"Book Odin through the Resistance Tasks page and deliver the gift by day {envoyState.BombDeadline}. The deadline pauses while he is unavailable." : $"在反抗军“任务”页预约奥丁，于第 {envoyState.BombDeadline} 天（含）之前交礼物；奥丁不可用时暂停期限。"), 
 				"bombdone" => L.T("礼物送到了。巨企订购服务不收订阅费。", "Gift delivered. Corporate ordering services are subscription-free."), 
-				"malice" => (L.En ? $"Corporate malice: channel fees until day {envoyState.ChannelUntil}. {envoyState.ChannelFee}₵ so far this week; he collects on day {envoyState.ChannelDue}." : $"巨企恶意：渠道费收到第 {envoyState.ChannelUntil} 天，这一期已记 {envoyState.ChannelFee}₵，第 {envoyState.ChannelDue} 天他来收。"), 
+				"malice" => (Day < envoyState.ChannelUntil
+					? L.T($"渠道费计提至第 {envoyState.ChannelUntil - 1} 天（含）。", $"Channel fees accrue through day {envoyState.ChannelUntil - 1}.")
+					: L.T("渠道费已停止计提。", "Channel fees have stopped accruing.")) + " "
+					+ L.T($"待结算 {envoyState.ChannelFee}₵，第 {envoyState.ChannelDue} 天起安排收款。", $"{envoyState.ChannelFee}₵ pending. Collection is scheduled from day {envoyState.ChannelDue}."),
 				_ => L.T("已结清。", "Settled."), 
 			};
 			GUI.Label(new Rect(rect.x, y, rect.width, 44f), text2, theme.Wrap);
@@ -70,9 +74,14 @@ internal static partial class CompanyWindow
 				}
 				if (Ui.Button(new Rect(rect.x + 230f, y, 220f, 34f), L.T("收下礼物", "Take the gift"), theme.BtnStyle))
 				{
-					Envoy.AcceptBomb();
-					Toast(L.T("礼物放在柜台上了。", "The gift is on your counter."));
+					Toast(Envoy.AcceptBomb() ?? L.T("礼物已入库，交付期限开始。", "The gift is in your shop. The delivery timer has started."));
 				}
+				y += 42f;
+			}
+			else if (envoyState.Ch2 == Envoy.BombPending)
+			{
+				if (Ui.Button(new Rect(rect.x, y, 220f, 34f), L.T("领取礼物", "Claim the gift"), theme.BtnHotStyle))
+					Toast(Envoy.AcceptBomb() ?? L.T("礼物已入库，交付期限开始。", "The gift is in your shop. The delivery timer has started."));
 				y += 42f;
 			}
 		}
@@ -178,7 +187,7 @@ internal static partial class CompanyWindow
 		int num = Rebels.FenceCost();
 		bool flag = num > 50;
 		GUI.Label(new Rect(r.x, r.y + 96f, r.width, 22f), (L.En ? $"Booking now: {num} points" + (flag ? " (early)" : "") : $"现在预约：{num} 点" + (flag ? "（紧急预约）" : "")), theme.Price);
-		GUI.Label(new Rect(r.x, r.y + 120f, r.width, 22f), (L.En ? $"Support points: {maliceState?.RebelPoints ?? 0}. 1/{10} of what you sell to the Resistance or order here becomes support points." : $"助力点余额：{maliceState?.RebelPoints ?? 0}。卖给反抗军、在这里订货，金额的 1/{10} 计为助力点。"), theme.Small);
+		GUI.Label(new Rect(r.x, r.y + 120f, r.width, 22f), L.T($"助力点余额 {maliceState?.RebelPoints ?? 0}。向反抗军出售或订货，每笔每满 {Rebels.PointDivisor}₵ 得 1 点。", $"Support points: {maliceState?.RebelPoints ?? 0}. Earn 1 point per {Rebels.PointDivisor}₵ on each sale or order."), theme.Small);
 		bool enabled = GUI.enabled;
 		GUI.enabled = (maliceState?.RebelPoints ?? 0) >= num;
 		if (Ui.Button(new Rect(r.x, r.y + 152f, 240f, 34f), (L.En ? $"Book ({num} points)" : $"预约（{num} 点）"), theme.BtnHotStyle))

@@ -97,16 +97,10 @@ internal static partial class CompanyWindow
 			_ => L.T("货船余货，量大。", "Freighter surplus. Plenty of it."), 
 		};
 		GUI.Label(new Rect(r.x, r.y, r.width, 20f), (flag ? L.T("今天下单，明天到。", "Order today, here tomorrow. ") : L.T("今天已经下过单了。", "Already ordered today. ")) + text, theme.Small);
-		float x = r.x;
-		float num2 = r.x + 250f;
-		float x2 = r.x + 340f;
-		float num3 = r.x + 460f;
 		float num4 = r.y + 26f;
-		Ui.Fill(new Rect(r.x, num4, r.width, 24f), theme.Accent2);
-		GUI.Label(new Rect(x + 8f, num4, 240f, 24f), L.T("品名", "Item"), theme.InvBody);
-		GUI.Label(new Rect(num2, num4, 90f, 24f), L.T("单价", "Unit price"), theme.InvCenter);
-		GUI.Label(new Rect(x2, num4, 120f, 24f), L.T("数量", "Qty"), theme.InvCenter);
-		GUI.Label(new Rect(num3, num4, r.xMax - num3, 24f), L.T("小计", "Subtotal"), theme.InvCenter);
+		Rect header = new Rect(r.x, num4, r.width, 24f);
+		Ui.Fill(header, theme.Accent2);
+		DrawOrderHeader(header, theme.InvBody, theme.InvCenter);
 		num4 += 28f;
 		IEnumerable<CatalogEntry> source;
 		if (!(_company is RebelCo))
@@ -149,10 +143,13 @@ internal static partial class CompanyWindow
 		foreach (CatalogEntry item in list.Skip(_orderPage * num6).Take(num6))
 		{
 			Ui.Fill(new Rect(r.x, num4 + 31f, r.width, 1f), theme.Line);
-			GUI.Label(new Rect(x + 8f, num4, 240f, 32f), item.Name() + Services.LeftText(State, item), theme.Body);
+			var columns = OrderColumns(new Rect(r.x, num4, r.width, 32f));
+			Rect status = new Rect(columns.Unit.x, num4, columns.ListPrice.x - columns.Unit.x, 32f);
+			DrawOrderItem(columns.Item, item, State, theme);
+			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(item)), theme.Center);
 			if (item.MinTier > num)
 			{
-				GUI.Label(new Rect(num2, num4, r.xMax - num2, 32f), (L.En ? "At " + _company.TierNames[item.MinTier - 1] : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
+				GUI.Label(status, (L.En ? "At " + _company.TierNames[item.MinTier - 1] : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
 				Cart.Remove(item);
 				num4 += 33f;
 				continue;
@@ -160,14 +157,14 @@ internal static partial class CompanyWindow
 			int num9 = SpacerUnitPrice(item);
 			if (num9 <= 0)
 			{
-				GUI.Label(new Rect(num2, num4, r.xMax - num2, 32f), L.T("暂不可用", "Unavailable"), theme.Small);
+				GUI.Label(status, L.T("暂不可用", "Unavailable"), theme.Small);
 				Cart.Remove(item);
 				num4 += 33f;
 				continue;
 			}
-			GUI.Label(new Rect(num2, num4, 90f, 32f), $"{num9}₵", theme.Price);
+			GUI.Label(columns.Unit, $"{num9}₵", theme.Price);
 			Cart.TryGetValue(item, out var value);
-			value = Ui.Qty(new Rect(x2, num4, 120f, 32f), value, Math.Min(10, Services.Left(State, item)), theme.BtnStyle, theme.Center);
+			value = Ui.Qty(columns.Quantity, value, Math.Min(10, Services.Left(State, item)), theme.BtnStyle, theme.Center);
 			if (value > 0)
 			{
 				Cart[item] = value;
@@ -176,7 +173,7 @@ internal static partial class CompanyWindow
 			{
 				Cart.Remove(item);
 			}
-			GUI.Label(new Rect(num3, num4, r.xMax - num3, 32f), (value > 0) ? $"{num9 * value}₵" : "—", theme.Center);
+			GUI.Label(columns.Subtotal, (value > 0) ? $"{num9 * value}₵" : "—", theme.Center);
 			num4 += 33f;
 		}
 		if (page == "阵线")
@@ -186,10 +183,9 @@ internal static partial class CompanyWindow
 		int num10 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => SpacerUnitPrice(kv.Key) * kv.Value);
 		float num11 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num11, 260f, 22f), (L.En ? $"Total {num10}₵ (all pages)" : $"合计 {num10}₵（各页合计）"), theme.Price);
-		GUI.Label(new Rect(r.x, num11 + 22f, 200f, 20f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
-		bool enabled = (num10 > 0 && num10 <= Cash) & flag;
+		int cashDue = DrawCheckoutBalance(new Rect(r.x, num11 + 22f, r.width - 150f, 20f), num10);
 		bool enabled2 = GUI.enabled;
-		GUI.enabled = enabled;
+		GUI.enabled = enabled2 && num10 > 0 && Services.CanAfford(cashDue) && flag;
 		if (Ui.Button(new Rect(r.xMax - 150f, num11 + 2f, 140f, 36f), L.T("下单", "Order"), theme.BtnHotStyle))
 		{
 			string text2 = Services.PlaceOrder(_company, Cart, SpacerUnitPrice);

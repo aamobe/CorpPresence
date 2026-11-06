@@ -40,8 +40,13 @@ internal static class ItemTags
 		string[] array = Goods.TypesOf(entry?.Goods);
 		if (array != null)
 		{
-			NormalizeMedicine(item, entry.Goods);
-			Apply(item, array, IsIndependentMedicine(entry.Goods) ? Array.Empty<string>() : Inherited(entry.LegacyId));
+			string goods = entry.Goods;
+			NormalizeMedicine(item, goods);
+			// These goods have their own shells and do not use their legacy templates for tags.
+			bool independentTypes = IsIndependentMedicine(goods) || goods is "crab_stick" or "fish_can" or "rejuvenation";
+			Apply(item, array, independentTypes ? Array.Empty<string>() : Inherited(entry.LegacyId));
+			if ((goods == "crab_stick" && item.unitValue == 185) || (goods == "fish_can" && item.unitValue == 119))
+				item.SetValue(Goods.ValueOf(goods));
 			if (entry?.Goods == "anchor_cell" && !item.IsTag("CONTRABAND_ITEM_TAG"))
 			{
 				PowerHelper.InitDisposable(item);

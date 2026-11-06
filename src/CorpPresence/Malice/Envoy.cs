@@ -22,7 +22,7 @@ internal static class Envoy
 
 	public const int AidRepayWeeks = 5;
 
-	public const int PlanWeeks = 6;
+	private const int ReplanFeeInstallments = 1;
 
 	public const int ServiceFee = 1500;
 
@@ -45,6 +45,7 @@ internal static class Envoy
 	public const int SubsidyMax = 800;
 
 	public const string BombTag = "CORP_ENVOY_BOMB";
+	internal const string BombPending = "bombpending";
 
 	internal const string BombBuyerId = "rebel_odin_envoy_bomb";
 
@@ -53,6 +54,7 @@ internal static class Envoy
 	private static readonly string[] AidCorps = new string[2] { "pastel", "carmicheal" };
 
 	private static readonly string[] Corps = new string[5] { "pastel", "solana", "carmicheal", "meridian", "davre" };
+	private static bool _issuingBomb;
 
 	private static int _luck;
 
@@ -124,12 +126,11 @@ internal static class Envoy
 		{
 			num *= 1.1;
 		}
-		if (s.LateWeeks > 0)
-		{
-			num *= 1.0 + 0.1 * (double)s.LateWeeks;
-		}
+		num *= 1.0 + LateOrderSurchargePercent(s.LateWeeks) / 100.0;
 		return num * (s.Agent ? 0.8 : ((s.Ch3 == "joined" || RebelStory.Appeased) ? 0.9 : 1.0));
 	}
+
+	public static int LateOrderSurchargePercent(int lateWeeks) => Math.Clamp(lateWeeks, 0, 3) * 10;
 
 	public static int LuckBonus()
 	{
@@ -182,17 +183,17 @@ internal static class Envoy
 		TrackCash();
 		if (s.Aid == "active" && Day > s.AidStart)
 		{
-			if (AidCorps.Any((string id) => !Malice.Subscribed(Companies.Find(id))))
-			{
-				s.Aid = "repay5";
-				s.RepayLeft = 5;
-				s.RepayDue = Day + 7;
-				Notify(L.T($"帕斯泰尔或卡迈克尔的订阅断了。撒该的援助成为了你脖子上的套索现在你每周需要还 {800}₵，共 {5} 周。", $"Your Pastel or Carmicheal subscription lapsed. Zacchaeus's aid is now a noose around your neck: you owe {800}₵ a week for {5} weeks."));
-			}
-			else if (Day >= s.AidStart + 21)
+			if (Day >= s.AidStart + AidWeeks * 7)
 			{
 				s.Aid = "done";
 				Book("medal", Day);
+			}
+			else if (AidCorps.Any((string id) => !Malice.Subscribed(Companies.Find(id))))
+			{
+				s.Aid = "repay5";
+				s.RepayLeft = AidRepayWeeks;
+				s.RepayDue = Day + 7;
+				Notify(L.T($"帕斯泰尔或卡迈克尔的订阅断了。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", $"Your Pastel or Carmicheal subscription lapsed. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks."));
 			}
 		}
 		if ((s.Aid == "repay5" || s.Aid == "plan6") && s.RepayDue >= 0 && s.RepayDue <= Day && !Booked("repay"))
@@ -203,18 +204,19 @@ internal static class Envoy
 		{
 			Book("ch2", Day);
 		}
-		if (MaliceGuards.CanPauseBombDeadline(s.Ch2, Day, s.BombDeadline, s.BombPauseDay, Rebels.OdinUnavailable))
+		if (s.Ch2 == "bomb" && !s.BombIssued) RecheckLegacyBomb(s);
+		if (s.BombIssued && MaliceGuards.CanPauseBombDeadline(s.Ch2, Day, s.BombDeadline, s.BombPauseDay, Rebels.OdinUnavailable))
 		{
 			s.BombDeadline++;
 			s.BombPauseDay = Day;
 		}
-		if (s.Ch2 == "bomb" && Day > s.BombDeadline)
+		if (s.Ch2 == "bomb" && s.BombIssued && Day > s.BombDeadline)
 		{
 			s.Ch2 = "malice";
-			s.ChannelUntil = Day + 14;
+			s.ChannelUntil = Day + ChannelWeeks * 7;
 			s.ChannelDue = Day + 7;
 			s.ChannelFee = 0;
-			Notify(L.T("礼物没送到该送到的人手上。巨企开始对你取收渠道费：两周内，每卖一件巨企目录里的货收取 5%的渠道费。", "The gift never reached the right hands. The corporations now charge you a channel fee: 5% on every corporate catalog item you sell for two weeks."));
+			Notify(L.T($"礼物逾期未送达。接下来 {ChannelWeeks * 7} 天，卖出巨企目录商品时按成交额的 {ChannelRate * 100:0}% 计提渠道费。", $"The gift missed its deadline. For the next {ChannelWeeks * 7} days, the corporations charge {ChannelRate * 100:0}% of each catalog sale as a channel fee."));
 		}
 		if (s.Ch2 == "malice" && s.ChannelDue >= 0 && s.ChannelDue <= Day && !Booked("channel"))
 		{
@@ -512,9 +514,9 @@ internal static class Envoy
 				GiveItem("friend_medal");
 			});
 		case "repay":
-			return Talk(kind, name, Sprite, new string[1] { L.T($"这周的 {800}₵。", $"This week's {800}₵.") }, L.T($"还剩 {s.RepayLeft} 期。", $"{s.RepayLeft} installment(s) left."), new (string, string, Action)[2]
+			return Talk(kind, name, Sprite, new string[1] { L.T($"这周的 {Installment}₵。", $"This week's {Installment}₵.") }, L.T($"还剩 {s.RepayLeft} 期。", $"{s.RepayLeft} installment(s) left."), new (string, string, Action)[2]
 			{
-				Opt(L.T($"给你 {800}₵。", $"Here's {800}₵."), L.T("合作愉快。", "A pleasure."), PayInstallment),
+				Opt(L.T($"给你 {Installment}₵。", $"Here's {Installment}₵."), L.T("合作愉快。", "A pleasure."), PayInstallment),
 				Opt(L.T("这周拿不出来。", "I can't pay this week."), L.T("我会如实记下的。", "I'll note that accurately."), MissInstallment)
 			}, null);
 		case "ch2":
@@ -529,11 +531,11 @@ internal static class Envoy
 				{
 					Say(PayServiceFee());
 				}),
-				Opt(L.T("东西给我吧。", "Give me the gift."), L.T("两周之内。在反抗军电话的任务页预约奥丁来收礼物，再卖给他。办成了，订购服务的订阅费我想我可以帮您免去。", "Within two weeks. Book Odin to collect the gift through the Tasks page on the Resistance phone, then sell it to him. Do this, and I believe I can waive your subscription fees."), AcceptBomb),
+				Opt(L.T("东西给我吧。", "Give me the gift."), L.T("拿到礼物后，您有两周。通过反抗军电话预约奥丁，再把礼物卖给他。办成了，订购服务的订阅费我想我可以帮您免去。", "Once you receive the gift, you have two weeks. Book Odin through the Resistance phone and sell it to him. Do this, and I believe I can waive your subscription fees."), () => Say(AcceptBomb())),
 				Opt(L.T("都不干。", "Neither."), L.T("那么巨企的订货通道，暂时可能就不对您开放了。当然想通了打我电话。", "Then the corporate ordering channel may be closed to you for a while. Do call me when you've reconsidered."), RefuseCh2)
 			}, null);
 		case "channel":
-			return Talk(kind, name, Sprite, new string[1] { L.T($"这一周的渠道费：{s.ChannelFee}₵。", $"This week's channel fee: {s.ChannelFee}₵.") }, null, null, CollectChannel);
+			return Talk(kind, name, Sprite, new string[1] { L.T("我来结算目前已记的渠道费。未交的房租会给您留出来。", "I'm here to settle the channel fees accrued so far. I'll leave enough for any rent you still owe.") }, null, null, CollectChannel);
 		case "odin":
 			return Talk(kind, L.T("奥丁", "Odin"), "wanted4", new string[3]
 			{
@@ -640,13 +642,13 @@ internal static class Envoy
 			Done("repay");
 			return;
 		}
-		if (store.GetCash() < 800)
+		if (store.GetCash() < Installment)
 		{
 			MissInstallment();
 			Notify(L.T("现金不够，这期没交上。", "Not enough cash: this installment is missed."));
 			return;
 		}
-		store.PayMoney(800, playRegisterSound: true);
+		store.PayMoney(Installment, playRegisterSound: true);
 		s.RepayLeft--;
 		s.RepayDue = Day + 7;
 		if (s.RepayLeft <= 0)
@@ -672,7 +674,8 @@ internal static class Envoy
 			{
 				s.LateWeeks++;
 				s.RepayDue = Day + 7;
-				Notify(L.T($"这期没交，顺延一周。巨企订货价格累计 +{s.LateWeeks * 10}%，还完恢复。", $"Missed: pushed back a week. Corporate order prices are now +{s.LateWeeks * 10}% until you finish paying."));
+				int surcharge = LateOrderSurchargePercent(s.LateWeeks);
+				Notify(L.T($"这期没交，顺延一周。巨企订货价格累计 +{surcharge}%，还完恢复。", $"Missed: pushed back a week. Corporate order prices are now +{surcharge}% until you finish paying."));
 			}
 		}
 	}
@@ -690,6 +693,8 @@ internal static class Envoy
 		Notify(L.T("撒该的钱还清了。", "Zacchaeus has been paid in full."));
 	}
 
+	public static int RepaymentPlanWeeks(EnvoyState state) => Math.Clamp(state.RepayLeft, 0, AidRepayWeeks) + ReplanFeeInstallments;
+
 	public static string AgreePlan()
 	{
 		EnvoyState s = S;
@@ -698,10 +703,10 @@ internal static class Envoy
 			return L.T("现在不需要。", "Not needed right now.");
 		}
 		s.Aid = "plan6";
-		s.RepayLeft = 6;
+		s.RepayLeft = RepaymentPlanWeeks(s);
 		s.RepayDue = Day + 7;
 		s.LateWeeks = 0;
-		ModLog.Info("恶意巨企：答应 6 周还款计划");
+		ModLog.Info($"恶意巨企：答应 {s.RepayLeft} 周还款计划");
 		return null;
 	}
 
@@ -722,38 +727,97 @@ internal static class Envoy
 		return null;
 	}
 
-	public static void AcceptBomb()
+	public static string AcceptBomb()
 	{
 		EnvoyState s = S;
-		if (s.Ch2 != "" && s.Ch2 != "refused")
-		{
-			return;
-		}
-		s.Ch2 = "bomb";
-		s.BombDeadline = Day + 14;
-		s.BombPauseDay = -1;
-		Done("ch2");
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
+		if (!isCurrent() || s == null)
+			return L.T("存档未就绪。", "Save not ready.");
+		if (_issuingBomb || s.Ch2 is not ("" or "refused" or BombPending))
+			return L.T("现在无法领取礼物。", "The gift cannot be claimed right now.");
+
+		_issuingBomb = true;
 		try
 		{
-			GameItem gameItem = ItemRegistry.Create("c4");
-			if (gameItem == null) return;
-			gameItem.EnableTag("CORP_ENVOY_BOMB");
+			s.Ch2 = BombPending;
+			Done("ch2");
+			if (!TryFindEnvoyBomb(out bool present) || !isCurrent())
+				return L.T("暂时无法核对库存，礼物仍可稍后领取。", "Inventory could not be checked. You can claim the gift later.");
+			if (!present && !TryIssueBomb(isCurrent))
+				return L.T("礼物暂未入库。请留出库存空间，再打撒该的电话领取。", "The gift could not be placed. Make room in the shop and call Zacchaeus to claim it.");
+			if (!isCurrent()) return L.T("存档已切换。", "The active save has changed.");
+			s.BombIssued = true;
+			s.BombDeadline = Day + BombDays;
+			s.BombPauseDay = -1;
+			s.Ch2 = "bomb";
+			return null;
+		}
+		finally
+		{
+			_issuingBomb = false;
+		}
+	}
+
+	private static bool TryFindEnvoyBomb(out bool present)
+	{
+		present = false;
+		PlayerStore store = Store;
+		EmporiumEntry emporium = EmporiumEntry.Instance;
+		if (store == null || emporium == null) return false;
+		bool Match(GameItem item) => !StorePlacement.Destroyed(item) && IsProtectedBomb(item);
+		try
+		{
+			present = store.FindAllItem(isOwn: false).Any(Match) || emporium.GetAllItems().Any(Match);
+			return true;
+		}
+		catch (Exception error)
+		{
+			ModLog.Warn("核对撒该的礼物失败：" + error.Message);
+			return false;
+		}
+	}
+
+	private static bool TryIssueBomb(Func<bool> isCurrent)
+	{
+		GameItem gameItem = null;
+		try
+		{
+			gameItem = ItemRegistry.Create("c4");
+			if (gameItem == null || !isCurrent()) return false;
+			gameItem.EnableTag(BombTag);
 			gameItem.SetName(L.T("撒该的礼物", "Zacchaeus's Gift"));
 			gameItem.shortDescription = L.T("只能交给通过反抗军电话预约来收礼物的奥丁。", "Deliver only to Odin booked through the Resistance phone to collect this gift.");
-			if (!StorePlacement.Place(gameItem))
-			{
-				ModLog.Warn("恶意巨企：店里所有库存都放满了，" + gameItem.identifier + " 没送到");
-			}
+			return isCurrent() && StorePlacement.Place(gameItem);
 		}
-		catch (Exception ex)
+		catch (Exception error)
 		{
-			ModLog.Warn("炸弹生成失败：" + ex.Message);
+			ModLog.Warn("发放撒该的礼物失败：" + error.Message);
+			return StorePlacement.Attached(gameItem);
 		}
+		finally
+		{
+			if (gameItem != null && !StorePlacement.Attached(gameItem) && !StorePlacement.Destroyed(gameItem))
+				try { gameItem.Destroy(); } catch (Exception error) { ModLog.Warn("回收未发放的礼物失败：" + error.Message); }
+		}
+	}
+
+	private static void RecheckLegacyBomb(EnvoyState s)
+	{
+		Func<bool> isCurrent = MaliceGuards.CaptureSession();
+		if (!isCurrent() || !TryFindEnvoyBomb(out bool present) || !isCurrent()) return;
+		s.BombIssued = present;
+		if (present) return;
+		s.Ch2 = BombPending;
+		s.BombDeadline = -1;
+		s.BombPauseDay = -1;
+		Done("rebel:envoybomb");
+		Notify(L.T("店里未找到撒该的礼物。请打他的电话重新领取，入库后才开始计时。", "Zacchaeus's gift was not found in the shop. Call him to claim it and start the timer once it is placed."));
 	}
 
 	private static void RefuseCh2()
 	{
-		S.Ch2 = "refused";
+		if (S is not { Ch2: "" } s) return;
+		s.Ch2 = "refused";
 		Done("ch2");
 	}
 
@@ -772,7 +836,7 @@ internal static class Envoy
 			}
 			if (s.Ch2 == "malice" && Day < s.ChannelUntil && IsCorpProduct(item))
 			{
-				s.ChannelFee += (int)Math.Round((double)amount * 0.05);
+				s.ChannelFee += (int)Math.Round(amount * ChannelRate);
 			}
 		}
 	}
@@ -791,7 +855,7 @@ internal static class Envoy
 	{
 		if (Malice.On && item != null)
 		{
-			return item.IsTag("CORP_ENVOY_BOMB");
+			return item.IsTag(BombTag);
 		}
 		return false;
 	}
@@ -819,12 +883,10 @@ internal static class Envoy
 
 	private static bool IsCorpProduct(GameItem item)
 	{
-		string id = item.identifier;
-		string[] corps = Corps;
-		for (int i = 0; i < corps.Length; i++)
+		foreach (string companyId in Corps)
 		{
-			CatalogEntry[] array = Companies.Find(corps[i])?.Catalog;
-			if (array != null && array.Any((CatalogEntry e) => e.Id == id || (e.Id.StartsWith("@") && ItemIdentity.ForGoods(e.Id.Substring(1))?.Id == id)))
+			CatalogEntry[] catalog = Companies.Find(companyId)?.Catalog;
+			if (catalog != null && catalog.Any(e => MatchesCatalogItem(e?.Id, item)))
 			{
 				return true;
 			}
@@ -832,28 +894,47 @@ internal static class Envoy
 		return false;
 	}
 
+	private static bool MatchesCatalogItem(string catalogId, GameItem item)
+	{
+		if (string.IsNullOrEmpty(catalogId)) return false;
+		string itemId = item.identifier;
+		if (catalogId == itemId) return true;
+		if (catalogId[0] != '@') return false;
+		string key = catalogId.Substring(1);
+		// Catalog factories can deliver a native item under a different identifier.
+		return key switch
+		{
+			"tablets" => itemId == "water_tablet_container",
+			"strips" => itemId == "water_test_container",
+			"immunin_case" => itemId == CarmichaelCo.Immunin,
+			"hemingway_limited" => itemId == "packet_red_cigarette" && item.IsTag(PastelCo.LimitedTag),
+			"hemingway_genuine" => itemId == "packet_red_cigarette"
+				&& item.FindItemFeatureByCategory("CATEGORY_GENUINE_CIGARETTE")?.realCondition?.identifier == "genuineCigarette",
+			_ => itemId == (ItemIdentity.ForGoods(key)?.Id ?? key)
+		};
+	}
+
 	private static void CollectChannel()
 	{
 		EnvoyState s = S;
 		PlayerStore store = Store;
-		int num = ((!store.IsPropertyPaid) ? store.GetRentValue() : 0);
-		int num2 = Math.Max(0, Math.Min(s.ChannelFee, store.GetCash() - num));
-		if (num2 > 0)
-		{
-			store.PayMoney(num2, playRegisterSound: true);
-		}
-		ModLog.Info($"恶意巨企：渠道费 {s.ChannelFee}₵，收了 {num2}₵");
+		if (s?.Ch2 != "malice" || store == null || s.ChannelDue < 0 || Day < s.ChannelDue) return;
+		int rent = store.IsPropertyPaid ? 0 : store.GetRentValue();
+		int balance = s.ChannelFee;
+		int paid = Math.Max(0, Math.Min(balance, store.GetCash() - rent));
+		if (paid > 0) CompanyMoney.Pay(store, paid);
 		s.ChannelFee = 0;
 		Done("channel");
-		if (Day + 7 > s.ChannelUntil)
+		if (Day >= s.ChannelUntil)
 		{
 			s.Ch2 = "maliceover";
 			s.ChannelDue = -1;
 		}
 		else
 		{
-			s.ChannelDue = Day + 7;
+			s.ChannelDue = s.ChannelUntil;
 		}
+		Notify(L.T($"本期渠道费 {balance}₵，实收 {paid}₵。", $"Channel fees for this collection: {balance}₵ due, {paid}₵ collected."));
 	}
 
 	private static void JoinCorps()

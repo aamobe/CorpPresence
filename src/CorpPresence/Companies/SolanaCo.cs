@@ -8,6 +8,9 @@ internal sealed class SolanaCo : Company
 
 	public const int VipBudgetMax = 5000;
 
+	private const int MaliceVipBudgetMin = 880;
+	private const int MaliceVipBudgetMax = 1155;
+
 	private static readonly Random Rng = new Random();
 
 	public static readonly string[] LabPool = new string[10] { "skincare_cream", "neuroactive_perfume", "bottled_water_premium", "black_injector", "large_purple_injector", "phagimycin_pill", "salve", "box_tampon", "cassette1", "cassette4" };
@@ -46,21 +49,31 @@ internal sealed class SolanaCo : Company
 
 	public static int VipBudget()
 	{
-		if (!Settings.VanillaServices)
+		if (VipBudgetRange(daysUntilVisit: 0) is { } range)
 		{
-			return Rng.Next(3000, 5001);
+			return Rng.Next(range.Min, range.Max + 1);
 		}
 		return Settings.VanillaBudget();
 	}
 
 	public static string VipBudgetText()
 	{
-		if (!Settings.VanillaServices)
+		if (VipBudgetRange(daysUntilVisit: 1) is { } range)
 		{
-			return $"{3000}–{5000}₵";
+			return $"{range.Min}–{range.Max}₵";
 		}
-		int num = StoreStation.GetDayCounter() + 1;
-		return $"{800 + num}–{1050 + num}₵";
+		int visitDay = StoreStation.GetDayCounter() + 1;
+		return $"{800 + visitDay}–{1050 + visitDay}₵";
+	}
+
+	private static (int Min, int Max)? VipBudgetRange(int daysUntilVisit)
+	{
+		if (Settings.MaliceMode)
+		{
+			int visitDay = StoreStation.GetDayCounter() + daysUntilVisit;
+			return (MaliceVipBudgetMin + visitDay, MaliceVipBudgetMax + visitDay);
+		}
+		return Settings.VanillaServices ? null : (VipBudgetMin, VipBudgetMax);
 	}
 
 	public static double LabMultiplier(string id)

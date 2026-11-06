@@ -4,6 +4,8 @@
 
 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3828913695) · [游玩流程](公司增强游玩流程.txt)
 
+当前源码版本为 [0.9.8](更新说明-0.9.8.txt)。
+
 ## 从源码构建
 
 需要 .NET 8 SDK 和本地安装的《Probably Stolen》。将 `GameManaged` 指向游戏安装目录下的 `Probably Stolen_Data/Managed`。
@@ -16,7 +18,7 @@ dotnet build ./src/CorpPresence.csproj -c Release "-p:GameManaged=F:/SteamLibrar
 
 ## 权限与反馈
 
-反馈 BUG 时请附游戏和模组版本、复现步骤以及相关日志片段。0.9.7 兼容修复版（0.9.7compat）的清单声明外部反射权限，用于可选 Neon Undertow 兼容钩子；DLL 与清单需成对更新。液体相关改动见 [兼容边界](docs/water-compatibility.md)，本次兼容改动见 [兼容修复说明](docs/compatibility-0.9.7.md)。
+反馈 BUG 时请附游戏和模组版本、复现步骤以及相关日志片段。清单声明外部反射权限，供可选的 Neon Undertow 兼容钩子使用。更新时请同时替换 DLL 和清单。液体相关改动见 [兼容边界](docs/water-compatibility.md)，此前的堆叠配送、Neon 和回收范围修复见 [0.9.7 兼容修复说明](docs/compatibility-0.9.7.md)。
 
 ## Rights / 权利说明
 

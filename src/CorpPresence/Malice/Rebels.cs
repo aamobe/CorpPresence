@@ -9,7 +9,7 @@ internal static class Rebels
 
 	public const string FenceId = "malice_fence";
 
-	public const int PointDivisor = 10;
+	public const int PointDivisor = 20;
 
 	public const int FenceGap = 5;
 
@@ -282,7 +282,7 @@ internal static class Rebels
 	{
 		if (Malice.On && client != null && !(client.clientFaction != "FACTION_REVOLUTION"))
 		{
-			AddPoints(amount / 10, "卖给反抗军");
+			AddPoints(amount / PointDivisor, "卖给反抗军");
 		}
 	}
 
@@ -298,7 +298,7 @@ internal static class Rebels
 			return L.T("现金不够", "Not enough cash");
 		}
 		CompanyMoney.Pay(instance, amount);
-		AddPoints(amount / 10, "在反抗军订货");
+		AddPoints(amount / PointDivisor, "在反抗军订货");
 		return "";
 	}
 

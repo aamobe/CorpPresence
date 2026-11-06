@@ -25,6 +25,7 @@ internal sealed class EnvoyState
 	public bool Medal { get; set; }
 
 	public string Ch2 { get; set; } = "";
+	public bool BombIssued { get; set; }
 
 	public int BombDeadline { get; set; } = -1;
 

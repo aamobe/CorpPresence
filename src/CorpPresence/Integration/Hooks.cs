@@ -18,6 +18,9 @@ internal static class Hooks
 
 	private static int _revBefore;
 
+	[ThreadStatic]
+	private static int _pendingVendingWater;
+
 	public static void InstallCore(Harmony h)
 	{
 		Type typeFromHandle = typeof(Hooks);
@@ -52,6 +55,10 @@ internal static class Hooks
 			typeof(GameItem),
 			typeof(int)
 		});
+		Patch<RunStats>(h, nameof(RunStats.OnItemSold), typeFromHandle, null, nameof(AfterCounterWaterSale));
+		Patch<VendingMachineHelper>(h, nameof(VendingMachineHelper.TrackMislabelledSale), typeFromHandle, null, nameof(AfterVendingItemSale));
+		Patch<RunStats>(h, nameof(RunStats.OnVendingSale), typeFromHandle, null, nameof(AfterVendingSale));
+		Patch<RunStats>(h, nameof(RunStats.OnFountainSale), typeFromHandle, null, nameof(AfterFountainWaterSale));
 		Patch<PlayerStore>(h, "EndDay", typeFromHandle, "BeforeEndDay");
 		Patch<StorePhoneClient>(h, "InitPhoneClientDict", typeFromHandle, null, "AfterInitPhones");
 		Patch<StorePhoneClient>(h, "GetCallDialog", typeFromHandle, null, "AfterGetCallDialog");
@@ -263,6 +270,35 @@ internal static class Hooks
 			CarmichaelCo.OnDayStart();
 			Ext.Fire("DayStart", Ext.DayStart);
 		});
+	}
+
+	private static void AfterCounterWaterSale(GameItem item, int cost, StoreClient client)
+	{
+		Guard("柜台售水记录", () => Services.OnItemWaterSold(item, cost, client));
+	}
+
+	private static void AfterVendingItemSale(GameItem item, int soldValue)
+	{
+		// Vanilla calls this for every selected item before destroying it and recording the payout.
+		_pendingVendingWater = 0;
+		Guard("识别售货机售水", () =>
+		{
+			if (soldValue > 0 && Services.IsWaterSaleItem(item))
+				_pendingVendingWater = soldValue;
+		});
+	}
+
+	private static void AfterVendingSale(int value)
+	{
+		int pending = _pendingVendingWater;
+		_pendingVendingWater = 0;
+		if (pending > 0 && pending == value)
+			Guard("售货机售水记录", () => Services.OnWaterSold(value));
+	}
+
+	private static void AfterFountainWaterSale(int value)
+	{
+		Guard("售水机售水记录", () => Services.OnWaterSold(value));
 	}
 
 	private static void BeforeEndDay()
@@ -687,6 +723,7 @@ internal static class Hooks
 
 	private static void BeforeStoreTransition()
 	{
+		_pendingVendingWater = 0;
 		LoadedItemRepair.Reset();
 		Guard("换档配送清理", Crates.Reset);
 		Guard("换档估价清理", CatalogPricing.Reset);

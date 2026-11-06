@@ -107,7 +107,25 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static int Cash => PlayerStore.Instance?.GetCash() ?? 0;
+	private static int Cash => SaveSlot.CurrentStore?.GetCash() ?? 0;
+
+	private static int DrawVoucherDetails(Rect r, int amount)
+	{
+		int cashDue = Services.CashDue(_company, amount);
+		if (cashDue < amount)
+		{
+			int voucherDeduction = amount - cashDue;
+			GUI.Label(r, L.T($"代金券抵扣 {voucherDeduction}₵ · 应付现金 {cashDue}₵",
+				$"Vouchers −{voucherDeduction}₵ · Cash due {cashDue}₵"), _theme.Small);
+		}
+		return cashDue;
+	}
+
+	private static int DrawCheckoutBalance(Rect r, int amount)
+	{
+		GUI.Label(new Rect(r.x, r.y, 120f, r.height), L.T($"现金 {Cash}₵", $"Cash {Cash}₵"), _theme.Small);
+		return DrawVoucherDetails(new Rect(r.x + 126f, r.y, r.width - 126f, r.height), amount);
+	}
 
 	private static string[] DavreModules => WithExtra(DavreBase);
 

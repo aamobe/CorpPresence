@@ -114,30 +114,25 @@ internal static partial class CompanyWindow
 		CompanyState state = State;
 		bool flag = Services.CanOrderToday(_company);
 		GUI.Label(new Rect(r.x, r.y, r.width, 20f), flag ? L.T("今天下单，明天送到。每天一单。", "Order today, delivered tomorrow. One order per day. ") : L.T("今天已经下过单了。", "Already ordered today. "), theme.Small);
-		float x = r.x;
-		float num = r.x + 290f;
-		float x2 = r.x + 380f;
-		float num2 = r.x + 500f;
 		float num3 = r.y + 28f;
-		Ui.Fill(new Rect(r.x, num3, r.width, 26f), Tex.Hex(13886431));
-		GUI.Label(new Rect(x + 8f, num3, 280f, 26f), L.T("品名", "Item"), theme.Body);
-		GUI.Label(new Rect(num, num3, 90f, 26f), L.T("单价", "Unit price"), theme.Center);
-		GUI.Label(new Rect(x2, num3, 120f, 26f), L.T("数量", "Qty"), theme.Center);
-		GUI.Label(new Rect(num2, num3, r.xMax - num2, 26f), L.T("小计", "Subtotal"), theme.Center);
+		Rect header = new Rect(r.x, num3, r.width, 26f);
+		Ui.Fill(header, Tex.Hex(13886431));
+		DrawOrderHeader(header, theme.Body, theme.Center);
 		num3 += 30f;
 		CatalogEntry[] entries = CarmichaelCo.Entries;
 		foreach (CatalogEntry catalogEntry in entries)
 		{
 			Rect rect = new Rect(r.x, num3, r.width, 34f);
+			var columns = OrderColumns(rect);
+			Rect status = new Rect(columns.Unit.x, num3, columns.ListPrice.x - columns.Unit.x, 34f);
 			Ui.Fill(new Rect(rect.x, rect.yMax - 1f, rect.width, 1f), theme.Line);
-			string text = catalogEntry.Name();
 			int val = Math.Min(10, Services.Left(state, catalogEntry));
-			text += Services.LeftText(state, catalogEntry);
-			GUI.Label(new Rect(x + 8f, num3, 280f, 34f), text, theme.Body);
+			DrawOrderItem(columns.Item, catalogEntry, state, theme);
+			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(catalogEntry)), theme.Center);
 			string text2 = CarmLocked(catalogEntry);
 			if (text2 != null)
 			{
-				GUI.Label(new Rect(num, num3, r.xMax - num, 34f), text2, theme.Small);
+				GUI.Label(status, text2, theme.Small);
 				Cart.Remove(catalogEntry);
 				num3 += 36f;
 				continue;
@@ -145,14 +140,14 @@ internal static partial class CompanyWindow
 			int num4 = CarmUnitPrice(catalogEntry);
 			if (num4 <= 0)
 			{
-				GUI.Label(new Rect(num, num3, r.xMax - num, 34f), L.T("暂不可用", "Unavailable"), theme.Small);
+				GUI.Label(status, L.T("暂不可用", "Unavailable"), theme.Small);
 				Cart.Remove(catalogEntry);
 				num3 += 36f;
 				continue;
 			}
-			GUI.Label(new Rect(num, num3, 90f, 34f), $"{num4}₵", theme.Price);
+			GUI.Label(columns.Unit, $"{num4}₵", theme.Price);
 			Cart.TryGetValue(catalogEntry, out var value);
-			value = Ui.Qty(new Rect(x2, num3, 120f, 34f), value, Math.Min(10, val), theme.BtnStyle, theme.Center);
+			value = Ui.Qty(columns.Quantity, value, Math.Min(10, val), theme.BtnStyle, theme.Center);
 			if (value > 0)
 			{
 				Cart[catalogEntry] = value;
@@ -161,16 +156,15 @@ internal static partial class CompanyWindow
 			{
 				Cart.Remove(catalogEntry);
 			}
-			GUI.Label(new Rect(num2, num3, r.xMax - num2, 34f), (value > 0) ? $"{num4 * value}₵" : "—", theme.Center);
+			GUI.Label(columns.Subtotal, (value > 0) ? $"{num4 * value}₵" : "—", theme.Center);
 			num3 += 36f;
 		}
 		int num5 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => CarmUnitPrice(kv.Key) * kv.Value);
 		float num6 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num6, 200f, 22f), (L.En ? $"Total {num5}₵" : $"合计 {num5}₵"), theme.Price);
-		GUI.Label(new Rect(r.x, num6 + 22f, 200f, 20f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
-		bool enabled = (num5 > 0 && num5 <= Cash) & flag;
+		int cashDue = DrawCheckoutBalance(new Rect(r.x, num6 + 22f, r.width - 170f, 20f), num5);
 		bool enabled2 = GUI.enabled;
-		GUI.enabled = enabled;
+		GUI.enabled = enabled2 && num5 > 0 && Services.CanAfford(cashDue) && flag;
 		if (Ui.Button(new Rect(r.xMax - 170f, num6 + 2f, 160f, 36f), L.T("提交订货单", "Submit order"), theme.BtnHotStyle))
 		{
 			string text3 = Services.PlaceOrder(_company, Cart, CarmUnitPrice);
@@ -227,9 +221,11 @@ internal static partial class CompanyWindow
 		}
 		bool flag2 = Day >= num;
 		GUI.Label(new Rect(r.x, num4, r.width, 22f), flag2 ? L.T("本期配额：可申领。", "Current quota: available.") : (L.En ? $"Next available: day {num} ({num - Day} days left)" : $"下次可申领：第 {num} 天（还有 {num - Day} 天）"), theme.Body);
+		int fee = CarmichaelCo.StaminaFee;
+		int cashDue = DrawVoucherDetails(new Rect(r.x + 270f, num4 + 40f, r.width - 270f, 20f), flag2 ? fee : 0);
 		bool enabled = GUI.enabled;
-		GUI.enabled = flag2 && Cash >= CarmichaelCo.StaminaFee;
-		if (Ui.Button(new Rect(r.x, num4 + 32f, 260f, 36f), flag2 ? (L.En ? $"Submit request (fee {CarmichaelCo.StaminaFee}₵)" : $"提交申请（手续费 {CarmichaelCo.StaminaFee}₵）") : L.T("批次未到", "Batch not ready"), theme.BtnHotStyle))
+		GUI.enabled = enabled && flag2 && Services.CanAfford(cashDue);
+		if (Ui.Button(new Rect(r.x, num4 + 32f, 260f, 36f), flag2 ? (L.En ? $"Submit request (fee {fee}₵)" : $"提交申请（手续费 {fee}₵）") : L.T("批次未到", "Batch not ready"), theme.BtnHotStyle))
 		{
 			Toast(Services.RequestStamina(_company) ?? L.T("申请已受理。明早由专人配送。", "Request accepted. Hand-delivered tomorrow morning."));
 		}
@@ -295,8 +291,9 @@ internal static partial class CompanyWindow
 			}
 			GUI.Label(new Rect(position.xMax + 12f, num + 3f, r.width - 242f, 26f), entry.Name, theme.Body);
 			GUI.Label(new Rect(position.xMax + 12f, num + 30f, 120f, 22f), $"{item2}₵", theme.Price);
+			int cashDue = DrawVoucherDetails(new Rect(position.xMax + 140f, num + 30f, r.width - 366f, 22f), item2);
 			bool enabled = GUI.enabled;
-			GUI.enabled = Cash >= item2;
+			GUI.enabled = enabled && Services.CanAfford(cashDue);
 			if (Ui.Button(new Rect(r.xMax - 170f, num + 10f, 160f, 36f), L.T("订一份", "Order one"), theme.BtnHotStyle))
 			{
 				Toast(CarmichaelCo.OrderSpecimen(_company, item, item2) ?? _company.FrontDeskDone);
@@ -367,9 +364,9 @@ internal static partial class CompanyWindow
 		int num3 = SwapRows.Count * CarmichaelCo.SwapFee;
 		float num4 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num4, 300f, 22f), flag ? (L.En ? $"{SwapRows.Count} items this time, fee {num3}₵" : $"本次 {SwapRows.Count} 件，手续费 {num3}₵") : (L.En ? $"Next request: day {num2}" : $"下次可申请：第 {num2} 天"), flag ? theme.Price : theme.Body);
-		GUI.Label(new Rect(r.x, num4 + 22f, 300f, 20f), (L.En ? $"Cash {Cash}₵" : $"现金 {Cash}₵"), theme.Small);
+		int cashDue = DrawCheckoutBalance(new Rect(r.x, num4 + 22f, r.width - 170f, 20f), flag ? num3 : 0);
 		bool enabled = GUI.enabled;
-		GUI.enabled = flag && SwapRows.Count > 0 && Cash >= num3;
+		GUI.enabled = enabled && flag && SwapRows.Count > 0 && Services.CanAfford(cashDue);
 		if (Ui.Button(new Rect(r.xMax - 170f, num4 + 2f, 160f, 36f), L.T("申请换货", "Request swap"), theme.BtnHotStyle))
 		{
 			string text = Services.RequestSwap(_company);

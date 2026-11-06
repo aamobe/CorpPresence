@@ -187,7 +187,7 @@ internal static class Goods
 				Fallback = "injector_pink_alt",
 				Shell = CreateMedicineShell,
 				Manufacturer = "carmicheal",
-				Types = new string[1] { "MEDICAL" },
+				Types = new string[2] { "MEDICAL", "LUXURY_ITEM" },
 				W = 4,
 				H = 1,
 				Usable = true,
@@ -1126,7 +1126,8 @@ internal static class Goods
 			{
 				return null;
 			}
-			return VanillaByName(value2.Fallback);
+			Sprite fallback = VanillaByName(value2.Fallback);
+			return text.StartsWith("fate_coin_", StringComparison.Ordinal) ? MaliceItems.PlatinumCoin(fallback) : fallback;
 		}
 		if (value2 == null && NativeWidth.TryGetValue(text, out var value4) && texture2D.width > value4)
 		{

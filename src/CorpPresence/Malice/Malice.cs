@@ -19,17 +19,12 @@ internal static class Malice
 	public static readonly int[] TierLimit = new int[4] { 0, 10, 5, 3 };
 
 	public const double ServiceMarkup = 1.5;
+	private const int ServiceCashCap = 15000;
+	private const double ServiceExtraMarkup = 0.5;
 
-	public const int VoucherDivisor = 10;
+	public const int VoucherDivisor = 20;
 
-	public static readonly (int Cash, int Extra)[] CashSteps = new (int, int)[3]
-	{
-		(5000, 200),
-		(10000, 500),
-		(15000, 800)
-	};
-
-	private static readonly string[] OneOffServices = new string[6] { "dealer", "vip", "stamina", "canning", "forge", "bribe" };
+	private static readonly string[] OneOffServices = new string[5] { "dealer", "stamina", "canning", "forge", "bribe" };
 
 	private static readonly string[] CorpIds = new string[5] { "pastel", "solana", "carmicheal", "meridian", "davre" };
 
@@ -318,28 +313,30 @@ internal static class Malice
 		{
 			return 0;
 		}
-		int num = (int)Math.Round((double)basePrice * 1.5);
+		if (c is SolanaCo && key == "vip")
+		{
+			int cash = PlayerStore.Instance?.GetCash() ?? 0;
+			return basePrice + 50 + Math.Clamp(cash / 100, 0, 100);
+		}
+		double markup = ServiceMarkup;
 		if (Array.IndexOf(OneOffServices, key) >= 0)
 		{
-			num += CashExtra();
+			int cash = PlayerStore.Instance?.GetCash() ?? 0;
+			markup += ServiceExtraMarkup * Math.Clamp((double)cash / ServiceCashCap, 0.0, 1.0);
 		}
-		return num;
+		return (int)Math.Round(basePrice * markup);
 	}
 
-	public static int CashExtra()
+	public static int VoucherDeduction(Company c, int amount)
 	{
-		int num = PlayerStore.Instance?.GetCash() ?? 0;
-		int result = 0;
-		(int, int)[] cashSteps = CashSteps;
-		for (int i = 0; i < cashSteps.Length; i++)
-		{
-			var (num2, num3) = cashSteps[i];
-			if (num >= num2)
-			{
-				result = num3;
-			}
-		}
-		return result;
+		if (amount <= 0 || !Applies(c) || Ext.Charge != Charge) return 0;
+		var terms = MaliceState.Get()?.Corps;
+		return terms != null && terms.TryGetValue(c.Id, out var balance) ? VoucherDeduction(balance, amount) : 0;
+	}
+
+	private static int VoucherDeduction(CorpTerms terms, int amount)
+	{
+		return Math.Min(terms.Vouchers, amount);
 	}
 
 	private static string Charge(Company c, int amount, string what)
@@ -366,21 +363,22 @@ internal static class Malice
 		{
 			return null;
 		}
-		int num = Math.Min(corpTerms.Vouchers, amount);
-		int num2 = amount - num;
-		if (num2 > 0 && !instance.CanPay(num2))
+		int voucherDeduction = VoucherDeduction(corpTerms, amount);
+		int cashDue = amount - voucherDeduction;
+		if (cashDue > 0 && !instance.CanPay(cashDue))
 		{
 			return L.T("现金不够", "Not enough cash");
 		}
-		if (num2 > 0)
+		if (cashDue > 0)
 		{
-			CompanyMoney.Pay(instance, num2);
+			CompanyMoney.Pay(instance, cashDue);
 		}
-		corpTerms.Vouchers -= num;
-		corpTerms.Vouchers += num2 / 10;
-		if (num > 0 || num2 >= 10)
+		corpTerms.Vouchers -= voucherDeduction;
+		int earnedVouchers = cashDue / VoucherDivisor;
+		corpTerms.Vouchers += earnedVouchers;
+		if (voucherDeduction > 0 || earnedVouchers > 0)
 		{
-			ModLog.Info($"恶意巨企：{c.Name} {what} {amount}₵（代金券 {num}，现金 {num2}，返券 {num2 / 10}）");
+			ModLog.Info($"恶意巨企：{c.Name} {what} {amount}₵（代金券 {voucherDeduction}，现金 {cashDue}，返券 {earnedVouchers}）");
 		}
 		return "";
 	}
@@ -409,8 +407,6 @@ internal static class Malice
 			return;
 		}
 		Rebels.OnDayStart();
-		Envoy.OnDayStart();
-		RebelStory.OnDayStart();
 		string[] corpIds = CorpIds;
 		foreach (string text in corpIds)
 		{
@@ -433,6 +429,8 @@ internal static class Malice
 				}
 			}
 		}
+		Envoy.OnDayStart();
+		RebelStory.OnDayStart();
 	}
 
 	private static void Enabled(MaliceState state)

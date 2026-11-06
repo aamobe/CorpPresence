@@ -267,7 +267,7 @@ internal sealed class Theme
 			t.Btn = Tex.Bevel(t.Accent2, Tex.Hex(12113615), Tex.Hex(8037788), t.Ink);
 			t.BtnHover = Tex.Bevel(Tex.Hex(11325383), Tex.Hex(13033689), Tex.Hex(8827047), t.Ink);
 			t.BtnHot = Tex.Bevel(t.Accent, Tex.Hex(4889234), Tex.Hex(2055254), t.Ink);
-			t.BtnHotHover = Tex.Bevel(Tex.Hex(3837574), Tex.Hex(5942178), Tex.Hex(2583139), t.Ink);
+			t.BtnHotHover = Tex.Bevel(Tex.Hex(0x358178), Tex.Hex(5942178), Tex.Hex(2583139), t.Ink);
 			t.Banner = func("banner", null);
 		}
 		else if (pastel)
@@ -299,23 +299,26 @@ internal sealed class Theme
 			t.BtnHotHover = Tex.DoubleLine(Tex.Hex(7031346), Tex.Hex(15128230));
 			t.Banner = func("banner", null);
 		}
+		Color secondaryInk = Color.Lerp(t.Weak, t.Ink, 0.75f);
+		Color accentInk = pastel ? Color.Lerp(t.Hot, t.Ink, 0.75f) : t.Accent;
 		t.Title = Text(pastel ? 22 : 20, pastel ? t.Ink : t.Accent, TextAnchor.MiddleLeft);
 		t.Body = Text(15, t.Ink, TextAnchor.MiddleLeft);
-		t.Small = Text(13, t.Weak, TextAnchor.MiddleLeft);
+		t.Small = Text(13, secondaryInk, TextAnchor.MiddleLeft);
 		t.Wrap = Text(13, t.Ink, TextAnchor.UpperLeft);
 		t.Wrap.wordWrap = true;
 		t.Tight = Text(11, t.Ink, TextAnchor.UpperLeft);
 		t.Tight.wordWrap = true;
-		t.Price = Text(15, pastel ? t.Hot : t.Accent, TextAnchor.MiddleCenter);
+		t.Price = Text(15, accentInk, TextAnchor.MiddleCenter);
 		t.Center = Text(14, t.Ink, TextAnchor.MiddleCenter);
 		t.BannerTitle = Text(18, pastel ? t.Ink : t.Accent, TextAnchor.MiddleCenter);
-		t.Desk = Text(13, t.Weak, TextAnchor.MiddleCenter);
+		t.Desk = Text(13, secondaryInk, TextAnchor.MiddleCenter);
 		t.InvTitle = Text(24, t.Paper, TextAnchor.MiddleLeft);
 		t.InvBody = Text(15, t.Paper, TextAnchor.MiddleLeft);
 		t.InvCenter = Text(14, t.Paper, TextAnchor.MiddleCenter);
-		t.HotTitle = Text(pastel ? 22 : 20, t.Hot, TextAnchor.MiddleLeft);
+		t.HotTitle = Text(pastel ? 22 : 20, accentInk, TextAnchor.MiddleLeft);
 		t.BtnStyle = MakeBtn(t.Btn, t.BtnHover, pastel ? Tex.Hex(2761254) : t.Ink);
-		t.BtnHotStyle = MakeBtn(t.BtnHot, t.BtnHotHover, pastel ? Tex.Hex(16052444) : Tex.Hex(16181968));
+		Color primaryButtonInk = pastel ? Tex.Hex(16052444) : Tex.Hex(16181968);
+		t.BtnHotStyle = MakeBtn(t.BtnHot, t.BtnHotHover, flag ? Color.white : primaryButtonInk);
 		Color c;
 		if (flag4)
 		{

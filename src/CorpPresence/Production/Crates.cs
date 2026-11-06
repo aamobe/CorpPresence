@@ -10,6 +10,7 @@ internal static class Crates
 	public const int InnerW = 12;
 
 	public const int InnerH = 10;
+	private const string NoResaleTag = "NOT_FOR_RESALE";
 
 	private static readonly List<(GameItem Item, StoreSession Session)> PendingDestroy = new List<(GameItem, StoreSession)>();
 	private static bool _cleaning;
@@ -43,6 +44,7 @@ internal static class Crates
 		GameItem item3 = ItemDirectory.CreateEmptyItem().SetContentWindow(item);
 		item3.EnableTag("IMPORTANT_TAG");
 		item3.EnableTag("CONTAINER_TAG");
+		item3.EnableTag(NoResaleTag);
 		Inner.AddOrUpdate(item3, item2);
 		item2.mayInventoryAddItemFunc = (GameItem _, GameInventory _) => CrateFillGate.Allows(item2);
 		BindCleanup(item3, item2, StoreSession.Capture());
@@ -93,6 +95,7 @@ internal static class Crates
 			if (crate == null || crate.parentInventory == null || StorePlacement.Destroyed(crate)) continue;
 			string key = Goods.IdOf(crate);
 			if (key == null || !key.StartsWith("crate_", StringComparison.Ordinal)) continue;
+			crate.EnableTag(NoResaleTag);
 			GameInventory inventory = InnerOf(crate);
 			if (inventory == null || !session.IsCurrent) continue;
 			Inner.AddOrUpdate(crate, inventory);
