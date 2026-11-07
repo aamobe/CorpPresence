@@ -29,6 +29,7 @@ internal static class ItemTags
 			return;
 		}
 		ItemIdentity.Entry entry = ItemIdentity.Find(item.identifier, item.spritePath);
+		Perfume.RepairFlowerGenetics(item);
 		if (entry != null) ProductionCompatibility.RemoveLegacyPause(item);
 		Goods.Relabel(item, entry?.Goods);
 		Cards.Relabel(item, entry);
@@ -43,7 +44,7 @@ internal static class ItemTags
 			string goods = entry.Goods;
 			NormalizeMedicine(item, goods);
 			// These goods have their own shells and do not use their legacy templates for tags.
-			bool independentTypes = IsIndependentMedicine(goods) || goods is "crab_stick" or "fish_can" or "rejuvenation";
+			bool independentTypes = Goods.HasIndependentShell(goods);
 			Apply(item, array, independentTypes ? Array.Empty<string>() : Inherited(entry.LegacyId));
 			if ((goods == "crab_stick" && item.unitValue == 185) || (goods == "fish_can" && item.unitValue == 119))
 				item.SetValue(Goods.ValueOf(goods));

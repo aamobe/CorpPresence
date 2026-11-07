@@ -8,11 +8,7 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-#if PREVIEW_ART
-    private const string ReleaseVersion = "0.9.8fix2-preview";
-#else
-    private const string ReleaseVersion = "0.9.8fix2";
-#endif
+    private const string ReleaseVersion = "0.9.8";
 #if WATER_TRACE
     public const string Version = ReleaseVersion + "-watertrace";
 #else
@@ -58,6 +54,7 @@ public class Main : IMod
     {
         _runtime.Own(SilverBlood.InstallResources, SilverBlood.UninstallResources);
         _runtime.Own(Tobacco.RegisterPlant, Tobacco.UnregisterPlant);
+        _runtime.Own(Perfume.InstallResources, Perfume.UninstallResources);
         Hooks.InstallResources(_harmony); // The core owner release also covers a partial resource install.
         _runtime.Own(Hooks.InstallEvents, Hooks.UninstallEvents);
         _runtime.Own(Malice.Malice.Install, Malice.Malice.Uninstall);

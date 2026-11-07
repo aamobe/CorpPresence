@@ -62,6 +62,8 @@ internal static class Goods
 
 		public (string Zh, string En) Manual;
 
+		public (string Zh, string En) ModuleEffects;
+
 		public string LName => L.T(Name, NameEn ?? Name);
 
 		public string LFlavor => L.T(Flavor, FlavorEn ?? Flavor);
@@ -72,7 +74,8 @@ internal static class Goods
 			{
 				if (Desc != null)
 				{
-					return L.T(Desc, DescEn ?? Desc);
+					string text = L.T(Desc, DescEn ?? Desc);
+					return ModuleEffects.Zh == null ? text : text + "\n\n" + LocHelper.BulletLines(L.T(ModuleEffects.Zh, ModuleEffects.En));
 				}
 				return LFlavor;
 			}
@@ -560,6 +563,12 @@ internal static class Goods
 		};
 		ExtraArt = new Dictionary<string, (string, string)>
 		{
+			[Perfume.ExtractorKey + "_running"] = ("solana", Perfume.ExtractorKey + "_running"),
+			[Perfume.BloodKey + "_red"] = ("solana", Perfume.BloodKey + "_red"),
+			[Perfume.BloodKey + "_blue"] = ("solana", Perfume.BloodKey + "_blue"),
+			[Perfume.MixerKey + "_red"] = ("solana", Perfume.MixerKey + "_red"),
+			[Perfume.MixerKey + "_blue"] = ("solana", Perfume.MixerKey + "_blue"),
+			[Perfume.CollectorKey + "_running"] = ("solana", Perfume.CollectorKey + "_running"),
 #if PREVIEW_ART
 			["rolling_machine_running"] = ("pastel", "rolling_machine_running"),
 			["packaging_machine_running"] = ("pastel", "packaging_machine_running"),
@@ -599,6 +608,7 @@ internal static class Goods
 		{
 			Defs[def.Key] = def.Value;
 		}
+		foreach (var def in Perfume.Defs) Defs[def.Key] = def.Value;
 		foreach (KeyValuePair<string, Def> def2 in Canning.Defs)
 		{
 			Defs[def2.Key] = def2.Value;
@@ -674,6 +684,9 @@ internal static class Goods
 		}
 		return value.Types;
 	}
+
+	internal static bool HasIndependentShell(string id) => id != null && Defs.TryGetValue(id, out var definition)
+		&& (definition.Shell != null || definition.Crate);
 
 	public static bool VanillaUse(GameItem item)
 	{
@@ -1127,7 +1140,8 @@ internal static class Goods
 
 	public static Sprite FindSprite(string name)
 	{
-		if (name == "corp_presence_tobacco_leaf_p")
+		if (name == Perfume.FlowerId + "_p" || name == Perfume.FlowerId + "_p2") return Perfume.FlowerSprite();
+		if (name == "corp_presence_tobacco_leaf_p" || name == "corp_presence_tobacco_leaf_p2")
 		{
 			return Tobacco.PlantOverlay();
 		}

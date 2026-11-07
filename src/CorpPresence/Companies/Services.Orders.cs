@@ -39,6 +39,8 @@ internal static partial class Services
 		}
 		if (cart == null || unitPrice == null) return L.T("订单未就绪，尚未扣款。", "Order not ready. You have not been charged.");
 		KeyValuePair<CatalogEntry, int>[] purchases = cart.ToArray();
+		if (c is SolanaCo && purchases.Any(kv => !Perfume.Catalog.Contains(kv.Key) || kv.Key.MinTier > c.CatalogTier(s)))
+			return L.T("香水工艺供应仅向金卡及以上会员开放。", "Perfumery supplies require Gold membership or above.");
 		if (purchases.Any((KeyValuePair<CatalogEntry, int> kv) => kv.Key == null || kv.Value <= 0 || kv.Key.BaseValue() < 0))
 		{
 			return L.T("有货品暂不可用，请稍后再试。尚未扣款。", "Some items are unavailable right now. Try again later. You have not been charged.");

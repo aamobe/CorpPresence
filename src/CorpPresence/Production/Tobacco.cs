@@ -54,8 +54,8 @@ internal static class Tobacco
 			H = 1,
 			Shell = Empty,
 			Setup = InitSeed,
-			Desc = "种在水培机里，大约 4 晚收一茬烟叶，并返还 1 颗种子。",
-			DescEn = "Grow it in a hydroponic unit. Harvest tobacco leaves in about 4 nights and get 1 seed back.",
+			Desc = "种在水培机里，大约4晚收一茬烟叶，默认返还1颗种子。可移入多年生基因，收获后保留植株；再次结果基础进度14，产量、生长速度和返种数量遵循原版基因效果。",
+			DescEn = "Grow in hydroponics: about 4 nights for leaves and 1 seed by default. Supports Perennial: the plant survives harvest, with refruit base work 14. Native genes modify yield, growth speed and seed returns.",
 			Flavor = "帕斯泰尔的经济作物。娇气、吃水。",
 			FlavorEn = "A pastel cash crop. Fussy and thirsty."
 		},
@@ -172,7 +172,7 @@ internal static class Tobacco
 		if (!GameResources.Ready) throw new InvalidOperationException("烟草资源尚未就绪");
 		if (PlantRegistry.Contains("corp_presence_tobacco_seed")) return;
 		_ownedPlant = new PlantDefinition("corp_presence_tobacco_seed", "Tobacco", "corp_presence_tobacco_leaf", 28, 10).Nutriment(300, 100, 60).Contaminant(1.1).Water(150)
-			.ReturnsSeeds().Innate("sparse").Innate("thirsty").Innate("frail").Innate("complex_genome").OnHarvest(Harvest);
+			.Refruit(14).ReturnsSeeds().Innate("sparse").Innate("thirsty").Innate("frail").Innate("complex_genome").OnHarvest(Harvest);
 		PlantRegistry.Add(_ownedPlant);
 	}
 
@@ -442,6 +442,8 @@ internal static class Tobacco
 	private static string ManualText(GameItem machine, (string Zh, string En) text)
 	{
 		string description = L.T(text.Zh, text.En);
+		string perfumeEffects = Perfume.EffectText(machine);
+		if (perfumeEffects != null) description += "\n\n" + perfumeEffects;
 #if PREVIEW_ART
 		if (Goods.IdOf(machine) is "meat_grinder" or "rolling_machine")
 			description += "\n" + L.T("成品槽有成品时显示运行图，取空后恢复静态图。", "The active sprite stays visible until the output tray is emptied.");

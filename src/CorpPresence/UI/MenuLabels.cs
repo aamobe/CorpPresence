@@ -13,7 +13,7 @@ new string[3] { "军械订货", "地下销赃网络", "任务" },
 new string[2] { "军械订货", "任务" },
 new string[1] { "和解" },
 new string[1] { "营救奥丁" },
-new string[4] { "贵宾引荐", "实验室采购单", "会员礼遇", "品牌目录" },
+new string[5] { "贵宾引荐", "实验室采购单", "会员礼遇", "品牌目录", "香水工艺" },
 new string[3] { "码头补给", "街坊互助", "品牌目录" },
 new string[6] { "开源军械", "地下药房", "码头补给", "街坊互助", "合作阵线", "品牌目录" }
  };
@@ -27,7 +27,7 @@ new string[3] { "Arms Orders", "Fence Network", "Tasks" },
 new string[2] { "Arms Orders", "Tasks" },
 new string[1] { "Make Peace" },
 new string[1] { "Rescue Odin" },
-new string[4] { "VIP Referral", "Lab Purchase Order", "Member Perks", "Brand Catalog" },
+new string[5] { "VIP Referral", "Lab Purchase Order", "Member Perks", "Brand Catalog", "Perfumery" },
 new string[3] { "Dock Supplies", "Mutual Aid", "Brand Catalog" },
 new string[6] { "Open-Source Arms", "Back-Alley Pharmacy", "Dock Supplies", "Mutual Aid", "Joint Front", "Brand Catalog" }
  };

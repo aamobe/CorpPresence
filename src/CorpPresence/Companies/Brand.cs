@@ -18,7 +18,7 @@ internal static class Brand
 			"nutrifruit", "galaxy_blend", "nutrifruit_seed", "bloomberry_seed", "kotton_seed", "kotton_fiber", "kotton_fabric", "shampoo", "toothpaste", "box_tampon",
 			"pack_condom", "packet_red_cigarette", "black_injector", "@gloves", "@patch", "@sign"
 		},
-		["solana"] = new string[7] { "skincare_cream", "neuroactive_perfume", "self_refilling_neuroactive_perfume", "pheromone_perfume", "@elixir", "@mask", "@candle" },
+		["solana"] = new string[] { "skincare_cream", "neuroactive_perfume", "self_refilling_neuroactive_perfume", "pheromone_perfume", "@elixir", "@mask", "@candle", "@oilflower_seed", "@oilflower", "@perfume_base_oil_material", "@perfume_extract", "@perfume_blue_extract", "@perfume_oil_extractor", "@perfume_blood_extractor", "@perfume_mixer", "@perfume_blood_collector" },
 		["carmicheal"] = new string[9] { "large_purple_injector", "pink_injector", "pure_white_injector", "phagimycin_pill", "smelling_salt", "zerochew", "chem_scanner", "@stamina", "@painblock" },
 		["meridian"] = new string[8] { "glock_receiver", "smg", "shotgun", "mag_10mm_smg", "mag_10mm_smg_high", "mag_10mm_smg_box", "stock", "short_stock" },
 		["spacer"] = new string[20]

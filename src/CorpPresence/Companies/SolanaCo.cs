@@ -17,6 +17,8 @@ internal sealed class SolanaCo : Company
 
 	public override string Id => "solana";
 
+	public override CatalogEntry[] Catalog => Perfume.Catalog;
+
 	public override string Name => L.T("索拉纳生物", "Solana Biogenics");
 
 	public override string CharacterId => "seline";

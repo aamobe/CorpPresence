@@ -86,6 +86,11 @@ internal static partial class CompanyWindow
 		case 2:
 			DrawSolanaGift(rect3);
 			break;
+		case 4:
+			DrawEquipmentOrder(rect3, Perfume.Catalog,
+				L.T("金卡工艺供应：花种每7天限购2颗。价格固定，次日配送。", "Gold workshop supplies: 2 seeds per rolling 7 days. Fixed prices; next-day delivery."),
+				Perfume.CatalogPrice, L.T("提交订货", "Place Order"));
+			break;
 		default:
 			DrawBrand(rect3);
 			break;

@@ -57,11 +57,11 @@ internal static partial class Canning
 
     internal static void AfterMachineBodyStorage(GameItem machine, int index, ref GraphNodeStorage __result)
     {
-        if (index == 1 && Goods.IdOf(machine) == "seafood_sealer" &&
+        if (index == 1 && (Goods.IdOf(machine) is "seafood_sealer" or Perfume.CollectorKey) &&
             machine.contentWindow?.childElement is MachineryPanelRow row)
         {
             // The base game uses storage 1 for module operations. Keep the saved
-            // panel order intact and resolve the sealer's module panel by role.
+            // panel order intact and resolve these machines' module panels by role.
             var storage = new System.Collections.Generic.List<GraphNodeStorage>();
             row.GetPanel("module")?.CollectStorage(storage);
             if (storage.Count == 1 && storage[0] is GameGridInventory bay) __result = bay;

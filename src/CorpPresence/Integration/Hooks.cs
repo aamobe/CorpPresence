@@ -43,7 +43,9 @@ internal static class Hooks
 		Type typeFromHandle = typeof(Hooks);
 		Type typeFromHandle2 = typeof(ItemRegistry);
 		Patch<PlayerStore>(h, "BeginDay", typeFromHandle, null, "AfterBeginDay");
-		Patch<ItemMouseDragHandler>(h, "EndDrag", typeof(DragFix), "BeforeEndDrag", "AfterEndDrag");
+		MethodInfo endDrag = AccessTools.Method(typeof(ItemMouseDragHandler), "EndDrag", new[] { typeof(bool) })
+			?? AccessTools.Method(typeof(ItemMouseDragHandler), "EndDrag", Type.EmptyTypes);
+		Patch(h, endDrag, "ItemMouseDragHandler.EndDrag", typeof(DragFix), nameof(DragFix.BeforeEndDrag), nameof(DragFix.AfterEndDrag));
 		Patch<StoreClientManager>(h, "GenerateClient", typeFromHandle, null, "AfterGenerateClient");
 		Patch<PlayerStore>(h, "GetNextClient", typeFromHandle, "BeforeNextClient");
 		Patch<GameItem>(h, "GetNegociatedValue", typeFromHandle, null, "AfterNegociatedValue");
@@ -58,10 +60,12 @@ internal static class Hooks
 			typeof(GameItem),
 			typeof(int)
 		});
-		Patch<RunStats>(h, nameof(RunStats.OnItemSold), typeFromHandle, null, nameof(AfterCounterWaterSale));
-		Patch<VendingMachineHelper>(h, nameof(VendingMachineHelper.TrackMislabelledSale), typeFromHandle, null, nameof(AfterVendingItemSale));
-		Patch<RunStats>(h, nameof(RunStats.OnVendingSale), typeFromHandle, null, nameof(AfterVendingSale));
-		Patch<RunStats>(h, nameof(RunStats.OnFountainSale), typeFromHandle, null, nameof(AfterFountainWaterSale));
+		Patch<RunStats>(h, nameof(RunStats.OnItemSold), typeFromHandle, postfix: nameof(AfterCounterWaterSale),
+			args: new[] { typeof(GameItem), typeof(int), typeof(int), typeof(StoreClient) });
+		Patch<VendingMachineHelper>(h, nameof(VendingMachineHelper.TrackMislabelledSale), typeFromHandle, postfix: nameof(AfterVendingItemSale),
+			args: new[] { typeof(GameItem), typeof(int) });
+		Patch<RunStats>(h, nameof(RunStats.OnVendingSale), typeFromHandle, postfix: nameof(AfterVendingSale), args: new[] { typeof(int) });
+		Patch<RunStats>(h, nameof(RunStats.OnFountainSale), typeFromHandle, postfix: nameof(AfterFountainWaterSale), args: new[] { typeof(int) });
 		Patch<PlayerStore>(h, "EndDay", typeFromHandle, "BeforeEndDay");
 		Patch<StorePhoneClient>(h, "InitPhoneClientDict", typeFromHandle, null, "AfterInitPhones");
 		Patch<StorePhoneClient>(h, "GetCallDialog", typeFromHandle, null, "AfterGetCallDialog");
@@ -117,6 +121,7 @@ internal static class Hooks
 			typeof(bool)
 		});
 		Patch(h, AccessTools.Method(typeof(ChemicalHelper), "HandleTemperatureReaction", new Type[1] { typeof(GameItem) }), "ChemicalHelper.HandleTemperatureReaction", typeof(SilverBlood), null, "AfterTemperatureReaction");
+		Patch(h, AccessTools.Method(typeof(ChemicalHelper), "HandleTemperatureReaction", new Type[1] { typeof(GameItem) }), "ChemicalHelper.HandleTemperatureReaction.Perfume", typeof(Perfume), null, "AfterTemperatureReaction");
 		Patch<MaterialDirectory>(h, "MetalIngot", typeof(MachineUpgrade), null, "AfterMakeIngot");
 		Patch<MachineHelper>(h, nameof(MachineHelper.GetBodyStorage), typeof(Canning), null, nameof(Canning.AfterMachineBodyStorage),
 			new[] { typeof(GameItem), typeof(int) });

@@ -60,7 +60,7 @@ internal static partial class CompanyWindow
 
 	private static int _refurbCount;
 
-	private static readonly int[] SolanaModuleTier = new int[4] { 1, 2, 3, 0 };
+	private static readonly int[] SolanaModuleTier = new int[5] { 1, 2, 3, 0, 2 };
 
 	private static readonly Dictionary<string, string> NameCache = new Dictionary<string, string>();
 

@@ -30,7 +30,8 @@ internal static class MachineUpgrade
 
 	private const int PowerCost = 3;
 
-	private static readonly string[] CapMachines = new string[6] { "rolling_machine", "meat_grinder", "packaging_machine", "canning_machine", "seafood_sealer", "forge_furnace" };
+	private static readonly string[] CapMachines = { "rolling_machine", "meat_grinder", "packaging_machine", "canning_machine", "seafood_sealer", "forge_furnace",
+		Perfume.ExtractorKey, Perfume.BloodKey, Perfume.MixerKey, Perfume.CollectorKey };
 
 	private static readonly string[] PowerMachines = new string[3] { "rolling_machine", "meat_grinder", "forge_anvil" };
 
@@ -189,7 +190,7 @@ internal static class MachineUpgrade
 				{
 				}
 				int num2 = ((!Rigs.TryGetValue(machine, out var value)) ? 1 : value.RowsPerLevel);
-				Notify(flag ? L.T($"{name}容量升到 {level} 级：原料格和成品格各多 {num2} 行", L.Translate((System.FormattableString)$"{name} capacity upgraded to level {level}: {num2} more row(s) of input and output")) : L.T(name + "装好省电件：每次加工少耗 1 电", L.Translate((FormattableString)$"{name} power saver installed: 1 less charge per run")));
+				Notify(flag ? L.T($"{name}容量升到 {level} 级：可扩容的仓储格各多 {num2} 行", L.Translate((System.FormattableString)$"{name} capacity upgraded to level {level}: {num2} more row(s) in each expandable storage grid")) : L.T(name + "装好省电件：每次加工少耗 1 电", L.Translate((FormattableString)$"{name} power saver installed: 1 less charge per run")));
 				ModLog.Info(string.Format("机器升级：{0} {1} {2} 级", machine.identifier, flag ? "容量" : "省电", level));
 			}
 			else
