@@ -141,9 +141,6 @@ internal sealed class Seline : Character
 			2 => new[] { "skincare_cream", "@mask", "@candle" },
 			_ => new[] { "skincare_cream", "@mask", "@candle", "@elixir" }
 		};
-		string[] perfumes = s.Chapter < 3
-			? new[] { "neuroactive_perfume" }
-			: new[] { "neuroactive_perfume", "pheromone_perfume" };
 		Visit visit = new Visit();
 		visit.Lines = new string[2]
 		{
@@ -153,7 +150,11 @@ internal sealed class Seline : Character
 		visit.Exit = Engine.Any(Character.Act(L.T("轻轻点头", "gives a slight nod"), L.T("嗯。", "Mm.")), Character.Act(L.T("看了看表", "checks her watch"), L.T("我该走了。", "I should go.")));
 		visit.Both = true;
 		visit.Discount = 20;
-		visit.Stock = Engine.Pick(perfumes, 1, 2);
+		visit.Stock = Engine.Pick(new[] { "neuroactive_perfume" }, 1, 2);
+		// Keep chapter unlocks; roll each daily perfume slot independently.
+		if (s.Chapter >= 3)
+			for (int i = 0; i < visit.Stock.Length; i++)
+				if (RNG.Roll(10)) visit.Stock[i] = "pheromone_perfume";
 		visit.Extra = extras;
 		visit.RequireExtra = true;
 		visit.Wrong = L.T("我不是收破烂的。", "I'm not a junk dealer.");
