@@ -19,6 +19,7 @@
 | [源码地图](maintenance/architecture.md) | 目录职责、生命周期、数据流与常见修改位置 |
 | [构建与发布](maintenance/build-and-release.md) | 本地依赖、编译、部署、版本核对与发布记录 |
 | [兼容边界与回归](maintenance/compatibility-and-regressions.md) | 普通水、身份注册、存档、限购、会员及机器风险 |
+| [开发问题复盘与反例目录](maintenance/retrospective/README.md) | 40个历史案例、处理方法、验证边界及防复发要点 |
 | [工具目录](../tools/README.md) | 构建和静态检查脚本、已有诊断程序的用途 |
 | [贡献与反馈](../CONTRIBUTING.md) | 修改范围、反馈信息、权利约束 |
 

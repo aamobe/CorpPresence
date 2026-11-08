@@ -5,6 +5,8 @@
 3. 涉及液体、库存、读档或会员时，读[兼容与回归](compatibility-and-regressions.md)。
 4. 完成修改后按[构建与发布](build-and-release.md)验证，并更新受影响文档。
 
+开发中重复遇到的问题，先查[历史问题复盘](retrospective/README.md)。其中按40个案例区分现场记录、历史复现、已撤回方案和未闭环反馈，供新MOD开发借鉴。
+
 ## 按任务查找
 
 | 维护任务 | 文档/位置 |

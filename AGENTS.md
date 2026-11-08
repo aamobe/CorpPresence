@@ -2,6 +2,7 @@
 
 - 从[文档总目录](docs/README.md)开始。定位代码读[源码地图](docs/maintenance/architecture.md)，发布前读[当前版本记录](docs/releases/0.9.9.md)。
 - 以发布记录确认基线，不根据本机目录名判断版本，不把未发布素材混进已发布源码。
+- 排查重复问题或复用旧方案时，查[历史问题复盘](docs/maintenance/retrospective/README.md)中的对应案例，确认方案是否已撤回及验证边界。
 - 修改液体、物品身份、读档、订货或会员时，先读[兼容边界](docs/maintenance/compatibility-and-regressions.md)。普通水和原版顾客规则保持原版处理。
 - 素材制作、修改、缩放或导入前读[美术规范](docs/art/README.md)。缩小后的物品图必须完成防杂色检查。仅讨论素材不生成或替换贴图。
 - 日常修复、重构和“继续工作”只修改源码、编译与验证。仅在用户明确要求打包、压缩或导出安装包后生成分发包。

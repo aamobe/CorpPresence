@@ -14,6 +14,7 @@
 | 查五条产线及对应代码 | [功能目录](docs/features/README.md) |
 | 查香水配方、植物基因和设备属性 | [香水生产线](docs/features/perfume.md) |
 | 找到某个功能的实现位置 | [源码地图](docs/maintenance/architecture.md) |
+| 查以前踩过的坑与处理方法 | [开发问题复盘](docs/maintenance/retrospective/README.md) |
 | 构建、部署或准备发布 | [构建与发布](docs/maintenance/build-and-release.md) |
 | 修改液体、读档、订货或会员条件 | [兼容边界与回归](docs/maintenance/compatibility-and-regressions.md) |
 | 制作或导入美术素材 | [美术规范](docs/art/README.md) |
