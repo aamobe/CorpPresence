@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "variant": "stable-official-csv-dialogue-action-trim-no-permissions",
+  "variant": "stable-official-csv-pastel-expanded-no-permissions",
   "recordedOn": "2026-11-09",
   "sourceFileCount": 326,
   "assetFileCount": 167,
@@ -1564,7 +1564,7 @@
     {
       "path": "src/CorpPresence/UI/CompanyWindow.cs",
       "hashMode": "utf8-lf",
-      "sha256": "07D5D21342C3E8B01DB713D11428BE26C2B7ED236C05439D1AC1470853DCF7FA"
+      "sha256": "90B0FF8DE8137EB101A884EF09B0262130BEB255E506F6580193E6CC0260264F"
     },
     {
       "path": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
@@ -1589,7 +1589,7 @@
     {
       "path": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
       "hashMode": "utf8-lf",
-      "sha256": "F222D64972AC45C697B05748BB9B39D9F98AA43E30B584765945B9401A1FD03D"
+      "sha256": "7C9AC2A24CE7A369ED425385F3E4C17DF9D1078B236257A8BB7C85BB9585F298"
     },
     {
       "path": "src/CorpPresence/UI/CompanyWindow.Solana.cs",

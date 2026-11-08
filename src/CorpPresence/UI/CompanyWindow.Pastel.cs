@@ -14,11 +14,12 @@ internal static partial class CompanyWindow
 		Theme theme = _theme;
 		_ = State;
 		float width = _rect.width;
+		float contentHeight = _rect.height - 326f;
 		Rect r = new Rect((width - 560f) / 2f, 10f, 560f, 90f);
 		Banner(r);
 		GUI.Label(new Rect(r.x + 140f, r.y + 20f, 324f, 50f), _company.Name, theme.Title);
 		GUI.Label(new Rect(24f, 106f, width - 80f, 22f), L.K("ui.pastel.overview.frontDesk", "前台：", "Front desk: ") + _desk, theme.Body);
-		Rect position = new Rect(10f, 136f, 168f, 470f);
+		Rect position = new Rect(10f, 136f, 168f, contentHeight);
 		GUI.Box(position, GUIContent.none, theme.CellBox);
 		GUI.Label(new Rect(position.x + 10f, position.y + 6f, 150f, 22f), L.K("ui.pastel.overview.services", "服务", "Services"), theme.Small);
 		for (int i = 0; i < PastelModules.Length; i++)
@@ -31,7 +32,7 @@ internal static partial class CompanyWindow
 				_module = i;
 			}
 		}
-		Rect rect = new Rect(186f, 136f, width - 196f, 470f);
+		Rect rect = new Rect(186f, 136f, width - 196f, contentHeight);
 		if (!PastelUnlocked(_module, out var why2))
 		{
 			GUI.Label(new Rect(rect.x + 10f, rect.y + 10f, rect.width - 20f, 24f), PastelModules[_module], theme.Title);
@@ -53,7 +54,7 @@ internal static partial class CompanyWindow
 		{
 			DrawBrand(rect);
 		}
-		DrawPastelFooter(new Rect(10f, 616f, width - 20f, 170f));
+		DrawPastelFooter(new Rect(10f, rect.yMax + 10f, width - 20f, 170f));
 	}
 
 	private static bool PastelUnlocked(int module, out string why)
@@ -142,7 +143,7 @@ internal static partial class CompanyWindow
 		CatalogEntry catalogEntry = PastelSpecial();
 		int num2 = (array.Length + 2) / 3;
 		float num3 = (r.width - 18f) / 3f;
-		float num4 = Math.Min(118f, (r.height - 40f - (float)(6 * (num2 - 1))) / (float)Math.Max(1, num2));
+		float num4 = Math.Min(136f, (r.height - 40f - (float)(6 * (num2 - 1))) / (float)Math.Max(1, num2));
 		for (int num5 = 0; num5 < array.Length; num5++)
 		{
 			CatalogEntry catalogEntry2 = array[num5];
@@ -150,7 +151,7 @@ internal static partial class CompanyWindow
 			bool flag4 = catalogEntry2.MinTier > num;
 			bool flag5 = !PastelCo.CraftUnlocked(catalogEntry2);
 			GUI.Box(rect, GUIContent.none, (catalogEntry2 == catalogEntry && !flag4) ? theme.CellOnBox : theme.CellBox);
-			GUI.Label(new Rect(rect.x + 6f, rect.y + 4f, rect.width - 12f, 34f), flag5 ? "？？？" : catalogEntry2.Name(), theme.Wrap);
+			GUI.Label(new Rect(rect.x + 6f, rect.y + 4f, rect.width - 12f, 44f), flag5 ? "？？？" : catalogEntry2.Name(), theme.Wrap);
 			if (flag5)
 			{
 				Cart.Remove(catalogEntry2);
@@ -160,32 +161,32 @@ internal static partial class CompanyWindow
 				}
 				else
 				{
-					GUI.Label(new Rect(rect.x, rect.y + 44f, rect.width, 22f), "？？？", theme.Center);
+					GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 22f), "？？？", theme.Center);
 				}
 				continue;
 			}
 			string listPrice = ItemListPrice(ItemListValue(catalogEntry2), labeled: true);
 			if (flag4)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 44f, rect.width, 22f), (L.En ? L.K("ui.pastel.orders.tierRequired", (System.FormattableString)$"Unlocks at {_company.TierNames[catalogEntry2.MinTier - 1]}") : _company.TierNames[catalogEntry2.MinTier - 1] + "解锁"), theme.Center);
-				GUI.Label(new Rect(rect.center.x, rect.y + 66f, rect.width / 2f, 22f), listPrice, theme.Center);
+				GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 22f), (L.En ? L.K("ui.pastel.orders.tierRequired", (System.FormattableString)$"Unlocks at {_company.TierNames[catalogEntry2.MinTier - 1]}") : _company.TierNames[catalogEntry2.MinTier - 1] + "解锁"), theme.Center);
+				GUI.Label(new Rect(rect.center.x, rect.y + 76f, rect.width / 2f, 22f), listPrice, theme.Center);
 				continue;
 			}
 			int num6 = PastelUnitPrice(catalogEntry2);
 			if (num6 <= 0)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 44f, rect.width, 22f), L.K("ui.pastel.orders.unavailable", "暂不可用", "Unavailable"), theme.Center);
-				GUI.Label(new Rect(rect.center.x, rect.y + 66f, rect.width / 2f, 22f), listPrice, theme.Center);
+				GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 22f), L.K("ui.pastel.orders.unavailable", "暂不可用", "Unavailable"), theme.Center);
+				GUI.Label(new Rect(rect.center.x, rect.y + 76f, rect.width / 2f, 22f), listPrice, theme.Center);
 				Cart.Remove(catalogEntry2);
 				continue;
 			}
 			string orderLabel = catalogEntry2 == catalogEntry ? L.K("ui.pastel.orders.deal", "特价", "Deal") : L.K("ui.pastel.orders.buy", "订货", "Buy");
-			GUI.Label(new Rect(rect.x, rect.y + 36f, rect.width / 2f, 22f), $"{orderLabel} {num6}₵", theme.Price);
-			GUI.Label(new Rect(rect.center.x, rect.y + 36f, rect.width / 2f, 22f), listPrice, theme.Center);
+			GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width / 2f, 22f), $"{orderLabel} {num6}₵", theme.Price);
+			GUI.Label(new Rect(rect.center.x, rect.y + 52f, rect.width / 2f, 22f), listPrice, theme.Center);
 			int num7 = Math.Min(10, Services.Left(state, catalogEntry2));
 			if (catalogEntry2.Limit() > 0)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 54f, rect.width, 16f), (L.En ? L.K("ui.pastel.orders.quotaRemaining", (System.FormattableString)$"{num7} left {Services.PeriodWord}") : $"{Services.PeriodWord}还剩 {num7}"), theme.Small);
+				GUI.Label(new Rect(rect.x, rect.y + 76f, rect.width, 16f), (L.En ? L.K("ui.pastel.orders.quotaRemaining", (System.FormattableString)$"{num7} left {Services.PeriodWord}") : $"{Services.PeriodWord}还剩 {num7}"), theme.Small);
 			}
 			Cart.TryGetValue(catalogEntry2, out var value);
 			value = Ui.Qty(new Rect(rect.x + 6f, rect.yMax - 28f, rect.width - 12f, 24f), value, Math.Min(10, num7), theme.BtnStyle, theme.Center);
@@ -203,7 +204,7 @@ internal static partial class CompanyWindow
 	private static void PastelBribeCell(Rect cell)
 	{
 		Theme theme = _theme;
-		GUI.Label(new Rect(cell.x + 6f, cell.y + 34f, cell.width - 12f, 22f), L.K("ui.pastel.supervisor.payOffSupervisor", "打点主管", "Pay off the supervisor"), theme.Center);
+		GUI.Label(new Rect(cell.x + 6f, cell.y + 52f, cell.width - 12f, 22f), L.K("ui.pastel.supervisor.payOffSupervisor", "打点主管", "Pay off the supervisor"), theme.Center);
 		int fee = PastelCo.Bribe;
 		bool enabled = GUI.enabled;
 		GUI.enabled = enabled && Services.CanAfford(Services.CashDue(_company, fee));

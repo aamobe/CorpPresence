@@ -252,6 +252,10 @@ internal static partial class CompanyWindow
 			{
 				size = new Vector2(820f, 640f);
 			}
+			else if (c is PastelCo)
+			{
+				size = new Vector2(1040f, 900f);
+			}
 			else
 			{
 				size = ((c is MeridianCo || c is DavreCo) ? new Vector2(860f, 640f) : new Vector2(660f, 796f));
