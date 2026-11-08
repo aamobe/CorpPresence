@@ -20,6 +20,7 @@
 | [构建与发布](maintenance/build-and-release.md) | 本地依赖、编译、部署、版本核对与发布记录 |
 | [兼容边界与回归](maintenance/compatibility-and-regressions.md) | 普通水、身份注册、存档、限购、会员及机器风险 |
 | [开发问题复盘与反例目录](maintenance/retrospective/README.md) | 40个历史案例、处理方法、验证边界及防复发要点 |
+| [MOD制作与项目管理指南](mod-development-guide.md) | 开发流程、职责边界、存档/资源约束、任务管理和交付模板 |
 | [工具目录](../tools/README.md) | 构建和静态检查脚本、已有诊断程序的用途 |
 | [贡献与反馈](../CONTRIBUTING.md) | 修改范围、反馈信息、权利约束 |
 
