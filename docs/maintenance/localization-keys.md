@@ -4,9 +4,9 @@
 
 **最终状态：既有本地化调用及自有动态文案已完成稳定键迁移，累计1621键。源码中的旧`L.T`/`L.Translate`消费调用为0；旧接口和旧表保留兼容。**下方前三批数据是实施历史，当前范围以“最终收尾”和“迁移完成状态”为准。
 
-**外部翻译包已实现（1.0.0）：**玩家可在DLL旁`Translations`放UTF-8 JSON，按合法语言代码提供译文，并用`language.json`选择游戏菜单没有的Mod语言。无需重新编译译文；使用方式、完整模板导出和回退规则见[玩家说明](../localization/README.md)。
+**当前采用内置翻译：**2026-11-09移除外部翻译包加载及语言覆盖，取消文件访问权限；保留全部稳定键、内置译文和回退。维护方式见[译者说明](../localization/README.md)。
 
-外部包功能验证：35组检查通过（含完整模板真实加载和实际Release资源），Release编译0警告、0错误，最终独立审阅通过。未启动游戏；不将托管边界检查视为游戏内实测。
+此前外部包功能已撤回；历史计划和检查记录不代表当前运行时功能。发布前运行本地化检查与零权限包扫描。
 
 ## 查询与回退
 
@@ -18,13 +18,13 @@ L.K("ui.checkout.cash", (FormattableString)$"现金 {Cash}₵",
 
 键采用`区域.模块.用途`命名，如`ui.menu.solana.perfumery`，不以英文原文、数组位置或句子哈希命名。改文案时保留原用途的键；含义不同则使用不同键。
 
-- 无外部包时，中文继续返回调用处中文原文；英文和不支持的语言返回调用处英文原文。
-- 外部完整语言代码、父语言优先；之后俄法查[Translations.Keys.json](../../src/CorpPresence/Presentation/Translations.Keys.json)，数组仍为`[ru, fr]`。未命中、null、空翻译或短数组时，查原[Translations.json](../../src/CorpPresence/Presentation/Translations.json)，最后回退英文；中文缺键保留中文。资源读取异常也沿用该回退。
+- 中文继续返回调用处中文原文；英文和不支持的语言返回调用处英文原文。
+- 俄法按游戏语言及地区代码查[Translations.Keys.json](../../src/CorpPresence/Presentation/Translations.Keys.json)，数组仍为`[ru, fr]`。未命中、null、空翻译或短数组时，查原[Translations.json](../../src/CorpPresence/Presentation/Translations.json)，最后回退英文；中文缺键保留中文。资源读取异常也沿用该回退。
 - 两张表分别懒加载，使用固定嵌入资源名`CorpPresence.Translations.json`和`CorpPresence.Translations.Keys.json`。
 - 插值文本需要**显式转换两个参数为`FormattableString`**，否则C#会选择string重载，模板会提前格式化。俄法先翻译英文模板，再用原参数和当前文化格式化；格式错误回退原英文格式化结果。中文模板中的参数顺序可与英文不同，不把中文占位索引套到英文上。
 - `L.T`、`L.Translate`及其数组调用继续兼容。旧翻译表保持原样，不删除已迁移条目，因为其他旧调用可能共享同一原文。
 
-需要按已有模板及参数格式化时，使用`L.F(key, zhFormat, enFormat, args...)`；指定语言的内部适配使用`TextTranslations.FormatKey`。不要在取得外部模板后自行`string.Format(L.K(...), args)`，否则实际类型不兼容的格式可能绕过回退。外部格式化会检查原编号、支持重排/重复，并在实际`FormatException`时尝试父语言及内置文本。已有先插值行为由`KRendered`保留无包输出，同时允许外部模板获取原参数。
+需要按已有模板及参数格式化时，使用`L.F(key, zhFormat, enFormat, args...)`；指定语言的内部适配使用`TextTranslations.FormatKey`。不要在取得翻译模板后自行`string.Format(L.K(...), args)`，否则实际类型不兼容的格式可能绕过回退。内置格式化在FormatException时回退原文。KRendered保留已有先插值查表行为。
 
 第二批增加兼容既有调用形态的重载，原语言分支不需要重排：
 
@@ -38,7 +38,7 @@ L.K("ui.carmichael.bloodRecovery.availableAgainDay", $"第 {nextDay} 天可再�
 
 两参数`L.K(key, en)`对应原`L.Translate(en)`，即使在中文环境调用，也像旧入口一样返回英文回退；仅在原代码已有中文分支时使用。混合重载`L.K(key, string zh, FormattableString en)`保留中文字符串已经格式化的调用方式。插值英文仍须显式转换为`FormattableString`；已有三参数双模板重载的调用无需改写。
 
-中英回退文本仍保留在源码中，内置稳定表承载俄法译文；外部包按语言代码使用独立的键到字符串字典，可覆盖中英及新增语言。修改英文原文不会使稳定键失效；若含义或占位符改变，须同步审查对应译文。
+中英回退文本仍保留在源码中，内置稳定表承载俄法译文；当前不读取外部翻译文件，新增语言需要源码接入和编译。修改英文原文不会使稳定键失效；若含义或占位符改变，须同步审查对应译文。
 
 ## 第一批实际范围
 

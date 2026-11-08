@@ -11,7 +11,5 @@
   <Assemblies>
     <Assembly>CorpPresence.dll</Assembly>
   </Assemblies>
-  <Capabilities>
-    <Capability>files</Capability>
-  </Capabilities>
+  <Capabilities />
 </Mod>

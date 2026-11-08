@@ -21,4 +21,4 @@ if ((Test-Path -LiteralPath $destination) -and !$Force) { throw 'Output exists. 
 [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($destination)) | Out-Null
 [IO.File]::WriteAllText($destination, ($document | ConvertTo-Json -Depth 5) + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))
 Write-Output "Exported $($keys.Count) keys for $code to $destination"
-Write-Output 'Template only; no game launch, deployment or publication. Remove or blank unfinished values to keep fallback.'
+Write-Output 'Reference template only. Current built-in-only release does not load this file; source integration and rebuilding are required.'

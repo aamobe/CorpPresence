@@ -36,7 +36,7 @@ dotnet build ./src/CorpPresence.csproj -c Release --artifacts-path ./artifacts/b
 6. 工坊更新使用正确的appid和publishedfileid；不需要改变简介时，不在上传配置中填`description`或`title`。
 7. 保存发布结果。只有明确成功回执才能说“上传成功”；获得下载权限后可回下载并比较SHA256，未执行则如实记录。
 
-发布目录准备好后运行`tools/Check-ModPermissions.ps1 -GameManaged <游戏Managed目录> -ModFolder <待发布目录>`。此工具直接调用游戏安装目录中的`ModScanner.Scan`，不启动游戏或执行模组代码；扫描错误、拒绝项、未知权限或未声明权限均使检查失败。外部翻译包读取需要清单包含`<Capabilities><Capability>files</Capability></Capabilities>`；游戏将该权限统一显示为可读取或写入文件。
+发布目录准备好后运行`tools/Check-ModPermissions.ps1 -GameManaged <游戏Managed目录> -ModFolder <待发布目录>`。此工具直接调用游戏安装目录中的`ModScanner.Scan`，不启动游戏或执行模组代码；扫描错误、拒绝项、未知权限或未声明权限均使检查失败。当前内置翻译版清单必须保持`<Capabilities />`，发布前加`-RequireNone`确认实际检测权限与声明均为零。
 
 工坊目标：游戏appid `4348910`，项目ID `3828913695`。上传凭证只保存在本地工具环境，不进仓库。
 

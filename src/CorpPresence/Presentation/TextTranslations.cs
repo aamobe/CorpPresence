@@ -9,7 +9,7 @@ internal static class TextTranslations
 	private static readonly Lazy<Dictionary<string, string[]>> Catalog = new(() => LoadCatalog("CorpPresence.Translations.json"));
 	private static readonly Lazy<Dictionary<string, string[]>> KeyedCatalog = new(() => LoadCatalog("CorpPresence.Translations.Keys.json"));
 
-	internal static bool HasLocale(string locale) => LanguageIndex(locale) >= 0 || ExternalTranslations.HasLocale(locale);
+	internal static bool HasLocale(string locale) => LanguageIndex(locale) >= 0;
 
 	private static int LanguageIndex(string locale)
 	{
@@ -24,7 +24,6 @@ internal static class TextTranslations
 	internal static string FormatKey(string key, string english, string locale, params object[] arguments)
 	{
 		var source = System.Runtime.CompilerServices.FormattableStringFactory.Create(english, arguments);
-		if (ExternalTranslations.TryFormat(key, source, locale, out var external)) return external;
 		string format = SelectBuiltInKey(key, english, locale);
 		try { return string.Format(format, arguments); }
 		catch (FormatException) { return source.ToString(); }
@@ -43,7 +42,7 @@ internal static class TextTranslations
 	// Stable keys are presentation identifiers only. Missing entries keep the legacy fallback.
 	internal static string SelectKey(string key, string english, string locale)
 	{
-		return ExternalTranslations.TryGet(key, english, locale, out var external) ? external : SelectBuiltInKey(key, english, locale);
+		return SelectBuiltInKey(key, english, locale);
 	}
 
 	internal static string SelectBuiltInKey(string key, string english, string locale)

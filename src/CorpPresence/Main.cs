@@ -37,7 +37,6 @@ public class Main : IMod
 
     private void EnableCore()
     {
-        _runtime.Own(ExternalTranslations.Reload, ExternalTranslations.Clear);
         _runtime.Own(GameResources.Begin, GameResources.Reset);
         _runtime.Own(Noop, LoadedItemRepair.Reset);
         _runtime.Own(ItemRegistry.Install, ItemRegistry.Uninstall);

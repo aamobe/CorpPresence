@@ -15,21 +15,9 @@ void Equal<T>(T expected, T actual)
     if (!EqualityComparer<T>.Default.Equals(expected, actual)) throw new Exception($"Expected [{expected}], got [{actual}]");
 }
 void Locale(string locale) { LocHelper.Locale = locale; UnityEngine.Time.frameCount++; }
-void WritePack(string directory, string filename, string locale, Dictionary<string, string> translations)
-{
-    File.WriteAllText(Path.Combine(directory, filename), JsonConvert.SerializeObject(new { schemaVersion = 1, locale, translations }));
-}
-void WithPacks(Action<string> setup, Action<string> check)
-{
-    string directory = Path.Combine(Path.GetTempPath(), "CorpPresence-LocalizationChecks-" + Guid.NewGuid().ToString("N"));
-    Directory.CreateDirectory(directory);
-    try { setup(directory); ExternalTranslations.Reload(directory); check(directory); }
-    finally {
-        ExternalTranslations.Clear();
-        if (!Path.GetFullPath(directory).StartsWith(Path.Combine(Path.GetTempPath(), "CorpPresence-LocalizationChecks-"), StringComparison.OrdinalIgnoreCase)) throw new Exception("Unexpected fixture directory");
-        Directory.Delete(directory, true);
-    }
-}
+Check("built-in release contains no external translation file loader", () => {
+    Equal<Type>(null, typeof(L).Assembly.GetType("CorpPresence.ExternalTranslations"));
+});
 string Key(string key, string zh, string en)
 {
     return L.K(key, zh, en);
@@ -180,130 +168,19 @@ Check("every registered item definition receives independent display key metadat
     Equal(null, defs["foreign_definition"].TextKeys);
     Equal(null, GoodsText.ForId(null));
 });
-Check("external JSON adds a language and supports parent locale and menu labels", () => {
-    var type = typeof(L).Assembly.GetType("CorpPresence.ExternalTranslations");
-    if (type == null) throw new Exception("Missing external translation pack loader");
-    string directory = Path.Combine(Path.GetTempPath(), "CorpPresence-LocalizationChecks-" + Guid.NewGuid().ToString("N"));
-    Directory.CreateDirectory(directory);
-    try {
-        File.WriteAllText(Path.Combine(directory, "es.json"), "{\"schemaVersion\":1,\"locale\":\"es\",\"translations\":{\"ui.menu.brandCatalog\":\"Catálogo\",\"ui.checkout.cash\":\"Saldo {0}₵\"}}");
-        File.WriteAllText(Path.Combine(directory, "language.json"), "{\"locale\":\"es-MX\"}");
-        var reload = type.GetMethod("Reload", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(string) }, null);
-        reload.Invoke(null, new object[] { directory });
-        Locale("en"); Equal("es-mx", L.Locale);
-        Equal("Catálogo", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
-        Equal("Saldo 42₵", L.K("ui.checkout.cash", (FormattableString)$"现金 {42}₵", (FormattableString)$"Cash {42}₵"));
-        Equal("Catálogo", MenuLabels.Get(9, L.En)[3]);
-    } finally {
-        type.GetMethod("Clear", BindingFlags.Static | BindingFlags.NonPublic)?.Invoke(null, null);
-        if (!Path.GetFullPath(directory).StartsWith(Path.Combine(Path.GetTempPath(), "CorpPresence-LocalizationChecks-"), StringComparison.OrdinalIgnoreCase)) throw new Exception("Unexpected fixture directory");
-        Directory.Delete(directory, true);
+Check("unsupported locale prefixes keep English fallback", () => {
+    foreach (var locale in new[] { "rup", "zha" }) {
+        Locale(locale); Equal(true, L.En); Equal(false, TextTranslations.HasLocale(locale));
+        Equal("Brand Catalog", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
+        Equal("Brand Catalog", MenuLabels.Get(9, L.En)[3]);
     }
 });
-Check("regional packs inherit parent entries then built-in and source fallbacks", () => WithPacks(dir => {
-    WritePack(dir, "fr.json", "fr", new() { ["ui.menu.brandCatalog"] = "Parent", ["ui.checkout.cash"] = "Solde {0}₵" });
-    WritePack(dir, "fr-ca.json", "FR_ca", new() { ["ui.menu.brandCatalog"] = "Regional", ["ui.checkout.cash"] = "" });
-}, _ => {
-    Locale("fr-CA"); Equal("Regional", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
-    Equal("Solde 42₵", L.K("ui.checkout.cash", (FormattableString)$"现金 {42}₵", (FormattableString)$"Cash {42}₵"));
-    Equal(TextTranslations.Select("Top tier reached", "fr"), L.K("ui.company.topTier", "已是最高档", "Top tier reached"));
-    Equal("Fallback", L.K("missing.key", "中文", "Fallback"));
-}));
-Check("English and Chinese packs override explicit keys while retaining native missing text", () => WithPacks(dir => {
-    WritePack(dir, "en.json", "en", new() { ["ui.menu.brandCatalog"] = "Custom catalog" });
-    WritePack(dir, "zh.json", "zh-Hant", new() { ["ui.menu.brandCatalog"] = "品牌目錄", ["ui.checkout.cash"] = "餘額 {0}₵" });
-}, _ => {
-    Locale("en-US"); Equal("Custom catalog", MenuLabels.Get(9, L.En)[3]);
-    Locale("zh-Hant-TW"); Equal(false, L.En);
-    Equal("品牌目錄", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
-    Equal("餘額 42₵", L.K("ui.checkout.cash", (FormattableString)$"现金 {42}₵", (FormattableString)$"Cash {42}₵"));
-    Equal("中文原文", L.K("missing.key", "中文原文", "Fallback"));
-    Equal("品牌目錄", MenuLabels.Get(9, L.En)[3]); Equal("香水工艺", MenuLabels.Get(9, L.En)[4]);
-    Equal("品牌目錄", L.K(new[] { "ui.menu.brandCatalog" }, new[] { "品牌目录" }, new[] { "Brand Catalog" })[0]);
-}));
-Check("invalid files and values cannot suppress valid packs or built-in text", () => WithPacks(dir => {
-    File.WriteAllText(Path.Combine(dir, "broken.json"), "{ broken");
-    File.WriteAllText(Path.Combine(dir, "version.json"), "{\"schemaVersion\":2,\"locale\":\"es\",\"translations\":{}}");
-    File.WriteAllText(Path.Combine(dir, "locale.json"), "{\"schemaVersion\":1,\"locale\":\"../../es\",\"translations\":{}}");
-    File.WriteAllText(Path.Combine(dir, "fr.json"), "{\"schemaVersion\":1,\"locale\":\"fr\",\"translations\":{\"ui.menu.brandCatalog\":123,\"ui.checkout.cash\":\"Cash without argument\"}}");
-    File.WriteAllText(Path.Combine(dir, "language.json"), "{\"locale\":\"missing-language\"}");
-}, _ => {
-    Locale("fr"); Equal("fr", L.Locale); Equal(false, TextTranslations.HasLocale("es"));
-    Equal(TextTranslations.Select("Brand Catalog", "fr"), L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
-    Equal(string.Format(TextTranslations.Select("Cash {0}₵", "fr"), 7), L.K("ui.checkout.cash", (FormattableString)$"现金 {7}₵", (FormattableString)$"Cash {7}₵"));
-}));
-Check("external placeholder order, escaping and runtime format fallback are safe", () => WithPacks(dir => {
-    WritePack(dir, "fr.json", "fr", new() { ["ui.checkout.cash"] = "Parent {0}₵", ["ui.checkout.voucherDetails"] = "{1} / {0} / {0}" });
-    WritePack(dir, "fr-ca.json", "fr-CA", new() { ["ui.checkout.cash"] = "{0:Q}" });
-}, dir => {
-    Locale("fr-CA"); Equal("Parent 7₵", L.K("ui.checkout.cash", (FormattableString)$"现金 {7}₵", (FormattableString)$"Cash {7}₵"));
-    Equal("2 / 1 / 1", L.K("ui.checkout.voucherDetails", (FormattableString)$"券 {1} 现金 {2}", (FormattableString)$"Vouchers −{1}₵ · Cash due {2}₵"));
-    WritePack(dir, "fr-ca.json", "fr-CA", new() { ["ui.checkout.cash"] = "Saldo {{x}} {0,4:0.0}₵" });
-    ExternalTranslations.Reload(dir);
-    Equal(string.Format("Saldo {{x}} {0,4:0.0}₵", 12.5), L.K("ui.checkout.cash", (FormattableString)$"现金 {12.5}₵", (FormattableString)$"Cash {12.5}₵"));
-    foreach (var bad in new[] { "{1}", "{0", "{0,9999999999999}", "no placeholder" }) {
-        WritePack(dir, "fr-ca.json", "fr-CA", new() { ["ui.checkout.cash"] = bad }); ExternalTranslations.Reload(dir);
-        Equal("Parent 7₵", L.K("ui.checkout.cash", (FormattableString)$"现金 {7}₵", (FormattableString)$"Cash {7}₵"));
-    }
-}));
-Check("deterministic file precedence and reload invalidate menu and locale caches", () => WithPacks(dir => {
-    WritePack(dir, "01.json", "fr", new() { ["ui.menu.brandCatalog"] = "First" });
-    WritePack(dir, "99.json", "fr", new() { ["ui.menu.brandCatalog"] = "Last" });
-}, dir => {
-    Locale("fr"); var original = MenuLabels.Get(9, L.En); Equal("Last", original[3]);
-    WritePack(dir, "99.json", "fr", new() { ["ui.menu.brandCatalog"] = "Reloaded" }); ExternalTranslations.Reload(dir);
-    Equal("Reloaded", MenuLabels.Get(9, L.En)[3]); Equal(false, ReferenceEquals(original, MenuLabels.Get(9, L.En)));
-    WritePack(dir, "es.json", "es", new() { ["ui.menu.brandCatalog"] = "Catálogo" });
-    File.WriteAllText(Path.Combine(dir, "language.json"), "{\"locale\":\"es\"}"); ExternalTranslations.Reload(dir);
-    Equal("es", L.Locale); Equal("Catálogo", MenuLabels.Get(9, L.En)[3]);
-}));
-Check("previously rendered dynamic text can receive external formatted translations", () => WithPacks(dir => {
-    WritePack(dir, "es.json", "es", new() { ["production.perfume.plants.registerAroma.producesMLOilflowerMash"] = "Produce {0:0.#} mL de pulpa." });
-}, _ => {
-    Locale("es"); Equal($"Produce {16.5:0.#} mL de pulpa.", L.KRendered("production.perfume.plants.registerAroma.producesMLOilflowerMash", $"产生 {16.5:0.#} mL 含油花浆。", (FormattableString)$"Produces {16.5:0.#} mL of oilflower mash."));
-    ExternalTranslations.Clear(); Locale("fr");
-    Equal(L.T($"产生 {16.5:0.#} mL 含油花浆。", $"Produces {16.5:0.#} mL of oilflower mash."),
-        L.KRendered("production.perfume.plants.registerAroma.producesMLOilflowerMash", $"产生 {16.5:0.#} mL 含油花浆。", (FormattableString)$"Produces {16.5:0.#} mL of oilflower mash."));
-}));
-Check("brand information refreshes when the same locale pack is reloaded", () => WithPacks(dir => {
-    WritePack(dir, "fr.json", "fr", new() { ["ui.menu.brandCatalog"] = "First catalog" });
-}, dir => {
-    Locale("fr"); Equal("First catalog", Brand.Info("shampoo").Name);
-    WritePack(dir, "fr.json", "fr", new() { ["ui.menu.brandCatalog"] = "Updated catalog" }); ExternalTranslations.Reload(dir);
-    Equal("Updated catalog", Brand.Info("shampoo").Name);
-}));
-Check("caller-formatted UI templates fall back for invalid syntax and numeric formats", () => WithPacks(dir => {
-    WritePack(dir, "fr.json", "fr", new() { ["presentation.storyGuide.build.chapter"] = "Parent {0} / {1}" });
-    WritePack(dir, "fr-ca.json", "fr-ca", new() {
-        ["presentation.storyGuide.build.chapter"] = "Chapter {0:Q} ({1})",
-        ["presentation.configLocalization.afterOpen.visits"] = "{0,+3}",
-        ["production.tobacco.addManual.instructions"] = "{0,+3}"
-    });
-}, _ => {
+Check("caller-formatted built-in templates preserve fallback", () => {
     Locale("fr-ca");
-    Equal("Parent 1 / main story", L.F("presentation.storyGuide.build.chapter", "第 {0} 章（{1}）", "Chapter {0} ({1})", 1, "main story"));
-    Equal("Parent 1 / main story", TextTranslations.FormatKey("presentation.storyGuide.build.chapter", "Chapter {0} ({1})", "fr-ca", 1, "main story"));
-    Equal(string.Format(TextTranslations.Select("Visits: {0}", "fr"), "Isa"), TextTranslations.FormatKey("presentation.configLocalization.afterOpen.visits", "Visits: {0}", "fr-ca", "Isa"));
-    Equal(string.Format(TextTranslations.Select("{0} Instructions", "fr"), "Machine"), TextTranslations.FormatKey("production.tobacco.addManual.instructions", "{0} Instructions", "fr-ca", "Machine"));
+    Equal(string.Format(TextTranslations.Select("Chapter {0} ({1})", "fr"), 1, "main story"),
+        L.F("presentation.storyGuide.build.chapter", "第 {0} 章（{1}）", "Chapter {0} ({1})", 1, "main story"));
     Locale("zh"); Equal("第 1 章（主线）", L.F("presentation.storyGuide.build.chapter", "第 {0} 章（{1}）", "Chapter {0} ({1})", 1, "主线"));
-}));
-Check("new language codes sharing a prefix with Russian keep their own fallback", () => WithPacks(dir => {
-    WritePack(dir, "rup.json", "rup", new() { ["ui.storyGuide.next"] = "Next in rup" });
-}, _ => {
-    Locale("rup"); Equal("Brand Catalog", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
-    Equal("Brand Catalog", MenuLabels.Get(9, L.En)[3]);
-    ExternalTranslations.Clear(); Equal(false, TextTranslations.HasLocale("rup"));
-    Equal("Brand Catalog", MenuLabels.Get(9, L.En)[3]);
-}));
-Check("new language codes sharing a prefix with Chinese reach translated branches", () => WithPacks(dir => {
-    WritePack(dir, "zha.json", "zha", new() { ["ui.menu.brandCatalog"] = "Zha catalog" });
-}, _ => {
-    Locale("zha"); Equal(true, L.En);
-    Equal("Zha catalog", L.En ? L.K("ui.menu.brandCatalog", "Brand Catalog") : "品牌目录");
-    Equal("English fallback", L.K("missing.key", "中文回退", "English fallback"));
-    ExternalTranslations.Clear(); Equal(true, L.En);
-    Equal("Brand Catalog", MenuLabels.Get(9, L.En)[3]);
-}));
+});
 Check("company order error uses a stable key even after English copy changes", () => {
     Locale("ru");
     Equal(TextTranslations.Select("Save not ready", "ru"),
@@ -356,18 +233,6 @@ if (args.Length >= 1)
         using var expectedReader = new StreamReader(expectedStream);
         Equal(expectedReader.ReadToEnd(), reader.ReadToEnd());
     });
-if (args.Length >= 2)
-    Check("exported complete template loads through the actual external loader", () => WithPacks(dir => {
-        File.Copy(args[1], Path.Combine(dir, "template.json"));
-    }, _ => {
-        var pack = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(args[1]));
-        string locale = (string)pack["locale"];
-        Equal(1621, ((Newtonsoft.Json.Linq.JObject)pack["translations"]).Count);
-        Locale(locale); Equal(true, TextTranslations.HasLocale(locale));
-        Equal((string)pack["translations"]["ui.menu.brandCatalog"], L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
-        Equal(string.Format((string)pack["translations"]["ui.checkout.cash"], 42),
-            L.K("ui.checkout.cash", (FormattableString)$"现金 {42}₵", (FormattableString)$"Cash {42}₵"));
-    }));
 Console.WriteLine($"{passed} passed, {failed} failed");
 return failed == 0 ? 0 : 1;
 

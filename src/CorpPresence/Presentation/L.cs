@@ -12,19 +12,16 @@ internal static class L
 	private static bool _ready;
 
 	private static string _locale = "";
-	private static int _translationVersion = -1;
 
 	public static bool En
 	{
 		get
 		{
-			int version = ExternalTranslations.Version;
-			if (_frame == Time.frameCount && _translationVersion == version)
+			if (_frame == Time.frameCount)
 			{
 				return _en;
 			}
 			_frame = Time.frameCount;
-			_translationVersion = version;
 			if (!_ready && FontLoader.Instance == null)
 			{
 				_locale = "";
@@ -33,7 +30,7 @@ internal static class L
 			_ready = true;
 			try
 			{
-				_locale = ExternalTranslations.ResolveLocale(LocHelper.GetCurrentLocaleCode() ?? "");
+				_locale = LocHelper.GetCurrentLocaleCode() ?? "";
 				_en = _locale.Length != 0 && !TextTranslations.IsBuiltInLocale(_locale, "zh");
 			}
 			catch
@@ -62,7 +59,7 @@ internal static class L
 	public static string K(string key, string zh, string en)
 	{
 		if (En) return TextTranslations.SelectKey(key, en, _locale);
-		return ExternalTranslations.TryGet(key, en, _locale, out var external) ? external : zh;
+		return zh;
 	}
 
 	// These overloads preserve existing L.En branches and eagerly formatted Chinese text.
@@ -71,7 +68,7 @@ internal static class L
 	internal static string K(string key, FormattableString en)
 	{
 		string locale = Locale;
-		return ExternalTranslations.TryFormat(key, en, locale, out var external) ? external : FormatBuiltIn(key, en, locale);
+		return FormatBuiltIn(key, en, locale);
 	}
 
 	private static string FormatBuiltIn(string key, FormattableString en, string locale)
@@ -85,7 +82,6 @@ internal static class L
 	public static string K(string key, string zh, FormattableString en)
 	{
 		bool english = En;
-		if (ExternalTranslations.TryFormat(key, en, _locale, out var external)) return external;
 		return english ? FormatBuiltIn(key, en, _locale) : zh;
 	}
 
@@ -93,7 +89,6 @@ internal static class L
 	public static string K(string key, FormattableString zh, FormattableString en)
 	{
 		bool english = En;
-		if (ExternalTranslations.TryFormat(key, en, _locale, out var external)) return external;
 		return english ? FormatBuiltIn(key, en, _locale) : zh.ToString();
 	}
 
@@ -101,15 +96,13 @@ internal static class L
 	internal static string F(string key, string zh, string en, params object[] arguments)
 	{
 		if (En) return TextTranslations.FormatKey(key, en, _locale, arguments);
-		var source = System.Runtime.CompilerServices.FormattableStringFactory.Create(en, arguments);
-		return ExternalTranslations.TryFormat(key, source, _locale, out var external) ? external : string.Format(zh, arguments);
+		return string.Format(zh, arguments);
 	}
 
-	// Preserve previously rendered English lookup while allowing an external template.
+	// Preserve the legacy lookup of previously rendered English text.
 	internal static string KRendered(string key, string zh, FormattableString en)
 	{
 		bool english = En;
-		if (ExternalTranslations.TryFormat(key, en, _locale, out var external)) return external;
 		return english ? TextTranslations.Select(en.ToString(), _locale) : zh;
 	}
 
@@ -138,14 +131,13 @@ internal static class L
 	internal static string[] K(string[] keys, string[] zh, string[] en)
 	{
 		bool english = En;
-		if (!english && (!ExternalTranslations.HasLocale(_locale) || zh == null || en == null)) return zh;
+		if (!english) return zh;
 		if (!TextTranslations.HasLocale(_locale) || en == null) return en;
 		var result = new string[en.Length];
 		for (int i = 0; i < en.Length; i++)
 		{
 			string key = keys != null && i < keys.Length ? keys[i] : null;
-			result[i] = english ? TextTranslations.SelectKey(key, en[i], _locale)
-				: ExternalTranslations.TryGet(key, en[i], _locale, out var external) ? external : zh[i];
+			result[i] = TextTranslations.SelectKey(key, en[i], _locale);
 		}
 		return result;
 	}

@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Xml.Linq;
 
-if (args.Length != 2) throw new ArgumentException("Usage: Checks <GameManaged> <mod folder>");
+if (args.Length < 2 || args.Length > 3) throw new ArgumentException("Usage: Checks <GameManaged> <mod folder> [--require-none]");
 var managed = Path.GetFullPath(args[0]);
 var folder = Path.GetFullPath(args[1]);
 // Load the installed game's scanner without starting Unity or executing mod code.
@@ -27,4 +27,7 @@ Console.WriteLine($"Detected: {string.Join(", ", detected)}; declared: {string.J
 Console.WriteLine($"Unknown declarations: {unknown.Length}; undeclared capabilities: {missing.Length}");
 Console.WriteLine($"Refused: {resultType.GetProperty("Refused")!.GetValue(result)}; error: {resultType.GetField("Error")!.GetValue(result) ?? "none"}");
 Console.WriteLine(resultType.GetMethod("FormatFindings")!.Invoke(result, new object[] { 12 }));
-return (bool)resultType.GetProperty("Refused")!.GetValue(result)! || missing.Length > 0 || unknown.Length > 0 ? 1 : 0;
+bool requireNone = args.Length == 3 && args[2] == "--require-none";
+if (requireNone) Console.WriteLine($"Zero-permission check: {(detected.Length == 0 && declared.Length == 0 ? "PASS" : "FAIL")}");
+return (bool)resultType.GetProperty("Refused")!.GetValue(result)! || missing.Length > 0 || unknown.Length > 0 ||
+    (requireNone && (detected.Length > 0 || declared.Length > 0)) ? 1 : 0;
