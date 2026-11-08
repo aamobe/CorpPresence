@@ -18,6 +18,7 @@
     <Compile Include="../../src/CorpPresence/Presentation/TextTranslations.cs" Link="TextTranslations.cs" />
     <Compile Include="../../src/CorpPresence/Presentation/OfficialTranslations.cs" Link="OfficialTranslations.cs" />
     <Compile Include="../../src/CorpPresence/Presentation/TranslationFormat.cs" Link="TranslationFormat.cs" />
+    <Compile Include="../../src/CorpPresence/Presentation/DialogueText.cs" Link="DialogueText.cs" />
     <Compile Include="../../src/CorpPresence/Presentation/ConfigDisplay.cs" Link="ConfigDisplay.cs" />
     <Compile Include="../../src/CorpPresence/Presentation/GoodsText.cs" Link="GoodsText.cs" />
     <Compile Include="../../src/CorpPresence/UI/MenuLabels.cs" Link="MenuLabels.cs" />

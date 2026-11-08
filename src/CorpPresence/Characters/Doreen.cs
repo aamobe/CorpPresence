@@ -146,7 +146,7 @@ internal sealed class Doreen : Character
 			visit.Lines = new string[2]
 			{
 				L.K("characters.doreen.chapter.weReBuyingHydraTechPurifiers", "我们在大批量收海德拉净水器，新旧都要。", "We're buying HydraTech purifiers in bulk. New or used."),
-				Character.Act(L.K("characters.doreen.chapter.pauses", "顿了顿", "pauses"), L.K("characters.doreen.chapter.rDWantsTakeThem", "研发部想拆开看看。", "R&D wants to take them apart."))
+				Character.Act(L.K("characters.doreen.chapter.pauses", "顿了顿", "pauses"), L.K("characters.doreen.chapter.rDWantsTakeThem", "研发部想拆开看看。", "R&D wants to take them apart."), showAction: false)
 			};
 			visit.Exit = L.K("characters.doreen.chapter.remember", "记住，", "Remember: ") + Bye;
 			visit.Buy = true;
@@ -161,7 +161,7 @@ internal sealed class Doreen : Character
 			visit.Lines = new string[5]
 			{
 				Character.Act(L.K("characters.doreen.chapter.setsDownPurifier", "放下一台净水器", "sets down a purifier"), L.K("characters.doreen.chapter.heardStartedSellingWater", "听说你开始卖水了？", "Heard you started selling water?")),
-				Character.Act(L.K("characters.doreen.chapter.patsPurifier", "拍拍净水器", "pats the purifier"), L.K("characters.doreen.chapter.thisLeviathanDavreProduct", "这东西叫利维坦。达夫雷的产品。", "This is the Leviathan. A Davre product.")),
+				Character.Act(L.K("characters.doreen.chapter.patsPurifier", "拍拍净水器", "pats the purifier"), L.K("characters.doreen.chapter.thisLeviathanDavreProduct", "这东西叫利维坦。达夫雷的产品。", "This is the Leviathan. A Davre product."), showAction: false),
 				L.K("characters.doreen.chapter.mightNotFilterQuiteAs", "渗透度可能比海德拉差点，但铁锈水、幽灵水都能过滤。", "It might not filter quite as well as a HydraTech, but it handles Rustwater and Ghostwater."),
 				L.K("characters.doreen.chapter.lastsLongerThanHydraTech", "而且比海德拉耐用。", "And it lasts longer than a HydraTech."),
 				L.K("characters.doreen.chapter.onePerWeekJustCall", "每周限订一台，打电话就行。", "One per week. Just call to order.")

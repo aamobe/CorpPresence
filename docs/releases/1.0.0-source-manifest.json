@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "variant": "stable-official-csv-localization-no-permissions",
+  "variant": "stable-official-csv-dialogue-action-trim-no-permissions",
   "recordedOn": "2026-11-09",
-  "sourceFileCount": 325,
+  "sourceFileCount": 326,
   "assetFileCount": 167,
   "hashPolicy": "Text: UTF-8 without BOM, CRLF/CR normalized to LF. Binary: exact bytes.",
   "files": [
@@ -869,7 +869,7 @@
     {
       "path": "src/CorpPresence/Characters/Character.cs",
       "hashMode": "utf8-lf",
-      "sha256": "96DCC959E01C994123487B54233640B33A8A24BE0152B659D7FD132BBE00C5AB"
+      "sha256": "5C1317CE690563B225D389D35FB658B71EB42DE2ACAB0B533FA09EF4A9555FA7"
     },
     {
       "path": "src/CorpPresence/Characters/CharacterState.cs",
@@ -889,7 +889,7 @@
     {
       "path": "src/CorpPresence/Characters/Doreen.cs",
       "hashMode": "utf8-lf",
-      "sha256": "1322BF0E0B5835DE53993A1A6AB847943ED635FB2917339867BD356DDF454D15"
+      "sha256": "03F83A3D238C9FD9ECB9828F5EC846F03A14EF4AD255D90151FCCC5DB07B3180"
     },
     {
       "path": "src/CorpPresence/Characters/Engine.cs",
@@ -914,7 +914,7 @@
     {
       "path": "src/CorpPresence/Characters/Isa.cs",
       "hashMode": "utf8-lf",
-      "sha256": "5C01F3DD9F43411D9A79216202DDDAF90E4B2D371B1CD6061BEBB16807D9F4F9"
+      "sha256": "DBE8E8BAE78331D03C0A9C6DA0A77AF6A391A57E109179E9A2CC833D43A4B207"
     },
     {
       "path": "src/CorpPresence/Characters/Mentor.cs",
@@ -924,17 +924,17 @@
     {
       "path": "src/CorpPresence/Characters/Milo.cs",
       "hashMode": "utf8-lf",
-      "sha256": "5870AEB027EA341527209840D571263324359BE45E7E7544A53A71D57E3C0C20"
+      "sha256": "ABD742F4CCB4439248C65F5076F115A392E9CF1BF80DCB13DDB516A2FE23C881"
     },
     {
       "path": "src/CorpPresence/Characters/Rosen.cs",
       "hashMode": "utf8-lf",
-      "sha256": "794FC18964EEC3F870E02B2FF1562210B9AC43F132B77162C780FDAEBB2EA0DB"
+      "sha256": "7B6CFD49D2FB2A64FFBCDE271A03888FC3064489A94DD9246454DA1BD8336F23"
     },
     {
       "path": "src/CorpPresence/Characters/Seline.cs",
       "hashMode": "utf8-lf",
-      "sha256": "69A872FD9AAF3AB01E584D06CE6AC391967BC7C0A26479F9F065667FE223883C"
+      "sha256": "8DF3957007C2908081E55732DA65FC23E1328D0CF98A318FF84503234BBF2959"
     },
     {
       "path": "src/CorpPresence/Characters/Visit.cs",
@@ -1310,6 +1310,11 @@
       "path": "src/CorpPresence/Presentation/ConfigLocalization.cs",
       "hashMode": "utf8-lf",
       "sha256": "3B99B1C5DFD4273518CE61BF36EE28CB3BD1E389AEDD85BF8233D884A7340DA0"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/DialogueText.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "23B0AA0F22E3B876E6E7EA29858B21434AA6AE09E4775B2971B5E5457C683342"
     },
     {
       "path": "src/CorpPresence/Presentation/GoodsText.cs",

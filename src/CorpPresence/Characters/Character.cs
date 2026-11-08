@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CorpPresence;
 
@@ -127,14 +127,8 @@ internal abstract class Character
 		return Goods.MakeSpecial(id) ?? ItemRegistry.Create(id);
 	}
 
-	protected static string Act(string action, string line)
-	{
-		if (!L.En)
-		{
-			return "<i>（" + action + "）</i>" + line;
-		}
-		return "<i>(" + action + ")</i> " + line;
-	}
+	protected static string Act(string action, string line, bool showAction = true)
+		=> DialogueText.WithAction(action, line, showAction);
 
 	protected static int CountHeld(Func<GameItem, bool> match)
 	{

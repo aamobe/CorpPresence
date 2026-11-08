@@ -178,7 +178,7 @@ internal sealed class Milo : Character
 				L.K("characters.milo.chapter.pastelSuppliesNearlyAllEveryday", "帕斯泰尔几乎包揽了整个下层区的民生用品。", "pastel supplies nearly all the everyday goods in the Lower Levels."),
 				L.K("characters.milo.chapter.uhExceptDavreSShare", "呃，达夫雷那片不算，哈哈。", "Uh, except Davre's share. Ha ha.")
 			};
-			visit.Exit = Character.Act(L.K("characters.milo.chapter.waves", "挥了挥手", "waves"), L.K("characters.milo.chapter.seeNextWeek", "下周我再来！", "See you next week!"));
+			visit.Exit = Character.Act(L.K("characters.milo.chapter.waves", "挥了挥手", "waves"), L.K("characters.milo.chapter.seeNextWeek", "下周我再来！", "See you next week!"), showAction: false);
 			visit.Discount = 50;
 			visit.Stock = new string[10] { "nutrifruit", "nutrifruit", "nutrifruit", "galaxy_blend", "galaxy_blend", "galaxy_blend", "shampoo", "shampoo", "toothpaste", "toothpaste" };
 			return visit;
@@ -190,7 +190,7 @@ internal sealed class Milo : Character
 			{
 				L.K("characters.milo.chapter.longTimeNoSeeS", "好久不见！又是我，米洛！", "Long time no see! It's me again, Milo!"),
 				L.K("characters.milo.chapter.pastelSAnnouncedNewSubsidy", "帕斯泰尔公布了新的补贴政策。这几件送你了。", "pastel's announced a new subsidy policy. These are yours, free of charge."),
-				Character.Act(L.K("characters.milo.chapter.patsBox", "拍了拍箱子", "pats the box"), L.K("characters.milo.chapter.higherUpsKnowFullWell", "上面清楚得很，日子舒坦了，我们这些“刁民”才不会闹事。", "The higher-ups know full well: keep us “troublemakers” comfortable, and we won't cause trouble."))
+				Character.Act(L.K("characters.milo.chapter.patsBox", "拍了拍箱子", "pats the box"), L.K("characters.milo.chapter.higherUpsKnowFullWell", "上面清楚得很，日子舒坦了，我们这些“刁民”才不会闹事。", "The higher-ups know full well: keep us “troublemakers” comfortable, and we won't cause trouble."), showAction: false)
 			};
 			visit.Exit = Character.Act(L.K("characters.milo.chapter.lowersHisVoice", "压低声音", "lowers his voice"), L.K("characters.milo.chapter.donTTellAnyoneI", "别跟别人讲我这么说过。", "Don't tell anyone I said that."));
 			visit.Discount = 30;
@@ -241,7 +241,7 @@ internal sealed class Milo : Character
 				L.K("characters.milo.chapter.oneStampDoesEightPacks", "一个标签戳能印八包。四百块——外面买不到的。", "One stamp does eight packs. Four hundred. You can't get these outside."),
 				L.K("characters.milo.chapter.callMeAnytimeIfWant", "以后要的话随时打电话找我。内部渠道，一期最多两个。", "Call me anytime if you want more. I've got an inside source. Two per period, max.")
 			};
-			visit.Exit = Character.Act(L.K("characters.milo.chapter.tugsHisCollar", "拉了拉衣领", "tugs at his collar"), L.K("characters.milo.chapter.iNeverSoldAnything", "我什么都没卖给你。", "I never sold you anything."));
+			visit.Exit = Character.Act(L.K("characters.milo.chapter.tugsHisCollar", "拉了拉衣领", "tugs at his collar"), L.K("characters.milo.chapter.iNeverSoldAnything", "我什么都没卖给你。", "I never sold you anything."), showAction: false);
 			visit.Stock = new string[1] { "@hemingway_stamp" };
 			return visit;
 		}
@@ -254,7 +254,7 @@ internal sealed class Milo : Character
 				L.K("characters.milo.chapter.ohTobaccoOurMainBusiness", "哦，烟草当然是我们的主营业务。", "Oh, tobacco is our main business, of course."),
 				L.K("characters.milo.chapter.butWeActuallySellShots", "但其实我们也在卖戒瘾针<i>（耸肩）</i>。", "But we actually sell the shots that help you quit, too. <i>(shrugs)</i>")
 			};
-			visit.Exit = Character.Act(L.K("characters.milo.chapter.smiles", "笑了笑", "smiles"), L.K("characters.milo.chapter.pastelWeVeGotAll", "帕斯泰尔，应有尽有。", "pastel. We've got it all."));
+			visit.Exit = Character.Act(L.K("characters.milo.chapter.smiles", "笑了笑", "smiles"), L.K("characters.milo.chapter.pastelWeVeGotAll", "帕斯泰尔，应有尽有。", "pastel. We've got it all."), showAction: false);
 			visit.Discount = 30;
 			visit.Stock = new string[4] { "black_injector", "black_injector", "@hemingway_genuine", "@hemingway_genuine" };
 			visit.Gift = new string[1] { "@sign" };
@@ -275,7 +275,7 @@ internal sealed class Milo : Character
 				L.K("characters.milo.scrapMachines.soBeforeTheyGoScrapyard", "所以在拉去回收站之前，我想先问问你。", "So before they go to the scrapyard, I wanted to ask you."),
 				L.K("characters.milo.scrapMachines.withThisCigaretteRollerCan", "有了这台卷烟机，你就能自己做散烟。<i>（小声）</i>我会给你提供种子。", "With this cigarette roller, you can make your own loose cigarettes. <i>(quietly)</i> I'll get you the seeds.")
 			},
-			Exit = Character.Act(L.K("characters.milo.scrapMachines.waves", "挥了挥手", "waves"), L.K("characters.milo.scrapMachines.offIGo", "走了！", "Off I go!")),
+			Exit = Character.Act(L.K("characters.milo.scrapMachines.waves", "挥了挥手", "waves"), L.K("characters.milo.scrapMachines.offIGo", "走了！", "Off I go!"), showAction: false),
 			TalkOnly = true,
 			Ask = L.K("characters.milo.scrapMachines.want", "要不要？", "Want it?")
 		};
@@ -299,10 +299,10 @@ internal sealed class Milo : Character
 				L.K("characters.milo.caught.sMeMilo", "是我，米洛。", "It's me, Milo."),
 				Character.Act(L.K("characters.milo.caught.quietly", "小声", "quietly"), L.K("characters.milo.caught.bossIMAfraidOur", "店长，我们的香烟生意怕是要黄了。", "Boss, I'm afraid our cigarette business might be finished.")),
 				L.K("characters.milo.caught.higherUpsHaveTracedBack", "上面追查到我这儿了。", "The higher-ups have traced it back to me."),
-				Character.Act(L.K("characters.milo.caught.rubsHisHands", "搓了搓手", "rubs his hands"), L.K("characters.milo.caught.butIKnowSupervisorThis", $"不过，我认识这片的主管。{PastelCo.Bribe}块，这事就当没发生。", (System.FormattableString)$"But I know the supervisor for this area. {PastelCo.Bribe} credits, and it's like none of this ever happened.")),
+				Character.Act(L.K("characters.milo.caught.rubsHisHands", "搓了搓手", "rubs his hands"), L.K("characters.milo.caught.butIKnowSupervisorThis", $"不过，我认识这片的主管。{PastelCo.Bribe}块，这事就当没发生。", (System.FormattableString)$"But I know the supervisor for this area. {PastelCo.Bribe} credits, and it's like none of this ever happened."), showAction: false),
 				L.K("characters.milo.caught.thereSConditionThoughCigarettes", "不过有条件，之后你的烟也得装进海明威的盒子里。", "There's a condition, though. Your cigarettes will have to go in Hemingway boxes from now on, too.")
 			},
-			Exit = Character.Act(L.K("characters.milo.caught.checksHisWatch", "看了看表", "checks his watch"), L.K("characters.milo.caught.threeMoreShopsHit", "还有三家要跑。", "Three more shops to hit.")),
+			Exit = Character.Act(L.K("characters.milo.caught.checksHisWatch", "看了看表", "checks his watch"), L.K("characters.milo.caught.threeMoreShopsHit", "还有三家要跑。", "Three more shops to hit."), showAction: false),
 			TalkOnly = true,
 			Ask = L.K("characters.milo.caught.whatDoSay", "怎么说？", "What do you say?")
 		};
@@ -341,7 +341,7 @@ internal sealed class Milo : Character
 				Engine.Any(L.K("characters.milo.daily.meAgain", "又是我！", "Me again!"), L.K("characters.milo.daily.miloSHere", "米洛来了。", "Milo's here."), L.K("characters.milo.daily.gotAnyFakeCigarettes", "有假烟嘛？", "Got any fake cigarettes?"), L.K("characters.milo.daily.hemingwayDivisionRoutineCollection", "海明威分部，例行回收。", "Hemingway division, routine collection.")),
 				Engine.Any(array)
 			};
-			visit.Exit = Engine.Any(Character.Act(L.K("characters.milo.daily.waves", "挥了挥手", "waves"), L.K("characters.milo.daily.offIGo", "走了！", "Off I go!")), Character.Act(L.K("characters.milo.daily.checksHisWatch", "看了看表", "checks his watch"), L.K("characters.milo.daily.threeMoreShopsHit", "还有三家要跑。", "Three more shops to hit.")));
+			visit.Exit = Engine.Any(Character.Act(L.K("characters.milo.daily.waves", "挥了挥手", "waves"), L.K("characters.milo.daily.offIGo", "走了！", "Off I go!"), showAction: false), Character.Act(L.K("characters.milo.daily.checksHisWatch", "看了看表", "checks his watch"), L.K("characters.milo.daily.threeMoreShopsHit", "还有三家要跑。", "Three more shops to hit."), showAction: false));
 			visit.Both = true;
 			visit.Discount = 20;
 			visit.Stock = new string[2] { "@hemingway_genuine", "@hemingway_genuine" }.Concat(Engine.Pick(array2, 2, 4)).ToArray();
@@ -355,7 +355,7 @@ internal sealed class Milo : Character
 			Engine.Any(L.K("characters.milo.daily.meAgain", "又是我！", "Me again!"), L.K("characters.milo.daily.miloSHere", "米洛来了。", "Milo's here."), L.K("characters.milo.daily.stockingUpToday", "今天进货吗？", "Stocking up today?")),
 			Engine.Any(array)
 		};
-		visit.Exit = Engine.Any(Character.Act(L.K("characters.milo.daily.waves", "挥了挥手", "waves"), L.K("characters.milo.daily.offIGo", "走了！", "Off I go!")), Character.Act(L.K("characters.milo.daily.checksHisWatch", "看了看表", "checks his watch"), L.K("characters.milo.daily.threeMoreShopsHit", "还有三家要跑。", "Three more shops to hit.")));
+		visit.Exit = Engine.Any(Character.Act(L.K("characters.milo.daily.waves", "挥了挥手", "waves"), L.K("characters.milo.daily.offIGo", "走了！", "Off I go!"), showAction: false), Character.Act(L.K("characters.milo.daily.checksHisWatch", "看了看表", "checks his watch"), L.K("characters.milo.daily.threeMoreShopsHit", "还有三家要跑。", "Three more shops to hit."), showAction: false));
 		visit.Discount = 20;
 		visit.Stock = Engine.Pick(array2, 4, 6);
 		return visit;

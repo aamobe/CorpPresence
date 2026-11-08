@@ -182,7 +182,7 @@ internal sealed class Isa : Character
 				L.K("characters.isa.chapter.thisHappenWhilePatentStill", "专利期内发生这种事，公司高层非常不快。<i>（微微蹙眉）</i>", "For this to happen while the patent is still in effect... The higher-ups are very displeased. <i>(frowns slightly)</i>"),
 				Character.Act(L.K("characters.isa.chapter.handsOverManual", "递过一本手册", "hands over a manual"), L.K("characters.isa.chapter.iHopeCanHelpUs", "希望你能帮我们回收一些仿制品。", "I hope you can help us take some of these copies off the market."))
 			};
-			visit.Exit = Character.Act(L.K("characters.isa.chapter.closesFolder", "合上文件夹", "closes the folder"), Bye);
+			visit.Exit = Character.Act(L.K("characters.isa.chapter.closesFolder", "合上文件夹", "closes the folder"), Bye, showAction: false);
 			visit.Discount = 30;
 			visit.Stock = new string[2] { "large_purple_injector", "large_purple_injector" };
 			visit.Gift = new string[1] { "injector_guide" };
@@ -194,7 +194,7 @@ internal sealed class Isa : Character
 			visit.Lines = new string[3]
 			{
 				L.K("characters.isa.chapter.helloIHandsOverList", "你好，<i>（递过一张单子）</i>，召回通知，回收单子上列出的批次。", "Hello. <i>(hands over a list)</i> A recall notice. We're recalling the batches listed here."),
-				Character.Act(L.K("characters.isa.chapter.officialTone", "官方腔调", "in an official tone"), L.K("characters.isa.chapter.alsoVeBeenAuthorizedResell", "还有，你获得了外售权限。这是本期的。", "Also, you've been authorized to resell. Here's this period's allocation.")),
+				Character.Act(L.K("characters.isa.chapter.officialTone", "官方腔调", "in an official tone"), L.K("characters.isa.chapter.alsoVeBeenAuthorizedResell", "还有，你获得了外售权限。这是本期的。", "Also, you've been authorized to resell. Here's this period's allocation."), showAction: false),
 				Character.Act(L.K("characters.isa.chapter.pausesLowersHerVoice", "停顿，压低声音", "pauses, lowers her voice"), L.K("characters.isa.chapter.thereSActuallyNothingWrong", "其实这批次的药没什么问题。就是外贸部经理那个糊涂蛋把价格定低了。", "There's actually nothing wrong with this batch. That idiot of a trade manager just priced it too low."))
 			};
 			visit.Exit = Character.Act(L.K("characters.isa.chapter.signsList", "在单子上签字", "signs the list"), L.K("characters.isa.chapter.delivered", "已送达。", "Delivered."));
@@ -208,7 +208,7 @@ internal sealed class Isa : Character
 			visit.Lines = new string[3]
 			{
 				Character.Act(L.K("characters.isa.chapter.herself", "自言自语", "to herself"), L.K("characters.isa.chapter.oxymoreSalesLowerLevelsAre", "下层区这个季度的奥克西莫销量涨了四成。", "Oxymore sales in the Lower Levels are up forty percent this quarter.")),
-				Character.Act(L.K("characters.isa.chapter.turnsPage", "翻了一页", "turns a page"), L.K("characters.isa.chapter.naloxgoneUpFortyPercentToo", "纳洛通也涨了四成。", "Naloxgone is up forty percent too.")),
+				Character.Act(L.K("characters.isa.chapter.turnsPage", "翻了一页", "turns a page"), L.K("characters.isa.chapter.naloxgoneUpFortyPercentToo", "纳洛通也涨了四成。", "Naloxgone is up forty percent too."), showAction: false),
 				Character.Act(L.K("characters.isa.chapter.looksUpNotices", "抬头看到你", "looks up and notices you"), L.K("characters.isa.chapter.ohSorryLetSGet", "哦，对不起。我们继续谈生意。", "Oh, sorry. Let's get back to business."))
 			};
 			visit.Exit = Character.Act(L.K("characters.isa.chapter.closesFolderHesitates", "合上文件夹，犹豫", "closes the folder, hesitates"), L.K("characters.isa.chapter.dBestStayOffOxymore", "……你自己最好别用奥克西莫。", "...You'd best stay off Oxymore yourself."));
@@ -239,7 +239,7 @@ internal sealed class Isa : Character
 				Character.Act(L.K("characters.isa.chapter.looksLizard", "看看蜥蜴", "looks at the lizard"), L.K("characters.isa.chapter.evenCompanySBreedingProgram", "就连公司的繁殖计划都才初步完成诶，你怎么能养得这么好。", "Even the company's breeding program is only through its initial phase. How have you managed to raise it so well?")),
 				Character.Act(L.K("characters.isa.chapter.setsDownDocumentBloodDrawer", "放下文件和一支采血器", "sets down a document and a blood drawer"), L.K("characters.isa.chapter.allRightIGotBreeding", "好吧，我帮你申请了养殖许可。以后要养这种未知生物，请先跟我确认一下。", "All right, I got you a breeding license. Next time you want to keep an unknown creature like this, please check with me first."))
 			};
-			visit.Exit = Character.Act(L.K("characters.isa.chapter.closesFolder", "合上文件夹", "closes the folder"), L.K("characters.isa.chapter.courseWeLlBuyWhatever", "当然，三叶蜥的产物我们也会回收。虽然我现在连产什么都不知道。", "Of course, we'll buy whatever the trilobites produce too. Though I don't even know what that is yet."));
+			visit.Exit = Character.Act(L.K("characters.isa.chapter.closesFolder", "合上文件夹", "closes the folder"), L.K("characters.isa.chapter.courseWeLlBuyWhatever", "当然，三叶蜥的产物我们也会回收。虽然我现在连产什么都不知道。", "Of course, we'll buy whatever the trilobites produce too. Though I don't even know what that is yet."), showAction: false);
 			visit.TalkOnly = true;
 			visit.Gift = new string[1] { "@blood_drawer" };
 			return visit;
@@ -254,7 +254,7 @@ internal sealed class Isa : Character
 				Character.Act(L.K("characters.isa.chapter.hasMachineCarried", "让人搬进来一台机器", "has a machine carried in"), L.K("characters.isa.chapter.reactorAsLongAsPurity", "反应釜，只要纯度够就能制药。", "A reactor. As long as the purity is high enough, it can make medicine.")),
 				L.K("characters.isa.chapter.thisOneSFreeIf", "这台不收钱，以后坏了可就要按原价订了哦。", "This one's free. If it breaks, though, you'll have to order another at full price.")
 			};
-			visit.Exit = Character.Act(L.K("characters.isa.chapter.closesFolder", "合上文件夹", "closes the folder"), L.K("characters.isa.chapter.rememberPurityEverything", "记住——纯度，决定一切。", "Remember—purity is everything."));
+			visit.Exit = Character.Act(L.K("characters.isa.chapter.closesFolder", "合上文件夹", "closes the folder"), L.K("characters.isa.chapter.rememberPurityEverything", "记住——纯度，决定一切。", "Remember—purity is everything."), showAction: false);
 			visit.TalkOnly = true;
 			visit.Gift = new string[2] { "@isomer_reactor", "@sb_handbook" };
 			return visit;
@@ -303,7 +303,7 @@ internal sealed class Isa : Character
 			Engine.Any(L.K("characters.isa.daily.carmichealMarketComplianceRoutineVisit", "卡迈克尔市场规范部，例行走访。", "Carmicheal Market Compliance. Routine visit."), L.K("characters.isa.daily.channelInspectionJustFewMinutes", "渠道检查，几分钟就好。", "Channel inspection. Just a few minutes."), L.K("characters.isa.daily.isaLangdonUsualCheck", "伊莎·兰登。照例检查。", "Isa Langdon. The usual check.")),
 			Engine.Any(source.ToArray())
 		};
-		visit.Exit = Character.Act(L.K("characters.isa.daily.closesFolder", "合上文件夹", "closes the folder"), Bye);
+		visit.Exit = Character.Act(L.K("characters.isa.daily.closesFolder", "合上文件夹", "closes the folder"), Bye, showAction: false);
 		visit.Discount = ((s.Chapter >= 3) ? 30 : 20);
 		visit.Stock = enumerable2.ToArray();
 		visit.Extra = enumerable.ToArray();

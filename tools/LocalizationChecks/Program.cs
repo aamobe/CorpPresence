@@ -15,6 +15,15 @@ void Equal<T>(T expected, T actual)
     if (!EqualityComparer<T>.Default.Equals(expected, actual)) throw new Exception($"Expected [{expected}], got [{actual}]");
 }
 void Locale(string locale) { LocHelper.Locale = locale; UnityEngine.Time.frameCount++; }
+Check("dialogue omits selected decorative actions while preserving standalone and essential beats", () => {
+    foreach (var locale in new[] { "zh", "en", "ru", "fr" }) {
+        Locale(locale);
+        Equal("原有台词 {0}", DialogueText.WithAction("action", "原有台词 {0}", false));
+        string prefix = locale == "zh" ? "<i>（action）</i>" : "<i>(action)</i> ";
+        Equal(prefix + "原有台词", DialogueText.WithAction("action", "原有台词"));
+        Equal(prefix, DialogueText.WithAction("action", "", false));
+    }
+});
 Check("official CSV lookup overrides built-in text and menus without mod file IO", () => {
     var mod = new LoadedMod();
     ModLoader.Mods.Add(mod);

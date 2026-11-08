@@ -224,8 +224,8 @@ internal sealed class Rosen : Character
 			{
 				L.K("characters.rosen.chapter.heyIPullsOutBig", "嘿。<i>（掏出一把大枪，旁人连忙退开）</i>", "Hey. <i>(pulls out a big gun, sending the bystanders scrambling back)</i>"),
 				L.K("characters.rosen.chapter.rampartDualActionShotgunOne", "「壁垒」，双动式霰弹枪！嘭的一声一切就都结束了。", "The Rampart, a dual-action shotgun! One boom and it's all over."),
-				Character.Act(L.K("characters.rosen.chapter.curlsHisLip", "撇嘴", "curls his lip"), L.K("characters.rosen.chapter.lineCanTurnOutHundreds", "产线一天能出几百把，每把都一模一样。", "The line can turn out hundreds a day. Every last one looks the same.")),
-				Character.Act(L.K("characters.rosen.chapter.patsStock", "拍了拍枪托", "pats the stock"), L.K("characters.rosen.chapter.doesMakeRepairsLotEasier", "当然，我承认这使维修方便很多。", "It does make repairs a lot easier, I'll give it that."))
+				Character.Act(L.K("characters.rosen.chapter.curlsHisLip", "撇嘴", "curls his lip"), L.K("characters.rosen.chapter.lineCanTurnOutHundreds", "产线一天能出几百把，每把都一模一样。", "The line can turn out hundreds a day. Every last one looks the same."), showAction: false),
+				Character.Act(L.K("characters.rosen.chapter.patsStock", "拍了拍枪托", "pats the stock"), L.K("characters.rosen.chapter.doesMakeRepairsLotEasier", "当然，我承认这使维修方便很多。", "It does make repairs a lot easier, I'll give it that."), showAction: false)
 			};
 			visit.Exit = Bye;
 			visit.Discount = Disc;
