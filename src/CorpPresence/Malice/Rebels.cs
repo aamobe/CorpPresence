@@ -117,7 +117,7 @@ internal static class Rebels
 			else if (phoneState == StorePhoneClient.PhoneState.NotResponding && maliceState.OdinMet && !maliceState.OdinArrested && !Blacklisted)
 			{
 				maliceState.OdinArrested = true;
-				Notify(L.T("奥丁被捕了。反抗军断了线：订货、地下销赃网络都停了。", "Odin has been arrested. The Resistance has gone dark: orders and the fence network are suspended."));
+				Notify(L.K("malice.rebels.onDayStart.odinHasBeenArrestedResistance", "奥丁被捕了。反抗军断了线：订货、地下销赃网络都停了。", "Odin has been arrested. The Resistance has gone dark: orders and the fence network are suspended."));
 			}
 		}
 		if (maliceState.OdinMet && !companyState.CardGiven)
@@ -135,7 +135,7 @@ internal static class Rebels
 			catch
 			{
 			}
-			Notify(L.T($"反抗军的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", L.Translate((System.FormattableString)$"The Resistance's number ({company.PhoneNumber}) is now in the notebook by the phone.")));
+			Notify(L.K("malice.rebels.onDayStart.resistanceSNumberNowNotebook", $"反抗军的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", (System.FormattableString)$"The Resistance's number ({company.PhoneNumber}) is now in the notebook by the phone."));
 		}
 		int num = 0;
 		string[] factions = RebelCo.Factions;
@@ -162,11 +162,11 @@ internal static class Rebels
 					{
 						return null;
 					}
-					return L.T("反抗军把你拉黑了。", "The Resistance has blacklisted you.");
+					return L.K("malice.rebels.orderBlocked.resistanceHasBlacklisted", "反抗军把你拉黑了。", "The Resistance has blacklisted you.");
 				}
-				return L.T("你加入了巨企，反抗军不再和你来往。", "You joined the corporations; the Resistance wants nothing to do with you.");
+				return L.K("malice.rebels.orderBlocked.joinedCorporationsResistanceWantsNothing", "你加入了巨企，反抗军不再和你来往。", "You joined the corporations; the Resistance wants nothing to do with you.");
 			}
-			return L.T("反抗军断线了：奥丁被捕。", "The Resistance has gone dark: Odin was arrested.");
+			return L.K("malice.rebels.orderBlocked.resistanceHasGoneDarkOdin", "反抗军断线了：奥丁被捕。", "The Resistance has gone dark: Odin was arrested.");
 		}
 		return null;
 	}
@@ -193,24 +193,24 @@ internal static class Rebels
 		CompanyState companyState = ((company == null) ? null : Companies.StateOf(company));
 		if (maliceState == null || companyState == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("malice.rebels.bookFence.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (Arrested || Cut || Blacklisted)
 		{
-			return L.T("反抗军断线了。", "The Resistance has gone dark.");
+			return L.K("malice.rebels.bookFence.resistanceHasGoneDark", "反抗军断线了。", "The Resistance has gone dark.");
 		}
 		if (FenceClosed)
 		{
-			return L.T("反抗军不再给你安排地下买家。", "The Resistance no longer sends you underground buyers.");
+			return L.K("malice.rebels.bookFence.resistanceNoLongerSendsUnderground", "反抗军不再给你安排地下买家。", "The Resistance no longer sends you underground buyers.");
 		}
 		if (companyState.Visitors.Exists((Visitor v) => v.Kind == "fence"))
 		{
-			return L.T("已经约好了，明天来。", "Already booked for tomorrow.");
+			return L.K("malice.rebels.bookFence.alreadyBookedTomorrow", "已经约好了，明天来。", "Already booked for tomorrow.");
 		}
 		int num = FenceCost();
 		if (maliceState.RebelPoints < num)
 		{
-			return L.T($"助力点不够（要 {num} 点）。", L.Translate((System.FormattableString)$"Not enough support points (need {num})."));
+			return L.K("malice.rebels.bookFence.notEnoughSupportPointsNeed", $"助力点不够（要 {num} 点）。", (System.FormattableString)$"Not enough support points (need {num}).");
 		}
 		maliceState.RebelPoints -= num;
 		maliceState.FenceDay = Day;
@@ -227,7 +227,7 @@ internal static class Rebels
 	{
 		try
 		{
-			string text = L.T("地下买家", "Underground Buyer");
+			string text = L.K("malice.rebels.fenceClient.undergroundBuyer", "地下买家", "Underground Buyer");
 			StoreClient storeClient = new StoreClient
 			{
 				identifier = FenceId,
@@ -244,7 +244,7 @@ internal static class Rebels
 				num = (int)((double)num * 1.5);
 			}
 			storeClient.SetBudget(num);
-			storeClient.mainDialogue.SetText(text, L.T("奥丁让我来的。", "Odin sent me.")).NextDialogue().SetText(text, L.T("什么都收，现钱。货得经得起查。", "I take anything, cash. Just make sure it checks out."));
+			storeClient.mainDialogue.SetText(text, L.K("malice.rebels.fenceClient.odinSentMe", "奥丁让我来的。", "Odin sent me.")).NextDialogue().SetText(text, L.K("malice.rebels.fenceClient.iTakeAnythingCashJust", "什么都收，现钱。货得经得起查。", "I take anything, cash. Just make sure it checks out."));
 			storeClient.clientBuyingTagList.Add("ALL_TYPE");
 			storeClient.canClientExposeFeature = ClientCanExposeFunc.TradeBoardExposeCapacity;
 			storeClient.AddBasicDialog();
@@ -289,8 +289,7 @@ internal static class Rebels
 				state.RebelPoints -= lost;
 			StoreReputation.ModReputationRaw(Faction, -5);
 			feature.ExposeFeature(lowkey: true, playBad: true);
-			Notify(L.T($"地下买家识破了造假，终止交易。助力点 -{lost}，反抗军声望 -5。",
-				L.Translate((FormattableString)$"The underground buyer caught the fraud and called off the deal. Support points -{lost}, Resistance reputation -5.")));
+			Notify(L.K("malice.rebels.beforeClientExposeFeature.undergroundBuyerCaughtFraudCalled", $"地下买家识破了造假，终止交易。助力点 -{lost}，反抗军声望 -5。", (FormattableString)$"The underground buyer caught the fraud and called off the deal. Support points -{lost}, Resistance reputation -5."));
 			break;
 		}
 		// Vanilla exposure charges reputation for each feature and resumes bargaining.
@@ -339,11 +338,11 @@ internal static class Rebels
 		PlayerStore instance = PlayerStore.Instance;
 		if (instance == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("malice.rebels.charge.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (!instance.CanPay(amount))
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("malice.rebels.charge.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		CompanyMoney.Pay(instance, amount);
 		AddPoints(amount / PointDivisor, "在反抗军订货");

@@ -26,24 +26,24 @@ internal static partial class Services
 		CompanyState s = Companies.StateOf(c);
 		if (s == null || s.Orders == null || s.LimitedBought == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.orders.placeOrder.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (s.LastOrderDay == Day)
 		{
-			return L.T("今天已经下过单了", "Already ordered today");
+			return L.K("companies.services.orders.placeOrder.alreadyOrderedToday", "今天已经下过单了", "Already ordered today");
 		}
 		string text = OrderBlocked(c);
 		if (text != null)
 		{
 			return text;
 		}
-		if (cart == null || unitPrice == null) return L.T("订单未就绪，尚未扣款。", "Order not ready. You have not been charged.");
+		if (cart == null || unitPrice == null) return L.K("companies.services.orders.placeOrder.orderNotReadyHaveNot", "订单未就绪，尚未扣款。", "Order not ready. You have not been charged.");
 		KeyValuePair<CatalogEntry, int>[] purchases = cart.ToArray();
 		if (c is SolanaCo && purchases.Any(kv => !Perfume.Catalog.Contains(kv.Key) || kv.Key.MinTier > c.CatalogTier(s)))
-			return L.T("香水工艺供应仅向金卡及以上会员开放。", "Perfumery supplies require Gold membership or above.");
+			return L.K("companies.services.orders.placeOrder.perfumerySuppliesRequireGoldMembership", "香水工艺供应仅向金卡及以上会员开放。", "Perfumery supplies require Gold membership or above.");
 		if (purchases.Any((KeyValuePair<CatalogEntry, int> kv) => kv.Key == null || kv.Value <= 0 || kv.Key.BaseValue() < 0))
 		{
-			return L.T("有货品暂不可用，请稍后再试。尚未扣款。", "Some items are unavailable right now. Try again later. You have not been charged.");
+			return L.K("companies.services.orders.placeOrder.someItemsAreUnavailableRight", "有货品暂不可用，请稍后再试。尚未扣款。", "Some items are unavailable right now. Try again later. You have not been charged.");
 		}
 		if (c is MeridianCo)
 		{
@@ -53,7 +53,7 @@ internal static partial class Services
 		CatalogEntry catalogEntry = purchases.FirstOrDefault(kv => kv.Value > Left(s, kv.Key)).Key;
 		if (catalogEntry != null)
 		{
-			return L.T($"{catalogEntry.Name()}超出限购，还能订 {Left(s, catalogEntry)} 份", L.Translate((System.FormattableString)$"{catalogEntry.Name()} is over the limit. You can order {Left(s, catalogEntry)} more"));
+			return L.K("companies.services.orders.placeOrder.overLimitCanOrderMore", $"{catalogEntry.Name()}超出限购，还能订 {Left(s, catalogEntry)} 份", (System.FormattableString)$"{catalogEntry.Name()} is over the limit. You can order {Left(s, catalogEntry)} more");
 		}
 		int num = 0;
 		int orderDay = Day;
@@ -66,16 +66,16 @@ internal static partial class Services
 			string id = item.Key.Id;
 			int window = item.Key.WindowDays;
 			int bundle = item.Key.Bundle;
-			if (string.IsNullOrEmpty(id)) return L.T("货品标识未就绪，尚未扣款。", "Item identifier not ready. You have not been charged.");
+			if (string.IsNullOrEmpty(id)) return L.K("companies.services.orders.placeOrder.itemIdentifierNotReadyHave", "货品标识未就绪，尚未扣款。", "Item identifier not ready. You have not been charged.");
 			string key = QuotaCounts.Key(id, window, orderDay, period);
 			if (!QuotaCounts.TryAdd(s.LimitedBought, key, item.Value, out _))
-				return L.T("历史订购计数异常或超出范围，尚未扣款。", "Purchase history is invalid or out of range. You have not been charged.");
+				return L.K("companies.services.orders.placeOrder.purchaseHistoryInvalidOrOut", "历史订购计数异常或超出范围，尚未扣款。", "Purchase history is invalid or out of range. You have not been charged.");
 			if (!OrderAmounts.TryAdd(ref num, unitPrice(item.Key), item.Value, bundle, out int count))
-				return L.T("订单数量或金额无效，尚未扣款。", "Invalid order quantity or amount. You have not been charged.");
+				return L.K("companies.services.orders.placeOrder.invalidOrderQuantityOrAmount", "订单数量或金额无效，尚未扣款。", "Invalid order quantity or amount. You have not been charged.");
 			for (int i = 0; i < count; i++) order.Items.Add(id);
 			limits[line++] = (id, window, item.Value, key);
 		}
-		if (num <= 0) return L.T("还没有选货", "Nothing selected yet");
+		if (num <= 0) return L.K("companies.services.orders.placeOrder.nothingSelectedYet", "还没有选货", "Nothing selected yet");
 		// Finish allocating and validating the order before invoking payment.
 		string paymentError = Pay(c, num, "order");
 		if (paymentError != null) return paymentError;
@@ -119,9 +119,9 @@ internal static partial class Services
 		{
 			if (e.WindowDays <= 0)
 			{
-				return L.T($"\u3000{PeriodWord}剩 {num}", L.Translate((System.FormattableString)$"  {num} left {PeriodWord}"));
+				return L.K("companies.services.orders.leftText.periodQuotaRemaining", $"\u3000{PeriodWord}剩 {num}", (System.FormattableString)$"  {num} left {PeriodWord}");
 			}
-			return L.T($"\u3000剩余 {num}", L.Translate((System.FormattableString)$"  {num} left"));
+			return L.K("companies.services.orders.leftText.quotaRemaining", $"\u3000剩余 {num}", (System.FormattableString)$"  {num} left");
 		}
 		return "";
 	}

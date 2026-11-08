@@ -8,7 +8,7 @@ internal sealed class Mentor : Character
 
 	public override string Id => "mentor";
 
-	public override string Name => L.T("导师", "The Mentor");
+	public override string Name => L.K("characters.mentor.name.mentor", "导师", "The Mentor");
 
 	public override string Faction => "FACTION_LOWER_LEVEL";
 
@@ -34,7 +34,7 @@ internal sealed class Mentor : Character
 
 	public override int BuyGoodsNeeded => 1;
 
-	private static string Nod => Character.Act(L.T("点点头", "nods"), "");
+	private static string Nod => Character.Act(L.K("characters.mentor.nod.nods", "点点头", "nods"), "");
 
 	public override int Rep()
 	{
@@ -86,9 +86,9 @@ internal sealed class Mentor : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[3]
 			{
-				L.T("好久不见。", "Long time no see."),
-				L.T("我给你带了些家伙什——巢火和解放者，本地产，纯手搓。", "Brought you some hardware—the Nestfire and the Liberator. Locally made, all by hand."),
-				Character.Act(L.T("便签放在柜台上", "leaves a note on the counter"), L.T("码头的货大半都得过我们的手，有事打这个。", "Most of the cargo at the docks passes through our hands. Need anything, call this number."))
+				L.K("characters.mentor.chapter.longTimeNoSee", "好久不见。", "Long time no see."),
+				L.K("characters.mentor.chapter.broughtSomeHardwareNestfireLiberator", "我给你带了些家伙什——巢火和解放者，本地产，纯手搓。", "Brought you some hardware—the Nestfire and the Liberator. Locally made, all by hand."),
+				Character.Act(L.K("characters.mentor.chapter.leavesNoteCounter", "便签放在柜台上", "leaves a note on the counter"), L.K("characters.mentor.chapter.mostCargoDocksPassesThrough", "码头的货大半都得过我们的手，有事打这个。", "Most of the cargo at the docks passes through our hands. Need anything, call this number."))
 			};
 			visit.Exit = Nod;
 			visit.Discount = 30;
@@ -100,10 +100,10 @@ internal sealed class Mentor : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[4]
 			{
-				L.T("最近听到有别人在推荐你这里。", "I've heard people recommending your shop lately."),
-				L.T("做的不错，继续保持。", "Good work. Keep it up."),
-				L.T("......", "......"),
-				L.T("我带来一批新货。", "I brought some new stock.")
+				L.K("characters.mentor.chapter.iVeHeardPeopleRecommending", "最近听到有别人在推荐你这里。", "I've heard people recommending your shop lately."),
+				L.K("characters.mentor.chapter.goodWorkKeepUp", "做的不错，继续保持。", "Good work. Keep it up."),
+				L.K("characters.mentor.chapter.text", "......", "......"),
+				L.K("characters.mentor.chapter.iBroughtSomeNewStock", "我带来一批新货。", "I brought some new stock.")
 			};
 			visit.Exit = Nod;
 			visit.Discount = 30;
@@ -115,11 +115,11 @@ internal sealed class Mentor : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[3]
 			{
-				L.T("最近局势更严峻了。", "Things have been getting worse lately."),
-				L.T("记得么？黑市、革命军、下层区是一个整体。", "Remember? The Black Market, the Revolution and the Lower Levels stand as one."),
-				L.T("遇到危险立刻求援，我们会帮你。", "If you're in danger, call for help right away. We'll help you.")
+				L.K("characters.mentor.chapter.thingsHaveBeenGettingWorse", "最近局势更严峻了。", "Things have been getting worse lately."),
+				L.K("characters.mentor.chapter.rememberBlackMarketRevolutionLower", "记得么？黑市、革命军、下层区是一个整体。", "Remember? The Black Market, the Revolution and the Lower Levels stand as one."),
+				L.K("characters.mentor.chapter.ifReDangerCallHelp", "遇到危险立刻求援，我们会帮你。", "If you're in danger, call for help right away. We'll help you.")
 			};
-			visit.Exit = L.T("保重。", "Take care.");
+			visit.Exit = L.K("characters.mentor.chapter.takeCare", "保重。", "Take care.");
 			visit.TalkOnly = true;
 			return visit;
 		}

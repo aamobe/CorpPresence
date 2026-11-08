@@ -1,0 +1,695 @@
+[
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.display",
+    "Method": "L.T",
+    "English": "画面 / Display",
+    "Chinese": "画面 / Display",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.unlimited",
+    "Method": "L.T",
+    "English": "不限",
+    "Chinese": "不限",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.newSmooth",
+    "Method": "L.T",
+    "English": "平滑新版立绘 / New, smooth",
+    "Chinese": "平滑新版立绘 / New, smooth",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.newPixel",
+    "Method": "L.T",
+    "English": "像素化新版立绘 / New, pixel",
+    "Chinese": "像素化新版立绘 / New, pixel",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.hD",
+    "Method": "L.T",
+    "English": "高清立绘 / HD",
+    "Chinese": "高清立绘 / HD",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.dynamic",
+    "Method": "L.T",
+    "English": "动态 / Dynamic",
+    "Chinese": "动态 / Dynamic",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.standard",
+    "Method": "L.T",
+    "English": "标准 / Standard",
+    "Chinese": "标准 / Standard",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.vanilla",
+    "Method": "L.T",
+    "English": "原版 / Vanilla",
+    "Chinese": "原版 / Vanilla",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.isa",
+    "Method": "L.T",
+    "English": "Isa",
+    "Chinese": "Isa",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.milo",
+    "Method": "L.T",
+    "English": "Milo",
+    "Chinese": "Milo",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.seline",
+    "Method": "L.T",
+    "English": "Seline",
+    "Chinese": "Seline",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.rosen",
+    "Method": "L.T",
+    "English": "Rosen",
+    "Chinese": "Rosen",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.doreen",
+    "Method": "L.T",
+    "English": "Doreen",
+    "Chinese": "Doreen",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.theMentor",
+    "Method": "L.T",
+    "English": "The Mentor",
+    "Chinese": "The Mentor",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.visits",
+    "Method": "L.T",
+    "English": "来访 / Visits",
+    "Chinese": "来访 / Visits",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.maxCompanyCharactersPerDay",
+    "Method": "L.T",
+    "English": "Max company characters per day",
+    "Chinese": "Max company characters per day",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.extraVisitorsArePushedToTheNextDayStoryFirstThenWhoeverHasWaitedLongestPaidFootTrafficVIPsAndLabBuyersDonTCount",
+    "Method": "L.T",
+    "English": "Extra visitors are pushed to the next day: story first, then whoever has waited longest. Paid foot traffic, VIPs and lab buyers don't count.",
+    "Chinese": "Extra visitors are pushed to the next day: story first, then whoever has waited longest. Paid foot traffic, VIPs and lab buyers don't count.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.orders",
+    "Method": "L.T",
+    "English": "订货 / Orders",
+    "Chinese": "订货 / Orders",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.weeklyOrderLimits",
+    "Method": "L.T",
+    "English": "Weekly order limits",
+    "Chinese": "Weekly order limits",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.whenOnEachItemOrderedByPhoneHasAWeeklyLimitTieredByItsBaseValue",
+    "Method": "L.T",
+    "English": "When on, each item ordered by phone has a weekly limit, tiered by its base value:\n",
+    "Chinese": "When on, each item ordered by phone has a weekly limit, tiered by its base value:\n",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.under5020Under20010Under3005300AndUp3",
+    "Method": "L.T",
+    "English": "under 50₵: 20, under 200₵: 10, under 300₵: 5, 300₵ and up: 3.\n",
+    "Chinese": "under 50₵: 20, under 200₵: 10, under 300₵: 5, 300₵ and up: 3.\n",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.exclusivesLikeHemingwayLimitedEditionAndTheImmunivaxCaseKeepTheirOwnLimitsEitherWay",
+    "Method": "L.T",
+    "English": "Exclusives like Hemingway Limited Edition and the Immunivax case keep their own limits either way.",
+    "Chinese": "Exclusives like Hemingway Limited Edition and the Immunivax case keep their own limits either way.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.eventsAffectOrders",
+    "Method": "L.T",
+    "English": "Events affect orders",
+    "Chinese": "Events affect orders",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.whenOnVanillaMarketEventsATypeOfItemGoingUpOrDownInPriceAlsoChangePhoneOrderPricesTheOrderPriceRisesOrFallsByAsMuchAsTheEventMovesThatTypeOfItemMatchingHowTheShopValuesIt",
+    "Method": "L.T",
+    "English": "When on, vanilla market events (a type of item going up or down in price) also change phone order prices: the order price rises or falls by as much as the event moves that type of item, matching how the shop values it.\n",
+    "Chinese": "When on, vanilla market events (a type of item going up or down in price) also change phone order prices: the order price rises or falls by as much as the event moves that type of item, matching how the shop values it.\n",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.youPayThePriceAtTheTimeOfOrderingNothingIsRefundedWhenTheEventEndsTheSpacerGrabBoxAndFixedPriceMachinesAreNotAffectedOffOrderPricesIgnoreEventsTheOldBehaviour",
+    "Method": "L.T",
+    "English": "You pay the price at the time of ordering; nothing is refunded when the event ends. The Spacer grab box and fixed-price machines are not affected.\nOff: order prices ignore events (the old behaviour).",
+    "Chinese": "You pay the price at the time of ordering; nothing is refunded when the event ends. The Spacer grab box and fixed-price machines are not affected.\nOff: order prices ignore events (the old behaviour).",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.orderMarkupX",
+    "Method": "L.T",
+    "English": "Order markup (x)",
+    "Chinese": "Order markup (x)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.phoneOrderPriceItemValueThisDefault11EachHigherCooperationTierIs005CheaperSigned11Regular105Partner10AtTheDefaultMeridianSHighEndAttachmentsAndTheLeviathanUseThisMultiplierTooRegardlessOfTierTheSpacerGrabBoxIsAFixed500TheHemingwayLabelStampIsAFixed400",
+    "Method": "L.T",
+    "English": "Phone order price = item value × this (default 1.1). Each higher cooperation tier is 0.05 cheaper: Signed ×1.1, Regular ×1.05, Partner ×1.0 (at the default).\nMeridian's high-end attachments and the Leviathan use this multiplier too (regardless of tier). The Spacer grab box is a fixed 500₵. The Hemingway Label Stamp is a fixed 400₵.",
+    "Chinese": "Phone order price = item value × this (default 1.1). Each higher cooperation tier is 0.05 cheaper: Signed ×1.1, Regular ×1.05, Partner ×1.0 (at the default).\nMeridian's high-end attachments and the Leviathan use this multiplier too (regardless of tier). The Spacer grab box is a fixed 500₵. The Hemingway Label Stamp is a fixed 400₵.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.companyCharacterCredits",
+    "Method": "L.T",
+    "English": "Company character credits",
+    "Chinese": "Company character credits",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.theMostACompanyCharacterWillSpendWhenBuyingFromYouTheSixCharactersAndTheSolanaLabBuyerDynamic800Random0250TheCurrentDayBasedOnTheRichestVanillaCustomers7501000DayHowMuchSolanaSVIPsBringDependsOnServiceStrength",
+    "Method": "L.T",
+    "English": "The most a company character will spend when buying from you (the six characters and the Solana lab buyer).\nDynamic: 800 + random 0–250 + the current day, based on the richest vanilla customers (750–1000 + day).\nHow much Solana's VIPs bring depends on “Service strength”.",
+    "Chinese": "The most a company character will spend when buying from you (the six characters and the Solana lab buyer).\nDynamic: 800 + random 0–250 + the current day, based on the richest vanilla customers (750–1000 + day).\nHow much Solana's VIPs bring depends on “Service strength”.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.serviceStrength",
+    "Method": "L.T",
+    "English": "Service strength",
+    "Chinese": "Service strength",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.standardTheCurrentValuesVanillaTunedToTheBaseGameSolanaVIPsBring800Random0250TheDayStandard30005000TheRichestVanillaCustomersBring7501000DayTheLabBuyerPays15xForEverythingOnTheListStandard2xBlueBlood3xVanillaPriceEventsAreMostOften50StaminaBoostersAddAtMost2ScavengingAttemptsInTotalStandard1PerShotNoCapTheVanillaProficientScavengerPerkGives2RosenSellsWholesaleAt20OffStandard30VanillaSuppliersGive20Off",
+    "Method": "L.T",
+    "English": "Standard: the current values.\nVanilla: tuned to the base game—\n· Solana VIPs bring 800 + random 0–250 + the day (Standard: 3000–5000); the richest vanilla customers bring 750–1000 + day;\n· the lab buyer pays 1.5x for everything on the list (Standard: 2x, Blue Blood 3x); vanilla price events are most often +50%;\n· Stamina Boosters add at most +2 scavenging attempts in total (Standard: +1 per shot, no cap); the vanilla Proficient Scavenger perk gives +2;\n· Rosen sells wholesale at 20% off (Standard: 30%); vanilla suppliers give 20% off.",
+    "Chinese": "Standard: the current values.\nVanilla: tuned to the base game—\n· Solana VIPs bring 800 + random 0–250 + the day (Standard: 3000–5000); the richest vanilla customers bring 750–1000 + day;\n· the lab buyer pays 1.5x for everything on the list (Standard: 2x, Blue Blood 3x); vanilla price events are most often +50%;\n· Stamina Boosters add at most +2 scavenging attempts in total (Standard: +1 per shot, no cap); the vanilla Proficient Scavenger perk gives +2;\n· Rosen sells wholesale at 20% off (Standard: 30%); vanilla suppliers give 20% off.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.characterBuyingPrices",
+    "Method": "L.T",
+    "English": "Character buying prices",
+    "Chinese": "Character buying prices",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.standardTheCurrentValuesVanillaNoPremiumOnEverydayPurchasesAtMost15xForSpecialDemandVanillaCustomersPayTheNegotiatedPricePriceEventsAreMostOften50MiloSFakeHemingways2x15xSelineSEverydayPurchases12x1xBlueBlood3x15xUnchangedIsaSSynapse15xSelineSStoryLuxuryPurchases13xDoreenSHydra400IsaSAndRosenSEverydayPurchasesNeverHadAPremium",
+    "Method": "L.T",
+    "English": "Standard: the current values.\nVanilla: no premium on everyday purchases, at most 1.5x for special demand (vanilla customers pay the negotiated price; price events are most often +50%)—\n· Milo's fake Hemingways: 2x → 1.5x;\n· Seline's everyday purchases: 1.2x → 1x, Blue Blood: 3x → 1.5x;\n· unchanged: Isa's Synapse 1.5x, Seline's story luxury purchases 1.3x, Doreen's Hydra 400₵; Isa's and Rosen's everyday purchases never had a premium.",
+    "Chinese": "Standard: the current values.\nVanilla: no premium on everyday purchases, at most 1.5x for special demand (vanilla customers pay the negotiated price; price events are most often +50%)—\n· Milo's fake Hemingways: 2x → 1.5x;\n· Seline's everyday purchases: 1.2x → 1x, Blue Blood: 3x → 1.5x;\n· unchanged: Isa's Synapse 1.5x, Seline's story luxury purchases 1.3x, Doreen's Hydra 400₵; Isa's and Rosen's everyday purchases never had a premium.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.difficulty",
+    "Method": "L.T",
+    "English": "难度 / Difficulty",
+    "Chinese": "难度 / Difficulty",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.corporateMaliceMode",
+    "Method": "L.T",
+    "English": "Corporate Malice mode",
+    "Chinese": "Corporate Malice mode",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.whenOnCorporatePhoneOrdersNeedAWeeklySubscriptionServicesCostMoreAndTierGoodsMustBeUnlockedByPaidApplicationTheSpacerAllianceSplitsIntoTheMerchantUnionAndTheResistanceTheCorporateEnvoyZacchaeusComesCallingStartingANewSaveIsRecommendedTurnedOnMidGameCooperationTiersAreKeptButUnlockedGoodsMustBeAppliedForAgainTurnedOffMidGameFromTheNextDaySOpeningBothSidesMergeBackIntoTheSpacerAllianceAndSubscriptionsVouchersSupportPointsAndZacchaeusSAccountsAreCleared",
+    "Method": "L.T",
+    "English": "When on: corporate phone orders need a weekly subscription, services cost more, and tier goods must be unlocked by paid application; the Spacer Alliance splits into the Merchant Union and the Resistance; the corporate envoy Zacchaeus comes calling.\nStarting a new save is recommended. Turned on mid-game: cooperation tiers are kept, but unlocked goods must be applied for again. Turned off mid-game (from the next day's opening): both sides merge back into the Spacer Alliance, and subscriptions, vouchers, support points and Zacchaeus's accounts are cleared.",
+    "Chinese": "When on: corporate phone orders need a weekly subscription, services cost more, and tier goods must be unlocked by paid application; the Spacer Alliance splits into the Merchant Union and the Resistance; the corporate envoy Zacchaeus comes calling.\nStarting a new save is recommended. Turned on mid-game: cooperation tiers are kept, but unlocked goods must be applied for again. Turned off mid-game (from the next day's opening): both sides merge back into the Spacer Alliance, and subscriptions, vouchers, support points and Zacchaeus's accounts are cleared.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.cooperation",
+    "Method": "L.T",
+    "English": "合作度 / Cooperation",
+    "Chinese": "合作度 / Cooperation",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.dailyCooperationCap",
+    "Method": "L.T",
+    "English": "Daily cooperation cap",
+    "Chinese": "Daily cooperation cap",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.onEachCompanySCooperationTrustForTheSpacerAllianceRisesByAtMost",
+    "Method": "L.T",
+    "English": "On: each company's cooperation (Trust for the Spacer Alliance) rises by at most ",
+    "Chinese": "On: each company's cooperation (Trust for the Spacer Alliance) rises by at most ",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.perDayTheExcessIsLost",
+    "Method": "L.T",
+    "English": " per day; the excess is lost.\n",
+    "Chinese": " per day; the excess is lost.\n",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.tradesOrdersServicesAndReputationGainsAllCountStoryRewardsAndStoryMinimumsAreNotCapped",
+    "Method": "L.T",
+    "English": "Trades, orders, services and reputation gains all count; story rewards and story minimums are not capped.\n",
+    "Chinese": "Trades, orders, services and reputation gains all count; story rewards and story minimums are not capped.\n",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.offNoCap",
+    "Method": "L.T",
+    "English": "Off: no cap.",
+    "Chinese": "Off: no cap.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.cooperationCreditsPerPoint",
+    "Method": "L.T",
+    "English": "Cooperation: credits per point",
+    "Chinese": "Cooperation: credits per point",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.tradingWithCompanyPeoplePhoneOrdersIncludingTheLeviathanThePastelDealerFeeAndMeridianRefurbishmentFeesGive1CooperationPointPerThisManyCreditsDefault400SellingTheCompanySProductsCountsAt3xThatDefault1PointPer1200VanillaFactionReputationRises1PointPer400StoryRewardsAndTheSpacerReputationConversionAreNotAffected",
+    "Method": "L.T",
+    "English": "Trading with company people, phone orders (including the Leviathan), the pastel dealer fee and Meridian refurbishment fees give 1 cooperation point per this many credits (default 400); selling the company's products counts at 3x that (default 1 point per 1200₵).\nVanilla faction reputation rises 1 point per 400₵. Story rewards and the Spacer reputation conversion are not affected.",
+    "Chinese": "Trading with company people, phone orders (including the Leviathan), the pastel dealer fee and Meridian refurbishment fees give 1 cooperation point per this many credits (default 400); selling the company's products counts at 3x that (default 1 point per 1200₵).\nVanilla faction reputation rises 1 point per 400₵. Story rewards and the Spacer reputation conversion are not affected.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.phoneServiceWindowSizeX",
+    "Method": "L.T",
+    "English": "Phone service window size (x)",
+    "Chinese": "Phone service window size (x)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.howMuchToEnlargeTheServiceWindowOpenedFromCompanyPhoneCalls1TheOldSizeShrinksAutomaticallyIfItDoesnTFitTheScreen",
+    "Method": "L.T",
+    "English": "How much to enlarge the service window opened from company phone calls. 1 = the old size. Shrinks automatically if it doesn't fit the screen.",
+    "Chinese": "How much to enlarge the service window opened from company phone calls. 1 = the old size. Shrinks automatically if it doesn't fit the screen.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.uninstall",
+    "Method": "L.T",
+    "English": "卸载 / Uninstall",
+    "Chinese": "卸载 / Uninstall",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.cleanUpBeforeUninstalling",
+    "Method": "L.T",
+    "English": "Clean up before uninstalling",
+    "Chinese": "Clean up before uninstalling",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.turnOnWhenYouWantToUninstallTogetherWithConfirmCleanupBelowWithBothOnSaveOnceSleepOrSaveManuallyCompanyPhoneNumbersAreRemovedFromThePhoneBookAndTheSaveEveryItemFromThisModIsDeletedCardsNewItemsRosenSGunsTheLeviathanEtcThenYouCanUninstallKeepItOffIfYouReNotUninstalling",
+    "Method": "L.T",
+    "English": "Turn on when you want to uninstall, together with “Confirm cleanup” below. With both on, save once (sleep or save manually):\n· company phone numbers are removed from the phone book and the save;\n· every item from this mod is deleted (cards, new items, Rosen's guns, the Leviathan, etc.).\nThen you can uninstall. Keep it off if you're not uninstalling.",
+    "Chinese": "Turn on when you want to uninstall, together with “Confirm cleanup” below. With both on, save once (sleep or save manually):\n· company phone numbers are removed from the phone book and the save;\n· every item from this mod is deleted (cards, new items, Rosen's guns, the Leviathan, etc.).\nThen you can uninstall. Keep it off if you're not uninstalling.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.confirmCleanupDeletesThisModSItems",
+    "Method": "L.T",
+    "English": "Confirm cleanup (deletes this mod's items)",
+    "Chinese": "Confirm cleanup (deletes this mod's items)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.onlyTakesEffectTogetherWithCleanUpBeforeUninstallingDeletedItemsCannotBeRestored",
+    "Method": "L.T",
+    "English": "Only takes effect together with “Clean up before uninstalling”. Deleted items cannot be restored.",
+    "Chinese": "Only takes effect together with “Clean up before uninstalling”. Deleted items cannot be restored.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.periods",
+    "Method": "L.T",
+    "English": "周期 / Periods",
+    "Chinese": "周期 / Periods",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.orderRestockPeriodWeeks",
+    "Method": "L.T",
+    "English": "Order restock period (weeks)",
+    "Chinese": "Order restock period (weeks)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.howManyWeeksUntilWeeklyOrderLimitsAndDavreSLeviathanQuotaRefill1EveryWeekTheOriginalBehavior",
+    "Method": "L.T",
+    "English": "How many weeks until weekly order limits and Davre's Leviathan quota refill. 1 = every week (the original behavior).",
+    "Chinese": "How many weeks until weekly order limits and Davre's Leviathan quota refill. 1 = every week (the original behavior).",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.solanaVIPBookingIntervalDays",
+    "Method": "L.T",
+    "English": "Solana VIP: booking interval (days)",
+    "Chinese": "Solana VIP: booking interval (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.daysBeforeYouCanBookAnotherVIP",
+    "Method": "L.T",
+    "English": "Days before you can book another VIP.",
+    "Chinese": "Days before you can book another VIP.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.solanaLabOrderPeriodDays",
+    "Method": "L.T",
+    "English": "Solana lab order: period (days)",
+    "Chinese": "Solana lab order: period (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.howOftenTheLabSPurchaseListChangesOneBuyerBookingPerList",
+    "Method": "L.T",
+    "English": "How often the lab's purchase list changes; one buyer booking per list.",
+    "Chinese": "How often the lab's purchase list changes; one buyer booking per list.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.solanaMemberGiftPeriodDays",
+    "Method": "L.T",
+    "English": "Solana member gift: period (days)",
+    "Chinese": "Solana member gift: period (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.howOftenBlackGoldMembersCanClaimTheGift",
+    "Method": "L.T",
+    "English": "How often Black Gold Members can claim the gift.",
+    "Chinese": "How often Black Gold Members can claim the gift.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.carmichealStaminaBoosterRequestIntervalDays",
+    "Method": "L.T",
+    "English": "Carmicheal Stamina Booster: request interval (days)",
+    "Chinese": "Carmicheal Stamina Booster: request interval (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.daysBetweenStaminaBoosterRequests",
+    "Method": "L.T",
+    "English": "Days between Stamina Booster requests.",
+    "Chinese": "Days between Stamina Booster requests.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.carmichealFakeForGenuineSwapIntervalDays",
+    "Method": "L.T",
+    "English": "Carmicheal fake-for-genuine swap: interval (days)",
+    "Chinese": "Carmicheal fake-for-genuine swap: interval (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.daysBetweenSwapRequests",
+    "Method": "L.T",
+    "English": "Days between swap requests.",
+    "Chinese": "Days between swap requests.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.meridianRefurbishmentIntervalDays",
+    "Method": "L.T",
+    "English": "Meridian refurbishment: interval (days)",
+    "Chinese": "Meridian refurbishment: interval (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.daysBetweenRefurbishmentDropOffsUsedToBeAFixed2Days",
+    "Method": "L.T",
+    "English": "Days between refurbishment drop-offs. Used to be a fixed 2 days.",
+    "Chinese": "Days between refurbishment drop-offs. Used to be a fixed 2 days.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.pastelDealerRebatePeriodDays",
+    "Method": "L.T",
+    "English": "pastel dealer rebate: period (days)",
+    "Chinese": "pastel dealer rebate: period (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.howOftenTheDealerRebateIsSettledAndBroughtByTheCourier",
+    "Method": "L.T",
+    "English": "How often the dealer rebate is settled and brought by the courier.",
+    "Chinese": "How often the dealer rebate is settled and brought by the courier.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.portraits",
+    "Method": "L.T",
+    "English": "Portraits",
+    "Chinese": "Portraits",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.whichSetOfCompanyPortraitsToUseNewSmoothThreeTiersSmoothHDImagesFrom1080pUpNewPixelPixelArt4KImageAt4K2KImageOtherwiseHDTheOriginalHDPortraits4KImageAt4K2KImageOtherwiseZacchaeusUsesNewSmoothAllUseSharperImagesAtHigherResolutionsAt1080pAndAboveTheGameSLowResolutionPassIsSkippedChangesTheGameSPixelPerfectCamera",
+    "Method": "L.T",
+    "English": "Which set of company portraits to use.\nNew, smooth: three tiers, smooth HD images from 1080p up.\nNew, pixel: pixel art; 4K image at 4K, 2K image otherwise.\nHD: the original HD portraits; 4K image at 4K, 2K image otherwise (Zacchaeus uses New, smooth).\nAll use sharper images at higher resolutions; at 1080p and above the game's low-resolution pass is skipped (changes the game's pixel-perfect camera).",
+    "Chinese": "Which set of company portraits to use.\nNew, smooth: three tiers, smooth HD images from 1080p up.\nNew, pixel: pixel art; 4K image at 4K, 2K image otherwise.\nHD: the original HD portraits; 4K image at 4K, 2K image otherwise (Zacchaeus uses New, smooth).\nAll use sharper images at higher resolutions; at 1080p and above the game's low-resolution pass is skipped (changes the game's pixel-perfect camera).",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.dailyVisitGapMinDays",
+    "Method": "L.T",
+    "English": "Daily visit gap, min (days)",
+    "Chinese": "Daily visit gap, min (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.minimumDaysBeforeTheNextDailyVisitTakesEffectFromTheNextVisit",
+    "Method": "L.T",
+    "English": "Minimum days before the next daily visit. Takes effect from the next visit.",
+    "Chinese": "Minimum days before the next daily visit. Takes effect from the next visit.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.dailyVisitGapMaxDays",
+    "Method": "L.T",
+    "English": "Daily visit gap, max (days)",
+    "Chinese": "Daily visit gap, max (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.maximumDaysBeforeTheNextVisitPickedAtRandomBetweenMinAndMaxIfLowerThanMinMinIsUsed",
+    "Method": "L.T",
+    "English": "Maximum days before the next visit; picked at random between min and max. If lower than min, min is used.",
+    "Chinese": "Maximum days before the next visit; picked at random between min and max. If lower than min, min is used.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.gapBetweenStoryChaptersDays",
+    "Method": "L.T",
+    "English": "Gap between story chapters (days)",
+    "Chinese": "Gap between story chapters (days)",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.minimumDaysBetweenStoryChapters1TheNextDayOnceConditionsAreMetTheOriginalBehavior",
+    "Method": "L.T",
+    "English": "Minimum days between story chapters (1 = the next day once conditions are met, the original behavior).",
+    "Chinese": "Minimum days between story chapters (1 = the next day once conditions are met, the original behavior).",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Config display identity adapter",
+    "Key": "settings.legacyDisplay.corpPresence099",
+    "Method": "L.T",
+    "English": "公司增强 CorpPresence 1.0 稳定版",
+    "Chinese": "公司增强 CorpPresence 1.0 稳定版",
+    "Formatted": false,
+    "Nested": false
+  }
+]

@@ -1,0 +1,1541 @@
+[
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.name.carmichealPharmaceutical",
+    "Method": "L.T",
+    "English": "Carmicheal Pharmaceutical",
+    "Chinese": "卡迈克尔制药",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.tierNames.registeredPharmacy",
+    "Method": "L.T",
+    "English": "Registered Pharmacy",
+    "Chinese": "登记药房",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.tierNames.designatedPharmacy",
+    "Method": "L.T",
+    "English": "Designated Pharmacy",
+    "Chinese": "指定药房",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.tierNames.compliancePartner",
+    "Method": "L.T",
+    "English": "Compliance Partner",
+    "Chinese": "合规伙伴",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.cardFlavor.tealWhiteWithCarmichealCross",
+    "Method": "L.T",
+    "English": "Teal on white, with the Carmicheal cross and 22764.",
+    "Chinese": "白底青字，印着卡迈克尔的十字标和 22764。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.deskName.carmichealCustomerService",
+    "Method": "L.T",
+    "English": "Carmicheal Customer Service",
+    "Chinese": "卡迈克尔客服",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.deskAsk.howCanIHelpToday",
+    "Method": "L.T",
+    "English": "How can I help you today?",
+    "Chinese": "请问办理什么业务？",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.frontDesk.carmichealPharmaceuticalCustomerServicePharmacy",
+    "Method": "L.T",
+    "English": "Carmicheal Pharmaceutical customer service. Your pharmacy registration number, please.",
+    "Chinese": "卡迈克尔制药客户服务部。请报您的药房登记号。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.frontDesk.carmichealPharmaceuticalThisCallMay",
+    "Method": "L.T",
+    "English": "Carmicheal Pharmaceutical. This call may be recorded.",
+    "Chinese": "卡迈克尔制药。本通话可能被录音。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.frontDeskDone.loggedOurCourierDeliversTomorrow",
+    "Method": "L.T",
+    "English": "Logged. Our courier delivers tomorrow morning.",
+    "Chinese": "已登记。明早由专人配送。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.onEndDay.carmichealSpecimenBreach",
+    "Method": "L.T",
+    "English": "Carmicheal Specimen Breach",
+    "Chinese": "卡迈克尔制药收容物逃逸",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.onEndDay.specimenBreach",
+    "Method": "L.T",
+    "English": "Specimen Breach",
+    "Chinese": "收容物逃逸",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.onEndDay.panicUpperLevelsDangerousOrganism",
+    "Method": "L.T",
+    "English": "Panic in the Upper Levels: a dangerous organism has escaped a Carmicheal lab. Security urges all residents to report any unfamiliar creature at once. Weapon prices are up.",
+    "Chinese": "上层区一片慌乱：卡迈克尔制药的实验室有危险生物逃逸。治安部提醒所有居民，见到没见过的生物立即举报。武器价格上涨。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.spawnEscapee.somethingMovingInsideCheckMain",
+    "Method": "L.T",
+    "English": "Something is moving inside. Check the main inventory and the back counter.",
+    "Chinese": "店里有动静。看看主库存和后柜台。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.orderSpecimen.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.orderSpecimen.notAvailableYet",
+    "Method": "L.T",
+    "English": "Not available yet",
+    "Chinese": "还没有开通",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.fakeReason.unlicensedCopy",
+    "Method": "L.T",
+    "English": "Unlicensed copy",
+    "Chinese": "无证仿制",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.fakeReason.counterfeit",
+    "Method": "L.T",
+    "English": "Counterfeit",
+    "Chinese": "假冒",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CarmichaelCo.cs",
+    "Key": "companies.carmichael.fakeReason.recalledBatch",
+    "Method": "L.T",
+    "English": "Recalled batch",
+    "Chinese": "召回批次",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Company.cs",
+    "Key": "companies.company.tierName.unsigned",
+    "Method": "L.T",
+    "English": "Unsigned",
+    "Chinese": "未签约",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.vip.solanaVIP",
+    "Method": "L.T",
+    "English": "Solana VIP",
+    "Chinese": "索拉纳贵宾",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.vip.solanaConsultantRecommendedShop",
+    "Method": "L.T",
+    "English": "A Solana consultant recommended your shop.",
+    "Chinese": "索拉纳的顾问推荐了你的店。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.vip.iHearCarryFineThings",
+    "Method": "L.T",
+    "English": "I hear you carry fine things. Luxury goods, good smokes, good liquor. Let's see them.",
+    "Chinese": "听说你这儿有好东西。奢侈品、好烟、好酒，拿出来看看。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.courier.problemBatchHasBeenReplaced",
+    "Method": "L.T",
+    "English": "The problem batch has been replaced with genuine product. Please check.",
+    "Chinese": "问题批次已替换为正品。请核对。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.courier.gunsFactoryRefurbished",
+    "Method": "L.T",
+    "English": "Your guns from the factory. Refurbished.",
+    "Chinese": "返厂的枪。翻新好了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.courier.specialRequestHandledByIsa",
+    "Method": "L.T",
+    "English": "A special request handled by Isa Langdon. Please sign.",
+    "Chinese": "伊莎·兰登经办的特别申请。请签收。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.courier.hereSRebate",
+    "Method": "L.T",
+    "English": "Here's your rebate: {0}₵.",
+    "Chinese": "这是这一期的返点，{0}₵。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.courier.mentorAskedMeBringNote",
+    "Method": "L.T",
+    "English": "The Mentor asked me to bring you a note.",
+    "Chinese": "导师让我带张便签。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.courier.askedMeBringCard",
+    "Method": "L.T",
+    "English": "{0} asked me to bring you a card.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.courier.deliveryPleaseSign",
+    "Method": "L.T",
+    "English": "Delivery. Please sign.",
+    "Chinese": "送货。请签收。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.pastelSeller.pastelTrader",
+    "Method": "L.T",
+    "English": "pastel Trader",
+    "Chinese": "帕斯泰尔货商",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.pastelSeller.sawSign",
+    "Method": "L.T",
+    "English": "Saw your sign.",
+    "Chinese": "看到你的灯牌了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.pastelSeller.pastelGoodsInterested",
+    "Method": "L.T",
+    "English": "pastel goods. Interested?",
+    "Chinese": "帕斯泰尔的货，要吗？",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.pastelSeller.iNodsIILl",
+    "Method": "L.T",
+    "English": "<i>(nods)</i>I'll be back.",
+    "Chinese": "<i>（点点头）</i>下回再来。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.labBuyer.solanaBuyer",
+    "Method": "L.T",
+    "English": "Solana Buyer",
+    "Chinese": "索拉纳采购员",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.labBuyer.thatSNotList",
+    "Method": "L.T",
+    "English": "That's not on the list.",
+    "Chinese": "单子上没有这个。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.labBuyer.purchaseOrderLabPutItems",
+    "Method": "L.T",
+    "English": "Purchase order from the lab. Put the items on the counter.",
+    "Chinese": "实验室的采购单。东西放台上。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.labBuyer.iTicksListIThat",
+    "Method": "L.T",
+    "English": "<i>(ticks the list)</i>That's everything.",
+    "Chinese": "<i>（在单子上打了个勾）</i>收齐了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.cs",
+    "Key": "companies.companyVisitors.labBuyer.gotIfThereSMore",
+    "Method": "L.T",
+    "English": "Got it. If there's more from the list, keep it coming.",
+    "Chinese": "收下了。单子上还有的，接着放。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/CompanyVisitors.Deliveries.cs",
+    "Key": "companies.companyVisitors.deliveries.deliver.hasItemsLeftDeliverTomorrow",
+    "Method": "L.T",
+    "English": "{0} has {1} items left to deliver tomorrow.",
+    "Chinese": "{0}还有 {1} 件货未送达，明天再送来。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.name.davreFood",
+    "Method": "L.T",
+    "English": "Davre Food",
+    "Chinese": "达夫雷食品",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.tierNames.standardSupplier",
+    "Method": "L.T",
+    "English": "Standard Supplier",
+    "Chinese": "普通供货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.tierNames.regionalSupplier",
+    "Method": "L.T",
+    "English": "Regional Supplier",
+    "Chinese": "区域供货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.tierNames.longTermContract",
+    "Method": "L.T",
+    "English": "Long-Term Contract",
+    "Chinese": "长期合约",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.cardFlavor.davreLogoBeigeRed",
+    "Method": "L.T",
+    "English": "The Davre logo, beige on red. 32873.",
+    "Chinese": "红底米色的达夫雷标志，32873。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.deskName.davreOrderCenter",
+    "Method": "L.T",
+    "English": "Davre Order Center",
+    "Chinese": "达夫雷订货中心",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.frontDesk.davreFoodOrderCenterSupplier",
+    "Method": "L.T",
+    "English": "Davre Food, order center. Supplier number, please.",
+    "Chinese": "达夫雷食品，订货中心。请报供货编号。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.frontDesk.davreCansTabletsAllStock",
+    "Method": "L.T",
+    "English": "Davre. Cans and tablets, all in stock today.",
+    "Chinese": "达夫雷。罐头和药片，今天都有。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/DavreCo.cs",
+    "Key": "companies.davre.frontDeskDone.scheduledArrivingTomorrow",
+    "Method": "L.T",
+    "English": "Scheduled. Arriving tomorrow.",
+    "Chinese": "已排单，明天到货。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/JacksonContact.cs",
+    "Key": "companies.jacksonContact.name.drJacksonPrivateLine",
+    "Method": "L.T",
+    "English": "Dr. Jackson · Private Line",
+    "Chinese": "杰克逊博士 · 私人电话",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/JacksonContact.cs",
+    "Key": "companies.jacksonContact.frontDeskDone.gotILlPackUp",
+    "Method": "L.T",
+    "English": "Got it. I'll pack it up and have someone bring it over tomorrow.",
+    "Chinese": "记下了。我收拾好，明天托人给你送过去。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/JacksonContact.cs",
+    "Key": "companies.jacksonContact.deskName.drJackson",
+    "Method": "L.T",
+    "English": "Dr. Jackson",
+    "Chinese": "杰克逊博士",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.name.meridianBallistics",
+    "Method": "L.T",
+    "English": "Meridian Ballistics",
+    "Chinese": "子午线兵工",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.tierNames.classILicense",
+    "Method": "L.T",
+    "English": "Class I License",
+    "Chinese": "一级许可",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.tierNames.classIILicense",
+    "Method": "L.T",
+    "English": "Class II License",
+    "Chinese": "二级许可",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.tierNames.classIIILicense",
+    "Method": "L.T",
+    "English": "Class III License",
+    "Chinese": "三级许可",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.cardFlavor.redBlackSingleMeridianLine",
+    "Method": "L.T",
+    "English": "Red on black, a single meridian line, 63743. On the back: Factory service, for life.",
+    "Chinese": "黑底红字，一道经线标记，63743。背面印着：返厂服务，终身有效。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.deskName.meridianOrderDesk",
+    "Method": "L.T",
+    "English": "Meridian Order Desk",
+    "Chinese": "子午线订货处",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.frontDesk.meridianBallisticsOrderDeskLicense",
+    "Method": "L.T",
+    "English": "Meridian Ballistics, order desk. License number.",
+    "Chinese": "子午线兵工，订货处。报许可编号。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.frontDeskDone.loggedTomorrow",
+    "Method": "L.T",
+    "English": "Logged. Tomorrow.",
+    "Chinese": "登记了。明天到。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.makeUpForge.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.makeUpForge.alreadyDone",
+    "Method": "L.T",
+    "English": "Already done",
+    "Chinese": "已经办过了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.makeUpForge.notAvailableYet",
+    "Method": "L.T",
+    "English": "Not available yet",
+    "Chinese": "还没有开通",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.makeUpForge.notEnoughCash",
+    "Method": "L.T",
+    "English": "Not enough cash",
+    "Chinese": "现金不够",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.orderForgeMachine.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/MeridianCo.cs",
+    "Key": "companies.meridian.orderForgeMachine.notAvailableYet",
+    "Method": "L.T",
+    "English": "Not available yet",
+    "Chinese": "还没有开通",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.name.pastelInc",
+    "Method": "L.T",
+    "English": "pastel Inc.",
+    "Chinese": "帕斯泰尔公司",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.tierNames.signed",
+    "Method": "L.T",
+    "English": "Signed",
+    "Chinese": "签约",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.tierNames.regularClient",
+    "Method": "L.T",
+    "English": "Regular Client",
+    "Chinese": "长期客户",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.tierNames.partner",
+    "Method": "L.T",
+    "English": "Partner",
+    "Chinese": "合作伙伴",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.cardFlavor.orderHotlineNutrifruitAdBack",
+    "Method": "L.T",
+    "English": "Order hotline 72783. A Nutrifruit ad on the back.",
+    "Chinese": "订货热线 72783。背面印着营养果的广告。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.deskName.pastelFrontDesk",
+    "Method": "L.T",
+    "English": "pastel Front Desk",
+    "Chinese": "帕斯泰尔前台",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.deskAsk.wantSeeTodaySList",
+    "Method": "L.T",
+    "English": "Want to see today's list?",
+    "Chinese": "看看今天的单子？",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.frontDesk.pastelOrderHotlineWhatLl",
+    "Method": "L.T",
+    "English": "pastel order hotline! What'll it be today?",
+    "Chinese": "帕斯泰尔订货热线！今天要点什么？",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.frontDesk.helloPastelNutrifruitSStock",
+    "Method": "L.T",
+    "English": "Hello, pastel. Nutrifruit's in stock today.",
+    "Chinese": "您好，帕斯泰尔。营养果今天有货。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.frontDesk.pastelWeVeGotEverything",
+    "Method": "L.T",
+    "English": "pastel. We've got everything. Go ahead.",
+    "Chinese": "帕斯泰尔，什么都有。您说。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.frontDeskDone.gotArrivingTomorrow",
+    "Method": "L.T",
+    "English": "You got it. Arriving tomorrow!",
+    "Chinese": "好嘞，明天就到！",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/PastelCo.cs",
+    "Key": "companies.pastel.applyLimited.hemingwayLimitedEdition",
+    "Method": "L.T",
+    "English": "Hemingway Limited Edition",
+    "Chinese": "海明威限量包装",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+    "Key": "companies.services.bloodRecovery.requestBloodRecovery.carmichealBreedingLicenseRequired",
+    "Method": "L.T",
+    "English": "A Carmicheal breeding license is required.",
+    "Chinese": "需要卡迈克尔的养殖许可。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+    "Key": "companies.services.bloodRecovery.requestBloodRecovery.recoveryOpensAgainDay",
+    "Method": "L.T",
+    "English": "Recovery opens again on day {0}.",
+    "Chinese": "第 {0} 天可再次回收。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+    "Key": "companies.services.bloodRecovery.requestBloodRecovery.thereAreNoEligibleFull",
+    "Method": "L.T",
+    "English": "There are no eligible full Silver Blood samples in the shop.",
+    "Chinese": "店内没有符合条件的完整银血样品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+    "Key": "companies.services.bloodRecovery.requestBloodRecovery.sampleCountChangedCheckUpdated",
+    "Method": "L.T",
+    "English": "The sample count changed. Check the updated quote and try again.",
+    "Chinese": "样品数量有变化，请核对后重试。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+    "Key": "companies.services.bloodRecovery.requestBloodRecovery.cashNearItsLimitRecovery",
+    "Method": "L.T",
+    "English": "Cash is near its limit. Recovery cannot be settled.",
+    "Chinese": "现金已接近上限，暂时无法结算。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+    "Key": "companies.services.bloodRecovery.requestBloodRecovery.noSamplesWereCollectedNo",
+    "Method": "L.T",
+    "English": "No samples were collected. No cooldown started.",
+    "Chinese": "未收走样品，未开始冷却。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+    "Key": "companies.services.bloodRecovery.requestBloodRecovery.collectedSilverBloodSamplesReceived",
+    "Method": "L.T",
+    "English": "Collected {0} Silver Blood samples. Received {1}₵.",
+    "Chinese": "已回收 {0} 支银血，到账 {1}₵。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.periodWord.thisPeriod",
+    "Method": "L.T",
+    "English": "this period",
+    "Chinese": "本期",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.periodWord.thisWeek",
+    "Method": "L.T",
+    "English": "this week",
+    "Chinese": "本周",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.pay.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.pay.companyDataNotReady",
+    "Method": "L.T",
+    "English": "Company data is not ready. No payment attempted.",
+    "Chinese": "公司数据未就绪，尚未付款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.pay.saveLoadError",
+    "Method": "L.T",
+    "English": "Company data is not ready. No payment attempted. Check the save-load error first.",
+    "Chinese": "公司数据未就绪，尚未付款。请先检查存档读取错误。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.pay.paymentStatusUncertainCheckBalance",
+    "Method": "L.T",
+    "English": "Payment status is uncertain. Check your balance before trying again.",
+    "Chinese": "付款状态异常，请先核对余额，避免重复付款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.pay.notEnoughCash",
+    "Method": "L.T",
+    "English": "Not enough cash",
+    "Chinese": "现金不够",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.cs",
+    "Key": "companies.services.joinDealer.alreadyDealer",
+    "Method": "L.T",
+    "English": "Already a dealer",
+    "Chinese": "已经是合作商了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.rescueCrates.deliveryCrateSLeftCounter",
+    "Method": "L.T",
+    "English": "{0} delivery crate(s) left on the counter were moved into your bag.",
+    "Chinese": "柜台上的 {0} 只送货箱已收进背包。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.rescueCrates.bagFullDeliveryCrateS",
+    "Method": "L.T",
+    "English": "Your bag is full: {0} delivery crate(s) remain on the counter and will be cleared overnight.",
+    "Chinese": "背包放不下，柜台上还有 {0} 只送货箱，过夜会被清掉。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.vIPReferral",
+    "Method": "L.T",
+    "English": "VIP Referral",
+    "Chinese": "贵宾引荐",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.mutualAid",
+    "Method": "L.T",
+    "English": "Mutual Aid",
+    "Chinese": "街坊互助",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.lowerFootTraffic",
+    "Method": "L.T",
+    "English": "Lower Foot Traffic",
+    "Chinese": "下层客流",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.servicePaused",
+    "Method": "L.T",
+    "English": "{0} {1} paused: {2}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.upperLevelsVIPWillVisit",
+    "Method": "L.T",
+    "English": "An Upper Levels VIP will visit tomorrow",
+    "Chinese": "明天会有一位上层区贵宾光顾店铺",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.moreSpacersWillComeBy",
+    "Method": "L.T",
+    "English": "More Spacers will come by tomorrow",
+    "Chinese": "明天会多来几位星际客",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.moreLowerLevelsCustomersWill",
+    "Method": "L.T",
+    "English": "More Lower Levels customers will come by tomorrow",
+    "Chinese": "明天会多来几位下层区顾客",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.nightly.paidCredits",
+    "Method": "L.T",
+    "English": "{0} {1}: paid {2} credits. {3}.",
+    "Chinese": "{0}{1}已付 {2} 信用点，{3}。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Nightly.cs",
+    "Key": "companies.services.nightly.rebate.rebateCreditsCourierBringsTomorrow",
+    "Method": "L.T",
+    "English": "{0} rebate: {1} credits. The courier brings it tomorrow.",
+    "Chinese": "{0}返点 {1} 信用点，送货员明天带来。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.alreadyOrderedToday",
+    "Method": "L.T",
+    "English": "Already ordered today",
+    "Chinese": "今天已经下过单了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.orderNotReadyHaveNot",
+    "Method": "L.T",
+    "English": "Order not ready. You have not been charged.",
+    "Chinese": "订单未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.perfumerySuppliesRequireGoldMembership",
+    "Method": "L.T",
+    "English": "Perfumery supplies require Gold membership or above.",
+    "Chinese": "香水工艺供应仅向金卡及以上会员开放。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.someItemsAreUnavailableRight",
+    "Method": "L.T",
+    "English": "Some items are unavailable right now. Try again later. You have not been charged.",
+    "Chinese": "有货品暂不可用，请稍后再试。尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.overLimitCanOrderMore",
+    "Method": "L.T",
+    "English": "{0} is over the limit. You can order {1} more",
+    "Chinese": "{0}超出限购，还能订 {1} 份",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.itemIdentifierNotReadyHave",
+    "Method": "L.T",
+    "English": "Item identifier not ready. You have not been charged.",
+    "Chinese": "货品标识未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.purchaseHistoryInvalidOrOut",
+    "Method": "L.T",
+    "English": "Purchase history is invalid or out of range. You have not been charged.",
+    "Chinese": "历史订购计数异常或超出范围，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.invalidOrderQuantityOrAmount",
+    "Method": "L.T",
+    "English": "Invalid order quantity or amount. You have not been charged.",
+    "Chinese": "订单数量或金额无效，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.placeOrder.nothingSelectedYet",
+    "Method": "L.T",
+    "English": "Nothing selected yet",
+    "Chinese": "还没有选货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.leftText.periodQuotaRemaining",
+    "Method": "L.T",
+    "English": "  {0} left {1}",
+    "Chinese": "\u3000{0}剩 {1}",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Orders.cs",
+    "Key": "companies.services.orders.leftText.quotaRemaining",
+    "Method": "L.T",
+    "English": "  {0} left",
+    "Chinese": "\u3000剩余 {0}",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestSwap.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestSwap.canApplyAgainDay",
+    "Method": "L.T",
+    "English": "You can apply again on day {0}",
+    "Chinese": "第 {0} 天才能再申请",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestSwap.noFakeCarmichealProductsFound",
+    "Method": "L.T",
+    "English": "No fake Carmicheal products found",
+    "Chinese": "没有找到卡迈克尔产品的赝品",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestSwap.invalidExchangeFeeHaveNot",
+    "Method": "L.T",
+    "English": "Invalid exchange fee. You have not been charged.",
+    "Chinese": "换货费用无效，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestSwap.exchangeDetailsAreNotReady",
+    "Method": "L.T",
+    "English": "Exchange details are not ready. You have not been charged.",
+    "Chinese": "换货明细未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestSwap.exchangeDetailsAreNotReady",
+    "Method": "L.T",
+    "English": "Exchange details are not ready. You have not been charged.",
+    "Chinese": "换货明细未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestRefurbish.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestRefurbish.tierRequired",
+    "Method": "L.T",
+    "English": "Opens at {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestRefurbish.canSendAgainDay",
+    "Method": "L.T",
+    "English": "You can send again on day {0}",
+    "Chinese": "第 {0} 天才能再送",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestRefurbish.noGunsRefurbish",
+    "Method": "L.T",
+    "English": "No guns to refurbish",
+    "Chinese": "没有能翻新的枪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestRefurbish.refurbishmentDetailsAreNotReady",
+    "Method": "L.T",
+    "English": "Refurbishment details are not ready. You have not been charged.",
+    "Chinese": "翻新明细未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestRefurbish.invalidRefurbishmentFeeHaveNot",
+    "Method": "L.T",
+    "English": "Invalid refurbishment fee. You have not been charged.",
+    "Chinese": "翻新费用无效，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Replacements.cs",
+    "Key": "companies.services.replacements.requestRefurbish.refurbishmentDetailsAreNotReady",
+    "Method": "L.T",
+    "English": "Refurbishment details are not ready. You have not been charged.",
+    "Chinese": "翻新明细未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.bookVip.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.bookVip.canBookAgainDay",
+    "Method": "L.T",
+    "English": "You can book again on day {0}",
+    "Chinese": "第 {0} 天才能再预约",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.bookLab.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.bookLab.procurementListNotReady",
+    "Method": "L.T",
+    "English": "Procurement list not ready",
+    "Chinese": "采购清单暂未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.bookLab.alreadyBookedThisList",
+    "Method": "L.T",
+    "English": "Already booked for this list",
+    "Chinese": "这一期已经预约过了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.claimGift.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.claimGift.alreadyClaimedThisPeriod",
+    "Method": "L.T",
+    "English": "Already claimed for this period",
+    "Chinese": "这一期已经领过了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.claimGift.giftNotReady",
+    "Method": "L.T",
+    "English": "Gift not ready",
+    "Chinese": "赠礼暂未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.requestStamina.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.requestStamina.notYetAllocatedShop",
+    "Method": "L.T",
+    "English": "Not yet allocated to your shop",
+    "Chinese": "尚未向贵店配发",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.requestStamina.batchNotReadyAvailableDay",
+    "Method": "L.T",
+    "English": "Batch not ready. Available on day {0}",
+    "Chinese": "批次未到，第 {0} 天可申领",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.orderLeviathan.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.orderLeviathan.notAvailableYet",
+    "Method": "L.T",
+    "English": "Not available yet",
+    "Chinese": "还没有开通",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.orderLeviathan.thisWeekSQuotaUsed",
+    "Method": "L.T",
+    "English": "This week's quota is used up",
+    "Chinese": "这周的配额已经订完了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.orderLeviathan.leviathanUnavailableRightNowTry",
+    "Method": "L.T",
+    "English": "The Leviathan is unavailable right now. Try again later. You have not been charged.",
+    "Chinese": "利维坦暂不可用，请稍后再试。尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.makeUpCanning.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.makeUpCanning.alreadyDone",
+    "Method": "L.T",
+    "English": "Already done",
+    "Chinese": "已经办过了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.makeUpCanning.notAvailableYet",
+    "Method": "L.T",
+    "English": "Not available yet",
+    "Chinese": "还没有开通",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.makeUpCanning.equipmentDetailsNotReadyHave",
+    "Method": "L.T",
+    "English": "Equipment details not ready. You have not been charged.",
+    "Chinese": "设备明细未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.makeUpCanning.equipmentDetailsNotReadyHave",
+    "Method": "L.T",
+    "English": "Equipment details not ready. You have not been charged.",
+    "Chinese": "设备明细未就绪，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.orderCanningMachine.saveNotReady",
+    "Method": "L.T",
+    "English": "Save not ready",
+    "Chinese": "存档未就绪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.orderCanningMachine.notAvailableYet",
+    "Method": "L.T",
+    "English": "Not available yet",
+    "Chinese": "还没有开通",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/Services.Special.cs",
+    "Key": "companies.services.special.orderCanningMachine.equipmentUnavailableHaveNotBeen",
+    "Method": "L.T",
+    "English": "Equipment unavailable. You have not been charged.",
+    "Chinese": "设备暂不可用，尚未扣款。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.name.solanaBiogenics",
+    "Method": "L.T",
+    "English": "Solana Biogenics",
+    "Chinese": "索拉纳生物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.tierNames.silverMember",
+    "Method": "L.T",
+    "English": "Silver Member",
+    "Chinese": "银卡会员",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.tierNames.goldMember",
+    "Method": "L.T",
+    "English": "Gold Member",
+    "Chinese": "金卡会员",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.tierNames.blackGoldMember",
+    "Method": "L.T",
+    "English": "Black Gold Member",
+    "Chinese": "黑金会员",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.cardFlavor.goldFoilLetteringJustOne",
+    "Method": "L.T",
+    "English": "Gold-foil lettering. Just one number: 76526.",
+    "Chinese": "烫金的字，只有一个号码：76526。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.deskName.solanaConcierge",
+    "Method": "L.T",
+    "English": "Solana Concierge",
+    "Chinese": "索拉纳前台",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.deskAsk.whichServiceMayIAssist",
+    "Method": "L.T",
+    "English": "Which service may I assist you with?",
+    "Chinese": "请问需要什么服务？",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.frontDesk.solanaBiogenicsRetrievingMembershipFile",
+    "Method": "L.T",
+    "English": "Solana Biogenics. Retrieving your membership file.",
+    "Chinese": "索拉纳生物。正在为您调取会员档案。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.frontDesk.solanaPleaseGoAhead",
+    "Method": "L.T",
+    "English": "Solana. Please, go ahead.",
+    "Chinese": "索拉纳。请说。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SolanaCo.cs",
+    "Key": "companies.solana.frontDeskDone.allArrangedSomeoneWillCall",
+    "Method": "L.T",
+    "English": "All arranged. Someone will call on you tomorrow.",
+    "Chinese": "已为您安排，明天专人上门。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.name.spacerAlliance",
+    "Method": "L.T",
+    "English": "Spacer Alliance",
+    "Chinese": "星际客联盟",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.name.merchantUnion",
+    "Method": "L.T",
+    "English": "Merchant Union",
+    "Chinese": "商人联合",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.tierNames.contactPoint",
+    "Method": "L.T",
+    "English": "Contact Point",
+    "Chinese": "联络点",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.tierNames.relayStation",
+    "Method": "L.T",
+    "English": "Relay Station",
+    "Chinese": "中转站",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.tierNames.hub",
+    "Method": "L.T",
+    "English": "Hub",
+    "Chinese": "枢纽",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.deskName.mentor",
+    "Method": "L.T",
+    "English": "The Mentor",
+    "Chinese": "导师",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.frontDesk.talk",
+    "Method": "L.T",
+    "English": "Talk.",
+    "Chinese": "说。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.frontDeskDone.tomorrow",
+    "Method": "L.T",
+    "English": "Tomorrow.",
+    "Chinese": "明天到。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/Companies/SpacerCo.cs",
+    "Key": "companies.spacer.makeNote.mentor",
+    "Method": "L.T",
+    "English": "— The Mentor",
+    "Chinese": "——导师",
+    "Formatted": false,
+    "Nested": false
+  }
+]

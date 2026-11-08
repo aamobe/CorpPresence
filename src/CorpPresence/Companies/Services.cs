@@ -29,9 +29,9 @@ internal static partial class Services
 		{
 			if (Settings.RestockWeeks != 1)
 			{
-				return L.T("本期", "this period");
+				return L.K("companies.services.periodWord.thisPeriod", "本期", "this period");
 			}
-			return L.T("本周", "this week");
+			return L.K("companies.services.periodWord.thisWeek", "本周", "this week");
 		}
 	}
 
@@ -278,15 +278,15 @@ internal static partial class Services
 	public static string Pay(Company c, int amount, string what)
 	{
 		PlayerStore instance = SaveSlot.CurrentStore;
-		if (instance == null) return L.T("存档未就绪", "Save not ready");
+		if (instance == null) return L.K("companies.services.pay.saveNotReady", "存档未就绪", "Save not ready");
 		if (c != null)
 		{
 			CompanyState companyState = Companies.StateOf(c);
 			if (companyState == null || companyState.Orders == null || companyState.Visitors == null || companyState.LimitedBought == null)
-				return L.T("公司数据未就绪，尚未付款。", "Company data is not ready. No payment attempted.");
+				return L.K("companies.services.pay.companyDataNotReady", "公司数据未就绪，尚未付款。", "Company data is not ready. No payment attempted.");
 			if (Settings.MaliceMode) CorpPresence.Malice.MaliceState.Get();
 			if (!SaveSlot.CanWrite("CorpPresence") || (Settings.MaliceMode && !SaveSlot.CanWrite("CorpPresence.Malice")))
-				return L.T("公司数据未就绪，尚未付款。请先检查存档读取错误。", "Company data is not ready. No payment attempted. Check the save-load error first.");
+				return L.K("companies.services.pay.saveLoadError", "公司数据未就绪，尚未付款。请先检查存档读取错误。", "Company data is not ready. No payment attempted. Check the save-load error first.");
 		}
 		// Free services still consume items or create orders: protect their save data too.
 		if (amount <= 0) return null;
@@ -298,7 +298,7 @@ internal static partial class Services
 			catch (Exception error)
 			{
 				try { ModLog.Warn("公司付款回调失败，不再补扣现金：" + error.Message); } catch { }
-				return L.T("付款状态异常，请先核对余额，避免重复付款。", "Payment status is uncertain. Check your balance before trying again.");
+				return L.K("companies.services.pay.paymentStatusUncertainCheckBalance", "付款状态异常，请先核对余额，避免重复付款。", "Payment status is uncertain. Check your balance before trying again.");
 			}
 			if (text != null)
 			{
@@ -311,7 +311,7 @@ internal static partial class Services
 		}
 		if (!instance.CanPay(amount))
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("companies.services.pay.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		// Vanilla debits first, then plays audio. Sound failure must not lose the order.
 		CompanyMoney.Pay(instance, amount);
@@ -323,7 +323,7 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState.DealerJoined)
 		{
-			return L.T("已经是合作商了", "Already a dealer");
+			return L.K("companies.services.joinDealer.alreadyDealer", "已经是合作商了", "Already a dealer");
 		}
 		string text = Pay(c, PastelCo.DealerFee, "dealer");
 		if (text != null)

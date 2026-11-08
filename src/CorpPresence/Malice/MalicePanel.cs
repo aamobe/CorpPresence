@@ -17,30 +17,30 @@ internal static class MalicePanel
 		CompanyState companyState = Companies.StateOf(c);
 		if (corpTerms == null || companyState == null)
 		{
-			GUI.Label(new Rect(r.x, r.y, r.width, 24f), L.T("存档未就绪", "Save not ready"), t.Small);
+			GUI.Label(new Rect(r.x, r.y, r.width, 24f), L.K("malice.malicePanel.draw.saveNotReady", "存档未就绪", "Save not ready"), t.Small);
 			return;
 		}
 		float y = r.y;
 		bool flag = Malice.IsMembership(c);
-		GUI.Label(new Rect(r.x, y, r.width, 24f), flag ? L.T("基础会员", "Basic membership") : L.T("订购服务", "Ordering service"), t.Body);
+		GUI.Label(new Rect(r.x, y, r.width, 24f), flag ? L.K("malice.malicePanel.draw.basicMembership", "基础会员", "Basic membership") : L.K("malice.malicePanel.draw.orderingService", "订购服务", "Ordering service"), t.Body);
 		y += 26f;
 		string text;
 		bool waived = Malice.SubscriptionWaived(c);
 		if (waived)
 		{
-			text = L.T("已获免订阅费权益，无需开通或续费。商品货款照常结算。", "Subscription fees are waived. No activation or renewal is needed; goods are charged normally.");
+			text = L.K("malice.malicePanel.draw.subscriptionFeesAreWaivedNo", "已获免订阅费权益，无需开通或续费。商品货款照常结算。", "Subscription fees are waived. No activation or renewal is needed; goods are charged normally.");
 		}
 		else if (Malice.Subscribed(c))
 		{
-			text = (L.En ? L.Translate((System.FormattableString)$"Active through day {corpTerms.SubUntil - 1}.") : $"已开通，有效到第 {corpTerms.SubUntil - 1} 天（含）。");
+			text = (L.En ? L.K("malice.malicePanel.draw.activeThroughDay", (System.FormattableString)$"Active through day {corpTerms.SubUntil - 1}.") : $"已开通，有效到第 {corpTerms.SubUntil - 1} 天（含）。");
 		}
 		else if (corpTerms.Subscribed)
 		{
-			text = (L.En ? L.Translate((System.FormattableString)$"Expired (paused since day {corpTerms.SubUntil}).") : $"已到期（第 {corpTerms.SubUntil} 天起暂停）。") + (Malice.Lapsed(corpTerms) ? L.T("断供超过一周，再续要加复通费。", " Lapsed over a week: reactivation fee applies.") : "");
+			text = (L.En ? L.K("malice.malicePanel.draw.expiredPausedSinceDay", (System.FormattableString)$"Expired (paused since day {corpTerms.SubUntil}).") : $"已到期（第 {corpTerms.SubUntil} 天起暂停）。") + (Malice.Lapsed(corpTerms) ? L.K("malice.malicePanel.draw.lapsedOverWeekReactivationFee", "断供超过一周，再续要加复通费。", " Lapsed over a week: reactivation fee applies.") : "");
 		}
 		else
 		{
-			text = (flag ? L.T("未开通。会员才能使用索拉纳的服务。", "Not a member. Only members can use Solana's services.") : L.T("未开通。开通后才能电话订货。", "Not subscribed. Subscribe to order by phone."));
+			text = (flag ? L.K("malice.malicePanel.draw.notMemberOnlyMembersCan", "未开通。会员才能使用索拉纳的服务。", "Not a member. Only members can use Solana's services.") : L.K("malice.malicePanel.draw.notSubscribedSubscribeOrderBy", "未开通。开通后才能电话订货。", "Not subscribed. Subscribe to order by phone."));
 		}
 		GUI.Label(new Rect(r.x, y, r.width, 40f), text, t.Wrap);
 		y += 42f;
@@ -50,29 +50,29 @@ internal static class MalicePanel
 		string text2;
 		if (corpTerms.Subscribed)
 		{
-			text2 = (L.En ? L.Translate((System.FormattableString)$"Renew one week ({num}₵)") : $"续费一周（{num}₵）");
+			text2 = (L.En ? L.K("malice.malicePanel.draw.renewOneWeek", (System.FormattableString)$"Renew one week ({num}₵)") : $"续费一周（{num}₵）");
 		}
 		else
 		{
-			text2 = (flag ? (L.En ? L.Translate((System.FormattableString)$"Become a basic member ({num}₵ a week)") : $"成为基础会员（{num}₵ 一周）") : (L.En ? L.Translate((System.FormattableString)$"Subscribe ({num}₵, first week included)") : $"开通（{num}₵，含第一周）"));
+			text2 = (flag ? (L.En ? L.K("malice.malicePanel.draw.becomeBasicMemberWeek", (System.FormattableString)$"Become a basic member ({num}₵ a week)") : $"成为基础会员（{num}₵ 一周）") : (L.En ? L.K("malice.malicePanel.draw.subscribeFirstWeekIncluded", (System.FormattableString)$"Subscribe ({num}₵, first week included)") : $"开通（{num}₵，含第一周）"));
 		}
 		if (Ui.Button(new Rect(r.x, y, 260f, 32f), text2, t.BtnHotStyle))
 		{
-			Say(Malice.Subscribe(c) ?? L.T("已续上。", "Done."));
+			Say(Malice.Subscribe(c) ?? L.K("malice.malicePanel.draw.done", "已续上。", "Done."));
 		}
-		if (Ui.Button(new Rect(r.x + 270f, y, 200f, 32f), (corpTerms.AutoRenew ? "☑ " : "☐ ") + L.T("自动续费", "Auto-renew"), t.BtnStyle))
+		if (Ui.Button(new Rect(r.x + 270f, y, 200f, 32f), (corpTerms.AutoRenew ? "☑ " : "☐ ") + L.K("malice.malicePanel.draw.autoRenew", "自动续费", "Auto-renew"), t.BtnStyle))
 		{
 			corpTerms.AutoRenew = !corpTerms.AutoRenew;
 		}
 		y += 38f;
-		GUI.Label(new Rect(r.x, y, r.width, 40f), L.T("续费每次管 7 天，最多提前续一周，到期前一天提醒。自动续费只在扣完后还够交房租时才扣。", "Each renewal covers 7 days, at most one week ahead; you get a reminder the day before. Auto-renew only charges if you can still pay rent afterwards."), t.Small);
+		GUI.Label(new Rect(r.x, y, r.width, 40f), L.K("malice.malicePanel.draw.eachRenewalCoversDaysMost", "续费每次管 7 天，最多提前续一周，到期前一天提醒。自动续费只在扣完后还够交房租时才扣。", "Each renewal covers 7 days, at most one week ahead; you get a reminder the day before. Auto-renew only charges if you can still pay rent afterwards."), t.Small);
 		y += 44f;
 		}
 		if (!flag)
 		{
 			Ui.Fill(new Rect(r.x, y, r.width, 1f), t.Line);
 			y += 8f;
-			GUI.Label(new Rect(r.x, y, r.width, 24f), L.T("目录解锁", "Catalog unlocks"), t.Body);
+			GUI.Label(new Rect(r.x, y, r.width, 24f), L.K("malice.malicePanel.draw.catalogUnlocks", "目录解锁", "Catalog unlocks"), t.Body);
 			y += 26f;
 			int num2 = c.Tier(companyState);
 			for (int i = 2; i <= 3; i++)
@@ -81,42 +81,42 @@ internal static class MalicePanel
 				string text4;
 				if (corpTerms.Unlocked >= i)
 				{
-					text4 = L.T("已解锁", "Unlocked");
+					text4 = L.K("malice.malicePanel.draw.unlockedLabel", "已解锁", "Unlocked");
 				}
 				else
 				{
-					text4 = ((num2 < i) ? L.T("合作度未到", "Cooperation too low") : (L.En ? L.Translate((System.FormattableString)$"Can apply ({Malice.ApplyFee[i]}₵)") : $"可申请（{Malice.ApplyFee[i]}₵）"));
+					text4 = ((num2 < i) ? L.K("malice.malicePanel.draw.cooperationTooLow", "合作度未到", "Cooperation too low") : (L.En ? L.K("malice.malicePanel.draw.canApply", (System.FormattableString)$"Can apply ({Malice.ApplyFee[i]}₵)") : $"可申请（{Malice.ApplyFee[i]}₵）"));
 				}
 				GUI.Label(new Rect(r.x, y, 260f, 28f), text3 + "：" + text4, t.Small);
-				if (corpTerms.Unlocked == i - 1 && num2 >= i && Ui.Button(new Rect(r.x + 270f, y, 200f, 28f), (L.En ? L.Translate((System.FormattableString)$"Apply ({Malice.ApplyFee[i]}₵)") : $"申请（{Malice.ApplyFee[i]}₵）"), t.BtnStyle))
+				if (corpTerms.Unlocked == i - 1 && num2 >= i && Ui.Button(new Rect(r.x + 270f, y, 200f, 28f), (L.En ? L.K("malice.malicePanel.draw.apply", (System.FormattableString)$"Apply ({Malice.ApplyFee[i]}₵)") : $"申请（{Malice.ApplyFee[i]}₵）"), t.BtnStyle))
 				{
-					Say(Malice.ApplyUnlock(c) ?? L.T("已解锁。", "Unlocked."));
+					Say(Malice.ApplyUnlock(c) ?? L.K("malice.malicePanel.draw.unlockedNotice", "已解锁。", "Unlocked."));
 				}
 				y += 32f;
 			}
-			GUI.Label(new Rect(r.x, y, r.width, 40f), (L.En ? L.Translate((System.FormattableString)$"Signed-tier goods need no application. Weekly limits: {Malice.TierLimit[1]} / {Malice.TierLimit[2]} / {Malice.TierLimit[3]} per tier.") : $"签约档的货不用申请。每周限量：签约档 {Malice.TierLimit[1]} 份，{c.TierNames[1]} {Malice.TierLimit[2]} 份，{c.TierNames[2]} {Malice.TierLimit[3]} 份。"), t.Small);
+			GUI.Label(new Rect(r.x, y, r.width, 40f), (L.En ? L.K("malice.malicePanel.draw.signedTierGoodsNeedNo", (System.FormattableString)$"Signed-tier goods need no application. Weekly limits: {Malice.TierLimit[1]} / {Malice.TierLimit[2]} / {Malice.TierLimit[3]} per tier.") : $"签约档的货不用申请。每周限量：签约档 {Malice.TierLimit[1]} 份，{c.TierNames[1]} {Malice.TierLimit[2]} 份，{c.TierNames[2]} {Malice.TierLimit[3]} 份。"), t.Small);
 			y += 44f;
 		}
 		if (c.Id == "meridian" && RebelStory.Ch2BribeOpen)
 		{
 			int num3 = RebelStory.Ch2BribePrice();
-			if (Ui.Button(new Rect(r.x, y, 300f, 30f), (L.En ? L.Translate((System.FormattableString)$"Quiet payment ({num3}₵, a “sample” arrives tomorrow)") : $"私下打点（{num3}₵，明天送“样品”）"), t.BtnHotStyle))
+			if (Ui.Button(new Rect(r.x, y, 300f, 30f), (L.En ? L.K("malice.malicePanel.draw.quietPaymentSampleArrivesTomorrow", (System.FormattableString)$"Quiet payment ({num3}₵, a “sample” arrives tomorrow)") : $"私下打点（{num3}₵，明天送“样品”）"), t.BtnHotStyle))
 			{
-				Say(RebelStory.BribeMeridian() ?? L.T("明天送到。", "Arrives tomorrow."));
+				Say(RebelStory.BribeMeridian() ?? L.K("malice.malicePanel.draw.arrivesTomorrow", "明天送到。", "Arrives tomorrow."));
 			}
 			y += 36f;
 		}
 		if (c.Id == "meridian" && RebelStory.Ch2ReorderOpen)
 		{
-			if (Ui.Button(new Rect(r.x, y, 340f, 30f), L.T("检查库存并补订炸弹", "Check storage and reorder bomb"), t.BtnHotStyle))
-				Say(RebelStory.ReorderBomb() ?? L.T("补订成功，明天送到。", "Replacement ordered. Arrives tomorrow."));
+			if (Ui.Button(new Rect(r.x, y, 340f, 30f), L.K("malice.malicePanel.draw.checkStorageReorderBomb", "检查库存并补订炸弹", "Check storage and reorder bomb"), t.BtnHotStyle))
+				Say(RebelStory.ReorderBomb() ?? L.K("malice.malicePanel.draw.replacementOrderedArrivesTomorrow", "补订成功，明天送到。", "Replacement ordered. Arrives tomorrow."));
 			y += 36f;
 		}
 		Ui.Fill(new Rect(r.x, y, r.width, 1f), t.Line);
 		y += 8f;
-		GUI.Label(new Rect(r.x, y, r.width, 24f), (L.En ? L.Translate((System.FormattableString)$"Vouchers: {corpTerms.Vouchers}₵") : $"代金券余额：{corpTerms.Vouchers}₵"), t.Body);
+		GUI.Label(new Rect(r.x, y, r.width, 24f), (L.En ? L.K("malice.malicePanel.draw.vouchers", (System.FormattableString)$"Vouchers: {corpTerms.Vouchers}₵") : $"代金券余额：{corpTerms.Vouchers}₵"), t.Body);
 		y += 26f;
-		GUI.Label(new Rect(r.x, y, r.width, 40f), L.T($"在{c.Name}每笔实付现金每满 {Malice.VoucherDivisor}₵ 返 1₵ 代金券。代金券只在该公司使用，付款时优先抵扣。", L.Translate((System.FormattableString)$"Earn 1₵ in vouchers per {Malice.VoucherDivisor}₵ paid in cash on each purchase. Vouchers are used first and only at {c.Name}.")), t.Wrap);
+		GUI.Label(new Rect(r.x, y, r.width, 40f), L.K("malice.malicePanel.draw.earnVouchersPerPaidCash", $"在{c.Name}每笔实付现金每满 {Malice.VoucherDivisor}₵ 返 1₵ 代金券。代金券只在该公司使用，付款时优先抵扣。", (System.FormattableString)$"Earn 1₵ in vouchers per {Malice.VoucherDivisor}₵ paid in cash on each purchase. Vouchers are used first and only at {c.Name}."), t.Wrap);
 		if (!string.IsNullOrEmpty(_msg) && Time.unscaledTime < _msgUntil)
 		{
 			GUI.Label(new Rect(r.x, r.yMax - 26f, r.width, 24f), _msg, t.Body);

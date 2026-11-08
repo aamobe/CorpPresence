@@ -84,6 +84,7 @@ internal sealed class PastelCo : Company
 			Id = "@hemingway_genuine",
 			Page = "海明威",
 			Label = "海明威香烟（正品）",
+			LabelKey = "companies.catalog.hemingwayCigarettesGenuine.name",
 			LabelEn = "Hemingway Cigarettes (Genuine)"
 		},
 		new CatalogEntry
@@ -110,6 +111,7 @@ internal sealed class PastelCo : Company
 			MinTier = 3,
 			WeeklyLimit = 2,
 			Label = "海明威限量包装",
+			LabelKey = "companies.catalog.hemingwayLimitedEdition.name",
 			LabelEn = "Hemingway Limited Edition"
 		},
 		new CatalogEntry
@@ -145,19 +147,19 @@ internal sealed class PastelCo : Company
 
 	public override string Id => "pastel";
 
-	public override string Name => L.T("帕斯泰尔公司", "pastel Inc.");
+	public override string Name => L.K("companies.pastel.name.pastelInc", "帕斯泰尔公司", "pastel Inc.");
 
 	public override string CharacterId => "milo";
 
 	public override long PhoneNumber => 72783L;
 
-	public override string[] TierNames => L.T(new string[3] { "签约", "长期客户", "合作伙伴" }, new string[3] { "Signed", "Regular Client", "Partner" });
+	public override string[] TierNames => new string[3] { L.K("companies.pastel.tierNames.signed", "签约", "Signed"), L.K("companies.pastel.tierNames.regularClient", "长期客户", "Regular Client"), L.K("companies.pastel.tierNames.partner", "合作伙伴", "Partner") };
 
-	public override string CardFlavor => L.T("订货热线 72783。背面印着营养果的广告。", "Order hotline 72783. A Nutrifruit ad on the back.");
+	public override string CardFlavor => L.K("companies.pastel.cardFlavor.orderHotlineNutrifruitAdBack", "订货热线 72783。背面印着营养果的广告。", "Order hotline 72783. A Nutrifruit ad on the back.");
 
-	public override string DeskName => L.T("帕斯泰尔前台", "pastel Front Desk");
+	public override string DeskName => L.K("companies.pastel.deskName.pastelFrontDesk", "帕斯泰尔前台", "pastel Front Desk");
 
-	public override string DeskAsk => L.T("看看今天的单子？", "Want to see today's list?");
+	public override string DeskAsk => L.K("companies.pastel.deskAsk.wantSeeTodaySList", "看看今天的单子？", "Want to see today's list?");
 
 	public override CatalogEntry[] Catalog => Entries;
 
@@ -165,12 +167,12 @@ internal sealed class PastelCo : Company
 
 	public override string[] FrontDesk => new string[3]
 	{
-		L.T("帕斯泰尔订货热线！今天要点什么？", "pastel order hotline! What'll it be today?"),
-		L.T("您好，帕斯泰尔。营养果今天有货。", "Hello, pastel. Nutrifruit's in stock today."),
-		L.T("帕斯泰尔，什么都有。您说。", "pastel. We've got everything. Go ahead.")
+		L.K("companies.pastel.frontDesk.pastelOrderHotlineWhatLl", "帕斯泰尔订货热线！今天要点什么？", "pastel order hotline! What'll it be today?"),
+		L.K("companies.pastel.frontDesk.helloPastelNutrifruitSStock", "您好，帕斯泰尔。营养果今天有货。", "Hello, pastel. Nutrifruit's in stock today."),
+		L.K("companies.pastel.frontDesk.pastelWeVeGotEverything", "帕斯泰尔，什么都有。您说。", "pastel. We've got everything. Go ahead.")
 	};
 
-	public override string FrontDeskDone => L.T("好嘞，明天就到！", "You got it. Arriving tomorrow!");
+	public override string FrontDeskDone => L.K("companies.pastel.frontDeskDone.gotArrivingTomorrow", "好嘞，明天就到！", "You got it. Arriving tomorrow!");
 
 	public static int DealerFee => Services.Fee("pastel", "dealer", 300);
 
@@ -236,7 +238,7 @@ internal sealed class PastelCo : Company
 		}
 		try
 		{
-			item.SetName(L.T("海明威限量包装", "Hemingway Limited Edition"));
+			item.SetName(L.K("companies.pastel.applyLimited.hemingwayLimitedEdition", "海明威限量包装", "Hemingway Limited Edition"));
 		}
 		catch
 		{
@@ -250,7 +252,7 @@ internal sealed class PastelCo : Company
 		}
 		try
 		{
-			item.flavorText = L.T(LimitedFlavor.Zh, LimitedFlavor.En);
+			item.flavorText = L.K("companies.pastel.limitedFlavor", LimitedFlavor.Zh, LimitedFlavor.En);
 		}
 		catch
 		{

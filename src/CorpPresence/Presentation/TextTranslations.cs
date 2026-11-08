@@ -6,15 +6,28 @@ namespace CorpPresence;
 
 internal static class TextTranslations
 {
-	private static readonly Lazy<Dictionary<string, string[]>> Catalog = new(LoadCatalog);
+	private static readonly Lazy<Dictionary<string, string[]>> Catalog = new(() => LoadCatalog("CorpPresence.Translations.json"));
+	private static readonly Lazy<Dictionary<string, string[]>> KeyedCatalog = new(() => LoadCatalog("CorpPresence.Translations.Keys.json"));
 
-	internal static bool HasLocale(string locale) => LanguageIndex(locale) >= 0;
+	internal static bool HasLocale(string locale) => LanguageIndex(locale) >= 0 || ExternalTranslations.HasLocale(locale);
 
 	private static int LanguageIndex(string locale)
 	{
-		if (locale.StartsWith("ru", StringComparison.OrdinalIgnoreCase)) return 0;
-		if (locale.StartsWith("fr", StringComparison.OrdinalIgnoreCase)) return 1;
+		if (string.IsNullOrEmpty(locale)) return -1;
+		if (IsBuiltInLocale(locale, "ru")) return 0;
+		if (IsBuiltInLocale(locale, "fr")) return 1;
 		return -1;
+	}
+	internal static bool IsBuiltInLocale(string locale, string language) => locale != null &&
+		(string.Equals(locale, language, StringComparison.OrdinalIgnoreCase) || locale.StartsWith(language + "-", StringComparison.OrdinalIgnoreCase) || locale.StartsWith(language + "_", StringComparison.OrdinalIgnoreCase));
+
+	internal static string FormatKey(string key, string english, string locale, params object[] arguments)
+	{
+		var source = System.Runtime.CompilerServices.FormattableStringFactory.Create(english, arguments);
+		if (ExternalTranslations.TryFormat(key, source, locale, out var external)) return external;
+		string format = SelectBuiltInKey(key, english, locale);
+		try { return string.Format(format, arguments); }
+		catch (FormatException) { return source.ToString(); }
 	}
 
 	internal static string Select(string english, string locale)
@@ -27,11 +40,28 @@ internal static class TextTranslations
 		return english;
 	}
 
-	private static Dictionary<string, string[]> LoadCatalog()
+	// Stable keys are presentation identifiers only. Missing entries keep the legacy fallback.
+	internal static string SelectKey(string key, string english, string locale)
+	{
+		return ExternalTranslations.TryGet(key, english, locale, out var external) ? external : SelectBuiltInKey(key, english, locale);
+	}
+
+	internal static string SelectBuiltInKey(string key, string english, string locale)
+	{
+		if (english == null) return null;
+		int language = LanguageIndex(locale);
+		if (language < 0) return english;
+		if (key != null && KeyedCatalog.Value.TryGetValue(key, out var localized) &&
+			localized?.Length > language && !string.IsNullOrEmpty(localized[language]))
+			return localized[language];
+		return Select(english, locale);
+	}
+
+	private static Dictionary<string, string[]> LoadCatalog(string resourceName)
 	{
 		try
 		{
-			using Stream stream = typeof(TextTranslations).Assembly.GetManifestResourceStream("CorpPresence.Translations.json");
+			using Stream stream = typeof(TextTranslations).Assembly.GetManifestResourceStream(resourceName);
 			if (stream != null)
 			{
 				using var reader = new StreamReader(stream);

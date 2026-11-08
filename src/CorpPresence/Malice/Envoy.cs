@@ -196,7 +196,7 @@ internal static class Envoy
 				s.RepayLeft = AidRepayWeeks;
 				s.RepayDue = Day + 7;
 				ModLog.Info($"恶意巨企：第 {Day} 天扶持金转还款，订购服务已到期：{lapsed}");
-				Notify(L.T($"帕斯泰尔或卡迈克尔的订阅断了。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", L.Translate((System.FormattableString)$"Your Pastel or Carmicheal subscription lapsed. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks.")));
+				Notify(L.K("malice.envoy.onDayStart.pastelOrCarmichealSubscriptionLapsed", $"帕斯泰尔或卡迈克尔的订阅断了。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", (System.FormattableString)$"Your Pastel or Carmicheal subscription lapsed. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks."));
 			}
 		}
 		if ((s.Aid == "repay5" || s.Aid == "plan6") && s.RepayDue >= 0 && s.RepayDue <= Day && !Booked("repay"))
@@ -219,7 +219,7 @@ internal static class Envoy
 			s.ChannelUntil = Day + ChannelWeeks * 7;
 			s.ChannelDue = Day + 7;
 			s.ChannelFee = 0;
-			Notify(L.T($"礼物逾期未送达。接下来 {ChannelWeeks * 7} 天，卖出巨企目录商品时按成交额的 {ChannelRate * 100:0}% 计提渠道费。", L.Translate((System.FormattableString)$"The gift missed its deadline. For the next {ChannelWeeks * 7} days, the corporations charge {ChannelRate * 100:0}% of each catalog sale as a channel fee.")));
+			Notify(L.K("malice.envoy.onDayStart.giftMissedItsDeadlineNext", $"礼物逾期未送达。接下来 {ChannelWeeks * 7} 天，卖出巨企目录商品时按成交额的 {ChannelRate * 100:0}% 计提渠道费。", (System.FormattableString)$"The gift missed its deadline. For the next {ChannelWeeks * 7} days, the corporations charge {ChannelRate * 100:0}% of each catalog sale as a channel fee."));
 		}
 		if (s.Ch2 == "malice" && s.ChannelDue >= 0 && s.ChannelDue <= Day && !Booked("channel"))
 		{
@@ -237,7 +237,7 @@ internal static class Envoy
 			}
 			s.RetaliateFrom = Day;
 			s.RetaliateUntil = Day + 2;
-			Notify(L.T("昨天那颗礼物在反抗军的据点爆炸。反抗军开始对你进行报复虽然被治安部拦下，但还是造成了影响：这几天来的顾客少了。", "Yesterday's gift went off in a Resistance safehouse. The Resistance struck back at you; Security stopped them, but the damage is done: fewer customers will come for a few days."));
+			Notify(L.K("malice.envoy.onDayStart.yesterdaySGiftWentOff", "昨天那颗礼物在反抗军的据点爆炸。反抗军开始对你进行报复虽然被治安部拦下，但还是造成了影响：这几天来的顾客少了。", "Yesterday's gift went off in a Resistance safehouse. The Resistance struck back at you; Security stopped them, but the damage is done: fewer customers will come for a few days."));
 		}
 		if (s.RetaliateUntil >= 0 && Day > s.RetaliateUntil && !s.OdinUnderstood && !Booked("odin"))
 		{
@@ -283,7 +283,7 @@ internal static class Envoy
 				{
 				}
 			}
-			Notify(L.T("导师留了话，让你回个电话（商人联合）。", "The Mentor left word: call him back (Merchant Union)."));
+			Notify(L.K("malice.envoy.onDayStart.mentorLeftWordCallHim", "导师留了话，让你回个电话（商人联合）。", "The Mentor left word: call him back (Merchant Union)."));
 		}
 		if (!(s.Ch4 == "silent") || s.Agent)
 		{
@@ -488,19 +488,19 @@ internal static class Envoy
 	private static StoreClient Create(string kind)
 	{
 		EnvoyState s = S;
-		string name = L.T("撒该", "Zacchaeus");
+		string name = L.K("malice.envoy.create.zacchaeus", "撒该", "Zacchaeus");
 		switch (kind)
 		{
 		case "aid":
 			return Talk(kind, name, Sprite, new string[3]
 			{
-				L.T("您好。我是撒该·索恩，联合站区管理处站长。", "Good day. I'm Zacchaeus Thorne, director of the Joint District Administration."),
-				L.T("我们注意到您的生意最近不错，想必很需要一笔扶持金来扩大规模。", "We've noticed business has been good lately. Surely you could use a grant to expand."),
-				L.T($"管理处可以提供一笔 {2000}₵ 扶持金，甚至不用您偿还。条件很简单：连续三周订阅帕斯泰尔和卡迈克尔的订购服务，我的朋友们最近需要扩大市场。", L.Translate((System.FormattableString)$"The Administration can offer a {2000}₵ grant, and you needn't even repay it. One simple condition: keep Pastel and Carmicheal's ordering services subscribed for three weeks straight. My friends are looking to expand their market."))
-			}, L.T("您意下如何？", "What do you say?"), new (string, string, Action)[2]
+				L.K("malice.envoy.create.goodDayIMZacchaeus", "您好。我是撒该·索恩，联合站区管理处站长。", "Good day. I'm Zacchaeus Thorne, director of the Joint District Administration."),
+				L.K("malice.envoy.create.weVeNoticedBusinessHas", "我们注意到您的生意最近不错，想必很需要一笔扶持金来扩大规模。", "We've noticed business has been good lately. Surely you could use a grant to expand."),
+				L.K("malice.envoy.create.administrationCanOfferGrantNeedn", $"管理处可以提供一笔 {2000}₵ 扶持金，甚至不用您偿还。条件很简单：连续三周订阅帕斯泰尔和卡迈克尔的订购服务，我的朋友们最近需要扩大市场。", (System.FormattableString)$"The Administration can offer a {2000}₵ grant, and you needn't even repay it. One simple condition: keep Pastel and Carmicheal's ordering services subscribed for three weeks straight. My friends are looking to expand their market.")
+			}, L.K("malice.envoy.create.whatDoSay", "您意下如何？", "What do you say?"), new (string, string, Action)[2]
 			{
-				Opt(L.T("我接受。", "I accept."), L.T("明智。钱已经放在柜台上了。", "Wise. The money is on your counter."), AcceptAid),
-				Opt(L.T("不用了。", "No thanks."), L.T("可惜。站区的物价最近恐怕会有些波动。", "A pity. Prices in the district may become somewhat volatile."), DeclineAid)
+				Opt(L.K("malice.envoy.create.iAccept", "我接受。", "I accept."), L.K("malice.envoy.create.wiseMoneyCounter", "明智。钱已经放在柜台上了。", "Wise. The money is on your counter."), AcceptAid),
+				Opt(L.K("malice.envoy.create.noThanks", "不用了。", "No thanks."), L.K("malice.envoy.create.pityPricesDistrictMayBecome", "可惜。站区的物价最近恐怕会有些波动。", "A pity. Prices in the district may become somewhat volatile."), DeclineAid)
 			}, () =>
 			{
 				s.Met = true;
@@ -509,8 +509,8 @@ internal static class Envoy
 		case "medal":
 			return Talk(kind, name, Sprite, new string[2]
 			{
-				L.T("三周，一天不落。联合管理处很满意您信守承诺。", "Three weeks, not a day missed. The Administration appreciates someone who keeps their word."),
-				L.T("这枚奖牌请收下。摆在显眼的地方，上层区的客人会注意到。", "Please accept this medal. Display it somewhere visible; Upper Levels clients will notice.")
+				L.K("malice.envoy.create.threeWeeksNotDayMissed", "三周，一天不落。联合管理处很满意您信守承诺。", "Three weeks, not a day missed. The Administration appreciates someone who keeps their word."),
+				L.K("malice.envoy.create.pleaseAcceptThisMedalDisplay", "这枚奖牌请收下。摆在显眼的地方，上层区的客人会注意到。", "Please accept this medal. Display it somewhere visible; Upper Levels clients will notice.")
 			}, null, null, () =>
 			{
 				s.Medal = true;
@@ -518,34 +518,34 @@ internal static class Envoy
 			});
 		case "repay":
 			if (s.Aid != "repay5" && s.Aid != "plan6") return null;
-			return Talk(kind, name, Sprite, new string[1] { L.T($"这周的 {Installment}₵。", L.Translate((System.FormattableString)$"This week's {Installment}₵.")) }, L.T($"还剩 {s.RepayLeft} 期。", L.Translate((System.FormattableString)$"{s.RepayLeft} installment(s) left.")), new (string, string, Action)[2]
+			return Talk(kind, name, Sprite, new string[1] { L.K("malice.envoy.create.thisWeekS", $"这周的 {Installment}₵。", (System.FormattableString)$"This week's {Installment}₵.") }, L.K("malice.envoy.create.installmentSLeft", $"还剩 {s.RepayLeft} 期。", (System.FormattableString)$"{s.RepayLeft} installment(s) left."), new (string, string, Action)[2]
 			{
-				Opt(L.T($"给你 {Installment}₵。", L.Translate((System.FormattableString)$"Here's {Installment}₵.")), L.T("合作愉快。", "A pleasure."), PayInstallment),
-				Opt(L.T("这周拿不出来。", "I can't pay this week."), L.T("我会如实记下的。", "I'll note that accurately."), MissInstallment)
+				Opt(L.K("malice.envoy.create.hereS", $"给你 {Installment}₵。", (System.FormattableString)$"Here's {Installment}₵."), L.K("malice.envoy.create.pleasure", "合作愉快。", "A pleasure."), PayInstallment),
+				Opt(L.K("malice.envoy.create.iCanTPayThis", "这周拿不出来。", "I can't pay this week."), L.K("malice.envoy.create.iLlNoteThatAccurately", "我会如实记下的。", "I'll note that accurately."), MissInstallment)
 			}, null);
 		case "ch2":
 			return Talk(kind, name, Sprite, new string[3]
 			{
-				L.T("生意兴隆。管理处其实一直在为您的店铺提供看不见的服务，我觉得您需要做出一些表示。", "Business is thriving. The Administration has quietly been providing your shop with services you never see. I think a gesture of thanks is in order."),
-				L.T($"这些服务的费用是 {1500}₵。", L.Translate((System.FormattableString)$"Those services come to {1500}₵.")),
-				L.T("或者……您可以帮我们一个小忙。有一件东西，需要送到一位叫奥丁的人手里，我当然知道您和他很熟。", "Or... you could do us a small favor. There's a package that needs to reach a man named Odin. I know you two are well acquainted.")
-			}, L.T("您选哪一样？", "Which will it be?"), new (string, string, Action)[3]
+				L.K("malice.envoy.create.businessThrivingAdministrationHasQuietly", "生意兴隆。管理处其实一直在为您的店铺提供看不见的服务，我觉得您需要做出一些表示。", "Business is thriving. The Administration has quietly been providing your shop with services you never see. I think a gesture of thanks is in order."),
+				L.K("malice.envoy.create.thoseServicesCome", $"这些服务的费用是 {1500}₵。", (System.FormattableString)$"Those services come to {1500}₵."),
+				L.K("malice.envoy.create.orCouldDoUsSmall", "或者……您可以帮我们一个小忙。有一件东西，需要送到一位叫奥丁的人手里，我当然知道您和他很熟。", "Or... you could do us a small favor. There's a package that needs to reach a man named Odin. I know you two are well acquainted.")
+			}, L.K("malice.envoy.create.whichWillBe", "您选哪一样？", "Which will it be?"), new (string, string, Action)[3]
 			{
-				Opt(L.T($"我付 {1500}₵。", L.Translate((System.FormattableString)$"I'll pay {1500}₵.")), L.T("感谢您的配合。", "Thank you for your cooperation."), () =>
+				Opt(L.K("malice.envoy.create.iLlPay", $"我付 {1500}₵。", (System.FormattableString)$"I'll pay {1500}₵."), L.K("malice.envoy.create.thankCooperation", "感谢您的配合。", "Thank you for your cooperation."), () =>
 				{
 					Say(PayServiceFee());
 				}),
-				Opt(L.T("东西给我吧。", "Give me the gift."), L.T("拿到礼物后，您有两周。通过反抗军电话预约奥丁，再把礼物卖给他。办成了，订购服务的订阅费我想我可以帮您免去。", "Once you receive the gift, you have two weeks. Book Odin through the Resistance phone and sell it to him. Do this, and I believe I can waive your subscription fees."), () => Say(AcceptBomb())),
-				Opt(L.T("都不干。", "Neither."), L.T("那么巨企的订货通道，暂时可能就不对您开放了。当然想通了打我电话。", "Then the corporate ordering channel may be closed to you for a while. Do call me when you've reconsidered."), RefuseCh2)
+				Opt(L.K("malice.envoy.create.giveMeGift", "东西给我吧。", "Give me the gift."), L.K("malice.envoy.create.onceReceiveGiftHaveTwo", "拿到礼物后，您有两周。通过反抗军电话预约奥丁，再把礼物卖给他。办成了，订购服务的订阅费我想我可以帮您免去。", "Once you receive the gift, you have two weeks. Book Odin through the Resistance phone and sell it to him. Do this, and I believe I can waive your subscription fees."), () => Say(AcceptBomb())),
+				Opt(L.K("malice.envoy.create.neither", "都不干。", "Neither."), L.K("malice.envoy.create.thenCorporateOrderingChannelMay", "那么巨企的订货通道，暂时可能就不对您开放了。当然想通了打我电话。", "Then the corporate ordering channel may be closed to you for a while. Do call me when you've reconsidered."), RefuseCh2)
 			}, null);
 		case "channel":
-			return Talk(kind, name, Sprite, new string[1] { L.T("我来结算目前已记的渠道费。未交的房租会给您留出来。", "I'm here to settle the channel fees accrued so far. I'll leave enough for any rent you still owe.") }, null, null, CollectChannel);
+			return Talk(kind, name, Sprite, new string[1] { L.K("malice.envoy.create.iMHereSettleChannel", "我来结算目前已记的渠道费。未交的房租会给您留出来。", "I'm here to settle the channel fees accrued so far. I'll leave enough for any rent you still owe.") }, null, null, CollectChannel);
 		case "odin":
-			return Talk(kind, L.T("奥丁", "Odin"), "wanted4", new string[3]
+			return Talk(kind, L.K("malice.envoy.create.odin", "奥丁", "Odin"), "wanted4", new string[3]
 			{
-				L.T("别紧张。我不是来算账的。", "Relax. I'm not here to settle scores."),
-				L.T("我知道那颗炸弹是谁给你的。我也知道你是被逼的。", "I know who gave you that bomb. I also know you were forced."),
-				L.T("下层区的人都一样，脖子上都套着他们的绳子。", "Everyone down here is the same. Their noose around every neck.")
+				L.K("malice.envoy.create.relaxIMNotHere", "别紧张。我不是来算账的。", "Relax. I'm not here to settle scores."),
+				L.K("malice.envoy.create.iKnowWhoGaveThat", "我知道那颗炸弹是谁给你的。我也知道你是被逼的。", "I know who gave you that bomb. I also know you were forced."),
+				L.K("malice.envoy.create.everyoneDownHereSameTheir", "下层区的人都一样，脖子上都套着他们的绳子。", "Everyone down here is the same. Their noose around every neck.")
 			}, null, null, () =>
 			{
 				s.OdinUnderstood = true;
@@ -553,19 +553,19 @@ internal static class Envoy
 		case "ch3":
 			return Talk(kind, name, Sprite, new string[3]
 			{
-				L.T("恭喜您买下了这间店。从今天起，您是这家店真正的店主了。", "Congratulations on buying the shop. As of today, it's truly yours."),
-				L.T("不过店主理所应当的应该和管理处站在一方我们会为您争取新的利益：订货九折，每周一份物资补贴，甚至治安部那边我们也替您打招呼，不会过分追究您做了什么。", "But an owner naturally belongs on the Administration's side, and we'll secure new benefits for you: 10% off orders, a weekly supply subsidy, and we'll even have a word with Security so they won't look too closely at what you've done."),
-				L.T("当然，您得和那些老鼠断干净。", "Naturally, you'd cut ties with those rats.")
-			}, L.T("加入我们吗？", "Will you join us?"), new (string, string, Action)[2]
+				L.K("malice.envoy.create.congratulationsBuyingShopAsToday", "恭喜您买下了这间店。从今天起，您是这家店真正的店主了。", "Congratulations on buying the shop. As of today, it's truly yours."),
+				L.K("malice.envoy.create.butOwnerNaturallyBelongsAdministration", "不过店主理所应当的应该和管理处站在一方我们会为您争取新的利益：订货九折，每周一份物资补贴，甚至治安部那边我们也替您打招呼，不会过分追究您做了什么。", "But an owner naturally belongs on the Administration's side, and we'll secure new benefits for you: 10% off orders, a weekly supply subsidy, and we'll even have a word with Security so they won't look too closely at what you've done."),
+				L.K("malice.envoy.create.naturallyDCutTiesWith", "当然，您得和那些老鼠断干净。", "Naturally, you'd cut ties with those rats.")
+			}, L.K("malice.envoy.create.willJoinUs", "加入我们吗？", "Will you join us?"), new (string, string, Action)[2]
 			{
-				Opt(L.T("加入。", "I'm in."), L.T("欢迎。", "Welcome."), JoinCorps),
-				Opt(L.T("不了。", "No."), L.T("您会后悔的。", "You'll regret this."), RefuseCorps)
+				Opt(L.K("malice.envoy.create.iM", "加入。", "I'm in."), L.K("malice.envoy.create.welcome", "欢迎。", "Welcome."), JoinCorps),
+				Opt(L.K("malice.envoy.create.no", "不了。", "No."), L.K("malice.envoy.create.llRegretThis", "您会后悔的。", "You'll regret this."), RefuseCorps)
 			}, null);
 		case "finale":
 			return Talk(kind, name, Sprite, new string[2]
 			{
 				"……",
-				L.T("……", "...")
+				L.K("malice.envoy.create.text", "……", "...")
 			}, null, null, Finale);
 		default:
 			if (kind.StartsWith("coin:"))
@@ -599,8 +599,8 @@ internal static class Envoy
 		}
 		return Talk("coin:" + companyId, character.Name, sprite, new string[2]
 		{
-			L.T(company.Name + "让我把这个交给你。", company.Name + L.Translate(" asked me to give you this.")),
-			L.T("他们说，你是被选中的人。", "They say you're one of the chosen.")
+			L.K("composed.envoy.coinVisit.askedMeToGiveYouThis", company.Name + "让我把这个交给你。", System.Runtime.CompilerServices.FormattableStringFactory.Create("{0} asked me to give you this.", new object[] { company.Name })),
+			L.K("malice.envoy.coinVisit.theySayReOneChosen", "他们说，你是被选中的人。", "They say you're one of the chosen.")
 		}, null, null, () =>
 		{
 			S.Coins.Add(companyId);
@@ -622,7 +622,7 @@ internal static class Envoy
 		{
 			if (!Malice.Subscribed(Companies.Find(id)))
 			{
-				Notify(L.T("记得开通" + Companies.Find(id).Name + "的订购服务（援助条件）。", L.Translate("Remember to subscribe to ") + Companies.Find(id).Name + L.Translate("'s ordering service (aid condition).")));
+				Notify(L.K("composed.envoy.acceptAid.rememberToSubscribeToSOrderingService", "记得开通" + Companies.Find(id).Name + "的订购服务（援助条件）。", System.Runtime.CompilerServices.FormattableStringFactory.Create("Remember to subscribe to {0}\u0027s ordering service (aid condition).", new object[] { Companies.Find(id).Name })));
 			}
 		}
 		ModLog.Info($"恶意巨企：接受援助 {2000}₵");
@@ -649,7 +649,7 @@ internal static class Envoy
 		if (store.GetCash() < Installment)
 		{
 			MissInstallment();
-			Notify(L.T("现金不够，这期没交上。", "Not enough cash: this installment is missed."));
+			Notify(L.K("malice.envoy.payInstallment.notEnoughCashThisInstallment", "现金不够，这期没交上。", "Not enough cash: this installment is missed."));
 			return;
 		}
 		store.PayMoney(Installment, playRegisterSound: true);
@@ -672,14 +672,14 @@ internal static class Envoy
 			{
 				s.Aid = "punished";
 				s.RepayDue = -1;
-				Notify(L.T("你没交上撒该的钱。所有公司服务暂停（反抗军除外），撒该开始“问候”你的客人。打他的电话可以答应还款计划。", "You missed Zacchaeus's payment. All company services are suspended (except the Resistance), and he's started “visiting” your customers. Call him to agree to a repayment plan."));
+				Notify(L.K("malice.envoy.missInstallment.missedZacchaeusSPaymentAll", "你没交上撒该的钱。所有公司服务暂停（反抗军除外），撒该开始“问候”你的客人。打他的电话可以答应还款计划。", "You missed Zacchaeus's payment. All company services are suspended (except the Resistance), and he's started “visiting” your customers. Call him to agree to a repayment plan."));
 			}
 			else if (s.Aid == "plan6")
 			{
 				s.LateWeeks++;
 				s.RepayDue = Day + 7;
 				int surcharge = LateOrderSurchargePercent(s.LateWeeks);
-				Notify(L.T($"这期没交，顺延一周。巨企订货价格累计 +{surcharge}%，还完恢复。", L.Translate((System.FormattableString)$"Missed: pushed back a week. Corporate order prices are now +{surcharge}% until you finish paying.")));
+				Notify(L.K("malice.envoy.missInstallment.missedPushedBackWeekCorporate", $"这期没交，顺延一周。巨企订货价格累计 +{surcharge}%，还完恢复。", (System.FormattableString)$"Missed: pushed back a week. Corporate order prices are now +{surcharge}% until you finish paying."));
 			}
 		}
 	}
@@ -695,7 +695,7 @@ internal static class Envoy
 		{
 			Book("medal", Day + 1);
 		}
-		Notify(L.T("撒该的钱还清了。", "Zacchaeus has been paid in full."));
+		Notify(L.K("malice.envoy.finishRepayment.zacchaeusHasBeenPaidFull", "撒该的钱还清了。", "Zacchaeus has been paid in full."));
 	}
 
 	public static int RepaymentPlanWeeks(EnvoyState state) => Math.Clamp(state.RepayLeft, 0, AidRepayWeeks) + ReplanFeeInstallments;
@@ -713,11 +713,11 @@ internal static class Envoy
 		PlayerStore store = Store;
 		int amount = PayoffAmount(state);
 		if (store == null || amount <= 0)
-			return L.T("现在没有待还的扶持金。", "There is no aid balance due.");
+			return L.K("malice.envoy.payOffAid.thereNoAidBalanceDue", "现在没有待还的扶持金。", "There is no aid balance due.");
 		if (store.currentClientInstance?.GetClientBlueprint()?.identifier == "envoy_repay")
-			return L.T("请先结束柜台上的还款对话。", "Finish the repayment conversation at the counter first.");
+			return L.K("malice.envoy.payOffAid.finishRepaymentConversationCounterFirst", "请先结束柜台上的还款对话。", "Finish the repayment conversation at the counter first.");
 		if (store.GetCash() < amount)
-			return L.T("现金不够", "Not enough cash");
+			return L.K("malice.envoy.payOffAid.notEnoughCash", "现金不够", "Not enough cash");
 		store.PayMoney(amount, playRegisterSound: true);
 		FinishRepayment();
 		Done("repay");
@@ -730,7 +730,7 @@ internal static class Envoy
 		EnvoyState s = S;
 		if (s == null || s.Aid != "punished")
 		{
-			return L.T("现在不需要。", "Not needed right now.");
+			return L.K("malice.envoy.agreePlan.notNeededRightNow", "现在不需要。", "Not needed right now.");
 		}
 		s.Aid = "plan6";
 		s.RepayLeft = RepaymentPlanWeeks(s);
@@ -745,11 +745,11 @@ internal static class Envoy
 		EnvoyState s = S;
 		if (s.Ch2 != "" && s.Ch2 != "refused")
 		{
-			return L.T("现在不需要。", "Not needed right now.");
+			return L.K("malice.envoy.payServiceFee.notNeededRightNow", "现在不需要。", "Not needed right now.");
 		}
 		if (Store.GetCash() < 1500)
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("malice.envoy.payServiceFee.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		Store.PayMoney(1500, playRegisterSound: true);
 		s.Ch2 = "paid";
@@ -762,9 +762,9 @@ internal static class Envoy
 		EnvoyState s = S;
 		Func<bool> isCurrent = MaliceGuards.CaptureSession();
 		if (!isCurrent() || s == null)
-			return L.T("存档未就绪。", "Save not ready.");
+			return L.K("malice.envoy.acceptBomb.saveNotReady", "存档未就绪。", "Save not ready.");
 		if (_issuingBomb || s.Ch2 is not ("" or "refused" or BombPending))
-			return L.T("现在无法领取礼物。", "The gift cannot be claimed right now.");
+			return L.K("malice.envoy.acceptBomb.giftCannotBeClaimedRight", "现在无法领取礼物。", "The gift cannot be claimed right now.");
 
 		_issuingBomb = true;
 		try
@@ -772,10 +772,10 @@ internal static class Envoy
 			s.Ch2 = BombPending;
 			Done("ch2");
 			if (!TryFindEnvoyBomb(out bool present) || !isCurrent())
-				return L.T("暂时无法核对库存，礼物仍可稍后领取。", "Inventory could not be checked. You can claim the gift later.");
+				return L.K("malice.envoy.acceptBomb.inventoryCouldNotBeChecked", "暂时无法核对库存，礼物仍可稍后领取。", "Inventory could not be checked. You can claim the gift later.");
 			if (!present && !TryIssueBomb(isCurrent))
-				return L.T("礼物暂未入库。请留出库存空间，再打撒该的电话领取。", "The gift could not be placed. Make room in the shop and call Zacchaeus to claim it.");
-			if (!isCurrent()) return L.T("存档已切换。", "The active save has changed.");
+				return L.K("malice.envoy.acceptBomb.giftCouldNotBePlaced", "礼物暂未入库。请留出库存空间，再打撒该的电话领取。", "The gift could not be placed. Make room in the shop and call Zacchaeus to claim it.");
+			if (!isCurrent()) return L.K("malice.envoy.acceptBomb.activeSaveHasChanged", "存档已切换。", "The active save has changed.");
 			s.BombIssued = true;
 			s.BombDeadline = Day + BombDays;
 			s.BombPauseDay = -1;
@@ -815,8 +815,8 @@ internal static class Envoy
 			gameItem = ItemRegistry.Create("c4");
 			if (gameItem == null || !isCurrent()) return false;
 			gameItem.EnableTag(BombTag);
-			gameItem.SetName(L.T("撒该的礼物", "Zacchaeus's Gift"));
-			gameItem.shortDescription = L.T("只能交给通过反抗军电话预约来收礼物的奥丁。", "Deliver only to Odin booked through the Resistance phone to collect this gift.");
+			gameItem.SetName(L.K("malice.envoy.tryIssueBomb.zacchaeusSGift", "撒该的礼物", "Zacchaeus's Gift"));
+			gameItem.shortDescription = L.K("malice.envoy.tryIssueBomb.deliverOnlyOdinBookedThrough", "只能交给通过反抗军电话预约来收礼物的奥丁。", "Deliver only to Odin booked through the Resistance phone to collect this gift.");
 			return isCurrent() && StorePlacement.Place(gameItem);
 		}
 		catch (Exception error)
@@ -841,7 +841,7 @@ internal static class Envoy
 		s.BombDeadline = -1;
 		s.BombPauseDay = -1;
 		Done("rebel:envoybomb");
-		Notify(L.T("店里未找到撒该的礼物。请打他的电话重新领取，入库后才开始计时。", "Zacchaeus's gift was not found in the shop. Call him to claim it and start the timer once it is placed."));
+		Notify(L.K("malice.envoy.recheckLegacyBomb.zacchaeusSGiftWasNot", "店里未找到撒该的礼物。请打他的电话重新领取，入库后才开始计时。", "Zacchaeus's gift was not found in the shop. Call him to claim it and start the timer once it is placed."));
 	}
 
 	private static void RefuseCh2()
@@ -862,7 +862,7 @@ internal static class Envoy
 				s.SubFree = true;
 				s.BombSoldDay = Day;
 				Done("rebel:envoybomb");
-				Notify(L.T("礼物送到了。撒该说，巨企的订购服务以后不收订阅费了。", "The gift was delivered. Zacchaeus says corporate ordering services are now subscription-free."));
+				Notify(L.K("malice.envoy.soldToClient.giftWasDeliveredZacchaeusSays", "礼物送到了。撒该说，巨企的订购服务以后不收订阅费了。", "The gift was delivered. Zacchaeus says corporate ordering services are now subscription-free."));
 			}
 			if (s.Ch2 == "malice" && Day < s.ChannelUntil && IsCorpProduct(item))
 			{
@@ -901,11 +901,11 @@ internal static class Envoy
 	{
 		if (!CanCallBombOdin)
 		{
-			return L.T("现在无法预约奥丁，或已来不及在期限内到达。", "Odin cannot be booked, or cannot arrive before the deadline.");
+			return L.K("malice.envoy.callBombOdin.odinCannotBeBookedOr", "现在无法预约奥丁，或已来不及在期限内到达。", "Odin cannot be booked, or cannot arrive before the deadline.");
 		}
 		if (Booked("rebel:envoybomb"))
 		{
-			return L.T("已经约好了。", "Already booked.");
+			return L.K("malice.envoy.callBombOdin.alreadyBooked", "已经约好了。", "Already booked.");
 		}
 		Book("rebel:envoybomb", Day + 1);
 		return null;
@@ -964,7 +964,7 @@ internal static class Envoy
 		{
 			s.ChannelDue = s.ChannelUntil;
 		}
-		Notify(L.T($"本期渠道费 {balance}₵，实收 {paid}₵。", L.Translate((System.FormattableString)$"Channel fees for this collection: {balance}₵ due, {paid}₵ collected.")));
+		Notify(L.K("malice.envoy.collectChannel.channelFeesThisCollectionDue", $"本期渠道费 {balance}₵，实收 {paid}₵。", (System.FormattableString)$"Channel fees for this collection: {balance}₵ due, {paid}₵ collected."));
 	}
 
 	private static void JoinCorps()
@@ -974,7 +974,7 @@ internal static class Envoy
 		s.RebelCut = true;
 		s.SubsidyDue = Day + 7;
 		Done("ch3");
-		Notify(L.T("你加入了巨企。反抗军很失望断了和你的联系。", "You've joined the corporations. The Resistance, disappointed, has cut ties with you."));
+		Notify(L.K("malice.envoy.joinCorps.veJoinedCorporationsResistanceDisappointed", "你加入了巨企。反抗军很失望断了和你的联系。", "You've joined the corporations. The Resistance, disappointed, has cut ties with you."));
 	}
 
 	private static void RefuseCorps()
@@ -989,11 +989,11 @@ internal static class Envoy
 		EnvoyState s = S;
 		if (s.Ch3 != "joined" || s.BribedEnvoy)
 		{
-			return L.T("现在不需要。", "Not needed right now.");
+			return L.K("malice.envoy.bribeForReconcile.notNeededRightNow", "现在不需要。", "Not needed right now.");
 		}
 		if (Store.GetCash() < 3000)
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("malice.envoy.bribeForReconcile.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		Store.PayMoney(3000, playRegisterSound: true);
 		s.BribedEnvoy = true;
@@ -1006,11 +1006,11 @@ internal static class Envoy
 		EnvoyState s = S;
 		if (s.Ch3 != "joined" || s.ReconciledRebels)
 		{
-			return L.T("现在不需要。", "Not needed right now.");
+			return L.K("malice.envoy.reconcileWithRebels.notNeededRightNow", "现在不需要。", "Not needed right now.");
 		}
 		if (Store.GetCash() < 1000)
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("malice.envoy.reconcileWithRebels.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		Store.PayMoney(1000, playRegisterSound: true);
 		s.ReconciledRebels = true;
@@ -1024,7 +1024,7 @@ internal static class Envoy
 		if ((s.BribedEnvoy || s.Gone) && s.ReconciledRebels)
 		{
 			s.RebelCut = false;
-			Notify(L.T("各办各事。反抗军恢复了联系，但不再给你安排地下买家。", "Each to their own. The Resistance is back in touch, but no longer sends you underground buyers."));
+			Notify(L.K("malice.envoy.checkReconciled.eachTheirOwnResistanceBack", "各办各事。反抗军恢复了联系，但不再给你安排地下买家。", "Each to their own. The Resistance is back in touch, but no longer sends you underground buyers."));
 		}
 	}
 
@@ -1078,11 +1078,11 @@ internal static class Envoy
 		{
 			return null;
 		}
-		string title = L.T("导师", "The Mentor");
-		Dialogue dialogue = new Dialogue().SetText(title, L.T("你甘心做巨企的看门人吗？", "Are you content to be the corporations' gatekeeper?"));
-		Dialogue dialogue2 = new Dialogue().SetText("PLAYER", L.T("当然，我很愿意。", "Of course. Gladly."));
-		Dialogue dialogue3 = new Dialogue().SetText("PLAYER", L.T("（沉默）", "(silence)"));
-		dialogue2.NextDialogue().SetText(title, L.T("……那就这样吧。", "...So be it.")).SetEndAction(Phone.GuardCall(c, () =>
+		string title = L.K("malice.envoy.mentorCall.mentor", "导师", "The Mentor");
+		Dialogue dialogue = new Dialogue().SetText(title, L.K("malice.envoy.mentorCall.areContentBeCorporationsGatekeeper", "你甘心做巨企的看门人吗？", "Are you content to be the corporations' gatekeeper?"));
+		Dialogue dialogue2 = new Dialogue().SetText("PLAYER", L.K("malice.envoy.mentorCall.courseGladly", "当然，我很愿意。", "Of course. Gladly."));
+		Dialogue dialogue3 = new Dialogue().SetText("PLAYER", L.K("malice.envoy.mentorCall.silence", "（沉默）", "(silence)"));
+		dialogue2.NextDialogue().SetText(title, L.K("malice.envoy.mentorCall.soBe", "……那就这样吧。", "...So be it.")).SetEndAction(Phone.GuardCall(c, () =>
 		{
 			s.Ch4 = "willing";
 			try
@@ -1093,7 +1093,7 @@ internal static class Envoy
 			{
 			}
 		}));
-		dialogue3.NextDialogue().SetText(title, L.T("我明白了。我去替你联络。", "I understand. I'll make contact for you.")).SetEndAction(Phone.GuardCall(c, () =>
+		dialogue3.NextDialogue().SetText(title, L.K("malice.envoy.mentorCall.iUnderstandILlMake", "我明白了。我去替你联络。", "I understand. I'll make contact for you.")).SetEndAction(Phone.GuardCall(c, () =>
 		{
 			s.Ch4 = "silent";
 			try
@@ -1104,8 +1104,8 @@ internal static class Envoy
 			{
 			}
 		}));
-		dialogue.AddChoice(Compat.ChoiceIcon(), L.T("我愿意。", "I am."), "", dialogue2);
-		dialogue.AddChoice(Compat.ChoiceIcon(), L.T("（沉默）", "(silence)"), "", dialogue3);
+		dialogue.AddChoice(Compat.ChoiceIcon(), L.K("malice.envoy.mentorCall.iAm", "我愿意。", "I am."), "", dialogue2);
+		dialogue.AddChoice(Compat.ChoiceIcon(), L.K("malice.envoy.mentorCall.silence", "（沉默）", "(silence)"), "", dialogue3);
 		return dialogue;
 	}
 
@@ -1122,8 +1122,8 @@ internal static class Envoy
 		catch
 		{
 		}
-		After(2f, L.T("你听到一声枪响。", "You hear a gunshot."));
-		Later(L.T("你成了下层区的巨企代理人：所有公司服务免费，订货八折。", "You are now the corporations' agent for the Lower Levels: all company services are free, and orders are 20% off."));
+		After(2f, L.K("malice.envoy.finale.hearGunshot", "你听到一声枪响。", "You hear a gunshot."));
+		Later(L.K("malice.envoy.finale.areNowCorporationsAgentLower", "你成了下层区的巨企代理人：所有公司服务免费，订货八折。", "You are now the corporations' agent for the Lower Levels: all company services are free, and orders are 20% off."));
 	}
 
 	public static string DebugNext()
@@ -1176,10 +1176,10 @@ internal static class Envoy
 
 	public static bool DebugGreet()
 	{
-		StoreClient storeClient = Talk("greet", L.T("撒该", "Zacchaeus"), Sprite, new string[2]
+		StoreClient storeClient = Talk("greet", L.K("malice.envoy.debugGreet.zacchaeus", "撒该", "Zacchaeus"), Sprite, new string[2]
 		{
-			L.T("（测试）只是路过，看看您的店。", "(Test) Just passing by to see your shop."),
-			L.T("（测试）生意兴隆。", "(Test) Business is booming.")
+			L.K("malice.envoy.debugGreet.testJustPassingBySee", "（测试）只是路过，看看您的店。", "(Test) Just passing by to see your shop."),
+			L.K("malice.envoy.debugGreet.testBusinessBooming", "（测试）生意兴隆。", "(Test) Business is booming.")
 		}, null, null, null);
 		if (storeClient == null)
 		{
@@ -1254,7 +1254,7 @@ internal static class Envoy
 			}
 			if (flag)
 			{
-				Notify(L.T($"撒该的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", L.Translate((System.FormattableString)$"Zacchaeus's number ({company.PhoneNumber}) is now in the notebook by the phone.")));
+				Notify(L.K("malice.envoy.meetPhone.zacchaeusSNumberNowNotebook", $"撒该的电话（{company.PhoneNumber}）记在了电话旁的记事簿上。", (System.FormattableString)$"Zacchaeus's number ({company.PhoneNumber}) is now in the notebook by the phone."));
 			}
 		}
 	}

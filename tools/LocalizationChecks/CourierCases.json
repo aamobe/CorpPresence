@@ -1,0 +1,200 @@
+[
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.drJacksonSCourier",
+    "Method": "L.Translate",
+    "English": "Dr. Jackson's Courier",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.resistanceRunner",
+    "Method": "L.Translate",
+    "English": "Resistance Runner",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.davreCourier",
+    "Method": "L.Translate",
+    "English": "Davre Courier",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.meridianCourier",
+    "Method": "L.Translate",
+    "English": "Meridian Courier",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.spacerRunner",
+    "Method": "L.Translate",
+    "English": "Spacer Runner",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.carmichealCourier",
+    "Method": "L.Translate",
+    "English": "Carmicheal Courier",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.solanaCourier",
+    "Method": "L.Translate",
+    "English": "Solana Courier",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.name.pastelCourier",
+    "Method": "L.Translate",
+    "English": "pastel Courier",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.machinesAndCustomPartsFromJacksonS",
+    "Method": "L.Translate",
+    "English": "Machines and custom parts from Jackson's workshop. He tuned them himself. Check the order and sign.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.odinSentThisDonTAskWhere",
+    "Method": "L.Translate",
+    "English": "Odin sent this. Don't ask where it came from.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.davreDeliveryCheckTheCountAndSign",
+    "Method": "L.Translate",
+    "English": "Davre delivery. Check the count and sign.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.meridianDeliveryCheckTheSerials",
+    "Method": "L.Translate",
+    "English": "Meridian delivery. Check the serials.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.fromTheDocks",
+    "Method": "L.Translate",
+    "English": "From the docks.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.carmichealPharmaceuticalDeliveryPleaseCheckTheLot",
+    "Method": "L.Translate",
+    "English": "Carmicheal Pharmaceutical delivery. Please check the lot numbers and sign.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.solanaBiogenicsPersonalDeliveryPleaseSign",
+    "Method": "L.Translate",
+    "English": "Solana Biogenics, personal delivery. Please sign.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.delivery.pastelDeliveryILlLeaveItRight",
+    "Method": "L.Translate",
+    "English": "pastel delivery! I'll leave it right here.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.farewell.iWheelsTheEmptyCartAwayI",
+    "Method": "L.Translate",
+    "English": "<i>(wheels the empty cart away)</i>",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.farewell.iSalutesI",
+    "Method": "L.Translate",
+    "English": "<i>(salutes)</i>",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.farewell.iNodsI",
+    "Method": "L.Translate",
+    "English": "<i>(nods)</i>",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.farewell.iTakesBackTheReceiptIThank",
+    "Method": "L.Translate",
+    "English": "<i>(takes back the receipt)</i>Thank you for your cooperation.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.farewell.iBowsSlightlyIHaveAPleasant",
+    "Method": "L.Translate",
+    "English": "<i>(bows slightly)</i>Have a pleasant day.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Company courier producer",
+    "Key": "companies.courier.farewell.iNodsISeeYouNextTime",
+    "Method": "L.Translate",
+    "English": "<i>(nods)</i>See you next time.",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  }
+]

@@ -297,8 +297,8 @@ internal static partial class SilverBlood
 			bool art = Tex.Art("carmicheal", Stages[0].Art) != null;
 			FishSpecies fishSpecies = new FishSpecies();
 			fishSpecies.speciesID = "FISH_CORP_SILVERBLOOD";
-			fishSpecies.displayName = L.T("银血三叶蜥", "Silverblood Trilobite");
-			fishSpecies.flavorText = L.T("卡迈克尔实验室的编号标本。背甲分成三节，甲缝里透着银光。", "A numbered specimen from a Carmicheal lab. Its carapace splits into three lobes, silver light leaking from the seams.");
+			fishSpecies.displayName = L.K("production.silverBlood.species.silverbloodTrilobite", "银血三叶蜥", "Silverblood Trilobite");
+			fishSpecies.flavorText = L.K("production.silverBlood.species.numberedSpecimenCarmichealLabIts", "卡迈克尔实验室的编号标本。背甲分成三节，甲缝里透着银光。", "A numbered specimen from a Carmicheal lab. Its carapace splits into three lobes, silver light leaking from the seams.");
 			fishSpecies.fishIdentifier = "corp_presence_silverblood";
 			fishSpecies.groupCount = 0;
 			fishSpecies.stageStartDays = new int[6] { 0, 0, 0, 6, 12, 22 };

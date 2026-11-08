@@ -10,8 +10,8 @@ internal static partial class Perfume
     internal static void InstallResources()
     {
         if (!GameResources.Ready) throw new InvalidOperationException("香水资源尚未就绪");
-        AddLiquid(MashLiquid, L.T("含油花浆", "Oilflower Mash"), "9d7d98", 200);
-        AddLiquid(OilLiquid, L.T("香水基底油", "Perfume Base Oil"), "c6a04d", 5);
+        AddLiquid(MashLiquid, L.K("production.perfume.chemistry.installResources.oilflowerMash", "含油花浆", "Oilflower Mash"), "9d7d98", 200);
+        AddLiquid(OilLiquid, L.K("production.perfume.chemistry.installResources.perfumeBaseOil", "香水基底油", "Perfume Base Oil"), "c6a04d", 5);
         RegisterFlower();
     }
 
@@ -104,9 +104,9 @@ internal static partial class Perfume
 
     internal static string OilProblem(GameItem container, int neededUl)
     {
-        if (container == null || !container.IsTag("LIQUID_CONTAINER_TAG")) return L.T("请放入基底油容器。", "Load a base oil container.");
+        if (container == null || !container.IsTag("LIQUID_CONTAINER_TAG")) return L.K("production.perfume.chemistry.oilProblem.loadBaseOilContainer", "请放入基底油容器。", "Load a base oil container.");
         return Parts(container, OilLiquid) < neededUl
-            ? L.T($"至少需要{neededUl / 1000.0:0.##}mL实际基底油成分；不检查纯度。", L.Translate((FormattableString)$"At least {neededUl / 1000.0:0.##} mL of actual base oil is needed; purity is not checked."))
+            ? L.K("production.perfume.chemistry.oilProblem.leastMLActualBaseOil", $"至少需要{neededUl / 1000.0:0.##}mL实际基底油成分；不检查纯度。", (FormattableString)$"At least {neededUl / 1000.0:0.##} mL of actual base oil is needed; purity is not checked.")
             : null;
     }
 

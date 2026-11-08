@@ -20,14 +20,15 @@ internal sealed class JacksonContact : Company
     };
 
     public override string Id => "jackson_private";
-    public override string Name => L.T("杰克逊博士 · 私人电话", "Dr. Jackson · Private Line");
+    public override string Name => L.K("companies.jacksonContact.name.drJacksonPrivateLine", "杰克逊博士 · 私人电话", "Dr. Jackson · Private Line");
     public override string CharacterId => "dr_jackson";
     public override long PhoneNumber => 52746L;
     public override string[] TierNames => System.Array.Empty<string>();
-    public override string[] FrontDesk => L.T(Greeting, GreetingEn);
-    public override string FrontDeskDone => L.T("记下了。我收拾好，明天托人给你送过去。", "Got it. I'll pack it up and have someone bring it over tomorrow.");
+    private static readonly string[] GreetingKeys = { "companies.jacksonContact.greeting.customWorkshop", "companies.jacksonContact.greeting.workbench" };
+    public override string[] FrontDesk => L.K(GreetingKeys, Greeting, GreetingEn);
+    public override string FrontDeskDone => L.K("companies.jacksonContact.frontDeskDone.gotILlPackUp", "记下了。我收拾好，明天托人给你送过去。", "Got it. I'll pack it up and have someone bring it over tomorrow.");
     public override string CardFlavor => "";
-    public override string DeskName => L.T("杰克逊博士", "Dr. Jackson");
+    public override string DeskName => L.K("companies.jacksonContact.deskName.drJackson", "杰克逊博士", "Dr. Jackson");
     public override string DeskAsk => "";
     public override CatalogEntry[] Catalog => Equipment;
 }

@@ -50,11 +50,11 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Visitors == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.special.bookVip.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (Day < VipNextDay(companyState))
 		{
-			return L.T($"第 {VipNextDay(companyState)} 天才能再预约", L.Translate((System.FormattableString)$"You can book again on day {VipNextDay(companyState)}"));
+			return L.K("companies.services.special.bookVip.canBookAgainDay", $"第 {VipNextDay(companyState)} 天才能再预约", (System.FormattableString)$"You can book again on day {VipNextDay(companyState)}");
 		}
 		int day = Day;
 		int fee = SolanaCo.VipFee;
@@ -74,7 +74,7 @@ internal static partial class Services
 	{
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Visitors == null || companyState.LabList == null)
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.special.bookLab.saveNotReady", "存档未就绪", "Save not ready");
 		string text = OrderBlocked(c);
 		if (text != null)
 		{
@@ -84,10 +84,10 @@ internal static partial class Services
 		if (readiness != null) return readiness;
 		List<string> list;
 		try { list = LabListThisWeek(companyState); }
-		catch { return L.T("采购清单暂未就绪", "Procurement list not ready"); }
+		catch { return L.K("companies.services.special.bookLab.procurementListNotReady", "采购清单暂未就绪", "Procurement list not ready"); }
 		if (companyState.LabBooked)
 		{
-			return L.T("这一期已经预约过了", "Already booked for this list");
+			return L.K("companies.services.special.bookLab.alreadyBookedThisList", "这一期已经预约过了", "Already booked for this list");
 		}
 		companyState.Visitors.Add(new Visitor
 		{
@@ -107,7 +107,7 @@ internal static partial class Services
 	public static string ClaimGift(Company c)
 	{
 		CompanyState companyState = Companies.StateOf(c);
-		if (companyState?.Orders == null) return L.T("存档未就绪", "Save not ready");
+		if (companyState?.Orders == null) return L.K("companies.services.special.claimGift.saveNotReady", "存档未就绪", "Save not ready");
 		string text = OrderBlocked(c);
 		if (text != null)
 		{
@@ -118,14 +118,14 @@ internal static partial class Services
 		int period = PeriodIndex("gift", 7);
 		if (companyState.GiftWeek == period)
 		{
-			return L.T("这一期已经领过了", "Already claimed for this period");
+			return L.K("companies.services.special.claimGift.alreadyClaimedThisPeriod", "这一期已经领过了", "Already claimed for this period");
 		}
 		Order order;
 		try
 		{
 			order = new Order { Day = Day + 1, Kind = "gift", Items = new List<string> { "pheromone_perfume" } };
 		}
-		catch { return L.T("赠礼暂未就绪", "Gift not ready"); }
+		catch { return L.K("companies.services.special.claimGift.giftNotReady", "赠礼暂未就绪", "Gift not ready"); }
 		companyState.Orders.Add(order);
 		companyState.GiftWeek = period;
 		return null;
@@ -145,15 +145,15 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Orders == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.special.requestStamina.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (!CarmichaelCo.StaminaOpen())
 		{
-			return L.T("尚未向贵店配发", "Not yet allocated to your shop");
+			return L.K("companies.services.special.requestStamina.notYetAllocatedShop", "尚未向贵店配发", "Not yet allocated to your shop");
 		}
 		if (Day < StaminaNextDay(companyState))
 		{
-			return L.T($"批次未到，第 {StaminaNextDay(companyState)} 天可申领", L.Translate((System.FormattableString)$"Batch not ready. Available on day {StaminaNextDay(companyState)}"));
+			return L.K("companies.services.special.requestStamina.batchNotReadyAvailableDay", $"批次未到，第 {StaminaNextDay(companyState)} 天可申领", (System.FormattableString)$"Batch not ready. Available on day {StaminaNextDay(companyState)}");
 		}
 		int day = Day;
 		int fee = CarmichaelCo.StaminaFee;
@@ -174,21 +174,21 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Orders == null || companyState.LimitedBought == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.special.orderLeviathan.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (!DavreCo.LeviathanOpen)
 		{
-			return L.T("还没有开通", "Not available yet");
+			return L.K("companies.services.special.orderLeviathan.notAvailableYet", "还没有开通", "Not available yet");
 		}
 		string quotaKey = "leviathan@" + PeriodKey;
 		int used = companyState.LimitedBought.TryGetValue(quotaKey, out int prior) ? prior : 0;
 		if (used >= c.LeviathanLimit(companyState))
 		{
-			return L.T("这周的配额已经订完了", "This week's quota is used up");
+			return L.K("companies.services.special.orderLeviathan.thisWeekSQuotaUsed", "这周的配额已经订完了", "This week's quota is used up");
 		}
 		if (price <= 0)
 		{
-			return L.T("利维坦暂不可用，请稍后再试。尚未扣款。", "The Leviathan is unavailable right now. Try again later. You have not been charged.");
+			return L.K("companies.services.special.orderLeviathan.leviathanUnavailableRightNowTry", "利维坦暂不可用，请稍后再试。尚未扣款。", "The Leviathan is unavailable right now. Try again later. You have not been charged.");
 		}
 		string text = OrderBlocked(c);
 		if (text != null)
@@ -213,25 +213,25 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Orders == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.special.makeUpCanning.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (companyState.CanningOwned)
 		{
-			return L.T("已经办过了", "Already done");
+			return L.K("companies.services.special.makeUpCanning.alreadyDone", "已经办过了", "Already done");
 		}
 		if (!DavreCo.CanningOffered)
 		{
-			return L.T("还没有开通", "Not available yet");
+			return L.K("companies.services.special.makeUpCanning.notAvailableYet", "还没有开通", "Not available yet");
 		}
 		Order order;
 		try
 		{
 			List<string> machines = new List<string> { Canning.Grinder, Canning.Canner };
 			if (machines.Count == 0 || machines.Any(string.IsNullOrEmpty))
-				return L.T("设备明细未就绪，尚未扣款。", "Equipment details not ready. You have not been charged.");
+				return L.K("companies.services.special.makeUpCanning.equipmentDetailsNotReadyHave", "设备明细未就绪，尚未扣款。", "Equipment details not ready. You have not been charged.");
 			order = new Order { Day = Day + 1, Items = machines };
 		}
-		catch { return L.T("设备明细未就绪，尚未扣款。", "Equipment details not ready. You have not been charged."); }
+		catch { return L.K("companies.services.special.makeUpCanning.equipmentDetailsNotReadyHave", "设备明细未就绪，尚未扣款。", "Equipment details not ready. You have not been charged."); }
 		int fee = DavreCo.CanningFee;
 		string text = Pay(c, fee, "canning");
 		if (text != null)
@@ -249,14 +249,14 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Orders == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.special.orderCanningMachine.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (!companyState.CanningOwned)
 		{
-			return L.T("还没有开通", "Not available yet");
+			return L.K("companies.services.special.orderCanningMachine.notAvailableYet", "还没有开通", "Not available yet");
 		}
 		if (price <= 0 || string.IsNullOrEmpty(id) || DavreCo.CanningMachines == null || !DavreCo.CanningMachines.Any(m => m.Id == id))
-			return L.T("设备暂不可用，尚未扣款。", "Equipment unavailable. You have not been charged.");
+			return L.K("companies.services.special.orderCanningMachine.equipmentUnavailableHaveNotBeen", "设备暂不可用，尚未扣款。", "Equipment unavailable. You have not been charged.");
 		string text = OrderBlocked(c);
 		if (text != null)
 		{

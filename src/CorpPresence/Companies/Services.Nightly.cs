@@ -120,11 +120,11 @@ internal static partial class Services
 			if (!isCurrent()) return;
 			if (num > 0)
 			{
-				NightLog(L.T($"柜台上的 {num} 只送货箱已收进背包。", L.Translate((System.FormattableString)$"{num} delivery crate(s) left on the counter were moved into your bag.")), isCurrent: isCurrent);
+				NightLog(L.K("companies.services.nightly.rescueCrates.deliveryCrateSLeftCounter", $"柜台上的 {num} 只送货箱已收进背包。", (System.FormattableString)$"{num} delivery crate(s) left on the counter were moved into your bag."), isCurrent: isCurrent);
 			}
 			if (num2 > 0)
 			{
-				NightLog(L.T($"背包放不下，柜台上还有 {num2} 只送货箱，过夜会被清掉。", L.Translate((System.FormattableString)$"Your bag is full: {num2} delivery crate(s) remain on the counter and will be cleared overnight.")), "9c3738", isCurrent);
+				NightLog(L.K("companies.services.nightly.rescueCrates.bagFullDeliveryCrateS", $"背包放不下，柜台上还有 {num2} 只送货箱，过夜会被清掉。", (System.FormattableString)$"Your bag is full: {num2} delivery crate(s) remain on the counter and will be cleared overnight."), "9c3738", isCurrent);
 			}
 		}
 		catch (Exception ex)
@@ -139,11 +139,11 @@ internal static partial class Services
 		string text;
 		if (kind == "vip")
 		{
-			text = L.T("贵宾引荐", "VIP Referral");
+			text = L.K("companies.services.nightly.nightly.vIPReferral", "贵宾引荐", "VIP Referral");
 		}
 		else
 		{
-			text = ((c is SpacerCo) ? L.T("街坊互助", "Mutual Aid") : L.T("下层客流", "Lower Foot Traffic"));
+			text = ((c is SpacerCo) ? L.K("companies.services.nightly.nightly.mutualAid", "街坊互助", "Mutual Aid") : L.K("companies.services.nightly.nightly.lowerFootTraffic", "下层客流", "Lower Foot Traffic"));
 		}
 		Visitor visitor = new Visitor { Day = day + 1, Kind = kind };
 		string paymentError = Pay(c, fee, kind);
@@ -158,7 +158,7 @@ internal static partial class Services
 			{
 				s.VipOn = false;
 			}
-			NightLog(L.T(c.Name + "的" + text + "未结算，已暂停：" + paymentError, L.Translate((System.FormattableString)$"{c.Name} {text} paused: {paymentError}")), "9c3738", isCurrent);
+			NightLog(L.K("companies.services.nightly.nightly.servicePaused", c.Name + "的" + text + "未结算，已暂停：" + paymentError, (System.FormattableString)$"{c.Name} {text} paused: {paymentError}"), "9c3738", isCurrent);
 			try { ModLog.Info(c.Name + "的" + text + "已暂停：" + paymentError); } catch { }
 		}
 		else
@@ -167,13 +167,13 @@ internal static partial class Services
 			string text2;
 			if (kind == "vip")
 			{
-				text2 = L.T("明天会有一位上层区贵宾光顾店铺", "An Upper Levels VIP will visit tomorrow");
+				text2 = L.K("companies.services.nightly.nightly.upperLevelsVIPWillVisit", "明天会有一位上层区贵宾光顾店铺", "An Upper Levels VIP will visit tomorrow");
 			}
 			else
 			{
-				text2 = ((c is SpacerCo) ? L.T("明天会多来几位星际客", "More Spacers will come by tomorrow") : L.T("明天会多来几位下层区顾客", "More Lower Levels customers will come by tomorrow"));
+				text2 = ((c is SpacerCo) ? L.K("companies.services.nightly.nightly.moreSpacersWillComeBy", "明天会多来几位星际客", "More Spacers will come by tomorrow") : L.K("companies.services.nightly.nightly.moreLowerLevelsCustomersWill", "明天会多来几位下层区顾客", "More Lower Levels customers will come by tomorrow"));
 			}
-			NightLog(L.T($"{c.Name}{text}已付 {fee} 信用点，{text2}。", L.Translate((System.FormattableString)$"{c.Name} {text}: paid {fee} credits. {text2}.")), isCurrent: isCurrent);
+			NightLog(L.K("companies.services.nightly.nightly.paidCredits", $"{c.Name}{text}已付 {fee} 信用点，{text2}。", (System.FormattableString)$"{c.Name} {text}: paid {fee} credits. {text2}."), isCurrent: isCurrent);
 			try { ModLog.Info($"{c.Name}{text}：扣 {fee}₵，第 {day + 1} 天生效"); } catch { }
 		}
 	}
@@ -196,7 +196,7 @@ internal static partial class Services
 					Cash = num
 				});
 				s.WeekSales = 0.0;
-				NightLog(L.T($"{c.Name}返点 {num} 信用点，送货员明天带来。", L.Translate((System.FormattableString)$"{c.Name} rebate: {num} credits. The courier brings it tomorrow.")), "5c6f46", isCurrent);
+				NightLog(L.K("companies.services.nightly.rebate.rebateCreditsCourierBringsTomorrow", $"{c.Name}返点 {num} 信用点，送货员明天带来。", (System.FormattableString)$"{c.Name} rebate: {num} credits. The courier brings it tomorrow."), "5c6f46", isCurrent);
 			}
 			else s.WeekSales = 0.0;
 			try { ModLog.Info($"{c.Name}本周返点 {num}₵"); } catch { }

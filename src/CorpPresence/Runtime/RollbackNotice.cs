@@ -30,9 +30,8 @@ internal sealed class RollbackNotice : MonoBehaviour
             if (ui != null && ui.isActiveAndEnabled && ui.panel != null && !ui.panel.activeSelf)
             {
                 ui.OpenPanelSingleButton(
-                    L.T("公司增强初始化失败，已尝试撤销本次加载。请暂时禁用公司增强，并附上本次游戏日志报告问题；请保留原存档。",
-                        "CorpPresence failed to initialize and attempted to roll back this startup. Temporarily disable CorpPresence and report this session's game log. Keep your original save."),
-                    L.T("确定", "OK"), () => ui.ClosePanel());
+                    L.K("runtime.rollbackNotice.update.corpPresenceFailedInitializeAttemptedRoll", "公司增强初始化失败，已尝试撤销本次加载。请暂时禁用公司增强，并附上本次游戏日志报告问题；请保留原存档。", "CorpPresence failed to initialize and attempted to roll back this startup. Temporarily disable CorpPresence and report this session's game log. Keep your original save."),
+                    L.K("runtime.rollbackNotice.update.oK", "确定", "OK"), () => ui.ClosePanel());
                 UnityEngine.Object.Destroy(gameObject);
             }
             else if (Time.realtimeSinceStartup >= _deadline)

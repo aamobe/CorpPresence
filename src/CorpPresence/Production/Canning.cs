@@ -301,16 +301,16 @@ internal static partial class Canning
 		GameGridInventory input = new GameGridInventory(6, 4);
 		GameGridInventory output = new GameGridInventory(6, 4);
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
-		MachineryButton machineryButton = new MachineryButton(L.T("绞碎", "Grind"));
-		var check = new MachineryButton(L.T("检查生产条件", "Check Production"));
+		MachineryButton machineryButton = new MachineryButton(L.K("production.canning.buildGrinder.grind", "绞碎", "Grind"));
+		var check = new MachineryButton(L.K("production.canning.buildGrinder.checkProduction", "检查生产条件", "Check Production"));
 		var reserve = new MachineryText(uppercase: false);
-		var resume = new MachineryText(L.T("清出空间或补电后\n按「绞碎」继续", "Clear space or restore power\nthen press Grind to resume"), uppercase: false);
+		var resume = new MachineryText(L.K("production.canning.buildGrinder.clearSpaceOrRestorePower", "清出空间或补电后\n按「绞碎」继续", "Clear space or restore power\nthen press Grind to resume"), uppercase: false);
 		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true,
 			MachineHelper.PowerPanel(battery),
-			MachineHelper.Panel(L.T("原料", "Ingredients"), input, "input"),
-			MachineHelper.Panel(L.T("成品", "Output"), output, "output"),
-			MachineHelper.Panel(L.T("操作", "Control"), MachineryStack.Vertical(machineryButton, check), "control"),
-			MachineHelper.Panel(L.T("果糊热量储存", "Paste Reserve"), MachineryStack.Vertical(reserve, resume), "control"),
+			MachineHelper.Panel(L.K("production.canning.buildGrinder.ingredients", "原料", "Ingredients"), input, "input"),
+			MachineHelper.Panel(L.K("production.canning.buildGrinder.output", "成品", "Output"), output, "output"),
+			MachineHelper.Panel(L.K("production.canning.buildGrinder.control", "操作", "Control"), MachineryStack.Vertical(machineryButton, check), "control"),
+			MachineHelper.Panel(L.K("production.canning.buildGrinder.pasteReserve", "果糊热量储存", "Paste Reserve"), MachineryStack.Vertical(reserve, resume), "control"),
 			MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		GameItem machine = Empty().SetContentWindow(contentWindow);
@@ -324,7 +324,7 @@ internal static partial class Canning
 		void RefreshReserve()
 		{
 			long kcal = StoredFruitKcal(machine);
-			reserve.SetText(L.T($"已存 {kcal:N0} 千卡\n可再加工 {kcal / PasteKcal:N0} 份", L.Translate((System.FormattableString)$"Stored {kcal:N0} kcal\n{kcal / PasteKcal:N0} portions ready")));
+			reserve.SetText(L.K("production.canning.buildGrinder.storedKcalPortionsReady", $"已存 {kcal:N0} 千卡\n可再加工 {kcal / PasteKcal:N0} 份", (System.FormattableString)$"Stored {kcal:N0} kcal\n{kcal / PasteKcal:N0} portions ready"));
 		}
 		machine.onLoaded += _ => RefreshReserve();
 		contentWindow.openCallback += RefreshReserve;
@@ -382,16 +382,16 @@ internal static partial class Canning
 				int num = Math.Max(0, powerPerPortion - cut);
 				if (num6 > 0 && (childItem == null || !PowerHelper.CanDrawPowerSource(childItem, num6 * num)))
 				{
-					if (inspect) ProductionNotice(L.T($"首份原料需要可供 {num6 * num} 电的电源。", L.Translate((System.FormattableString)$"The first input requires a power source with {num6 * num} charge.")));
+					if (inspect) ProductionNotice(L.K("production.canning.grind.firstInputRequiresPowerSource", $"首份原料需要可供 {num6 * num} 电的电源。", (System.FormattableString)$"The first input requires a power source with {num6 * num} charge."));
 					break;
 				}
 				if (inspect)
 				{
 					if (num6 == 0)
-						ProductionNotice(L.T("可以绞碎。首份原料不足以产出一份，余量会累计。", "Ready to grind. The first input adds to the stored remainder."));
+						ProductionNotice(L.K("production.canning.grind.readyGrindFirstInputAdds", "可以绞碎。首份原料不足以产出一份，余量会累计。", "Ready to grind. The first input adds to the stored remainder."));
 					else
 						CheckOutput(output, () => MakeMince(text, mixed, prion),
-							L.T($"首份原料可产出 {num6} 份，需 {num6 * num} 电。成品槽能放下这些成品。", L.Translate((System.FormattableString)$"The first input yields {num6} portions for {num6 * num} charge. The tray fits all of them.")), num6);
+							L.K("production.canning.grind.firstInputYieldsPortionsCharge", $"首份原料可产出 {num6} 份，需 {num6 * num} 电。成品槽能放下这些成品。", (System.FormattableString)$"The first input yields {num6} portions for {num6 * num} charge. The tray fits all of them."), num6);
 					return;
 				}
 				List<GameItem> list = new List<GameItem>();
@@ -434,7 +434,7 @@ internal static partial class Canning
 				ModLog.Info($"绞肉机：绞出 {num2} 份");
 			}
 			else if (inspect && !input.childItems.Any(item => MinceOf(item) != null))
-				ProductionNotice(L.T("请放入生肉、合格鱼片或营养果。劣质鱼肉无法绞碎。", "Load raw meat, clean fish fillets, or nutrifruit. Trash-grade fish cannot be ground."));
+				ProductionNotice(L.K("production.canning.grind.loadRawMeatCleanFish", "请放入生肉、合格鱼片或营养果。劣质鱼肉无法绞碎。", "Load raw meat, clean fish fillets, or nutrifruit. Trash-grade fish cannot be ground."));
 		}
 		catch (Exception ex)
 		{
@@ -454,7 +454,7 @@ internal static partial class Canning
 		long added = fruit == null ? 0 : (long)fruit.GetTagReadonly("CALORIE_VALUE_TAG").GetInt() * fruit.unitCount;
 		if (fruit != null && added <= 0)
 		{
-			ProductionNotice(L.T("这份营养果没有可加工的热量。", "This nutrifruit has no calories to process."));
+			ProductionNotice(L.K("production.canning.grindFruit.thisNutrifruitHasNoCalories", "这份营养果没有可加工的热量。", "This nutrifruit has no calories to process."));
 			return false;
 		}
 
@@ -463,24 +463,23 @@ internal static partial class Canning
 		bool prion = (stored > 0 && machine.GetTagReadonly(PoolPrion(PasteId)).GetBool()) || fruit?.IsTag(Prion) == true;
 		if (portions > 0 && !PowerHelper.CanDrawPowerSource(battery, power))
 		{
-			ProductionNotice(L.T($"电力不足。做一份果糊需 {power} 电。", L.Translate((System.FormattableString)$"Insufficient power. One portion of paste needs {power} charge.")));
+			ProductionNotice(L.K("production.canning.grindFruit.insufficientPowerOnePortionPaste", $"电力不足。做一份果糊需 {power} 电。", (System.FormattableString)$"Insufficient power. One portion of paste needs {power} charge."));
 			return false;
 		}
 		if (inspect)
 		{
 			if (portions == 0)
-				ProductionNotice(L.T($"共 {total:N0} 千卡。未满 240 千卡的热量会储存起来。", L.Translate((System.FormattableString)$"{total:N0} kcal total. The grinder stores any remainder under 240 kcal.")));
+				ProductionNotice(L.K("production.canning.grindFruit.kcalTotalGrinderStoresAny", $"共 {total:N0} 千卡。未满 240 千卡的热量会储存起来。", (System.FormattableString)$"{total:N0} kcal total. The grinder stores any remainder under 240 kcal."));
 			else
 				CheckOutput(output, () => MakeMince(PasteId, "", prion),
-					L.T($"热量够做 {portions:N0} 份果糊，每份耗 {power} 电。成品槽能放下首份，本次产量视空间和电量而定。",
-						L.Translate((System.FormattableString)$"Calories for {portions:N0} portions at {power} charge each. The first fits. Batch size depends on space and power.")));
+					L.K("production.canning.grindFruit.caloriesPortionsChargeEachFirst", $"热量够做 {portions:N0} 份果糊，每份耗 {power} 电。成品槽能放下首份，本次产量视空间和电量而定。", (System.FormattableString)$"Calories for {portions:N0} portions at {power} charge each. The first fits. Batch size depends on space and power."));
 			return false;
 		}
 
 		int made = portions == 0 ? 0 : PlaceFruitPaste(output, battery, portions, power, prion);
 		if (portions > 0 && made == 0)
 		{
-			ProductionNotice(L.T("果糊未产出。请检查成品槽和电源。", "No paste produced. Check the output tray and power source."));
+			ProductionNotice(L.K("production.canning.grindFruit.noPasteProducedCheckOutput", "果糊未产出。请检查成品槽和电源。", "No paste produced. Check the output tray and power source."));
 			return false;
 		}
 
@@ -489,7 +488,7 @@ internal static partial class Canning
 		machine.ModifyTag(PoolPrion(PasteId), tag => tag.Enable().SetBool(left > 0 && prion));
 		fruit?.Destroy();
 		if (left >= PasteKcal)
-			ProductionNotice(L.T($"本次绞出 {made:N0} 份果糊，剩余 {left:N0} 千卡已储存。", L.Translate((System.FormattableString)$"Made {made:N0} portions of paste and stored {left:N0} kcal.")));
+			ProductionNotice(L.K("production.canning.grindFruit.madePortionsPasteStoredKcal", $"本次绞出 {made:N0} 份果糊，剩余 {left:N0} 千卡已储存。", (System.FormattableString)$"Made {made:N0} portions of paste and stored {left:N0} kcal."));
 		return true;
 	}
 
@@ -594,27 +593,27 @@ internal static partial class Canning
 		GameGridInventory output = new GameGridInventory(8, 8);
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
 		GameItem machine = null;
-		MachineryRadioButton synthetic = new MachineryRadioButton(L.T("合成档", "Synthetic"), on: true, (bool on) =>
+		MachineryRadioButton synthetic = new MachineryRadioButton(L.K("production.canning.buildCanner.synthetic", "合成档", "Synthetic"), on: true, (bool on) =>
 		{
 			if (on)
 			{
 				SetFresh(machine, on: false);
 			}
-		}).SetDescription(L.T("3 营养果糊 + 1 杂肉糜 → 4 罐“泥炭”", "3 nutrifruit paste + 1 scrap mince → 4 cans of Peat"));
-		MachineryRadioButton fresh = new MachineryRadioButton(L.T("鲜肉档", "Fresh"), on: false, (bool on) =>
+		}).SetDescription(L.K("production.canning.buildCanner.nutrifruitPasteScrapMinceCans", "3 营养果糊 + 1 杂肉糜 → 4 罐“泥炭”", "3 nutrifruit paste + 1 scrap mince → 4 cans of Peat"));
+		MachineryRadioButton fresh = new MachineryRadioButton(L.K("production.canning.buildCanner.fresh", "鲜肉档", "Fresh"), on: false, (bool on) =>
 		{
 			if (on)
 			{
 				SetFresh(machine, on: true);
 			}
-		}).SetDescription(L.T("2 精肉糜 + 1 营养果糊 → 1 罐鲜肉罐头", "2 prime mince + 1 nutrifruit paste → 1 can of fresh meat"));
+		}).SetDescription(L.K("production.canning.buildCanner.primeMinceNutrifruitPasteCan", "2 精肉糜 + 1 营养果糊 → 1 罐鲜肉罐头", "2 prime mince + 1 nutrifruit paste → 1 can of fresh meat"));
 		new MachineryRadioGroup().Add(synthetic).Add(fresh);
-		string lastResult = L.T("本次载入后尚未进行夜间结算。", "No nightly cycle since this load.");
-		var lastCycle = new MachineryButton(L.T("最近结算", "Last cycle"));
+		string lastResult = L.K("production.canning.buildCanner.noNightlyCycleSinceThis", "本次载入后尚未进行夜间结算。", "No nightly cycle since this load.");
+		var lastCycle = new MachineryButton(L.K("production.canning.buildCanner.lastCycle", "最近结算", "Last cycle"));
 		lastCycle.SetCallback(() => GenericConfirmationUIManager.Instance?.OpenPanelSingleButton(
-			lastResult, L.T("确定", "OK"), () => GenericConfirmationUIManager.Instance.ClosePanel()));
-		var check = new MachineryButton(L.T("检查生产条件", "Check Production"));
-		PixelWindow pixelWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"), MachineHelper.Panel(L.T("肉糜", "Mince"), mince, "input"), MachineHelper.Panel(L.T("营养果糊", "Nutrifruit paste"), fruit, "input"), MachineHelper.Panel(L.T("档位", "Mode"), MachineryStack.Vertical(synthetic, fresh, check, lastCycle), "control"), MachineHelper.Panel(L.T("成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
+			lastResult, L.K("production.canning.buildCanner.oK", "确定", "OK"), () => GenericConfirmationUIManager.Instance.ClosePanel()));
+		var check = new MachineryButton(L.K("production.canning.buildCanner.checkProduction", "检查生产条件", "Check Production"));
+		PixelWindow pixelWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.canning.buildCanner.modules", "模组", "Modules"), modules, "module"), MachineHelper.Panel(L.K("production.canning.buildCanner.mince", "肉糜", "Mince"), mince, "input"), MachineHelper.Panel(L.K("production.canning.buildCanner.nutrifruitPaste", "营养果糊", "Nutrifruit paste"), fruit, "input"), MachineHelper.Panel(L.K("production.canning.buildCanner.mode", "档位", "Mode"), MachineryStack.Vertical(synthetic, fresh, check, lastCycle), "control"), MachineHelper.Panel(L.K("production.canning.buildCanner.output", "成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		machine = Empty().SetContentWindow(pixelWindow);
 		machine.EnableTag("CONTAINER_TAG");
@@ -693,24 +692,24 @@ internal static partial class Canning
 				int power = MachineryHelper.GetMachinePowerUsage(machine);
 				if (list.Count < r.MinceN || list2.Count < r.FruitN)
 					ProductionNotice(r == Fresh
-						? L.T("鲜肉档需要 2 份精肉糜和 1 份营养果糊。", "Fresh mode needs 2 prime mince and 1 nutrifruit paste.")
-						: L.T("合成档需要 1 份杂肉糜和 3 份营养果糊。", "Synthetic mode needs 1 scrap mince and 3 nutrifruit paste."));
+						? L.K("production.canning.can.freshModeNeedsPrimeMince", "鲜肉档需要 2 份精肉糜和 1 份营养果糊。", "Fresh mode needs 2 prime mince and 1 nutrifruit paste.")
+						: L.K("production.canning.can.syntheticModeNeedsScrapMince", "合成档需要 1 份杂肉糜和 3 份营养果糊。", "Synthetic mode needs 1 scrap mince and 3 nutrifruit paste."));
 				else if (batches <= 0)
-					ProductionNotice(L.T("当前加工进度不足一批。", "Current processing progress is below one batch."));
+					ProductionNotice(L.K("production.canning.can.currentProcessingProgressBelowOne", "当前加工进度不足一批。", "Current processing progress is below one batch."));
 				else if (!PowerHelper.CanDrawPowerSource(battery.childItem, power))
-					ProductionNotice(L.T($"需要可供 {power} 电的电源。", L.Translate((System.FormattableString)$"A power source with {power} charge is required.")));
+					ProductionNotice(L.K("production.canning.can.powerSourceWithChargeRequired", $"需要可供 {power} 电的电源。", (System.FormattableString)$"A power source with {power} charge is required."));
 				else
-					CheckOutput(output, r.Make, L.T($"原料和速度最多支持 {batches} 批，本次需 {power} 电。成品槽能放下首批。", L.Translate((System.FormattableString)$"Inputs and speed allow up to {batches} batches for {power} charge. The tray fits the first batch.")), r.OutN);
+					CheckOutput(output, r.Make, L.K("production.canning.can.inputsSpeedAllowUpBatches", $"原料和速度最多支持 {batches} 批，本次需 {power} 电。成品槽能放下首批。", (System.FormattableString)$"Inputs and speed allow up to {batches} batches for {power} charge. The tray fits the first batch."), r.OutN);
 				return;
 			}
 			if (batches <= 0)
 			{
-				report?.Invoke(L.T($"未加工：当前档位肉糜 {list.Count}/{r.MinceN}，果糊 {list2.Count}/{r.FruitN}，加工速度 {num}。请核对档位、原料数量和模组。", L.Translate((System.FormattableString)$"Stopped: matching mince {list.Count}/{r.MinceN}, paste {list2.Count}/{r.FruitN}, speed {num}. Check mode, ingredients and modules.")));
+				report?.Invoke(L.K("production.canning.can.stoppedMatchingMincePasteSpeed", $"未加工：当前档位肉糜 {list.Count}/{r.MinceN}，果糊 {list2.Count}/{r.FruitN}，加工速度 {num}。请核对档位、原料数量和模组。", (System.FormattableString)$"Stopped: matching mince {list.Count}/{r.MinceN}, paste {list2.Count}/{r.FruitN}, speed {num}. Check mode, ingredients and modules."));
 				return;
 			}
 			if (!PowerHelper.CanDrawPowerSource(battery.childItem, MachineryHelper.GetMachinePowerUsage(machine)))
 			{
-				report?.Invoke(L.T("未加工：电源无法提供本次所需电量。", "Stopped: the power source cannot supply this cycle."));
+				report?.Invoke(L.K("production.canning.can.stoppedPowerSourceCannotSupply", "未加工：电源无法提供本次所需电量。", "Stopped: the power source cannot supply this cycle."));
 				return;
 			}
 			int done = 0;
@@ -731,7 +730,7 @@ internal static partial class Canning
 				if (list3.Count < r.OutN || !Put(output, list3) ||
 					(done == 0 && !MachineHelper.TryDrawCyclePower(machine, battery)))
 				{
-					failure = L.T("成品创建、放置或首次扣电失败；本批原料已保留。", "Output creation, placement or initial power draw failed; this batch's inputs were kept.");
+					failure = L.K("production.canning.can.outputCreationPlacementOrInitial", "成品创建、放置或首次扣电失败；本批原料已保留。", "Output creation, placement or initial power draw failed; this batch's inputs were kept.");
 					foreach (GameItem item in list3)
 					{
 						item.Destroy();
@@ -748,7 +747,7 @@ internal static partial class Canning
 				}
 				done++;
 			}
-			report?.Invoke(L.T($"完成 {done}/{batches} 批。", L.Translate((System.FormattableString)$"Completed {done}/{batches} batches.")) + failure);
+			report?.Invoke(L.K("production.canning.can.completedBatches", $"完成 {done}/{batches} 批。", (System.FormattableString)$"Completed {done}/{batches} batches.") + failure);
 			int left = Math.Min(99, Math.Max(0, num3 - done * 100));
 			machine.ModifyTag("CORP_CAN_CARRY_INT", (TagState s) =>
 			{
@@ -762,7 +761,7 @@ internal static partial class Canning
 		}
 		catch (Exception ex)
 		{
-			report?.Invoke(L.T("加工异常，请查看游戏日志：", "Production error; check game log: ") + ex.Message);
+			report?.Invoke(L.K("production.canning.can.productionErrorCheckGameLog", "加工异常，请查看游戏日志：", "Production error; check game log: ") + ex.Message);
 			ModLog.Warn("罐装失败：" + ex.Message);
 		}
 	}
@@ -774,7 +773,7 @@ internal static partial class Canning
 		var product = make();
 		if (product == null)
 		{
-			ProductionNotice(L.T("成品尚未就绪。", "The product is unavailable."));
+			ProductionNotice(L.K("production.canning.checkOutput.productUnavailable", "成品尚未就绪。", "The product is unavailable."));
 			return;
 		}
 		try
@@ -783,9 +782,9 @@ internal static partial class Canning
 			if (MachineAppearance.CanFitOutput(output, product, count))
 				ProductionNotice(ready);
 			else if (count == 1)
-				ProductionNotice(L.T("成品槽空间不足。", "The output tray is full."));
+				ProductionNotice(L.K("production.canning.checkOutput.outputTrayFull", "成品槽空间不足。", "The output tray is full."));
 			else
-				ProductionNotice(L.T($"成品槽放不下这批的 {count} 件成品。", L.Translate((System.FormattableString)$"The tray cannot fit all {count} items from this batch.")));
+				ProductionNotice(L.K("production.canning.checkOutput.trayCannotFitAllItems", $"成品槽放不下这批的 {count} 件成品。", (System.FormattableString)$"The tray cannot fit all {count} items from this batch."));
 		}
 		finally
 		{

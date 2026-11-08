@@ -1,0 +1,2324 @@
+[
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.overview.pharmaceuticalOrderForm",
+    "Method": "L.T",
+    "English": " · Pharmaceutical Order Form",
+    "Chinese": " · 药品订货单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.overview.pharmaceuticalOrderForm",
+    "Method": "L.T",
+    "English": " · Pharmaceutical Order Form",
+    "Chinese": " · 药品订货单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.overview.formCPDay",
+    "Method": "L.Translate",
+    "English": "Form CP-{0}   Day {1}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.overview.service",
+    "Method": "L.T",
+    "English": "Service: ",
+    "Chinese": "客服：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.overview.handledByIsaLangdonMarket",
+    "Method": "L.T",
+    "English": "Handled by: Isa Langdon (Market Compliance)",
+    "Chinese": "经办：伊莎·兰登（市场规范部）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.overview.shop",
+    "Method": "L.Translate",
+    "English": "Your shop: ",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.overview.shopNotRegisteredYetDeal",
+    "Method": "L.T",
+    "English": "Your shop is not registered yet. Deal with Isa a few more times.",
+    "Chinese": "贵店尚未登记。和伊莎多打几次交道吧。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.availability.tierRequired",
+    "Method": "L.Translate",
+    "English": "Opens at {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.availability.afterIsaChapter",
+    "Method": "L.T",
+    "English": "After Isa chapter 4",
+    "Chinese": "伊莎第 4 章后",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.orders.orderTodayDeliveredTomorrowOne",
+    "Method": "L.T",
+    "English": "Order today, delivered tomorrow. One order per day. ",
+    "Chinese": "今天下单，明天送到。每天一单。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.orders.alreadyOrderedToday",
+    "Method": "L.T",
+    "English": "Already ordered today. ",
+    "Chinese": "今天已经下过单了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.orders.unavailable",
+    "Method": "L.T",
+    "English": "Unavailable",
+    "Chinese": "暂不可用",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.orders.total",
+    "Method": "L.Translate",
+    "English": "Total {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.orders.submitOrder",
+    "Method": "L.T",
+    "English": "Submit order",
+    "Chinese": "提交订货单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.requestFormStaminaBoosterUnreleased",
+    "Method": "L.T",
+    "English": "Request Form · Stamina Booster (unreleased)",
+    "Chinese": "申请单 · 体力增强剂（未上市）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.requestingPharmacyShop",
+    "Method": "L.T",
+    "English": "Requesting pharmacy: your shop",
+    "Chinese": "申请药房：贵店",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.handlerIsaLangdonMarketCompliance",
+    "Method": "L.T",
+    "English": "Handler: Isa Langdon (Market Compliance)",
+    "Chinese": "经办人：伊莎·兰登（市场规范部）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.drugCost",
+    "Method": "L.T",
+    "English": "Drug cost: 0₵",
+    "Chinese": "药品费用：0₵",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.fee",
+    "Method": "L.T",
+    "English": "Fee:",
+    "Chinese": "手续费：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.noteSpecialRequestPerDays",
+    "Method": "L.Translate",
+    "English": "Note: special request, 1 per {0} days. Hand-delivered the next day.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.specialStamp",
+    "Method": "L.T",
+    "English": "SPECIAL",
+    "Chinese": "特别申请",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.thisNewProductHasnT",
+    "Method": "L.T",
+    "English": "This new product hasn't been allocated to your shop yet. It opens once Isa Langdon secures you a quota.",
+    "Chinese": "新品尚未向贵店配发。伊莎·兰登为贵店争取到配额后开放。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.currentQuotaAvailable",
+    "Method": "L.T",
+    "English": "Current quota: available.",
+    "Chinese": "本期配额：可申领。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.nextAvailableDayDaysLeft",
+    "Method": "L.Translate",
+    "English": "Next available: day {0} ({1} days left)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.submitRequestFee",
+    "Method": "L.Translate",
+    "English": "Submit request (fee {0}₵)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.batchNotReady",
+    "Method": "L.T",
+    "English": "Batch not ready",
+    "Chinese": "批次未到",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.stamina.requestAcceptedHandDeliveredTomorrow",
+    "Method": "L.T",
+    "English": "Request accepted. Hand-delivered tomorrow morning.",
+    "Chinese": "申请已受理。明早由专人配送。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.specimens.breedingLicenseFileKeepSilverblood",
+    "Method": "L.T",
+    "English": "Breeding license on file. Keep Silverblood Trilobites in an aquaculture system; adults can be bled. Out of water they survive but build no blood. List price, delivered tomorrow, no limit.",
+    "Chinese": "养殖许可在册。银血三叶蜥养在循环水养殖系统里，成年后能采血；离开水也不会死，只是不积血。原价，明天送到，不限量。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.specimens.orderOne",
+    "Method": "L.T",
+    "English": "Order one",
+    "Chinese": "订一份",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.specimens.cash",
+    "Method": "L.Translate",
+    "English": "Cash {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.bloodRecovery.silverBloodRecovery",
+    "Method": "L.T",
+    "English": "Silver Blood Recovery",
+    "Chinese": "银血样品回收",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.bloodRecovery.fullUnalteredSamplesEachUp",
+    "Method": "L.T",
+    "English": "Full, unaltered samples: {0}₵ each, up to {1}, every {2} days.",
+    "Chinese": "完整原配方样品 {0}₵/支，最多 {1} 支，冷却 {2} 天。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.bloodRecovery.availableAgainDay",
+    "Method": "L.T",
+    "English": "Available again on day {0}",
+    "Chinese": "第 {0} 天可再次回收",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.bloodRecovery.samplesPayout",
+    "Method": "L.T",
+    "English": "{0} samples · {1}₵ payout",
+    "Chinese": "本次 {0} 支 · 到账 {1}₵",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.bloodRecovery.confirmRecovery",
+    "Method": "L.T",
+    "English": "Confirm recovery",
+    "Chinese": "确认回收",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.drugsSoldUnderCarmichealName",
+    "Method": "L.Translate",
+    "English": "Drugs sold under the Carmicheal name without authorization are recalled by the company and replaced one for one with the genuine article: counterfeit Immunivax, recalled Immunivax batches, and unlicensed Phagimycin. Expired genuine products are not included.\nOne request every {0} days, up to {1} items each time, {2}₵ per item.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.problemDrugsShop",
+    "Method": "L.T",
+    "English": "Problem drugs in your shop",
+    "Chinese": "贵店持有的问题药品",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.issue",
+    "Method": "L.T",
+    "English": "Issue",
+    "Chinese": "问题",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.replaceWith",
+    "Method": "L.T",
+    "English": "Replace with",
+    "Chinese": "替换为",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.noneFound",
+    "Method": "L.T",
+    "English": "None found.",
+    "Chinese": "没有找到。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.genuine",
+    "Method": "L.T",
+    "English": "Genuine ",
+    "Chinese": "正品",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.moreSwapThemNextTime",
+    "Method": "L.Translate",
+    "English": "{0} more; swap them next time.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.itemsThisTimeFee",
+    "Method": "L.Translate",
+    "English": "{0} items this time, fee {1}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.nextRequestDay",
+    "Method": "L.Translate",
+    "English": "Next request: day {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.requestSwap",
+    "Method": "L.T",
+    "English": "Request swap",
+    "Chinese": "申请换货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+    "Key": "ui.carmichael.swap.problemDrugsCollectedGenuineReplacements",
+    "Method": "L.T",
+    "English": "Problem drugs collected. Genuine replacements arrive tomorrow morning.",
+    "Chinese": "问题药品已收回。明早送来正品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.overview.supplyOrder",
+    "Method": "L.T",
+    "English": " · Supply Order",
+    "Chinese": " · 供货单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.overview.supplyOrder",
+    "Method": "L.T",
+    "English": " · Supply Order",
+    "Chinese": " · 供货单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.overview.orderDAVDay",
+    "Method": "L.Translate",
+    "English": "Order DAV-{0}   Day {1}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.overview.orderCenter",
+    "Method": "L.T",
+    "English": "Order center: ",
+    "Chinese": "订货中心：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.overview.supplyRepDoreen",
+    "Method": "L.T",
+    "English": "Supply rep: Doreen",
+    "Chinese": "供货专员：多琳",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.overview.tier",
+    "Method": "L.Translate",
+    "English": "Tier: ",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.overview.noSupplierNumberYet",
+    "Method": "L.T",
+    "English": "No supplier number yet.",
+    "Chinese": "还没有供货编号。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.orders.orderTodayDeliveredTomorrow",
+    "Method": "L.T",
+    "English": "Order today, delivered tomorrow.",
+    "Chinese": "今天下单，明天到货。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.orders.alreadyOrderedToday",
+    "Method": "L.T",
+    "English": "Already ordered today.",
+    "Chinese": "今天已经下过单了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.orders.tierRequired",
+    "Method": "L.Translate",
+    "English": "Opens at {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.orders.unavailable",
+    "Method": "L.T",
+    "English": "Unavailable",
+    "Chinese": "暂不可用",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.orders.total",
+    "Method": "L.Translate",
+    "English": "Total {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.orders.submitOrder",
+    "Method": "L.T",
+    "English": "Submit order",
+    "Chinese": "提交供货单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.canning.pressGrindProcessRawMeat",
+    "Method": "L.T",
+    "English": "Press Grind to process raw meat, nutrifruit or suitable fish fillets. The canner makes Peat or fresh meat cans overnight. The sealer has Crab Stick, Canned Fish and Galaxy Blend modes.",
+    "Chinese": "绞肉机按按钮加工生肉、营养果和合格鱼片。罐装机过夜制作泥炭或鲜肉罐头。封装机有蟹肉棒、鱼罐头和繁星果糊三档。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.canning.doreenWillComeTalkOnce",
+    "Method": "L.Translate",
+    "English": "Doreen will come to talk once cooperation reaches {0}.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.canning.doreenAlreadyMadeOfferFee",
+    "Method": "L.Translate",
+    "English": "Doreen already made the offer. {0}₵ fee for one grinder and one canner, delivered tomorrow.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.canning.signUp",
+    "Method": "L.Translate",
+    "English": "Sign up ({0}₵)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.canning.listPriceDeliveredTomorrowNo",
+    "Method": "L.T",
+    "English": "List price, delivered tomorrow, no limit.",
+    "Chinese": "原价，明天到货，不限量。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.canning.orderOne",
+    "Method": "L.T",
+    "English": "Order one",
+    "Chinese": "订一台",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.canning.cash",
+    "Method": "L.Translate",
+    "English": "Cash {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.purifier.davreSOwnWaterPurifier",
+    "Method": "L.T",
+    "English": "Davre's own water purifier, supplied only to shops that sell water.",
+    "Chinese": "达夫雷自己的净水器，只供给卖水的店。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.purifier.modeledHydraTechPurifiesRustwaterGhostwater",
+    "Method": "L.T",
+    "English": "Modeled on the HydraTech. Purifies Rustwater and Ghostwater to Basewater, but not Gutterflow. 600 durability, good for 60 liters.\n",
+    "Chinese": "照着海德拉做的。铁锈水、幽灵水都能净化成基础水，沟渠水不行。耐久 600，能净化 60 升。\n",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.purifier.perRestockPeriodEachDelivered",
+    "Method": "L.Translate",
+    "English": "{0} per restock period (2 from {1}), {2}₵ each, delivered tomorrow.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.purifier.quotaUsed",
+    "Method": "L.Translate",
+    "English": "Ordered {0}: {1}/{2}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.purifier.restocksDay",
+    "Method": "L.Translate",
+    "English": "Restocks on day {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.purifier.unitPrice",
+    "Method": "L.Translate",
+    "English": "Unit price {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+    "Key": "ui.davre.purifier.orderOne",
+    "Method": "L.T",
+    "English": "Order one",
+    "Chinese": "订一台",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Jackson.cs",
+    "Key": "ui.jackson.overview.workshopBuiltMachinesCustomParts",
+    "Method": "L.T",
+    "English": "Workshop-built machines & custom parts. Delivery tomorrow.",
+    "Chinese": "工作间自制机器与改装配件，次日送达。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Jackson.cs",
+    "Key": "ui.jackson.overview.placeOrder",
+    "Method": "L.T",
+    "English": "Place order",
+    "Chinese": "确认订购",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.zacchaeus",
+    "Method": "L.T",
+    "English": "Zacchaeus: ",
+    "Chinese": "撒该：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.aid",
+    "Method": "L.T",
+    "English": "Aid",
+    "Chinese": "援助",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.supportPeriodKeepPastelCarmicheal",
+    "Method": "L.T",
+    "English": "Support period: keep Pastel and Carmicheal subscribed until day {0}.",
+    "Chinese": "扶持期：第 {0} 天之前，帕斯泰尔和卡迈克尔的订购服务不能断。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.repayingInstallmentsLeftHeCollects",
+    "Method": "L.T",
+    "English": "Repaying: {0} installments of {1}₵ left; he collects on day {2}. Missing one brings a penalty.",
+    "Chinese": "还款中：还剩 {0} 期，每期 {1}₵，第 {2} 天他来收。交不上会受罚。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.repaymentPlanInstallmentsLeftHe",
+    "Method": "L.T",
+    "English": "Repayment plan: {0} installments of {1}₵ left; he collects on day {2}.",
+    "Chinese": "还款计划：还剩 {0} 期，每期 {1}₵，第 {2} 天他来收。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.weekSLateCorporateOrders",
+    "Method": "L.T",
+    "English": " {0} week(s) late: corporate orders +{1}%.",
+    "Chinese": "已拖 {0} 周，巨企订货 +{1}%。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.penaltyAllCompanyServicesAre",
+    "Method": "L.T",
+    "English": "Penalty: all company services are suspended (except the Resistance), and one fewer customer comes each day.",
+    "Chinese": "惩罚中：所有公司服务暂停（反抗军除外），每天少一位顾客。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.settled",
+    "Method": "L.T",
+    "English": "Settled.",
+    "Chinese": "已结清。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.declinedAid",
+    "Method": "L.T",
+    "English": "You declined the aid.",
+    "Chinese": "你拒绝了援助。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.none",
+    "Method": "L.T",
+    "English": "None.",
+    "Chinese": "无。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.payFull",
+    "Method": "L.T",
+    "English": "Pay in full ({0}₵)",
+    "Chinese": "一次还清（{0}₵）",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.settled",
+    "Method": "L.T",
+    "English": "Settled.",
+    "Chinese": "已结清。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.rescheduleInclPenalty",
+    "Method": "L.T",
+    "English": "Reschedule: {0} × {1}₵ (incl. penalty)",
+    "Chinese": "改签：每周 {0}₵，共 {1} 期（含违约费）",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.serviceFee",
+    "Method": "L.T",
+    "English": "Service fee",
+    "Chinese": "服务费",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.turnedHimDownCorporateOrdering",
+    "Method": "L.T",
+    "English": "You turned him down. Corporate ordering stays closed until you pay or take the gift and deliver it.",
+    "Chinese": "你拒绝了他。巨企的订货暂不开放，直到你交钱或收下礼物并办成。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.giftWaitingBeClaimedMake",
+    "Method": "L.T",
+    "English": "The gift is waiting to be claimed. Make room in the shop. The timer starts once you receive it.",
+    "Chinese": "礼物等待领取。请留出库存空间，领取成功后才开始计时。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.bookOdinThroughResistanceTasks",
+    "Method": "L.Translate",
+    "English": "Book Odin through the Resistance Tasks page and deliver the gift by day {0}. The deadline pauses while he is unavailable.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.giftDeliveredCorporateOrderingServices",
+    "Method": "L.T",
+    "English": "Gift delivered. Corporate ordering services are subscription-free.",
+    "Chinese": "礼物送到了。巨企订购服务不收订阅费。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.channelFeesAccrueThroughDay",
+    "Method": "L.T",
+    "English": "Channel fees accrue through day {0}.",
+    "Chinese": "渠道费计提至第 {0} 天（含）。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.channelFeesHaveStoppedAccruing",
+    "Method": "L.T",
+    "English": "Channel fees have stopped accruing.",
+    "Chinese": "渠道费已停止计提。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.pendingCollectionScheduledDay",
+    "Method": "L.T",
+    "English": "{0}₵ pending. Collection is scheduled from day {1}.",
+    "Chinese": "待结算 {0}₵，第 {1} 天起安排收款。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.settled",
+    "Method": "L.T",
+    "English": "Settled.",
+    "Chinese": "已结清。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.pay",
+    "Method": "L.Translate",
+    "English": "Pay {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.takeGift",
+    "Method": "L.T",
+    "English": "Take the gift",
+    "Chinese": "收下礼物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.giftShopDeliveryTimerHas",
+    "Method": "L.T",
+    "English": "The gift is in your shop. The delivery timer has started.",
+    "Chinese": "礼物已入库，交付期限开始。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.claimGift",
+    "Method": "L.T",
+    "English": "Claim the gift",
+    "Chinese": "领取礼物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.giftShopDeliveryTimerHas",
+    "Method": "L.T",
+    "English": "The gift is in your shop. The delivery timer has started.",
+    "Chinese": "礼物已入库，交付期限开始。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.eachTheirOwn",
+    "Method": "L.T",
+    "English": "Each to their own",
+    "Chinese": "各办各事",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.payZacchaeusThenMakePeace",
+    "Method": "L.Translate",
+    "English": "Pay Zacchaeus {0}₵, then 1000₵ to make peace on the Resistance's line: the Resistance is back in touch (no more underground buyers) and your corporate perks stay.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.payOffZacchaeus",
+    "Method": "L.Translate",
+    "English": "Pay off Zacchaeus ({0}₵)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.envoy.paid",
+    "Method": "L.T",
+    "English": "Paid.",
+    "Chinese": "已打点。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.dayHeading",
+    "Method": "L.Translate",
+    "English": "{0}   Day {1}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.odin",
+    "Method": "L.T",
+    "English": "Odin: ",
+    "Chinese": "奥丁：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.standing",
+    "Method": "L.Translate",
+    "English": "Standing: ",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.trust",
+    "Method": "L.Translate",
+    "English": "Trust {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.supportPoints",
+    "Method": "L.Translate",
+    "English": "Support points {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.totalEarned",
+    "Method": "L.Translate",
+    "English": "Total earned {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.joinedCorporationsResistanceCutOff",
+    "Method": "L.T",
+    "English": "You joined the corporations and the Resistance cut you off.\nPay 1000₵ to make peace (and pay off Zacchaeus 3000₵ on his line): the Resistance is back in touch, but no more underground buyers.",
+    "Chinese": "你加入了巨企，反抗军和你断了联系。\n花 1000₵ 和解（还要在撒该那边打点 3000₵）：反抗军恢复联系，但不再给你安排地下买家。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.paidBackTouchTomorrowS",
+    "Method": "L.T",
+    "English": "Paid. Back in touch from tomorrow's opening.",
+    "Chinese": "已付。明天开店时恢复联系。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.paidWaitingZacchaeusSSide",
+    "Method": "L.T",
+    "English": "Paid. Waiting on Zacchaeus's side.",
+    "Chinese": "已付。等撒该那边也打点好。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.makePeace",
+    "Method": "L.T",
+    "English": "Make peace (1000₵)",
+    "Chinese": "和解（1000₵）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.nobodyKnows",
+    "Method": "L.T",
+    "English": "Nobody knows you.",
+    "Chinese": "没人认识你。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.resistance.tasks",
+    "Method": "L.T",
+    "English": "Tasks",
+    "Chinese": "任务",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.fence.bookUndergroundBuyerTomorrowTakes",
+    "Method": "L.Translate",
+    "English": "Book an underground buyer for tomorrow: takes anything, pays cash at retail +10%, doesn't carry much. Selling to him won't raise Security's investigation.\nOne booking every {0} days for {1} support points; book early for {2} more per day early, up to {3}.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.fence.bookingNowPoints",
+    "Method": "L.Translate",
+    "English": "Booking now: {0} points",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.fence.early",
+    "Method": "L.Translate",
+    "English": " (early)",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.fence.supportPointsEarnPointPer",
+    "Method": "L.T",
+    "English": "Support points: {0}. Earn 1 point per {1}₵ on each sale or order.",
+    "Chinese": "助力点余额 {0}。向反抗军出售或订货，每笔每满 {1}₵ 得 1 点。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.fence.bookPoints",
+    "Method": "L.Translate",
+    "English": "Book ({0} points)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.rescue.odinHasBeenArrestedOrders",
+    "Method": "L.Translate",
+    "English": "Odin has been arrested; orders and the fence network are suspended.\nTo get him out, the Resistance needs {0}₵ worth of medical supplies and weapons. Call for a pickup when ready; someone comes the next day. You can hand them over in several trips (no payment).",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.rescue.delivered",
+    "Method": "L.Translate",
+    "English": "Delivered: {0} / {1}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.rescue.callPickup",
+    "Method": "L.T",
+    "English": "Call for pickup",
+    "Chinese": "呼叫提货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.rescue.someoneWillComeTomorrow",
+    "Method": "L.T",
+    "English": "Someone will come tomorrow.",
+    "Chinese": "明天有人来取。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.odinWantsBottlePoisonOr",
+    "Method": "L.Translate",
+    "English": "Odin wants a bottle of poison, or {0}₵ worth of Dream Dust and Phanta Pills. Delivered so far: {1}₵.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.meridianHasBeenPaidOff",
+    "Method": "L.T",
+    "English": "Meridian has been paid off: once the bomb arrives, Odin will come for it.",
+    "Chinese": "已经打点了子午线：炸弹送到后，奥丁会来买。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.odinWantsExplosivesMeridianHeavy",
+    "Method": "L.Translate",
+    "English": "Odin wants explosives and Meridian heavy firepower: call Meridian and pay them off on the Corporate Terms page ({0}₵), or sell {1}₵ of weapons through the underground buyer ({2}₵ so far).",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.crackdownLeftManyWoundedOdin",
+    "Method": "L.Translate",
+    "English": "The crackdown left many wounded. Odin comes weekly for medical supplies: {0}₵ in total ({1}₵ so far).",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.odinComesWeeklyWeaponsMedical",
+    "Method": "L.Translate",
+    "English": "Odin comes weekly for weapons and medical supplies: {0}₵ in total ({1}₵ so far).",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.odinHasInvitedJoinResistance",
+    "Method": "L.T",
+    "English": "Odin has invited you to join the Resistance. Call him over when you've decided.",
+    "Chinese": "奥丁邀请你加入反抗军。想好了就叫他来。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.mentorNegotiatingWithCorporationsEach",
+    "Method": "L.Translate",
+    "English": "The Mentor is negotiating with the corporations. Each corporation at 100 cooperation sends a Coin of Fate ({0} / 5).",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.areLowerLevelsRepresentative",
+    "Method": "L.T",
+    "English": "You are the Lower Levels' representative.",
+    "Chinese": "你是下层区的代表。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.noTaskRightNowKeep",
+    "Method": "L.Translate",
+    "English": "No task right now. Keep dealing with the Resistance ({0} support points earned).",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.callPickup",
+    "Method": "L.T",
+    "English": "Call for pickup",
+    "Chinese": "呼叫提货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.someoneWillComeTomorrow",
+    "Method": "L.T",
+    "English": "Someone will come tomorrow.",
+    "Chinese": "明天有人来取。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.callOdin",
+    "Method": "L.T",
+    "English": "Call Odin",
+    "Chinese": "呼叫奥丁",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.heLlComeTomorrow",
+    "Method": "L.T",
+    "English": "He'll come tomorrow.",
+    "Chinese": "他明天来。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.bookOdinCollectZacchaeusS",
+    "Method": "L.T",
+    "English": "Book Odin to collect Zacchaeus's gift",
+    "Chinese": "预约奥丁收取撒该的礼物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+    "Key": "ui.malice.tasks.odinWillCollectGiftTomorrow",
+    "Method": "L.T",
+    "English": "Odin will collect the gift tomorrow.",
+    "Chinese": "奥丁明天来收礼物。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.ordnanceRequisitionForm",
+    "Method": "L.T",
+    "English": " · Ordnance Requisition Form",
+    "Chinese": " · 军械申领表",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.ordnanceRequisitionForm",
+    "Method": "L.T",
+    "English": " · Ordnance Requisition Form",
+    "Chinese": " · 军械申领表",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.formMRDDay",
+    "Method": "L.Translate",
+    "English": "Form MRD-{0}   Day {1}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.orderDesk",
+    "Method": "L.T",
+    "English": "Order desk: ",
+    "Chinese": "订货处：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.handledByRosenStationManager",
+    "Method": "L.T",
+    "English": "Handled by: Rosen (Station Manager)",
+    "Chinese": "经办：罗森（驻站负责人）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.license",
+    "Method": "L.Translate",
+    "English": "License: ",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.noLicense",
+    "Method": "L.T",
+    "English": "No license.",
+    "Chinese": "没有许可。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.orderTodayHereTomorrowFactory",
+    "Method": "L.T",
+    "English": "Order today, here tomorrow. Factory new.",
+    "Chinese": "今天下单，明天到。全新出厂。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.overview.vanillaAttachmentsSteadySupplyX",
+    "Method": "L.Translate",
+    "English": "Vanilla attachments, steady supply, at {0:0.0}x value. Counts as the same daily order as standard issue.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.orders.submitRequisition",
+    "Method": "L.T",
+    "English": "Submit requisition",
+    "Chinese": "提交申领",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.equipmentOrder.alreadyOrderedToday",
+    "Method": "L.T",
+    "English": "Already ordered today.",
+    "Chinese": "今天已经下过单了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.equipmentOrder.tierRequired",
+    "Method": "L.Translate",
+    "English": "Opens at {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.equipmentOrder.unavailable",
+    "Method": "L.T",
+    "English": "Unavailable",
+    "Chinese": "暂不可用",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.equipmentOrder.total",
+    "Method": "L.Translate",
+    "English": "Total {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.forging.precisionForgeTurnsHighPurity",
+    "Method": "L.T",
+    "English": "The precision forge turns high-purity ingots into billets overnight; the anvil forges blades from billets, and the cleaner the quench water, the better the finish.",
+    "Chinese": "精锻熔炉每晚把高纯度的金属锭炼成钢胚；锻台用钢胚锻刀，淬火的水越干净，刀的成色越好。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.forging.rosenWillComeTeachOnce",
+    "Method": "L.Translate",
+    "English": "Rosen will come to teach you once cooperation reaches {0}.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.forging.rosenAlreadyCameByFull",
+    "Method": "L.Translate",
+    "English": "Rosen already came by. The full kit is {0}₵: precision forge and anvil, plus 3 billets, delivered tomorrow.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.forging.buyKit",
+    "Method": "L.Translate",
+    "English": "Buy kit ({0}₵)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.forging.orderThroughRosenListPrice",
+    "Method": "L.T",
+    "English": "Order through Rosen. List price, here tomorrow, no limit.",
+    "Chinese": "找罗森订。原价，明天到，不限量。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.forging.orderOne",
+    "Method": "L.T",
+    "English": "Order one",
+    "Chinese": "订一台",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.forging.cash",
+    "Method": "L.Translate",
+    "English": "Cash {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.tierRequired",
+    "Method": "L.Translate",
+    "English": "Opens at {0}.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.factoryRefurbishmentGuaranteedOneCondition",
+    "Method": "L.T",
+    "English": "Factory refurbishment, guaranteed: one condition grade up each time, up to “Excellent”. {0}₵ per Meridian gun, {1}₵ for other makes. Once every {2} days, up to {3} guns each time, returned the next day.",
+    "Chinese": "厂家返修，保证成功，一次升一档，最高到“优秀”。子午线的枪每把 {0}₵，别家的 {1}₵。每 {2} 天一次，每次最多 {3} 把，第二天送回。",
+    "Formatted": true,
+    "Nested": true
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.gun",
+    "Method": "L.T",
+    "English": "Gun",
+    "Chinese": "枪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.condition",
+    "Method": "L.T",
+    "English": "Condition",
+    "Chinese": "成色",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.fee",
+    "Method": "L.T",
+    "English": "Fee",
+    "Chinese": "费用",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.noGunsRefurbish",
+    "Method": "L.T",
+    "English": "No guns to refurbish.",
+    "Chinese": "没有能翻新的枪。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.moreSendThemNextTime",
+    "Method": "L.Translate",
+    "English": "{0} more; send them next time.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.gunsThisTime",
+    "Method": "L.Translate",
+    "English": "{0} guns this time, {1}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.nextDropOffDay",
+    "Method": "L.Translate",
+    "English": "Next drop-off: day {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.sendRefurbishment",
+    "Method": "L.T",
+    "English": "Send for refurbishment",
+    "Chinese": "送厂翻新",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+    "Key": "ui.meridian.refurbishment.receivedBackTomorrow",
+    "Method": "L.T",
+    "English": "Received. Back tomorrow.",
+    "Chinese": "收到。明天送回。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.overview.frontDesk",
+    "Method": "L.T",
+    "English": "Front desk: ",
+    "Chinese": "前台：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.overview.services",
+    "Method": "L.T",
+    "English": "Services",
+    "Chinese": "服务",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.overview.locked",
+    "Method": "L.T",
+    "English": " (locked)",
+    "Chinese": "（未解锁）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.availability.signWithPastelOrderBy",
+    "Method": "L.T",
+    "English": "Sign with pastel to order by phone. Do a few more deals with Milo.",
+    "Chinese": "签约后可以电话订货。和米洛多做几笔买卖吧。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.availability.signWithPastelJoinAs",
+    "Method": "L.T",
+    "English": "Sign with pastel to join as a Lower Levels dealer.",
+    "Chinese": "签约后可以加盟成为帕斯泰尔的下层合作商。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.availability.becomeLowerLevelsDealerFirst",
+    "Method": "L.T",
+    "English": "Become a Lower Levels dealer first, and pastel will send its regulars your way.",
+    "Chinese": "先成为下层合作商，帕斯泰尔才会把熟客介绍给你。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.daily",
+    "Method": "L.T",
+    "English": "Daily",
+    "Chinese": "日用",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.hemingway",
+    "Method": "L.T",
+    "English": "Hemingway",
+    "Chinese": "海明威",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.hemingwayLocked",
+    "Method": "L.T",
+    "English": "Hemingway (locked)",
+    "Chinese": "海明威（未解锁）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.thisPageOpensOnceMilo",
+    "Method": "L.T",
+    "English": "This page opens once Milo transfers to Hemingway",
+    "Chinese": "米洛调去海明威之后才有这一页",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.craft",
+    "Method": "L.T",
+    "English": "Craft",
+    "Chinese": "工艺",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.thisPageOpensOnceMilo",
+    "Method": "L.T",
+    "English": "This page opens once Milo transfers to Hemingway",
+    "Chinese": "米洛调去海明威之后才有这一页",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.orderTodayDeliveredTomorrow",
+    "Method": "L.T",
+    "English": "Order today, delivered tomorrow",
+    "Chinese": "今天下单，明天送到",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.alreadyOrderedToday",
+    "Method": "L.T",
+    "English": "Already ordered today",
+    "Chinese": "今天已经下过单了",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.tierRequired",
+    "Method": "L.Translate",
+    "English": "Unlocks at {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.unavailable",
+    "Method": "L.T",
+    "English": "Unavailable",
+    "Chinese": "暂不可用",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.deal",
+    "Method": "L.T",
+    "English": "Deal",
+    "Chinese": "特价",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.buy",
+    "Method": "L.T",
+    "English": "Buy",
+    "Chinese": "订货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.orders.quotaRemaining",
+    "Method": "L.Translate",
+    "English": "{0} left {1}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.supervisor.payOffSupervisor",
+    "Method": "L.T",
+    "English": "Pay off the supervisor",
+    "Chinese": "打点主管",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.supervisor.pay",
+    "Method": "L.Translate",
+    "English": "Pay {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.supervisor.packagingMachineArrivesTomorrow",
+    "Method": "L.T",
+    "English": "The packaging machine arrives tomorrow.",
+    "Chinese": "分装机明天送到。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.supervisor.notEnoughCash",
+    "Method": "L.T",
+    "English": "Not enough cash",
+    "Chinese": "现金不够",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.lowerDealer",
+    "Method": "L.T",
+    "English": "Lower Dealer",
+    "Chinese": "下层合作商",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.becomePastelPartnerOutlet",
+    "Method": "L.T",
+    "English": "Become a pastel partner outlet.\n\n",
+    "Chinese": "成为帕斯泰尔的特约经销点。\n\n",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.rebatePolicy",
+    "Method": "L.Translate",
+    "English": "· Regular rebate: every {0} days, {1:P0} of what you sold in pastel products, paid back by the courier.\n",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.unlocksLowerFootTrafficPastel",
+    "Method": "L.T",
+    "English": "· Unlocks “Lower Foot Traffic”: pastel sends Lower Levels regulars to your shop.",
+    "Chinese": "· 解锁“下层客流”：帕斯泰尔会把下层区的熟客介绍到你店里。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.joinOneTime",
+    "Method": "L.Translate",
+    "English": "Join (one-time {0}₵)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.welcomePastel",
+    "Method": "L.T",
+    "English": "Welcome to pastel!",
+    "Chinese": "欢迎加入帕斯泰尔！",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.salesProgress",
+    "Method": "L.Translate",
+    "English": "Dealer for {0} days. Sold {1:0}₵ of pastel products this period.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.dealer.rebateEstimate",
+    "Method": "L.Translate",
+    "English": "Expected rebate {0:0}₵, settles in {1} days.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.lowerFootTraffic",
+    "Method": "L.T",
+    "English": "Lower Foot Traffic",
+    "Chinese": "下层客流",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.perNightPastelSendsLower",
+    "Method": "L.Translate",
+    "English": "{0}₵ per night. pastel sends Lower Levels regulars over: the next day, 1–2 extra Lower Levels customers come looking for food and daily goods.\n\nPauses automatically when you are short on cash.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.haveNeedCash",
+    "Method": "L.Translate",
+    "English": "\n(You have {0}₵ and need {1}₵ in cash.)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.clickTurnOff",
+    "Method": "L.T",
+    "English": "On (click to turn off)",
+    "Chinese": "已开启（点击关闭）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.enable",
+    "Method": "L.T",
+    "English": "Turn on",
+    "Chinese": "开启",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.enable",
+    "Method": "L.T",
+    "English": "Turn on",
+    "Chinese": "开启",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.regularsStartComingTonight",
+    "Method": "L.T",
+    "English": "Regulars start coming from tonight",
+    "Chinese": "从今晚开始介绍熟客",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.traffic.turnedOff",
+    "Method": "L.T",
+    "English": "Turned off",
+    "Chinese": "已关闭",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.footer.milo",
+    "Method": "L.T",
+    "English": "Milo",
+    "Chinese": "米洛",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.footer.cooperation",
+    "Method": "L.Translate",
+    "English": "Cooperation {0}  ·  {1}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.footer.total",
+    "Method": "L.Translate",
+    "English": "Total {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.footer.cash",
+    "Method": "L.Translate",
+    "English": "Cash {0}₵",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.footer.order",
+    "Method": "L.T",
+    "English": "Order",
+    "Chinese": "下单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+    "Key": "ui.pastel.footer.ordered",
+    "Method": "L.T",
+    "English": "Ordered! ",
+    "Chinese": "已下单！",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.overview.personalAdvisorSeline",
+    "Method": "L.T",
+    "English": "Personal Advisor · Seline",
+    "Chinese": "专属顾问 · 瑟琳",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.overview.membership",
+    "Method": "L.Translate",
+    "English": "Membership: ",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.overview.tierExclusive",
+    "Method": "L.Translate",
+    "English": "Exclusive to {0}s.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.overview.goldWorkshopSuppliesSeedsPer",
+    "Method": "L.T",
+    "English": "Gold workshop supplies: 2 seeds per rolling 7 days. Fixed prices; next-day delivery.",
+    "Chinese": "金卡工艺供应：花种每7天限购2颗。价格固定，次日配送。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.overview.placeOrder",
+    "Method": "L.T",
+    "English": "Place Order",
+    "Chinese": "提交订货",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.vip.bookingPolicy",
+    "Method": "L.Translate",
+    "English": "Solana introduces you to Upper Levels clientele: the day after you book, a Solana VIP with a budget of {0} visits your shop, looking for luxury goods, cigarettes and alcohol.\n\n{1}₵ per booking, paid when you book; one booking every {2} days.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.vip.bookVIP",
+    "Method": "L.Translate",
+    "English": "Book a VIP ({0}₵)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.vip.availableAgainDay",
+    "Method": "L.Translate",
+    "English": "Available again on day {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.vip.arrangedVIPArrivesTomorrow",
+    "Method": "L.T",
+    "English": "Arranged. Your VIP arrives tomorrow.",
+    "Chinese": "已为您安排，明天专人引荐。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.lab.purchasePolicy",
+    "Method": "L.Translate",
+    "English": "The lab needs the items below (a new list every {0} days). Book a buyer and they will come by the next day to purchase.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.lab.bookedThisList",
+    "Method": "L.T",
+    "English": "Booked for this list.",
+    "Chinese": "这一期已预约。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.lab.bookBuyer",
+    "Method": "L.T",
+    "English": "Book a buyer",
+    "Chinese": "预约采购员",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.gift.claimPolicy",
+    "Method": "L.Translate",
+    "English": "Black Gold Members may claim one bottle of Pheromone Perfume every {0} days, hand-delivered the next day.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.gift.claimGift",
+    "Method": "L.T",
+    "English": "Claim gift",
+    "Chinese": "领取礼遇",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+    "Key": "ui.solana.gift.claimedThisPeriod",
+    "Method": "L.T",
+    "English": "Claimed for this period",
+    "Chinese": "这一期已领取",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.overview.dayHeading",
+    "Method": "L.Translate",
+    "English": "{0}   Day {1}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.overview.mentor",
+    "Method": "L.T",
+    "English": "The Mentor: ",
+    "Chinese": "导师：",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.overview.node",
+    "Method": "L.Translate",
+    "English": "Node: ",
+    "Chinese": null,
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.overview.trust",
+    "Method": "L.Translate",
+    "English": "Trust {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.overview.nobodyKnows",
+    "Method": "L.T",
+    "English": "Nobody knows you.",
+    "Chinese": "没人认识你。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.overview.tierRequired",
+    "Method": "L.Translate",
+    "English": "Only at {0}.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.madeBySeveralOutfitsTogether",
+    "Method": "L.T",
+    "English": "Made by several outfits together.",
+    "Chinese": "几家一起出的。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.noLicense",
+    "Method": "L.T",
+    "English": "No license.",
+    "Chinese": "没有许可证。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.conditionNotGuaranteed",
+    "Method": "L.T",
+    "English": "Condition not guaranteed.",
+    "Chinese": "成色不保证。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.freighterSurplusPlenty",
+    "Method": "L.T",
+    "English": "Freighter surplus. Plenty of it.",
+    "Chinese": "货船余货，量大。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.orderTodayHereTomorrow",
+    "Method": "L.T",
+    "English": "Order today, here tomorrow. ",
+    "Chinese": "今天下单，明天到。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.alreadyOrderedToday",
+    "Method": "L.T",
+    "English": "Already ordered today. ",
+    "Chinese": "今天已经下过单了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.value",
+    "Method": "L.Translate",
+    "English": "At {0}",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.unavailable",
+    "Method": "L.T",
+    "English": "Unavailable",
+    "Chinese": "暂不可用",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.totalAllPages",
+    "Method": "L.Translate",
+    "English": "Total {0}₵ (all pages)",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.orders.order",
+    "Method": "L.T",
+    "English": "Order",
+    "Chinese": "下单",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.credits.techCredits",
+    "Method": "L.T",
+    "English": "Tech credits",
+    "Chinese": "技术来源",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.mutualAid.tierRequired",
+    "Method": "L.Translate",
+    "English": "Only at {0}.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.mutualAid.spacersDocksAreShortFood",
+    "Method": "L.Translate",
+    "English": "Spacers at the docks are short on food, water and medicine. With this on, the Alliance points people your way every night: the next day, 1–2 extra Spacers come by to buy whatever they need.\n\n{0}₵ per night. Stops automatically when you are short on cash.",
+    "Chinese": null,
+    "Formatted": true,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.mutualAid.clickTurnOff",
+    "Method": "L.T",
+    "English": "On (click to turn off)",
+    "Chinese": "开着（点击关掉）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.mutualAid.enable",
+    "Method": "L.T",
+    "English": "Turn on",
+    "Chinese": "开",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.mutualAid.startingTonight",
+    "Method": "L.T",
+    "English": "Starting tonight.",
+    "Chinese": "今晚开始。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+    "Key": "ui.spacer.mutualAid.stopped",
+    "Method": "L.T",
+    "English": "Stopped.",
+    "Chinese": "停了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "src/CorpPresence/UI/Notebook.cs",
+    "Key": "ui.notebook.panel.notebook",
+    "Method": "L.T",
+    "English": "Notebook",
+    "Chinese": "记事簿",
+    "Formatted": false,
+    "Nested": false
+  }
+]

@@ -147,7 +147,7 @@ internal static partial class CompanyVisitors
 	{
 		try
 		{
-			string text = L.T("索拉纳贵宾", "Solana VIP");
+			string text = L.K("companies.companyVisitors.vip.solanaVIP", "索拉纳贵宾", "Solana VIP");
 			StoreClient storeClient = new StoreClient
 			{
 				identifier = "solana_vip",
@@ -157,7 +157,7 @@ internal static partial class CompanyVisitors
 				clientIntent = StoreClient.ClientIntent.BUY
 			};
 			storeClient.SetBudget(budget);
-			storeClient.mainDialogue.SetText(text, L.T("索拉纳的顾问推荐了你的店。", "A Solana consultant recommended your shop.")).NextDialogue().SetText(text, L.T("听说你这儿有好东西。奢侈品、好烟、好酒，拿出来看看。", "I hear you carry fine things. Luxury goods, good smokes, good liquor. Let's see them."));
+			storeClient.mainDialogue.SetText(text, L.K("companies.companyVisitors.vip.solanaConsultantRecommendedShop", "索拉纳的顾问推荐了你的店。", "A Solana consultant recommended your shop.")).NextDialogue().SetText(text, L.K("companies.companyVisitors.vip.iHearCarryFineThings", "听说你这儿有好东西。奢侈品、好烟、好酒，拿出来看看。", "I hear you carry fine things. Luxury goods, good smokes, good liquor. Let's see them."));
 			string[] array = new string[3] { "LUXURY_ITEM", "CIGARETTE_TAG", "ALCOHOL" };
 			foreach (string item in array)
 			{
@@ -214,31 +214,31 @@ internal static partial class CompanyVisitors
 		{
 			if (jackson)
 			{
-				text = "Dr. Jackson's Courier";
+				text = L.K("companies.courier.name.drJacksonSCourier", "Dr. Jackson's Courier");
 			}
 			else if (flag6)
 			{
-				text = "Resistance Runner";
+				text = L.K("companies.courier.name.resistanceRunner", "Resistance Runner");
 			}
 			else if (flag5)
 			{
-				text = "Davre Courier";
+				text = L.K("companies.courier.name.davreCourier", "Davre Courier");
 			}
 			else if (flag4)
 			{
-				text = "Meridian Courier";
+				text = L.K("companies.courier.name.meridianCourier", "Meridian Courier");
 			}
 			else if (flag3)
 			{
-				text = "Spacer Runner";
+				text = L.K("companies.courier.name.spacerRunner", "Spacer Runner");
 			}
 			else if (flag2)
 			{
-				text = "Carmicheal Courier";
+				text = L.K("companies.courier.name.carmichealCourier", "Carmicheal Courier");
 			}
 			else
 			{
-				text = (flag ? "Solana Courier" : "pastel Courier");
+				text = (flag ? L.K("companies.courier.name.solanaCourier", "Solana Courier") : L.K("companies.courier.name.pastelCourier", "pastel Courier"));
 			}
 		}
 		else if (jackson)
@@ -294,31 +294,31 @@ internal static partial class CompanyVisitors
 			{
 				if (jackson)
 				{
-					item = "Machines and custom parts from Jackson's workshop. He tuned them himself. Check the order and sign.";
+					item = L.K("companies.courier.delivery.machinesAndCustomPartsFromJacksonS", "Machines and custom parts from Jackson's workshop. He tuned them himself. Check the order and sign.");
 				}
 				else if (flag6)
 				{
-					item = "Odin sent this. Don't ask where it came from.";
+					item = L.K("companies.courier.delivery.odinSentThisDonTAskWhere", "Odin sent this. Don't ask where it came from.");
 				}
 				else if (flag5)
 				{
-					item = "Davre delivery. Check the count and sign.";
+					item = L.K("companies.courier.delivery.davreDeliveryCheckTheCountAndSign", "Davre delivery. Check the count and sign.");
 				}
 				else if (flag4)
 				{
-					item = "Meridian delivery. Check the serials.";
+					item = L.K("companies.courier.delivery.meridianDeliveryCheckTheSerials", "Meridian delivery. Check the serials.");
 				}
 				else if (flag3)
 				{
-					item = "From the docks.";
+					item = L.K("companies.courier.delivery.fromTheDocks", "From the docks.");
 				}
 				else if (flag2)
 				{
-					item = "Carmicheal Pharmaceutical delivery. Please check the lot numbers and sign.";
+					item = L.K("companies.courier.delivery.carmichealPharmaceuticalDeliveryPleaseCheckTheLot", "Carmicheal Pharmaceutical delivery. Please check the lot numbers and sign.");
 				}
 				else
 				{
-					item = (flag ? "Solana Biogenics, personal delivery. Please sign." : "pastel delivery! I'll leave it right here.");
+					item = (flag ? L.K("companies.courier.delivery.solanaBiogenicsPersonalDeliveryPleaseSign", "Solana Biogenics, personal delivery. Please sign.") : L.K("companies.courier.delivery.pastelDeliveryILlLeaveItRight", "pastel delivery! I'll leave it right here."));
 				}
 			}
 			else if (jackson)
@@ -349,50 +349,50 @@ internal static partial class CompanyVisitors
 			{
 				item = (flag ? "索拉纳生物，专人配送。请签收。" : "帕斯泰尔送货！东西给你放这儿了。");
 			}
-			list2.Add(L.Translate(item));
+			list2.Add(item);
 		}
 		if (orders.Any((Order o) => o.Kind == "swap"))
 		{
-			list.Add(L.T("问题批次已替换为正品。请核对。", "The problem batch has been replaced with genuine product. Please check."));
+			list.Add(L.K("companies.companyVisitors.courier.problemBatchHasBeenReplaced", "问题批次已替换为正品。请核对。", "The problem batch has been replaced with genuine product. Please check."));
 		}
 		if (orders.Any((Order o) => o.Kind == "refurbish"))
 		{
-			list.Add(L.T("返厂的枪。翻新好了。", "Your guns from the factory. Refurbished."));
+			list.Add(L.K("companies.companyVisitors.courier.gunsFactoryRefurbished", "返厂的枪。翻新好了。", "Your guns from the factory. Refurbished."));
 		}
 		if (orders.Any((Order o) => o.Kind == "stamina"))
 		{
-			list.Add(L.T("伊莎·兰登经办的特别申请。请签收。", "A special request handled by Isa Langdon. Please sign."));
+			list.Add(L.K("companies.companyVisitors.courier.specialRequestHandledByIsa", "伊莎·兰登经办的特别申请。请签收。", "A special request handled by Isa Langdon. Please sign."));
 		}
 		if (num > 0)
 		{
-			list.Add(L.T($"这是这一期的返点，{num}₵。", L.Translate((System.FormattableString)$"Here's your rebate: {num}₵.")));
+			list.Add(L.K("companies.companyVisitors.courier.hereSRebate", $"这是这一期的返点，{num}₵。", (System.FormattableString)$"Here's your rebate: {num}₵."));
 		}
 		if (card)
 		{
-			list.Add(flag3 ? L.T("导师让我带张便签。", "The Mentor asked me to bring you a note.") : L.T((Engine.Find(c.CharacterId)?.Name ?? c.Name) + "让我把名片带给你。", L.Translate((System.FormattableString)$"{Engine.Find(c.CharacterId)?.Name ?? c.Name} asked me to bring you a card.")));
+			list.Add(flag3 ? L.K("companies.companyVisitors.courier.mentorAskedMeBringNote", "导师让我带张便签。", "The Mentor asked me to bring you a note.") : L.K("companies.companyVisitors.courier.askedMeBringCard", (Engine.Find(c.CharacterId)?.Name ?? c.Name) + "让我把名片带给你。", (System.FormattableString)$"{Engine.Find(c.CharacterId)?.Name ?? c.Name} asked me to bring you a card."));
 		}
 		string text2;
 		if (L.En)
 		{
 			if (flag5)
 			{
-				text2 = "<i>(wheels the empty cart away)</i>";
+				text2 = L.K("companies.courier.farewell.iWheelsTheEmptyCartAwayI", "<i>(wheels the empty cart away)</i>");
 			}
 			else if (flag4)
 			{
-				text2 = "<i>(salutes)</i>";
+				text2 = L.K("companies.courier.farewell.iSalutesI", "<i>(salutes)</i>");
 			}
 			else if (flag3)
 			{
-				text2 = "<i>(nods)</i>";
+				text2 = L.K("companies.courier.farewell.iNodsI", "<i>(nods)</i>");
 			}
 			else if (flag2)
 			{
-				text2 = "<i>(takes back the receipt)</i>Thank you for your cooperation.";
+				text2 = L.K("companies.courier.farewell.iTakesBackTheReceiptIThank", "<i>(takes back the receipt)</i>Thank you for your cooperation.");
 			}
 			else
 			{
-				text2 = (flag ? "<i>(bows slightly)</i>Have a pleasant day." : "<i>(nods)</i>See you next time.");
+				text2 = (flag ? L.K("companies.courier.farewell.iBowsSlightlyIHaveAPleasant", "<i>(bows slightly)</i>Have a pleasant day.") : L.K("companies.courier.farewell.iNodsISeeYouNextTime", "<i>(nods)</i>See you next time."));
 			}
 		}
 		else if (flag5)
@@ -415,7 +415,7 @@ internal static partial class CompanyVisitors
 		{
 			text2 = (flag ? "<i>（微微欠身）</i>祝您愉快。" : "<i>（点点头）</i>下回见。");
 		}
-		text = L.Translate(text);
+		
 		StoreClient storeClient = new StoreClient
 		{
 			identifier = $"corp_{c.Id}_courier_{Day}",
@@ -429,7 +429,7 @@ internal static partial class CompanyVisitors
 		storeClient.CompleteClientCreation();
 		if (list.Count == 0)
 		{
-			list.Add(L.T("送货。请签收。", "Delivery. Please sign."));
+			list.Add(L.K("companies.companyVisitors.courier.deliveryPleaseSign", "送货。请签收。", "Delivery. Please sign."));
 		}
 		Dialogue dialogue = new Dialogue().SetText(text, list[0]);
 		Dialogue dialogue2 = dialogue;
@@ -437,7 +437,7 @@ internal static partial class CompanyVisitors
 		{
 			dialogue2 = dialogue2.NextDialogue().SetText(text, list[num2]);
 		}
-		Dialogue dialogue3 = dialogue2.NextDialogue().SetText(text, L.Translate(text2));
+		Dialogue dialogue3 = dialogue2.NextDialogue().SetText(text, text2);
 		dialogue2.SetEndAction(CreateDeliveryReceipt(c, s, orders, card));
 		dialogue3.SetEndAction(CreateCourierLeave(storeClient));
 		storeClient.mainDialogue = dialogue;
@@ -446,7 +446,7 @@ internal static partial class CompanyVisitors
 
 	public static StoreClient PastelSeller()
 	{
-		string text = L.T("帕斯泰尔货商", "pastel Trader");
+		string text = L.K("companies.companyVisitors.pastelSeller.pastelTrader", "帕斯泰尔货商", "pastel Trader");
 		StoreClient client = new StoreClient
 		{
 			identifier = $"corp_pastel_seller_{Day}",
@@ -460,8 +460,8 @@ internal static partial class CompanyVisitors
 		client.CompleteClientCreation();
 		client.SetWholesale(20);
 		string[] stock = Engine.Pick(PastelGoods, 3, 5);
-		Dialogue dialogue = new Dialogue().SetText(text, L.T("看到你的灯牌了。", "Saw your sign."));
-		Dialogue dialogue2 = dialogue.NextDialogue().SetText(text, L.T("帕斯泰尔的货，要吗？", "pastel goods. Interested?"));
+		Dialogue dialogue = new Dialogue().SetText(text, L.K("companies.companyVisitors.pastelSeller.sawSign", "看到你的灯牌了。", "Saw your sign."));
+		Dialogue dialogue2 = dialogue.NextDialogue().SetText(text, L.K("companies.companyVisitors.pastelSeller.pastelGoodsInterested", "帕斯泰尔的货，要吗？", "pastel goods. Interested?"));
 		bool placed = false;
 		dialogue2.SetEndAction(() =>
 		{
@@ -488,7 +488,7 @@ internal static partial class CompanyVisitors
 			client.OnIntroduced();
 		});
 		client.mainDialogue = dialogue;
-		Dialogue dialogue3 = new Dialogue().SetText(text, L.T("<i>（点点头）</i>下回再来。", "<i>(nods)</i>I'll be back.")).SetEndAction(() =>
+		Dialogue dialogue3 = new Dialogue().SetText(text, L.K("companies.companyVisitors.pastelSeller.iNodsIILl", "<i>（点点头）</i>下回再来。", "<i>(nods)</i>I'll be back.")).SetEndAction(() =>
 		{
 			try
 			{
@@ -512,7 +512,7 @@ internal static partial class CompanyVisitors
 
 	private static StoreClient LabBuyer(Company c, CompanyState s, Visitor visit)
 	{
-		string text = L.T("索拉纳采购员", "Solana Buyer");
+		string text = L.K("companies.companyVisitors.labBuyer.solanaBuyer", "索拉纳采购员", "Solana Buyer");
 		HashSet<string> list = new HashSet<string>(Services.LabListForVisit(s, visit));
 		StoreClient client = new StoreClient
 		{
@@ -537,15 +537,15 @@ internal static partial class CompanyVisitors
 				return false;
 			}
 		};
-		client.placedWrongItemWhenSellingToDialogue = new Dialogue().SetText(text, L.T("单子上没有这个。", "That's not on the list."));
-		Dialogue dialogue = new Dialogue().SetText(text, L.T("实验室的采购单。东西放台上。", "Purchase order from the lab. Put the items on the counter."));
+		client.placedWrongItemWhenSellingToDialogue = new Dialogue().SetText(text, L.K("companies.companyVisitors.labBuyer.thatSNotList", "单子上没有这个。", "That's not on the list."));
+		Dialogue dialogue = new Dialogue().SetText(text, L.K("companies.companyVisitors.labBuyer.purchaseOrderLabPutItems", "实验室的采购单。东西放台上。", "Purchase order from the lab. Put the items on the counter."));
 		dialogue.SetEndAction(() =>
 		{
 			Engine.BuyActive = true;
 			client.OnIntroduced();
 		});
 		client.mainDialogue = dialogue;
-		Dialogue allDoneDialogue = new Dialogue().SetText(text, L.T("<i>（在单子上打了个勾）</i>收齐了。", "<i>(ticks the list)</i>That's everything.")).SetEndAction(() =>
+		Dialogue allDoneDialogue = new Dialogue().SetText(text, L.K("companies.companyVisitors.labBuyer.iTicksListIThat", "<i>（在单子上打了个勾）</i>收齐了。", "<i>(ticks the list)</i>That's everything.")).SetEndAction(() =>
 		{
 			Engine.BuyActive = false;
 			try
@@ -556,7 +556,7 @@ internal static partial class CompanyVisitors
 			{
 			}
 		});
-		client.acceptDealDialogue = new Dialogue().SetText(text, L.T("收下了。单子上还有的，接着放。", "Got it. If there's more from the list, keep it coming."));
+		client.acceptDealDialogue = new Dialogue().SetText(text, L.K("companies.companyVisitors.labBuyer.gotIfThereSMore", "收下了。单子上还有的，接着放。", "Got it. If there's more from the list, keep it coming."));
 		client.allDoneDialogue = allDoneDialogue;
 		return client;
 	}

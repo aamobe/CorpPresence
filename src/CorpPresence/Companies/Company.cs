@@ -44,7 +44,7 @@ internal abstract class Company
 		{
 			return TierNames[Tier(s) - 1];
 		}
-		return L.T("未签约", "Unsigned");
+		return L.K("companies.company.tierName.unsigned", "未签约", "Unsigned");
 	}
 
 	public int NextTierAt(CompanyState s)

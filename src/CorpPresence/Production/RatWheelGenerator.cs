@@ -45,9 +45,9 @@ internal static class RatWheelGenerator
             (item, _) => IsBattery(item) && GeneralHelper.IsItemOwned(machine, item);
         // Append the slots after the original cage, feeder and butcher storage.
         var panels = (MachineryPanelRow)machine.contentWindow.childElement;
-        panels.Add(MachineHelper.Panel(L.T("充电槽 1", "Charge slot 1"), first, "rat_charge_1"));
-        panels.Add(MachineHelper.Panel(L.T("充电槽 2", "Charge slot 2"), second, "rat_charge_2"));
-        panels.Add(new MachineryPanel(L.T($"每槽每晚最多 {MaxNightlyEnergyPerBattery} kJ", L.Translate((System.FormattableString)$"Max {MaxNightlyEnergyPerBattery} kJ/slot/night"))));
+        panels.Add(MachineHelper.Panel(L.K("production.ratWheelGenerator.build.chargeSlotPrimary", "充电槽 1", "Charge slot 1"), first, "rat_charge_1"));
+        panels.Add(MachineHelper.Panel(L.K("production.ratWheelGenerator.build.chargeSlotSecondary", "充电槽 2", "Charge slot 2"), second, "rat_charge_2"));
+        panels.Add(new MachineryPanel(L.K("production.ratWheelGenerator.build.maxKJSlotNight", $"每槽每晚最多 {MaxNightlyEnergyPerBattery} kJ", (System.FormattableString)$"Max {MaxNightlyEnergyPerBattery} kJ/slot/night")));
         // The center column follows the cage width, so keep the two slots in the side columns.
         panels.SetDisplayOrder(1, 0, 2, 3, 5, 4);
         panels.SetColumns(3);

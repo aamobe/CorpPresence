@@ -1,6 +1,6 @@
 # 维护指南
 
-1. 先读[当前发布记录](../releases/0.9.9.md)，确认修改所基于的源码。
+1. 先读[当前发布记录](../releases/1.0.0.md)，确认修改所基于的源码。
 2. 用[源码地图](architecture.md)找入口，并沿调用链检查UI、后端校验和存档。
 3. 涉及液体、库存、读档或会员时，读[兼容与回归](compatibility-and-regressions.md)。
 4. 完成修改后按[构建与发布](build-and-release.md)验证，并更新受影响文档。

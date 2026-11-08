@@ -40,7 +40,7 @@ internal static class Cards
 	{
 		try
 		{
-			card.SetName(L.T("名片（" + c.Name + "）", L.Translate((FormattableString)$"Business Card ({c.Name})")));
+			card.SetName(L.K("items.cards.applyText.businessCard", "名片（" + c.Name + "）", (FormattableString)$"Business Card ({c.Name})"));
 		}
 		catch
 		{

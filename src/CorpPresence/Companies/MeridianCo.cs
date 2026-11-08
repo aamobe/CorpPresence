@@ -153,27 +153,29 @@ internal sealed class MeridianCo : Company
 
 	private static readonly string[] LadderName = new string[5] { "很差", "一般", "良好", "优秀", "全新" };
 
+	private static readonly string[] LadderTextKeys = { "companies.meridian.condition.poor", "companies.meridian.condition.fair", "companies.meridian.condition.good", "companies.meridian.condition.excellent", "companies.meridian.condition.new" };
+
 	private static readonly string[] LadderNameEn = new string[5] { "Poor", "Fair", "Good", "Excellent", "New" };
 
 	public override string Id => "meridian";
 
-	public override string Name => L.T("子午线兵工", "Meridian Ballistics");
+	public override string Name => L.K("companies.meridian.name.meridianBallistics", "子午线兵工", "Meridian Ballistics");
 
 	public override string CharacterId => "rosen";
 
 	public override long PhoneNumber => 63743L;
 
-	public override string[] TierNames => L.T(new string[3] { "一级许可", "二级许可", "三级许可" }, new string[3] { "Class I License", "Class II License", "Class III License" });
+	public override string[] TierNames => new string[3] { L.K("companies.meridian.tierNames.classILicense", "一级许可", "Class I License"), L.K("companies.meridian.tierNames.classIILicense", "二级许可", "Class II License"), L.K("companies.meridian.tierNames.classIIILicense", "三级许可", "Class III License") };
 
-	public override string CardFlavor => L.T("黑底红字，一道经线标记，63743。背面印着：返厂服务，终身有效。", "Red on black, a single meridian line, 63743. On the back: Factory service, for life.");
+	public override string CardFlavor => L.K("companies.meridian.cardFlavor.redBlackSingleMeridianLine", "黑底红字，一道经线标记，63743。背面印着：返厂服务，终身有效。", "Red on black, a single meridian line, 63743. On the back: Factory service, for life.");
 
-	public override string DeskName => L.T("子午线订货处", "Meridian Order Desk");
+	public override string DeskName => L.K("companies.meridian.deskName.meridianOrderDesk", "子午线订货处", "Meridian Order Desk");
 
 	public override string DeskAsk => "";
 
-	public override string[] FrontDesk => L.T(new string[1] { "子午线兵工，订货处。报许可编号。" }, new string[1] { "Meridian Ballistics, order desk. License number." });
+	public override string[] FrontDesk => new string[1] { L.K("companies.meridian.frontDesk.meridianBallisticsOrderDeskLicense", "子午线兵工，订货处。报许可编号。", "Meridian Ballistics, order desk. License number.") };
 
-	public override string FrontDeskDone => L.T("登记了。明天到。", "Logged. Tomorrow.");
+	public override string FrontDeskDone => L.K("companies.meridian.frontDeskDone.loggedTomorrow", "登记了。明天到。", "Logged. Tomorrow.");
 
 	public static int ForgeFee => Services.Fee("meridian", "forge", 600);
 
@@ -214,19 +216,19 @@ internal sealed class MeridianCo : Company
 		CompanyState companyState = StateOf();
 		if (companyState == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.meridian.makeUpForge.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (companyState.ForgeOwned)
 		{
-			return L.T("已经办过了", "Already done");
+			return L.K("companies.meridian.makeUpForge.alreadyDone", "已经办过了", "Already done");
 		}
 		if (!ForgeOffered)
 		{
-			return L.T("还没有开通", "Not available yet");
+			return L.K("companies.meridian.makeUpForge.notAvailableYet", "还没有开通", "Not available yet");
 		}
 		if (!PayForgeFee())
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("companies.meridian.makeUpForge.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		companyState.Orders.Add(new Order
 		{
@@ -241,11 +243,11 @@ internal sealed class MeridianCo : Company
 		CompanyState companyState = StateOf();
 		if (companyState == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.meridian.orderForgeMachine.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (!companyState.ForgeOwned)
 		{
-			return L.T("还没有开通", "Not available yet");
+			return L.K("companies.meridian.orderForgeMachine.notAvailableYet", "还没有开通", "Not available yet");
 		}
 		string text = Services.OrderBlocked(c);
 		if (text != null)
@@ -308,7 +310,7 @@ internal sealed class MeridianCo : Company
 		{
 			return "?";
 		}
-		return L.T(LadderName[level], LadderNameEn[level]);
+		return L.K(LadderTextKeys[level], LadderName[level], LadderNameEn[level]);
 	}
 
 	public static bool CanRefurbish(GameItem item)

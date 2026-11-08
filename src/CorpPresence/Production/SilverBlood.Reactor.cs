@@ -17,7 +17,7 @@ internal static partial class SilverBlood
 		GameSlotInventory tank = new GameSlotInventory();
 		GameGridInventory output = new GameGridInventory(8, 4);
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
-		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"), MachineHelper.Panel(L.T("溶液", "Solution"), tank, "input"), MachineHelper.Panel(L.T("成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
+		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.silverBlood.reactor.buildReactor.modules", "模组", "Modules"), modules, "module"), MachineHelper.Panel(L.K("production.silverBlood.reactor.buildReactor.solution", "溶液", "Solution"), tank, "input"), MachineHelper.Panel(L.K("production.silverBlood.reactor.buildReactor.output", "成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		GameItem machine = Empty().SetContentWindow(contentWindow);
 		machine.EnableTag("CONTAINER_TAG");

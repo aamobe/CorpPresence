@@ -75,11 +75,10 @@ internal static partial class Perfume
             return;
         }
         _aroma = new PlantTrait(AromaTrait, "Aromatic Compounds", 4)
-            .Named(() => L.T("芳香物质", "Aromatic Compounds"),
-                () => L.T("收获物中含有可提取基底油的芳香花浆。", "Produces aromatic mash that can be extracted into base oil."))
+            .Named(() => L.K("production.perfume.plants.registerAroma.aromaticCompounds", "芳香物质", "Aromatic Compounds"),
+                () => L.K("production.perfume.plants.registerAroma.producesAromaticMashThatCan", "收获物中含有可提取基底油的芳香花浆。", "Produces aromatic mash that can be extracted into base oil."))
             .Infuses(MashLiquid).Unlimited().AppliesToSeedProduce()
-            .Describe(rank => L.T($"产生 {16 * PlantGeneticsHelper.RankScale(rank):0.#} mL 含油花浆。",
-                $"Produces {16 * PlantGeneticsHelper.RankScale(rank):0.#} mL of oilflower mash."))
+            .Describe(rank => L.KRendered("production.perfume.plants.registerAroma.producesMLOilflowerMash", $"产生 {16 * PlantGeneticsHelper.RankScale(rank):0.#} mL 含油花浆。", (FormattableString)$"Produces {16 * PlantGeneticsHelper.RankScale(rank):0.#} mL of oilflower mash."))
             .OnHarvestItem(ctx => {
                 if (!ctx.item.IsTag("CHEM_ITEM_TAG")) ChemicalHelper.InitChemItem(ctx.item, isBlendable: true);
                 // Native potency hooks precede this mod's registered production trait.

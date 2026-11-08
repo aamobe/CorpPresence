@@ -37,16 +37,16 @@ internal sealed class Rosen : Character
 			return null;
 		return id switch
 		{
-			Ammo => L.T("普通实弹需要一级售卖许可。", "Standard live rounds require a Class I ammunition sales permit."),
-			AmmoAP => L.T("穿甲弹需要二级售卖许可。", "Armor-piercing rounds require a Class II ammunition sales permit."),
-			Sentinel or Revolver => L.T("需要二级枪械售卖许可。", "Requires a Class II firearm sales permit."),
-			_ => L.T("需要三级枪械售卖许可。", "Requires a Class III firearm sales permit.")
+			Ammo => L.K("characters.rosen.saleBlocked.standardLiveRoundsRequireClass", "普通实弹需要一级售卖许可。", "Standard live rounds require a Class I ammunition sales permit."),
+			AmmoAP => L.K("characters.rosen.saleBlocked.armorPiercingRoundsRequireClass", "穿甲弹需要二级售卖许可。", "Armor-piercing rounds require a Class II ammunition sales permit."),
+			Sentinel or Revolver => L.K("characters.rosen.saleBlocked.requiresClassIIFirearmSales", "需要二级枪械售卖许可。", "Requires a Class II firearm sales permit."),
+			_ => L.K("characters.rosen.saleBlocked.requiresClassIIIFirearmSales", "需要三级枪械售卖许可。", "Requires a Class III firearm sales permit.")
 		};
 	}
 
 	public override string Id => "rosen";
 
-	public override string Name => L.T("罗森", "Rosen");
+	public override string Name => L.K("characters.rosen.name.rosen", "罗森", "Rosen");
 
 	public override string Faction => "FACTION_SECURITY";
 
@@ -62,8 +62,8 @@ internal sealed class Rosen : Character
 
 	public override int BuyGoodsNeeded => 1;
 
-	private static string Bye => L.T("保重。", "Take care.");
-	private static string AmmoTerms => L.T("橡胶弹不用证。普通实弹看一级，穿甲弹看二级。", "Rubber rounds are over the counter. Live rounds need Class I. Armor-piercing needs Class II.");
+	private static string Bye => L.K("characters.rosen.bye.takeCare", "保重。", "Take care.");
+	private static string AmmoTerms => L.K("characters.rosen.ammoTerms.rubberRoundsAreOverCounter", "橡胶弹不用证。普通实弹看一级，穿甲弹看二级。", "Rubber rounds are over the counter. Live rounds need Class I. Armor-piercing needs Class II.");
 
 	private static int Disc
 	{
@@ -79,12 +79,12 @@ internal sealed class Rosen : Character
 
 	private static string[] Talk => new string[6]
 	{
-		L.T("哨兵3型不会卡壳。至少宣传上是这样。", "The Sentinel Mk. III doesn't jam. At least, that's what the ads say."),
-		L.T("就属治安部用那些橡胶头的软弹最多。报告上写着好看一点。", "Nobody uses more of those rubber-tipped rounds than Security. Looks a little better on the reports."),
-		L.T("穿甲弹贵一点。真用得上再买。", "AP rounds cost more. Buy them if you need them."),
-		Character.Act(L.T("敲了敲右臂", "taps his right arm"), L.T("每年都得回厂保养一次。", "Back to the factory once a year for maintenance.")),
-		L.T("这道疤？演习。谁知道演习上的是实弹。", "This scar? A drill. Who knew they were using live rounds?"),
-		L.T("子午线可从来不卖给黑市，我们的活计只是损耗大了一点。", "Meridian never sells to the Black Market. We just lose a little more stock on the job.")
+		L.K("characters.rosen.talk.sentinelMkIIIDoesnT", "哨兵3型不会卡壳。至少宣传上是这样。", "The Sentinel Mk. III doesn't jam. At least, that's what the ads say."),
+		L.K("characters.rosen.talk.nobodyUsesMoreThoseRubber", "就属治安部用那些橡胶头的软弹最多。报告上写着好看一点。", "Nobody uses more of those rubber-tipped rounds than Security. Looks a little better on the reports."),
+		L.K("characters.rosen.talk.aPRoundsCostMoreBuy", "穿甲弹贵一点。真用得上再买。", "AP rounds cost more. Buy them if you need them."),
+		Character.Act(L.K("characters.rosen.talk.tapsHisRightArm", "敲了敲右臂", "taps his right arm"), L.K("characters.rosen.talk.backFactoryOnceYearMaintenance", "每年都得回厂保养一次。", "Back to the factory once a year for maintenance.")),
+		L.K("characters.rosen.talk.thisScarDrillWhoKnew", "这道疤？演习。谁知道演习上的是实弹。", "This scar? A drill. Who knew they were using live rounds?"),
+		L.K("characters.rosen.talk.meridianNeverSellsBlackMarket", "子午线可从来不卖给黑市，我们的活计只是损耗大了一点。", "Meridian never sells to the Black Market. We just lose a little more stock on the job.")
 	};
 
 	public override bool IsSide(int chapter)
@@ -190,10 +190,10 @@ internal sealed class Rosen : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[3]
 			{
-				L.T("子午线兵工，罗森。", "Meridian Ballistics. Rosen."),
-				Character.Act(L.T("拿出一把哨兵3型给你看", "takes out a Sentinel Mk. III to show you"), ""),
+				L.K("characters.rosen.chapter.meridianBallisticsRosen", "子午线兵工，罗森。", "Meridian Ballistics. Rosen."),
+				Character.Act(L.K("characters.rosen.chapter.takesOutSentinelMkIII", "拿出一把哨兵3型给你看", "takes out a Sentinel Mk. III to show you"), ""),
 				round == AmmoNL
-					? L.T("今天就是过来看看，确认一下你这边的资格。看着还不错。我带了几盒橡胶弹，这个不用证。要吗？", "Just here to look around and check what you're cleared to sell. Looks good so far. I brought a couple of boxes of rubber rounds. No permit needed for those. Interested?")
+					? L.K("characters.rosen.chapter.justHereLookAroundCheck", "今天就是过来看看，确认一下你这边的资格。看着还不错。我带了几盒橡胶弹，这个不用证。要吗？", "Just here to look around and check what you're cleared to sell. Looks good so far. I brought a couple of boxes of rubber rounds. No permit needed for those. Interested?")
 					: AmmoTerms
 			};
 			visit.Exit = Bye;
@@ -206,12 +206,12 @@ internal sealed class Rosen : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[4]
 			{
-				L.T("和平使者，标准军备。枪要按证卖。", "The Peacemaker. Standard issue. Show me the permit if you want one."),
-				L.T("（指了指左脸那道疤）我身上绝大部分疤痕都是它留下的。", "(points at the scar on his left cheek) Most of my scars came from one of these."),
-				L.T("所以，我知道它有多好用。", "So I know just how well it works."),
+				L.K("characters.rosen.chapter.peacemakerStandardIssueShowMe", "和平使者，标准军备。枪要按证卖。", "The Peacemaker. Standard issue. Show me the permit if you want one."),
+				L.K("characters.rosen.chapter.pointsScarHisLeftCheek", "（指了指左脸那道疤）我身上绝大部分疤痕都是它留下的。", "(points at the scar on his left cheek) Most of my scars came from one of these."),
+				L.K("characters.rosen.chapter.soIKnowJustHow", "所以，我知道它有多好用。", "So I know just how well it works."),
 				AmmoTerms
 			};
-			visit.Exit = L.T("保重，再见。", "Take care. See you around.");
+			visit.Exit = L.K("characters.rosen.chapter.takeCareSeeAround", "保重，再见。", "Take care. See you around.");
 			visit.Discount = Disc;
 			string round = SaleBlocked(Ammo) == null ? Ammo : AmmoNL;
 			visit.Stock = new[] { Peacemaker, round, round };
@@ -222,10 +222,10 @@ internal sealed class Rosen : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[4]
 			{
-				L.T("嘿。<i>（掏出一把大枪，旁人连忙退开）</i>", "Hey. <i>(pulls out a big gun, sending the bystanders scrambling back)</i>"),
-				L.T("「壁垒」，双动式霰弹枪！嘭的一声一切就都结束了。", "The Rampart, a dual-action shotgun! One boom and it's all over."),
-				Character.Act(L.T("撇嘴", "curls his lip"), L.T("产线一天能出几百把，每把都一模一样。", "The line can turn out hundreds a day. Every last one looks the same.")),
-				Character.Act(L.T("拍了拍枪托", "pats the stock"), L.T("当然，我承认这使维修方便很多。", "It does make repairs a lot easier, I'll give it that."))
+				L.K("characters.rosen.chapter.heyIPullsOutBig", "嘿。<i>（掏出一把大枪，旁人连忙退开）</i>", "Hey. <i>(pulls out a big gun, sending the bystanders scrambling back)</i>"),
+				L.K("characters.rosen.chapter.rampartDualActionShotgunOne", "「壁垒」，双动式霰弹枪！嘭的一声一切就都结束了。", "The Rampart, a dual-action shotgun! One boom and it's all over."),
+				Character.Act(L.K("characters.rosen.chapter.curlsHisLip", "撇嘴", "curls his lip"), L.K("characters.rosen.chapter.lineCanTurnOutHundreds", "产线一天能出几百把，每把都一模一样。", "The line can turn out hundreds a day. Every last one looks the same.")),
+				Character.Act(L.K("characters.rosen.chapter.patsStock", "拍了拍枪托", "pats the stock"), L.K("characters.rosen.chapter.doesMakeRepairsLotEasier", "当然，我承认这使维修方便很多。", "It does make repairs a lot easier, I'll give it that."))
 			};
 			visit.Exit = Bye;
 			visit.Discount = Disc;
@@ -239,12 +239,12 @@ internal sealed class Rosen : Character
 			Visit visit = new Visit();
 			visit.Lines = new string[4]
 			{
-				L.T("<i>（点点头）</i>。", "<i>(nods)</i>"),
-				L.T("你知道吗，公司的每一把枪都有编号。", "You know, every gun the company makes has a serial number."),
-				Character.Act(L.T("打开一个旧木盒", "opens an old wooden case"), L.T("而这两把显然没有。左轮，猎枪，我自己做的，纯手工打造。", "These two clearly don't. A revolver and a hunting rifle. Made them myself, all by hand.")),
-				L.T("治安部配不上它们。我相信你能找到配得上的人。", "Security doesn't deserve them. I trust you'll find someone who does.")
+				L.K("characters.rosen.chapter.iNodsI", "<i>（点点头）</i>。", "<i>(nods)</i>"),
+				L.K("characters.rosen.chapter.knowEveryGunCompanyMakes", "你知道吗，公司的每一把枪都有编号。", "You know, every gun the company makes has a serial number."),
+				Character.Act(L.K("characters.rosen.chapter.opensOldWoodenCase", "打开一个旧木盒", "opens an old wooden case"), L.K("characters.rosen.chapter.theseTwoClearlyDonT", "而这两把显然没有。左轮，猎枪，我自己做的，纯手工打造。", "These two clearly don't. A revolver and a hunting rifle. Made them myself, all by hand.")),
+				L.K("characters.rosen.chapter.securityDoesnTDeserveThem", "治安部配不上它们。我相信你能找到配得上的人。", "Security doesn't deserve them. I trust you'll find someone who does.")
 			};
-			visit.Exit = Character.Act(L.T("摸摸木盒", "runs a hand over the wooden case"), L.T("保养好它们。", "Take care of them."));
+			visit.Exit = Character.Act(L.K("characters.rosen.chapter.runsHandOverWoodenCase", "摸摸木盒", "runs a hand over the wooden case"), L.K("characters.rosen.chapter.takeCareThem", "保养好它们。", "Take care of them."));
 			visit.Discount = Disc;
 			visit.Stock = new string[2] { "@rosen_revolver", "@rosen_rifle" };
 			return LicensedOffer(visit);
@@ -259,7 +259,7 @@ internal sealed class Rosen : Character
 		visit.Stock = visit.Stock.Where(id => SaleBlocked(id) == null).ToArray();
 		visit.TalkOnly = visit.Stock.Length == 0;
 		visit.Lines = visit.TalkOnly
-			? visit.Lines.Append(L.T("今天带来的枪得有对应的售卖许可才能卖。你先看看就行。", "You'll need the right sales permit for the guns I brought today. For now, just have a look.")).ToArray()
+			? visit.Lines.Append(L.K("characters.rosen.licensedOffer.llNeedRightSalesPermit", "今天带来的枪得有对应的售卖许可才能卖。你先看看就行。", "You'll need the right sales permit for the guns I brought today. For now, just have a look.")).ToArray()
 			: visit.Lines.Concat(requirements).ToArray();
 		return visit;
 	}
@@ -270,18 +270,18 @@ internal sealed class Rosen : Character
 		{
 			Lines = new string[4]
 			{
-				L.T("店长，对锻造有兴趣吗？", "Interested in forging, boss?"),
-				Character.Act(L.T("把一块钢坯放在柜台上", "sets a steel billet on the counter"), L.T("把高纯度的金属锭塞进炉子里烧一夜，出来的就是这个。", "Stick a high-purity ingot in the forge overnight and this is what comes out.")),
-				L.T("我不小心买多了一套…呃不是，我在传播这门手艺。", "I bought one kit too many by mistake… uh, I mean, I'm passing on the craft."),
-				L.T($"整套家伙只要{MeridianCo.ForgeFee}₵，还送你三块钢坯，练手足够用了。", L.Translate((System.FormattableString)$"The whole kit's yours for {MeridianCo.ForgeFee}₵. I'll throw in three steel billets. Plenty to practice with."))
+				L.K("characters.rosen.forgeLesson.interestedForgingBoss", "店长，对锻造有兴趣吗？", "Interested in forging, boss?"),
+				Character.Act(L.K("characters.rosen.forgeLesson.setsSteelBilletCounter", "把一块钢坯放在柜台上", "sets a steel billet on the counter"), L.K("characters.rosen.forgeLesson.stickHighPurityIngotForge", "把高纯度的金属锭塞进炉子里烧一夜，出来的就是这个。", "Stick a high-purity ingot in the forge overnight and this is what comes out.")),
+				L.K("characters.rosen.forgeLesson.iBoughtOneKitToo", "我不小心买多了一套…呃不是，我在传播这门手艺。", "I bought one kit too many by mistake… uh, I mean, I'm passing on the craft."),
+				L.K("characters.rosen.forgeLesson.wholeKitSYoursI", $"整套家伙只要{MeridianCo.ForgeFee}₵，还送你三块钢坯，练手足够用了。", (System.FormattableString)$"The whole kit's yours for {MeridianCo.ForgeFee}₵. I'll throw in three steel billets. Plenty to practice with.")
 			},
-			Exit = L.T("保重，兄弟。", "Take care, brother."),
+			Exit = L.K("characters.rosen.forgeLesson.takeCareBrother", "保重，兄弟。", "Take care, brother."),
 			TalkOnly = true,
-			Ask = L.T("学不学？", "Want to learn?")
+			Ask = L.K("characters.rosen.forgeLesson.wantLearn", "学不学？", "Want to learn?")
 		};
 		v.Choices = new Choice[2]
 		{
-			new Choice(L.T("学！", "Teach me!"), L.T("好样的！炉子坏了找我订新的。", "That's the spirit! If the forge breaks, you can order a new one from me."), () =>
+			new Choice(L.K("characters.rosen.forgeLesson.teachMe", "学！", "Teach me!"), L.K("characters.rosen.forgeLesson.thatSSpiritIfForge", "好样的！炉子坏了找我订新的。", "That's the spirit! If the forge breaks, you can order a new one from me."), () =>
 			{
 				if (MeridianCo.PayForgeFee())
 				{
@@ -292,7 +292,7 @@ internal sealed class Rosen : Character
 					ModLog.Warn("罗森第 5 章：现金不够，改到面板补办");
 				}
 			}),
-			new Choice(L.T("改天再说吧。", "Maybe another time."), L.T("想好了给我打电话。", "Call me when you've made up your mind."), null)
+			new Choice(L.K("characters.rosen.forgeLesson.maybeAnotherTime", "改天再说吧。", "Maybe another time."), L.K("characters.rosen.forgeLesson.callMeWhenVeMade", "想好了给我打电话。", "Call me when you've made up your mind."), null)
 		};
 		return v;
 	}
@@ -301,7 +301,7 @@ internal sealed class Rosen : Character
 	{
 		string[] options = Talk;
 		List<string> list = new List<string>();
-		list.Add(Engine.Any(L.T("子午线例行补货<i>（哈欠）</i>。", "Meridian. Routine restock. <i>(yawns)</i>"), L.T("罗森。老样子。", "Rosen. Same as usual."), L.T("补货。", "Restock.")));
+		list.Add(Engine.Any(L.K("characters.rosen.daily.meridianRoutineRestockIYawns", "子午线例行补货<i>（哈欠）</i>。", "Meridian. Routine restock. <i>(yawns)</i>"), L.K("characters.rosen.daily.rosenSameAsUsual", "罗森。老样子。", "Rosen. Same as usual."), L.K("characters.rosen.daily.restock", "补货。", "Restock.")));
 		list.Add(AmmoTerms);
 		list.Add(Engine.Any(options));
 		List<string> list2 = list;
@@ -315,21 +315,21 @@ internal sealed class Rosen : Character
 			Exit = Bye,
 			Discount = Disc,
 			Both = true,
-			Wrong = L.T("只收材料。", "Materials only.")
+			Wrong = L.K("characters.rosen.daily.materialsOnly", "只收材料。", "Materials only.")
 		};
 		if (s.Order != null && SaleBlocked(s.Order) == null)
 		{
 			list3.Add(s.Order);
-			list2.Add(Character.Act(L.T("放下一个木盒", "sets down a wooden case"), L.T("你订的“手工艺品”。", "Here's that “handicraft” you ordered.")));
+			list2.Add(Character.Act(L.K("characters.rosen.daily.setsDownWoodenCase", "放下一个木盒", "sets down a wooden case"), L.K("characters.rosen.daily.hereSThatHandicraftOrdered", "你订的“手工艺品”。", "Here's that “handicraft” you ordered.")));
 		}
 		if (s.Chapter >= 4)
 		{
 			var choices = new List<Choice>();
-			string reply = L.T("下周给你带来。手工制作，快不了。", "I'll bring it by next week. I make these by hand. Can't rush it.");
+			string reply = L.K("characters.rosen.daily.iLlBringByNext", "下周给你带来。手工制作，快不了。", "I'll bring it by next week. I make these by hand. Can't rush it.");
 			foreach (var (id, label) in new[]
 			{
-				(Revolver, L.T("要把左轮。", "I'll take a revolver.")),
-				(Rifle, L.T("要把猎枪。", "I'll take a hunting rifle."))
+				(Revolver, L.K("characters.rosen.daily.iLlTakeRevolver", "要把左轮。", "I'll take a revolver.")),
+				(Rifle, L.K("characters.rosen.daily.iLlTakeHuntingRifle", "要把猎枪。", "I'll take a hunting rifle."))
 			})
 			{
 				if (SaleBlocked(id) != null) continue;
@@ -337,8 +337,8 @@ internal sealed class Rosen : Character
 			}
 			if (choices.Count > 0)
 			{
-				visit.Ask = L.T("要一把？", "Want one?");
-				choices.Add(new Choice(L.T("不用。", "No thanks."), L.T("……行。", "…All right."), () => s.Order = null));
+				visit.Ask = L.K("characters.rosen.daily.wantOne", "要一把？", "Want one?");
+				choices.Add(new Choice(L.K("characters.rosen.daily.noThanks", "不用。", "No thanks."), L.K("characters.rosen.daily.allRight", "……行。", "…All right."), () => s.Order = null));
 				visit.Choices = choices.ToArray();
 			}
 		}

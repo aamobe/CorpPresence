@@ -91,7 +91,7 @@ internal static partial class SilverBlood
 			}
 			if (tubes == 0)
 			{
-				Tell(L.T("店里放不下了，先腾点地方再采血。", "No room in the shop. Make some space before drawing blood."));
+				Tell(L.K("production.silverBlood.bloodDrawing.draw.noRoomShopMakeSome", "店里放不下了，先腾点地方再采血。", "No room in the shop. Make some space before drawing blood."));
 				return;
 			}
 			fish.ModifyTag("CORP_SB_BLOOD_ML", (TagState s) =>

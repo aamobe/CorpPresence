@@ -66,6 +66,7 @@ internal sealed class CarmichaelCo : Company
 			WeeklyLimit = 1,
 			Bundle = 5,
 			Label = "正品免疫宁整箱（5 支）",
+			LabelKey = "companies.catalog.genuineImmunivaxCase5.name",
 			LabelEn = "Genuine Immunivax Case (5)"
 		}
 	};
@@ -90,27 +91,27 @@ internal sealed class CarmichaelCo : Company
 
 	public override string Id => "carmicheal";
 
-	public override string Name => L.T("卡迈克尔制药", "Carmicheal Pharmaceutical");
+	public override string Name => L.K("companies.carmichael.name.carmichealPharmaceutical", "卡迈克尔制药", "Carmicheal Pharmaceutical");
 
 	public override string CharacterId => "isa";
 
 	public override long PhoneNumber => 22764L;
 
-	public override string[] TierNames => L.T(new string[3] { "登记药房", "指定药房", "合规伙伴" }, new string[3] { "Registered Pharmacy", "Designated Pharmacy", "Compliance Partner" });
+	public override string[] TierNames => new string[3] { L.K("companies.carmichael.tierNames.registeredPharmacy", "登记药房", "Registered Pharmacy"), L.K("companies.carmichael.tierNames.designatedPharmacy", "指定药房", "Designated Pharmacy"), L.K("companies.carmichael.tierNames.compliancePartner", "合规伙伴", "Compliance Partner") };
 
-	public override string CardFlavor => L.T("白底青字，印着卡迈克尔的十字标和 22764。", "Teal on white, with the Carmicheal cross and 22764.");
+	public override string CardFlavor => L.K("companies.carmichael.cardFlavor.tealWhiteWithCarmichealCross", "白底青字，印着卡迈克尔的十字标和 22764。", "Teal on white, with the Carmicheal cross and 22764.");
 
-	public override string DeskName => L.T("卡迈克尔客服", "Carmicheal Customer Service");
+	public override string DeskName => L.K("companies.carmichael.deskName.carmichealCustomerService", "卡迈克尔客服", "Carmicheal Customer Service");
 
-	public override string DeskAsk => L.T("请问办理什么业务？", "How can I help you today?");
+	public override string DeskAsk => L.K("companies.carmichael.deskAsk.howCanIHelpToday", "请问办理什么业务？", "How can I help you today?");
 
 	public override string[] FrontDesk => new string[2]
 	{
-		L.T("卡迈克尔制药客户服务部。请报您的药房登记号。", "Carmicheal Pharmaceutical customer service. Your pharmacy registration number, please."),
-		L.T("卡迈克尔制药。本通话可能被录音。", "Carmicheal Pharmaceutical. This call may be recorded.")
+		L.K("companies.carmichael.frontDesk.carmichealPharmaceuticalCustomerServicePharmacy", "卡迈克尔制药客户服务部。请报您的药房登记号。", "Carmicheal Pharmaceutical customer service. Your pharmacy registration number, please."),
+		L.K("companies.carmichael.frontDesk.carmichealPharmaceuticalThisCallMay", "卡迈克尔制药。本通话可能被录音。", "Carmicheal Pharmaceutical. This call may be recorded.")
 	};
 
-	public override string FrontDeskDone => L.T("已登记。明早由专人配送。", "Logged. Our courier delivers tomorrow morning.");
+	public override string FrontDeskDone => L.K("companies.carmichael.frontDeskDone.loggedOurCourierDeliversTomorrow", "已登记。明早由专人配送。", "Logged. Our courier delivers tomorrow morning.");
 
 	public static int StaminaGap => Settings.Period("stamina", 10);
 
@@ -161,9 +162,9 @@ internal sealed class CarmichaelCo : Company
 			StoreEvent storeEvent = new StoreEvent
 			{
 				identifier = "corp_specimen_escape",
-				newsName = L.T("卡迈克尔制药收容物逃逸", "Carmicheal Specimen Breach"),
-				displayName = L.T("收容物逃逸", "Specimen Breach"),
-				newsDescription = L.T("上层区一片慌乱：卡迈克尔制药的实验室有危险生物逃逸。治安部提醒所有居民，见到没见过的生物立即举报。武器价格上涨。", "Panic in the Upper Levels: a dangerous organism has escaped a Carmicheal lab. Security urges all residents to report any unfamiliar creature at once. Weapon prices are up."),
+				newsName = L.K("companies.carmichael.onEndDay.carmichealSpecimenBreach", "卡迈克尔制药收容物逃逸", "Carmicheal Specimen Breach"),
+				displayName = L.K("companies.carmichael.onEndDay.specimenBreach", "收容物逃逸", "Specimen Breach"),
+				newsDescription = L.K("companies.carmichael.onEndDay.panicUpperLevelsDangerousOrganism", "上层区一片慌乱：卡迈克尔制药的实验室有危险生物逃逸。治安部提醒所有居民，见到没见过的生物立即举报。武器价格上涨。", "Panic in the Upper Levels: a dangerous organism has escaped a Carmicheal lab. Security urges all residents to report any unfamiliar creature at once. Weapon prices are up."),
 				duration = 3,
 				importance = 8,
 				eventType = StoreEvent.EventType.NORMALE,
@@ -251,7 +252,7 @@ internal sealed class CarmichaelCo : Company
 				var notifier = ReputationUIManager.Instance;
 				if (ui != null && notifier != null)
 				{
-					ui.Notify(L.T("店里有动静。看看主库存和后柜台。", "Something is moving inside. Check the main inventory and the back counter."));
+					ui.Notify(L.K("companies.carmichael.spawnEscapee.somethingMovingInsideCheckMain", "店里有动静。看看主库存和后柜台。", "Something is moving inside. Check the main inventory and the back counter."));
 					notifier.notifierTimer += 2f;
 				}
 			}
@@ -344,11 +345,11 @@ internal sealed class CarmichaelCo : Company
 		CompanyState cState = CState;
 		if (cState == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.carmichael.orderSpecimen.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (!cState.Licensed || ((id == "@isomer_reactor" || id == "@sb_handbook") && !ReactorOpen))
 		{
-			return L.T("还没有开通", "Not available yet");
+			return L.K("companies.carmichael.orderSpecimen.notAvailableYet", "还没有开通", "Not available yet");
 		}
 		string text = Services.OrderBlocked(c);
 		if (text != null)
@@ -394,7 +395,7 @@ internal sealed class CarmichaelCo : Company
 			string identifier = item.identifier;
 			if (identifier == "unlicensed_phagimycin_pill")
 			{
-				return L.T("无证仿制", "Unlicensed copy");
+				return L.K("companies.carmichael.fakeReason.unlicensedCopy", "无证仿制", "Unlicensed copy");
 			}
 			if (identifier != "large_purple_injector")
 			{
@@ -402,11 +403,11 @@ internal sealed class CarmichaelCo : Company
 			}
 			if (item.IsTag("ISSUE_LABEL") || item.IsTag("ISSUE_COLOR") || item.IsTag("ISSUE_SERIAL") || item.IsTag("ISSUE_BODY"))
 			{
-				return L.T("假冒", "Counterfeit");
+				return L.K("companies.carmichael.fakeReason.counterfeit", "假冒", "Counterfeit");
 			}
 			if (InsInjectorHelper.IsOnlyIssueRecalled(item))
 			{
-				return L.T("召回批次", "Recalled batch");
+				return L.K("companies.carmichael.fakeReason.recalledBatch", "召回批次", "Recalled batch");
 			}
 		}
 		catch

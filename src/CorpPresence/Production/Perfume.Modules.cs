@@ -45,6 +45,6 @@ internal static partial class Perfume
         int kind = Goods.IdOf(machine) switch { ExtractorKey => 0, BloodKey => 1, MixerKey => 2, CollectorKey => 3, _ => -1 };
         if (kind < 0) return null;
         var effect = Effects(kind);
-        return LocHelper.BulletLines(L.T(effect.Zh, effect.En));
+        return LocHelper.BulletLines(L.K(GoodsText.ForId(Goods.IdOf(machine))?.Effects, effect.Zh, effect.En));
     }
 }

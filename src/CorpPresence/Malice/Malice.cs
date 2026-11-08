@@ -92,7 +92,7 @@ internal static class Malice
 		_callbacks.Add(() => Ext.BeforeSave, value => Ext.BeforeSave = value, new Action(MaliceState.Save));
 		_callbacks.Add(() => Ext.StateReset, value => Ext.StateReset = value, new Action(MaliceState.Reset));
 		_callbacks.Add(() => Ext.DayStart, value => Ext.DayStart = value, new Action(OnDayStart));
-		_callbacks.Replace(() => Ext.ExtraModule, value => Ext.ExtraModule = value, (Company c) => (!Applies(c)) ? null : L.T("巨企合约", "Corporate Terms"));
+		_callbacks.Replace(() => Ext.ExtraModule, value => Ext.ExtraModule = value, (Company c) => (!Applies(c)) ? null : L.K("malice.malice.install.corporateTerms", "巨企合约", "Corporate Terms"));
 		_callbacks.Replace(() => Ext.DrawExtraModule, value => Ext.DrawExtraModule = value, MalicePanel.Draw);
 		_callbacks.Replace(() => Ext.OrderBlocked, value => Ext.OrderBlocked = value, OrderBlocked);
 		_callbacks.Replace(() => Ext.CatalogTier, value => Ext.CatalogTier = value, CatalogTier);
@@ -195,11 +195,11 @@ internal static class Malice
 		CorpTerms corpTerms = TermsOf(c);
 		if (corpTerms == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("malice.malice.subscribe.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (corpTerms.SubUntil - Day >= 7)
 		{
-			return L.T("最多提前续一周。", "You can only renew one week ahead.");
+			return L.K("malice.malice.subscribe.canOnlyRenewOneWeek", "最多提前续一周。", "You can only renew one week ahead.");
 		}
 		int num = SubscriptionPrice(c);
 		string text = Services.Pay(c, num, "subscription");
@@ -222,11 +222,11 @@ internal static class Malice
 		}
 		if (On && Envoy.Punished)
 		{
-			return L.T("撒该的惩罚：所有公司服务暂停。打他的电话答应还款计划。", "Zacchaeus's penalty: all company services are suspended. Call him to agree to a repayment plan.");
+			return L.K("malice.malice.orderBlocked.zacchaeusSPenaltyAllCompany", "撒该的惩罚：所有公司服务暂停。打他的电话答应还款计划。", "Zacchaeus's penalty: all company services are suspended. Call him to agree to a repayment plan.");
 		}
 		if (Applies(c) && Envoy.OrdersRefused)
 		{
-			return L.T("你拒绝了撒该，巨企的订货暂不开放。打他的电话回心转意。", "You turned Zacchaeus down: corporate ordering is closed. Call him if you change your mind.");
+			return L.K("malice.malice.orderBlocked.turnedZacchaeusDownCorporateOrdering", "你拒绝了撒该，巨企的订货暂不开放。打他的电话回心转意。", "You turned Zacchaeus down: corporate ordering is closed. Call him if you change your mind.");
 		}
 		if (!Applies(c) || Subscribed(c))
 		{
@@ -234,9 +234,9 @@ internal static class Malice
 		}
 		if (IsMembership(c))
 		{
-			return L.T($"需要{c.Name}的基础会员（{SubscriptionPrice(c)}₵ 一周），在“巨企合约”页开通。", L.Translate((System.FormattableString)$"Requires a {c.Name} basic membership ({SubscriptionPrice(c)}₵ a week). Sign up on the Corporate Terms page."));
+			return L.K("malice.malice.orderBlocked.requiresBasicMembershipWeekSign", $"需要{c.Name}的基础会员（{SubscriptionPrice(c)}₵ 一周），在“巨企合约”页开通。", (System.FormattableString)$"Requires a {c.Name} basic membership ({SubscriptionPrice(c)}₵ a week). Sign up on the Corporate Terms page.");
 		}
-		return L.T($"{c.Name}的订购服务未开通或已到期，请在“巨企合约”页开通（{SubscriptionPrice(c)}₵）。", L.Translate((System.FormattableString)$"{c.Name}'s ordering service isn't active. Subscribe on the Corporate Terms page ({SubscriptionPrice(c)}₵)."));
+		return L.K("malice.malice.orderBlocked.sOrderingServiceIsnT", $"{c.Name}的订购服务未开通或已到期，请在“巨企合约”页开通（{SubscriptionPrice(c)}₵）。", (System.FormattableString)$"{c.Name}'s ordering service isn't active. Subscribe on the Corporate Terms page ({SubscriptionPrice(c)}₵).");
 	}
 
 	private static int CatalogTier(Company c, CompanyState s, int coopTier)
@@ -260,16 +260,16 @@ internal static class Malice
 		CompanyState companyState = Companies.StateOf(c);
 		if (corpTerms == null || companyState == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("malice.malice.applyUnlock.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		int num = corpTerms.Unlocked + 1;
 		if (num >= ApplyFee.Length)
 		{
-			return L.T("已经全部解锁", "Everything is unlocked");
+			return L.K("malice.malice.applyUnlock.everythingUnlocked", "已经全部解锁", "Everything is unlocked");
 		}
 		if (c.Tier(companyState) < num)
 		{
-			return L.T("合作度要先到“" + c.TierNames[num - 1] + "”", L.Translate("Reach “") + c.TierNames[num - 1] + L.Translate("” first"));
+			return L.K("composed.malice.applyUnlock.reachFirst", "合作度要先到“" + c.TierNames[num - 1] + "”", System.Runtime.CompilerServices.FormattableStringFactory.Create("Reach \u201C{0}\u201D first", new object[] { c.TierNames[num - 1] }));
 		}
 		string text = Services.Pay(c, ApplyFee[num], "unlock");
 		if (text != null)
@@ -349,7 +349,7 @@ internal static class Malice
 		}
 		if (On && Envoy.Punished && !(c is EnvoyCo))
 		{
-			return L.T("撒该的惩罚：公司服务暂停。", "Zacchaeus's penalty: company services are suspended.");
+			return L.K("malice.malice.charge.zacchaeusSPenaltyCompanyServices", "撒该的惩罚：公司服务暂停。", "Zacchaeus's penalty: company services are suspended.");
 		}
 		if (!Applies(c))
 		{
@@ -369,7 +369,7 @@ internal static class Malice
 		int cashDue = amount - voucherDeduction;
 		if (cashDue > 0 && !instance.CanPay(cashDue))
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("malice.malice.charge.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		if (cashDue > 0)
 		{
@@ -423,11 +423,11 @@ internal static class Malice
 				else if (value.SubUntil == Day + 1 && value.RemindedDay != Day)
 				{
 					value.RemindedDay = Day;
-					Notify(L.T($"{company.Name}的订购服务明天到期，续费 {200}₵。", L.Translate((System.FormattableString)$"{company.Name}'s ordering service expires tomorrow. Renewal is {200}₵.")));
+					Notify(L.K("malice.malice.onDayStart.sOrderingServiceExpiresTomorrow", $"{company.Name}的订购服务明天到期，续费 {200}₵。", (System.FormattableString)$"{company.Name}'s ordering service expires tomorrow. Renewal is {200}₵."));
 				}
 				else if (value.SubUntil == Day)
 				{
-					Notify(L.T(company.Name + "的订购服务今天起暂停。", company.Name + L.Translate("'s ordering service is paused from today.")));
+					Notify(L.K("composed.malice.onDayStart.sOrderingServiceIsPausedFromToday", company.Name + "的订购服务今天起暂停。", System.Runtime.CompilerServices.FormattableStringFactory.Create("{0}\u0027s ordering service is paused from today.", new object[] { company.Name })));
 				}
 			}
 		}
@@ -460,7 +460,7 @@ internal static class Malice
 			RunId = state.RunId,
 			WasOn = false
 		};
-		Notify(L.T("恶意巨企模式已关闭：商人联合和反抗军并回星际客联盟，订阅、代金券、助力点、撒该的账都清掉了。", "Corporate Malice is off: the Merchant Union and the Resistance are the Spacer Alliance again, and subscriptions, vouchers, support points and Zacchaeus's accounts are cleared."));
+		Notify(L.K("malice.malice.disabled.corporateMaliceOffMerchantUnion", "恶意巨企模式已关闭：商人联合和反抗军并回星际客联盟，订阅、代金券、助力点、撒该的账都清掉了。", "Corporate Malice is off: the Merchant Union and the Resistance are the Spacer Alliance again, and subscriptions, vouchers, support points and Zacchaeus's accounts are cleared."));
 	}
 
 	private static void TryAutoRenew(Company c, CorpTerms t)
@@ -471,17 +471,17 @@ internal static class Malice
 		int num2 = ((!instance.IsPropertyPaid) ? instance.GetRentValue() : 0);
 		if (instance.GetCash() - Math.Max(0, num - t.Vouchers) < num2)
 		{
-			Notify(L.T(c.Name + "的订购服务到期：现金扣完不够交房租，没有自动续费。", c.Name + L.Translate("'s ordering service expired: not renewed automatically, it would leave you short for rent.")));
+			Notify(L.K("composed.malice.tryAutoRenew.sOrderingServiceExpiredNotRenewedAutomatically", c.Name + "的订购服务到期：现金扣完不够交房租，没有自动续费。", System.Runtime.CompilerServices.FormattableStringFactory.Create("{0}\u0027s ordering service expired: not renewed automatically, it would leave you short for rent.", new object[] { c.Name })));
 			return;
 		}
 		string text = Subscribe(c);
 		if (text != null)
 		{
-			Notify(L.T(c.Name + "自动续费失败：", c.Name + L.Translate(" auto-renewal failed: ")) + text);
+			Notify(L.K("composed.malice.tryAutoRenew.autoRenewalFailed", c.Name + "自动续费失败：", System.Runtime.CompilerServices.FormattableStringFactory.Create("{0} auto-renewal failed: ", new object[] { c.Name })) + text);
 		}
 		else
 		{
-			Notify(L.T($"{c.Name}的订购服务已自动续费 {num}₵。", L.Translate((System.FormattableString)$"{c.Name}'s ordering service was renewed automatically for {num}₵.")));
+			Notify(L.K("malice.malice.tryAutoRenew.sOrderingServiceWasRenewed", $"{c.Name}的订购服务已自动续费 {num}₵。", (System.FormattableString)$"{c.Name}'s ordering service was renewed automatically for {num}₵."));
 		}
 	}
 

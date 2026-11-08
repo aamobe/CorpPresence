@@ -81,6 +81,7 @@ internal sealed class SpacerCo : Company
 			Id = "@modbox",
 			Page = "军械",
 			Label = "改装盲盒（3–5 件随机配件）",
+			LabelKey = "companies.catalog.modGrabBox35RandomAttachments.name",
 			LabelEn = "Mod Grab Box (3–5 random attachments)"
 		},
 		new CatalogEntry
@@ -209,9 +210,9 @@ internal sealed class SpacerCo : Company
 		{
 			if (!Settings.MaliceMode)
 			{
-				return L.T("星际客联盟", "Spacer Alliance");
+				return L.K("companies.spacer.name.spacerAlliance", "星际客联盟", "Spacer Alliance");
 			}
-			return L.T("商人联合", "Merchant Union");
+			return L.K("companies.spacer.name.merchantUnion", "商人联合", "Merchant Union");
 		}
 	}
 
@@ -219,32 +220,41 @@ internal sealed class SpacerCo : Company
 
 	public override long PhoneNumber => 77223L;
 
-	public override string[] TierNames => L.T(new string[3] { "联络点", "中转站", "枢纽" }, new string[3] { "Contact Point", "Relay Station", "Hub" });
+	public override string[] TierNames => new string[3] { L.K("companies.spacer.tierNames.contactPoint", "联络点", "Contact Point"), L.K("companies.spacer.tierNames.relayStation", "中转站", "Relay Station"), L.K("companies.spacer.tierNames.hub", "枢纽", "Hub") };
 
 	public override string CardFlavor => "";
 
-	public override string DeskName => L.T("导师", "The Mentor");
+	public override string DeskName => L.K("companies.spacer.deskName.mentor", "导师", "The Mentor");
 
 	public override string DeskAsk => "";
 
-	public override string[] FrontDesk => L.T(new string[1] { "说。" }, new string[1] { "Talk." });
+	public override string[] FrontDesk => new string[1] { L.K("companies.spacer.frontDesk.talk", "说。", "Talk.") };
 
-	public override string FrontDeskDone => L.T("明天到。", "Tomorrow.");
+	public override string FrontDeskDone => L.K("companies.spacer.frontDeskDone.tomorrow", "明天到。", "Tomorrow.");
 
 	public override CatalogEntry[] Catalog => Entries;
 
 	public static int MutualFee => Services.Fee("spacer", "mutual", 30);
 
+	private static readonly (string Company, string Tech)[] TechCreditKeys = { ("companies.spacer.techCredits.ashvinMedical.company", "companies.spacer.techCredits.ashvinMedical.technology"), ("companies.spacer.techCredits.aLISON.company", "companies.spacer.techCredits.aLISON.technology"), ("companies.spacer.techCredits.eninencePower.company", "companies.spacer.techCredits.eninencePower.technology"), ("companies.spacer.techCredits.socialistFront.company", "companies.spacer.techCredits.socialistFront.technology"), ("companies.spacer.techCredits.spacer.company", "companies.spacer.techCredits.spacer.technology") };
+
+	private static (string Company, string Tech)[] TranslateTechCredits()
+	{
+		var result = new (string Company, string Tech)[TechCreditsEn.Length];
+		for (int i = 0; i < result.Length; i++) result[i] = (L.K(TechCreditKeys[i].Company, TechCreditsZh[i].Company, TechCreditsEn[i].Company), L.K(TechCreditKeys[i].Tech, TechCreditsZh[i].Tech, TechCreditsEn[i].Tech));
+		return result;
+	}
+
 	public static (string Company, string Tech)[] TechCredits
 	{
 		get
 		{
-			if (!L.En)
+			if (!L.En && !ExternalTranslations.HasLocale(L.Locale))
 			{
 				return TechCreditsZh;
 			}
 			return TextTranslations.HasLocale(L.Locale)
-				? Array.ConvertAll(TechCreditsEn, line => (L.Translate(line.Company), L.Translate(line.Tech)))
+				? TranslateTechCredits()
 				: TechCreditsEn;
 		}
 	}
@@ -332,7 +342,7 @@ internal sealed class SpacerCo : Company
 		}
 		try
 		{
-			IntelHelper.InitTutorialPage(gameItem, "", "77223", L.T("——导师", "— The Mentor"));
+			IntelHelper.InitTutorialPage(gameItem, "", "77223", L.K("companies.spacer.makeNote.mentor", "——导师", "— The Mentor"));
 		}
 		catch (Exception ex)
 		{

@@ -236,7 +236,7 @@ internal static class Notebook
 			_paper = _root.AddComponent<Image>();
 			_paper.color = Dim;
 			_paper.raycastTarget = true;
-			Label(_root.transform, L.T("记事簿", "Notebook"), new Vector2(22f, 16f), 216f, Ink, TextAlignmentOptions.Left, bold: true);
+			Label(_root.transform, L.K("ui.notebook.panel.notebook", "记事簿", "Notebook"), new Vector2(22f, 16f), 216f, Ink, TextAlignmentOptions.Left, bold: true);
 			_pageLabel = Label(_root.transform, "", new Vector2(86f, 192f), 80f, InkSoft, TextAlignmentOptions.Center);
 			GameObject gameObject = new GameObject("Rows");
 			gameObject.transform.SetParent(_root.transform, worldPositionStays: false);

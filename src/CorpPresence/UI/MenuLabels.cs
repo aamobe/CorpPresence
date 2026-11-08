@@ -32,21 +32,67 @@ new string[3] { "Dock Supplies", "Mutual Aid", "Brand Catalog" },
 new string[6] { "Open-Source Arms", "Back-Alley Pharmacy", "Dock Supplies", "Mutual Aid", "Joint Front", "Brand Catalog" }
  };
  private static string[] _lastBase;
+
+ // Same shape and order as the existing menu arrays; these keys never select services.
+ private static readonly string[][] Keys = {
+new[] { "ui.menu.carmichael.genuineOrders", "ui.menu.carmichael.staminaRequest", "ui.menu.carmichael.swap", "ui.menu.carmichael.specimens", "ui.menu.brandCatalog" },
+new[] { "ui.menu.davre.orders", "ui.menu.davre.purifier", "ui.menu.davre.canning", "ui.menu.brandCatalog" },
+new[] { "ui.menu.meridian.orders", "ui.menu.meridian.attachments", "ui.menu.meridian.refurbishment", "ui.menu.meridian.forging", "ui.menu.brandCatalog" },
+new[] { "ui.menu.pastel.mailOrder", "ui.menu.pastel.dealer", "ui.menu.pastel.footTraffic", "ui.menu.brandCatalog" },
+new[] { "ui.menu.milo.stocking", "ui.menu.milo.again", "ui.menu.milo.goods" },
+new[] { "ui.menu.rebels.arms", "ui.menu.rebels.fence", "ui.menu.rebels.tasks" },
+new[] { "ui.menu.rebels.arms", "ui.menu.rebels.tasks" },
+new[] { "ui.menu.rebels.peace" },
+new[] { "ui.menu.rebels.rescueOdin" },
+new[] { "ui.menu.solana.vip", "ui.menu.solana.lab", "ui.menu.solana.perks", "ui.menu.brandCatalog", "ui.menu.solana.perfumery" },
+new[] { "ui.menu.spacer.supplies", "ui.menu.spacer.aid", "ui.menu.brandCatalog" },
+new[] { "ui.menu.spacer.arms", "ui.menu.spacer.pharmacy", "ui.menu.spacer.supplies", "ui.menu.spacer.aid", "ui.menu.spacer.front", "ui.menu.brandCatalog" }
+ };
  private static string _lastExtra;
  private static string[] _lastCombined;
 
  private static readonly System.Lazy<string[][]> Russian = new(() => TranslateEnglish("ru"));
  private static readonly System.Lazy<string[][]> French = new(() => TranslateEnglish("fr"));
+ private static string _externalLocale;
+ private static int _externalVersion = -1;
+ private static string[][] _externalLabels;
 
- private static string[][] TranslateEnglish(string locale) =>
-     System.Array.ConvertAll(English, group => System.Array.ConvertAll(group, line => TextTranslations.Select(line, locale)));
+ private static string[][] TranslateEnglish(string locale)
+ {
+     var result = new string[English.Length][];
+     for (int group = 0; group < English.Length; group++)
+     {
+         result[group] = new string[English[group].Length];
+         for (int line = 0; line < English[group].Length; line++)
+             result[group][line] = TextTranslations.SelectKey(Keys[group][line], English[group][line], locale);
+     }
+     return result;
+ }
 
  public static string[] Get(int index, bool english)
  {
-     if (!english) return Chinese[index];
      string locale = L.Locale;
-     if (locale.StartsWith("ru", System.StringComparison.OrdinalIgnoreCase)) return Russian.Value[index];
-     if (locale.StartsWith("fr", System.StringComparison.OrdinalIgnoreCase)) return French.Value[index];
+     if (ExternalTranslations.HasLocale(locale))
+     {
+         int version = ExternalTranslations.Version;
+         if (_externalLabels == null || _externalLocale != locale || _externalVersion != version)
+         {
+             var translated = new string[English.Length][];
+             for (int group = 0; group < English.Length; group++)
+             {
+                 translated[group] = new string[English[group].Length];
+                 for (int line = 0; line < English[group].Length; line++)
+                     translated[group][line] = L.K(Keys[group][line], Chinese[group][line], English[group][line]);
+             }
+             _externalLabels = translated;
+             _externalLocale = locale;
+             _externalVersion = version;
+         }
+         return _externalLabels[index];
+     }
+     if (!english) return Chinese[index];
+     if (TextTranslations.IsBuiltInLocale(locale, "ru")) return Russian.Value[index];
+     if (TextTranslations.IsBuiltInLocale(locale, "fr")) return French.Value[index];
      return English[index];
  }
 

@@ -1,0 +1,2081 @@
+[
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.corporateAgentCertificate.name",
+    "Method": "L.T",
+    "English": "Corporate Agent Certificate",
+    "Chinese": "巨企代理人证书",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.corporateAgentCertificate.flavor",
+    "Method": "L.T",
+    "English": "A gold-framed certificate stamped with the joint seal of five corporations. The line where a signature should be is blank.",
+    "Chinese": "金框证书，盖着五家巨企的联合钢印。落款处原本该签名的地方空着。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.corporateAgentCertificate.description",
+    "Method": "L.T",
+    "English": "Lower Levels corporate agent. Takes effect on receipt: all company services are free and phone orders are 20% off (weekly restock and tier limits still apply).",
+    "Chinese": "下层区巨企代理人。到手即生效：所有公司服务免费，订货一律八折（仍按每周补货、按档位限量）。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.anchorHighCapacityCell.name",
+    "Method": "L.T",
+    "English": "Anchor High-Capacity Cell",
+    "Chinese": "锚牌高能电池",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.anchorHighCapacityCell.flavor",
+    "Method": "L.T",
+    "English": "Eninence cells, plus a little Lower Levels ingenuity.",
+    "Chinese": "桌越提供的电芯，加上一些下层人民的智慧。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.anchorHighCapacityCell.description",
+    "Method": "L.T",
+    "English": "A single-use energy cell. Twice the charge of a Mk. II cell. Cannot be recharged.",
+    "Chinese": "一次性能量电池。电量是 2 型电池的两倍。不能充电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.anonymousParcel.name",
+    "Method": "L.T",
+    "English": "Anonymous Parcel",
+    "Chinese": "匿名包裹",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.anonymousParcel.flavor",
+    "Method": "L.T",
+    "English": "Brown paper tied with string, a note tucked in the corner.",
+    "Chinese": "牛皮纸，细绳捆着，角落塞着一张纸条。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.anonymousParcel.description",
+    "Method": "L.T",
+    "English": "No sender. Take items out; nothing can be put in. Disappears once empty.",
+    "Chinese": "没有寄件人。只能取、不能放，取空后自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.bloodDrawer.name",
+    "Method": "L.T",
+    "English": "Blood Drawer",
+    "Chinese": "采血器",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.bloodDrawer.flavor",
+    "Method": "L.T",
+    "English": "A thick needle and a clear collection chamber.",
+    "Chinese": "粗针管，透明储血仓。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.bloodDrawer.description",
+    "Method": "L.T",
+    "English": "Use on an adult Silverblood Trilobite kept in an aquaculture system: one tube of silver blood per 50 ml. It hurts the creature, more so if the blood hasn't fully built up.",
+    "Chinese": "对着养在循环水养殖系统里的成年银血三叶蜥用，每 50 毫升采出一管银血。会伤到它，血没满时伤得更重。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaScentedCandle.name",
+    "Method": "L.T",
+    "English": "Solana Scented Candle",
+    "Chinese": "索拉纳香薰蜡烛",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaScentedCandle.flavor",
+    "Method": "L.T",
+    "English": "Smells like an Upper Levels lobby. Rich visitors feel right at home, and their purse strings loosen a little. For 3 days after lighting, Upper Levels customers' budget +15%. Gone once it burns out.",
+    "Chinese": "闻起来像上层区的大堂。来这儿的有钱人会觉得宾至如归，钱包的扣子也松一点。点燃后 3 天内，上层区顾客的预算 +15%，烧完就没了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.canningMachine.name",
+    "Method": "L.T",
+    "English": "Canning Machine",
+    "Chinese": "罐装机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.canningMachine.flavor",
+    "Method": "L.T",
+    "English": "Commercial canning equipment Davre hands out to small shops in its food war with Pastel.",
+    "Chinese": "达夫雷为了和帕斯泰尔抢食品市场，下发给小店的商用封罐设备。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.canningMachine.description",
+    "Method": "L.T",
+    "English": "Load mince, nutrifruit paste and a battery; it cans overnight, 2 batches per night by default, using 8 charge. Synthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat. Fresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat. Performance modules run more batches (using more ingredients); efficiency modules save power.",
+    "Chinese": "放进肉糜和营养果糊、插上电池，每晚封罐，默认每晚 2 批，耗 8 电。合成档：3 营养果糊 + 1 杂肉糜 → 4 罐“泥炭”。鲜肉档：2 精肉糜 + 1 营养果糊 → 1 罐鲜肉罐头。性能模组多做批次（也多用原料），效率模组省电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.canningMachine.manual",
+    "Method": "L.T",
+    "English": "Load mince and nutrifruit paste in their trays, connect power and select a mode. Grind whole nutrifruit into paste first.\nSynthetic: 3 nutrifruit paste + 1 scrap mince → 4 cans of Peat.\nFresh: 2 prime mince + 1 nutrifruit paste → 1 can of fresh meat.\nUp to 2 batches per night by default, using 8 charge per run. The output tray must fit the whole batch. Mince for the other mode stays in the tray.\nCheck Production checks the current setup. Last cycle reports the latest result since loading the save.\nPerformance modules add batches. Efficiency modules reduce power use.",
+    "Chinese": "把肉糜和营养果糊放入对应槽位，接好电源并选档。整个营养果要先绞成果糊。\n合成档：3 份营养果糊 + 1 份杂肉糜 → 4 罐泥炭。\n鲜肉档：2 份精肉糜 + 1 份营养果糊 → 1 罐鲜肉罐头。\n默认每晚最多 2 批，启动耗 8 电。每批都要有空间放下整批成品。不对档的肉糜留在槽里。\n「检查生产条件」检查当前条件。「最近结算」显示本次读档后最近一轮的结果。\n性能模组增加批次，效率模组降低耗电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceFull.name",
+    "Method": "L.T",
+    "English": "Isomer Carapace (Full)",
+    "Chinese": "异构甲壳（整片背甲）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceFull.flavor",
+    "Method": "L.T",
+    "English": "A complete three-lobed carapace. Upper Levels collectors keep these behind glass.",
+    "Chinese": "完整的三叶背甲，上层区的收藏家会摆进玻璃柜。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceFull.description",
+    "Method": "L.T",
+    "English": "Silverblood Trilobite carapace with a pearly sheen. Art piece and luxury item.",
+    "Chinese": "银血三叶蜥的甲壳，带珍珠光泽。工艺品、奢侈品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceMedium.name",
+    "Method": "L.T",
+    "English": "Isomer Carapace (Medium)",
+    "Chinese": "异构甲壳（中片）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceMedium.flavor",
+    "Method": "L.T",
+    "English": "A few segments still joined.",
+    "Chinese": "连着两三节的甲壳。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceMedium.description",
+    "Method": "L.T",
+    "English": "Silverblood Trilobite carapace with a pearly sheen. Art piece and luxury item.",
+    "Chinese": "银血三叶蜥的甲壳，带珍珠光泽。工艺品、奢侈品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceSmall.name",
+    "Method": "L.T",
+    "English": "Isomer Carapace (Small)",
+    "Chinese": "异构甲壳（小片）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceSmall.flavor",
+    "Method": "L.T",
+    "English": "A single side plate.",
+    "Chinese": "一片单独的侧甲。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerCarapaceSmall.description",
+    "Method": "L.T",
+    "English": "Silverblood Trilobite carapace with a pearly sheen. Art piece and luxury item.",
+    "Chinese": "银血三叶蜥的甲壳，带珍珠光泽。工艺品、奢侈品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.scrapMince.name",
+    "Method": "L.T",
+    "English": "Scrap Mince",
+    "Chinese": "杂肉糜",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.scrapMince.flavor",
+    "Method": "L.T",
+    "English": "Dark, with gristle and bits mixed in.",
+    "Chinese": "颜色发暗，里面混着筋膜和碎渣。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.scrapMince.description",
+    "Method": "L.T",
+    "English": "Ground from meat morsels. In a canning machine on Synthetic mode, 1 portion and 3 portions of nutrifruit paste make 4 cans of Peat.",
+    "Chinese": "碎块肉绞成。放进罐装机的合成档，1 份加 3 份营养果糊封成 4 罐“泥炭”。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.crabFlavoredStick.name",
+    "Method": "L.T",
+    "English": "Crab-flavored Stick",
+    "Chinese": "风味蟹肉棒",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.crabFlavoredStick.flavor",
+    "Method": "L.T",
+    "English": "Nobody said it was made from cod. You can happily eat it for the rest of your life.",
+    "Chinese": "没人说是鳕鱼做的，可以开心的吃一辈子。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.crabFlavoredStick.description",
+    "Method": "L.T",
+    "English": "A crab-flavored food pressed from fish mince.",
+    "Chinese": "用鱼肉糜压制成型的蟹味食品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.carmichealDeliveryCrate.name",
+    "Method": "L.T",
+    "English": "Carmicheal Delivery Crate",
+    "Chinese": "卡迈克尔送货箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.carmichealDeliveryCrate.flavor",
+    "Method": "L.T",
+    "English": "A crate the courier left behind.",
+    "Chinese": "送货员留下的箱子。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.carmichealDeliveryCrate.description",
+    "Method": "L.T",
+    "English": "Your phone order is inside. Take items out; nothing can be put in. The crate disappears once empty.",
+    "Chinese": "电话订的货装在里面。只能取、不能放，取空后箱子自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreDeliveryCrate.name",
+    "Method": "L.T",
+    "English": "Davre Delivery Crate",
+    "Chinese": "达夫雷送货箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreDeliveryCrate.flavor",
+    "Method": "L.T",
+    "English": "A crate the courier left behind.",
+    "Chinese": "送货员留下的箱子。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreDeliveryCrate.description",
+    "Method": "L.T",
+    "English": "Your phone order is inside. Take items out; nothing can be put in. The crate disappears once empty.",
+    "Chinese": "电话订的货装在里面。只能取、不能放，取空后箱子自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.drJacksonSDeliveryCrate.name",
+    "Method": "L.T",
+    "English": "Dr. Jackson's Delivery Crate",
+    "Chinese": "杰克逊博士送货箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.drJacksonSDeliveryCrate.flavor",
+    "Method": "L.T",
+    "English": "A gear marks the front. Jackson builds his own equipment and tunes it himself.",
+    "Chinese": "箱面印着齿轮标记。博士做的东西，也由他自己调试。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.drJacksonSDeliveryCrate.description",
+    "Method": "L.T",
+    "English": "Machines and custom parts from Jackson's workshop. Take items out; nothing can be put in. The crate disappears once empty.",
+    "Chinese": "杰克逊工作间寄来的机器与改装配件。只能取、不能放，取空后箱子自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianDeliveryCrate.name",
+    "Method": "L.T",
+    "English": "Meridian Delivery Crate",
+    "Chinese": "子午线送货箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianDeliveryCrate.flavor",
+    "Method": "L.T",
+    "English": "A crate the courier left behind.",
+    "Chinese": "送货员留下的箱子。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianDeliveryCrate.description",
+    "Method": "L.T",
+    "English": "Your phone order is inside. Take items out; nothing can be put in. The crate disappears once empty.",
+    "Chinese": "电话订的货装在里面。只能取、不能放，取空后箱子自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelDeliveryCrate.name",
+    "Method": "L.T",
+    "English": "pastel Delivery Crate",
+    "Chinese": "帕斯泰尔送货箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelDeliveryCrate.flavor",
+    "Method": "L.T",
+    "English": "A crate the courier left behind.",
+    "Chinese": "送货员留下的箱子。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelDeliveryCrate.description",
+    "Method": "L.T",
+    "English": "Your phone order is inside. Take items out; nothing can be put in. The crate disappears once empty.",
+    "Chinese": "电话订的货装在里面。只能取、不能放，取空后箱子自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaDeliveryCrate.name",
+    "Method": "L.T",
+    "English": "Solana Delivery Crate",
+    "Chinese": "索拉纳送货箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaDeliveryCrate.flavor",
+    "Method": "L.T",
+    "English": "A crate the courier left behind.",
+    "Chinese": "送货员留下的箱子。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaDeliveryCrate.description",
+    "Method": "L.T",
+    "English": "Your phone order is inside. Take items out; nothing can be put in. The crate disappears once empty.",
+    "Chinese": "电话订的货装在里面。只能取、不能放，取空后箱子自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.spacerAllianceCrate.name",
+    "Method": "L.T",
+    "English": "Spacer Alliance Crate",
+    "Chinese": "星际客联盟货箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.spacerAllianceCrate.flavor",
+    "Method": "L.T",
+    "English": "A crate the courier left behind.",
+    "Chinese": "送货员留下的箱子。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.spacerAllianceCrate.description",
+    "Method": "L.T",
+    "English": "Your phone order is inside. Take items out; nothing can be put in. The crate disappears once empty.",
+    "Chinese": "电话订的货装在里面。只能取、不能放，取空后箱子自动消失。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customDagger.name",
+    "Method": "L.T",
+    "English": "Custom Dagger",
+    "Chinese": "定制短刀",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customDagger.flavor",
+    "Method": "L.T",
+    "English": "A narrow single edge curving to a point, with a waisted polymer grip.",
+    "Chinese": "窄长的单刃，弧形收尖，握柄是收腰的工程塑料。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customDagger.description",
+    "Method": "L.T",
+    "English": "A hand-forged dagger. Butchering with it yields 15% more meat by weight.",
+    "Chinese": "手工锻的短刀。拿来宰牲畜，按体重多出 15% 的肉。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customMachete.name",
+    "Method": "L.T",
+    "English": "Custom Machete",
+    "Chinese": "定制砍刀",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customMachete.flavor",
+    "Method": "L.T",
+    "English": "Three billets went into this one. You can hear it cut the air.",
+    "Chinese": "三块钢胚打成的，挥起来带风。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customMachete.description",
+    "Method": "L.T",
+    "English": "A hand-forged long machete with a straight blade and a long handle.",
+    "Chinese": "手工锻的长砍刀，直刀身，长柄。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customSaber.name",
+    "Method": "L.T",
+    "English": "Custom Saber",
+    "Chinese": "定制军刀",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customSaber.flavor",
+    "Method": "L.T",
+    "English": "A broad clipped blade on a segmented molded grip.",
+    "Chinese": "截尖的宽刀身，握柄是一节节的模压分段。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.customSaber.description",
+    "Method": "L.T",
+    "English": "A hand-forged bayonet-style saber with a sawback spine and a ring guard.",
+    "Chinese": "手工锻的刺刀式军刀，刀背带锯齿，有环形护手。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.socialiteEssence.name",
+    "Method": "L.T",
+    "English": "Socialite Essence",
+    "Chinese": "名流精华",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.socialiteEssence.flavor",
+    "Method": "L.T",
+    "English": "Put it on and everyone will take you for Upper Levels \"nobility\". For 3 days after use, reputation gained from trades +50%.",
+    "Chinese": "涂上它，人人都会觉得你是上层区来的“贵族”。使用后 3 天内，交易得到的声望 +50%。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.carmichealSCoinOfFate.name",
+    "Method": "L.T",
+    "English": "Carmicheal's Coin of Fate",
+    "Chinese": "卡迈克尔的命运硬币",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.carmichealSCoinOfFate.flavor",
+    "Method": "L.T",
+    "English": "A coin Carmicheal's representative handed you in person. The company mark on one side; nothing on the other.",
+    "Chinese": "卡迈克尔的代表亲手交给你的硬币。正面是公司的标志，背面什么都没有。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.carmichealSCoinOfFate.description",
+    "Method": "L.T",
+    "English": "One chosen by the corporations. Carried: +5 luck (each coin counts; they stack).",
+    "Chinese": "被巨企选中的人。带在身上：幸运 +5（每枚各算，可以叠加）。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreSCoinOfFate.name",
+    "Method": "L.T",
+    "English": "Davre's Coin of Fate",
+    "Chinese": "达夫雷的命运硬币",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreSCoinOfFate.flavor",
+    "Method": "L.T",
+    "English": "A coin Davre's representative handed you in person. The company mark on one side; nothing on the other.",
+    "Chinese": "达夫雷的代表亲手交给你的硬币。正面是公司的标志，背面什么都没有。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreSCoinOfFate.description",
+    "Method": "L.T",
+    "English": "One chosen by the corporations. Carried: +5 luck (each coin counts; they stack).",
+    "Chinese": "被巨企选中的人。带在身上：幸运 +5（每枚各算，可以叠加）。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianSCoinOfFate.name",
+    "Method": "L.T",
+    "English": "Meridian's Coin of Fate",
+    "Chinese": "子午线的命运硬币",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianSCoinOfFate.flavor",
+    "Method": "L.T",
+    "English": "A coin Meridian's representative handed you in person. The company mark on one side; nothing on the other.",
+    "Chinese": "子午线的代表亲手交给你的硬币。正面是公司的标志，背面什么都没有。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianSCoinOfFate.description",
+    "Method": "L.T",
+    "English": "One chosen by the corporations. Carried: +5 luck (each coin counts; they stack).",
+    "Chinese": "被巨企选中的人。带在身上：幸运 +5（每枚各算，可以叠加）。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelSCoinOfFate.name",
+    "Method": "L.T",
+    "English": "Pastel's Coin of Fate",
+    "Chinese": "帕斯泰尔的命运硬币",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelSCoinOfFate.flavor",
+    "Method": "L.T",
+    "English": "A coin Pastel's representative handed you in person. The company mark on one side; nothing on the other.",
+    "Chinese": "帕斯泰尔的代表亲手交给你的硬币。正面是公司的标志，背面什么都没有。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelSCoinOfFate.description",
+    "Method": "L.T",
+    "English": "One chosen by the corporations. Carried: +5 luck (each coin counts; they stack).",
+    "Chinese": "被巨企选中的人。带在身上：幸运 +5（每枚各算，可以叠加）。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaSCoinOfFate.name",
+    "Method": "L.T",
+    "English": "Solana's Coin of Fate",
+    "Chinese": "索拉纳的命运硬币",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaSCoinOfFate.flavor",
+    "Method": "L.T",
+    "English": "A coin Solana's representative handed you in person. The company mark on one side; nothing on the other.",
+    "Chinese": "索拉纳的代表亲手交给你的硬币。正面是公司的标志，背面什么都没有。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.solanaSCoinOfFate.description",
+    "Method": "L.T",
+    "English": "One chosen by the corporations. Carried: +5 luck (each coin counts; they stack).",
+    "Chinese": "被巨企选中的人。带在身上：幸运 +5（每枚各算，可以叠加）。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.primeMince.name",
+    "Method": "L.T",
+    "English": "Prime Mince",
+    "Chinese": "精肉糜",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.primeMince.flavor",
+    "Method": "L.T",
+    "English": "Bright red, flecked with a little white fat.",
+    "Chinese": "颜色鲜红，带一点白色的脂肪。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.primeMince.description",
+    "Method": "L.T",
+    "English": "Ground from standard and small cuts of raw meat. In a canning machine on Fresh mode, 2 portions and 1 portion of nutrifruit paste make 1 can of fresh meat.",
+    "Chinese": "标准和小块生肉绞成。放进罐装机的鲜肉档，2 份加 1 份营养果糊封成 1 罐鲜肉罐头。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreCannedFish.name",
+    "Method": "L.T",
+    "English": "Davre Canned Fish",
+    "Chinese": "达夫雷鱼罐头",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreCannedFish.flavor",
+    "Method": "L.T",
+    "English": "Davre printed “WHOLE FISH” on the front. Lift the lid and you can still tell it's a fish.",
+    "Chinese": "达夫雷把「整鱼入罐」印在了正面。掀开盖子，确实还能认出是条鱼。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreCannedFish.description",
+    "Method": "L.T",
+    "English": "A whole common tilapia, sealed in a can.",
+    "Chinese": "用普通罗非鱼整条封装的罐头。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.fishMince.name",
+    "Method": "L.T",
+    "English": "Fish Mince",
+    "Chinese": "鱼肉糜",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.fishMince.flavor",
+    "Method": "L.T",
+    "English": "A small heap of pink mince. Up close, it still smells of fish.",
+    "Chinese": "一小堆粉红色的碎肉。凑近了还有股鱼腥味。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.fishMince.description",
+    "Method": "L.T",
+    "English": "Ground fish fillets. Four portions make one crab-flavored stick in a sealer.",
+    "Chinese": "用鱼片绞成的肉糜。放进封装机，4 份可做 1 份风味蟹肉棒。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.forgingAnvil.name",
+    "Method": "L.T",
+    "English": "Forging Anvil",
+    "Chinese": "锻台",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.forgingAnvil.flavor",
+    "Method": "L.T",
+    "English": "A power hammer over an anvil, with a quench tank hanging off the side.",
+    "Chinese": "机械锻锤压着铁砧，旁边挂着一只淬火水槽。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.forgingAnvil.description",
+    "Method": "L.T",
+    "English": "Load forged billets and a water container, pick a style and press Forge: 1 billet for a dagger, 2 for a saber, 3 for a machete; 100 ml of water and 6 charge per billet. The cleaner the water, the better the blade.",
+    "Chinese": "放进精锻钢胚、水箱里放装水的容器，选好款式按“锻造”：短刀 1 块、军刀 2 块、砍刀 3 块钢胚，每块用水 100 毫升、耗 6 电。水越干净，刀的成色越好。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.forgingAnvil.manual",
+    "Method": "L.T",
+    "English": "Load: put forged billets in the billet tray, a water container in the quench tank, and an energy cell in the battery slot.\nForge: pick a style and press Forge. Dagger 1 billet, saber 2, machete 3; 100 ml of water and 6 charge per billet.\nQuench: the water grade sets the condition.\nPure → New\nPremium → Excellent\nBasewater → Good\nGhostwater, Rustwater → Fair\nGutterflow → Poor\nExcellent or better counts as a luxury item.",
+    "Chinese": "放入：把精锻钢胚放进钢胚槽，把装水的容器放进水箱，把能量电池放进电池槽。\n锻造：选好款式按“锻造”。短刀 1 块、军刀 2 块、砍刀 3 块钢胚；每块用水 100 毫升、耗 6 电。\n淬火：水的等级决定成色。\n纯水 → 全新\n优质水 → 优秀\n基础水 → 良好\n幽灵水、铁锈水 → 一般\n沟渠水 → 差\n优秀以上的刀算奢侈品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.precisionForge.name",
+    "Method": "L.T",
+    "English": "Precision Forge",
+    "Chinese": "精锻熔炉",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.precisionForge.flavor",
+    "Method": "L.T",
+    "English": "Rosen's old forge. The fire in it burns all night.",
+    "Chinese": "罗森的旧炉子。炉膛里的火一夜都不灭。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.precisionForge.description",
+    "Method": "L.T",
+    "English": "Load high-purity or better metal ingots and a battery. Each night it turns 1 ingot into 1 forged billet, 2 per night by default, using 15 charge. Performance modules make more (using more ingots); efficiency modules save power.",
+    "Chinese": "放进高纯度以上的金属锭、插上电池，每晚把 1 块锭炼成 1 块精锻钢胚，默认每晚 2 块，耗 15 电。性能模组多炼（也多用锭），效率模组省电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.precisionForge.manual",
+    "Method": "L.T",
+    "English": "Load: put metal ingots in the ingot tray (High purity or better; check with a magnifier or flashlight) and an energy cell in the battery slot.\nForging: each night 1 ingot becomes 1 forged billet, 2 per night by default, using 15 charge.\n[Module effects]:\nEfficiency affects power use\nPerformance affects billets per night (and uses more ingots)\nQuality has no effect",
+    "Chinese": "放入：把金属锭放进锭槽（纯度要“高”以上，可用放大镜、手电查看），把能量电池放进电池槽。\n精锻：每晚把 1 块锭炼成 1 块精锻钢胚，默认每晚 2 块，耗 15 电。\n[模组影响]：\n效率影响功耗\n性能影响每晚块数（也多用锭）\n质量无影响",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.forgedBillet.name",
+    "Method": "L.T",
+    "English": "Forged Billet",
+    "Chinese": "精锻钢胚",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.forgedBillet.flavor",
+    "Method": "L.T",
+    "English": "Hammer marks still on the surface.",
+    "Chinese": "表面还留着锤痕。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.forgedBillet.description",
+    "Method": "L.T",
+    "English": "A high-purity metal ingot fired overnight in a precision forge. On the anvil: 1 for a dagger, 2 for a saber, 3 for a machete.",
+    "Chinese": "高纯度的金属锭在精锻熔炉里烧一夜炼成。放上锻台：短刀 1 块，军刀 2 块，砍刀 3 块。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.freeFrequencyWalkman.name",
+    "Method": "L.T",
+    "English": "Free Frequency Walkman",
+    "Chinese": "自由频率随身听",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.freeFrequencyWalkman.flavor",
+    "Method": "L.T",
+    "English": "The interludes from seven albums, spliced together. No tracklist.",
+    "Chinese": "七张专辑的间奏剪在一起。没有曲目表。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.freeFrequencyWalkman.description",
+    "Method": "L.T",
+    "English": "A walkman with one tape inside. A.L.I.S.O.N. master tape, Eninence cells, Spacer-assembled.",
+    "Chinese": "一台随身听，里面只有一盘带子。A.L.I.S.O.N. 的母带，桌越的电芯，星际客组装。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreFreshMeat.name",
+    "Method": "L.T",
+    "English": "Davre Fresh Meat",
+    "Chinese": "达夫雷鲜肉罐头",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreFreshMeat.flavor",
+    "Method": "L.T",
+    "English": "Same canning line as Peat, but this one has real meat in it. Davre doesn't sell this kind of \"treasure\" in the Lower Levels.",
+    "Chinese": "和“泥炭”同一条罐装线，装的是真肉。达夫雷可不往下层区卖这种“宝贝”。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.davreFreshMeat.description",
+    "Method": "L.T",
+    "English": "Fresh meat canned with prime mince and nutrifruit paste.",
+    "Chinese": "用精肉糜和营养果糊封成的鲜肉罐头。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.friendOfTheCorporations.name",
+    "Method": "L.T",
+    "English": "Friend of the Corporations",
+    "Chinese": "巨企之友",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.friendOfTheCorporations.flavor",
+    "Method": "L.T",
+    "English": "A gold “ılı” emblem on a deep purple ribbon. Engraved on the back: Thank you for your contribution to the district's prosperity.",
+    "Chinese": "金色的“ılı”徽记，绶带是深紫色的。背面刻着：感谢您对站区繁荣的贡献。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.friendOfTheCorporations.description",
+    "Method": "L.T",
+    "English": "Issued by the Joint District Administration. Put it in the display case: Upper Levels customers carry 10% more money.",
+    "Chinese": "联合站区管理处颁发。放进商品展示窗：上层区顾客带的钱 +10%。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.nutrifruitPaste.name",
+    "Method": "L.T",
+    "English": "Nutrifruit Paste",
+    "Chinese": "营养果糊",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.nutrifruitPaste.flavor",
+    "Method": "L.T",
+    "English": "A yellowish lump that smells like overboiled potatoes.",
+    "Chinese": "黄乎乎的一团，闻起来像煮过头的土豆。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.nutrifruitPaste.description",
+    "Method": "L.T",
+    "English": "Made by putting nutrifruit through a meat grinder, by calories: 1 portion per 240 calories, any size of fruit. Canning machines take paste only, not whole nutrifruit.",
+    "Chinese": "营养果放进绞肉机绞成，按热量折算：每 240 热量 1 份，大小果都能绞。罐装机只收果糊，不收整个的营养果。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.kottonWorkGloves.name",
+    "Method": "L.T",
+    "English": "Kotton Work Gloves",
+    "Chinese": "韧棉工装手套",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.kottonWorkGloves.flavor",
+    "Method": "L.T",
+    "English": "Thick Kotton gloves, an engineer's best friend. Take them to the Dumping Grounds at night and your chance of minor injury while scavenging drops by 30%.",
+    "Chinese": "韧棉织的厚手套，是工程人员的好帮手。夜里带着它去垃圾场，拾荒受轻伤的几率降低 30%。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.hemingwayLabelStamp.name",
+    "Method": "L.T",
+    "English": "Hemingway Label Stamp",
+    "Chinese": "海明威标签戳",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.hemingwayLabelStamp.flavor",
+    "Method": "L.T",
+    "English": "The division's stamp for Limited Edition packaging, tape wrapped around the handle. You can't buy one outside.",
+    "Chinese": "分部印限量包装用的标签戳，手柄上缠着一圈胶带。外面买不到。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.hemingwayLabelStamp.description",
+    "Method": "L.T",
+    "English": "Put it in a packaging machine's label slot. A new stamp has 8 uses. Drag one owned stamp onto another to combine their remaining uses, up to 24. They cannot be combined if the total exceeds 24. Only works in the packaging machine.",
+    "Chinese": "放进分装机的标签槽。全新标签戳可用 8 次。把自己的标签戳拖到另一个上可合并剩余次数，合计最多 24 次；超过上限不能合并。只在分装机里管用。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.implantCompatibilityAgent.name",
+    "Method": "L.T",
+    "English": "Implant Compatibility Agent",
+    "Chinese": "义体兼容剂",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.implantCompatibilityAgent.flavor",
+    "Method": "L.T",
+    "English": "A thin metal ring around the barrel.",
+    "Chinese": "针管上有一圈细金属环。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.implantCompatibilityAgent.description",
+    "Method": "L.T",
+    "English": "A Carmicheal preparation for implant rejection.",
+    "Chinese": "卡迈克尔为义体排异配制的药剂。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerRepairGel.name",
+    "Method": "L.T",
+    "English": "Isomer Repair Gel",
+    "Chinese": "异构修复凝胶",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerRepairGel.flavor",
+    "Method": "L.T",
+    "English": "Silver-grey and dense, like silver satin.",
+    "Chinese": "银灰色，质地稠密像银色的绸缎。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerRepairGel.description",
+    "Method": "L.T",
+    "English": "Gel made from an under-purity batch. Use it to split it into 3 small tubes of isomer solution of varying purity.",
+    "Chinese": "纯度不够的批次做成的凝胶。“使用”后拆出 3 小管异构蛋白溶液，纯度各不相同。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerReactor.name",
+    "Method": "L.T",
+    "English": "Isomer Reactor",
+    "Chinese": "反应釜",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerReactor.flavor",
+    "Method": "L.T",
+    "English": "A sealed lab reactor, silver liquid behind the glass.",
+    "Chinese": "实验室的密封反应釜，玻璃釜身里是银色的液体。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerReactor.description",
+    "Method": "L.T",
+    "English": "Load a container of activated isomer solution and a battery. Each night it turns it into medicine by purity: 97%+ Rejuvenation Serum, 88%+ Implant Compatibility Agent, 60%+ Isomer Repair Gel. 30 ml of isomer per dose, 1 dose per night by default, using 8 charge.",
+    "Chinese": "放进装着活化异构蛋白溶液的容器、插上电池，每晚按纯度做成药：97% 以上回春药剂，88% 以上义体兼容剂，60% 以上异构修复凝胶。每份用 30 毫升异构蛋白，默认每晚 1 份，耗 8 电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerReactor.manual",
+    "Method": "L.T",
+    "English": "Load a container of activated isomer solution, connect power and wait overnight. Each dose needs 30 mL of isomer in the solution. Up to 1 dose per night by default, using 8 charge per run.\n97%+ → Rejuvenation Serum\n88%+ → Implant Compatibility Agent\n60%+ → Isomer Repair Gel\nSee the Silver Blood Refining Handbook for refining. Efficiency modules reduce power use. Performance affects speed, and quality counts half toward speed.",
+    "Chinese": "把装有活化异构蛋白溶液的容器放进溶液槽，接好电源，等待过夜。每份药需要溶液中含有 30 毫升异构蛋白。默认每晚最多 1 份，启动耗 8 电。\n97% 以上 → 回春药剂\n88% 以上 → 义体兼容剂\n60% 以上 → 异构修复凝胶\n提纯见《银血提纯手册》。效率模组降低耗电。性能影响速度，质量按一半折算成速度。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerSolution.name",
+    "Method": "L.T",
+    "English": "Isomer Solution",
+    "Chinese": "异构蛋白溶液",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerSolution.flavor",
+    "Method": "L.T",
+    "English": "Pale silver, translucent.",
+    "Chinese": "淡银色，半透明。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.isomerSolution.description",
+    "Method": "L.T",
+    "English": "A small 10 ml tube. Can also be recovered from isomer repair gel. Purity varies.",
+    "Chinese": "一小管 10 毫升，也可以从异构修复凝胶里拆出来，纯度不一。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.leviathanWaterPurifier.name",
+    "Method": "L.T",
+    "English": "Leviathan Water Purifier",
+    "Chinese": "利维坦净水器",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.leviathanWaterPurifier.flavor",
+    "Method": "L.T",
+    "English": "Davre modeled it on the HydraTech. It can't handle Gutterflow yet, but it lasts.",
+    "Chinese": "达夫雷照着海德拉做的。沟渠水还对付不了，但胜在耐用。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.leviathanWaterPurifier.description",
+    "Method": "L.T",
+    "English": "Use on a water container to bring Rustwater or Ghostwater up to Basewater purity. It will use 1 durability per 100ml.",
+    "Chinese": "对水容器使用，将铁锈水或幽灵水提升至基础水级别。每净化 100 毫升消耗 1 点耐久度。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.looseCigarettes.name",
+    "Method": "L.T",
+    "English": "Loose Cigarettes",
+    "Chinese": "私制散烟",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.looseCigarettes.flavor",
+    "Method": "L.T",
+    "English": "An unbranded hand-rolled cigarette in yellowed paper.",
+    "Chinese": "没有牌子的手卷烟，卷纸发黄，粗细不一。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.looseCigarettes.description",
+    "Method": "L.T",
+    "English": "Can be smoked. A packaging machine seals 3 into a pack of Hemingways. Untaxed backroom goods, treated as contraband.",
+    "Chinese": "能直接抽。放进分装机，3 支封成 1 包海明威。私人作坊的货，没交税，按违禁品算。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.lowerLevelsRepresentative.name",
+    "Method": "L.T",
+    "English": "Lower Levels Representative",
+    "Chinese": "下层区代表证明",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.lowerLevelsRepresentative.flavor",
+    "Method": "L.T",
+    "English": "An old sheet covered in thumbprints and crooked signatures.",
+    "Chinese": "一张旧纸，盖满了手印和歪歪扭扭的签名。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.lowerLevelsRepresentative.description",
+    "Method": "L.T",
+    "English": "Lower Levels residents co-signed to name you their representative. Takes effect on receipt: all customers carry 50% more money.",
+    "Chinese": "下层区居民联署推举你做代表。到手即生效：所有顾客带的钱 +50%。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.eternalNightRepairMask.name",
+    "Method": "L.T",
+    "English": "Eternal Night Repair Mask",
+    "Chinese": "永恒·夜间修护面膜",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.eternalNightRepairMask.flavor",
+    "Method": "L.T",
+    "English": "Put it on, and after your next night out you won't open late or miss customers the next day.",
+    "Chinese": "敷上后，下一次夜间外出，第二天不会开店迟到、错过顾客。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meatGrinder.name",
+    "Method": "L.T",
+    "English": "Meat Grinder",
+    "Chinese": "绞肉机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meatGrinder.flavor",
+    "Method": "L.T",
+    "English": "A commercial grinder issued by Davre. There's still grease on the blades.",
+    "Chinese": "达夫雷下发的商用绞肉机。刀口上还有没擦干净的油。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meatGrinder.description",
+    "Method": "L.T",
+    "English": "Connect power, load raw meat, suitable fish fillets or nutrifruit, and press Grind. Prime mince takes 275 kcal per portion and scrap mince takes 200 kcal, each using 2 charge by default. Fish mince takes 200 kcal and nutrifruit paste takes 240 kcal per portion, each using 1 charge by default.",
+    "Chinese": "接好电源，放入生肉、合格鱼片或营养果，按「绞碎」当场加工。精肉糜每 275 千卡出 1 份，杂肉糜每 200 千卡出 1 份，各默认耗 2 电。鱼肉糜每 200 千卡出 1 份，营养果糊每 240 千卡出 1 份，各默认耗 1 电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meatGrinder.manual",
+    "Method": "L.T",
+    "English": "Load raw meat, suitable fish fillets or nutrifruit, connect power, then press Grind. Standard and small cuts make prime mince, and morsels make scrap mince. Prime mince takes 275 kcal per portion and scrap mince 200 kcal, at 2 charge each by default. Suitable fillets yield 1 portion of fish mince per 200 kcal, at 1 charge by default.\nNutrifruit yields 1 paste per 240 kcal, at 1 charge by default. After a partial run, unused calories remain in Paste Reserve. Clear the output or restore power and press Grind again. Less than 240 kcal carries over to the next fruit.\nPrions carry over into the product.",
+    "Chinese": "把生肉、合格鱼片或营养果放进原料槽，接好电源，再按「绞碎」。标准、小块生肉出精肉糜，碎块、小碎块出杂肉糜。精肉糜每 275 千卡出 1 份，杂肉糜每 200 千卡出 1 份，各默认耗 2 电。合格鱼片每 200 千卡出 1 份鱼肉糜，默认耗 1 电。\n营养果每 240 千卡出 1 份果糊，默认耗 1 电。只要已产出果糊，因电量或空间不足而没用完的热量就会存入「果糊热量储存」。取走成品或补电后，再按「绞碎」可继续。不足 240 千卡的零头留到下一次。\n带朊病毒的原料会污染成品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianAuthorizedDealerCertificate.name",
+    "Method": "L.T",
+    "English": "Meridian Authorized Dealer Certificate",
+    "Chinese": "子午线授权经销证书",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianAuthorizedDealerCertificate.flavor",
+    "Method": "L.T",
+    "English": "An authorization Meridian Ballistics issued to partner shops. Red on black, stamped with the meridian seal, signed by Rosen, the station manager.",
+    "Chinese": "子午线兵工颁发给合作店铺的授权证书。黑底红字，盖着经线钢印，落款是驻站负责人罗森。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.meridianAuthorizedDealerCertificate.description",
+    "Method": "L.T",
+    "English": "An old certificate Meridian no longer issues. It has no effect. Whether a firearm is legal depends on your weapon permits.",
+    "Chinese": "子午线已经停发的旧证书，没有任何效果。枪械是否合法以武器许可证为准。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.mutualAidMedkit.name",
+    "Method": "L.T",
+    "English": "Mutual Aid Medkit",
+    "Chinese": "互助药箱",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.mutualAidMedkit.flavor",
+    "Method": "L.T",
+    "English": "No trademark. Just an anchor drawn on the lid.",
+    "Chinese": "没有商标，上面只画着一只锚。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.mutualAidMedkit.description",
+    "Method": "L.T",
+    "English": "A box of everyday medicine. Ashvin's cold-chain gel, copied by Spacers, handed out by the Front.",
+    "Chinese": "一箱常用药。Ashvin 的冷链凝胶，星际客仿制，阵线分发。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.oilflowerBlossoms.name",
+    "Method": "L.T",
+    "English": "Oilflower Blossoms",
+    "Chinese": "油花花材",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.oilflowerBlossoms.description",
+    "Method": "L.T",
+    "English": "Blend, then extract with warm alcohol. Each 10 mL of oil becomes 1 material, with no purity requirement. Aromatic Compounds I yields up to 10 mL per flower; higher ranks produce more mash. Cannot be planted.",
+    "Chinese": "可用搅拌机打浆，再以酒精温浸释放基底油成分。含油混合液放进基底油提取器，每10mL油成分制成1份材料，无纯度要求。芳香物质Ⅰ时每份花材理想产油10mL，高等级增加花浆产量。不能种植。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.oilflowerSeeds.name",
+    "Method": "L.T",
+    "English": "Oilflower Seeds",
+    "Chinese": "油花种子",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.oilflowerSeeds.description",
+    "Method": "L.T",
+    "English": "About 6 nights for 4 flowers. Innate Aromatic Compounds I and Infertile III reduce, but do not eliminate, seed returns. Remove infertility to insert Perennial. Refruit base work: 21, with native gene yield and speed modifiers. Gold members may buy 2 per rolling 7 days.",
+    "Chinese": "标准条件约6晚收获4份花材。先天具有芳香物质Ⅰ、不育Ⅲ；不育降低返种概率，仍可能返种。移除不育后可移入多年生。多年生再次结果基础进度21，产量与生长速度遵循原版基因效果。金卡会员每7天限购2颗。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.packagingMachine.name",
+    "Method": "L.T",
+    "English": "Packaging Machine",
+    "Chinese": "分装机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.packagingMachine.flavor",
+    "Method": "L.T",
+    "English": "Proper pastel packaging equipment. Run your smokes through it and they're Hemingways.",
+    "Chinese": "帕斯泰尔正规的分装设备。用了它，你的烟就是海明威。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.packagingMachine.description",
+    "Method": "L.T",
+    "English": "Load loose cigarettes and a battery. Each night it seals 3 cigarettes into 1 genuine Hemingway pack, 2 packs by default, using 8 charge. Performance modules seal more (using more cigarettes); efficiency modules save power. With a label stamp in the label slot, packs come out as Limited Edition.",
+    "Chinese": "放进私制散烟、插上电池，每晚把 3 支散烟封成 1 包海明威正品，默认每晚 2 包，耗 8 电。性能模组多封（也多用散烟），效率模组省电。标签槽里放着标签戳时，封出来的是限量包装。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.packagingMachine.manual",
+    "Method": "L.T",
+    "English": "Load loose cigarettes, connect power and wait overnight. Every 3 loose cigarettes make 1 pack of Hemingways. It makes up to 2 packs per night by default, using 8 charge per run.\nA Hemingway stamp in the label slot makes Limited Edition packs and uses 1 stamp charge per pack.\nPerformance modules add packs. Efficiency modules reduce power use.",
+    "Chinese": "把私制散烟放进散烟槽，接好电源，等待过夜。每 3 支散烟封成 1 包海明威，默认每晚最多 2 包，启动耗 8 电。\n标签槽放入海明威标签戳时可封限量包装，每包消耗 1 次使用次数。\n性能模组增加封装数量，效率模组降低耗电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.painBlocker.name",
+    "Method": "L.T",
+    "English": "Pain Blocker",
+    "Chinese": "痛觉屏蔽剂",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.painBlocker.flavor",
+    "Method": "L.T",
+    "English": "A new product from Carmicheal R&D, born out of an addiction treatment. It temporarily blocks pain. After injecting, your chance of getting hurt while scavenging is halved for the day.",
+    "Chinese": "卡迈克尔研发部的新品，脱胎于一种戒瘾疗法。可以暂时屏蔽痛觉。注射后，当天拾荒受伤的几率减半。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.hemingwayQuitPatch.name",
+    "Method": "L.T",
+    "English": "Hemingway Quit Patch",
+    "Chinese": "海明威戒烟贴",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.hemingwayQuitPatch.flavor",
+    "Method": "L.T",
+    "English": "Made by Hemingway. Apply one and you take no nicotine withdrawal trading penalty for 3 days.",
+    "Chinese": "海明威出品。贴一片，3 天内不受尼古丁戒断的交易惩罚。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.legacyBaseOilSampleBottle.name",
+    "Method": "L.T",
+    "English": "Legacy Base Oil Sample Bottle",
+    "Chinese": "旧版基底油液样瓶",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.legacyBaseOilSampleBottle.description",
+    "Method": "L.T",
+    "English": "A liquid container from the earlier test build; contents are preserved. Put it in the extractor to turn each 10 mL of base oil into 1 material. Empty bottles are no longer produced.",
+    "Chinese": "旧测试版留下的液体容器，保留原有内容。放入基底油提取器，每10mL基底油成分可转成1份材料；空瓶不再产出。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.perfumeBaseOil.name",
+    "Method": "L.T",
+    "English": "Perfume Base Oil",
+    "Chinese": "香水基底油",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.perfumeBaseOil.description",
+    "Method": "L.T",
+    "English": "A measured crafting material. By default the extractor removes 10 mL of the base oil component from a liquid to make 1 portion. Neuroactive Perfume uses 3 portions; Pheromone Perfume uses 2, plus the corresponding blood extract.",
+    "Chinese": "定量的香水材料。基底油提取器默认每次从液体中扣除10mL基底油成分，制成1份。神经活性香水需3份，费洛蒙香水需2份；与对应血液提取物一起合成。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.bloodCollector.name",
+    "Method": "L.T",
+    "English": "Blood Collector",
+    "Chinese": "自动采血机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.bloodCollector.description",
+    "Method": "L.T",
+    "English": "Press Draw Blood: 2 charge by default for 1 ordinary blood bag. First daily draw causes no injury, second a minor wound, third a major wound; maximum 3. Serious wounds block drawing. All collectors share the saved daily count. A new day resets the count, not wounds.",
+    "Chinese": "手动按采血，默认每次耗2电，获得1袋普通血。每日第一次无伤，第二次轻伤，第三次重伤，最多3次。重伤时不能采血。次数由同一存档所有采血机共享，次日重置但不治愈伤势。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.bloodCollector.manual",
+    "Method": "L.T",
+    "English": "Press Draw Blood: 2 charge by default for 1 ordinary blood bag. First daily draw causes no injury, second a minor wound, third a major wound; maximum 3. Serious wounds block drawing. All collectors share the saved daily count. A new day resets the count, not wounds.\n\nCapacity: drag metal ingots onto the machine, any purity. Level 1 costs 3 ingots; level 2 costs 6 more. Maximum 2 levels. Each level adds 2 rows to the output grid. Upgrade progress and capacity persist across saves.",
+    "Chinese": "手动按采血，默认每次耗2电，获得1袋普通血。每日第一次无伤，第二次轻伤，第三次重伤，最多3次。重伤时不能采血。次数由同一存档所有采血机共享，次日重置但不治愈伤势。\n\n扩容：将金属锭拖到机器上，纯度不限。第一级需3块，第二级再需6块，最多2级；每级为成品格增加2行。升级进度和容量随存档保存。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.bloodCollector.effects",
+    "Method": "L.T",
+    "English": "Performance: no effect; daily draw limits do not increase.\nQuality: no effect; blood draw injuries are unchanged.\nEfficiency: reduces power per draw, to a minimum of 1 charge.",
+    "Chinese": "性能：无效果，不增加每日采血次数。\n品质：无效果，不减轻采血伤害。\n效率：降低每次采血能耗，最低1电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pheromoneExtractor.name",
+    "Method": "L.T",
+    "English": "Pheromone Extractor",
+    "Chinese": "费洛蒙提取器",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pheromoneExtractor.description",
+    "Method": "L.T",
+    "English": "Select ordinary or blue blood. Two ordinary bags make 1 Neuroactive Extract; 1 blue bag makes 1 Pheromone Extract. Default: 1 batch per night, 8 charge per run.",
+    "Chinese": "选择普通血或蓝血。2袋普通血袋制成1份神经活性提取物；1袋蓝血制成1份费洛蒙提取物。默认每晚1批，耗8电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pheromoneExtractor.manual",
+    "Method": "L.T",
+    "English": "Select ordinary or blue blood. Two ordinary bags make 1 Neuroactive Extract; 1 blue bag makes 1 Pheromone Extract. Default: 1 batch per night, 8 charge per run.\n\nCapacity: drag metal ingots onto the machine, any purity. Level 1 costs 3 ingots; level 2 costs 6 more. Maximum 2 levels. Each level adds 2 rows to both input and output grids. Upgrade progress and capacity persist across saves.",
+    "Chinese": "选择普通血或蓝血。2袋普通血袋制成1份神经活性提取物；1袋蓝血制成1份费洛蒙提取物。默认每晚1批，耗8电。\n\n扩容：将金属锭拖到机器上，纯度不限。第一级需3块，第二级再需6块，最多2级；每级为原料格和成品格增加2行。升级进度和容量随存档保存。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pheromoneExtractor.effects",
+    "Method": "L.T",
+    "English": "Performance: increases extraction batches per night.\nQuality: accumulates extra extract yield. At +100 quality, every 5 batches produce 1 extra portion, up to +40% yield. Each recipe saves its own progress across loads.\nEfficiency: reduces power consumption, to a minimum of 1 charge.",
+    "Chinese": "性能：增加每晚提取批次。\n品质：积累额外提取物产量。品质+100时每5批额外产出1份，最高增加40%；两种路线分别累计，读档保留。\n效率：降低能耗，最低1电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pheromoneExtract.name",
+    "Method": "L.T",
+    "English": "Pheromone Extract",
+    "Chinese": "费洛蒙提取物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pheromoneExtract.description",
+    "Method": "L.T",
+    "English": "Extracted from 1 blue blood bag. Combine with 2 base oil materials in a synthesizer for 1 vanilla Pheromone Perfume.",
+    "Chinese": "1袋蓝血提取而成。与2份香水基底油材料一起放入香水合成机，生产1瓶原版费洛蒙香水。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.neuroactiveExtract.name",
+    "Method": "L.T",
+    "English": "Neuroactive Extract",
+    "Chinese": "神经活性提取物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.neuroactiveExtract.description",
+    "Method": "L.T",
+    "English": "Extracted from 2 ordinary blood bags. Combine with 3 base oil materials in a synthesizer for 1 vanilla Neuroactive Perfume.",
+    "Chinese": "2袋普通血袋提取而成。与3份香水基底油材料一起放入香水合成机，生产1瓶原版神经活性香水。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.perfumeSynthesizer.name",
+    "Method": "L.T",
+    "English": "Perfume Synthesizer",
+    "Chinese": "香水合成机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.perfumeSynthesizer.description",
+    "Method": "L.T",
+    "English": "Select a recipe and load both materials. Base recipes: one Neuroactive Extract + 3 base oil materials makes Neuroactive Perfume; 1 Pheromone Extract + 2 base oil materials makes Pheromone Perfume. Default: 1 bottle per night, 6 charge per run.",
+    "Chinese": "选择配方，将两种材料放入原料槽。基础配方：普通提取物1份+基底油材料3份→神经活性香水；蓝血提取物1份+基底油材料2份→费洛蒙香水。默认每晚1瓶，耗6电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.perfumeSynthesizer.manual",
+    "Method": "L.T",
+    "English": "Select a recipe and load both materials. Base recipes: one Neuroactive Extract + 3 base oil materials makes Neuroactive Perfume; 1 Pheromone Extract + 2 base oil materials makes Pheromone Perfume. Default: 1 bottle per night, 6 charge per run.\n\nCapacity: drag metal ingots onto the machine, any purity. Level 1 costs 3 ingots; level 2 costs 6 more. Maximum 2 levels. Each level adds 2 rows to both input and output grids. Upgrade progress and capacity persist across saves.",
+    "Chinese": "选择配方，将两种材料放入原料槽。基础配方：普通提取物1份+基底油材料3份→神经活性香水；蓝血提取物1份+基底油材料2份→费洛蒙香水。默认每晚1瓶，耗6电。\n\n扩容：将金属锭拖到机器上，纯度不限。第一级需3块，第二级再需6块，最多2级；每级为原料格和成品格增加2行。升级进度和容量随存档保存。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.perfumeSynthesizer.effects",
+    "Method": "L.T",
+    "English": "Performance: increases bottles made per night.\nQuality: saves base oil materials. At +100 quality, saves 1 of every 5 portions of recipe demand, up to 40%, using saved credit. Blood extract use is unchanged; credit persists across loads.\nEfficiency: reduces power consumption, to a minimum of 1 charge.",
+    "Chinese": "性能：增加每晚合成瓶数。\n品质：节省基底油材料。品质+100时每5份基准用量节省1份，累计抵扣，长期最多节省40%；血液提取物照常消耗，读档保留进度。\n效率：降低能耗，最低1电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.baseOilExtractor.name",
+    "Method": "L.T",
+    "English": "Base Oil Extractor",
+    "Chinese": "基底油提取器",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.baseOilExtractor.description",
+    "Method": "L.T",
+    "English": "Load a liquid containing base oil. By default each batch removes 10 mL of that component to make 1 base oil material. No purity check; water, alcohol and impurities remain in the container. Default: 2 portions per night, 12 charge per run.",
+    "Chinese": "放入含基底油成分的液体。默认每次扣除10mL基底油成分，产出1份香水基底油材料；不检查纯度，水、酒精和杂质原样留在容器中。默认每晚2份，耗12电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.baseOilExtractor.manual",
+    "Method": "L.T",
+    "English": "Load a liquid containing base oil. By default each batch removes 10 mL of that component to make 1 base oil material. No purity check; water, alcohol and impurities remain in the container. Default: 2 portions per night, 12 charge per run.\n\nBlend flowers with vanilla equipment, add alcohol and extract at 50 C or above. A flower contains 2 mL released oil and 16 mL mash, which yields up to 8 mL more oil; throughput and solvent-shortage losses follow coffee. Load the oil-containing mixture into this machine. No filtering, evaporation or purity threshold is required. It removes only base oil: by default 10 mL becomes 1 material; all other components stay unchanged. Oil below the current required amount remains for later processing.\n\nCapacity: drag metal ingots onto the machine, any purity. Level 1 costs 3 ingots; level 2 costs 6 more. Maximum 2 levels. Each level adds 2 rows to the output grid. Upgrade progress and capacity persist across saves.",
+    "Chinese": "放入含基底油成分的液体。默认每次扣除10mL基底油成分，产出1份香水基底油材料；不检查纯度，水、酒精和杂质原样留在容器中。默认每晚2份，耗12电。\n\n花材先用原版搅拌机打浆，加入酒精，在至少50℃下温浸。每份花材含已释放基底油2mL、花浆16mL，花浆理想再释放8mL油；提取速度和溶剂不足的损失参照咖啡。将含油混合液装入本机即可，不需要过滤、蒸发或达到指定纯度。本机只扣除基底油成分，默认每10mL转成1份材料，所有其他成分原样保留。不足当前用量的油留在瓶中，补足后可继续加工。\n\n扩容：将金属锭拖到机器上，纯度不限。第一级需3块，第二级再需6块，最多2级；每级为成品格增加2行。升级进度和容量随存档保存。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.baseOilExtractor.effects",
+    "Method": "L.T",
+    "English": "Performance: increases portions processed per night.\nQuality: reduces base oil used per material. At +100 quality, 10 mL becomes 8 mL; minimum 6 mL.\nEfficiency: reduces power consumption, to a minimum of 1 charge.",
+    "Chinese": "性能：增加每晚处理份数。\n品质：降低每份材料消耗的基底油。品质+100时由10mL降至8mL，最低6mL。\n效率：降低能耗，最低1电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.ratWheelGenerator.name",
+    "Method": "L.T",
+    "English": "Rat Wheel Generator",
+    "Chinese": "跑轮发电机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.ratWheelGenerator.flavor",
+    "Method": "L.T",
+    "English": "Wheels inside the cage, two charging slots outside. Once the batteries are in, the rest is up to the rats.",
+    "Chinese": "笼子里装了跑轮，笼子外接了两个充电槽。电池插好以后，剩下的就看老鼠了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.ratWheelGenerator.description",
+    "Method": "L.T",
+    "English": "Keep live rats in the cage and put standard rechargeable batteries in the charging slots. Each live adolescent or older rat provides 2 kJ per slot per night, up to 16 kJ per slot and within battery capacity. The cage accepts a cleaning robot and retains its feeder slot.",
+    "Chinese": "在笼里养活鼠，在充电槽放普通可充电电池。每只亚成年及以上活鼠每晚为两个槽各充 2 kJ，每槽上限 16 kJ，不超过电池容量。笼格可放清扫机，并保留原版喂食器槽。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.resistanceWaypointToken.name",
+    "Method": "L.T",
+    "English": "Resistance Waypoint Token",
+    "Chinese": "反抗站点信物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.resistanceWaypointToken.flavor",
+    "Method": "L.T",
+    "English": "A worn metal tag on a strip of olive cloth. A single slash is scratched into its face.",
+    "Chinese": "一枚磨旧的金属牌，穿着一截橄榄绿布条。牌面刻着一道斜杠。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.resistanceWaypointToken.description",
+    "Method": "L.T",
+    "English": "You're the Resistance's person at this station. Takes effect on receipt: underground buyers carry 50% more money.",
+    "Chinese": "你是反抗军在这个站点的人。到手即生效：地下买家带的钱 +50%。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rejuvenationSerum.name",
+    "Method": "L.T",
+    "English": "Rejuvenation Serum",
+    "Chinese": "回春药剂",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rejuvenationSerum.flavor",
+    "Method": "L.T",
+    "English": "The liquid has a faint metallic sheen when shaken. The Carmicheal label reads “For confirmed cases only.”",
+    "Chinese": "药液晃动时泛着一点金属光。卡迈克尔的标签上印着「仅限确诊患者使用」。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rejuvenationSerum.description",
+    "Method": "L.T",
+    "English": "Can be injected if you have Sentinel Collapse Syndrome: each shot also counts as an Immunivax shot, and 3 shots in total cure it for good. Useless to anyone without the disease.",
+    "Chinese": "患哨兵崩溃综合征时可以注射：每针兼当一针免疫宁，累计 3 针彻底治愈。没有这个病的人用不了。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.cigaretteRoller.name",
+    "Method": "L.T",
+    "English": "Cigarette Roller",
+    "Chinese": "卷烟机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.cigaretteRoller.flavor",
+    "Method": "L.T",
+    "English": "An old roller retired by the Hemingway division. The paint is worn pale, with half a red logo left on the side.",
+    "Chinese": "海明威分部淘汰下来的旧卷烟机。漆面磨得发白，侧面还留着半个红标。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.cigaretteRoller.description",
+    "Method": "L.T",
+    "English": "Load tobacco leaves and a battery, then press Roll: each leaf becomes 2 loose cigarettes on the spot and uses 5 charge.",
+    "Chinese": "放进烟叶、插上电池，按“卷烟”当场卷好：每片烟叶卷成 2 支私制散烟，耗 5 电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.cigaretteRoller.manual",
+    "Method": "L.T",
+    "English": "Load tobacco leaves, connect power, then press Roll. Each leaf makes 2 loose cigarettes on the spot for 5 charge by default. Rolling stops when power or output space runs out.\nLoose cigarettes are contraband.",
+    "Chinese": "把烟叶放进烟叶槽，接好电源，按「卷烟」。每片当场卷成 2 支私制散烟，默认耗 5 电。电量或成品空间不足时停止。\n私制散烟是违禁品。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rosenSHandmadeRevolver.name",
+    "Method": "L.T",
+    "English": "Rosen's Handmade Revolver",
+    "Chinese": "罗森手作左轮",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rosenSHandmadeRevolver.flavor",
+    "Method": "L.T",
+    "English": "No serial number, no trademark. An R is carved inside the grip.",
+    "Chinese": "没有编号，没有商标。握把内侧刻着一个 R。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rosenSHandmadeRevolver.description",
+    "Method": "L.T",
+    "English": "A revolver handcrafted by Rosen. .45 caliber.",
+    "Chinese": "罗森手工打造的左轮手枪，.45 口径。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rosenSHandmadeRifle.name",
+    "Method": "L.T",
+    "English": "Rosen's Handmade Rifle",
+    "Chinese": "罗森手作步枪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rosenSHandmadeRifle.flavor",
+    "Method": "L.T",
+    "English": "Meridian's line can't make a gun like this.",
+    "Chinese": "子午线的产线做不出这种枪",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.rosenSHandmadeRifle.description",
+    "Method": "L.T",
+    "English": "A rifle handcrafted by Rosen. 10mm caliber.",
+    "Chinese": "罗森手工打造的步枪，10 毫米口径。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverBloodRefiningHandbook.name",
+    "Method": "L.T",
+    "English": "Silver Blood Refining Handbook",
+    "Chinese": "银血提纯手册",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverBloodRefiningHandbook.flavor",
+    "Method": "L.T",
+    "English": "Step 1: Sterilize\n- Pour the silver blood into a chemistry container and put it on a heating plate\n- Heat to 70-85C to kill the microbes\nWARNING: raw isomer denatures above 85C\n\nStep 2: Activate\n- Cool to 60-75C\n- Add Reducing Agent equal to half the raw isomer\n- Hold the temperature until it has all converted\nWARNING: 75-85C converts faster but loses some of it\n\nStep 3: Clean up\n- Same as regular chemicals\n\nStep 4: Evaporate\n- Use the Evaporator\n- (REQUIRED) All water, alcohol and Lipobond Agent are evaporated\n\nStep 5: React\n- Load it into the Isomer Reactor\n- 97%+ purity makes Rejuvenation Serum, 88%+ Implant Compatibility Agent, 60%+ Isomer Repair Gel",
+    "Chinese": "第1步：杀菌\n- 把银血倒进化学容器，放上加热板\n- 加热到70-85°C，杀掉微生物\n警告：粗异构蛋白超过85°C会变性\n\n第2步：活化\n- 降温到60-75°C\n- 加入粗异构蛋白一半量的还原剂\n- 保持温度，直到全部转化\n警告：75-85°C转化更快但会损失一部分\n\n第3步：去杂\n- 参考常规化学品\n\n第4步：蒸发\n- 放进蒸发器\n- （必需）确保水、酒精和脂合剂全部蒸干\n\n第5步：反应\n- 放进反应釜\n- 纯度97%以上出回春药剂，88%以上出义体兼容剂，60%以上出异构修复凝胶",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverBloodRefiningHandbook.description",
+    "Method": "L.T",
+    "English": "Carmicheal internal procedure: every step from silver blood to the reactor.",
+    "Chinese": "卡迈克尔内部流程：从银血到反应釜的每一步。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.sealer.name",
+    "Method": "L.T",
+    "English": "Sealer",
+    "Chinese": "封装机",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.sealer.flavor",
+    "Method": "L.T",
+    "English": "A Davre sealer for small shops. A label by the water tray reads “Clean before switching modes.”",
+    "Chinese": "达夫雷给小店用的封装设备。水槽边贴着一行小字「换档前请清洗」。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.sealer.description",
+    "Method": "L.T",
+    "English": "Runs overnight or when turbo boosted, using 6 charge per run by default. Crab Stick mode uses 4 fish mince per batch and requires a reusable printer plastic item. Canned Fish mode uses one dead, whole adolescent common tilapia per batch. Both modes use 100 mL of Basewater or better per batch. Galaxy Blend mode turns 1 nutrifruit paste into 1 Galaxy Blend without water or printer plastic. Performance modules add batches and efficiency modules reduce power use.",
+    "Chinese": "过夜或充能时封装，每次启动默认耗 6 电。蟹肉棒档每批用 4 份鱼肉糜，槽中须放 1 个可重复使用的 3D 打印耗材。鱼罐头档每批用 1 条已宰杀、未切片的亚成年普通罗非鱼。这两档每批需 100 毫升基础水或更高档的水。繁星果糊档每批用 1 份营养果糊制成 1 份繁星果糊，无需水或耗材。性能模组增加批次，效率模组降低耗电。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelPartnerStoreSign.name",
+    "Method": "L.T",
+    "English": "pastel Partner Store Sign",
+    "Chinese": "帕斯泰尔特约店灯牌",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.pastelPartnerStoreSign.flavor",
+    "Method": "L.T",
+    "English": "A small Nutrifruit light-up sign: \"pastel Partner Outlet\". Anyone holding pastel goods sees it and knows where they belong. Put it in a display case and a pastel goods seller will come by every day.",
+    "Chinese": "一块小小的营养果灯牌：“帕斯泰尔特约店”。手里有帕斯泰尔货的人，看到这个就知道手里货物的归属在哪。放进展示柜，每天会有一位卖帕斯泰尔货的人上门。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverBlood.name",
+    "Method": "L.T",
+    "English": "Silver Blood",
+    "Chinese": "银血",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverBlood.flavor",
+    "Method": "L.T",
+    "English": "Like liquid mercury. It clings to the glass when you swirl it.",
+    "Chinese": "像液态的汞，晃一晃会挂壁。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverBlood.description",
+    "Method": "L.T",
+    "English": "One 50 ml tube. About a fifth is raw isomer protein; the rest is water, protein, fat, microbes and organic waste. The raw isomer must be activated with reducing agent and heat before the reactor will take it; above 85°C it denatures.",
+    "Chinese": "一管 50 毫升。粗异构蛋白约占两成，其余是水、蛋白质、油脂、微生物和有机废物。粗异构蛋白要先加还原剂加热活化，反应釜才认；超过 85°C 会变性。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverbloodTrilobite.name",
+    "Method": "L.T",
+    "English": "Silverblood Trilobite",
+    "Chinese": "银血三叶蜥",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverbloodTrilobite.flavor",
+    "Method": "L.T",
+    "English": "A Carmicheal lab \"medical containment specimen\". Its carapace splits into three lobes, silver light leaking from the seams.",
+    "Chinese": "卡迈克尔实验室的“医用收容物”。背甲分成三节，甲缝里透着银光。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.silverbloodTrilobite.description",
+    "Method": "L.T",
+    "English": "An aggressive alien creature.",
+    "Chinese": "一种有攻击性的异形生物",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.staminaBooster.name",
+    "Method": "L.T",
+    "English": "Stamina Booster",
+    "Chinese": "体力增强剂",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.staminaBooster.flavor",
+    "Method": "L.T",
+    "English": "A long-acting performance drug that slightly improves your constitution. An unreleased Carmicheal product; only insiders at department-manager level can apply for it. After injecting, your daily scavenging attempts in the Dumping Grounds permanently increase by 1 (at most +2 in total when Service strength is set to Vanilla).",
+    "Chinese": "一种长效体能改善药剂，能使人体质略微改善。卡迈克尔尚未上市的新品，只向部门经理级别的内部人员开放申请通道。注射后，每天在垃圾场的拾荒次数上限永久 +1（设置“服务强度”为原版时累计最多 +2）。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.tobaccoLeaves.name",
+    "Method": "L.T",
+    "English": "Tobacco Leaves",
+    "Chinese": "烟叶",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.tobaccoLeaves.flavor",
+    "Method": "L.T",
+    "English": "A fresh bundle of tobacco leaves.",
+    "Chinese": "刚收下来的一捆烟叶。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.tobaccoLeaves.description",
+    "Method": "L.T",
+    "English": "Put it in a cigarette roller: each leaf can be rolled into 2 loose cigarettes.",
+    "Chinese": "放进卷烟机，每片可以卷成 2 支私制散烟。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.tobaccoSeeds.name",
+    "Method": "L.T",
+    "English": "Tobacco Seeds",
+    "Chinese": "烟草种子",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.tobaccoSeeds.flavor",
+    "Method": "L.T",
+    "English": "A pastel cash crop. Fussy and thirsty.",
+    "Chinese": "帕斯泰尔的经济作物。娇气、吃水。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.tobaccoSeeds.description",
+    "Method": "L.T",
+    "English": "Grow in hydroponics: about 4 nights for leaves and 1 seed by default. Supports Perennial: the plant survives harvest, with refruit base work 14. Native genes modify yield, growth speed and seed returns.",
+    "Chinese": "种在水培机里，大约4晚收一茬烟叶，默认返还1颗种子。可移入多年生基因，收获后保留植株；再次结果基础进度14，产量、生长速度和返种数量遵循原版基因效果。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.eninenceEnergyCell.name",
+    "Method": "L.T",
+    "English": "Eninence Energy Cell",
+    "Chinese": "桌越能量电池",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.eninenceEnergyCell.flavor",
+    "Method": "L.T",
+    "English": "Eninence Power. Quality not guaranteed.",
+    "Chinese": "桌越电力，品质不值得保证",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Goods definition metadata",
+    "Key": "items.definitions.eninenceEnergyCell.description",
+    "Method": "L.T",
+    "English": "A rechargeable energy cell, shipped empty. Holds 80% of the genuine article's charge.",
+    "Chinese": "可充电的能量电池，出厂不带电。电量上限是正品的八成。",
+    "Formatted": false,
+    "Nested": false
+  }
+]

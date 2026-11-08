@@ -190,13 +190,13 @@ internal static class MachineUpgrade
 				{
 				}
 				int num2 = ((!Rigs.TryGetValue(machine, out var value)) ? 1 : value.RowsPerLevel);
-				Notify(flag ? L.T($"{name}容量升到 {level} 级：可扩容的仓储格各多 {num2} 行", L.Translate((System.FormattableString)$"{name} capacity upgraded to level {level}: {num2} more row(s) in each expandable storage grid")) : L.T(name + "装好省电件：每次加工少耗 1 电", L.Translate((FormattableString)$"{name} power saver installed: 1 less charge per run")));
+				Notify(flag ? L.K("production.machineUpgrade.apply.capacityUpgradedLevelMoreRow", $"{name}容量升到 {level} 级：可扩容的仓储格各多 {num2} 行", (System.FormattableString)$"{name} capacity upgraded to level {level}: {num2} more row(s) in each expandable storage grid") : L.K("production.machineUpgrade.apply.powerSaverInstalledLessCharge", name + "装好省电件：每次加工少耗 1 电", (FormattableString)$"{name} power saver installed: 1 less charge per run"));
 				ModLog.Info(string.Format("机器升级：{0} {1} {2} 级", machine.identifier, flag ? "容量" : "省电", level));
 			}
 			else
 			{
-				string upgrade = flag ? L.Translate((FormattableString)$"capacity level {level + 1}") : L.Translate("power saver");
-				Notify(L.T(string.Format("{0}{1}：{2}/{3}", name, flag ? $"容量 {level + 1} 级" : "省电", paid, num), L.Translate((FormattableString)$"{name} {upgrade}: {paid}/{num}")));
+				string upgrade = flag ? L.K("production.machineUpgrade.apply.capacityLevel", (FormattableString)$"capacity level {level + 1}") : L.K("production.machineUpgrade.apply.powerSaver", "power saver");
+				Notify(L.K("production.machineUpgrade.apply.text", string.Format("{0}{1}：{2}/{3}", name, flag ? $"容量 {level + 1} 级" : "省电", paid, num), (FormattableString)$"{name} {upgrade}: {paid}/{num}"));
 			}
 			machine.ModifyTag(text2, (TagState s) =>
 			{
@@ -223,14 +223,13 @@ internal static class MachineUpgrade
 			{
 				int num = Level(m, "CORP_UPG_CAP_INT");
 				int num2 = Level(m, "CORP_UPG_CAP_PAID_INT");
-				list.Add((num >= CapCost.Length) ? L.T($"容量：{num}/{CapCost.Length} 级（已满）", L.Translate((System.FormattableString)$"Capacity: level {num}/{CapCost.Length} (max)")) : L.T($"容量：{num}/{CapCost.Length} 级，拖金属锭上来升级（这级 {num2}/{CapCost[num]} 块，纯度不限）", L.Translate((System.FormattableString)$"Capacity: level {num}/{CapCost.Length}. Drag metal ingots onto it to upgrade ({num2}/{CapCost[num]} for this level, any purity)")));
+				list.Add((num >= CapCost.Length) ? L.K("production.machineUpgrade.status.capacityLevelMax", $"容量：{num}/{CapCost.Length} 级（已满）", (System.FormattableString)$"Capacity: level {num}/{CapCost.Length} (max)") : L.K("production.machineUpgrade.status.capacityLevelDragMetalIngots", $"容量：{num}/{CapCost.Length} 级，拖金属锭上来升级（这级 {num2}/{CapCost[num]} 块，纯度不限）", (System.FormattableString)$"Capacity: level {num}/{CapCost.Length}. Drag metal ingots onto it to upgrade ({num2}/{CapCost[num]} for this level, any purity)"));
 			}
 			if (Is(m, PowerMachines))
 			{
 				list.Add(Level(m, "CORP_UPG_PWR_INT") > 0
-					? L.T("省电：已装，每次加工少耗 1 电", "Power saver: installed, 1 less charge per run")
-					: string.Format(L.T("省电：拖电子元件上来安装（{0}/{1} 个），每次加工少耗 1 电",
-						"Power saver: drag electronic components onto it ({0}/{1}) for 1 less charge per run"),
+					? L.K("production.machineUpgrade.status.powerSaverInstalledLessCharge", "省电：已装，每次加工少耗 1 电", "Power saver: installed, 1 less charge per run")
+					: L.F("production.machineUpgrade.status.powerSaverDragElectronicComponents", "省电：拖电子元件上来安装（{0}/{1} 个），每次加工少耗 1 电", "Power saver: drag electronic components onto it ({0}/{1}) for 1 less charge per run",
 						Level(m, "CORP_UPG_PWR_PAID_INT"), 3));
 			}
 			return (list.Count == 0) ? "" : ("\n\n" + string.Join("\n", list));

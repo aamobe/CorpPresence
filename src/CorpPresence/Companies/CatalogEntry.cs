@@ -20,6 +20,8 @@ internal sealed class CatalogEntry
 
 	public string LabelEn;
 
+	public string LabelKey;
+
 	public int Bundle;
 
 	private GameItem _sample;
@@ -358,7 +360,7 @@ internal sealed class CatalogEntry
 	{
 		// Resolve the current language from our owned sample; never destroy a factory
 		// result that has become attached to player inventory during a callback.
-		string label = L.T(Label, LabelEn);
+		string label = L.K(LabelKey, Label, LabelEn);
 		if (!string.IsNullOrEmpty(label)) return label;
 		if (!TryValues(false, out _, out _)) return Id;
 		try

@@ -33,12 +33,12 @@ internal static partial class Perfume
         var output = new GameGridInventory(4, 3);
         var note = new GameSlotInventory();
         var modules = new GameGridInventory("10000010001000001110000010001000001", 7);
-        var button = new MachineryButton(L.T("采血", "Draw Blood"));
-        var check = new MachineryButton(L.T("检查采血条件", "Check Conditions"));
+        var button = new MachineryButton(L.K("production.perfume.blood.buildCollector.drawBlood", "采血", "Draw Blood"));
+        var check = new MachineryButton(L.K("production.perfume.blood.buildCollector.checkConditions", "检查采血条件", "Check Conditions"));
         var window = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery),
-            MachineHelper.Panel(L.T("操作", "Control"), MachineryStack.Vertical(button, check), "control"),
-            MachineHelper.Panel(L.T("血袋", "Blood Bags"), output, "output"), MachineHelper.NotePanel(note),
-            MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"));
+            MachineHelper.Panel(L.K("production.perfume.blood.buildCollector.control", "操作", "Control"), MachineryStack.Vertical(button, check), "control"),
+            MachineHelper.Panel(L.K("production.perfume.blood.buildCollector.bloodBags", "血袋", "Blood Bags"), output, "output"), MachineHelper.NotePanel(note),
+            MachineHelper.Panel(L.K("production.perfume.blood.buildCollector.modules", "模组", "Modules"), modules, "module"));
         var machine = ItemDirectory.CreateEmptyItem().SetContentWindow(window);
         machine.EnableTag("CONTAINER_TAG");
         machine.EnableTag("STANDARD_MACHINE_TAG");
@@ -49,7 +49,7 @@ internal static partial class Perfume
         MachineHelper.SetupModuleBay(modules, machine);
         MachineUpgrade.Attach(machine, 2, output);
         output.mayInventoryAddItemFunc = (_, _) => false;
-        check.SetCallback(() => Tell(DrawProblem(machine, battery) ?? L.T("可以采血。每日第一次无伤，第二次轻伤，第三次重伤。", "Ready. First daily draw: no injury; second: minor wound; third: major wound.")));
+        check.SetCallback(() => Tell(DrawProblem(machine, battery) ?? L.K("production.perfume.blood.buildCollector.readyFirstDailyDrawNo", "可以采血。每日第一次无伤，第二次轻伤，第三次重伤。", "Ready. First daily draw: no injury; second: minor wound; third: major wound.")));
         button.SetCallback(() => DrawBlood(machine, battery, output, modules));
         // Perfume artwork ships in Release too; do not depend on PREVIEW_ART's
         // conditional WatchOutput/SpriteOverride hooks for this machine.
@@ -70,13 +70,13 @@ internal static partial class Perfume
     private static string DrawProblem(GameItem machine, GameSlotInventory battery)
     {
         if (!GameResources.Ready || SaveSlot.CurrentStore?.healthData == null || !ReadDraws(out int count))
-            return L.T("采血记录暂不可用。", "Blood draw record is unavailable.");
-        if (!GeneralHelper.IsItemOwned(machine)) return L.T("只能使用自己的采血机。", "Use an owned collector.");
-        if (HealthData.IsSeriouslyWounded()) return L.T("重伤时不能采血。", "Cannot draw blood while seriously wounded.");
-        if (count >= 3) return L.T("今天已经采血3次。", "Already drew blood 3 times today.");
+            return L.K("production.perfume.blood.drawProblem.bloodDrawRecordUnavailable", "采血记录暂不可用。", "Blood draw record is unavailable.");
+        if (!GeneralHelper.IsItemOwned(machine)) return L.K("production.perfume.blood.drawProblem.useOwnedCollector", "只能使用自己的采血机。", "Use an owned collector.");
+        if (HealthData.IsSeriouslyWounded()) return L.K("production.perfume.blood.drawProblem.cannotDrawBloodWhileSeriously", "重伤时不能采血。", "Cannot draw blood while seriously wounded.");
+        if (count >= 3) return L.K("production.perfume.blood.drawProblem.alreadyDrewBloodTimesToday", "今天已经采血3次。", "Already drew blood 3 times today.");
         int power = MachineryHelper.GetMachinePowerUsage(machine);
         if (!PowerHelper.CanDrawPowerSource(battery.childItem, power))
-            return L.T($"采血需要{power}电。", L.Translate((FormattableString)$"Drawing blood requires {power} charge."));
+            return L.K("production.perfume.blood.drawProblem.drawingBloodRequiresCharge", $"采血需要{power}电。", (FormattableString)$"Drawing blood requires {power} charge.");
         return null;
     }
 
@@ -94,7 +94,7 @@ internal static partial class Perfume
         try
         {
             GeneralHelper.SetItemOwned(blood);
-            if (!ProductionOutput.TryAdd(output, blood)) { Tell(L.T("血袋出料仓空间不足。", "Blood bag output is full.")); return; }
+            if (!ProductionOutput.TryAdd(output, blood)) { Tell(L.K("production.perfume.blood.drawBlood.bloodBagOutputFull", "血袋出料仓空间不足。", "Blood bag output is full.")); return; }
             if (store != SaveSlot.CurrentStore || !ReadDraws(out int current) || current != count || HealthData.IsSeriouslyWounded()) return;
             if (!MachineHelper.TryDrawCyclePower(machine, battery)) return;
             // Persist globally, not on the individual machine. Loading/other machines see it.
@@ -108,7 +108,7 @@ internal static partial class Perfume
                 store.healthData.woundState = Math.Max(6, store.healthData.woundState);
             }
             MachineHelper.OnMachineActioned(machine, modules);
-            Tell(L.T("采血完成，获得1袋普通血。", "Blood drawn: received 1 ordinary blood bag."));
+            Tell(L.K("production.perfume.blood.drawBlood.bloodDrawnReceivedOrdinaryBlood", "采血完成，获得1袋普通血。", "Blood drawn: received 1 ordinary blood bag."));
         }
         finally { if (!committed) blood.Destroy(); }
     }

@@ -21,6 +21,7 @@ internal sealed class DavreCo : Company
 			Id = "@tablets",
 			Page = "净水",
 			Label = "一瓶净水药片",
+			LabelKey = "companies.catalog.bottleOfWaterTablets.name",
 			LabelEn = "Bottle of Water Tablets"
 		},
 		new CatalogEntry
@@ -28,6 +29,7 @@ internal sealed class DavreCo : Company
 			Id = "@strips",
 			Page = "净水",
 			Label = "水质检测试剂盒",
+			LabelKey = "companies.catalog.waterTestKit.name",
 			LabelEn = "Water Test Kit"
 		},
 		new CatalogEntry
@@ -63,23 +65,23 @@ internal sealed class DavreCo : Company
 
 	public override string Id => "davre";
 
-	public override string Name => L.T("达夫雷食品", "Davre Food");
+	public override string Name => L.K("companies.davre.name.davreFood", "达夫雷食品", "Davre Food");
 
 	public override string CharacterId => "doreen";
 
 	public override long PhoneNumber => 32873L;
 
-	public override string[] TierNames => L.T(new string[3] { "普通供货", "区域供货", "长期合约" }, new string[3] { "Standard Supplier", "Regional Supplier", "Long-Term Contract" });
+	public override string[] TierNames => new string[3] { L.K("companies.davre.tierNames.standardSupplier", "普通供货", "Standard Supplier"), L.K("companies.davre.tierNames.regionalSupplier", "区域供货", "Regional Supplier"), L.K("companies.davre.tierNames.longTermContract", "长期合约", "Long-Term Contract") };
 
-	public override string CardFlavor => L.T("红底米色的达夫雷标志，32873。", "The Davre logo, beige on red. 32873.");
+	public override string CardFlavor => L.K("companies.davre.cardFlavor.davreLogoBeigeRed", "红底米色的达夫雷标志，32873。", "The Davre logo, beige on red. 32873.");
 
-	public override string DeskName => L.T("达夫雷订货中心", "Davre Order Center");
+	public override string DeskName => L.K("companies.davre.deskName.davreOrderCenter", "达夫雷订货中心", "Davre Order Center");
 
 	public override string DeskAsk => "";
 
-	public override string[] FrontDesk => L.T(new string[2] { "达夫雷食品，订货中心。请报供货编号。", "达夫雷。罐头和药片，今天都有。" }, new string[2] { "Davre Food, order center. Supplier number, please.", "Davre. Cans and tablets, all in stock today." });
+	public override string[] FrontDesk => new string[2] { L.K("companies.davre.frontDesk.davreFoodOrderCenterSupplier", "达夫雷食品，订货中心。请报供货编号。", "Davre Food, order center. Supplier number, please."), L.K("companies.davre.frontDesk.davreCansTabletsAllStock", "达夫雷。罐头和药片，今天都有。", "Davre. Cans and tablets, all in stock today.") };
 
-	public override string FrontDeskDone => L.T("已排单，明天到货。", "Scheduled. Arriving tomorrow.");
+	public override string FrontDeskDone => L.K("companies.davre.frontDeskDone.scheduledArrivingTomorrow", "已排单，明天到货。", "Scheduled. Arriving tomorrow.");
 
 	public override CatalogEntry[] Catalog => Entries;
 

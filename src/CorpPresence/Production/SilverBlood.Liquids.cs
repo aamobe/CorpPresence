@@ -42,8 +42,8 @@ internal static partial class SilverBlood
 	public static void RegisterLiquid()
 	{
 		if (!GameResources.Ready) throw new InvalidOperationException("公司液体资源尚未就绪");
-		AddLiquid("corp_isomer_raw", L.T("粗异构蛋白", "Raw Isomer Protein"), "9aa3b4", ref _ownedRaw);
-		AddLiquid("corp_isomer", L.T("异构蛋白", "Isomer Protein"), "c8d0dc", ref _ownedIsomer);
+		AddLiquid("corp_isomer_raw", L.K("production.silverBlood.liquids.registerLiquid.rawIsomerProtein", "粗异构蛋白", "Raw Isomer Protein"), "9aa3b4", ref _ownedRaw);
+		AddLiquid("corp_isomer", L.K("production.silverBlood.liquids.registerLiquid.isomerProtein", "异构蛋白", "Isomer Protein"), "c8d0dc", ref _ownedIsomer);
 	}
 
 	private static void AddLiquid(string id, string name, string color, ref Liquid owned)

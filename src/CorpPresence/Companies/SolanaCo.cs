@@ -19,27 +19,27 @@ internal sealed class SolanaCo : Company
 
 	public override CatalogEntry[] Catalog => Perfume.Catalog;
 
-	public override string Name => L.T("索拉纳生物", "Solana Biogenics");
+	public override string Name => L.K("companies.solana.name.solanaBiogenics", "索拉纳生物", "Solana Biogenics");
 
 	public override string CharacterId => "seline";
 
 	public override long PhoneNumber => 76526L;
 
-	public override string[] TierNames => L.T(new string[3] { "银卡会员", "金卡会员", "黑金会员" }, new string[3] { "Silver Member", "Gold Member", "Black Gold Member" });
+	public override string[] TierNames => new string[3] { L.K("companies.solana.tierNames.silverMember", "银卡会员", "Silver Member"), L.K("companies.solana.tierNames.goldMember", "金卡会员", "Gold Member"), L.K("companies.solana.tierNames.blackGoldMember", "黑金会员", "Black Gold Member") };
 
-	public override string CardFlavor => L.T("烫金的字，只有一个号码：76526。", "Gold-foil lettering. Just one number: 76526.");
+	public override string CardFlavor => L.K("companies.solana.cardFlavor.goldFoilLetteringJustOne", "烫金的字，只有一个号码：76526。", "Gold-foil lettering. Just one number: 76526.");
 
-	public override string DeskName => L.T("索拉纳前台", "Solana Concierge");
+	public override string DeskName => L.K("companies.solana.deskName.solanaConcierge", "索拉纳前台", "Solana Concierge");
 
-	public override string DeskAsk => L.T("请问需要什么服务？", "Which service may I assist you with?");
+	public override string DeskAsk => L.K("companies.solana.deskAsk.whichServiceMayIAssist", "请问需要什么服务？", "Which service may I assist you with?");
 
 	public override string[] FrontDesk => new string[2]
 	{
-		L.T("索拉纳生物。正在为您调取会员档案。", "Solana Biogenics. Retrieving your membership file."),
-		L.T("索拉纳。请说。", "Solana. Please, go ahead.")
+		L.K("companies.solana.frontDesk.solanaBiogenicsRetrievingMembershipFile", "索拉纳生物。正在为您调取会员档案。", "Solana Biogenics. Retrieving your membership file."),
+		L.K("companies.solana.frontDesk.solanaPleaseGoAhead", "索拉纳。请说。", "Solana. Please, go ahead.")
 	};
 
-	public override string FrontDeskDone => L.T("已为您安排，明天专人上门。", "All arranged. Someone will call on you tomorrow.");
+	public override string FrontDeskDone => L.K("companies.solana.frontDeskDone.allArrangedSomeoneWillCall", "已为您安排，明天专人上门。", "All arranged. Someone will call on you tomorrow.");
 
 	public static int VipFee => Services.Fee("solana", "vip", 300);
 

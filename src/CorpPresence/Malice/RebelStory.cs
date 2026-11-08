@@ -57,7 +57,7 @@ internal static class RebelStory
 
 	private static RebelState R => MaliceState.Get()?.Rebel;
 
-	private static string OdinName => L.T("奥丁", "Odin");
+	private static string OdinName => L.K("malice.rebelStory.odinName.odin", "奥丁", "Odin");
 
 	public static bool Appeased
 	{
@@ -197,7 +197,7 @@ internal static class RebelStory
 		{
 			r.Ch5 = true;
 			r.Active = 5;
-			Notify(L.T("导师来了消息：他会替你去和那几家巨企谈。", "Word from the Mentor: he'll speak to the corporations on your behalf."));
+			Notify(L.K("malice.rebelStory.onDayStart.wordMentorHeLlSpeak", "导师来了消息：他会替你去和那几家巨企谈。", "Word from the Mentor: he'll speak to the corporations on your behalf."));
 		}
 		if (r.Active != 5 || r.RepCert)
 		{
@@ -227,7 +227,7 @@ internal static class RebelStory
 			r.Done = 5;
 			r.Active = 0;
 			Envoy.GiveItem("lower_rep_cert");
-			Notify(L.T("下层区的人联名推你做了代表：所有顾客带的钱 +50%。", "The Lower Levels have named you their representative: all customers carry 50% more money."));
+			Notify(L.K("malice.rebelStory.checkFinale.lowerLevelsHaveNamedTheir", "下层区的人联名推你做了代表：所有顾客带的钱 +50%。", "The Lower Levels have named you their representative: all customers carry 50% more money."));
 		}
 	}
 
@@ -238,13 +238,13 @@ internal static class RebelStory
 		{
 		case "rebel:envoybomb":
 			if (!MaliceGuards.CanDeliverBomb(MaliceState.Get()?.Envoy.Ch2, Day, MaliceState.Get()?.Envoy.BombDeadline ?? -1, Rebels.OdinUnavailable, Envoy.BombBuyerId)) return null;
-			return Buyer(kind, Envoy.BombBuyerId, new string[] { L.T("电话里说的礼物呢？交给我。", "Where is the gift you called about? Hand it over.") }, Array.Empty<string>(), 5000, talkFirst: true);
+			return Buyer(kind, Envoy.BombBuyerId, new string[] { L.K("malice.rebelStory.create.whereGiftCalledAboutHand", "电话里说的礼物呢？交给我。", "Where is the gift you called about? Hand it over.") }, Array.Empty<string>(), 5000, talkFirst: true);
 		case "rebel:ch1":
 			return Envoy.Talk(kind, OdinName, "wanted4", new string[3]
 			{
-				L.T("你帮了我们不少。我想请你再帮一个忙。", "You've helped us a lot. I need one more favor."),
-				L.T($"弄一瓶毒药给我们。弄不到的话，价值 {100}₵ 的梦尘和芬太片也行。", L.Translate((System.FormattableString)$"Get us a bottle of poison. If you can't, Dream Dust and Phanta Pills worth {100}₵ will do.")),
-				L.T("准备好了就打我们的电话，我会叫人来取。", "When it's ready, call us and I'll send someone.")
+				L.K("malice.rebelStory.create.veHelpedUsLotI", "你帮了我们不少。我想请你再帮一个忙。", "You've helped us a lot. I need one more favor."),
+				L.K("malice.rebelStory.create.getUsBottlePoisonIf", $"弄一瓶毒药给我们。弄不到的话，价值 {100}₵ 的梦尘和芬太片也行。", (System.FormattableString)$"Get us a bottle of poison. If you can't, Dream Dust and Phanta Pills worth {100}₵ will do."),
+				L.K("malice.rebelStory.create.whenSReadyCallUs", "准备好了就打我们的电话，我会叫人来取。", "When it's ready, call us and I'll send someone.")
 			}, null, null, () =>
 			{
 				r.Active = 1;
@@ -252,31 +252,31 @@ internal static class RebelStory
 		case "rebel:ch2":
 			return Envoy.Talk(kind, OdinName, "wanted4", new string[3]
 			{
-				L.T("我们需要一批炸药，子午线的重火力也勉强可以。", "We need explosives. Meridian's heavy firepower would do in a pinch."),
-				L.T($"子午线那边我知道你有关系可以打点：合作关系够的话 {200}₵，不然 {500}₵，他们会送一颗炸弹过来，我来买。", L.Translate((System.FormattableString)$"I know you have connections at Meridian, so they can be bought: {200}₵ if you're on good terms, {500}₵ otherwise. They'll send a bomb, and I'll buy it.")),
-				L.T($"不然的话，通过地下买家卖出价值 {1000}₵ 的武器。", L.Translate((System.FormattableString)$"Otherwise, sell {1000}₵ worth of weapons through the underground buyer."))
+				L.K("malice.rebelStory.create.weNeedExplosivesMeridianS", "我们需要一批炸药，子午线的重火力也勉强可以。", "We need explosives. Meridian's heavy firepower would do in a pinch."),
+				L.K("malice.rebelStory.create.iKnowHaveConnectionsMeridian", $"子午线那边我知道你有关系可以打点：合作关系够的话 {200}₵，不然 {500}₵，他们会送一颗炸弹过来，我来买。", (System.FormattableString)$"I know you have connections at Meridian, so they can be bought: {200}₵ if you're on good terms, {500}₵ otherwise. They'll send a bomb, and I'll buy it."),
+				L.K("malice.rebelStory.create.otherwiseSellWorthWeaponsThrough", $"不然的话，通过地下买家卖出价值 {1000}₵ 的武器。", (System.FormattableString)$"Otherwise, sell {1000}₵ worth of weapons through the underground buyer.")
 			}, null, null, () =>
 			{
 				r.Active = 2;
 			}, "FACTION_REVOLUTION");
 		case "rebel:odinbomb":
-			return Buyer(kind, "rebel_odin_buyer_bomb", new string[1] { L.T("子午线的货到了？给我。", "Meridian's package arrived? Hand it over.") }, Array.Empty<string>(), 5000, talkFirst: true);
+			return Buyer(kind, "rebel_odin_buyer_bomb", new string[1] { L.K("malice.rebelStory.create.meridianSPackageArrivedHand", "子午线的货到了？给我。", "Meridian's package arrived? Hand it over.") }, Array.Empty<string>(), 5000, talkFirst: true);
 		case "rebel:seller":
 			return Seller(kind);
 		case "rebel:buyer":
 		{
 			bool flag = r.Active == 4;
-			return Buyer(kind, "rebel_odin_buyer", new string[1] { flag ? L.T("老规矩：武器和医疗品，有多少收多少。", "Same as always: weapons and medical supplies, as much as you've got.") : L.T("大清缴以后伤员太多了。医疗品，有多少收多少。", "Too many wounded since the great crackdown. Medical supplies, as much as you've got.") }, (!flag) ? new string[1] { "MEDICAL" } : new string[2] { "MEDICAL", "WEAPON" }, Settings.VanillaBudget(), talkFirst: false);
+			return Buyer(kind, "rebel_odin_buyer", new string[1] { flag ? L.K("malice.rebelStory.create.sameAsAlwaysWeaponsMedical", "老规矩：武器和医疗品，有多少收多少。", "Same as always: weapons and medical supplies, as much as you've got.") : L.K("malice.rebelStory.create.tooManyWoundedSinceGreat", "大清缴以后伤员太多了。医疗品，有多少收多少。", "Too many wounded since the great crackdown. Medical supplies, as much as you've got.") }, (!flag) ? new string[1] { "MEDICAL" } : new string[2] { "MEDICAL", "WEAPON" }, Settings.VanillaBudget(), talkFirst: false);
 		}
 		case "rebel:invite":
 			return Envoy.Talk(kind, OdinName, "wanted4", new string[2]
 			{
-				L.T("你拒绝了他们。我听说了。", "You turned them down. I heard."),
-				L.T("加入我们吧。", "Join us.")
-			}, L.T("怎么样？", "Well?"), new (string, string, Action)[2]
+				L.K("malice.rebelStory.create.turnedThemDownIHeard", "你拒绝了他们。我听说了。", "You turned them down. I heard."),
+				L.K("malice.rebelStory.create.joinUs", "加入我们吧。", "Join us.")
+			}, L.K("malice.rebelStory.create.well", "怎么样？", "Well?"), new (string, string, Action)[2]
 			{
-				Envoy.Opt(L.T("我加入。", "I'm in."), L.T("拿着这个。", "Take this."), JoinRebels),
-				Envoy.Opt(L.T("让我再想想。", "Let me think about it."), L.T("想好了打电话叫我。", "Call me when you've decided."), () =>
+				Envoy.Opt(L.K("malice.rebelStory.create.iM", "我加入。", "I'm in."), L.K("malice.rebelStory.create.takeThis", "拿着这个。", "Take this."), JoinRebels),
+				Envoy.Opt(L.K("malice.rebelStory.create.letMeThinkAbout", "让我再想想。", "Let me think about it."), L.K("malice.rebelStory.create.callMeWhenVeDecided", "想好了打电话叫我。", "Call me when you've decided."), () =>
 				{
 					r.Invited = true;
 				})
@@ -284,8 +284,8 @@ internal static class RebelStory
 		case "rebel:raid":
 			return Envoy.Talk(kind, OdinName, "wanted4", new string[2]
 			{
-				L.T("够了。我们准备好了。", "That's enough. We're ready."),
-				L.T("三天后，我们去拔掉巨企在下层区的代理人站点。", "In three days, we take out the corporations' agent station in the Lower Levels.")
+				L.K("malice.rebelStory.create.thatSEnoughWeRe", "够了。我们准备好了。", "That's enough. We're ready."),
+				L.K("malice.rebelStory.create.threeDaysWeTakeOut", "三天后，我们去拔掉巨企在下层区的代理人站点。", "In three days, we take out the corporations' agent station in the Lower Levels.")
 			}, null, null, () =>
 			{
 				r.RaidDay = Day + 3;
@@ -293,8 +293,8 @@ internal static class RebelStory
 		case "rebel:pickup":
 			return Buyer(kind, "rebel_pickup", new string[2]
 			{
-				L.T("奥丁让我来取东西。", "Odin sent me to pick something up."),
-				L.T("放这儿就行。", "Just put it here.")
+				L.K("malice.rebelStory.create.odinSentMePickSomething", "奥丁让我来取东西。", "Odin sent me to pick something up."),
+				L.K("malice.rebelStory.create.justPutHere", "放这儿就行。", "Just put it here.")
 			}, PickupTags(), 99999, talkFirst: false);
 		default:
 			return null;
@@ -305,11 +305,11 @@ internal static class RebelStory
 	{
 		if (!PickupOpen)
 		{
-			return L.T("现在没有要送的东西。", "Nothing needs picking up right now.");
+			return L.K("malice.rebelStory.callPickup.nothingNeedsPickingUpRight", "现在没有要送的东西。", "Nothing needs picking up right now.");
 		}
 		if (Envoy.Booked("rebel:pickup"))
 		{
-			return L.T("已经约好了，明天来人。", "Already booked: someone comes tomorrow.");
+			return L.K("malice.rebelStory.callPickup.alreadyBookedSomeoneComesTomorrow", "已经约好了，明天来人。", "Already booked: someone comes tomorrow.");
 		}
 		Envoy.Book("rebel:pickup", Day + 1);
 		return null;
@@ -457,15 +457,15 @@ internal static class RebelStory
 			{
 			case 1:
 				Rebels.AddPoints(100, "反抗军第 1 章");
-				Notify(L.T($"奥丁收到了东西。反抗军助力点 +{100}。", L.Translate((System.FormattableString)$"Odin got what he needed. +{100} support points.")));
+				Notify(L.K("malice.rebelStory.complete.odinGotWhatHeNeeded", $"奥丁收到了东西。反抗军助力点 +{100}。", (System.FormattableString)$"Odin got what he needed. +{100} support points."));
 				break;
 			case 2:
-				Notify(L.T("奥丁：“谢了。之后武器可能会涨价，囤点货吧。”", "Odin: “Thanks. Weapon prices might go up soon. Stock up.”"));
-				QueueEvent("malice_raid_armory", L.T("革命军突袭治安部武器库", "Revolutionaries Raid Security Armory"), L.T("武器库遇袭", "Armory Raided"), L.T("革命军袭击了治安部的一座武器库。站内武器紧缺，价格上涨。", "Revolutionaries struck a Security armory. Weapons are scarce station-wide and prices are up."), 25, 3, 4);
+				Notify(L.K("malice.rebelStory.complete.odinThanksWeaponPricesMight", "奥丁：“谢了。之后武器可能会涨价，囤点货吧。”", "Odin: “Thanks. Weapon prices might go up soon. Stock up.”"));
+				QueueEvent("malice_raid_armory", L.K("malice.rebelStory.complete.revolutionariesRaidSecurityArmory", "革命军突袭治安部武器库", "Revolutionaries Raid Security Armory"), L.K("malice.rebelStory.complete.armoryRaided", "武器库遇袭", "Armory Raided"), L.K("malice.rebelStory.complete.revolutionariesStruckSecurityArmoryWeapons", "革命军袭击了治安部的一座武器库。站内武器紧缺，价格上涨。", "Revolutionaries struck a Security armory. Weapons are scarce station-wide and prices are up."), 25, 3, 4);
 				break;
 			case 3:
 				GiveMeridianCrate();
-				Notify(L.T("奥丁送来一箱子午线的枪：清缴的时候那些治安部身上搜出来的。", "Odin sent a crate of Meridian guns, taken off Security officers during the crackdown."));
+				Notify(L.K("malice.rebelStory.complete.odinSentCrateMeridianGuns", "奥丁送来一箱子午线的枪：清缴的时候那些治安部身上搜出来的。", "Odin sent a crate of Meridian guns, taken off Security officers during the crackdown."));
 				break;
 			}
 			ModLog.Info($"恶意巨企：反抗军第 {ch} 章完成");
@@ -497,36 +497,36 @@ internal static class RebelStory
 		RebelState r = R;
 		if (!isCurrent() || _orderingBomb || !(replacement ? Ch2ReorderOpen : Ch2BribeOpen))
 		{
-			return L.T("现在不需要。", "Not needed right now.");
+			return L.K("malice.rebelStory.orderBomb.notNeededRightNow", "现在不需要。", "Not needed right now.");
 		}
 		if (replacement)
 		{
 			if (!TryFindBomb(out var present))
 			{
-				return L.T("暂时无法检查库存，尚未扣款。", "Inventory could not be checked. You have not been charged.");
+				return L.K("malice.rebelStory.orderBomb.inventoryCouldNotBeChecked", "暂时无法检查库存，尚未扣款。", "Inventory could not be checked. You have not been charged.");
 			}
 			if (present)
 			{
-				return L.T("库存里还有任务炸弹，无需补订。", "The mission bomb is still in storage.");
+				return L.K("malice.rebelStory.orderBomb.missionBombStillStorage", "库存里还有任务炸弹，无需补订。", "The mission bomb is still in storage.");
 			}
 		}
 		if (!isCurrent() || !ReferenceEquals(r, R))
-			return L.T("存档已变化，预约已停止，尚未扣款。", "The save changed; booking stopped before payment.");
+			return L.K("malice.rebelStory.orderBomb.saveChangedBookingStoppedBefore", "存档已变化，预约已停止，尚未扣款。", "The save changed; booking stopped before payment.");
 		int num = Ch2BribePrice();
 		PlayerStore store = Store;
 		if (store.GetCash() < num)
 		{
-			return L.T("现金不够", "Not enough cash");
+			return L.K("malice.rebelStory.orderBomb.notEnoughCash", "现金不够", "Not enough cash");
 		}
 		int num2 = Day + 1;
 		_orderingBomb = true;
 		try
 		{
 			if (!isCurrent() || !ReferenceEquals(r, R))
-				return L.T("存档已变化，预约已停止，尚未扣款。", "The save changed; booking stopped before payment.");
+				return L.K("malice.rebelStory.orderBomb.saveChangedBookingStoppedBefore", "存档已变化，预约已停止，尚未扣款。", "The save changed; booking stopped before payment.");
 			store.PayMoney(num, playRegisterSound: true);
 			if (!isCurrent() || !ReferenceEquals(r, R))
-				return L.T("存档已变化，已停止旧预约。", "The save changed; the old booking was stopped.");
+				return L.K("malice.rebelStory.orderBomb.saveChangedOldBookingWas", "存档已变化，已停止旧预约。", "The save changed; the old booking was stopped.");
 			r.Ch2Route = "bribe";
 			r.Ch2BombDay = num2;
 			ModLog.Info($"子午线炸弹已付款 {num}₵，预定第 {num2} 天开店送达。");
@@ -588,7 +588,7 @@ internal static class RebelStory
 		ModLog.Info(present ? "子午线炸弹订单已结清，库存中已有任务炸弹。" : "子午线炸弹已确认入库。");
 		if (!present)
 		{
-			Notify(L.T("子午线送来的炸弹已入库。", "The bomb from Meridian has been delivered."));
+			Notify(L.K("malice.rebelStory.deliverDueBomb.bombMeridianHasBeenDelivered", "子午线送来的炸弹已入库。", "The bomb from Meridian has been delivered."));
 		}
 		return true;
 	}
@@ -606,8 +606,8 @@ internal static class RebelStory
 				return false;
 			}
 			gameItem.EnableTag("CORP_REBEL_BOMB");
-			gameItem.SetName(L.T("子午线的“样品”", "Meridian “Sample”"));
-			gameItem.shortDescription = L.T("子午线私下送来的炸药。奥丁会来买。", "Explosives Meridian sent on the quiet. Odin will come for it.");
+			gameItem.SetName(L.K("malice.rebelStory.giveBomb.meridianSample", "子午线的“样品”", "Meridian “Sample”"));
+			gameItem.shortDescription = L.K("malice.rebelStory.giveBomb.explosivesMeridianSentQuietOdin", "子午线私下送来的炸药。奥丁会来买。", "Explosives Meridian sent on the quiet. Odin will come for it.");
 			if (isCurrent() && StorePlacement.Place(gameItem))
 			{
 				return true;
@@ -642,7 +642,7 @@ internal static class RebelStory
 		r.Active = 3;
 		r.Ch3Start = Day + 1;
 		r.OdinBuyDue = Day + 4;
-		QueueEvent("malice_crackdown", L.T("巨企协助治安部清缴反抗军", "Corporations Back Security Crackdown"), L.T("清缴", "Crackdown"), L.T("巨企协助治安部清缴反抗军：反抗军损失惨重，同时治安部得到大量补给。贪腐之下，大量武器流入市场。", "The corporations are backing a Security crackdown on the Resistance: heavy losses for the rebels, while Security gets a flood of supplies. Thanks to graft, plenty of weapons are leaking onto the market."), -25, 3, 1);
+		QueueEvent("malice_crackdown", L.K("malice.rebelStory.startCh3.corporationsBackSecurityCrackdown", "巨企协助治安部清缴反抗军", "Corporations Back Security Crackdown"), L.K("malice.rebelStory.startCh3.crackdown", "清缴", "Crackdown"), L.K("malice.rebelStory.startCh3.corporationsAreBackingSecurityCrackdown", "巨企协助治安部清缴反抗军：反抗军损失惨重，同时治安部得到大量补给。贪腐之下，大量武器流入市场。", "The corporations are backing a Security crackdown on the Resistance: heavy losses for the rebels, while Security gets a flood of supplies. Thanks to graft, plenty of weapons are leaking onto the market."), -25, 3, 1);
 	}
 
 	private static StoreClient Seller(string kind)
@@ -650,7 +650,7 @@ internal static class RebelStory
 		Func<bool> isCurrent = MaliceGuards.CaptureSession();
 		try
 		{
-			string text = L.T("子午线的人", "Meridian Man");
+			string text = L.K("malice.rebelStory.seller.meridianMan", "子午线的人", "Meridian Man");
 			StoreClient client = new StoreClient
 			{
 				identifier = "rebel_meridian_seller",
@@ -664,7 +664,7 @@ internal static class RebelStory
 			client.CompleteClientCreation();
 			client.SetWholesale(20);
 			bool placed = false;
-			Dialogue dialogue = new Dialogue().SetText(text, L.T("清缴“多出来”的货。你要的话便宜给你。", "Surplus from the crackdown. Cheap, if you want it."));
+			Dialogue dialogue = new Dialogue().SetText(text, L.K("malice.rebelStory.seller.surplusCrackdownCheapIfWant", "清缴“多出来”的货。你要的话便宜给你。", "Surplus from the crackdown. Cheap, if you want it."));
 			dialogue.SetEndAction(() =>
 			{
 				if (!isCurrent()) return;
@@ -694,7 +694,7 @@ internal static class RebelStory
 				client.OnIntroduced();
 			});
 			client.mainDialogue = dialogue;
-			client.allDoneDialogue = new Dialogue().SetText(text, L.T("回见。", "Later.")).SetEndAction(() =>
+			client.allDoneDialogue = new Dialogue().SetText(text, L.K("malice.rebelStory.seller.later", "回见。", "Later.")).SetEndAction(() =>
 			{
 				if (!isCurrent()) return;
 				try
@@ -767,7 +767,7 @@ internal static class RebelStory
 	{
 		if (!CanCallOdin)
 		{
-			return L.T("现在不需要。", "Not needed right now.");
+			return L.K("malice.rebelStory.callOdin.notNeededRightNow", "现在不需要。", "Not needed right now.");
 		}
 		Envoy.Book("rebel:invite", Day + 1);
 		return null;
@@ -797,8 +797,8 @@ internal static class RebelStory
 		catch
 		{
 		}
-		Notify(L.T("巨企意识到下层脱离掌控开始安抚下层区：所有订货九折，不再收订阅费。", "Realizing the Lower Levels are slipping out of their grip, the corporations are placating them: all orders 10% off, no more subscription fees."));
-		QueueEvent("malice_devil_dies", L.T("恶魔之死", "Death of a Devil"), L.T("恶魔之死", "Death of a Devil"), L.T("联合站区管理处专员撒该·索恩在下层区遇袭身亡。治安部封锁了现场，武器价格上涨。", "Joint District Administration officer Zacchaeus Thorne was killed in an attack in the Lower Levels. Security has sealed the area; weapon prices are up."), 30, 3, 0);
+		Notify(L.K("malice.rebelStory.raid.realizingLowerLevelsAreSlipping", "巨企意识到下层脱离掌控开始安抚下层区：所有订货九折，不再收订阅费。", "Realizing the Lower Levels are slipping out of their grip, the corporations are placating them: all orders 10% off, no more subscription fees."));
+		QueueEvent("malice_devil_dies", L.K("malice.rebelStory.raid.deathDevil", "恶魔之死", "Death of a Devil"), L.K("malice.rebelStory.raid.deathDevil", "恶魔之死", "Death of a Devil"), L.K("malice.rebelStory.raid.jointDistrictAdministrationOfficerZacchaeus", "联合站区管理处专员撒该·索恩在下层区遇袭身亡。治安部封锁了现场，武器价格上涨。", "Joint District Administration officer Zacchaeus Thorne was killed in an attack in the Lower Levels. Security has sealed the area; weapon prices are up."), 30, 3, 0);
 	}
 
 	public static void OnReported(string clientId, int revDelta)
@@ -836,7 +836,7 @@ internal static class RebelStory
 		maliceState.OdinArrested = false;
 		r.OdinRepLost = 0;
 		r.RescueValue = 0;
-		Notify(L.T("奥丁被救出来了。反抗军恢复了联系。", "Odin has been rescued. The Resistance is back in touch."));
+		Notify(L.K("malice.rebelStory.rescue.odinHasBeenRescuedResistance", "奥丁被救出来了。反抗军恢复了联系。", "Odin has been rescued. The Resistance is back in touch."));
 	}
 
 	public static void Schedule(StoreClientManager manager)
@@ -870,7 +870,7 @@ internal static class RebelStory
 			StoreClient client = new StoreClient
 			{
 				identifier = id,
-				displayName = ((id == "rebel_pickup") ? L.T("反抗军联络员", "Resistance Runner") : OdinName),
+				displayName = ((id == "rebel_pickup") ? L.K("malice.rebelStory.buyer.resistanceRunner", "反抗军联络员", "Resistance Runner") : OdinName),
 				spriteName = ((id == "rebel_pickup") ? SpriteDict.GetRandomRevSpriteName() : "wanted4"),
 				clientFaction = "FACTION_REVOLUTION",
 				clientIntent = StoreClient.ClientIntent.BUY,
@@ -911,13 +911,13 @@ internal static class RebelStory
 		switch (i % 3)
 		{
 		case 0:
-			QueueEvent("malice_raid_armory", L.T("革命军突袭治安部武器库", "Revolutionaries Raid Security Armory"), L.T("武器库遇袭", "Armory Raided"), L.T("（测试）武器价格上涨。", "(Test) Weapon prices are up."), 25, 3, 0);
+			QueueEvent("malice_raid_armory", L.K("malice.rebelStory.debugEvent.revolutionariesRaidSecurityArmory", "革命军突袭治安部武器库", "Revolutionaries Raid Security Armory"), L.K("malice.rebelStory.debugEvent.armoryRaided", "武器库遇袭", "Armory Raided"), L.K("malice.rebelStory.debugEvent.testWeaponPricesAreUp", "（测试）武器价格上涨。", "(Test) Weapon prices are up."), 25, 3, 0);
 			return "武器库遇袭 +25%";
 		case 1:
-			QueueEvent("malice_crackdown", L.T("巨企协助治安部清缴反抗军", "Corporations Back Security Crackdown"), L.T("清缴", "Crackdown"), L.T("（测试）武器流入市场。", "(Test) Weapons flood the market."), -25, 3, 0);
+			QueueEvent("malice_crackdown", L.K("malice.rebelStory.debugEvent.corporationsBackSecurityCrackdown", "巨企协助治安部清缴反抗军", "Corporations Back Security Crackdown"), L.K("malice.rebelStory.debugEvent.crackdown", "清缴", "Crackdown"), L.K("malice.rebelStory.debugEvent.testWeaponsFloodMarket", "（测试）武器流入市场。", "(Test) Weapons flood the market."), -25, 3, 0);
 			return "清缴 -25%";
 		default:
-			QueueEvent("malice_devil_dies", L.T("恶魔之死", "Death of a Devil"), L.T("恶魔之死", "Death of a Devil"), L.T("（测试）武器价格上涨。", "(Test) Weapon prices are up."), 30, 3, 0);
+			QueueEvent("malice_devil_dies", L.K("malice.rebelStory.debugEvent.deathDevil", "恶魔之死", "Death of a Devil"), L.K("malice.rebelStory.debugEvent.deathDevil", "恶魔之死", "Death of a Devil"), L.K("malice.rebelStory.debugEvent.testWeaponPricesAreUp", "（测试）武器价格上涨。", "(Test) Weapon prices are up."), 30, 3, 0);
 			return "恶魔之死 +30%";
 		}
 	}

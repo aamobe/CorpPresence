@@ -77,41 +77,38 @@ internal static partial class Canning
         var output = new GameGridInventory(4, 2);
         var plastic = new GameSlotInventory();
         GameItem machine = null;
-        var crab = new MachineryRadioButton(L.T("蟹肉棒档", "Crab Stick"), true, on =>
+        var crab = new MachineryRadioButton(L.K("production.canning.seafood.buildSeafoodSealer.crabStick", "蟹肉棒档", "Crab Stick"), true, on =>
         {
             if (!on || machine == null) return;
             machine.DisableTag(FishModeTag);
             machine.DisableTag(GalaxyModeTag);
             MachineAppearance.Rearm(machine);
-        }).SetDescription(L.T("4 份鱼肉糜 + 100 毫升基础水或更高档的水 → 1 份风味蟹肉棒。需放入可复用的 3D 打印耗材。",
-            "4 fish mince + 100 mL of Basewater or better → 1 crab stick. Requires reusable printer plastic."));
-        var fish = new MachineryRadioButton(L.T("鱼罐头档", "Canned Fish"), false, on =>
+        }).SetDescription(L.K("production.canning.seafood.buildSeafoodSealer.fishMinceMLBasewaterOr", "4 份鱼肉糜 + 100 毫升基础水或更高档的水 → 1 份风味蟹肉棒。需放入可复用的 3D 打印耗材。", "4 fish mince + 100 mL of Basewater or better → 1 crab stick. Requires reusable printer plastic."));
+        var fish = new MachineryRadioButton(L.K("production.canning.seafood.buildSeafoodSealer.cannedFish", "鱼罐头档", "Canned Fish"), false, on =>
         {
             if (!on || machine == null) return;
             machine.EnableTag(FishModeTag);
             machine.DisableTag(GalaxyModeTag);
             MachineAppearance.Rearm(machine);
-        }).SetDescription(L.T("1 条已宰杀、未切片的亚成年普通罗非鱼 + 100 毫升基础水或更高档的水 → 1 罐鱼罐头。",
-            "1 dead, whole adolescent common tilapia + 100 mL of Basewater or better → 1 can of fish."));
-        var galaxy = new MachineryRadioButton(L.T("繁星果糊档", "Galaxy Blend"), false, on =>
+        }).SetDescription(L.K("production.canning.seafood.buildSeafoodSealer.deadWholeAdolescentCommonTilapia", "1 条已宰杀、未切片的亚成年普通罗非鱼 + 100 毫升基础水或更高档的水 → 1 罐鱼罐头。", "1 dead, whole adolescent common tilapia + 100 mL of Basewater or better → 1 can of fish."));
+        var galaxy = new MachineryRadioButton(L.K("production.canning.seafood.buildSeafoodSealer.galaxyBlend", "繁星果糊档", "Galaxy Blend"), false, on =>
         {
             if (!on || machine == null) return;
             machine.DisableTag(FishModeTag);
             machine.EnableTag(GalaxyModeTag);
             MachineAppearance.Rearm(machine);
-        }).SetDescription(L.T("1 份营养果糊 → 1 份繁星果糊（无需水或耗材）",
-            "1 nutrifruit paste → 1 Galaxy Blend (no water or printer plastic)"));
+        }).SetDescription(L.K("production.canning.seafood.buildSeafoodSealer.nutrifruitPasteGalaxyBlendNo", "1 份营养果糊 → 1 份繁星果糊（无需水或耗材）", "1 nutrifruit paste → 1 Galaxy Blend (no water or printer plastic)"));
         new MachineryRadioGroup().Add(crab).Add(fish).Add(galaxy);
-        var check = new MachineryButton(L.T("检查生产条件", "Check Production"));
+        var check = new MachineryButton(L.K("production.canning.seafood.buildSeafoodSealer.checkProduction", "检查生产条件", "Check Production"));
         var modeControls = MachineryStack.Vertical(crab, fish, galaxy, check).SetAlign(MachineryStack.Align.Start);
         // Display the module bay after power while keeping the saved inventory order.
         var window = MachineHelper.CreateMachineryWindow(true, new[] { 0, 6 }, MachineHelper.PowerPanel(battery),
-            MachineHelper.Panel(L.T("水槽", "Water"), water, "water"),
-            MachineHelper.Panel(L.T("原料", "Ingredients"), ingredients, "input"),
-            MachineHelper.Panel(L.T("档位", "Mode"), modeControls, "control"),
-            MachineHelper.Panel(L.T("成品", "Output"), output, "output"),
-            MachineHelper.Panel(L.T("3D 打印耗材（可复用）", "Reusable 3D Material"), plastic, "plastic"),
-            MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"));
+            MachineHelper.Panel(L.K("production.canning.seafood.buildSeafoodSealer.water", "水槽", "Water"), water, "water"),
+            MachineHelper.Panel(L.K("production.canning.seafood.buildSeafoodSealer.ingredients", "原料", "Ingredients"), ingredients, "input"),
+            MachineHelper.Panel(L.K("production.canning.seafood.buildSeafoodSealer.mode", "档位", "Mode"), modeControls, "control"),
+            MachineHelper.Panel(L.K("production.canning.seafood.buildSeafoodSealer.output", "成品", "Output"), output, "output"),
+            MachineHelper.Panel(L.K("production.canning.seafood.buildSeafoodSealer.reusableDMaterial", "3D 打印耗材（可复用）", "Reusable 3D Material"), plastic, "plastic"),
+            MachineHelper.Panel(L.K("production.canning.seafood.buildSeafoodSealer.modules", "模组", "Modules"), modules, "module"));
         machine = Empty().SetContentWindow(window);
         machine.EnableTag("CONTAINER_TAG");
         machine.EnableTag("STANDARD_MACHINE_TAG");
@@ -176,8 +173,8 @@ internal static partial class Canning
         int speed = Math.Max(0, machine.GetTagReadonly("CURRENT_PROCESSING_SPEED_TAG").GetInt());
         int progress = speed + machine.GetTagReadonly(SealerCarryTag).GetInt();
         int batches = progress / SpeedScale;
-        if (batches <= 0) return L.T("加工速度不足。", "Processing speed is too low.");
-        if (battery == null) return L.T("请放入供电设备。", "Install a power source.");
+        if (batches <= 0) return L.K("production.canning.seafood.runSealer.processingSpeedTooLow", "加工速度不足。", "Processing speed is too low.");
+        if (battery == null) return L.K("production.canning.seafood.runSealer.installPowerSource", "请放入供电设备。", "Install a power source.");
 
         int done = 0;
         try
@@ -188,7 +185,7 @@ internal static partial class Canning
                     inspect, out bool sealedBatch);
                 if (inspect || !sealedBatch) return status;
             }
-            return L.T("已完成封装。", "Sealing complete.");
+            return L.K("production.canning.seafood.runSealer.sealingComplete", "已完成封装。", "Sealing complete.");
         }
         finally
         {
@@ -217,31 +214,31 @@ internal static partial class Canning
         if (galaxy)
         {
             if (!TakeIngredients(ingredients, item => item.identifier == PasteId, 1, batch))
-                return L.T("需要 1 份营养果糊。", "Load 1 nutrifruit paste.");
+                return L.K("production.canning.seafood.sealBatch.loadNutrifruitPaste", "需要 1 份营养果糊。", "Load 1 nutrifruit paste.");
         }
         else if (fish)
         {
             if (!TakeIngredients(ingredients, IsWholeTilapia, 1, batch))
-                return L.T("需要一条已宰杀、未切片的亚成年普通罗非鱼。", "Load one dead, whole adolescent common tilapia.");
+                return L.K("production.canning.seafood.sealBatch.loadOneDeadWholeAdolescent", "需要一条已宰杀、未切片的亚成年普通罗非鱼。", "Load one dead, whole adolescent common tilapia.");
         }
         else if (!TakeIngredients(ingredients, item => item.identifier == FishMinceId, 4, batch) ||
                  plastic.childItem?.identifier != "printer_plastic")
         {
-            return L.T("需要 4 份鱼肉糜和 1 个 3D 打印耗材。", "Load 4 fish mince and 1 printer plastic.");
+            return L.K("production.canning.seafood.sealBatch.loadFishMincePrinterPlastic", "需要 4 份鱼肉糜和 1 个 3D 打印耗材。", "Load 4 fish mince and 1 printer plastic.");
         }
 
         if (usesWater)
         {
             if (!HasSealerWaterVolume(water))
-                return L.T("需要一个装有至少 100 毫升水的容器。", "Load a container with at least 100 mL of water.");
+                return L.K("production.canning.seafood.sealBatch.loadContainerWithLeastML", "需要一个装有至少 100 毫升水的容器。", "Load a container with at least 100 mL of water.");
             if (WaterFeatureHelper.GetPurityArrayIndex(WaterHelper.GetWaterPurity(water)) > 2)
-                return L.T("水质须为基础水或更高档。", "Use Basewater or better.");
+                return L.K("production.canning.seafood.sealBatch.useBasewaterOrBetter", "水质须为基础水或更高档。", "Use Basewater or better.");
         }
         if (power > 0 && !PowerHelper.CanDrawPowerSource(battery, power))
-            return L.T($"需要 {power} 电。", L.Translate((System.FormattableString)$"{power} charge is required."));
+            return L.K("production.canning.seafood.sealBatch.chargeRequired", $"需要 {power} 电。", (System.FormattableString)$"{power} charge is required.");
 
         var product = galaxy ? ItemRegistry.Create("galaxy_blend") : Goods.Make(fish ? "fish_can" : "crab_stick");
-        if (product == null) return L.T("成品尚未就绪。", "The product is unavailable.");
+        if (product == null) return L.K("production.canning.seafood.sealBatch.productUnavailable", "成品尚未就绪。", "The product is unavailable.");
         bool committed = false;
         try
         {
@@ -255,13 +252,13 @@ internal static partial class Canning
                 try
                 {
                     return GraphUtils.CanAccept(output, product)
-                        ? L.T("首批条件满足，可过夜生产或使用充能器。", "First batch ready for overnight production or turbo boost.")
-                        : L.T("成品槽空间不足。", "The output tray is full.");
+                        ? L.K("production.canning.seafood.sealBatch.firstBatchReadyOvernightProduction", "首批条件满足，可过夜生产或使用充能器。", "First batch ready for overnight production or turbo boost.")
+                        : L.K("production.canning.seafood.sealBatch.outputTrayFull", "成品槽空间不足。", "The output tray is full.");
                 }
                 finally { output.mayInventoryAddItemFunc = previous; }
             }
             if (!ProductionOutput.TryAdd(output, product))
-                return L.T("成品槽空间不足。", "The output tray is full.");
+                return L.K("production.canning.seafood.sealBatch.outputTrayFull", "成品槽空间不足。", "The output tray is full.");
 
             var liquids = usesWater ? Liquid.Liquids.Select(liquid => liquid.currentPart).ToArray() : Array.Empty<string>();
             var amounts = liquids.Select(tag => water.GetTagReadonly(tag).GetInt()).ToArray();
@@ -309,8 +306,8 @@ internal static partial class Canning
                 }
             }
             if (!paid) return usesWater
-                ? L.T("扣水或供电失败，本批未封装。", "Water or power draw failed. No batch was sealed.")
-                : L.T("供电失败，本批未封装。", "Power draw failed. No batch was sealed.");
+                ? L.K("production.canning.seafood.sealBatch.waterOrPowerDrawFailed", "扣水或供电失败，本批未封装。", "Water or power draw failed. No batch was sealed.")
+                : L.K("production.canning.seafood.sealBatch.powerDrawFailedNoBatch", "供电失败，本批未封装。", "Power draw failed. No batch was sealed.");
 
             // Irreversible ingredient disposal begins after the water and power commit.
             committed = true;
@@ -320,7 +317,7 @@ internal static partial class Canning
                 if (item.unitCount == count) item.Destroy();
                 else item.SetUnitCount(item.unitCount - count);
             }
-            return L.T("已封装一批。", "Sealed one batch.");
+            return L.K("production.canning.seafood.sealBatch.sealedOneBatch", "已封装一批。", "Sealed one batch.");
         }
         finally
         {

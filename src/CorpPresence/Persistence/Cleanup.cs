@@ -57,7 +57,7 @@ internal static class Cleanup
 		try { ModLog.Info($"卸载前清理：移除号码 {num} 个，删除物品 {num2} 件，未清空容器 {retained} 个。"); } catch { }
 		try
 		{
-			StoreUIManager.Instance?.Notify(retained > 0 ? L.T("公司增强：有未清空的容器，请腾出库存空间后重试，暂不要卸载。", "CorpPresence: containers still hold items. Free inventory space and retry before uninstalling.") : L.T($"公司增强：已清理（电话 {num} 个，物品 {num2} 件），存档后即可卸载。", L.Translate((System.FormattableString)$"CorpPresence: cleaned up ({num} phone numbers, {num2} items). You can uninstall after this save.")));
+			StoreUIManager.Instance?.Notify(retained > 0 ? L.K("persistence.cleanup.beforeSave.corpPresenceContainersStillHoldItems", "公司增强：有未清空的容器，请腾出库存空间后重试，暂不要卸载。", "CorpPresence: containers still hold items. Free inventory space and retry before uninstalling.") : L.K("persistence.cleanup.beforeSave.corpPresenceCleanedUpPhoneNumbers", $"公司增强：已清理（电话 {num} 个，物品 {num2} 件），存档后即可卸载。", (System.FormattableString)$"CorpPresence: cleaned up ({num} phone numbers, {num2} items). You can uninstall after this save."));
 		}
 		catch
 		{

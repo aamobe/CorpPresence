@@ -115,15 +115,15 @@ internal static partial class CompanyWindow
 		if (cashDue < amount)
 		{
 			int voucherDeduction = amount - cashDue;
-			GUI.Label(r, L.T($"代金券抵扣 {voucherDeduction}₵ · 应付现金 {cashDue}₵",
-				L.Translate((System.FormattableString)$"Vouchers −{voucherDeduction}₵ · Cash due {cashDue}₵")), _theme.Small);
+			GUI.Label(r, L.K("ui.checkout.voucherDetails", (FormattableString)$"代金券抵扣 {voucherDeduction}₵ · 应付现金 {cashDue}₵",
+				(FormattableString)$"Vouchers −{voucherDeduction}₵ · Cash due {cashDue}₵"), _theme.Small);
 		}
 		return cashDue;
 	}
 
 	private static int DrawCheckoutBalance(Rect r, int amount)
 	{
-		GUI.Label(new Rect(r.x, r.y, 120f, r.height), L.T($"现金 {Cash}₵", L.Translate((System.FormattableString)$"Cash {Cash}₵")), _theme.Small);
+		GUI.Label(new Rect(r.x, r.y, 120f, r.height), L.K("ui.checkout.cash", (FormattableString)$"现金 {Cash}₵", (FormattableString)$"Cash {Cash}₵"), _theme.Small);
 		return DrawVoucherDetails(new Rect(r.x + 126f, r.y, r.width - 126f, r.height), amount);
 	}
 
@@ -415,7 +415,7 @@ internal static partial class CompanyWindow
 			{
 				DrawPastel();
 			}
-			if (_company is not JacksonContact && _guideStage == 0 && Ui.Button(new Rect(_rect.width - 214f, 8f, 170f, 24f), L.T("剧情流程与条件", "Story requirements"), _theme.BtnStyle))
+			if (_company is not JacksonContact && _guideStage == 0 && Ui.Button(new Rect(_rect.width - 214f, 8f, 170f, 24f), L.K("ui.storyGuide.open", "剧情流程与条件", "Story requirements"), _theme.BtnStyle))
 			{
 				_guideStage = 1;
 			}
@@ -523,9 +523,10 @@ internal static partial class CompanyWindow
 		int num = _company.NextTierAt(state);
 		if (num != 0)
 		{
-			return (L.En ? L.Translate((System.FormattableString)$"{num - state.Coop} more to “{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”") : $"距“{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”还差 {num - state.Coop} 点");
+			return L.K("ui.company.nextTier", (FormattableString)$"距“{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”还差 {num - state.Coop} 点",
+				(FormattableString)$"{num - state.Coop} more to “{_company.TierNames[Array.IndexOf(Company.TierAt, num)]}”");
 		}
-		return L.T("已是最高档", "Top tier reached");
+		return L.K("ui.company.topTier", "已是最高档", "Top tier reached");
 	}
 
 	private static string TierLabel(CompanyState s)

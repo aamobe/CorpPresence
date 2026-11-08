@@ -290,7 +290,7 @@ internal static class Forge
 		GameGridInventory input = new GameGridInventory(6, 4);
 		GameGridInventory output = new GameGridInventory(6, 4);
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
-		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"), MachineHelper.Panel(L.T("金属锭", "Ingots"), input, "input"), MachineHelper.Panel(L.T("钢胚", "Billets"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
+		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.forge.buildFurnace.modules", "模组", "Modules"), modules, "module"), MachineHelper.Panel(L.K("production.forge.buildFurnace.ingots", "金属锭", "Ingots"), input, "input"), MachineHelper.Panel(L.K("production.forge.buildFurnace.billets", "钢胚", "Billets"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		GameItem machine = Empty().SetContentWindow(contentWindow);
 		machine.EnableTag("CONTAINER_TAG");
@@ -380,7 +380,7 @@ internal static class Forge
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
 		GameItem machine = null;
 		MachineryRadioButton[] radios = new MachineryRadioButton[Blades.Length];
-		string[] array = L.T(new string[3] { "短刀", "军刀", "砍刀" }, new string[3] { "Dagger", "Saber", "Machete" });
+		string[] array = new string[3] { L.K("production.forge.buildAnvil.dagger", "短刀", "Dagger"), L.K("production.forge.buildAnvil.saber", "军刀", "Saber"), L.K("production.forge.buildAnvil.machete", "砍刀", "Machete") };
 		MachineryRadioGroup machineryRadioGroup = new MachineryRadioGroup();
 		for (int i = 0; i < Blades.Length; i++)
 		{
@@ -394,11 +394,11 @@ internal static class Forge
 						s.Enable().SetInt(k);
 					});
 				}
-			}).SetDescription(L.T($"{Blades[i].Billets} 块钢胚，{Blades[i].Billets * 100} 毫升水", L.Translate((System.FormattableString)$"{Blades[i].Billets} billet(s), {Blades[i].Billets * 100} ml of water")));
+			}).SetDescription(L.K("production.forge.buildAnvil.billetSMlWater", $"{Blades[i].Billets} 块钢胚，{Blades[i].Billets * 100} 毫升水", (System.FormattableString)$"{Blades[i].Billets} billet(s), {Blades[i].Billets * 100} ml of water"));
 			machineryRadioGroup.Add(radios[i]);
 		}
-		MachineryButton machineryButton = new MachineryButton(L.T("锻造", "Forge"));
-		PixelWindow pixelWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("钢胚", "Billets"), input, "input"), MachineHelper.Panel(L.T("水箱", "Quench tank"), water, "input"), MachineHelper.Panel(L.T("款式", "Style"), MachineryStack.Vertical(radios[0], radios[1], radios[2], machineryButton), "control"), MachineHelper.Panel(L.T("成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
+		MachineryButton machineryButton = new MachineryButton(L.K("production.forge.buildAnvil.forge", "锻造", "Forge"));
+		PixelWindow pixelWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.forge.buildAnvil.billets", "钢胚", "Billets"), input, "input"), MachineHelper.Panel(L.K("production.forge.buildAnvil.quenchTank", "水箱", "Quench tank"), water, "input"), MachineHelper.Panel(L.K("production.forge.buildAnvil.style", "款式", "Style"), MachineryStack.Vertical(radios[0], radios[1], radios[2], machineryButton), "control"), MachineHelper.Panel(L.K("production.forge.buildAnvil.output", "成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		machine = Empty().SetContentWindow(pixelWindow);
 		machine.EnableTag("CONTAINER_TAG");
@@ -450,21 +450,21 @@ internal static class Forge
 			List<GameItem> list = input.childItems.Where((GameItem i) => i?.identifier == "corp_presence_forged_billet").ToList();
 			if (list.Count < blade.Billets)
 			{
-				Tell(L.T($"钢胚不够，要 {blade.Billets} 块", L.Translate((System.FormattableString)$"Not enough billets: need {blade.Billets}")));
+				Tell(L.K("production.forge.strike.notEnoughBilletsNeed", $"钢胚不够，要 {blade.Billets} 块", (System.FormattableString)$"Not enough billets: need {blade.Billets}"));
 				return;
 			}
 			GameItem childItem = water.childItem;
 			int num = blade.Billets * 100;
 			if (childItem == null || WaterHelper.GetCurrentCapacityML(childItem) < num)
 			{
-				Tell(L.T($"水箱里的水不够，要 {num} 毫升", L.Translate((System.FormattableString)$"Not enough water in the tank: need {num} ml")));
+				Tell(L.K("production.forge.strike.notEnoughWaterTankNeed", $"水箱里的水不够，要 {num} 毫升", (System.FormattableString)$"Not enough water in the tank: need {num} ml"));
 				return;
 			}
 			GameItem childItem2 = battery.childItem;
 			int num2 = blade.Billets * (6 - MachineUpgrade.PowerCut(machine));
 			if (childItem2 == null || !PowerHelper.CanDrawPowerSource(childItem2, num2))
 			{
-				Tell(L.T($"电量不够，要 {num2} 电", L.Translate((System.FormattableString)$"Not enough charge: need {num2}")));
+				Tell(L.K("production.forge.strike.notEnoughChargeNeed", $"电量不够，要 {num2} 电", (System.FormattableString)$"Not enough charge: need {num2}"));
 				return;
 			}
 			ItemFeatureList.EquipmentCondition equipmentCondition = ConditionOf(WaterFeatureHelper.GetPurityArrayIndex(WaterHelper.GetWaterPurity(childItem)));
@@ -480,7 +480,7 @@ internal static class Forge
 			if (!ProductionOutput.TryAdd(output, gameItem))
 			{
 				gameItem.Destroy();
-				Tell(L.T("成品槽放不下了", "The output tray is full"));
+				Tell(L.K("production.forge.strike.outputTrayFull", "成品槽放不下了", "The output tray is full"));
 				return;
 			}
 			for (int num3 = 0; num3 < blade.Billets; num3++)

@@ -34,34 +34,34 @@ internal static partial class Perfume
     {
         var rig = new PerfumeRig { Kind = kind };
         var note = new GameSlotInventory();
-        var red = new MachineryRadioButton(L.T("普通血路线", "Ordinary Blood"), true, on => {
+        var red = new MachineryRadioButton(L.K("production.perfume.machines.buildMachine.ordinaryBlood", "普通血路线", "Ordinary Blood"), true, on => {
             if (on && rig.Machine != null) rig.Machine.DisableTag(BlueMode);
         });
-        var blue = new MachineryRadioButton(L.T("蓝血路线", "Blue Blood"), false, on => {
+        var blue = new MachineryRadioButton(L.K("production.perfume.machines.buildMachine.blueBlood", "蓝血路线", "Blue Blood"), false, on => {
             if (on && rig.Machine != null) rig.Machine.EnableTag(BlueMode);
         });
         new MachineryRadioGroup().Add(red).Add(blue);
-        var check = new MachineryButton(L.T("检查生产条件", "Check Production"));
-        check.SetCallback(() => Tell(ProductionProblem(rig) ?? L.T("原料合格，等待过夜或加速加工。", "Ingredients ready. Wait overnight or turbo boost.")));
+        var check = new MachineryButton(L.K("production.perfume.machines.buildMachine.checkProduction", "检查生产条件", "Check Production"));
+        check.SetCallback(() => Tell(ProductionProblem(rig) ?? L.K("production.perfume.machines.buildMachine.ingredientsReadyWaitOvernightOr", "原料合格，等待过夜或加速加工。", "Ingredients ready. Wait overnight or turbo boost.")));
         var control = kind == 0 ? MachineryStack.Vertical(check) : MachineryStack.Vertical(red, blue, check);
         // Keep the saved storage order/types from the preceding test build. Old
         // input flowers or mixer liquid bottles remain retrievable, never discarded.
-        rig.InputPanel = MachineHelper.Panel(kind == 0 ? L.T("待取回物品", "Items to Retrieve") : L.T("材料", "Materials"), rig.Input, "input");
-        rig.LiquidPanel = kind == 1 ? null : MachineHelper.Panel(kind == 0 ? L.T("含基底油的液体", "Oil-containing Liquid") : L.T("待取回液体", "Liquid to Retrieve"), rig.Liquid, "liquid");
+        rig.InputPanel = MachineHelper.Panel(kind == 0 ? L.K("production.perfume.machines.buildMachine.itemsRetrieve", "待取回物品", "Items to Retrieve") : L.K("production.perfume.machines.buildMachine.materials", "材料", "Materials"), rig.Input, "input");
+        rig.LiquidPanel = kind == 1 ? null : MachineHelper.Panel(kind == 0 ? L.K("production.perfume.machines.buildMachine.oilContainingLiquid", "含基底油的液体", "Oil-containing Liquid") : L.K("production.perfume.machines.buildMachine.liquidRetrieve", "待取回液体", "Liquid to Retrieve"), rig.Liquid, "liquid");
         if (kind == 0) rig.InputPanel.SetHidden(true);
         if (kind == 2) rig.LiquidPanel.SetHidden(true);
         var window = kind == 1 ? MachineHelper.CreateMachineryWindow(true,
             MachineHelper.PowerPanel(rig.Battery),
-            MachineHelper.Panel(L.T("模组", "Modules"), rig.Modules, "module"),
+            MachineHelper.Panel(L.K("production.perfume.machines.buildMachine.modules", "模组", "Modules"), rig.Modules, "module"),
             rig.InputPanel,
-            MachineHelper.Panel(L.T("配方", "Recipe"), control, "control"),
-            MachineHelper.Panel(L.T("成品", "Output"), rig.Output, "output"), MachineHelper.NotePanel(note)) : MachineHelper.CreateMachineryWindow(true,
+            MachineHelper.Panel(L.K("production.perfume.machines.buildMachine.recipe", "配方", "Recipe"), control, "control"),
+            MachineHelper.Panel(L.K("production.perfume.machines.buildMachine.output", "成品", "Output"), rig.Output, "output"), MachineHelper.NotePanel(note)) : MachineHelper.CreateMachineryWindow(true,
             MachineHelper.PowerPanel(rig.Battery),
-            MachineHelper.Panel(L.T("模组", "Modules"), rig.Modules, "module"),
+            MachineHelper.Panel(L.K("production.perfume.machines.buildMachine.modules", "模组", "Modules"), rig.Modules, "module"),
             rig.InputPanel,
             rig.LiquidPanel,
-            MachineHelper.Panel(L.T("配方", "Recipe"), control, "control"),
-            MachineHelper.Panel(L.T("成品", "Output"), rig.Output, "output"), MachineHelper.NotePanel(note));
+            MachineHelper.Panel(L.K("production.perfume.machines.buildMachine.recipe", "配方", "Recipe"), control, "control"),
+            MachineHelper.Panel(L.K("production.perfume.machines.buildMachine.output", "成品", "Output"), rig.Output, "output"), MachineHelper.NotePanel(note));
         rig.Machine = ItemDirectory.CreateEmptyItem().SetContentWindow(window);
         rig.Machine.EnableTag("CONTAINER_TAG");
         rig.Machine.EnableTag("STANDARD_MACHINE_TAG");
@@ -95,9 +95,9 @@ internal static partial class Perfume
     private static string IngredientProblem(PerfumeRig rig)
     {
         if (rig.Kind == 0) return OilProblem(rig.Liquid.childItem, OilCost(rig.Machine));
-        if (IngredientCount(rig) < rig.Count) return L.T("所选配方的原料不足。", "Not enough ingredients for the selected recipe.");
+        if (IngredientCount(rig) < rig.Count) return L.K("production.perfume.machines.ingredientProblem.notEnoughIngredientsSelectedRecipe", "所选配方的原料不足。", "Not enough ingredients for the selected recipe.");
         if (rig.Kind == 2 && Ingredients(rig, "corp_presence_" + OilKey).Sum(i => i.unitCount) < MaterialCost(rig))
-            return L.T($"当前配方需要{MaterialCost(rig)}份基底油材料。", L.Translate((FormattableString)$"This batch needs {MaterialCost(rig)} base oil materials."));
+            return L.K("production.perfume.machines.ingredientProblem.thisBatchNeedsBaseOil", $"当前配方需要{MaterialCost(rig)}份基底油材料。", (FormattableString)$"This batch needs {MaterialCost(rig)} base oil materials.");
         return null;
     }
 
@@ -107,8 +107,8 @@ internal static partial class Perfume
     {
         string reason = IngredientProblem(rig);
         if (reason != null) return reason;
-        if (!HasPower(rig)) return L.T("请连接足够的电力。", "Connect sufficient power.");
-        return OutputHasSpace(rig) ? null : L.T("成品空间不足或成品目录暂不可用。", "Output is full or the product directory is unavailable.");
+        if (!HasPower(rig)) return L.K("production.perfume.machines.productionProblem.connectSufficientPower", "请连接足够的电力。", "Connect sufficient power.");
+        return OutputHasSpace(rig) ? null : L.K("production.perfume.machines.productionProblem.outputFullOrProductDirectory", "成品空间不足或成品目录暂不可用。", "Output is full or the product directory is unavailable.");
     }
 
     private static bool OutputHasSpace(PerfumeRig rig)

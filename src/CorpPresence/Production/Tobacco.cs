@@ -242,8 +242,8 @@ internal static class Tobacco
 		GameGridInventory input = new GameGridInventory(4, 4);
 		GameGridInventory output = new GameGridInventory(6, 4);
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
-		MachineryButton machineryButton = new MachineryButton(L.T("卷烟", "Roll"));
-		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("烟叶", "Leaves"), input, "input"), MachineHelper.Panel(L.T("散烟", "Cigarettes"), output, "output"), MachineHelper.Panel(L.T("操作", "Control"), MachineryStack.Vertical(machineryButton), "control"), MachineHelper.NotePanel(gameSlotInventory));
+		MachineryButton machineryButton = new MachineryButton(L.K("production.tobacco.buildRoller.roll", "卷烟", "Roll"));
+		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.tobacco.buildRoller.leaves", "烟叶", "Leaves"), input, "input"), MachineHelper.Panel(L.K("production.tobacco.buildRoller.cigarettes", "散烟", "Cigarettes"), output, "output"), MachineHelper.Panel(L.K("production.tobacco.buildRoller.control", "操作", "Control"), MachineryStack.Vertical(machineryButton), "control"), MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		GameItem machine = Empty().SetContentWindow(contentWindow);
 		machine.EnableTag("CONTAINER_TAG");
@@ -319,7 +319,7 @@ internal static class Tobacco
 		GameSlotInventory label = new GameSlotInventory(1, 2);
 		GameGridInventory output = new GameGridInventory(6, 4);
 		GameSlotInventory gameSlotInventory = new GameSlotInventory();
-		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"), MachineHelper.Panel(L.T("散烟", "Cigarettes"), input, "input"), MachineHelper.Panel(L.T("标签戳", "Label stamp"), label, "input"), MachineHelper.Panel(L.T("成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
+		PixelWindow contentWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.tobacco.buildPacker.modules", "模组", "Modules"), modules, "module"), MachineHelper.Panel(L.K("production.tobacco.buildPacker.cigarettes", "散烟", "Cigarettes"), input, "input"), MachineHelper.Panel(L.K("production.tobacco.buildPacker.labelStamp", "标签戳", "Label stamp"), label, "input"), MachineHelper.Panel(L.K("production.tobacco.buildPacker.output", "成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		GameItem machine = Empty().SetContentWindow(contentWindow);
 		machine.EnableTag("CONTAINER_TAG");
@@ -419,8 +419,8 @@ internal static class Tobacco
 		if (gameItem != null)
 		{
 			string displayName = machine.GetDisplayName();
-			gameItem.name = L.T(displayName + "说明", L.Translate((FormattableString)$"{displayName} Instructions"));
-			gameItem.shortDescription = L.T(displayName + "使用方法。", L.Translate((FormattableString)$"How to use the {displayName}."));
+			gameItem.name = L.K("production.tobacco.addManual.instructions", displayName + "说明", (FormattableString)$"{displayName} Instructions");
+			gameItem.shortDescription = L.K("production.tobacco.addManual.howUse", displayName + "使用方法。", (FormattableString)$"How to use the {displayName}.");
 			gameItem.flavorText = ManualText(machine, text);
 			gameItem.SetGameItemType("DOCUMENT");
 			gameItem.EnableTag("IMPORTANT_TAG");
@@ -441,23 +441,29 @@ internal static class Tobacco
 
 		bool hasMatchingTitle = note.name == definition.Name + "说明" ||
 			note.name == definition.NameEn + " Instructions" ||
-			note.name == LocalizedManualTitle(definition.NameEn, "ru") ||
-			note.name == LocalizedManualTitle(definition.NameEn, "fr");
+			note.name == LocalizedManualTitle(definition, "ru", false) ||
+			note.name == LocalizedManualTitle(definition, "fr", false) ||
+			note.name == LocalizedManualTitle(definition, L.Locale, true);
 		if (hasMatchingTitle) note.flavorText = ManualText(machine, definition.Manual);
 	}
 
 	private static string ManualText(GameItem machine, (string Zh, string En) text)
 	{
-		string description = L.T(text.Zh, text.En);
+		string description = L.K(GoodsText.ForId(Goods.IdOf(machine))?.Manual, text.Zh, text.En);
 		string perfumeEffects = Perfume.EffectText(machine);
 		if (perfumeEffects != null) description += "\n\n" + perfumeEffects;
 		if (Goods.IdOf(machine) is "meat_grinder" or "rolling_machine")
-			description += "\n" + L.T("成品槽有成品时显示运行图，取空后恢复静态图。", "The active sprite stays visible until the output tray is emptied.");
+			description += "\n" + L.K("production.tobacco.manualText.activeSpriteStaysVisibleUntil", "成品槽有成品时显示运行图，取空后恢复静态图。", "The active sprite stays visible until the output tray is emptied.");
 		return description;
 	}
 
-	private static string LocalizedManualTitle(string machineName, string locale) =>
-		string.Format(TextTranslations.Select("{0} Instructions", locale), TextTranslations.Select(machineName, locale));
+	private static string LocalizedManualTitle(Goods.Def definition, string locale, bool external)
+	{
+		string name = external ? TextTranslations.SelectKey(definition.TextKeys?.Name, definition.NameEn, locale)
+			: TextTranslations.SelectBuiltInKey(definition.TextKeys?.Name, definition.NameEn, locale);
+		return external ? TextTranslations.FormatKey("production.tobacco.addManual.instructions", "{0} Instructions", locale, name)
+			: string.Format(TextTranslations.SelectBuiltInKey("production.tobacco.addManual.instructions", "{0} Instructions", locale), name);
+	}
 
 	internal static bool Put(GameInventory inv, List<GameItem> items)
 	{

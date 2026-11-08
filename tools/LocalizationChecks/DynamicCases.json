@@ -1,0 +1,344 @@
+[
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.jacksonContact.greeting.customWorkshop",
+    "Method": "L.T",
+    "English": "Jackson here. Custom modifications are my trade. I've got a few machines and parts I built myself that I can let go.",
+    "Chinese": "杰克逊。机器改装是我的老本行。我自己做的几台机器和配件，最近正好有些能出手。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.jacksonContact.greeting.workbench",
+    "Method": "L.T",
+    "English": "I've just cleared some space on the workbench. Want to see the machines and custom parts I've been working on?",
+    "Chinese": "工作台上刚腾出点地方。我做的机器和改装配件，想看看吗？",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.meridian.condition.poor",
+    "Method": "L.T",
+    "English": "Poor",
+    "Chinese": "很差",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.meridian.condition.fair",
+    "Method": "L.T",
+    "English": "Fair",
+    "Chinese": "一般",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.meridian.condition.good",
+    "Method": "L.T",
+    "English": "Good",
+    "Chinese": "良好",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.meridian.condition.excellent",
+    "Method": "L.T",
+    "English": "Excellent",
+    "Chinese": "优秀",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.meridian.condition.new",
+    "Method": "L.T",
+    "English": "New",
+    "Chinese": "全新",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.pastel.limitedFlavor",
+    "Method": "L.T",
+    "English": "Hemingway division Limited Edition.",
+    "Chinese": "海明威分部的限量包装",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.catalog.genuineImmunivaxCase5.name",
+    "Method": "L.T",
+    "English": "Genuine Immunivax Case (5)",
+    "Chinese": "正品免疫宁整箱（5 支）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.catalog.bottleOfWaterTablets.name",
+    "Method": "L.T",
+    "English": "Bottle of Water Tablets",
+    "Chinese": "一瓶净水药片",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.catalog.waterTestKit.name",
+    "Method": "L.T",
+    "English": "Water Test Kit",
+    "Chinese": "水质检测试剂盒",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.catalog.hemingwayCigarettesGenuine.name",
+    "Method": "L.T",
+    "English": "Hemingway Cigarettes (Genuine)",
+    "Chinese": "海明威香烟（正品）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.catalog.hemingwayLimitedEdition.name",
+    "Method": "L.T",
+    "English": "Hemingway Limited Edition",
+    "Chinese": "海明威限量包装",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.catalog.modGrabBox35RandomAttachments.name",
+    "Method": "L.T",
+    "English": "Mod Grab Box (3–5 random attachments)",
+    "Chinese": "改装盲盒（3–5 件随机配件）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.ashvinMedical.company",
+    "Method": "L.T",
+    "English": "Ashvin Medical",
+    "Chinese": "Ashvin Medical",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.ashvinMedical.technology",
+    "Method": "L.T",
+    "English": "cold-chain gel",
+    "Chinese": "冷链凝胶",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.aLISON.company",
+    "Method": "L.T",
+    "English": "A.L.I.S.O.N.",
+    "Chinese": "A.L.I.S.O.N.",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.aLISON.technology",
+    "Method": "L.T",
+    "English": "master tape",
+    "Chinese": "母带",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.eninencePower.company",
+    "Method": "L.T",
+    "English": "Eninence Power",
+    "Chinese": "桌越电力",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.eninencePower.technology",
+    "Method": "L.T",
+    "English": "cells",
+    "Chinese": "电芯",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.socialistFront.company",
+    "Method": "L.T",
+    "English": "Socialist Front",
+    "Chinese": "社会主义阵线",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.socialistFront.technology",
+    "Method": "L.T",
+    "English": "distribution, radio",
+    "Chinese": "分发、电台",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.spacer.company",
+    "Method": "L.T",
+    "English": "Spacer",
+    "Chinese": "星际客",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "companies.spacer.techCredits.spacer.technology",
+    "Method": "L.T",
+    "English": "copying, assembly",
+    "Chinese": "仿制、组装",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.vip.label",
+    "Method": "L.T",
+    "English": "Solana VIP: booking interval (days)",
+    "Chinese": "索拉纳贵宾：预约间隔（天）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.vip.tip",
+    "Method": "L.T",
+    "English": "Days before you can book another VIP.",
+    "Chinese": "预约一次贵宾后，隔几天才能再约。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.lab.label",
+    "Method": "L.T",
+    "English": "Solana lab order: period (days)",
+    "Chinese": "索拉纳实验室采购单：周期（天）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.lab.tip",
+    "Method": "L.T",
+    "English": "How often the lab's purchase list changes; one buyer booking per list.",
+    "Chinese": "采购单多少天换一张，每张可以预约一次采购员。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.gift.label",
+    "Method": "L.T",
+    "English": "Solana member gift: period (days)",
+    "Chinese": "索拉纳会员礼遇：周期（天）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.gift.tip",
+    "Method": "L.T",
+    "English": "How often Black Gold Members can claim the gift.",
+    "Chinese": "黑金会员多少天可以领一次礼遇。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.stamina.label",
+    "Method": "L.T",
+    "English": "Carmicheal Stamina Booster: request interval (days)",
+    "Chinese": "卡迈克尔体力增强剂：申领间隔（天）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.stamina.tip",
+    "Method": "L.T",
+    "English": "Days between Stamina Booster requests.",
+    "Chinese": "申领一支后，隔几天才能再申领。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.swap.label",
+    "Method": "L.T",
+    "English": "Carmicheal fake-for-genuine swap: interval (days)",
+    "Chinese": "卡迈克尔赝品换正品：间隔（天）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.swap.tip",
+    "Method": "L.T",
+    "English": "Days between swap requests.",
+    "Chinese": "申请一次换货后，隔几天才能再申请。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.refurbish.label",
+    "Method": "L.T",
+    "English": "Meridian refurbishment: interval (days)",
+    "Chinese": "子午线返厂翻新：间隔（天）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.refurbish.tip",
+    "Method": "L.T",
+    "English": "Days between refurbishment drop-offs. Used to be a fixed 2 days.",
+    "Chinese": "送一次枪翻新后，隔几天才能再送。以前固定 2 天。",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.rebate.label",
+    "Method": "L.T",
+    "English": "pastel dealer rebate: period (days)",
+    "Chinese": "帕斯泰尔合作商返点：周期（天）",
+    "Formatted": false,
+    "Nested": false
+  },
+  {
+    "File": "Dynamic definition binding",
+    "Key": "settings.periods.rebate.tip",
+    "Method": "L.T",
+    "English": "How often the dealer rebate is settled and brought by the courier.",
+    "Chinese": "多少天结一次返点，由送货员带来。",
+    "Formatted": false,
+    "Nested": false
+  }
+]

@@ -11,14 +11,14 @@ internal static class ConfigLocalization
 		if (__result == null || mod?.Manifest.ID != "CorpPresence" || !TextTranslations.HasLocale(L.Locale)) return;
 		ModConfig config = ModConfig.Find(mod.Manifest.ID);
 		if (config == null) return;
-		__result.SetTitle(L.Translate(mod.Manifest.Name));
+		__result.SetTitle(ConfigDisplay.Text(mod.Manifest.Name));
 
 		foreach (string section in config.Sections)
 		{
 			int marker = section.IndexOf(VisitSectionMarker, StringComparison.Ordinal);
 			string label = marker < 0
-				? L.Translate(section)
-				: string.Format(L.Translate("Visits: {0}"), L.Translate(section.Substring(marker + VisitSectionMarker.Length)));
+				? ConfigDisplay.Text(section)
+				: TextTranslations.FormatKey("presentation.configLocalization.afterOpen.visits", "Visits: {0}", L.Locale, ConfigDisplay.Text(section.Substring(marker + VisitSectionMarker.Length)));
 			__result.Get("section_" + section)?.SetText(label);
 		}
 
@@ -28,7 +28,7 @@ internal static class ConfigLocalization
 			CustomUIElement element = __result.Get(entry.Key);
 			int index = element?.GetIndex() ?? -1;
 			if (index < 0) continue;
-			element.SetOptions(Array.ConvertAll(entry.Choices, choice => L.Translate(choice)));
+			element.SetOptions(Array.ConvertAll(entry.Choices, choice => ConfigDisplay.Text(choice)));
 			element.SetIndex(index);
 		}
 	}

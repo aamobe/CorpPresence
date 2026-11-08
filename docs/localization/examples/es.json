@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "locale": "es",
+  "name": "Español",
+  "translations": {
+    "ui.menu.brandCatalog": "Catálogo de marcas",
+    "ui.storyGuide.previous": "Anterior",
+    "ui.storyGuide.next": "Siguiente",
+    "ui.checkout.cash": "Efectivo {0}₵"
+  }
+}

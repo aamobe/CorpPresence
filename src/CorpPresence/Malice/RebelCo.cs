@@ -12,23 +12,23 @@ internal sealed class RebelCo : Company
 
 	public override string Id => "rebel";
 
-	public override string Name => L.T("反抗军", "The Resistance");
+	public override string Name => L.K("malice.rebel.name.resistance", "反抗军", "The Resistance");
 
 	public override string CharacterId => "odin";
 
 	public override long PhoneNumber => 77224L;
 
-	public override string[] TierNames => L.T(new string[3] { "外围", "同志", "骨干" }, new string[3] { "Sympathizer", "Comrade", "Cadre" });
+	public override string[] TierNames => new string[3] { L.K("malice.rebel.tierNames.sympathizer", "外围", "Sympathizer"), L.K("malice.rebel.tierNames.comrade", "同志", "Comrade"), L.K("malice.rebel.tierNames.cadre", "骨干", "Cadre") };
 
 	public override string CardFlavor => "";
 
-	public override string DeskName => L.T("奥丁", "Odin");
+	public override string DeskName => L.K("malice.rebel.deskName.odin", "奥丁", "Odin");
 
 	public override string DeskAsk => "";
 
-	public override string[] FrontDesk => L.T(new string[2] { "是我。", "长话短说。" }, new string[2] { "It's me.", "Make it quick." });
+	public override string[] FrontDesk => new string[2] { L.K("malice.rebel.frontDesk.sMe", "是我。", "It's me."), L.K("malice.rebel.frontDesk.makeQuick", "长话短说。", "Make it quick.") };
 
-	public override string FrontDeskDone => L.T("会有人送过去。", "Someone will bring it.");
+	public override string FrontDeskDone => L.K("malice.rebel.frontDeskDone.someoneWillBring", "会有人送过去。", "Someone will bring it.");
 
 	public override bool Active => Settings.MaliceMode;
 

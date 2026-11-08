@@ -130,7 +130,7 @@ internal static class Phone
 			CompanyState companyState = Companies.StateOf(company);
 			if (companyState != null && companyState.CardGiven && StoreReputation.IsPerkUnlocked("LLAVOIDED"))
 			{
-				StoreUIManager.Instance?.Notify(L.T(company.Name + "拒接了你的电话：你在下层区“狗嫌人厌”，供货商都不愿和你来往。", company.Name + L.Translate(" won't take your call: you're a pariah in the Lower Levels, and no supplier wants to deal with you.")));
+				StoreUIManager.Instance?.Notify(L.K("composed.phone.warnIfShunned.wonTTakeYourCallYouRe", company.Name + "拒接了你的电话：你在下层区“狗嫌人厌”，供货商都不愿和你来往。", System.Runtime.CompilerServices.FormattableStringFactory.Create("{0} won\u0027t take your call: you\u0027re a pariah in the Lower Levels, and no supplier wants to deal with you.", new object[] { company.Name })));
 			}
 		}
 	}
@@ -185,10 +185,10 @@ internal static class Phone
 		string text = frontDesk[new Random().Next(frontDesk.Length)];
 		string text2 = (string.IsNullOrEmpty(c.DeskAsk) ? text : (text + "\n" + c.DeskAsk));
 		Dialogue dialogue2 = new Dialogue().SetText(deskName, text2);
-		string browse = c is JacksonContact ? L.T("看看机器和配件", "Machines and parts") : L.T("浏览服务", "Browse services");
+		string browse = c is JacksonContact ? L.K("presentation.phone.callDialog.machinesParts", "看看机器和配件", "Machines and parts") : L.K("presentation.phone.callDialog.browseServices", "浏览服务", "Browse services");
 		Dialogue dialogue3 = new Dialogue().SetText("PLAYER", browse);
-		Dialogue dialogue4 = new Dialogue().SetText("PLAYER", L.T("挂断", "Hang up"));
-		dialogue3.NextDialogue().SetText(deskName, c is JacksonContact ? L.T("目录发给你了，看看有没有用得上的。", "Here's the list. See if anything looks useful.") : L.T("好的，这就为您打开服务目录。", "Of course. Opening our service catalog now.")).SetStartAction(() =>
+		Dialogue dialogue4 = new Dialogue().SetText("PLAYER", L.K("presentation.phone.callDialog.hangUp", "挂断", "Hang up"));
+		dialogue3.NextDialogue().SetText(deskName, c is JacksonContact ? L.K("presentation.phone.callDialog.hereSListSeeIf", "目录发给你了，看看有没有用得上的。", "Here's the list. See if anything looks useful.") : L.K("presentation.phone.callDialog.courseOpeningOurServiceCatalog", "好的，这就为您打开服务目录。", "Of course. Opening our service catalog now.")).SetStartAction(() =>
 		{
 			if (opened || !CallCurrent()) return;
 			opened = true;
@@ -217,7 +217,7 @@ internal static class Phone
 			{
 			}
 		});
-		dialogue4.NextDialogue().SetText(deskName, c is JacksonContact ? L.T("行，有需要再打来。", "All right. Call me if you need anything.") : L.T("感谢来电，再见。", "Thank you for calling. Goodbye.")).SetEndAction(() =>
+		dialogue4.NextDialogue().SetText(deskName, c is JacksonContact ? L.K("presentation.phone.callDialog.allRightCallMeIf", "行，有需要再打来。", "All right. Call me if you need anything.") : L.K("presentation.phone.callDialog.thankCallingGoodbye", "感谢来电，再见。", "Thank you for calling. Goodbye.")).SetEndAction(() =>
 		{
 			if (hungUp || !CallCurrent()) return;
 			hungUp = true;
@@ -230,7 +230,7 @@ internal static class Phone
 			}
 		});
 		dialogue2.AddChoice(Compat.ChoiceIcon(), browse, "", dialogue3);
-		dialogue2.AddChoice(Compat.ChoiceIcon(), L.T("挂断", "Hang up"), "", dialogue4);
+		dialogue2.AddChoice(Compat.ChoiceIcon(), L.K("presentation.phone.callDialog.hangUp", "挂断", "Hang up"), "", dialogue4);
 		return dialogue2;
 	}
 

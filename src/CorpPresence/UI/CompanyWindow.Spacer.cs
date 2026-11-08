@@ -31,13 +31,13 @@ internal static partial class CompanyWindow
 			Ui.Fill(new Rect(20f, 20f, 420f, 56f), theme.Ink);
 			GUI.Label(new Rect(36f, 20f, 400f, 56f), _company.Name, theme.InvTitle);
 		}
-		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? L.Translate((System.FormattableString)$"{_company.PhoneNumber}   Day {Day}") : $"{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
+		GUI.Label(new Rect(600f, 40f, width - 640f, 22f), (L.En ? L.K("ui.spacer.overview.dayHeading", (System.FormattableString)$"{_company.PhoneNumber}   Day {Day}") : $"{_company.PhoneNumber}\u3000第 {Day} 天"), theme.Small);
 		Ui.Fill(new Rect(20f, 100f, width - 40f, 2f), theme.Ink);
-		GUI.Label(new Rect(24f, 106f, width - 48f, 22f), L.T("导师：", "The Mentor: ") + _desk, theme.Body);
+		GUI.Label(new Rect(24f, 106f, width - 48f, 22f), L.K("ui.spacer.overview.mentor", "导师：", "The Mentor: ") + _desk, theme.Body);
 		Rect position = new Rect(20f, 136f, 190f, height - 156f);
 		GUI.Box(position, GUIContent.none, theme.CellBox);
-		GUI.Label(new Rect(position.x + 10f, position.y + 8f, 170f, 22f), (L.En ? L.Translate("Node: ") + TierLabel(state) : "节点：" + TierLabel(state)), theme.Body);
-		GUI.Label(new Rect(position.x + 10f, position.y + 32f, 170f, 20f), (L.En ? L.Translate((System.FormattableString)$"Trust {state.Coop}") : $"信任度 {state.Coop}"), theme.Small);
+		GUI.Label(new Rect(position.x + 10f, position.y + 8f, 170f, 22f), (L.En ? L.K("ui.spacer.overview.node", "Node: ") + TierLabel(state) : "节点：" + TierLabel(state)), theme.Body);
+		GUI.Label(new Rect(position.x + 10f, position.y + 32f, 170f, 20f), (L.En ? L.K("ui.spacer.overview.trust", (System.FormattableString)$"Trust {state.Coop}") : $"信任度 {state.Coop}"), theme.Small);
 		CoopBar(new Rect(position.x + 10f, position.y + 54f, 170f, 8f));
 		GUI.Label(new Rect(position.x + 10f, position.y + 64f, 170f, 20f), NextTierHint(), theme.Small);
 		float num = position.y + 96f;
@@ -58,11 +58,11 @@ internal static partial class CompanyWindow
 		{
 			if (_company.Tier(state) < 1)
 			{
-				GUI.Label(new Rect(rect2.x, rect2.y, rect2.width, 40f), L.T("没人认识你。", "Nobody knows you."), theme.Wrap);
+				GUI.Label(new Rect(rect2.x, rect2.y, rect2.width, 40f), L.K("ui.spacer.overview.nobodyKnows", "没人认识你。", "Nobody knows you."), theme.Wrap);
 			}
 			else if (SpacerPages[_module] == "阵线" && _company.Tier(state) < 2)
 			{
-				GUI.Label(new Rect(rect2.x, rect2.y, rect2.width, 40f), (L.En ? L.Translate((System.FormattableString)$"Only at {_company.TierNames[1]}.") : _company.TierNames[1] + "才有。"), theme.Wrap);
+				GUI.Label(new Rect(rect2.x, rect2.y, rect2.width, 40f), (L.En ? L.K("ui.spacer.overview.tierRequired", (System.FormattableString)$"Only at {_company.TierNames[1]}.") : _company.TierNames[1] + "才有。"), theme.Wrap);
 			}
 			else if (SpacerPages[_module] == "目录")
 			{
@@ -91,12 +91,12 @@ internal static partial class CompanyWindow
 		bool flag = Services.CanOrderToday(_company);
 		string text = page switch
 		{
-			"阵线" => L.T("几家一起出的。", "Made by several outfits together."), 
-			"药房" => L.T("没有许可证。", "No license."), 
-			"军械" => L.T("成色不保证。", "Condition not guaranteed."), 
-			_ => L.T("货船余货，量大。", "Freighter surplus. Plenty of it."), 
+			"阵线" => L.K("ui.spacer.orders.madeBySeveralOutfitsTogether", "几家一起出的。", "Made by several outfits together."), 
+			"药房" => L.K("ui.spacer.orders.noLicense", "没有许可证。", "No license."), 
+			"军械" => L.K("ui.spacer.orders.conditionNotGuaranteed", "成色不保证。", "Condition not guaranteed."), 
+			_ => L.K("ui.spacer.orders.freighterSurplusPlenty", "货船余货，量大。", "Freighter surplus. Plenty of it."), 
 		};
-		GUI.Label(new Rect(r.x, r.y, r.width, 20f), (flag ? L.T("今天下单，明天到。", "Order today, here tomorrow. ") : L.T("今天已经下过单了。", "Already ordered today. ")) + text, theme.Small);
+		GUI.Label(new Rect(r.x, r.y, r.width, 20f), (flag ? L.K("ui.spacer.orders.orderTodayHereTomorrow", "今天下单，明天到。", "Order today, here tomorrow. ") : L.K("ui.spacer.orders.alreadyOrderedToday", "今天已经下过单了。", "Already ordered today. ")) + text, theme.Small);
 		float num4 = r.y + 26f;
 		Rect header = new Rect(r.x, num4, r.width, 24f);
 		Ui.Fill(header, theme.Accent2);
@@ -156,7 +156,7 @@ internal static partial class CompanyWindow
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(item)), theme.Center);
 			if (item.MinTier > num)
 			{
-				GUI.Label(status, (L.En ? L.Translate((System.FormattableString)$"At {_company.TierNames[item.MinTier - 1]}") : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
+				GUI.Label(status, (L.En ? L.K("ui.spacer.orders.value", (System.FormattableString)$"At {_company.TierNames[item.MinTier - 1]}") : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
 				Cart.Remove(item);
 				num4 += 33f;
 				continue;
@@ -164,7 +164,7 @@ internal static partial class CompanyWindow
 			int num9 = QuotedUnitPrice(item);
 			if (num9 <= 0)
 			{
-				GUI.Label(status, L.T("暂不可用", "Unavailable"), theme.Small);
+				GUI.Label(status, L.K("ui.spacer.orders.unavailable", "暂不可用", "Unavailable"), theme.Small);
 				Cart.Remove(item);
 				num4 += 33f;
 				continue;
@@ -190,11 +190,11 @@ internal static partial class CompanyWindow
 		int num10 = 0;
 		bool validTotal = Cart.All(kv => OrderAmounts.TryAdd(ref num10, QuotedUnitPrice(kv.Key), kv.Value, kv.Key.Bundle, out _));
 		float num11 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num11, 260f, 22f), !validTotal ? "—" : (L.En ? L.Translate((System.FormattableString)$"Total {num10}₵ (all pages)") : $"合计 {num10}₵（各页合计）"), theme.Price);
+		GUI.Label(new Rect(r.x, num11, 260f, 22f), !validTotal ? "—" : (L.En ? L.K("ui.spacer.orders.totalAllPages", (System.FormattableString)$"Total {num10}₵ (all pages)") : $"合计 {num10}₵（各页合计）"), theme.Price);
 		int cashDue = validTotal ? DrawCheckoutBalance(new Rect(r.x, num11 + 22f, r.width - 150f, 20f), num10) : 0;
 		bool enabled2 = GUI.enabled;
 		GUI.enabled = enabled2 && validTotal && num10 > 0 && Services.CanAfford(cashDue) && flag;
-		if (Ui.Button(new Rect(r.xMax - 150f, num11 + 2f, 140f, 36f), L.T("下单", "Order"), theme.BtnHotStyle))
+		if (Ui.Button(new Rect(r.xMax - 150f, num11 + 2f, 140f, 36f), L.K("ui.spacer.orders.order", "下单", "Order"), theme.BtnHotStyle))
 		{
 			string text2 = Services.PlaceOrder(_company, Cart, QuotedUnitPrice);
 			if (text2 == null)
@@ -214,7 +214,7 @@ internal static partial class CompanyWindow
 	{
 		Theme theme = _theme;
 		GUI.Box(r, GUIContent.none, theme.CellBox);
-		GUI.Label(new Rect(r.x + 12f, r.y + 4f, r.width - 24f, 22f), L.T("技术来源", "Tech credits"), theme.Small);
+		GUI.Label(new Rect(r.x + 12f, r.y + 4f, r.width - 24f, 22f), L.K("ui.spacer.credits.techCredits", "技术来源", "Tech credits"), theme.Small);
 		float num = r.y + 28f;
 		(string, string)[] techCredits = SpacerCo.TechCredits;
 		for (int i = 0; i < techCredits.Length; i++)
@@ -232,15 +232,15 @@ internal static partial class CompanyWindow
 		CompanyState state = State;
 		if (_company.Tier(state) < 2)
 		{
-			GUI.Label(new Rect(r.x, r.y, r.width, 40f), (L.En ? L.Translate((System.FormattableString)$"Only at {_company.TierNames[1]}.") : _company.TierNames[1] + "才有。"), theme.Wrap);
+			GUI.Label(new Rect(r.x, r.y, r.width, 40f), (L.En ? L.K("ui.spacer.mutualAid.tierRequired", (System.FormattableString)$"Only at {_company.TierNames[1]}.") : _company.TierNames[1] + "才有。"), theme.Wrap);
 			return;
 		}
-		GUI.Label(new Rect(r.x, r.y, r.width, 90f), (L.En ? L.Translate((System.FormattableString)$"Spacers at the docks are short on food, water and medicine. With this on, the Alliance points people your way every night: the next day, 1–2 extra Spacers come by to buy whatever they need.\n\n{SpacerCo.MutualFee}₵ per night. Stops automatically when you are short on cash.") : $"码头上的星际客缺吃、缺水、缺药。开着这个，联盟每晚把人往你这儿指：第二天多来 1–2 位星际客，缺什么买什么。\n\n每晚 {SpacerCo.MutualFee}₵。现金不够时自动停。"), theme.Wrap);
-		if (Ui.Button(new Rect(r.x, r.y + 110f, 200f, 34f), state.TrafficOn ? L.T("开着（点击关掉）", "On (click to turn off)") : L.T("开", "Turn on"), state.TrafficOn ? theme.BtnStyle : theme.BtnHotStyle))
+		GUI.Label(new Rect(r.x, r.y, r.width, 90f), (L.En ? L.K("ui.spacer.mutualAid.spacersDocksAreShortFood", (System.FormattableString)$"Spacers at the docks are short on food, water and medicine. With this on, the Alliance points people your way every night: the next day, 1–2 extra Spacers come by to buy whatever they need.\n\n{SpacerCo.MutualFee}₵ per night. Stops automatically when you are short on cash.") : $"码头上的星际客缺吃、缺水、缺药。开着这个，联盟每晚把人往你这儿指：第二天多来 1–2 位星际客，缺什么买什么。\n\n每晚 {SpacerCo.MutualFee}₵。现金不够时自动停。"), theme.Wrap);
+		if (Ui.Button(new Rect(r.x, r.y + 110f, 200f, 34f), state.TrafficOn ? L.K("ui.spacer.mutualAid.clickTurnOff", "开着（点击关掉）", "On (click to turn off)") : L.K("ui.spacer.mutualAid.enable", "开", "Turn on"), state.TrafficOn ? theme.BtnStyle : theme.BtnHotStyle))
 		{
 			state.TrafficOn = !state.TrafficOn;
 			ModLog.Info("街坊互助：" + (state.TrafficOn ? "开启" : "关闭"));
-			Toast(state.TrafficOn ? L.T("今晚开始。", "Starting tonight.") : L.T("停了。", "Stopped."));
+			Toast(state.TrafficOn ? L.K("ui.spacer.mutualAid.startingTonight", "今晚开始。", "Starting tonight.") : L.K("ui.spacer.mutualAid.stopped", "停了。", "Stopped."));
 		}
 	}
 

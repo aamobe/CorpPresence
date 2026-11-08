@@ -37,6 +37,7 @@ internal static class Brand
 	private static readonly Dictionary<string, string> Owner = Lists.SelectMany((KeyValuePair<string, string[]> kv) => kv.Value.Select((string id) => (id: id, Key: kv.Key))).ToDictionary(((string id, string Key) p) => p.id, ((string id, string Key) p) => p.Key);
 
 	private static readonly Dictionary<string, Entry> Cache = new Dictionary<string, Entry>();
+	private static int _translationVersion = -1;
 
 	public static string[] Of(Company c)
 	{
@@ -96,6 +97,8 @@ internal static class Brand
 
 	public static Entry Info(string key)
 	{
+		int version = ExternalTranslations.Version;
+		if (_translationVersion != version) { Cache.Clear(); _translationVersion = version; }
 		string key2 = L.Locale + ":" + key;
 		if (Cache.TryGetValue(key2, out var value))
 		{

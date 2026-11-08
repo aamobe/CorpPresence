@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using CorpPresence.Runtime;
@@ -643,7 +643,7 @@ internal static class Hooks
 			{
 				return true;
 			}
-			GenericConfirmationUIManager.Instance?.OpenPanelSingleButton(L.T("利维坦对付不了沟渠水。\n只能净化铁锈水和幽灵水。", "The Leviathan can't handle Gutterflow.\nIt only purifies Rustwater and Ghostwater."), L.T("确定", "OK"));
+			GenericConfirmationUIManager.Instance?.OpenPanelSingleButton(L.K("integration.hooks.beforePurifierUsed.leviathanCanTHandleGutterflow", "利维坦对付不了沟渠水。\n只能净化铁锈水和幽灵水。", "The Leviathan can't handle Gutterflow.\nIt only purifies Rustwater and Ghostwater."), L.K("integration.hooks.beforePurifierUsed.oK", "确定", "OK"));
 			return false;
 		}
 		catch (Exception ex)

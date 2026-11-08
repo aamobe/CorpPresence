@@ -28,11 +28,11 @@ internal static partial class CompanyWindow
 	private static void DrawOrderHeader(Rect row, GUIStyle nameStyle, GUIStyle priceStyle)
 	{
 		var columns = OrderColumns(row);
-		GUI.Label(columns.Item, L.T("品名", "Item"), nameStyle);
-		GUI.Label(columns.Unit, L.T("订货价", "Order price"), priceStyle);
-		GUI.Label(columns.Quantity, L.T("数量", "Qty"), priceStyle);
-		GUI.Label(columns.Subtotal, L.T("小计", "Subtotal"), priceStyle);
-		GUI.Label(columns.ListPrice, L.T("物品标价", "Item value"), priceStyle);
+		GUI.Label(columns.Item, L.K("ui.catalog.header.item", "品名", "Item"), nameStyle);
+		GUI.Label(columns.Unit, L.K("ui.catalog.header.orderPrice", "订货价", "Order price"), priceStyle);
+		GUI.Label(columns.Quantity, L.K("ui.catalog.header.quantity", "数量", "Qty"), priceStyle);
+		GUI.Label(columns.Subtotal, L.K("ui.catalog.header.subtotal", "小计", "Subtotal"), priceStyle);
+		GUI.Label(columns.ListPrice, L.K("ui.catalog.header.itemValue", "物品标价", "Item value"), priceStyle);
 	}
 
 	private static void DrawOrderItem(Rect cell, CatalogEntry entry, CompanyState state, Theme theme)
@@ -58,7 +58,7 @@ internal static partial class CompanyWindow
 	private static string ItemListPrice(int value, bool labeled = false)
 	{
 		string amount = value < 0 ? "—" : $"{value}₵";
-		return labeled ? L.T($"标价 {amount}", L.Translate((System.FormattableString)$"List {amount}")) : amount;
+		return labeled ? L.K("ui.catalog.item.listPrice", (FormattableString)$"标价 {amount}", (FormattableString)$"List {amount}") : amount;
 	}
 
 	private static void DrawBrand(Rect r)
@@ -75,7 +75,8 @@ internal static partial class CompanyWindow
 				num++;
 			}
 		}
-		GUI.Label(new Rect(r.x, r.y, r.width, 22f), (L.En ? L.Translate((System.FormattableString)$"Recorded {num}/{array.Length}   Products you buy, sell or receive from this company get recorded here") : $"已收录 {num}/{array.Length}\u3000买进、卖出或拿到过的本公司产品会收录进来"), theme.Small);
+		GUI.Label(new Rect(r.x, r.y, r.width, 22f), L.K("ui.catalog.brand.progress", (FormattableString)$"已收录 {num}/{array.Length}\u3000买进、卖出或拿到过的本公司产品会收录进来",
+			(FormattableString)$"Recorded {num}/{array.Length}   Products you buy, sell or receive from this company get recorded here"), theme.Small);
 		int num2 = Mathf.Max(3, (int)((r.width + 6f) / 124f));
 		float num3 = (r.width - 6f * (float)(num2 - 1)) / (float)num2;
 		int num4 = (array.Length + num2 - 1) / num2;
@@ -116,7 +117,7 @@ internal static partial class CompanyWindow
 		GUI.Box(position2, GUIContent.none, theme.CellBox);
 		if (_brandSel == null || !state.Brand.Contains(_brandSel) || Array.IndexOf(array, _brandSel) < 0)
 		{
-			GUI.Label(new Rect(position2.x + 10f, position2.y + 10f, position2.width - 20f, 24f), (num == 0) ? L.T("还没有经手过这家公司的产品。", "You haven't handled any of this company's products yet.") : L.T("点一件已收录的物品，看它的介绍。", "Click a recorded item to read about it."), theme.Small);
+			GUI.Label(new Rect(position2.x + 10f, position2.y + 10f, position2.width - 20f, 24f), (num == 0) ? L.K("ui.catalog.brand.empty", "还没有经手过这家公司的产品。", "You haven't handled any of this company's products yet.") : L.K("ui.catalog.brand.selectItem", "点一件已收录的物品，看它的介绍。", "Click a recorded item to read about it."), theme.Small);
 			return;
 		}
 		Brand.Entry entry2 = Brand.Info(_brandSel);

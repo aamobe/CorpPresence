@@ -40,16 +40,16 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Orders == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.replacements.requestSwap.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (Day < SwapNextDay(companyState))
 		{
-			return L.T($"第 {SwapNextDay(companyState)} 天才能再申请", L.Translate((System.FormattableString)$"You can apply again on day {SwapNextDay(companyState)}"));
+			return L.K("companies.services.replacements.requestSwap.canApplyAgainDay", $"第 {SwapNextDay(companyState)} 天才能再申请", (System.FormattableString)$"You can apply again on day {SwapNextDay(companyState)}");
 		}
 		List<GameItem> list = FakesOwned().Take(6).ToList();
 		if (list.Count == 0)
 		{
-			return L.T("没有找到卡迈克尔产品的赝品", "No fake Carmicheal products found");
+			return L.K("companies.services.replacements.requestSwap.noFakeCarmichealProductsFound", "没有找到卡迈克尔产品的赝品", "No fake Carmicheal products found");
 		}
 		Order order = new Order
 		{
@@ -62,19 +62,19 @@ internal static partial class Services
 			int fee = CarmichaelCo.SwapFee;
 			long total = (long)list.Count * fee;
 			if (fee < 0 || total > int.MaxValue)
-				return L.T("换货费用无效，尚未扣款。", "Invalid exchange fee. You have not been charged.");
+				return L.K("companies.services.replacements.requestSwap.invalidExchangeFeeHaveNot", "换货费用无效，尚未扣款。", "Invalid exchange fee. You have not been charged.");
 			num = (int)total;
 			foreach (GameItem item in list)
 			{
 				string target = CarmichaelCo.SwapTarget(item);
 				if (item == null || string.IsNullOrEmpty(target))
-					return L.T("换货明细未就绪，尚未扣款。", "Exchange details are not ready. You have not been charged.");
+					return L.K("companies.services.replacements.requestSwap.exchangeDetailsAreNotReady", "换货明细未就绪，尚未扣款。", "Exchange details are not ready. You have not been charged.");
 				order.Items.Add(target);
 			}
 		}
 		catch
 		{
-			return L.T("换货明细未就绪，尚未扣款。", "Exchange details are not ready. You have not been charged.");
+			return L.K("companies.services.replacements.requestSwap.exchangeDetailsAreNotReady", "换货明细未就绪，尚未扣款。", "Exchange details are not ready. You have not been charged.");
 		}
 		string text = Pay(c, num, "swap");
 		if (text != null) return text;
@@ -129,20 +129,20 @@ internal static partial class Services
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState?.Orders == null)
 		{
-			return L.T("存档未就绪", "Save not ready");
+			return L.K("companies.services.replacements.requestRefurbish.saveNotReady", "存档未就绪", "Save not ready");
 		}
 		if (c.Tier(companyState) < 2)
 		{
-			return L.T(c.TierNames[1] + "才开放", L.Translate((System.FormattableString)$"Opens at {c.TierNames[1]}"));
+			return L.K("companies.services.replacements.requestRefurbish.tierRequired", c.TierNames[1] + "才开放", (System.FormattableString)$"Opens at {c.TierNames[1]}");
 		}
 		if (Day < RefurbishNextDay(companyState))
 		{
-			return L.T($"第 {RefurbishNextDay(companyState)} 天才能再送", L.Translate((System.FormattableString)$"You can send again on day {RefurbishNextDay(companyState)}"));
+			return L.K("companies.services.replacements.requestRefurbish.canSendAgainDay", $"第 {RefurbishNextDay(companyState)} 天才能再送", (System.FormattableString)$"You can send again on day {RefurbishNextDay(companyState)}");
 		}
 		List<GameItem> list = RefurbishCandidates().Take(3).ToList();
 		if (list.Count == 0)
 		{
-			return L.T("没有能翻新的枪", "No guns to refurbish");
+			return L.K("companies.services.replacements.requestRefurbish.noGunsRefurbish", "没有能翻新的枪", "No guns to refurbish");
 		}
 		Order order = new Order
 		{
@@ -157,18 +157,18 @@ internal static partial class Services
 			{
 				int condition = MeridianCo.ConditionOf(item);
 				if (item == null || string.IsNullOrEmpty(item.identifier) || condition < 0 || condition >= 3)
-					return L.T("翻新明细未就绪，尚未扣款。", "Refurbishment details are not ready. You have not been charged.");
+					return L.K("companies.services.replacements.requestRefurbish.refurbishmentDetailsAreNotReady", "翻新明细未就绪，尚未扣款。", "Refurbishment details are not ready. You have not been charged.");
 				int fee = MeridianCo.RefurbishFee(item);
 				total += fee;
 				if (fee < 0 || total > int.MaxValue)
-					return L.T("翻新费用无效，尚未扣款。", "Invalid refurbishment fee. You have not been charged.");
+					return L.K("companies.services.replacements.requestRefurbish.invalidRefurbishmentFeeHaveNot", "翻新费用无效，尚未扣款。", "Invalid refurbishment fee. You have not been charged.");
 				order.Items.Add($"{item.identifier}|{condition + 1}");
 			}
 			num = (int)total;
 		}
 		catch
 		{
-			return L.T("翻新明细未就绪，尚未扣款。", "Refurbishment details are not ready. You have not been charged.");
+			return L.K("companies.services.replacements.requestRefurbish.refurbishmentDetailsAreNotReady", "翻新明细未就绪，尚未扣款。", "Refurbishment details are not ready. You have not been charged.");
 		}
 		string text = Pay(c, num, "refurbish");
 		if (text != null) return text;

@@ -21,7 +21,7 @@ internal sealed class Visit
 	public string[] Extra = Array.Empty<string>();
 	public bool RequireExtra;
 
-	public string Wrong = L.T("别糊弄我。", "Don't try to fool me.");
+	public string Wrong = L.K("characters.visit.labels.donTTryFoolMe", "别糊弄我。", "Don't try to fool me.");
 
 	public bool TalkOnly;
 

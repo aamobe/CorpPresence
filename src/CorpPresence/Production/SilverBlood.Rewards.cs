@@ -43,7 +43,7 @@ internal static partial class SilverBlood
 			delivered++;
 		});
 		if (delivered > 0)
-			Tell(L.T("门口放着一只没有寄件人的包裹。", "There's a parcel at the door with no sender."));
+			Tell(L.K("production.silverBlood.rewards.onDayStart.thereSParcelDoorWith", "门口放着一只没有寄件人的包裹。", "There's a parcel at the door with no sender."));
 	}
 
 	private static bool TryDeliverParcel()
@@ -81,8 +81,8 @@ internal static partial class SilverBlood
 			GameItem gameItem3 = DirectoryMaster.Item("postit", isOwned: false);
 			if (gameItem3 != null)
 			{
-				gameItem3.name = L.T("没署名的纸条", "Unsigned Note");
-				gameItem3.flavorText = L.T("感谢指令，通过，向你致谢。", "Gratitude directive: approved. Thank you.");
+				gameItem3.name = L.K("production.silverBlood.rewards.tryDeliverParcel.unsignedNote", "没署名的纸条", "Unsigned Note");
+				gameItem3.flavorText = L.K("production.silverBlood.rewards.tryDeliverParcel.gratitudeDirectiveApprovedThank", "感谢指令，通过，向你致谢。", "Gratitude directive: approved. Thank you.");
 				gameItem3.SetGameItemType("DOCUMENT");
 				gameItem3.unitValue = 0L;
 				if (!Crates.Put(gameItem, gameItem3)) gameItem3.Destroy();

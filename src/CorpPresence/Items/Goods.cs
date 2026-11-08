@@ -12,6 +12,7 @@ internal static class Goods
 {
 	internal sealed class Def
 	{
+		internal GoodsText.Keys TextKeys;
 		public string Name;
 
 		public string Flavor;
@@ -64,9 +65,9 @@ internal static class Goods
 
 		public (string Zh, string En) ModuleEffects;
 
-		public string LName => L.T(Name, NameEn ?? Name);
+		public string LName => L.K(TextKeys?.Name, Name, NameEn ?? Name);
 
-		public string LFlavor => L.T(Flavor, FlavorEn ?? Flavor);
+		public string LFlavor => L.K(TextKeys?.Flavor, Flavor, FlavorEn ?? Flavor);
 
 		public string LDesc
 		{
@@ -74,8 +75,8 @@ internal static class Goods
 			{
 				if (Desc != null)
 				{
-					string text = L.T(Desc, DescEn ?? Desc);
-					return ModuleEffects.Zh == null ? text : text + "\n\n" + LocHelper.BulletLines(L.T(ModuleEffects.Zh, ModuleEffects.En));
+					string text = L.K(TextKeys?.Description, Desc, DescEn ?? Desc);
+					return ModuleEffects.Zh == null ? text : text + "\n\n" + LocHelper.BulletLines(L.K(TextKeys?.Effects, ModuleEffects.Zh, ModuleEffects.En));
 				}
 				return LFlavor;
 			}
@@ -624,6 +625,7 @@ internal static class Goods
 		{
 			Defs[def5.Key] = def5.Value;
 		}
+		GoodsText.Bind(Defs);
 	}
 
 	public static bool Has(string id)
@@ -1374,7 +1376,7 @@ internal static class Goods
 					return;
 				}
 				meds.ElixirUntil = Math.Max(meds.ElixirUntil, Day + 2);
-				text = L.T("你抹上了名流精华。\n3 天内交易得到的声望 +50%。", "You put on the Socialite Essence.\nReputation gained from trades +50% for 3 days.");
+				text = L.K("items.goods.use.putSocialiteEssenceReputationGained", "你抹上了名流精华。\n3 天内交易得到的声望 +50%。", "You put on the Socialite Essence.\nReputation gained from trades +50% for 3 days.");
 				break;
 			case 'c':
 			{
@@ -1399,7 +1401,7 @@ internal static class Goods
 				{
 				}
 				ApplyCandle(PlayerStore.Instance?.storeClientManager);
-				text = L.T("你点燃了索拉纳香薰蜡烛。\n3 天内上层区顾客的预算 +15%。", "You light the Solana Scented Candle.\nUpper Levels customers' budget +15% for 3 days.");
+				text = L.K("items.goods.use.lightSolanaScentedCandleUpper", "你点燃了索拉纳香薰蜡烛。\n3 天内上层区顾客的预算 +15%。", "You light the Solana Scented Candle.\nUpper Levels customers' budget +15% for 3 days.");
 				break;
 			}
 			}
@@ -1410,7 +1412,7 @@ internal static class Goods
 				return;
 			}
 			meds.StaminaShots++;
-			text = ((Settings.VanillaServices && meds.StaminaShots > 2) ? L.T($"你注射了体力增强剂，但身体已经适应了。\n拾荒次数上限最多 +{2}，这一针没有再增加（设置“服务强度”为原版）。", L.Translate((System.FormattableString)$"You inject the Stamina Booster, but your body has adapted.\nScavenging attempts are capped at +{2}; this shot adds nothing more (Service strength is set to Vanilla).")) : L.T($"你注射了体力增强剂。\n每天在垃圾场的拾荒次数上限 +1（已注射 {meds.StaminaShots} 针）。", L.Translate((System.FormattableString)$"You inject the Stamina Booster.\nDaily scavenging attempts in the Dumping Grounds +1 ({meds.StaminaShots} injected so far).")));
+			text = ((Settings.VanillaServices && meds.StaminaShots > 2) ? L.K("items.goods.use.injectStaminaBoosterButBody", $"你注射了体力增强剂，但身体已经适应了。\n拾荒次数上限最多 +{2}，这一针没有再增加（设置“服务强度”为原版）。", (System.FormattableString)$"You inject the Stamina Booster, but your body has adapted.\nScavenging attempts are capped at +{2}; this shot adds nothing more (Service strength is set to Vanilla).") : L.K("items.goods.use.injectStaminaBoosterDailyScavenging", $"你注射了体力增强剂。\n每天在垃圾场的拾荒次数上限 +1（已注射 {meds.StaminaShots} 针）。", (System.FormattableString)$"You inject the Stamina Booster.\nDaily scavenging attempts in the Dumping Grounds +1 ({meds.StaminaShots} injected so far)."));
 			break;
 		case 9:
 			if (!(id == "painblock"))
@@ -1418,7 +1420,7 @@ internal static class Goods
 				return;
 			}
 			meds.PainBlockDay = Day;
-			text = L.T("你注射了痛觉屏蔽剂。\n今天拾荒受伤的几率减半。", "You inject the Pain Blocker.\nYour chance of getting hurt while scavenging is halved today.");
+			text = L.K("items.goods.use.injectPainBlockerChanceGetting", "你注射了痛觉屏蔽剂。\n今天拾荒受伤的几率减半。", "You inject the Pain Blocker.\nYour chance of getting hurt while scavenging is halved today.");
 			break;
 		case 5:
 			if (!(id == "patch"))
@@ -1426,7 +1428,7 @@ internal static class Goods
 				return;
 			}
 			meds.PatchUntil = Math.Max(meds.PatchUntil, Day + 2);
-			text = L.T("你贴上了海明威戒烟贴。\n3 天内不受尼古丁戒断的交易惩罚。", "You apply the Hemingway Quit Patch.\nNo nicotine withdrawal trading penalty for 3 days.");
+			text = L.K("items.goods.use.applyHemingwayQuitPatchNo", "你贴上了海明威戒烟贴。\n3 天内不受尼古丁戒断的交易惩罚。", "You apply the Hemingway Quit Patch.\nNo nicotine withdrawal trading penalty for 3 days.");
 			break;
 		case 4:
 			if (!(id == "mask"))
@@ -1434,7 +1436,7 @@ internal static class Goods
 				return;
 			}
 			meds.MaskReady = true;
-			text = L.T("你敷上了夜间修护面膜。\n下一次夜间外出，第二天不会开店迟到。", "You put on the Night Repair Mask.\nAfter your next night out, you won't open late the next day.");
+			text = L.K("items.goods.use.putNightRepairMaskAfter", "你敷上了夜间修护面膜。\n下一次夜间外出，第二天不会开店迟到。", "You put on the Night Repair Mask.\nAfter your next night out, you won't open late the next day.");
 			break;
 		case 12:
 			if (!(id == "rejuvenation") || !SilverBlood.CanInject())
@@ -1452,7 +1454,7 @@ internal static class Goods
 			{
 				try
 				{
-					StoreUIManager.Instance?.Notify(L.T("店里放不下了，先腾点地方再拆。", "No room in the shop. Make some space first."));
+					StoreUIManager.Instance?.Notify(L.K("items.goods.use.noRoomShopMakeSome", "店里放不下了，先腾点地方再拆。", "No room in the shop. Make some space first."));
 					return;
 				}
 				catch
@@ -1460,7 +1462,7 @@ internal static class Goods
 					return;
 				}
 			}
-			text = L.T("你拆开了异构修复凝胶，得到 3 小管异构蛋白溶液。纯度各不相同，可以用原版的化学检测仪看。", "You split the isomer repair gel into 3 small tubes of isomer solution. Their purity varies; check them with a chemical scanner.");
+			text = L.K("items.goods.use.splitIsomerRepairGelInto", "你拆开了异构修复凝胶，得到 3 小管异构蛋白溶液。纯度各不相同，可以用原版的化学检测仪看。", "You split the isomer repair gel into 3 small tubes of isomer solution. Their purity varies; check them with a chemical scanner.");
 			break;
 		case 8:
 		case 11:
@@ -1490,7 +1492,7 @@ internal static class Goods
 		ModLog.Info(text.Replace("\n", " "));
 		try
 		{
-			GenericConfirmationUIManager.Instance?.OpenPanelSingleButton(text, L.T("确定", "OK"));
+			GenericConfirmationUIManager.Instance?.OpenPanelSingleButton(text, L.K("items.goods.use.oK", "确定", "OK"));
 		}
 		catch
 		{

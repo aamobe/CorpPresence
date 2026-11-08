@@ -1,0 +1,80 @@
+{
+  "composed.envoy.coinVisit.askedMeToGiveYouThis": [
+    {
+      "Text": "{0}",
+      "Translate": false
+    },
+    {
+      "Text": " asked me to give you this.",
+      "Translate": true
+    }
+  ],
+  "composed.envoy.acceptAid.rememberToSubscribeToSOrderingService": [
+    {
+      "Text": "Remember to subscribe to ",
+      "Translate": true
+    },
+    {
+      "Text": "{0}",
+      "Translate": false
+    },
+    {
+      "Text": "'s ordering service (aid condition).",
+      "Translate": true
+    }
+  ],
+  "composed.malice.applyUnlock.reachFirst": [
+    {
+      "Text": "Reach “",
+      "Translate": true
+    },
+    {
+      "Text": "{0}",
+      "Translate": false
+    },
+    {
+      "Text": "” first",
+      "Translate": true
+    }
+  ],
+  "composed.malice.onDayStart.sOrderingServiceIsPausedFromToday": [
+    {
+      "Text": "{0}",
+      "Translate": false
+    },
+    {
+      "Text": "'s ordering service is paused from today.",
+      "Translate": true
+    }
+  ],
+  "composed.malice.tryAutoRenew.sOrderingServiceExpiredNotRenewedAutomatically": [
+    {
+      "Text": "{0}",
+      "Translate": false
+    },
+    {
+      "Text": "'s ordering service expired: not renewed automatically, it would leave you short for rent.",
+      "Translate": true
+    }
+  ],
+  "composed.malice.tryAutoRenew.autoRenewalFailed": [
+    {
+      "Text": "{0}",
+      "Translate": false
+    },
+    {
+      "Text": " auto-renewal failed: ",
+      "Translate": true
+    }
+  ],
+  "composed.phone.warnIfShunned.wonTTakeYourCallYouRe": [
+    {
+      "Text": "{0}",
+      "Translate": false
+    },
+    {
+      "Text": " won't take your call: you're a pariah in the Lower Levels, and no supplier wants to deal with you.",
+      "Translate": true
+    }
+  ]
+}

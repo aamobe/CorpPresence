@@ -8,7 +8,7 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-    private const string ReleaseVersion = "0.9.9";
+    private const string ReleaseVersion = "1.0.0";
 #if WATER_TRACE
     public const string Version = ReleaseVersion + "-watertrace";
 #else
@@ -37,6 +37,7 @@ public class Main : IMod
 
     private void EnableCore()
     {
+        _runtime.Own(ExternalTranslations.Reload, ExternalTranslations.Clear);
         _runtime.Own(GameResources.Begin, GameResources.Reset);
         _runtime.Own(Noop, LoadedItemRepair.Reset);
         _runtime.Own(ItemRegistry.Install, ItemRegistry.Uninstall);

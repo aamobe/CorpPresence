@@ -17,6 +17,7 @@
     </Reference>
     <EmbeddedResource Include="Assets\**\*.png" LogicalName="%(Filename)%(Extension)" />
     <EmbeddedResource Include="CorpPresence/Presentation/Translations.json" LogicalName="CorpPresence.Translations.json" />
+    <EmbeddedResource Include="CorpPresence/Presentation/Translations.Keys.json" LogicalName="CorpPresence.Translations.Keys.json" />
   </ItemGroup>
   <Target Name="CheckGameDirectory" BeforeTargets="ResolveReferences" Condition="!Exists('$(GameManaged)\Assembly-CSharp.dll')">
     <Error Text="Set GameManaged to the game's Probably Stolen_Data/Managed directory." />

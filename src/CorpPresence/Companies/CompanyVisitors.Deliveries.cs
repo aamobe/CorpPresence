@@ -171,9 +171,7 @@ internal static partial class CompanyVisitors
 			ModLog.Info($"{company.Name}送货：还有 {pending} 件，明天再送");
 			try
 			{
-				StoreUIManager.Instance?.Notify(L.T(
-					$"{company.Name}还有 {pending} 件货未送达，明天再送来。",
-					L.Translate((System.FormattableString)$"{company.Name} has {pending} items left to deliver tomorrow.")));
+				StoreUIManager.Instance?.Notify(L.K("companies.companyVisitors.deliveries.deliver.hasItemsLeftDeliverTomorrow", $"{company.Name}还有 {pending} 件货未送达，明天再送来。", (System.FormattableString)$"{company.Name} has {pending} items left to deliver tomorrow."));
 			}
 			catch { }
 		}

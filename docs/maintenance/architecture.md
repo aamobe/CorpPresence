@@ -2,6 +2,8 @@
 
 根命名空间为`CorpPresence`。项目使用游戏官方`IMod`接口、Harmony补丁和Unity组件。大量类型通过partial文件按功能拆开，修改前先查同名文件。
 
+展示文本的稳定键接口、渐进迁移和回退规则见[本地化键维护](localization-keys.md)。
+
 ## 目录职责
 
 | 路径 | 职责 |

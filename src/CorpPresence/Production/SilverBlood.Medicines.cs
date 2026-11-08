@@ -38,13 +38,13 @@ internal static partial class SilverBlood
 		{
 			meds.SentinelCured = true;
 			RemoveSentinelPerk();
-			return L.T("你注射了回春药剂。（3/3）\n哨兵崩溃综合征的症状消失了。你再也不需要免疫宁了。", "You inject the Rejuvenation Serum. (3/3)\nThe symptoms of Sentinel Collapse Syndrome are gone. You'll never need Immunivax again.");
+			return L.K("production.silverBlood.medicines.inject.injectRejuvenationSerumSymptomsSentinel", "你注射了回春药剂。（3/3）\n哨兵崩溃综合征的症状消失了。你再也不需要免疫宁了。", "You inject the Rejuvenation Serum. (3/3)\nThe symptoms of Sentinel Collapse Syndrome are gone. You'll never need Immunivax again.");
 		}
 		if (meds.RejuvShots != 1)
 		{
-			return L.T("你注射了回春药剂。（2/3）\n症状几乎感觉不到了。这一针也当作打过免疫宁。", "You inject the Rejuvenation Serum. (2/3)\nYou can barely feel the symptoms. This shot also counts as Immunivax.");
+			return L.K("production.silverBlood.medicines.inject.injectRejuvenationSerumCanBarely", "你注射了回春药剂。（2/3）\n症状几乎感觉不到了。这一针也当作打过免疫宁。", "You inject the Rejuvenation Serum. (2/3)\nYou can barely feel the symptoms. This shot also counts as Immunivax.");
 		}
-		return L.T("你注射了回春药剂。（1/3）\n症状减轻了。这一针也当作打过免疫宁。", "You inject the Rejuvenation Serum. (1/3)\nThe symptoms ease. This shot also counts as Immunivax.");
+		return L.K("production.silverBlood.medicines.inject.injectRejuvenationSerumSymptomsEase", "你注射了回春药剂。（1/3）\n症状减轻了。这一针也当作打过免疫宁。", "You inject the Rejuvenation Serum. (1/3)\nThe symptoms ease. This shot also counts as Immunivax.");
 	}
 
 	private static bool SentinelRaw()
