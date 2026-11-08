@@ -1,0 +1,21 @@
+{
+  "Date": "2026-11-05",
+  "Threshold": 128,
+  "Files": [
+    {
+      "Path": "game/Probably Stolen_Data/sharedassets1.assets",
+      "SHA256": "7F716F0598E405439636462AE9804813E43045160163953E9148D0DB207B8E88"
+    },
+    {
+      "Path": "game/Probably Stolen_Data/Managed/Assembly-CSharp.dll",
+      "SHA256": "6398D44AA1675E1F02B63BC668868F970E0F5D3AE5A50F2ACED8D06CA084E3B5"
+    },
+    {
+      "Path": "historical-mod-source/CorpPresence-0.9.6/Presentation/Portraits.cs",
+      "SHA256": "EC513FEB373B8E5900DF76FDB7F5A35A18399F0CA6A4B720033DF3584F0E1901",
+      "SnapshotPath": "evidence/portraits/portrait-loader-source.txt",
+      "SnapshotSHA256": "116BA31DAF7826E7A27A20DF14E5C08B39E07CD88A3BE53607E387D55CE6155E",
+      "SnapshotNote": "Historical source input hash is retained in SHA256; the public text snapshot only has excess EOF blank lines removed."
+    }
+  ]
+}

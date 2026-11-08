@@ -1,0 +1,392 @@
+[
+  {
+    "Name": "femaleEng_0",
+    "PathId": 1003,
+    "File": "femaleEng_0__1003.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "femaleEng",
+      "Width": 576,
+      "Height": 211,
+      "MipCount": 10,
+      "FilterMode": 0
+    },
+    "SHA256": "13C08138CC76E1CFB6808A266750B1211F9AA0197F0BF6AE2F19ABB3038AF08E"
+  },
+  {
+    "Name": "maleUpper_0",
+    "PathId": 1037,
+    "File": "maleUpper_0__1037.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "maleUpper",
+      "Width": 864,
+      "Height": 211,
+      "MipCount": 1,
+      "FilterMode": 0
+    },
+    "SHA256": "A8E24EFFAF7C86D33554F9E400406F1BA67D9BC73B60424371B33F2325F6FDD9"
+  },
+  {
+    "Name": "maleLower_0",
+    "PathId": 1038,
+    "File": "maleLower_0__1038.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "maleLower",
+      "Width": 864,
+      "Height": 211,
+      "MipCount": 1,
+      "FilterMode": 0
+    },
+    "SHA256": "31313066A78C04FEA31009DBC2C9F1942D5BBA0AD4C09D53C37DCE443996632F"
+  },
+  {
+    "Name": "femaleUpper_1",
+    "PathId": 1053,
+    "File": "femaleUpper_1__1053.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      288,
+      211,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "femaleUpper",
+      "Width": 2880,
+      "Height": 422,
+      "MipCount": 12,
+      "FilterMode": 0
+    },
+    "SHA256": "6FE65403E682FB4DE578DDCD2016DDB3651589F33E25FB7E48E2C1E4167E37F9"
+  },
+  {
+    "Name": "femaleUpper_1",
+    "PathId": 1060,
+    "File": "femaleUpper_1__1060.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      288,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "femaleUpper",
+      "Width": 864,
+      "Height": 211,
+      "MipCount": 1,
+      "FilterMode": 0
+    },
+    "SHA256": "2DE97AF085CD273B2CE99C22335D0B4D4D50EE04B247C6C1878BBB0CB775CB95"
+  },
+  {
+    "Name": "maleSecOff_0",
+    "PathId": 1083,
+    "File": "maleSecOff_0__1083.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "maleSecOff",
+      "Width": 864,
+      "Height": 211,
+      "MipCount": 10,
+      "FilterMode": 0
+    },
+    "SHA256": "3D26EF8B95FDF38D509A98EA643B5E8F26403D7C1334E1791A1A39871C9A8719"
+  },
+  {
+    "Name": "maleUpper_0",
+    "PathId": 1133,
+    "File": "maleUpper_0__1133.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      211,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "maleUpper",
+      "Width": 1728,
+      "Height": 422,
+      "MipCount": 11,
+      "FilterMode": 0
+    },
+    "SHA256": "411BE826DA6DD5F1A91A9694CEA46A256EB994838D0A4226EBB7C3CDA5130760"
+  },
+  {
+    "Name": "femaleLower_0",
+    "PathId": 1142,
+    "File": "femaleLower_0__1142.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      211,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "femaleLower",
+      "Width": 2880,
+      "Height": 422,
+      "MipCount": 12,
+      "FilterMode": 0
+    },
+    "SHA256": "90135FE44542B9298894EC0DF3D76C59DD4C64CAA4D6B8EA8E31E1EDD58A40C2"
+  },
+  {
+    "Name": "Mentor",
+    "PathId": 1282,
+    "File": "Mentor__1282.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "Mentor",
+      "Width": 288,
+      "Height": 211,
+      "MipCount": 1,
+      "FilterMode": 0
+    },
+    "SHA256": "D71C63D2C68720C0B102FAFB04904E24D358A098F567B68CCFD05A081FC69ECC"
+  },
+  {
+    "Name": "odin",
+    "PathId": 1570,
+    "File": "odin__1570.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "odin",
+      "Width": 288,
+      "Height": 211,
+      "MipCount": 1,
+      "FilterMode": 0
+    },
+    "SHA256": "1C5398E3D691F448320B6D474C7AD80A6C45DFA8F9A4EF4D1FCF0B091AA9D88F"
+  },
+  {
+    "Name": "jackson",
+    "PathId": 1631,
+    "File": "jackson__1631.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "jackson",
+      "Width": 288,
+      "Height": 211,
+      "MipCount": 1,
+      "FilterMode": 0
+    },
+    "SHA256": "51833DFC2A1C15CEBDB15383CEC3BFB89C38A5CB390A8CADFD27398B775BE474"
+  },
+  {
+    "Name": "femaleMed_0",
+    "PathId": 1755,
+    "File": "femaleMed_0__1755.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "femaleMed",
+      "Width": 576,
+      "Height": 211,
+      "MipCount": 10,
+      "FilterMode": 0
+    },
+    "SHA256": "F8255466D0A20A4584DEC24C960BA6F4CC2133258A683A4A42A5ECD7F3AE5690"
+  },
+  {
+    "Name": "maleLower_0",
+    "PathId": 1771,
+    "File": "maleLower_0__1771.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      211,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "maleLower",
+      "Width": 2880,
+      "Height": 422,
+      "MipCount": 12,
+      "FilterMode": 0
+    },
+    "SHA256": "AAA17B3647DAD68D50DF3F4D5E995118070AFA68E79CA24FFF05F5ECD6731142"
+  },
+  {
+    "Name": "femaleSci_0",
+    "PathId": 1781,
+    "File": "femaleSci_0__1781.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "femaleSci",
+      "Width": 576,
+      "Height": 211,
+      "MipCount": 10,
+      "FilterMode": 0
+    },
+    "SHA256": "9FBC6EBF91F9E850A0611519DB0D1B965567D98A9C7BD6BF0ED12D695D4959D9"
+  },
+  {
+    "Name": "femaleLower_0",
+    "PathId": 1805,
+    "File": "femaleLower_0__1805.png",
+    "Width": 288,
+    "Height": 211,
+    "PPU": 100,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Rect": [
+      0,
+      0,
+      288,
+      211
+    ],
+    "Texture": {
+      "Name": "femaleLower",
+      "Width": 864,
+      "Height": 211,
+      "MipCount": 1,
+      "FilterMode": 0
+    },
+    "SHA256": "36CD2A4161410B9E1FD4F19D880CB687FB095D9C40DD9ACE865541DE3F3CE88F"
+  }
+]

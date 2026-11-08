@@ -1,0 +1,34 @@
+[
+  {
+    "From": "n1x",
+    "To": "n2x",
+    "Scale": 2,
+    "ComparedPixels": 386232,
+    "DifferentRGBA": 0,
+    "DifferentPercent": 0.0
+  },
+  {
+    "From": "n1x",
+    "To": "n3x",
+    "Scale": 4,
+    "ComparedPixels": 1544928,
+    "DifferentRGBA": 0,
+    "DifferentPercent": 0.0
+  },
+  {
+    "From": "s1x",
+    "To": "s2x",
+    "Scale": 2,
+    "ComparedPixels": 243072,
+    "DifferentRGBA": 57827,
+    "DifferentPercent": 23.79
+  },
+  {
+    "From": "s1x",
+    "To": "s3x",
+    "Scale": 3,
+    "ComparedPixels": 546912,
+    "DifferentRGBA": 129045,
+    "DifferentPercent": 23.595
+  }
+]

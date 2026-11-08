@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AssetStudio"><HintPath>$(AssetStudioDirectory)/AssetStudio.dll</HintPath></Reference>
+    <Reference Include="AssetStudio.Utility"><HintPath>$(AssetStudioDirectory)/AssetStudio.Utility.dll</HintPath></Reference>
+    <Reference Include="SixLabors.ImageSharp"><HintPath>$(AssetStudioDirectory)/SixLabors.ImageSharp.dll</HintPath></Reference>
+  </ItemGroup>
+  <Target Name="CheckArtToolDependencies" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(AssetStudioDirectory)' == ''" Text="Set AssetStudioDirectory to your local AssetStudio library folder." />
+    <Error Condition="!Exists('$(AssetStudioDirectory)/AssetStudio.dll') or !Exists('$(AssetStudioDirectory)/AssetStudio.Utility.dll') or !Exists('$(AssetStudioDirectory)/SixLabors.ImageSharp.dll')" Text="The AssetStudioDirectory folder is missing required libraries." />
+  </Target>
+</Project>

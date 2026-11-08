@@ -1,0 +1,7613 @@
+[
+  {
+    "Name": "animal_cage",
+    "Width": 64,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 2672,
+    "MainBoundingBox": [
+      0,
+      1,
+      63,
+      46
+    ],
+    "MainCoverage": 0.8698,
+    "IsolatedSameColorPixels": 74,
+    "IsolatedFraction": 0.0277,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 400
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 2672
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "5F6868",
+        "Pixels": 1232
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 526
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 350
+      },
+      {
+        "Hex": "53585B",
+        "Pixels": 284
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 123
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 121
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 34
+      },
+      {
+        "Hex": "3D823F",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "06A67148602B0603B4603F1CEA2BA3C71BED884394D9182776E5C54889C4BBC4"
+  },
+  {
+    "Name": "AQUACULTURE_II",
+    "Width": 36,
+    "Height": 36,
+    "Grid16Aligned": false,
+    "MainColors": 6,
+    "MainPixels": 1296,
+    "MainBoundingBox": [
+      0,
+      0,
+      35,
+      35
+    ],
+    "MainCoverage": 1.0,
+    "IsolatedSameColorPixels": 19,
+    "IsolatedFraction": 0.0147,
+    "AlphaHistogram": [
+      {
+        "Alpha": 255,
+        "Pixels": 1296
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 952
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 120
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 90
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 45
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 45
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 44
+      }
+    ],
+    "SHA256": "2D7D9B0C3929E68048342A38B74CA610C5646FB5833D3E23E3976200546980A1"
+  },
+  {
+    "Name": "AQUACULTURE",
+    "Width": 36,
+    "Height": 36,
+    "Grid16Aligned": false,
+    "MainColors": 6,
+    "MainPixels": 1296,
+    "MainBoundingBox": [
+      0,
+      0,
+      35,
+      35
+    ],
+    "MainCoverage": 1.0,
+    "IsolatedSameColorPixels": 11,
+    "IsolatedFraction": 0.0085,
+    "AlphaHistogram": [
+      {
+        "Alpha": 255,
+        "Pixels": 1296
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 1070
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 89
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 39
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 37
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 32
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 29
+      }
+    ],
+    "SHA256": "C80267C944CB3B2518CCAA6F778346CE60D7C9B6C49C135D077CF11A8F4C76AD"
+  },
+  {
+    "Name": "battery_bar",
+    "Width": 4,
+    "Height": 10,
+    "Grid16Aligned": false,
+    "MainColors": 2,
+    "MainPixels": 40,
+    "MainBoundingBox": [
+      0,
+      0,
+      3,
+      9
+    ],
+    "MainCoverage": 1.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0.0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 255,
+        "Pixels": 40
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "F9A31B",
+        "Pixels": 20
+      },
+      {
+        "Hex": "FFD541",
+        "Pixels": 20
+      }
+    ],
+    "SHA256": "3DA93FFF349406CF32312D6DE68AA4DB0D806971CBB49A10177EF488EF3D9D9E"
+  },
+  {
+    "Name": "battery_dis0",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 118
+      },
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 90
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 72
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 30
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "C74A54118F20134762CDD9DDD8D42C123DD458FD2CE63D461B3BE4883DCD78F6"
+  },
+  {
+    "Name": "battery_dis10",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 113
+      },
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 90
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 72
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 30
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "58A9DAEB11BB6F7776D0926303147DCCD574A0E72A8F9E239CEEF282913A4F3D"
+  },
+  {
+    "Name": "battery_dis100",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 90
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 72
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 68
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 50
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 30
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "10384D2F9556621DB41A11A0E2B2C3F63BFF5202DB66B6A2ED873B4D916D7B24"
+  },
+  {
+    "Name": "battery_dis20",
+    "Width": 15,
+    "Height": 32,
+    "Grid16Aligned": false,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      1,
+      1,
+      12,
+      30
+    ],
+    "MainCoverage": 0.6917,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 148
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 108
+      },
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 90
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 72
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 30
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 10
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "67806274093F314185A8353F40961157A36EA32E20FD46D49031F9522F43E521"
+  },
+  {
+    "Name": "battery_dis40",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 98
+      },
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 90
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 72
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 30
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 20
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "28EE6E6778951A87E4772B38FFA184EA2A44A678DD93666A8AB0269BEFA0F889"
+  },
+  {
+    "Name": "battery_dis60",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 90
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 88
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 72
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 30
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 30
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "FCE9748BBD2DCA88F748FFFFBBDD9286E320758411B6488F9E997C9C6C55D61B"
+  },
+  {
+    "Name": "battery_dis80",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 90
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 78
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 72
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 40
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 30
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "D1CC655756FD08A04E6D3E453ADDA0CCF918EC22C455479BE326954D222F1AFE"
+  },
+  {
+    "Name": "battery_ext0",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 118
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 90
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 72
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 30
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "A286C91ED6DAC5EB6080CBC859D6A347406B9CFB3AEDAADED33B68FD81CE464E"
+  },
+  {
+    "Name": "battery_ext10",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 113
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 90
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 72
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 30
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "E28CF2145AC0912566863AB3F8481093B208C2FBD337EC8D5F05FFA72A2DF81B"
+  },
+  {
+    "Name": "battery_ext100",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "355271",
+        "Pixels": 90
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 72
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 68
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 50
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 30
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "90C00513CDE96C3C3B89FEC5D38EA6CE69B979516B06D4E27DF440A20C5D4186"
+  },
+  {
+    "Name": "battery_ext20",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 108
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 90
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 72
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 30
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 10
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "C05A7EC12A8BFD82308B324C90CAC42689C77C3441BB9DF31912BF90CDBB9D56"
+  },
+  {
+    "Name": "battery_ext40",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 98
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 90
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 72
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 30
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 20
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "17710CA57A27EBB46B308EC640B028186BB0887E0A565796F71077A32D34E0A9"
+  },
+  {
+    "Name": "battery_ext60",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "355271",
+        "Pixels": 90
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 88
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 72
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 30
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 30
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "5E343AB38852C1DD7EE45E7F6FBD129FF0FE8698007CD1340CB928FF087A0F98"
+  },
+  {
+    "Name": "battery_ext80",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0301,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "355271",
+        "Pixels": 90
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 78
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 72
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 40
+      },
+      {
+        "Hex": "3E6979",
+        "Pixels": 30
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "C15CC8522F00E9873018C26E1EFE30F708141BBDB071518A3CC2D768018A5C95"
+  },
+  {
+    "Name": "battery_hyp",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 10,
+    "MainPixels": 332,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6484,
+    "IsolatedSameColorPixels": 20,
+    "IsolatedFraction": 0.0602,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 180
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 332
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "955699",
+        "Pixels": 79
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 70
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 68
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 63
+      },
+      {
+        "Hex": "E0D09B",
+        "Pixels": 11
+      },
+      {
+        "Hex": "BB9165",
+        "Pixels": 10
+      },
+      {
+        "Hex": "A96847",
+        "Pixels": 9
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "203DAEE7BA1375106D6873B85F6F933A8916078FD7A6779477A0B8D76E466F2A"
+  },
+  {
+    "Name": "battery0",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0423,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 116
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 85
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 35
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "1F58C28C1CBB1FA8E68DE4E8F7066B08494D05C62EB6DEB702C7141A87FAC2D4"
+  },
+  {
+    "Name": "battery10",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0423,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 111
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 85
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 35
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "78ABCFA53BD1436E9B1E74F81A826ABEBA5F19E9922380EE9FE0AC0826CE9B63"
+  },
+  {
+    "Name": "battery100",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0423,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "373541",
+        "Pixels": 85
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 66
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 50
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 35
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "8975026040732A330ADA4CCF14C7575FAB8305972092FB9020335180A8377FDE"
+  },
+  {
+    "Name": "battery20",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0423,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 106
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 85
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 35
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 25
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 10
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "A7A1A597785FE041D349BABF9FC25BAB7481C6F340BEA64877C06B7CE6336EDD"
+  },
+  {
+    "Name": "battery40",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0423,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 96
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 85
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 35
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 25
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 20
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "F5F3F922E63BB21355CF3B7804CDC03C3E7FAEE6812D6D43557886D272FA148A"
+  },
+  {
+    "Name": "battery60",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0423,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 86
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 85
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 35
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 30
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "DFD4B6A406213BA581D22217E32B67002D1578716C94FB618CEE1C9AC3F3E093"
+  },
+  {
+    "Name": "battery80",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0423,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "373541",
+        "Pixels": 85
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 76
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 40
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 35
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "197C82A5F1A59F907BCBE7DB16C9FC66BF178EE0DA5272DDA5AC744C5A946914"
+  },
+  {
+    "Name": "bicarsole_pill_bottle",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [],
+    "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+  },
+  {
+    "Name": "black_bottle",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 302,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      29
+    ],
+    "MainCoverage": 0.5898,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0331,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 210
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 302
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "88948A",
+        "Pixels": 132
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 66
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 36
+      },
+      {
+        "Hex": "392E3C",
+        "Pixels": 34
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 15
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 9
+      },
+      {
+        "Hex": "4F464B",
+        "Pixels": 6
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "F87ADBFAFB77C30708850564F8ABADA5F1799F6E3C52CA77164EDBEF88490F08"
+  },
+  {
+    "Name": "bottle_item",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 550,
+    "MainBoundingBox": [
+      2,
+      1,
+      46,
+      14
+    ],
+    "MainCoverage": 0.7161,
+    "IsolatedSameColorPixels": 25,
+    "IsolatedFraction": 0.0455,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 218
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 550
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "80929B",
+        "Pixels": 142
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 125
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 92
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 86
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 65
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 10
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 10
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 8
+      },
+      {
+        "Hex": "392E3C",
+        "Pixels": 6
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 4
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "FD94EE13328ECBA08C86497045E37865A58BFEF23F54402839FB2DE049D34E91"
+  },
+  {
+    "Name": "bottle_printer",
+    "Width": 32,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 23,
+    "MainPixels": 1350,
+    "MainBoundingBox": [
+      1,
+      2,
+      30,
+      46
+    ],
+    "MainCoverage": 0.8789,
+    "IsolatedSameColorPixels": 31,
+    "IsolatedFraction": 0.023,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 186
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 1350
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 323
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 273
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 129
+      },
+      {
+        "Hex": "3F4A52",
+        "Pixels": 125
+      },
+      {
+        "Hex": "363F4A",
+        "Pixels": 95
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 92
+      },
+      {
+        "Hex": "4B5B5D",
+        "Pixels": 87
+      },
+      {
+        "Hex": "21282B",
+        "Pixels": 54
+      },
+      {
+        "Hex": "445056",
+        "Pixels": 51
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 32
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 28
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 23
+      },
+      {
+        "Hex": "596B6A",
+        "Pixels": 14
+      },
+      {
+        "Hex": "516164",
+        "Pixels": 6
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 4
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 3
+      },
+      {
+        "Hex": "8F6B5A",
+        "Pixels": 2
+      },
+      {
+        "Hex": "4F464B",
+        "Pixels": 2
+      },
+      {
+        "Hex": "B68B74",
+        "Pixels": 2
+      },
+      {
+        "Hex": "7D4F4A",
+        "Pixels": 2
+      },
+      {
+        "Hex": "334246",
+        "Pixels": 1
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 1
+      },
+      {
+        "Hex": "3D823F",
+        "Pixels": 1
+      }
+    ],
+    "SHA256": "6CC476CA04918A864556E7B4E2FBF7167D3B42258F651F4DD26CAEC291726355"
+  },
+  {
+    "Name": "bottle_view",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 550,
+    "MainBoundingBox": [
+      0,
+      1,
+      44,
+      14
+    ],
+    "MainCoverage": 0.7161,
+    "IsolatedSameColorPixels": 25,
+    "IsolatedFraction": 0.0455,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 218
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 550
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "80929B",
+        "Pixels": 142
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 125
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 92
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 86
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 65
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 10
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 10
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 8
+      },
+      {
+        "Hex": "392E3C",
+        "Pixels": 6
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 4
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "58A4C4F1647EE4E2B951530F3C15D87D10BC9B70DAA01C43E1EDDFB7BC947EBA"
+  },
+  {
+    "Name": "bottle0",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 780,
+    "MainBoundingBox": [
+      0,
+      3,
+      15,
+      62
+    ],
+    "MainCoverage": 0.7617,
+    "IsolatedSameColorPixels": 25,
+    "IsolatedFraction": 0.0321,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 244
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 780
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "493341",
+        "Pixels": 235
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 224
+      },
+      {
+        "Hex": "777081",
+        "Pixels": 148
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 142
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 21
+      },
+      {
+        "Hex": "8A5C54",
+        "Pixels": 3
+      },
+      {
+        "Hex": "6A454C",
+        "Pixels": 3
+      },
+      {
+        "Hex": "A4715D",
+        "Pixels": 2
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "6CCF0947B98077AE38E2ECA5BB2BE8A313214D63E660FE6AACCFA80D9CFA0B48"
+  },
+  {
+    "Name": "bottle1",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 780,
+    "MainBoundingBox": [
+      0,
+      3,
+      15,
+      62
+    ],
+    "MainCoverage": 0.7617,
+    "IsolatedSameColorPixels": 30,
+    "IsolatedFraction": 0.0385,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 244
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 780
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "3B2C38",
+        "Pixels": 237
+      },
+      {
+        "Hex": "5A3D4C",
+        "Pixels": 225
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 140
+      },
+      {
+        "Hex": "6A454C",
+        "Pixels": 83
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 67
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 23
+      },
+      {
+        "Hex": "8A5C54",
+        "Pixels": 3
+      },
+      {
+        "Hex": "A4715D",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "C5D767262A74D0C4320F4FD7EF8C7E60FE877C6BA50EE3B7D6059CAFBF72A9BC"
+  },
+  {
+    "Name": "bottle2",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 661,
+    "MainBoundingBox": [
+      0,
+      1,
+      14,
+      46
+    ],
+    "MainCoverage": 0.6455,
+    "IsolatedSameColorPixels": 13,
+    "IsolatedFraction": 0.0197,
+    "AlphaHistogram": [
+      {
+        "Alpha": 0,
+        "Pixels": 256
+      },
+      {
+        "Alpha": 1,
+        "Pixels": 107
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 661
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "44464C",
+        "Pixels": 220
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 185
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 142
+      },
+      {
+        "Hex": "373248",
+        "Pixels": 43
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 34
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 19
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 8
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 6
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "DEDA6627D791AB386781AD45AD35F1780B787E667625E7919730AA39F46F07A4"
+  },
+  {
+    "Name": "bottle3",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 780,
+    "MainBoundingBox": [
+      0,
+      3,
+      15,
+      62
+    ],
+    "MainCoverage": 0.7617,
+    "IsolatedSameColorPixels": 30,
+    "IsolatedFraction": 0.0385,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 244
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 780
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "373248",
+        "Pixels": 237
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 225
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 140
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 80
+      },
+      {
+        "Hex": "853737",
+        "Pixels": 67
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 23
+      },
+      {
+        "Hex": "8A5C54",
+        "Pixels": 3
+      },
+      {
+        "Hex": "6A454C",
+        "Pixels": 3
+      },
+      {
+        "Hex": "A4715D",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "5CBDD50621966C8CE4272EAD2F9627F80F54A544A878D1C47CF52CD3A37823EF"
+  },
+  {
+    "Name": "bottle4",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 780,
+    "MainBoundingBox": [
+      0,
+      3,
+      15,
+      62
+    ],
+    "MainCoverage": 0.7617,
+    "IsolatedSameColorPixels": 30,
+    "IsolatedFraction": 0.0385,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 244
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 780
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "5E2B45",
+        "Pixels": 237
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 225
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 140
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 80
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 67
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 23
+      },
+      {
+        "Hex": "6A454C",
+        "Pixels": 3
+      },
+      {
+        "Hex": "8A5C54",
+        "Pixels": 3
+      },
+      {
+        "Hex": "A4715D",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "C7F941B005278DCAF867BC356EE36975246C15CC2E63F2856D29CFFAB2B628D4"
+  },
+  {
+    "Name": "bottle5",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 780,
+    "MainBoundingBox": [
+      0,
+      3,
+      15,
+      62
+    ],
+    "MainCoverage": 0.7617,
+    "IsolatedSameColorPixels": 30,
+    "IsolatedFraction": 0.0385,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 244
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 780
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "5E2B45",
+        "Pixels": 237
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 225
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 140
+      },
+      {
+        "Hex": "955699",
+        "Pixels": 80
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 67
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 23
+      },
+      {
+        "Hex": "6A454C",
+        "Pixels": 3
+      },
+      {
+        "Hex": "8A5C54",
+        "Pixels": 3
+      },
+      {
+        "Hex": "A4715D",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "40EC674F643F06CB23BE4704E8EFFD3F41EE173898B0B65CC156D24EF235AA51"
+  },
+  {
+    "Name": "broken_furnace_",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 1,
+    "MainPixels": 2304,
+    "MainBoundingBox": [
+      0,
+      0,
+      47,
+      47
+    ],
+    "MainCoverage": 1.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0.0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 255,
+        "Pixels": 2304
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "000000",
+        "Pixels": 2304
+      }
+    ],
+    "SHA256": "C452C289CB5267725041522575A473D7EF0CA05D81441B5F3442ADDACBE8E184"
+  },
+  {
+    "Name": "broken_furnace",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 1,
+    "MainPixels": 2304,
+    "MainBoundingBox": [
+      0,
+      0,
+      47,
+      47
+    ],
+    "MainCoverage": 1.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0.0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 255,
+        "Pixels": 2304
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "000000",
+        "Pixels": 2304
+      }
+    ],
+    "SHA256": "C452C289CB5267725041522575A473D7EF0CA05D81441B5F3442ADDACBE8E184"
+  },
+  {
+    "Name": "cigarette_color_guide",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 6,
+    "MainPixels": 156,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      14
+    ],
+    "MainCoverage": 0.6094,
+    "IsolatedSameColorPixels": 4,
+    "IsolatedFraction": 0.0256,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 100
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 156
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 40
+      },
+      {
+        "Hex": "BA8953",
+        "Pixels": 24
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 24
+      },
+      {
+        "Hex": "853737",
+        "Pixels": 24
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 22
+      },
+      {
+        "Hex": "4A2F38",
+        "Pixels": 22
+      }
+    ],
+    "SHA256": "B92AF652217CF268EA96900AA2A924432FEA2F450806909074D0B30F4FF5D109"
+  },
+  {
+    "Name": "empty_beer_bottle",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 728,
+    "MainBoundingBox": [
+      0,
+      4,
+      15,
+      60
+    ],
+    "MainCoverage": 0.7109,
+    "IsolatedSameColorPixels": 22,
+    "IsolatedFraction": 0.0302,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 296
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 728
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "64343B",
+        "Pixels": 211
+      },
+      {
+        "Hex": "7D4F4A",
+        "Pixels": 188
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 128
+      },
+      {
+        "Hex": "A4715D",
+        "Pixels": 76
+      },
+      {
+        "Hex": "BB9165",
+        "Pixels": 60
+      },
+      {
+        "Hex": "4A2F38",
+        "Pixels": 42
+      },
+      {
+        "Hex": "E0D09B",
+        "Pixels": 23
+      }
+    ],
+    "SHA256": "45621A6AE0725217C59132CDF73889DA52D695C447199F9FD89B1523EC4ED775"
+  },
+  {
+    "Name": "fixalin_pill_bottle",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [],
+    "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+  },
+  {
+    "Name": "furnace_on",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 2024,
+    "MainBoundingBox": [
+      1,
+      2,
+      46,
+      46
+    ],
+    "MainCoverage": 0.8785,
+    "IsolatedSameColorPixels": 22,
+    "IsolatedFraction": 0.0109,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 280
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 2024
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 392
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 367
+      },
+      {
+        "Hex": "80929B",
+        "Pixels": 299
+      },
+      {
+        "Hex": "777081",
+        "Pixels": 270
+      },
+      {
+        "Hex": "303A41",
+        "Pixels": 222
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 161
+      },
+      {
+        "Hex": "275654",
+        "Pixels": 132
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 95
+      },
+      {
+        "Hex": "6B5269",
+        "Pixels": 55
+      },
+      {
+        "Hex": "67AAA5",
+        "Pixels": 17
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 14
+      }
+    ],
+    "SHA256": "1D6C46F45C9483994090CE6B5A4BCC5071A602F7C8B76EED8147119B3CBD81C5"
+  },
+  {
+    "Name": "furnace",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 2024,
+    "MainBoundingBox": [
+      1,
+      2,
+      46,
+      46
+    ],
+    "MainCoverage": 0.8785,
+    "IsolatedSameColorPixels": 21,
+    "IsolatedFraction": 0.0104,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 280
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 2024
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "303A41",
+        "Pixels": 400
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 392
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 367
+      },
+      {
+        "Hex": "80929B",
+        "Pixels": 299
+      },
+      {
+        "Hex": "777081",
+        "Pixels": 270
+      },
+      {
+        "Hex": "275654",
+        "Pixels": 132
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 95
+      },
+      {
+        "Hex": "6B5269",
+        "Pixels": 55
+      },
+      {
+        "Hex": "4A2F38",
+        "Pixels": 14
+      }
+    ],
+    "SHA256": "6BC3B29AA491DBDDF760324BD2FB828868B7C92D07D8087F8D9F611E6120055B"
+  },
+  {
+    "Name": "gibber",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 14,
+    "MainPixels": 1762,
+    "MainBoundingBox": [
+      3,
+      1,
+      44,
+      46
+    ],
+    "MainCoverage": 0.7648,
+    "IsolatedSameColorPixels": 43,
+    "IsolatedFraction": 0.0244,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 542
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 1762
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "44464C",
+        "Pixels": 684
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 284
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 264
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 233
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 103
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 95
+      },
+      {
+        "Hex": "53585B",
+        "Pixels": 54
+      },
+      {
+        "Hex": "3D823F",
+        "Pixels": 14
+      },
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 14
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 7
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 5
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 2
+      },
+      {
+        "Hex": "324638",
+        "Pixels": 2
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 1
+      }
+    ],
+    "SHA256": "57E360270F5419A4F083721813B576EB8246B7696789A41485550779C2458AF5"
+  },
+  {
+    "Name": "injector_background",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      64,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "0C738ABC25E77673ADAC11C48E36C36400F5575DF6F4B1E75A0809F23CD4706F"
+  },
+  {
+    "Name": "injector_black",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 10,
+    "MainPixels": 436,
+    "MainBoundingBox": [
+      4,
+      4,
+      59,
+      11
+    ],
+    "MainCoverage": 0.4258,
+    "IsolatedSameColorPixels": 22,
+    "IsolatedFraction": 0.0505,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 588
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 436
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "435A5F",
+        "Pixels": 139
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 120
+      },
+      {
+        "Hex": "303A41",
+        "Pixels": 57
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 45
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 32
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 23
+      },
+      {
+        "Hex": "67AAA5",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 6
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 4
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "73EC0D0BDAA2408147B4281A651F4904B003B646E96D227496C98A426F2D5463"
+  },
+  {
+    "Name": "injector_blood_red",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+  },
+  {
+    "Name": "injector_blue",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+  },
+  {
+    "Name": "injector_green",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 10,
+    "MainPixels": 436,
+    "MainBoundingBox": [
+      4,
+      4,
+      59,
+      11
+    ],
+    "MainCoverage": 0.4258,
+    "IsolatedSameColorPixels": 22,
+    "IsolatedFraction": 0.0505,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 588
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 436
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "3D823F",
+        "Pixels": 139
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 120
+      },
+      {
+        "Hex": "324638",
+        "Pixels": 57
+      },
+      {
+        "Hex": "41603F",
+        "Pixels": 45
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 32
+      },
+      {
+        "Hex": "84A251",
+        "Pixels": 23
+      },
+      {
+        "Hex": "67AAA5",
+        "Pixels": 8
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 6
+      },
+      {
+        "Hex": "E0D09B",
+        "Pixels": 4
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "457C4F23606049CDB5408745ACE946D1655BA3577A4E0CD1130BDEC8841FFC5C"
+  },
+  {
+    "Name": "injector_pink_alt",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 17,
+    "MainPixels": 538,
+    "MainBoundingBox": [
+      4,
+      3,
+      59,
+      12
+    ],
+    "MainCoverage": 0.5254,
+    "IsolatedSameColorPixels": 6,
+    "IsolatedFraction": 0.0112,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 486
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 538
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 140
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 135
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 88
+      },
+      {
+        "Hex": "303A41",
+        "Pixels": 51
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 31
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 16
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 14
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 13
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 13
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 11
+      },
+      {
+        "Hex": "CC7755",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 4
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 3
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 3
+      },
+      {
+        "Hex": "E0D09B",
+        "Pixels": 3
+      },
+      {
+        "Hex": "853737",
+        "Pixels": 2
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "3D9A9AE76C7DFF3E8B7AA6A486CFCBE0FC47684049047808F92FFECABA13C5FB"
+  },
+  {
+    "Name": "injector_pink",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 436,
+    "MainBoundingBox": [
+      4,
+      4,
+      59,
+      11
+    ],
+    "MainCoverage": 0.4258,
+    "IsolatedSameColorPixels": 22,
+    "IsolatedFraction": 0.0505,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 588
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 436
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9F526D",
+        "Pixels": 141
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 120
+      },
+      {
+        "Hex": "5A3D4C",
+        "Pixels": 57
+      },
+      {
+        "Hex": "6B5269",
+        "Pixels": 45
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 32
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 31
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 6
+      },
+      {
+        "Hex": "E0D09B",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "C7096DFFF3FFFA31F5034EF5B5828C6D7529368B1292BD6C12C85E0DCF4EB423"
+  },
+  {
+    "Name": "injector_pouch",
+    "Width": 32,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      32,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 0,
+        "Pixels": 1536
+      }
+    ],
+    "Palette": [],
+    "SHA256": "AF372D5F36CC5E196EED5451D5B760F33D88CDCAD121D38BED4903AB11481A23"
+  },
+  {
+    "Name": "injector_pure_white_s",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 340,
+    "MainBoundingBox": [
+      2,
+      4,
+      45,
+      11
+    ],
+    "MainCoverage": 0.4427,
+    "IsolatedSameColorPixels": 22,
+    "IsolatedFraction": 0.0647,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 428
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 340
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "88948A",
+        "Pixels": 103
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 96
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 45
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 33
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 24
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 19
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 10
+      },
+      {
+        "Hex": "3D823F",
+        "Pixels": 8
+      },
+      {
+        "Hex": "41603F",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "2C93498E239CAC1D11E32F78186177E0482C2E68B79B06B81D3480DDA0811AA3"
+  },
+  {
+    "Name": "injector_pure_white",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+  },
+  {
+    "Name": "injector_purple_large",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 17,
+    "MainPixels": 538,
+    "MainBoundingBox": [
+      4,
+      3,
+      59,
+      12
+    ],
+    "MainCoverage": 0.5254,
+    "IsolatedSameColorPixels": 6,
+    "IsolatedFraction": 0.0112,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 486
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 538
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 140
+      },
+      {
+        "Hex": "3D823F",
+        "Pixels": 135
+      },
+      {
+        "Hex": "41603F",
+        "Pixels": 88
+      },
+      {
+        "Hex": "303A41",
+        "Pixels": 51
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 31
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 16
+      },
+      {
+        "Hex": "A8BB7F",
+        "Pixels": 14
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 13
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 13
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 11
+      },
+      {
+        "Hex": "CC7755",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 4
+      },
+      {
+        "Hex": "E0D09B",
+        "Pixels": 3
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 3
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 3
+      },
+      {
+        "Hex": "853737",
+        "Pixels": 2
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "4D6C59013576610876FF04760FB1FA1B2923099312E239EACE18B499AF6FF74B"
+  },
+  {
+    "Name": "injector_purple",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+  },
+  {
+    "Name": "injector_red",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+  },
+  {
+    "Name": "injector_turquoise",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+  },
+  {
+    "Name": "injector_white",
+    "Width": 64,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+  },
+  {
+    "Name": "large_water_bottle_full",
+    "Width": 32,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      32,
+      64,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 2048
+      }
+    ],
+    "Palette": [],
+    "SHA256": "9FA41B5848BE66E80E3A0232297C3595824872339512D668B1E86939F14AD501"
+  },
+  {
+    "Name": "liquid_luck_bottle",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 392,
+    "MainBoundingBox": [
+      1,
+      0,
+      14,
+      31
+    ],
+    "MainCoverage": 0.7656,
+    "IsolatedSameColorPixels": 15,
+    "IsolatedFraction": 0.0383,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 120
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 392
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "80929B",
+        "Pixels": 109
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 89
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 74
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 66
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 22
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 12
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 10
+      },
+      {
+        "Hex": "392E3C",
+        "Pixels": 8
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "A67F1E0CA62CEF5166BD89BCFD45E9152FF5445FE013584D50BC4C998D76612A"
+  },
+  {
+    "Name": "magnum_revolver",
+    "Width": 64,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      32,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 2048
+      }
+    ],
+    "Palette": [],
+    "SHA256": "A738632700422902E7E50A746F7615C8F82C2E58C27A3938841CA2D530E68FCC"
+  },
+  {
+    "Name": "meat_fish_large1",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 867,
+    "MainBoundingBox": [
+      3,
+      4,
+      45,
+      26
+    ],
+    "MainCoverage": 0.5645,
+    "IsolatedSameColorPixels": 56,
+    "IsolatedFraction": 0.0646,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 669
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 867
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9C3738",
+        "Pixels": 252
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 129
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 128
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 111
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 104
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 94
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 39
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 10
+      }
+    ],
+    "SHA256": "628BD4999BE4E4432A1AAE8402248AED84DE0EA550544D4DAA247F0EB9400BD8"
+  },
+  {
+    "Name": "meat_fish_large2",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 867,
+    "MainBoundingBox": [
+      3,
+      4,
+      45,
+      26
+    ],
+    "MainCoverage": 0.5645,
+    "IsolatedSameColorPixels": 56,
+    "IsolatedFraction": 0.0646,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 669
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 867
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9F526D",
+        "Pixels": 252
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 129
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 128
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 111
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 104
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 94
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 39
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 10
+      }
+    ],
+    "SHA256": "BAB83F4F48C04F28276918B7341FAFBD7DAC21ED3106EABD6E991AE0D3C9DA2D"
+  },
+  {
+    "Name": "meat_fish_large3",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 867,
+    "MainBoundingBox": [
+      3,
+      4,
+      45,
+      26
+    ],
+    "MainCoverage": 0.5645,
+    "IsolatedSameColorPixels": 56,
+    "IsolatedFraction": 0.0646,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 669
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 867
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "AD696B",
+        "Pixels": 252
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 129
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 128
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 111
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 104
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 94
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 39
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 10
+      }
+    ],
+    "SHA256": "2F9A90F3B53923DCCFB39DF251974165C54C46E92C3FB0195B3D9EACE7FBB1E3"
+  },
+  {
+    "Name": "meat_fish_large4",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 867,
+    "MainBoundingBox": [
+      3,
+      4,
+      45,
+      26
+    ],
+    "MainCoverage": 0.5645,
+    "IsolatedSameColorPixels": 56,
+    "IsolatedFraction": 0.0646,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 669
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 867
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "B78689",
+        "Pixels": 252
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 129
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 128
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 111
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 104
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 94
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 39
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 10
+      }
+    ],
+    "SHA256": "49936D9F11C1540DD4141887998F4263E5413724CCB443153E11FB4535340901"
+  },
+  {
+    "Name": "meat_fish_small1",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 308,
+    "MainBoundingBox": [
+      3,
+      1,
+      29,
+      14
+    ],
+    "MainCoverage": 0.6016,
+    "IsolatedSameColorPixels": 45,
+    "IsolatedFraction": 0.1461,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 204
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 308
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9C3738",
+        "Pixels": 77
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 62
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 49
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 39
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 28
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 25
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 24
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "9EB94AC45B421FF8801CA17D2C6E26F16DC344C915E52A4ECCDF674DEED68C70"
+  },
+  {
+    "Name": "meat_fish_small2",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 308,
+    "MainBoundingBox": [
+      2,
+      1,
+      28,
+      14
+    ],
+    "MainCoverage": 0.6016,
+    "IsolatedSameColorPixels": 45,
+    "IsolatedFraction": 0.1461,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 204
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 308
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9F526D",
+        "Pixels": 77
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 62
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 49
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 39
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 28
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 25
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 24
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "5EC0FD7988327899E689EF3528CBC3CA82E6E2E95A461D110AB45A1FDDA550ED"
+  },
+  {
+    "Name": "meat_fish_small3",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 308,
+    "MainBoundingBox": [
+      2,
+      1,
+      28,
+      14
+    ],
+    "MainCoverage": 0.6016,
+    "IsolatedSameColorPixels": 45,
+    "IsolatedFraction": 0.1461,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 204
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 308
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "AD696B",
+        "Pixels": 77
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 62
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 49
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 39
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 28
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 25
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 24
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "5CD736BFBB3FD19995B23F11D8DAB88AB602057A78DC7139E13455C5204F62D0"
+  },
+  {
+    "Name": "meat_fish_small4",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 308,
+    "MainBoundingBox": [
+      2,
+      1,
+      28,
+      14
+    ],
+    "MainCoverage": 0.6016,
+    "IsolatedSameColorPixels": 45,
+    "IsolatedFraction": 0.1461,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 204
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 308
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "B78689",
+        "Pixels": 77
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 62
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 49
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 39
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 28
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 25
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 24
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "D1097DC2F639E530C96EB6C0E03F36068F4F951601AC0C295BD767D2446256A6"
+  },
+  {
+    "Name": "meat_fish_tiny1",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 140,
+    "MainBoundingBox": [
+      1,
+      2,
+      14,
+      13
+    ],
+    "MainCoverage": 0.5469,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.1857,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 116
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 140
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 37
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 34
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 16
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 16
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 13
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 12
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 11
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 1
+      }
+    ],
+    "SHA256": "35E2FDB5A2D1310389B7C369D338FB326D832DD646CB5C679D2D437F0613BA98"
+  },
+  {
+    "Name": "meat_fish_tiny2",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 140,
+    "MainBoundingBox": [
+      1,
+      2,
+      14,
+      13
+    ],
+    "MainCoverage": 0.5469,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.1857,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 116
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 140
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 37
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 34
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 16
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 16
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 13
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 12
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 11
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 1
+      }
+    ],
+    "SHA256": "24B21424AE825EAF3F1DBA9F3F1AC3FFF1D9BC8B6096AA603E7E27B8E6E91F9C"
+  },
+  {
+    "Name": "meat_fish_tiny3",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 140,
+    "MainBoundingBox": [
+      1,
+      2,
+      14,
+      13
+    ],
+    "MainCoverage": 0.5469,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.1857,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 116
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 140
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 37
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 34
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 16
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 16
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 13
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 12
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 11
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 1
+      }
+    ],
+    "SHA256": "7313844BE177BF4F51928ECE1DD3E53B38C693264DE6DA2EE2F86445D8F35C83"
+  },
+  {
+    "Name": "meat_fish_tiny4",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 140,
+    "MainBoundingBox": [
+      1,
+      2,
+      14,
+      13
+    ],
+    "MainCoverage": 0.5469,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.1857,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 116
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 140
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 37
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 34
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 16
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 16
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 13
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 12
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 11
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 1
+      }
+    ],
+    "SHA256": "AD0560FE1D509AA0C4820977A051E2C37679924A7A4347F2D0F567B174521FA7"
+  },
+  {
+    "Name": "meat_fish1",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 525,
+    "MainBoundingBox": [
+      1,
+      5,
+      30,
+      24
+    ],
+    "MainCoverage": 0.5127,
+    "IsolatedSameColorPixels": 46,
+    "IsolatedFraction": 0.0876,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 499
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 525
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9C3738",
+        "Pixels": 154
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 83
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 64
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 60
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 52
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 27
+      },
+      {
+        "Hex": "64343B",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "6B9FF414FC5E3B80C2C0DB9C97F5B53E9429BA6E0EC630393ECF21F1F31516C6"
+  },
+  {
+    "Name": "meat_fish2",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 525,
+    "MainBoundingBox": [
+      1,
+      5,
+      30,
+      24
+    ],
+    "MainCoverage": 0.5127,
+    "IsolatedSameColorPixels": 46,
+    "IsolatedFraction": 0.0876,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 499
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 525
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "9F526D",
+        "Pixels": 154
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 83
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 64
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 60
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 52
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 27
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "415874BE1B9D67E26D0822EF0591996E6897EAF8583D8F89E6E00E8A88D733A4"
+  },
+  {
+    "Name": "meat_fish3",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 525,
+    "MainBoundingBox": [
+      1,
+      5,
+      30,
+      24
+    ],
+    "MainCoverage": 0.5127,
+    "IsolatedSameColorPixels": 46,
+    "IsolatedFraction": 0.0876,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 499
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 525
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "AD696B",
+        "Pixels": 154
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 83
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "B78689",
+        "Pixels": 64
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 60
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 52
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 27
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "D96C95418303E020ACCEC6BD31B6CF11870631F5CD1D4B6B9B017296F911BE85"
+  },
+  {
+    "Name": "meat_fish4",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 525,
+    "MainBoundingBox": [
+      1,
+      5,
+      30,
+      24
+    ],
+    "MainCoverage": 0.5127,
+    "IsolatedSameColorPixels": 46,
+    "IsolatedFraction": 0.0876,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 499
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 525
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "B78689",
+        "Pixels": 154
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 83
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 64
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 60
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 52
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 27
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "1D7B29C0A9C65EF4235D5EB8DDED01B2DD7A1746CA43A53E4F88BA379F891852"
+  },
+  {
+    "Name": "med_bottle_blue",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 256,
+    "MainBoundingBox": [
+      2,
+      4,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5,
+    "IsolatedSameColorPixels": 28,
+    "IsolatedFraction": 0.1094,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "88948A",
+        "Pixels": 67
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 64
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 58
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 32
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 12
+      },
+      {
+        "Hex": "273456",
+        "Pixels": 8
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 8
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "8D1C6153F9AEC2251FBC1A04B38D77B45038D4DE09F55F710C8BA07F14BAC938"
+  },
+  {
+    "Name": "med_bottle_orange",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 242,
+    "MainBoundingBox": [
+      2,
+      5,
+      13,
+      26
+    ],
+    "MainCoverage": 0.4727,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.0413,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 270
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 242
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "88948A",
+        "Pixels": 87
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 56
+      },
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 34
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 31
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 15
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 9
+      },
+      {
+        "Hex": "B26B4E",
+        "Pixels": 6
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 4
+      }
+    ],
+    "SHA256": "858A2088856984511F34EBC1A8DE2D6C6107682E5C1BB4A05BA4A80F8414C9F6"
+  },
+  {
+    "Name": "med_bottle_red",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 256,
+    "MainBoundingBox": [
+      2,
+      4,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5,
+    "IsolatedSameColorPixels": 28,
+    "IsolatedFraction": 0.1094,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "88948A",
+        "Pixels": 67
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 64
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 58
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 32
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 12
+      },
+      {
+        "Hex": "74313B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 8
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "8C348EFEB490E0E8867E3314D328DD3FA195C5E9C08597A0FB7FBE522121FA3A"
+  },
+  {
+    "Name": "med_bottle_small_pink",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 138,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      14
+    ],
+    "MainCoverage": 0.5391,
+    "IsolatedSameColorPixels": 22,
+    "IsolatedFraction": 0.1594,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 118
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 138
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 36
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 32
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 20
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 19
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 12
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 10
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 3
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 3
+      },
+      {
+        "Hex": "9F526D",
+        "Pixels": 1
+      },
+      {
+        "Hex": "373248",
+        "Pixels": 1
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 1
+      }
+    ],
+    "SHA256": "DE2B565F13BFBA0ECDD5BAED0351F0B08E448B3183AE24BB6461A379A372E366"
+  },
+  {
+    "Name": "med_bottle_violet",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 8,
+    "MainPixels": 316,
+    "MainBoundingBox": [
+      2,
+      1,
+      13,
+      30
+    ],
+    "MainCoverage": 0.6172,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.0823,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 196
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 316
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "88948A",
+        "Pixels": 107
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 73
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 68
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 32
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 12
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 9
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 8
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "FA01D4A3FB12747609711E2FC21C2A859F481EF0C568EFF61B0010C7D9909DC5"
+  },
+  {
+    "Name": "ocutol_pill_bottle",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [],
+    "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+  },
+  {
+    "Name": "oxycodone_pill_bottle",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [],
+    "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+  },
+  {
+    "Name": "pill_bottle",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [],
+    "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+  },
+  {
+    "Name": "pillbottle1",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [],
+    "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+  },
+  {
+    "Name": "pillbottle2",
+    "Width": 16,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      16,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 256
+      }
+    ],
+    "Palette": [],
+    "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+  },
+  {
+    "Name": "portable_water_purifier",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 13,
+    "MainPixels": 642,
+    "MainBoundingBox": [
+      2,
+      4,
+      29,
+      27
+    ],
+    "MainCoverage": 0.627,
+    "IsolatedSameColorPixels": 11,
+    "IsolatedFraction": 0.0171,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 382
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 642
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "67AAA5",
+        "Pixels": 148
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 145
+      },
+      {
+        "Hex": "8ABFBB",
+        "Pixels": 106
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 74
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 46
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 29
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 27
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 20
+      },
+      {
+        "Hex": "C4C4B0",
+        "Pixels": 16
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 15
+      },
+      {
+        "Hex": "53585B",
+        "Pixels": 10
+      },
+      {
+        "Hex": "777081",
+        "Pixels": 4
+      },
+      {
+        "Hex": "853737",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "CF210231792F96FAF5660A852FB133D9F489081BA3CFC7B56B43031542D4D3CE"
+  },
+  {
+    "Name": "pouch_injector_large",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      48,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 0,
+        "Pixels": 2304
+      }
+    ],
+    "Palette": [],
+    "SHA256": "41DD77095D90967071A89E11019548ED76155420B018D7EF96DCDD11F1695BB2"
+  },
+  {
+    "Name": "rat_l_f_d",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 389,
+    "MainBoundingBox": [
+      2,
+      0,
+      45,
+      15
+    ],
+    "MainCoverage": 0.5065,
+    "IsolatedSameColorPixels": 21,
+    "IsolatedFraction": 0.054,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 379
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 389
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 128
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 111
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 57
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 51
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 31
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 8
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 3
+      }
+    ],
+    "SHA256": "4A6A1CA5647FC7F2EC05F232948221DF8B653175B66C827E6FAA2FBB0B89D67C"
+  },
+  {
+    "Name": "rat_l_f",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 422,
+    "MainBoundingBox": [
+      2,
+      1,
+      45,
+      15
+    ],
+    "MainCoverage": 0.5495,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0332,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 346
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 422
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 234
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 116
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 38
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 20
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 14
+      }
+    ],
+    "SHA256": "4BCB5F6725803E84407CA4598C37F2550F4D36A3C43D06FDDA546F453043B697"
+  },
+  {
+    "Name": "rat_l_m_d",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 6,
+    "MainPixels": 389,
+    "MainBoundingBox": [
+      2,
+      0,
+      45,
+      15
+    ],
+    "MainCoverage": 0.5065,
+    "IsolatedSameColorPixels": 19,
+    "IsolatedFraction": 0.0488,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 379
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 389
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "645355",
+        "Pixels": 131
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 111
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 57
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 51
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 31
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 8
+      }
+    ],
+    "SHA256": "94C2BF92703FA6AB8DC82C4F421FFC1C7D6C79CDB794381C7BE79CB4964F8BED"
+  },
+  {
+    "Name": "rat_l_m",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 422,
+    "MainBoundingBox": [
+      2,
+      1,
+      45,
+      15
+    ],
+    "MainCoverage": 0.5495,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0332,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 346
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 422
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "645355",
+        "Pixels": 234
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 116
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 38
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 20
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 14
+      }
+    ],
+    "SHA256": "787E74430702F3FC85544258656FF013C480024035A500A2E28BED9DBA6B383A"
+  },
+  {
+    "Name": "rat_m_f_d",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 286,
+    "MainBoundingBox": [
+      6,
+      2,
+      45,
+      14
+    ],
+    "MainCoverage": 0.3724,
+    "IsolatedSameColorPixels": 10,
+    "IsolatedFraction": 0.035,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 482
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 286
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 90
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 81
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 48
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 33
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 27
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 5
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "006E8A52CA07322F456FC27A45AE2D162E505E048DCDC5D1BB09F1EE4A336063"
+  },
+  {
+    "Name": "rat_m_f",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 321,
+    "MainBoundingBox": [
+      6,
+      1,
+      45,
+      14
+    ],
+    "MainCoverage": 0.418,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0374,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 447
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 321
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 170
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 96
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 29
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 19
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "EF07B0E2DA3B5C8821D8DED5A5388F4E48B5CB4A69A9889F25382A82A13A6F60"
+  },
+  {
+    "Name": "rat_m_m_d",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 6,
+    "MainPixels": 286,
+    "MainBoundingBox": [
+      6,
+      2,
+      45,
+      14
+    ],
+    "MainCoverage": 0.3724,
+    "IsolatedSameColorPixels": 7,
+    "IsolatedFraction": 0.0245,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 482
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 286
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 90
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 86
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 48
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 33
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 27
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "9186BFA93B39B156E332D9379929672C1C345592C1E4E3C6E201493DD5C29000"
+  },
+  {
+    "Name": "rat_m_m",
+    "Width": 48,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 321,
+    "MainBoundingBox": [
+      6,
+      1,
+      45,
+      14
+    ],
+    "MainCoverage": 0.418,
+    "IsolatedSameColorPixels": 12,
+    "IsolatedFraction": 0.0374,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 447
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 321
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "645355",
+        "Pixels": 170
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 96
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 29
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 19
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 7
+      }
+    ],
+    "SHA256": "CFBBB9F265E9ACB9D56EBA4A6505D5434B670A28BBED350F4577F0605D43B022"
+  },
+  {
+    "Name": "rat_s_f_d",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 159,
+    "MainBoundingBox": [
+      2,
+      3,
+      30,
+      11
+    ],
+    "MainCoverage": 0.3105,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0881,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 353
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 159
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 63
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 32
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 24
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 19
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 16
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 3
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "4EC316DCA686B5CAAA07D5FB2B417E774F5DDD80D8D3E524669CBA8797626D9F"
+  },
+  {
+    "Name": "rat_s_f",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 168,
+    "MainBoundingBox": [
+      3,
+      2,
+      30,
+      11
+    ],
+    "MainCoverage": 0.3281,
+    "IsolatedSameColorPixels": 19,
+    "IsolatedFraction": 0.1131,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 344
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 168
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 74
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 63
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 15
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 13
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 3
+      }
+    ],
+    "SHA256": "8B82033E9D09E0F61AFDB89C6006B83FA19B8502A2740F9E16D6277DF90A8769"
+  },
+  {
+    "Name": "rat_s_m_d",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 6,
+    "MainPixels": 159,
+    "MainBoundingBox": [
+      2,
+      3,
+      30,
+      11
+    ],
+    "MainCoverage": 0.3105,
+    "IsolatedSameColorPixels": 11,
+    "IsolatedFraction": 0.0692,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 353
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 159
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 63
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 35
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 24
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 19
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 16
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "3EE5042CE30037484E8BCC46E6432C88CFEAD6A7AC7EA5661212447DB1CF94E5"
+  },
+  {
+    "Name": "rat_s_m",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 168,
+    "MainBoundingBox": [
+      3,
+      2,
+      30,
+      11
+    ],
+    "MainCoverage": 0.3281,
+    "IsolatedSameColorPixels": 19,
+    "IsolatedFraction": 0.1131,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 344
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 168
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "645355",
+        "Pixels": 74
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 63
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 15
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 13
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 3
+      }
+    ],
+    "SHA256": "B71AF941C6DF898299D2649D518BB58D03B2BA09DF0E9377AE5963FDF59248FD"
+  },
+  {
+    "Name": "rat_xl_f_d",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 624,
+    "MainBoundingBox": [
+      1,
+      6,
+      45,
+      28
+    ],
+    "MainCoverage": 0.4062,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.0417,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 912
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 624
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 204
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 146
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 135
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 82
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 49
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 6
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "5272C358DF8A0B4B2EDC32CCDD5479CBC114A76BF2974F63D5809F7DD700000E"
+  },
+  {
+    "Name": "rat_xl_f",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 696,
+    "MainBoundingBox": [
+      2,
+      5,
+      46,
+      28
+    ],
+    "MainCoverage": 0.4531,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.0374,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 840
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 696
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 417
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 152
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 76
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 39
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 12
+      }
+    ],
+    "SHA256": "3B0E3BC5FC54AA4EC2332F1D7C65762C8392E70A79A259D90897941F8245DFCB"
+  },
+  {
+    "Name": "rat_xl_m_d",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 6,
+    "MainPixels": 624,
+    "MainBoundingBox": [
+      1,
+      6,
+      45,
+      28
+    ],
+    "MainCoverage": 0.4062,
+    "IsolatedSameColorPixels": 24,
+    "IsolatedFraction": 0.0385,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 912
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 624
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "645355",
+        "Pixels": 210
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 146
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 135
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 82
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 49
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 2
+      }
+    ],
+    "SHA256": "E8165DB30618AF1D541177C9EEF4DE070C283B0561C7D88535FE62D34DD27C31"
+  },
+  {
+    "Name": "rat_xl_m",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 696,
+    "MainBoundingBox": [
+      2,
+      5,
+      46,
+      28
+    ],
+    "MainCoverage": 0.4531,
+    "IsolatedSameColorPixels": 26,
+    "IsolatedFraction": 0.0374,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 840
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 696
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "645355",
+        "Pixels": 417
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 152
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 76
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 39
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 12
+      }
+    ],
+    "SHA256": "DD22921A249DFF349D1EB44E7EC1ACD69C5B2A93645C2ACE2DA7F031D0BD0BCC"
+  },
+  {
+    "Name": "rat_xxl_f_d",
+    "Width": 64,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 7,
+    "MainPixels": 1133,
+    "MainBoundingBox": [
+      2,
+      2,
+      61,
+      30
+    ],
+    "MainCoverage": 0.5532,
+    "IsolatedSameColorPixels": 43,
+    "IsolatedFraction": 0.038,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 915
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 1133
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 391
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 305
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 182
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 154
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 74
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 18
+      },
+      {
+        "Hex": "88948A",
+        "Pixels": 9
+      }
+    ],
+    "SHA256": "74D5D3ACB862AC8029A46645630ABBA54BF3464D8250DCBB5A46BA842BC3C506"
+  },
+  {
+    "Name": "rat_xxl_f",
+    "Width": 64,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 1160,
+    "MainBoundingBox": [
+      2,
+      1,
+      61,
+      30
+    ],
+    "MainCoverage": 0.5664,
+    "IsolatedSameColorPixels": 29,
+    "IsolatedFraction": 0.025,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 888
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 1160
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 755
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 191
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 125
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 56
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 33
+      }
+    ],
+    "SHA256": "047B71820CADE16B840C52FF4F020013AB1262EA3F1F21978135F396DD08432F"
+  },
+  {
+    "Name": "rat_xxl_m_d",
+    "Width": 64,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 6,
+    "MainPixels": 1133,
+    "MainBoundingBox": [
+      2,
+      2,
+      61,
+      30
+    ],
+    "MainCoverage": 0.5532,
+    "IsolatedSameColorPixels": 38,
+    "IsolatedFraction": 0.0335,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 915
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 1133
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "79746E",
+        "Pixels": 391
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 314
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 182
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 154
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 74
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 18
+      }
+    ],
+    "SHA256": "A3EB835DE3C0E26C3B51D25B698B6055F297BF386511C9E54EB9453824D761FE"
+  },
+  {
+    "Name": "rat_xxl_m",
+    "Width": 64,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 5,
+    "MainPixels": 1160,
+    "MainBoundingBox": [
+      2,
+      1,
+      61,
+      30
+    ],
+    "MainCoverage": 0.5664,
+    "IsolatedSameColorPixels": 29,
+    "IsolatedFraction": 0.025,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 888
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 1160
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "645355",
+        "Pixels": 755
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 191
+      },
+      {
+        "Hex": "453943",
+        "Pixels": 125
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 56
+      },
+      {
+        "Hex": "AD696B",
+        "Pixels": 33
+      }
+    ],
+    "SHA256": "0667C155FB5BF2422F726A22442CDC95F81FDAF5803863C46EE4AD5F5E5469B1"
+  },
+  {
+    "Name": "revolver_long",
+    "Width": 80,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      80,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 0,
+        "Pixels": 1024
+      },
+      {
+        "Alpha": 1,
+        "Pixels": 2816
+      }
+    ],
+    "Palette": [],
+    "SHA256": "49C7F0033ADD89A0AF6789EB8218D770D42D207F9AE6E24187F3A7D86D7DD691"
+  },
+  {
+    "Name": "revolver_short_tac",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      48,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 0,
+        "Pixels": 512
+      },
+      {
+        "Alpha": 1,
+        "Pixels": 1785
+      },
+      {
+        "Alpha": 127,
+        "Pixels": 7
+      }
+    ],
+    "Palette": [],
+    "SHA256": "7461BBB102035D574D1152A7D83C647F63631FAB34A312BC7ED28E6679A2C648"
+  },
+  {
+    "Name": "revolver_short",
+    "Width": 48,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      48,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 0,
+        "Pixels": 512
+      },
+      {
+        "Alpha": 1,
+        "Pixels": 1792
+      }
+    ],
+    "Palette": [],
+    "SHA256": "11669C10BBE8FA52803C810D9925A448348D56282941D28E5744E06F7D39C433"
+  },
+  {
+    "Name": "revolver",
+    "Width": 64,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      64,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 0,
+        "Pixels": 768
+      },
+      {
+        "Alpha": 1,
+        "Pixels": 2304
+      }
+    ],
+    "Palette": [],
+    "SHA256": "A4267F5E6276B4451156B88FB60976A47FB7CA27635DDE1091C3222C8876B2F9"
+  },
+  {
+    "Name": "sbattery0",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 10,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0493,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 110
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 69
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 26
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 14
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 11
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 6
+      }
+    ],
+    "SHA256": "1D193FA3FAAD7AF1F9A1F3E00499B4369ECC36E983634E20B2CA879F4D6FE999"
+  },
+  {
+    "Name": "sbattery10",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0493,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 105
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 69
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 26
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 14
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 11
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 6
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "AB85AD96ECD5E4C124A9ADAFDF08C82A389DB9EF67742EE2A6D9867E554BAF38"
+  },
+  {
+    "Name": "sbattery100",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0493,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "373541",
+        "Pixels": 69
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 60
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 50
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 26
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 14
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 11
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 6
+      }
+    ],
+    "SHA256": "A275582F650CAE8DA01492303D9247EA591C559F695416178F6AC9D310290D2B"
+  },
+  {
+    "Name": "sbattery20",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0493,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 100
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 69
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 26
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 14
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 11
+      },
+      {
+        "Hex": "9C3738",
+        "Pixels": 10
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 6
+      }
+    ],
+    "SHA256": "BD1E7A76896B1A947AB6199325A4008C1492BB3EDD69444227F84D67F55DC868"
+  },
+  {
+    "Name": "sbattery40",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0493,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 90
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 69
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 26
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 25
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 20
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 14
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 11
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 6
+      }
+    ],
+    "SHA256": "58CF168E5A4457C704B11C9951303F126608BEAC062FDCB978E4181FE605E9FA"
+  },
+  {
+    "Name": "sbattery60",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0493,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 69
+      },
+      {
+        "Hex": "D59F75",
+        "Pixels": 30
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 26
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 14
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 11
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 6
+      }
+    ],
+    "SHA256": "9C64E155B0AC71F63903B33D2B81DE996F5B0670A2336FD1A68F89B6765AD7A8"
+  },
+  {
+    "Name": "sbattery80",
+    "Width": 16,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 11,
+    "MainPixels": 284,
+    "MainBoundingBox": [
+      2,
+      3,
+      13,
+      28
+    ],
+    "MainCoverage": 0.5547,
+    "IsolatedSameColorPixels": 14,
+    "IsolatedFraction": 0.0493,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 228
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 284
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 70
+      },
+      {
+        "Hex": "373541",
+        "Pixels": 69
+      },
+      {
+        "Hex": "7AB053",
+        "Pixels": 40
+      },
+      {
+        "Hex": "2F2B3A",
+        "Pixels": 26
+      },
+      {
+        "Hex": "A272AC",
+        "Pixels": 25
+      },
+      {
+        "Hex": "5E2B45",
+        "Pixels": 14
+      },
+      {
+        "Hex": "743D70",
+        "Pixels": 11
+      },
+      {
+        "Hex": "C0A0A4",
+        "Pixels": 9
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 7
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 7
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 6
+      }
+    ],
+    "SHA256": "207D131B7F402225E9CFD3E4EEBFC6E68E187E32039E2D12FB4B4015D283C9FC"
+  },
+  {
+    "Name": "small_water_bottle_full",
+    "Width": 16,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 768
+      }
+    ],
+    "Palette": [],
+    "SHA256": "28C6C2EEC151934122ABEEE935F34781E59FD9CF1E18DBCAEDD728CF9D4DEACC"
+  },
+  {
+    "Name": "small_water_bottle",
+    "Width": 16,
+    "Height": 48,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      48,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 768
+      }
+    ],
+    "Palette": [],
+    "SHA256": "28C6C2EEC151934122ABEEE935F34781E59FD9CF1E18DBCAEDD728CF9D4DEACC"
+  },
+  {
+    "Name": "tilapia_large1",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 740,
+    "MainBoundingBox": [
+      3,
+      2,
+      44,
+      27
+    ],
+    "MainCoverage": 0.4818,
+    "IsolatedSameColorPixels": 52,
+    "IsolatedFraction": 0.0703,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 796
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 740
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 151
+      },
+      {
+        "Hex": "5D7C89",
+        "Pixels": 136
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 102
+      },
+      {
+        "Hex": "80929B",
+        "Pixels": 88
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 80
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 56
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 53
+      },
+      {
+        "Hex": "6B5269",
+        "Pixels": 51
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 23
+      }
+    ],
+    "SHA256": "178F5EAD99C749D7CEDE207AE0E00D9401C5E8CB43974F98B7EF92975FD241B2"
+  },
+  {
+    "Name": "tilapia_large2",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 740,
+    "MainBoundingBox": [
+      3,
+      2,
+      44,
+      27
+    ],
+    "MainCoverage": 0.4818,
+    "IsolatedSameColorPixels": 52,
+    "IsolatedFraction": 0.0703,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 796
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 740
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 151
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 136
+      },
+      {
+        "Hex": "8ABFBB",
+        "Pixels": 102
+      },
+      {
+        "Hex": "67AAA5",
+        "Pixels": 88
+      },
+      {
+        "Hex": "2F756F",
+        "Pixels": 80
+      },
+      {
+        "Hex": "303A41",
+        "Pixels": 56
+      },
+      {
+        "Hex": "275654",
+        "Pixels": 53
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 51
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 23
+      }
+    ],
+    "SHA256": "4D38DDA5924A6305BFB620621B67164E6A02DC2CF1ACEFBE0FAA26F4EC33EFEF"
+  },
+  {
+    "Name": "tilapia_large3",
+    "Width": 48,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 740,
+    "MainBoundingBox": [
+      3,
+      2,
+      44,
+      27
+    ],
+    "MainCoverage": 0.4818,
+    "IsolatedSameColorPixels": 52,
+    "IsolatedFraction": 0.0703,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 796
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 740
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 151
+      },
+      {
+        "Hex": "5C6F46",
+        "Pixels": 136
+      },
+      {
+        "Hex": "AAA982",
+        "Pixels": 102
+      },
+      {
+        "Hex": "848552",
+        "Pixels": 88
+      },
+      {
+        "Hex": "41603F",
+        "Pixels": 80
+      },
+      {
+        "Hex": "2F3623",
+        "Pixels": 56
+      },
+      {
+        "Hex": "324638",
+        "Pixels": 53
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 51
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 23
+      }
+    ],
+    "SHA256": "4691DD5D4B772D09F2A89F1C32E21BF026645393005D1EDC09D93BF3525B7463"
+  },
+  {
+    "Name": "tilapia_small1",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 239,
+    "MainBoundingBox": [
+      3,
+      1,
+      27,
+      14
+    ],
+    "MainCoverage": 0.4668,
+    "IsolatedSameColorPixels": 44,
+    "IsolatedFraction": 0.1841,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 273
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 239
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "5D7C89",
+        "Pixels": 44
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 28
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 24
+      },
+      {
+        "Hex": "80929B",
+        "Pixels": 18
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 17
+      },
+      {
+        "Hex": "6B5269",
+        "Pixels": 17
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 6
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "FBEDA6109186D4DF21C964A088891C69710B853502D1224A12103E75A6DE3E59"
+  },
+  {
+    "Name": "tilapia_small2",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 239,
+    "MainBoundingBox": [
+      3,
+      1,
+      27,
+      14
+    ],
+    "MainCoverage": 0.4668,
+    "IsolatedSameColorPixels": 44,
+    "IsolatedFraction": 0.1841,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 273
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 239
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 44
+      },
+      {
+        "Hex": "303A41",
+        "Pixels": 28
+      },
+      {
+        "Hex": "8ABFBB",
+        "Pixels": 24
+      },
+      {
+        "Hex": "67AAA5",
+        "Pixels": 18
+      },
+      {
+        "Hex": "275654",
+        "Pixels": 17
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 17
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 6
+      },
+      {
+        "Hex": "2F756F",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "A5C89CFC5EAC71F326A195279E329D0852443D635F7F970DFFC0CACC97FA0DAB"
+  },
+  {
+    "Name": "tilapia_small3",
+    "Width": 32,
+    "Height": 16,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 239,
+    "MainBoundingBox": [
+      3,
+      1,
+      27,
+      14
+    ],
+    "MainCoverage": 0.4668,
+    "IsolatedSameColorPixels": 44,
+    "IsolatedFraction": 0.1841,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 273
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 239
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 80
+      },
+      {
+        "Hex": "5C6F46",
+        "Pixels": 44
+      },
+      {
+        "Hex": "2F3623",
+        "Pixels": 28
+      },
+      {
+        "Hex": "AAA982",
+        "Pixels": 24
+      },
+      {
+        "Hex": "848552",
+        "Pixels": 18
+      },
+      {
+        "Hex": "324638",
+        "Pixels": 17
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 17
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 6
+      },
+      {
+        "Hex": "41603F",
+        "Pixels": 5
+      }
+    ],
+    "SHA256": "07011B07720CFE7389D731AE2578E8B7048EF220AB8D2382B5DA7AEC792CEDB4"
+  },
+  {
+    "Name": "tilapia1",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 454,
+    "MainBoundingBox": [
+      1,
+      4,
+      30,
+      26
+    ],
+    "MainCoverage": 0.4434,
+    "IsolatedSameColorPixels": 59,
+    "IsolatedFraction": 0.13,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 570
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 454
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 103
+      },
+      {
+        "Hex": "5D7C89",
+        "Pixels": 88
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 52
+      },
+      {
+        "Hex": "80929B",
+        "Pixels": 51
+      },
+      {
+        "Hex": "355271",
+        "Pixels": 46
+      },
+      {
+        "Hex": "435A5F",
+        "Pixels": 37
+      },
+      {
+        "Hex": "44464C",
+        "Pixels": 36
+      },
+      {
+        "Hex": "6B5269",
+        "Pixels": 27
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 14
+      }
+    ],
+    "SHA256": "712C20690C7A414C64A582DF6BF11B5D0A75357D7E96B3F477B8690A470D61CC"
+  },
+  {
+    "Name": "tilapia2",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 454,
+    "MainBoundingBox": [
+      1,
+      4,
+      30,
+      26
+    ],
+    "MainCoverage": 0.4434,
+    "IsolatedSameColorPixels": 59,
+    "IsolatedFraction": 0.13,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 570
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 454
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 103
+      },
+      {
+        "Hex": "45918B",
+        "Pixels": 88
+      },
+      {
+        "Hex": "8ABFBB",
+        "Pixels": 52
+      },
+      {
+        "Hex": "67AAA5",
+        "Pixels": 51
+      },
+      {
+        "Hex": "303A41",
+        "Pixels": 46
+      },
+      {
+        "Hex": "2F756F",
+        "Pixels": 37
+      },
+      {
+        "Hex": "275654",
+        "Pixels": 36
+      },
+      {
+        "Hex": "5F6868",
+        "Pixels": 27
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 14
+      }
+    ],
+    "SHA256": "1E66E9FF3705D20A61E6F5F38C008EEC4530ACF9A370B6AA3F8C2E56C0FC61F3"
+  },
+  {
+    "Name": "tilapia3",
+    "Width": 32,
+    "Height": 32,
+    "Grid16Aligned": true,
+    "MainColors": 9,
+    "MainPixels": 454,
+    "MainBoundingBox": [
+      1,
+      4,
+      30,
+      26
+    ],
+    "MainCoverage": 0.4434,
+    "IsolatedSameColorPixels": 59,
+    "IsolatedFraction": 0.13,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 570
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 454
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "292234",
+        "Pixels": 103
+      },
+      {
+        "Hex": "5C6F46",
+        "Pixels": 88
+      },
+      {
+        "Hex": "AAA982",
+        "Pixels": 52
+      },
+      {
+        "Hex": "848552",
+        "Pixels": 51
+      },
+      {
+        "Hex": "2F3623",
+        "Pixels": 46
+      },
+      {
+        "Hex": "41603F",
+        "Pixels": 37
+      },
+      {
+        "Hex": "324638",
+        "Pixels": 36
+      },
+      {
+        "Hex": "79746E",
+        "Pixels": 27
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 14
+      }
+    ],
+    "SHA256": "11EAE335D79E8AFC89A2FEFB1CE6736E090C386933FEEC390C13C228685E53BC"
+  },
+  {
+    "Name": "water_bottle_full_premium",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 14,
+    "MainPixels": 780,
+    "MainBoundingBox": [
+      1,
+      4,
+      14,
+      61
+    ],
+    "MainCoverage": 0.7617,
+    "IsolatedSameColorPixels": 29,
+    "IsolatedFraction": 0.0372,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 244
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 780
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "45918B",
+        "Pixels": 193
+      },
+      {
+        "Hex": "67AAA5",
+        "Pixels": 130
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 128
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 110
+      },
+      {
+        "Hex": "8ABFBB",
+        "Pixels": 86
+      },
+      {
+        "Hex": "80929B",
+        "Pixels": 35
+      },
+      {
+        "Hex": "777081",
+        "Pixels": 29
+      },
+      {
+        "Hex": "A8AEA5",
+        "Pixels": 29
+      },
+      {
+        "Hex": "2F756F",
+        "Pixels": 16
+      },
+      {
+        "Hex": "275654",
+        "Pixels": 8
+      },
+      {
+        "Hex": "BB9165",
+        "Pixels": 5
+      },
+      {
+        "Hex": "9B4A3D",
+        "Pixels": 4
+      },
+      {
+        "Hex": "CC7755",
+        "Pixels": 4
+      },
+      {
+        "Hex": "E0D09B",
+        "Pixels": 3
+      }
+    ],
+    "SHA256": "5D800D7C03E09FA04F7921781A5D0141E815291F36DBDADB3B9C97213FEE3960"
+  },
+  {
+    "Name": "water_bottle_full",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      64,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "0C738ABC25E77673ADAC11C48E36C36400F5575DF6F4B1E75A0809F23CD4706F"
+  },
+  {
+    "Name": "water_bottle",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 0,
+    "MainPixels": 0,
+    "MainBoundingBox": [
+      16,
+      64,
+      -1,
+      -1
+    ],
+    "MainCoverage": 0.0,
+    "IsolatedSameColorPixels": 0,
+    "IsolatedFraction": 0,
+    "AlphaHistogram": [
+      {
+        "Alpha": 1,
+        "Pixels": 1024
+      }
+    ],
+    "Palette": [],
+    "SHA256": "0C738ABC25E77673ADAC11C48E36C36400F5575DF6F4B1E75A0809F23CD4706F"
+  },
+  {
+    "Name": "wine_bottle",
+    "Width": 16,
+    "Height": 64,
+    "Grid16Aligned": true,
+    "MainColors": 6,
+    "MainPixels": 780,
+    "MainBoundingBox": [
+      0,
+      3,
+      15,
+      62
+    ],
+    "MainCoverage": 0.7617,
+    "IsolatedSameColorPixels": 24,
+    "IsolatedFraction": 0.0308,
+    "AlphaHistogram": [
+      {
+        "Alpha": 3,
+        "Pixels": 244
+      },
+      {
+        "Alpha": 255,
+        "Pixels": 780
+      }
+    ],
+    "Palette": [
+      {
+        "Hex": "3B2C38",
+        "Pixels": 239
+      },
+      {
+        "Hex": "5A3D4C",
+        "Pixels": 227
+      },
+      {
+        "Hex": "292234",
+        "Pixels": 144
+      },
+      {
+        "Hex": "6A454C",
+        "Pixels": 80
+      },
+      {
+        "Hex": "645355",
+        "Pixels": 67
+      },
+      {
+        "Hex": "D5D2B8",
+        "Pixels": 23
+      }
+    ],
+    "SHA256": "7C3BB4FD0A5AACCBCFA98F0350D4BE36332ED76C05EF10376150DC6AB79FF8D7"
+  }
+]

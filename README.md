@@ -19,6 +19,7 @@
 | 构建、部署或准备发布 | [构建与发布](docs/maintenance/build-and-release.md) |
 | 修改液体、读档、订货或会员条件 | [兼容边界与回归](docs/maintenance/compatibility-and-regressions.md) |
 | 制作或导入美术素材 | [美术规范](docs/art/README.md) |
+| 查完整美术规则、参考图和分析工具 | [深空当铺美术资料](docs/probably-stolen-art/README.md) |
 | 查看历史改动和当前发布状态 | [版本目录](docs/releases/README.md) |
 | 提交修复或报告问题 | [贡献与反馈](CONTRIBUTING.md) |
 

@@ -25,3 +25,7 @@ tmp/
 *.sav
 *.secrets.json
 tools/RestorationChecks/State/RegisteredCrates.cs
+
+# Full local game IL dumps are analysis inputs, not public art documentation
+docs/probably-stolen-art/evidence/game-render-il.txt
+docs/probably-stolen-art/evidence/portraits/sprite-dict-il.txt

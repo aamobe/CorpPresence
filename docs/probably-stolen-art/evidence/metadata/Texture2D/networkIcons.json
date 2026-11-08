@@ -1,0 +1,23 @@
+{
+  "m_Width": 682,
+  "m_Height": 493,
+  "m_TextureFormat": "RGBA32",
+  "m_MipMap": false,
+  "m_MipCount": 1,
+  "m_TextureSettings": {
+    "m_FilterMode": 0,
+    "m_Aniso": 1,
+    "m_MipBias": 0.0,
+    "m_WrapMode": 1
+  },
+  "image_data": {
+    "Size": 1344904
+  },
+  "m_StreamData": {
+    "offset": 54703312,
+    "size": 1344904,
+    "path": "sharedassets0.assets.resS"
+  },
+  "m_Name": "networkIcons",
+  "Name": "networkIcons"
+}

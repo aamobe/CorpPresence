@@ -1,0 +1,2033 @@
+{
+  "ImportedOn": "2026-11-08",
+  "SourceCollection": "probably-stolen-art",
+  "HistoricalAnalysisDate": "2026-11-05",
+  "OriginalFileCount": 385,
+  "PngCount": 325,
+  "PngPolicy": "Copied byte-for-byte; not resized, repainted or alpha-modified. Documentation references only, not runtime asset updates.",
+  "TextChanges": "Added navigation, portable dependency parameters and local-IL exclusions; sanitized provenance paths. Historical loader snapshot only has excess EOF blank lines removed; original source and public snapshot hashes are separately recorded. Original input hashes retained.",
+  "Excluded": [
+    "**/bin/**",
+    "**/obj/**",
+    "*.dll",
+    "*.exe",
+    "*.pdb",
+    "build caches",
+    "evidence/game-render-il.txt",
+    "evidence/portraits/sprite-dict-il.txt"
+  ],
+  "ImportedPaths": [
+    "AGENTS.md",
+    "evidence/metadata/Sprite/animal_cage.json",
+    "evidence/metadata/Sprite/AQUACULTURE.json",
+    "evidence/metadata/Sprite/battery_bar.json",
+    "evidence/metadata/Sprite/battery_dis20.json",
+    "evidence/metadata/Sprite/battery100.json",
+    "evidence/metadata/Sprite/bottle_printer.json",
+    "evidence/metadata/Sprite/bottle0.json",
+    "evidence/metadata/Sprite/furnace.json",
+    "evidence/metadata/Sprite/injector_pink_alt.json",
+    "evidence/metadata/Sprite/meat_fish_tiny1.json",
+    "evidence/metadata/Sprite/rat_m_m.json",
+    "evidence/metadata/Sprite/rat_s_m.json",
+    "evidence/metadata/Sprite/rat_xxl_f.json",
+    "evidence/metadata/Sprite/revolver_long.json",
+    "evidence/metadata/Texture2D/items_husbandry.json",
+    "evidence/metadata/Texture2D/items_medical.json",
+    "evidence/metadata/Texture2D/items_sec.json",
+    "evidence/metadata/Texture2D/items_tool.json",
+    "evidence/metadata/Texture2D/items_tool2.json",
+    "evidence/metadata/Texture2D/networkIcons.json",
+    "evidence/native-contact-sheet.png",
+    "evidence/native/Sprite/animal_cage.png",
+    "evidence/native/Sprite/AQUACULTURE_II.png",
+    "evidence/native/Sprite/AQUACULTURE.png",
+    "evidence/native/Sprite/battery_bar.png",
+    "evidence/native/Sprite/battery_dis0.png",
+    "evidence/native/Sprite/battery_dis10.png",
+    "evidence/native/Sprite/battery_dis100.png",
+    "evidence/native/Sprite/battery_dis20.png",
+    "evidence/native/Sprite/battery_dis40.png",
+    "evidence/native/Sprite/battery_dis60.png",
+    "evidence/native/Sprite/battery_dis80.png",
+    "evidence/native/Sprite/battery_ext0.png",
+    "evidence/native/Sprite/battery_ext10.png",
+    "evidence/native/Sprite/battery_ext100.png",
+    "evidence/native/Sprite/battery_ext20.png",
+    "evidence/native/Sprite/battery_ext40.png",
+    "evidence/native/Sprite/battery_ext60.png",
+    "evidence/native/Sprite/battery_ext80.png",
+    "evidence/native/Sprite/battery_hyp.png",
+    "evidence/native/Sprite/battery0.png",
+    "evidence/native/Sprite/battery10.png",
+    "evidence/native/Sprite/battery100.png",
+    "evidence/native/Sprite/battery20.png",
+    "evidence/native/Sprite/battery40.png",
+    "evidence/native/Sprite/battery60.png",
+    "evidence/native/Sprite/battery80.png",
+    "evidence/native/Sprite/bicarsole_pill_bottle.png",
+    "evidence/native/Sprite/black_bottle.png",
+    "evidence/native/Sprite/bottle_item.png",
+    "evidence/native/Sprite/bottle_printer.png",
+    "evidence/native/Sprite/bottle_view.png",
+    "evidence/native/Sprite/bottle0.png",
+    "evidence/native/Sprite/bottle1.png",
+    "evidence/native/Sprite/bottle2.png",
+    "evidence/native/Sprite/bottle3.png",
+    "evidence/native/Sprite/bottle4.png",
+    "evidence/native/Sprite/bottle5.png",
+    "evidence/native/Sprite/broken_furnace_.png",
+    "evidence/native/Sprite/broken_furnace.png",
+    "evidence/native/Sprite/cigarette_color_guide.png",
+    "evidence/native/Sprite/empty_beer_bottle.png",
+    "evidence/native/Sprite/fixalin_pill_bottle.png",
+    "evidence/native/Sprite/furnace_on.png",
+    "evidence/native/Sprite/furnace.png",
+    "evidence/native/Sprite/gibber.png",
+    "evidence/native/Sprite/injector_background.png",
+    "evidence/native/Sprite/injector_black.png",
+    "evidence/native/Sprite/injector_blood_red.png",
+    "evidence/native/Sprite/injector_blue.png",
+    "evidence/native/Sprite/injector_green.png",
+    "evidence/native/Sprite/injector_pink_alt.png",
+    "evidence/native/Sprite/injector_pink.png",
+    "evidence/native/Sprite/injector_pouch.png",
+    "evidence/native/Sprite/injector_pure_white_s.png",
+    "evidence/native/Sprite/injector_pure_white.png",
+    "evidence/native/Sprite/injector_purple_large.png",
+    "evidence/native/Sprite/injector_purple.png",
+    "evidence/native/Sprite/injector_red.png",
+    "evidence/native/Sprite/injector_turquoise.png",
+    "evidence/native/Sprite/injector_white.png",
+    "evidence/native/Sprite/large_water_bottle_full.png",
+    "evidence/native/Sprite/liquid_luck_bottle.png",
+    "evidence/native/Sprite/magnum_revolver.png",
+    "evidence/native/Sprite/meat_fish_large1.png",
+    "evidence/native/Sprite/meat_fish_large2.png",
+    "evidence/native/Sprite/meat_fish_large3.png",
+    "evidence/native/Sprite/meat_fish_large4.png",
+    "evidence/native/Sprite/meat_fish_small1.png",
+    "evidence/native/Sprite/meat_fish_small2.png",
+    "evidence/native/Sprite/meat_fish_small3.png",
+    "evidence/native/Sprite/meat_fish_small4.png",
+    "evidence/native/Sprite/meat_fish_tiny1.png",
+    "evidence/native/Sprite/meat_fish_tiny2.png",
+    "evidence/native/Sprite/meat_fish_tiny3.png",
+    "evidence/native/Sprite/meat_fish_tiny4.png",
+    "evidence/native/Sprite/meat_fish1.png",
+    "evidence/native/Sprite/meat_fish2.png",
+    "evidence/native/Sprite/meat_fish3.png",
+    "evidence/native/Sprite/meat_fish4.png",
+    "evidence/native/Sprite/med_bottle_blue.png",
+    "evidence/native/Sprite/med_bottle_orange.png",
+    "evidence/native/Sprite/med_bottle_red.png",
+    "evidence/native/Sprite/med_bottle_small_pink.png",
+    "evidence/native/Sprite/med_bottle_violet.png",
+    "evidence/native/Sprite/ocutol_pill_bottle.png",
+    "evidence/native/Sprite/oxycodone_pill_bottle.png",
+    "evidence/native/Sprite/pill_bottle.png",
+    "evidence/native/Sprite/pillbottle1.png",
+    "evidence/native/Sprite/pillbottle2.png",
+    "evidence/native/Sprite/portable_water_purifier.png",
+    "evidence/native/Sprite/pouch_injector_large.png",
+    "evidence/native/Sprite/rat_l_f_d.png",
+    "evidence/native/Sprite/rat_l_f.png",
+    "evidence/native/Sprite/rat_l_m_d.png",
+    "evidence/native/Sprite/rat_l_m.png",
+    "evidence/native/Sprite/rat_m_f_d.png",
+    "evidence/native/Sprite/rat_m_f.png",
+    "evidence/native/Sprite/rat_m_m_d.png",
+    "evidence/native/Sprite/rat_m_m.png",
+    "evidence/native/Sprite/rat_s_f_d.png",
+    "evidence/native/Sprite/rat_s_f.png",
+    "evidence/native/Sprite/rat_s_m_d.png",
+    "evidence/native/Sprite/rat_s_m.png",
+    "evidence/native/Sprite/rat_xl_f_d.png",
+    "evidence/native/Sprite/rat_xl_f.png",
+    "evidence/native/Sprite/rat_xl_m_d.png",
+    "evidence/native/Sprite/rat_xl_m.png",
+    "evidence/native/Sprite/rat_xxl_f_d.png",
+    "evidence/native/Sprite/rat_xxl_f.png",
+    "evidence/native/Sprite/rat_xxl_m_d.png",
+    "evidence/native/Sprite/rat_xxl_m.png",
+    "evidence/native/Sprite/revolver_long.png",
+    "evidence/native/Sprite/revolver_short_tac.png",
+    "evidence/native/Sprite/revolver_short.png",
+    "evidence/native/Sprite/revolver.png",
+    "evidence/native/Sprite/sbattery0.png",
+    "evidence/native/Sprite/sbattery10.png",
+    "evidence/native/Sprite/sbattery100.png",
+    "evidence/native/Sprite/sbattery20.png",
+    "evidence/native/Sprite/sbattery40.png",
+    "evidence/native/Sprite/sbattery60.png",
+    "evidence/native/Sprite/sbattery80.png",
+    "evidence/native/Sprite/small_water_bottle_full.png",
+    "evidence/native/Sprite/small_water_bottle.png",
+    "evidence/native/Sprite/tilapia_large1.png",
+    "evidence/native/Sprite/tilapia_large2.png",
+    "evidence/native/Sprite/tilapia_large3.png",
+    "evidence/native/Sprite/tilapia_small1.png",
+    "evidence/native/Sprite/tilapia_small2.png",
+    "evidence/native/Sprite/tilapia_small3.png",
+    "evidence/native/Sprite/tilapia1.png",
+    "evidence/native/Sprite/tilapia2.png",
+    "evidence/native/Sprite/tilapia3.png",
+    "evidence/native/Sprite/water_bottle_full_premium.png",
+    "evidence/native/Sprite/water_bottle_full.png",
+    "evidence/native/Sprite/water_bottle.png",
+    "evidence/native/Sprite/wine_bottle.png",
+    "evidence/portraits/envoy-integer-copy-check.json",
+    "evidence/portraits/envoy-metrics.json",
+    "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_n1x.png",
+    "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_n2x.png",
+    "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_n3x.png",
+    "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_s1x.png",
+    "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_s2x.png",
+    "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_s3x.png",
+    "evidence/portraits/metadata/sharedassets0.assets_export/JACKSON1.json",
+    "evidence/portraits/metadata/sharedassets0.assets_export/JACKSON2.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/drjackson2.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/femaleLower_0.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/femaleSci_0.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/femaleUpper_1.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/maleLower_0.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/maleSecOff_0.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/maleUpper_0.json",
+    "evidence/portraits/metadata/sharedassets1.assets_export/Mentor.json",
+    "evidence/portraits/native-face-details.png",
+    "evidence/portraits/native-state-diffs.json",
+    "evidence/portraits/native/Sprite/drjackson.png",
+    "evidence/portraits/native/Sprite/drjackson2.png",
+    "evidence/portraits/native/Sprite/femaleBM_0.png",
+    "evidence/portraits/native/Sprite/femaleBM_1.png",
+    "evidence/portraits/native/Sprite/femaleBM_2.png",
+    "evidence/portraits/native/Sprite/femaleBM_3.png",
+    "evidence/portraits/native/Sprite/femaleBM_4.png",
+    "evidence/portraits/native/Sprite/femaleChef_0.png",
+    "evidence/portraits/native/Sprite/femaleChef_1.png",
+    "evidence/portraits/native/Sprite/femaleEng_0.png",
+    "evidence/portraits/native/Sprite/femaleEng_1.png",
+    "evidence/portraits/native/Sprite/femaleFarmer_0.png",
+    "evidence/portraits/native/Sprite/femaleFarmer_1.png",
+    "evidence/portraits/native/Sprite/femaleLower_0.png",
+    "evidence/portraits/native/Sprite/femaleLower_1.png",
+    "evidence/portraits/native/Sprite/femaleLower_10.png",
+    "evidence/portraits/native/Sprite/femaleLower_11.png",
+    "evidence/portraits/native/Sprite/femaleLower_12.png",
+    "evidence/portraits/native/Sprite/femaleLower_13.png",
+    "evidence/portraits/native/Sprite/femaleLower_2.png",
+    "evidence/portraits/native/Sprite/femaleLower_3.png",
+    "evidence/portraits/native/Sprite/femaleLower_4.png",
+    "evidence/portraits/native/Sprite/femaleLower_5.png",
+    "evidence/portraits/native/Sprite/femaleLower_6.png",
+    "evidence/portraits/native/Sprite/femaleLower_7.png",
+    "evidence/portraits/native/Sprite/femaleLower_8.png",
+    "evidence/portraits/native/Sprite/femaleLower_9.png",
+    "evidence/portraits/native/Sprite/femaleMed_0.png",
+    "evidence/portraits/native/Sprite/femaleMed_1.png",
+    "evidence/portraits/native/Sprite/femaleMerc_0.png",
+    "evidence/portraits/native/Sprite/femaleMerc_1.png",
+    "evidence/portraits/native/Sprite/femaleMerc_2.png",
+    "evidence/portraits/native/Sprite/femaleMerc_3.png",
+    "evidence/portraits/native/Sprite/femaleRev_0.png",
+    "evidence/portraits/native/Sprite/femaleRev_1.png",
+    "evidence/portraits/native/Sprite/femaleRev_2.png",
+    "evidence/portraits/native/Sprite/femaleRev_3.png",
+    "evidence/portraits/native/Sprite/femaleRev_4.png",
+    "evidence/portraits/native/Sprite/femaleRev_5.png",
+    "evidence/portraits/native/Sprite/femaleRev_6.png",
+    "evidence/portraits/native/Sprite/femaleSci_0.png",
+    "evidence/portraits/native/Sprite/femaleSci_1.png",
+    "evidence/portraits/native/Sprite/femaleSec_0.png",
+    "evidence/portraits/native/Sprite/femaleSec_1.png",
+    "evidence/portraits/native/Sprite/femaleSec_2.png",
+    "evidence/portraits/native/Sprite/femaleSec_3.png",
+    "evidence/portraits/native/Sprite/femaleSec_4.png",
+    "evidence/portraits/native/Sprite/femaleSecCorpo_0.png",
+    "evidence/portraits/native/Sprite/femaleSecCorpo_1.png",
+    "evidence/portraits/native/Sprite/femaleSecOff_0.png",
+    "evidence/portraits/native/Sprite/femaleSecOff_1.png",
+    "evidence/portraits/native/Sprite/femaleUpper_0.png",
+    "evidence/portraits/native/Sprite/femaleUpper_1.png",
+    "evidence/portraits/native/Sprite/femaleUpper_10.png",
+    "evidence/portraits/native/Sprite/femaleUpper_11.png",
+    "evidence/portraits/native/Sprite/femaleUpper_12.png",
+    "evidence/portraits/native/Sprite/femaleUpper_2.png",
+    "evidence/portraits/native/Sprite/femaleUpper_3.png",
+    "evidence/portraits/native/Sprite/femaleUpper_4.png",
+    "evidence/portraits/native/Sprite/femaleUpper_5.png",
+    "evidence/portraits/native/Sprite/femaleUpper_6.png",
+    "evidence/portraits/native/Sprite/femaleUpper_7.png",
+    "evidence/portraits/native/Sprite/femaleUpper_8.png",
+    "evidence/portraits/native/Sprite/femaleUpper_9.png",
+    "evidence/portraits/native/Sprite/jackson.png",
+    "evidence/portraits/native/Sprite/JACKSON1.png",
+    "evidence/portraits/native/Sprite/JACKSON2.png",
+    "evidence/portraits/native/Sprite/maleBM_0.png",
+    "evidence/portraits/native/Sprite/maleBM_1.png",
+    "evidence/portraits/native/Sprite/maleBM_2.png",
+    "evidence/portraits/native/Sprite/maleBM_3.png",
+    "evidence/portraits/native/Sprite/maleBM_4.png",
+    "evidence/portraits/native/Sprite/maleBM_5.png",
+    "evidence/portraits/native/Sprite/maleChef_0.png",
+    "evidence/portraits/native/Sprite/maleChef_1.png",
+    "evidence/portraits/native/Sprite/maleChef_2.png",
+    "evidence/portraits/native/Sprite/maleEng_0.png",
+    "evidence/portraits/native/Sprite/maleEng_1.png",
+    "evidence/portraits/native/Sprite/maleEng_2.png",
+    "evidence/portraits/native/Sprite/maleEng_3.png",
+    "evidence/portraits/native/Sprite/maleEng_4.png",
+    "evidence/portraits/native/Sprite/maleEng_5.png",
+    "evidence/portraits/native/Sprite/maleFarmer_0.png",
+    "evidence/portraits/native/Sprite/maleFarmer_1.png",
+    "evidence/portraits/native/Sprite/maleFarmer_2.png",
+    "evidence/portraits/native/Sprite/maleFarmer_3.png",
+    "evidence/portraits/native/Sprite/maleLower_0.png",
+    "evidence/portraits/native/Sprite/maleLower_1.png",
+    "evidence/portraits/native/Sprite/maleLower_10.png",
+    "evidence/portraits/native/Sprite/maleLower_2.png",
+    "evidence/portraits/native/Sprite/maleLower_3.png",
+    "evidence/portraits/native/Sprite/maleLower_4.png",
+    "evidence/portraits/native/Sprite/maleLower_5.png",
+    "evidence/portraits/native/Sprite/maleLower_6.png",
+    "evidence/portraits/native/Sprite/maleLower_7.png",
+    "evidence/portraits/native/Sprite/maleLower_8.png",
+    "evidence/portraits/native/Sprite/maleLower_9.png",
+    "evidence/portraits/native/Sprite/maleMed_0.png",
+    "evidence/portraits/native/Sprite/maleMed_1.png",
+    "evidence/portraits/native/Sprite/maleMerc_0.png",
+    "evidence/portraits/native/Sprite/maleMerc_1.png",
+    "evidence/portraits/native/Sprite/maleMerc_2.png",
+    "evidence/portraits/native/Sprite/maleMerc_3.png",
+    "evidence/portraits/native/Sprite/maleRev_0.png",
+    "evidence/portraits/native/Sprite/maleRev_1.png",
+    "evidence/portraits/native/Sprite/maleRev_2.png",
+    "evidence/portraits/native/Sprite/maleRev_3.png",
+    "evidence/portraits/native/Sprite/maleScav1.png",
+    "evidence/portraits/native/Sprite/maleScav10.png",
+    "evidence/portraits/native/Sprite/maleScav11.png",
+    "evidence/portraits/native/Sprite/maleScav2.png",
+    "evidence/portraits/native/Sprite/maleScav3.png",
+    "evidence/portraits/native/Sprite/maleScav4.png",
+    "evidence/portraits/native/Sprite/maleScav5.png",
+    "evidence/portraits/native/Sprite/maleScav6.png",
+    "evidence/portraits/native/Sprite/maleScav7.png",
+    "evidence/portraits/native/Sprite/maleScav8.png",
+    "evidence/portraits/native/Sprite/maleScav9.png",
+    "evidence/portraits/native/Sprite/maleSci_0.png",
+    "evidence/portraits/native/Sprite/maleSci_1.png",
+    "evidence/portraits/native/Sprite/maleSec_0.png",
+    "evidence/portraits/native/Sprite/maleSec_1.png",
+    "evidence/portraits/native/Sprite/maleSec_2.png",
+    "evidence/portraits/native/Sprite/maleSec_3.png",
+    "evidence/portraits/native/Sprite/maleSec_4.png",
+    "evidence/portraits/native/Sprite/maleSec_5.png",
+    "evidence/portraits/native/Sprite/maleSecCorpo_0.png",
+    "evidence/portraits/native/Sprite/maleSecCorpo_1.png",
+    "evidence/portraits/native/Sprite/maleSecOff_0.png",
+    "evidence/portraits/native/Sprite/maleSecOff_1.png",
+    "evidence/portraits/native/Sprite/maleSecOff_2.png",
+    "evidence/portraits/native/Sprite/maleUpper_0.png",
+    "evidence/portraits/native/Sprite/maleUpper_1.png",
+    "evidence/portraits/native/Sprite/maleUpper_2.png",
+    "evidence/portraits/native/Sprite/maleUpper_3.png",
+    "evidence/portraits/native/Sprite/maleUpper_4.png",
+    "evidence/portraits/native/Sprite/maleUpper_5.png",
+    "evidence/portraits/native/Sprite/maleUpper_6.png",
+    "evidence/portraits/native/Sprite/maleUpper_7.png",
+    "evidence/portraits/native/Sprite/maleUpper_8.png",
+    "evidence/portraits/native/Sprite/mentor_contract.png",
+    "evidence/portraits/native/Sprite/Mentor.png",
+    "evidence/portraits/native/Sprite/mentors_notes.png",
+    "evidence/portraits/native/Sprite/odin.png",
+    "evidence/portraits/native/Sprite/scavFemale_0.png",
+    "evidence/portraits/native/Sprite/scavFemale_1.png",
+    "evidence/portraits/native/Sprite/scavFemale_10.png",
+    "evidence/portraits/native/Sprite/scavFemale_11.png",
+    "evidence/portraits/native/Sprite/scavFemale_12.png",
+    "evidence/portraits/native/Sprite/scavFemale_13.png",
+    "evidence/portraits/native/Sprite/scavFemale_2.png",
+    "evidence/portraits/native/Sprite/scavFemale_3.png",
+    "evidence/portraits/native/Sprite/scavFemale_4.png",
+    "evidence/portraits/native/Sprite/scavFemale_5.png",
+    "evidence/portraits/native/Sprite/scavFemale_6.png",
+    "evidence/portraits/native/Sprite/scavFemale_7.png",
+    "evidence/portraits/native/Sprite/scavFemale_8.png",
+    "evidence/portraits/native/Sprite/scavFemale_9.png",
+    "evidence/portraits/native/Sprite/scavMale_0.png",
+    "evidence/portraits/native/Sprite/scavMale_1.png",
+    "evidence/portraits/portrait-loader-source.txt",
+    "evidence/portraits/portrait-metrics.csv",
+    "evidence/portraits/portrait-metrics.json",
+    "evidence/portraits/portraits-native-sheet.png",
+    "evidence/portraits/provenance.json",
+    "evidence/portraits/README.md",
+    "evidence/portraits/selected/femaleEng_0__1003.png",
+    "evidence/portraits/selected/femaleLower_0__1142.png",
+    "evidence/portraits/selected/femaleLower_0__1805.png",
+    "evidence/portraits/selected/femaleMed_0__1755.png",
+    "evidence/portraits/selected/femaleSci_0__1781.png",
+    "evidence/portraits/selected/femaleUpper_1__1053.png",
+    "evidence/portraits/selected/femaleUpper_1__1060.png",
+    "evidence/portraits/selected/jackson__1631.png",
+    "evidence/portraits/selected/maleLower_0__1038.png",
+    "evidence/portraits/selected/maleLower_0__1771.png",
+    "evidence/portraits/selected/maleSecOff_0__1083.png",
+    "evidence/portraits/selected/maleUpper_0__1037.png",
+    "evidence/portraits/selected/maleUpper_0__1133.png",
+    "evidence/portraits/selected/manifest.json",
+    "evidence/portraits/selected/Mentor__1282.png",
+    "evidence/portraits/selected/odin__1570.png",
+    "evidence/provenance.json",
+    "evidence/README.md",
+    "evidence/scaling-phase-comparison.png",
+    "evidence/scaling-phase-results.json",
+    "evidence/scaling-source.png",
+    "evidence/sprite-metrics.csv",
+    "evidence/sprite-metrics.json",
+    "evidence/style-machines.png",
+    "evidence/style-small.png",
+    "evidence/style-state-diffs.json",
+    "PORTRAITS.md",
+    "REFERENCE.md",
+    "SCALING.md",
+    "STYLE-REFERENCE.md",
+    "TASK-TEMPLATE.md",
+    "tools/Analyze-Envoy.ps1",
+    "tools/Analyze-Portraits.ps1",
+    "tools/Analyze-Sprites.ps1",
+    "tools/Build-StyleSheets.ps1",
+    "tools/ExportPortraits/ExportPortraits.csproj",
+    "tools/ExportPortraits/Program.cs",
+    "tools/InspectGame/InspectGame.csproj",
+    "tools/InspectGame/Program.cs",
+    "tools/Measure-Scaling.ps1"
+  ],
+  "PngFiles": [
+    {
+      "Path": "evidence/native-contact-sheet.png",
+      "Bytes": 72767,
+      "SHA256": "2B4BF1A91F22D4EFBB9F4A9DE06364D768AAA959D8851365B5EB70D4D995F87A"
+    },
+    {
+      "Path": "evidence/native/Sprite/animal_cage.png",
+      "Bytes": 977,
+      "SHA256": "06A67148602B0603B4603F1CEA2BA3C71BED884394D9182776E5C54889C4BBC4"
+    },
+    {
+      "Path": "evidence/native/Sprite/AQUACULTURE_II.png",
+      "Bytes": 629,
+      "SHA256": "2D7D9B0C3929E68048342A38B74CA610C5646FB5833D3E23E3976200546980A1"
+    },
+    {
+      "Path": "evidence/native/Sprite/AQUACULTURE.png",
+      "Bytes": 498,
+      "SHA256": "C80267C944CB3B2518CCAA6F778346CE60D7C9B6C49C135D077CF11A8F4C76AD"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_bar.png",
+      "Bytes": 108,
+      "SHA256": "3DA93FFF349406CF32312D6DE68AA4DB0D806971CBB49A10177EF488EF3D9D9E"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_dis0.png",
+      "Bytes": 379,
+      "SHA256": "C74A54118F20134762CDD9DDD8D42C123DD458FD2CE63D461B3BE4883DCD78F6"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_dis10.png",
+      "Bytes": 387,
+      "SHA256": "58A9DAEB11BB6F7776D0926303147DCCD574A0E72A8F9E239CEEF282913A4F3D"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_dis100.png",
+      "Bytes": 388,
+      "SHA256": "10384D2F9556621DB41A11A0E2B2C3F63BFF5202DB66B6A2ED873B4D916D7B24"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_dis20.png",
+      "Bytes": 388,
+      "SHA256": "67806274093F314185A8353F40961157A36EA32E20FD46D49031F9522F43E521"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_dis40.png",
+      "Bytes": 402,
+      "SHA256": "28EE6E6778951A87E4772B38FFA184EA2A44A678DD93666A8AB0269BEFA0F889"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_dis60.png",
+      "Bytes": 403,
+      "SHA256": "FCE9748BBD2DCA88F748FFFFBBDD9286E320758411B6488F9E997C9C6C55D61B"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_dis80.png",
+      "Bytes": 392,
+      "SHA256": "D1CC655756FD08A04E6D3E453ADDA0CCF918EC22C455479BE326954D222F1AFE"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_ext0.png",
+      "Bytes": 385,
+      "SHA256": "A286C91ED6DAC5EB6080CBC859D6A347406B9CFB3AEDAADED33B68FD81CE464E"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_ext10.png",
+      "Bytes": 393,
+      "SHA256": "E28CF2145AC0912566863AB3F8481093B208C2FBD337EC8D5F05FFA72A2DF81B"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_ext100.png",
+      "Bytes": 391,
+      "SHA256": "90C00513CDE96C3C3B89FEC5D38EA6CE69B979516B06D4E27DF440A20C5D4186"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_ext20.png",
+      "Bytes": 397,
+      "SHA256": "C05A7EC12A8BFD82308B324C90CAC42689C77C3441BB9DF31912BF90CDBB9D56"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_ext40.png",
+      "Bytes": 417,
+      "SHA256": "17710CA57A27EBB46B308EC640B028186BB0887E0A565796F71077A32D34E0A9"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_ext60.png",
+      "Bytes": 415,
+      "SHA256": "5E343AB38852C1DD7EE45E7F6FBD129FF0FE8698007CD1340CB928FF087A0F98"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_ext80.png",
+      "Bytes": 406,
+      "SHA256": "C15CC8522F00E9873018C26E1EFE30F708141BBDB071518A3CC2D768018A5C95"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery_hyp.png",
+      "Bytes": 469,
+      "SHA256": "203DAEE7BA1375106D6873B85F6F933A8916078FD7A6779477A0B8D76E466F2A"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery0.png",
+      "Bytes": 349,
+      "SHA256": "1F58C28C1CBB1FA8E68DE4E8F7066B08494D05C62EB6DEB702C7141A87FAC2D4"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery10.png",
+      "Bytes": 363,
+      "SHA256": "78ABCFA53BD1436E9B1E74F81A826ABEBA5F19E9922380EE9FE0AC0826CE9B63"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery100.png",
+      "Bytes": 358,
+      "SHA256": "8975026040732A330ADA4CCF14C7575FAB8305972092FB9020335180A8377FDE"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery20.png",
+      "Bytes": 367,
+      "SHA256": "A7A1A597785FE041D349BABF9FC25BAB7481C6F340BEA64877C06B7CE6336EDD"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery40.png",
+      "Bytes": 369,
+      "SHA256": "F5F3F922E63BB21355CF3B7804CDC03C3E7FAEE6812D6D43557886D272FA148A"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery60.png",
+      "Bytes": 374,
+      "SHA256": "DFD4B6A406213BA581D22217E32B67002D1578716C94FB618CEE1C9AC3F3E093"
+    },
+    {
+      "Path": "evidence/native/Sprite/battery80.png",
+      "Bytes": 369,
+      "SHA256": "197C82A5F1A59F907BCBE7DB16C9FC66BF178EE0DA5272DDA5AC744C5A946914"
+    },
+    {
+      "Path": "evidence/native/Sprite/bicarsole_pill_bottle.png",
+      "Bytes": 107,
+      "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+    },
+    {
+      "Path": "evidence/native/Sprite/black_bottle.png",
+      "Bytes": 372,
+      "SHA256": "F87ADBFAFB77C30708850564F8ABADA5F1799F6E3C52CA77164EDBEF88490F08"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle_item.png",
+      "Bytes": 557,
+      "SHA256": "FD94EE13328ECBA08C86497045E37865A58BFEF23F54402839FB2DE049D34E91"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle_printer.png",
+      "Bytes": 786,
+      "SHA256": "6CC476CA04918A864556E7B4E2FBF7167D3B42258F651F4DD26CAEC291726355"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle_view.png",
+      "Bytes": 561,
+      "SHA256": "58A4C4F1647EE4E2B951530F3C15D87D10BC9B70DAA01C43E1EDDFB7BC947EBA"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle0.png",
+      "Bytes": 592,
+      "SHA256": "6CCF0947B98077AE38E2ECA5BB2BE8A313214D63E660FE6AACCFA80D9CFA0B48"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle1.png",
+      "Bytes": 624,
+      "SHA256": "C5D767262A74D0C4320F4FD7EF8C7E60FE877C6BA50EE3B7D6059CAFBF72A9BC"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle2.png",
+      "Bytes": 465,
+      "SHA256": "DEDA6627D791AB386781AD45AD35F1780B787E667625E7919730AA39F46F07A4"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle3.png",
+      "Bytes": 651,
+      "SHA256": "5CBDD50621966C8CE4272EAD2F9627F80F54A544A878D1C47CF52CD3A37823EF"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle4.png",
+      "Bytes": 656,
+      "SHA256": "C7F941B005278DCAF867BC356EE36975246C15CC2E63F2856D29CFFAB2B628D4"
+    },
+    {
+      "Path": "evidence/native/Sprite/bottle5.png",
+      "Bytes": 658,
+      "SHA256": "40EC674F643F06CB23BE4704E8EFFD3F41EE173898B0B65CC156D24EF235AA51"
+    },
+    {
+      "Path": "evidence/native/Sprite/broken_furnace_.png",
+      "Bytes": 153,
+      "SHA256": "C452C289CB5267725041522575A473D7EF0CA05D81441B5F3442ADDACBE8E184"
+    },
+    {
+      "Path": "evidence/native/Sprite/broken_furnace.png",
+      "Bytes": 153,
+      "SHA256": "C452C289CB5267725041522575A473D7EF0CA05D81441B5F3442ADDACBE8E184"
+    },
+    {
+      "Path": "evidence/native/Sprite/cigarette_color_guide.png",
+      "Bytes": 187,
+      "SHA256": "B92AF652217CF268EA96900AA2A924432FEA2F450806909074D0B30F4FF5D109"
+    },
+    {
+      "Path": "evidence/native/Sprite/empty_beer_bottle.png",
+      "Bytes": 698,
+      "SHA256": "45621A6AE0725217C59132CDF73889DA52D695C447199F9FD89B1523EC4ED775"
+    },
+    {
+      "Path": "evidence/native/Sprite/fixalin_pill_bottle.png",
+      "Bytes": 107,
+      "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+    },
+    {
+      "Path": "evidence/native/Sprite/furnace_on.png",
+      "Bytes": 847,
+      "SHA256": "1D6C46F45C9483994090CE6B5A4BCC5071A602F7C8B76EED8147119B3CBD81C5"
+    },
+    {
+      "Path": "evidence/native/Sprite/furnace.png",
+      "Bytes": 821,
+      "SHA256": "6BC3B29AA491DBDDF760324BD2FB828868B7C92D07D8087F8D9F611E6120055B"
+    },
+    {
+      "Path": "evidence/native/Sprite/gibber.png",
+      "Bytes": 1154,
+      "SHA256": "57E360270F5419A4F083721813B576EB8246B7696789A41485550779C2458AF5"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_background.png",
+      "Bytes": 124,
+      "SHA256": "0C738ABC25E77673ADAC11C48E36C36400F5575DF6F4B1E75A0809F23CD4706F"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_black.png",
+      "Bytes": 412,
+      "SHA256": "73EC0D0BDAA2408147B4281A651F4904B003B646E96D227496C98A426F2D5463"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_blood_red.png",
+      "Bytes": 124,
+      "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_blue.png",
+      "Bytes": 124,
+      "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_green.png",
+      "Bytes": 412,
+      "SHA256": "457C4F23606049CDB5408745ACE946D1655BA3577A4E0CD1130BDEC8841FFC5C"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_pink_alt.png",
+      "Bytes": 520,
+      "SHA256": "3D9A9AE76C7DFF3E8B7AA6A486CFCBE0FC47684049047808F92FFECABA13C5FB"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_pink.png",
+      "Bytes": 406,
+      "SHA256": "C7096DFFF3FFFA31F5034EF5B5828C6D7529368B1292BD6C12C85E0DCF4EB423"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_pouch.png",
+      "Bytes": 128,
+      "SHA256": "AF372D5F36CC5E196EED5451D5B760F33D88CDCAD121D38BED4903AB11481A23"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_pure_white_s.png",
+      "Bytes": 383,
+      "SHA256": "2C93498E239CAC1D11E32F78186177E0482C2E68B79B06B81D3480DDA0811AA3"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_pure_white.png",
+      "Bytes": 124,
+      "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_purple_large.png",
+      "Bytes": 523,
+      "SHA256": "4D6C59013576610876FF04760FB1FA1B2923099312E239EACE18B499AF6FF74B"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_purple.png",
+      "Bytes": 124,
+      "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_red.png",
+      "Bytes": 124,
+      "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_turquoise.png",
+      "Bytes": 124,
+      "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+    },
+    {
+      "Path": "evidence/native/Sprite/injector_white.png",
+      "Bytes": 124,
+      "SHA256": "96EBE0433E1AA81DE57920F48B9990F52F5177BDF6DA6F6C19D8420CFA794382"
+    },
+    {
+      "Path": "evidence/native/Sprite/large_water_bottle_full.png",
+      "Bytes": 138,
+      "SHA256": "9FA41B5848BE66E80E3A0232297C3595824872339512D668B1E86939F14AD501"
+    },
+    {
+      "Path": "evidence/native/Sprite/liquid_luck_bottle.png",
+      "Bytes": 469,
+      "SHA256": "A67F1E0CA62CEF5166BD89BCFD45E9152FF5445FE013584D50BC4C998D76612A"
+    },
+    {
+      "Path": "evidence/native/Sprite/magnum_revolver.png",
+      "Bytes": 144,
+      "SHA256": "A738632700422902E7E50A746F7615C8F82C2E58C27A3938841CA2D530E68FCC"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_large1.png",
+      "Bytes": 745,
+      "SHA256": "628BD4999BE4E4432A1AAE8402248AED84DE0EA550544D4DAA247F0EB9400BD8"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_large2.png",
+      "Bytes": 745,
+      "SHA256": "BAB83F4F48C04F28276918B7341FAFBD7DAC21ED3106EABD6E991AE0D3C9DA2D"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_large3.png",
+      "Bytes": 729,
+      "SHA256": "2F9A90F3B53923DCCFB39DF251974165C54C46E92C3FB0195B3D9EACE7FBB1E3"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_large4.png",
+      "Bytes": 730,
+      "SHA256": "49936D9F11C1540DD4141887998F4263E5413724CCB443153E11FB4535340901"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_small1.png",
+      "Bytes": 491,
+      "SHA256": "9EB94AC45B421FF8801CA17D2C6E26F16DC344C915E52A4ECCDF674DEED68C70"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_small2.png",
+      "Bytes": 497,
+      "SHA256": "5EC0FD7988327899E689EF3528CBC3CA82E6E2E95A461D110AB45A1FDDA550ED"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_small3.png",
+      "Bytes": 494,
+      "SHA256": "5CD736BFBB3FD19995B23F11D8DAB88AB602057A78DC7139E13455C5204F62D0"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_small4.png",
+      "Bytes": 493,
+      "SHA256": "D1097DC2F639E530C96EB6C0E03F36068F4F951601AC0C295BD767D2446256A6"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_tiny1.png",
+      "Bytes": 363,
+      "SHA256": "35E2FDB5A2D1310389B7C369D338FB326D832DD646CB5C679D2D437F0613BA98"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_tiny2.png",
+      "Bytes": 354,
+      "SHA256": "24B21424AE825EAF3F1DBA9F3F1AC3FFF1D9BC8B6096AA603E7E27B8E6E91F9C"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_tiny3.png",
+      "Bytes": 357,
+      "SHA256": "7313844BE177BF4F51928ECE1DD3E53B38C693264DE6DA2EE2F86445D8F35C83"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish_tiny4.png",
+      "Bytes": 355,
+      "SHA256": "AD0560FE1D509AA0C4820977A051E2C37679924A7A4347F2D0F567B174521FA7"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish1.png",
+      "Bytes": 587,
+      "SHA256": "6B9FF414FC5E3B80C2C0DB9C97F5B53E9429BA6E0EC630393ECF21F1F31516C6"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish2.png",
+      "Bytes": 591,
+      "SHA256": "415874BE1B9D67E26D0822EF0591996E6897EAF8583D8F89E6E00E8A88D733A4"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish3.png",
+      "Bytes": 582,
+      "SHA256": "D96C95418303E020ACCEC6BD31B6CF11870631F5CD1D4B6B9B017296F911BE85"
+    },
+    {
+      "Path": "evidence/native/Sprite/meat_fish4.png",
+      "Bytes": 592,
+      "SHA256": "1D7B29C0A9C65EF4235D5EB8DDED01B2DD7A1746CA43A53E4F88BA379F891852"
+    },
+    {
+      "Path": "evidence/native/Sprite/med_bottle_blue.png",
+      "Bytes": 429,
+      "SHA256": "8D1C6153F9AEC2251FBC1A04B38D77B45038D4DE09F55F710C8BA07F14BAC938"
+    },
+    {
+      "Path": "evidence/native/Sprite/med_bottle_orange.png",
+      "Bytes": 382,
+      "SHA256": "858A2088856984511F34EBC1A8DE2D6C6107682E5C1BB4A05BA4A80F8414C9F6"
+    },
+    {
+      "Path": "evidence/native/Sprite/med_bottle_red.png",
+      "Bytes": 435,
+      "SHA256": "8C348EFEB490E0E8867E3314D328DD3FA195C5E9C08597A0FB7FBE522121FA3A"
+    },
+    {
+      "Path": "evidence/native/Sprite/med_bottle_small_pink.png",
+      "Bytes": 362,
+      "SHA256": "DE2B565F13BFBA0ECDD5BAED0351F0B08E448B3183AE24BB6461A379A372E366"
+    },
+    {
+      "Path": "evidence/native/Sprite/med_bottle_violet.png",
+      "Bytes": 445,
+      "SHA256": "FA01D4A3FB12747609711E2FC21C2A859F481EF0C568EFF61B0010C7D9909DC5"
+    },
+    {
+      "Path": "evidence/native/Sprite/ocutol_pill_bottle.png",
+      "Bytes": 107,
+      "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+    },
+    {
+      "Path": "evidence/native/Sprite/oxycodone_pill_bottle.png",
+      "Bytes": 107,
+      "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+    },
+    {
+      "Path": "evidence/native/Sprite/pill_bottle.png",
+      "Bytes": 107,
+      "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+    },
+    {
+      "Path": "evidence/native/Sprite/pillbottle1.png",
+      "Bytes": 107,
+      "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+    },
+    {
+      "Path": "evidence/native/Sprite/pillbottle2.png",
+      "Bytes": 107,
+      "SHA256": "574F1C4912D556EF55F950256D531EA9C08856293F54B1DEE21B62809E69818E"
+    },
+    {
+      "Path": "evidence/native/Sprite/portable_water_purifier.png",
+      "Bytes": 630,
+      "SHA256": "CF210231792F96FAF5660A852FB133D9F489081BA3CFC7B56B43031542D4D3CE"
+    },
+    {
+      "Path": "evidence/native/Sprite/pouch_injector_large.png",
+      "Bytes": 150,
+      "SHA256": "41DD77095D90967071A89E11019548ED76155420B018D7EF96DCDD11F1695BB2"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_l_f_d.png",
+      "Bytes": 520,
+      "SHA256": "4A6A1CA5647FC7F2EC05F232948221DF8B653175B66C827E6FAA2FBB0B89D67C"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_l_f.png",
+      "Bytes": 473,
+      "SHA256": "4BCB5F6725803E84407CA4598C37F2550F4D36A3C43D06FDDA546F453043B697"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_l_m_d.png",
+      "Bytes": 508,
+      "SHA256": "94C2BF92703FA6AB8DC82C4F421FFC1C7D6C79CDB794381C7BE79CB4964F8BED"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_l_m.png",
+      "Bytes": 469,
+      "SHA256": "787E74430702F3FC85544258656FF013C480024035A500A2E28BED9DBA6B383A"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_m_f_d.png",
+      "Bytes": 451,
+      "SHA256": "006E8A52CA07322F456FC27A45AE2D162E505E048DCDC5D1BB09F1EE4A336063"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_m_f.png",
+      "Bytes": 451,
+      "SHA256": "EF07B0E2DA3B5C8821D8DED5A5388F4E48B5CB4A69A9889F25382A82A13A6F60"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_m_m_d.png",
+      "Bytes": 435,
+      "SHA256": "9186BFA93B39B156E332D9379929672C1C345592C1E4E3C6E201493DD5C29000"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_m_m.png",
+      "Bytes": 447,
+      "SHA256": "CFBBB9F265E9ACB9D56EBA4A6505D5434B670A28BBED350F4577F0605D43B022"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_s_f_d.png",
+      "Bytes": 365,
+      "SHA256": "4EC316DCA686B5CAAA07D5FB2B417E774F5DDD80D8D3E524669CBA8797626D9F"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_s_f.png",
+      "Bytes": 373,
+      "SHA256": "8B82033E9D09E0F61AFDB89C6006B83FA19B8502A2740F9E16D6277DF90A8769"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_s_m_d.png",
+      "Bytes": 334,
+      "SHA256": "3EE5042CE30037484E8BCC46E6432C88CFEAD6A7AC7EA5661212447DB1CF94E5"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_s_m.png",
+      "Bytes": 358,
+      "SHA256": "B71AF941C6DF898299D2649D518BB58D03B2BA09DF0E9377AE5963FDF59248FD"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xl_f_d.png",
+      "Bytes": 649,
+      "SHA256": "5272C358DF8A0B4B2EDC32CCDD5479CBC114A76BF2974F63D5809F7DD700000E"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xl_f.png",
+      "Bytes": 611,
+      "SHA256": "3B0E3BC5FC54AA4EC2332F1D7C65762C8392E70A79A259D90897941F8245DFCB"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xl_m_d.png",
+      "Bytes": 640,
+      "SHA256": "E8165DB30618AF1D541177C9EEF4DE070C283B0561C7D88535FE62D34DD27C31"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xl_m.png",
+      "Bytes": 610,
+      "SHA256": "DD22921A249DFF349D1EB44E7EC1ACD69C5B2A93645C2ACE2DA7F031D0BD0BCC"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xxl_f_d.png",
+      "Bytes": 839,
+      "SHA256": "74D5D3ACB862AC8029A46645630ABBA54BF3464D8250DCBB5A46BA842BC3C506"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xxl_f.png",
+      "Bytes": 728,
+      "SHA256": "047B71820CADE16B840C52FF4F020013AB1262EA3F1F21978135F396DD08432F"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xxl_m_d.png",
+      "Bytes": 811,
+      "SHA256": "A3EB835DE3C0E26C3B51D25B698B6055F297BF386511C9E54EB9453824D761FE"
+    },
+    {
+      "Path": "evidence/native/Sprite/rat_xxl_m.png",
+      "Bytes": 725,
+      "SHA256": "0667C155FB5BF2422F726A22442CDC95F81FDAF5803863C46EE4AD5F5E5469B1"
+    },
+    {
+      "Path": "evidence/native/Sprite/revolver_long.png",
+      "Bytes": 207,
+      "SHA256": "49C7F0033ADD89A0AF6789EB8218D770D42D207F9AE6E24187F3A7D86D7DD691"
+    },
+    {
+      "Path": "evidence/native/Sprite/revolver_short_tac.png",
+      "Bytes": 202,
+      "SHA256": "7461BBB102035D574D1152A7D83C647F63631FAB34A312BC7ED28E6679A2C648"
+    },
+    {
+      "Path": "evidence/native/Sprite/revolver_short.png",
+      "Bytes": 163,
+      "SHA256": "11669C10BBE8FA52803C810D9925A448348D56282941D28E5744E06F7D39C433"
+    },
+    {
+      "Path": "evidence/native/Sprite/revolver.png",
+      "Bytes": 174,
+      "SHA256": "A4267F5E6276B4451156B88FB60976A47FB7CA27635DDE1091C3222C8876B2F9"
+    },
+    {
+      "Path": "evidence/native/Sprite/sbattery0.png",
+      "Bytes": 397,
+      "SHA256": "1D193FA3FAAD7AF1F9A1F3E00499B4369ECC36E983634E20B2CA879F4D6FE999"
+    },
+    {
+      "Path": "evidence/native/Sprite/sbattery10.png",
+      "Bytes": 418,
+      "SHA256": "AB85AD96ECD5E4C124A9ADAFDF08C82A389DB9EF67742EE2A6D9867E554BAF38"
+    },
+    {
+      "Path": "evidence/native/Sprite/sbattery100.png",
+      "Bytes": 416,
+      "SHA256": "A275582F650CAE8DA01492303D9247EA591C559F695416178F6AC9D310290D2B"
+    },
+    {
+      "Path": "evidence/native/Sprite/sbattery20.png",
+      "Bytes": 423,
+      "SHA256": "BD1E7A76896B1A947AB6199325A4008C1492BB3EDD69444227F84D67F55DC868"
+    },
+    {
+      "Path": "evidence/native/Sprite/sbattery40.png",
+      "Bytes": 424,
+      "SHA256": "58CF168E5A4457C704B11C9951303F126608BEAC062FDCB978E4181FE605E9FA"
+    },
+    {
+      "Path": "evidence/native/Sprite/sbattery60.png",
+      "Bytes": 419,
+      "SHA256": "9C64E155B0AC71F63903B33D2B81DE996F5B0670A2336FD1A68F89B6765AD7A8"
+    },
+    {
+      "Path": "evidence/native/Sprite/sbattery80.png",
+      "Bytes": 406,
+      "SHA256": "207D131B7F402225E9CFD3E4EEBFC6E68E187E32039E2D12FB4B4015D283C9FC"
+    },
+    {
+      "Path": "evidence/native/Sprite/small_water_bottle_full.png",
+      "Bytes": 120,
+      "SHA256": "28C6C2EEC151934122ABEEE935F34781E59FD9CF1E18DBCAEDD728CF9D4DEACC"
+    },
+    {
+      "Path": "evidence/native/Sprite/small_water_bottle.png",
+      "Bytes": 120,
+      "SHA256": "28C6C2EEC151934122ABEEE935F34781E59FD9CF1E18DBCAEDD728CF9D4DEACC"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia_large1.png",
+      "Bytes": 984,
+      "SHA256": "178F5EAD99C749D7CEDE207AE0E00D9401C5E8CB43974F98B7EF92975FD241B2"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia_large2.png",
+      "Bytes": 985,
+      "SHA256": "4D38DDA5924A6305BFB620621B67164E6A02DC2CF1ACEFBE0FAA26F4EC33EFEF"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia_large3.png",
+      "Bytes": 988,
+      "SHA256": "4691DD5D4B772D09F2A89F1C32E21BF026645393005D1EDC09D93BF3525B7463"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia_small1.png",
+      "Bytes": 545,
+      "SHA256": "FBEDA6109186D4DF21C964A088891C69710B853502D1224A12103E75A6DE3E59"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia_small2.png",
+      "Bytes": 548,
+      "SHA256": "A5C89CFC5EAC71F326A195279E329D0852443D635F7F970DFFC0CACC97FA0DAB"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia_small3.png",
+      "Bytes": 564,
+      "SHA256": "07011B07720CFE7389D731AE2578E8B7048EF220AB8D2382B5DA7AEC792CEDB4"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia1.png",
+      "Bytes": 784,
+      "SHA256": "712C20690C7A414C64A582DF6BF11B5D0A75357D7E96B3F477B8690A470D61CC"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia2.png",
+      "Bytes": 783,
+      "SHA256": "1E66E9FF3705D20A61E6F5F38C008EEC4530ACF9A370B6AA3F8C2E56C0FC61F3"
+    },
+    {
+      "Path": "evidence/native/Sprite/tilapia3.png",
+      "Bytes": 799,
+      "SHA256": "11EAE335D79E8AFC89A2FEFB1CE6736E090C386933FEEC390C13C228685E53BC"
+    },
+    {
+      "Path": "evidence/native/Sprite/water_bottle_full_premium.png",
+      "Bytes": 773,
+      "SHA256": "5D800D7C03E09FA04F7921781A5D0141E815291F36DBDADB3B9C97213FEE3960"
+    },
+    {
+      "Path": "evidence/native/Sprite/water_bottle_full.png",
+      "Bytes": 124,
+      "SHA256": "0C738ABC25E77673ADAC11C48E36C36400F5575DF6F4B1E75A0809F23CD4706F"
+    },
+    {
+      "Path": "evidence/native/Sprite/water_bottle.png",
+      "Bytes": 124,
+      "SHA256": "0C738ABC25E77673ADAC11C48E36C36400F5575DF6F4B1E75A0809F23CD4706F"
+    },
+    {
+      "Path": "evidence/native/Sprite/wine_bottle.png",
+      "Bytes": 608,
+      "SHA256": "7C3BB4FD0A5AACCBCFA98F0350D4BE36332ED76C05EF10376150DC6AB79FF8D7"
+    },
+    {
+      "Path": "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_n1x.png",
+      "Bytes": 42192,
+      "SHA256": "805D00F1DFDEEF309992125BF4C5F32A44E4A63D283B5056EA9500981A614F15"
+    },
+    {
+      "Path": "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_n2x.png",
+      "Bytes": 54208,
+      "SHA256": "5115CFED49BF384746ABE25476D0C85A6AF85DDDE468E6B148D0B8CD73E7318A"
+    },
+    {
+      "Path": "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_n3x.png",
+      "Bytes": 66034,
+      "SHA256": "4E159CE827C3BCB0B74E43E248E2B1DD6CEC65ED85C646DCD7AA243CF467697B"
+    },
+    {
+      "Path": "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_s1x.png",
+      "Bytes": 28510,
+      "SHA256": "372AA169EB5FB7240655D0BA30867DAEA15D24514533F2A222A89EA7770F970C"
+    },
+    {
+      "Path": "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_s2x.png",
+      "Bytes": 104569,
+      "SHA256": "476BDBC3E18402286CA2347E03F579450F2F9289FE99E00A3352025922970875"
+    },
+    {
+      "Path": "evidence/portraits/envoy/CorpPresence.portraits.malice_envoy_s3x.png",
+      "Bytes": 205414,
+      "SHA256": "56E49E19B9BEBE611302CD1B93328C57FA04F903BF475326C6972FAD5C7B5263"
+    },
+    {
+      "Path": "evidence/portraits/native-face-details.png",
+      "Bytes": 60612,
+      "SHA256": "87AB620586AE446FEE1FB52B3A3C8F08BD7E3D70CAF1F1DBF3276A0DE34CC688"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/drjackson.png",
+      "Bytes": 73176,
+      "SHA256": "FF8E2D2BA9356AB18C2FE65B29C00EF37139D10EB2AB650495FDDD0F4BDA1E00"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/drjackson2.png",
+      "Bytes": 71968,
+      "SHA256": "523218C5C4CCA838AD9476F0C77351584DBBBCD30EBEA5E4BD300BA7945753B4"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleBM_0.png",
+      "Bytes": 5298,
+      "SHA256": "385120E90EC9B1C422C08E1F3E0C0A0A5BE782453056E5D5C60FEC3657C35B94"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleBM_1.png",
+      "Bytes": 5194,
+      "SHA256": "734C12125128DD09D507EC244514FAC4EE0EB6D92004D633E750123B87AC8423"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleBM_2.png",
+      "Bytes": 4920,
+      "SHA256": "C26408E943351E38C265978D11A08850A243E3C63284ADBC9262E4C721D799ED"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleBM_3.png",
+      "Bytes": 4792,
+      "SHA256": "EB7F9DCFF9EC17D03F4DAD3EE3EFFB2D5BDFEDAED2BB21C5956784CE2B52A7EA"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleBM_4.png",
+      "Bytes": 6902,
+      "SHA256": "2F727DB5EEC9166E5BC04CC2B7327EAC34118729B1DA6C23D0D5F7599F357F1D"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleChef_0.png",
+      "Bytes": 5408,
+      "SHA256": "2B653D7D60B908F6EDA6E2372987AA7B35BBD76B65353F247EC276DC1A4063DC"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleChef_1.png",
+      "Bytes": 4666,
+      "SHA256": "140FCC38DE40F4BBB01BAE9280D79C378A29FD129409FFA8EC92D9D593E248A7"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleEng_0.png",
+      "Bytes": 6763,
+      "SHA256": "13C08138CC76E1CFB6808A266750B1211F9AA0197F0BF6AE2F19ABB3038AF08E"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleEng_1.png",
+      "Bytes": 6678,
+      "SHA256": "9336A65394307270B8D39BEDFB884171B8A5A8BEC120BB7349BDB76D390DE6A6"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleFarmer_0.png",
+      "Bytes": 6554,
+      "SHA256": "FBA36905CF297DDBB2FB295C904B09662CABF0274D0F32409E21AF0681B9FFE9"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleFarmer_1.png",
+      "Bytes": 6992,
+      "SHA256": "C1382DE7A3016F9AEAB29D27A231AC93A4A733A88650973D804D5C375F35A9D2"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_0.png",
+      "Bytes": 7369,
+      "SHA256": "90135FE44542B9298894EC0DF3D76C59DD4C64CAA4D6B8EA8E31E1EDD58A40C2"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_1.png",
+      "Bytes": 7668,
+      "SHA256": "78BA03506B6AFC49A003244BC4CED14C0BB8CD0A6FF3C965E5B99EBFE82FD9DD"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_10.png",
+      "Bytes": 6276,
+      "SHA256": "F582A91861E186E4E3F40C7109E2836F51B411828793402C437DE513C250439B"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_11.png",
+      "Bytes": 6537,
+      "SHA256": "FAAC550CA2630B3F32E3991D934762D313A97BBE8C4C7A02157FAF53AD2C033D"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_12.png",
+      "Bytes": 7371,
+      "SHA256": "C9BB7C3430630C126F8104FE088D2065ABF700BE1AD58741FC2BC85BC2740BBF"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_13.png",
+      "Bytes": 6906,
+      "SHA256": "15B950AD5EA855281E4ACB3219CAE116E3003B673198543F7593F3CB7AB100FF"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_2.png",
+      "Bytes": 6418,
+      "SHA256": "5822A734DDEFC2222F894C8B7297A6111C9256708031453A3D8FF060B014DBD8"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_3.png",
+      "Bytes": 7426,
+      "SHA256": "D7E6F6607991D1846C0B24163935519ED24FBC48EEC6C56EC3BD11BFF77D7592"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_4.png",
+      "Bytes": 7483,
+      "SHA256": "493E6B1CE684B09DAD2B2D4434554A70A067A203800145AE581D97F06A4A1E1A"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_5.png",
+      "Bytes": 6402,
+      "SHA256": "B394AD920B2EA702AA9771F24F6B15A61E8C3C78D34D0281E3ACAE8E429D497E"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_6.png",
+      "Bytes": 7052,
+      "SHA256": "D3C58F672526A59B08D7DAA99C19C759DB48570402D06DA65E8DB9FE898CC4EA"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_7.png",
+      "Bytes": 5751,
+      "SHA256": "4DE66C371D2063DD91CF87BE9B96715EA6B1E429F0C61EE4DC03CB9E036CDC05"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_8.png",
+      "Bytes": 6893,
+      "SHA256": "6019521BCE444AB2E011F19F3BC1795A52097E03A646B3BD02E86CD4BC8AF3E1"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleLower_9.png",
+      "Bytes": 5357,
+      "SHA256": "2F9B29EDECF3043D63B3C35D4075AEC400BE544058758CB0651EBDF24F2D040E"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleMed_0.png",
+      "Bytes": 6458,
+      "SHA256": "F8255466D0A20A4584DEC24C960BA6F4CC2133258A683A4A42A5ECD7F3AE5690"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleMed_1.png",
+      "Bytes": 6155,
+      "SHA256": "B641A5A4E62177542BB16746971211D50CC2693A3D8937609EAEF5959EF46771"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleMerc_0.png",
+      "Bytes": 6273,
+      "SHA256": "9718B6A142533EFBE5E90C5D7E671C13A6B0D80CE781F7A0DCA30B6043CE5AD8"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleMerc_1.png",
+      "Bytes": 5194,
+      "SHA256": "734C12125128DD09D507EC244514FAC4EE0EB6D92004D633E750123B87AC8423"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleMerc_2.png",
+      "Bytes": 7222,
+      "SHA256": "905726F58109E9B25B2B13ED7D26466A4BBF3FC018D0F431C2C19D7644687B1B"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleMerc_3.png",
+      "Bytes": 6010,
+      "SHA256": "9CAA4066CAB8D9CCADF7AF23F8EE32606F2C37226C92104004B4E6208740D090"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleRev_0.png",
+      "Bytes": 6384,
+      "SHA256": "7D2DBB5E889A01E58737BCB3E42D52E7B870A6DFCC130AC23CAAF0588FBCD429"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleRev_1.png",
+      "Bytes": 6496,
+      "SHA256": "B2817BF08162AAE3C9440E29E1B22346269337B0B471B4C891AE387C1BD02CF0"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleRev_2.png",
+      "Bytes": 5975,
+      "SHA256": "4B082038334B071A064882B6E3EAFBDE5B55DDD0254ADB3F6995E59826D4D539"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleRev_3.png",
+      "Bytes": 6743,
+      "SHA256": "F9806208B70942FDC998782CCDF5576FA98BBFED93887629ED0B8306D597E437"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleRev_4.png",
+      "Bytes": 6055,
+      "SHA256": "31AF92E19278AE1AE5FB7E76E9AC8E8A8D810FE7A4BB7530800A25C7BE499C12"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleRev_5.png",
+      "Bytes": 7028,
+      "SHA256": "4580A0AB96F1E28288F06F37F973E06E54A9D1205A2D84806C67EBC690DDA48D"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleRev_6.png",
+      "Bytes": 6660,
+      "SHA256": "7B9C51501B3B502A3349EE255EDE18CF80CA16C4207E09D624144CB11B750DE6"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSci_0.png",
+      "Bytes": 5528,
+      "SHA256": "9FBC6EBF91F9E850A0611519DB0D1B965567D98A9C7BD6BF0ED12D695D4959D9"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSci_1.png",
+      "Bytes": 5748,
+      "SHA256": "8E130335399F5F50E5294F172625DE9D8961A9B7359CF8C93B74BF6464EB46EE"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSec_0.png",
+      "Bytes": 6324,
+      "SHA256": "9C8EC4B5E51EF737A7F1548FB14C4EE534335E7CADCCFBBA1EF406B27705EA36"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSec_1.png",
+      "Bytes": 6255,
+      "SHA256": "00045C856D3EE3634324F047D461C1563179ABFCB5D120753B2196F1D37A4821"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSec_2.png",
+      "Bytes": 6474,
+      "SHA256": "1F17B64E3FB772488AABB230CE9C45AAFB10FA43F68B2102308AD22723C47BCA"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSec_3.png",
+      "Bytes": 6888,
+      "SHA256": "6DA7C432CD87667C9A2F14AF1E076EE884301C18B6A3201816C984F3B8D0C768"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSec_4.png",
+      "Bytes": 6299,
+      "SHA256": "084E93C6AD033D51A596C2C4AAAD1701A845D367405D9521A411FE6568E46F74"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSecCorpo_0.png",
+      "Bytes": 6454,
+      "SHA256": "627AAA61FA4157F73E2464D70FCE4008D504B4CE91EC267C32F7483CC240D76A"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSecCorpo_1.png",
+      "Bytes": 6111,
+      "SHA256": "7EFEF4D619AF7B834216F5A945BF649F4F0D719F7B5E81AE92BEA1766EC16839"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSecOff_0.png",
+      "Bytes": 5780,
+      "SHA256": "C457C4FB934700AEFA80B609EA084EB41E70829563C44371817BA8F6ADEE372B"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleSecOff_1.png",
+      "Bytes": 5892,
+      "SHA256": "DB404A51A28DDB38B65FE4DFF1BED51739B8C49B4E5BD0CFF5A59A04AE8B20C1"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_0.png",
+      "Bytes": 7241,
+      "SHA256": "382AD45A5DA5AF3A99F716F2738AAA4440D99DD760736E5DE1125635DC439B60"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_1.png",
+      "Bytes": 7527,
+      "SHA256": "6FE65403E682FB4DE578DDCD2016DDB3651589F33E25FB7E48E2C1E4167E37F9"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_10.png",
+      "Bytes": 7200,
+      "SHA256": "179936E8F3535EC7BFE0C2BFE4999CF11663CF691B32FB1F6CBEF5B715BF62DE"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_11.png",
+      "Bytes": 5976,
+      "SHA256": "48A0E27D68A24D25531CF94536CA5D7A06BEF44E884FFB01406D2F4EEDED82B7"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_12.png",
+      "Bytes": 7550,
+      "SHA256": "C3F5AFCC1119000E9A74442E148973F1933487B1A36CCF02E20A2DBFFE29EC64"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_2.png",
+      "Bytes": 6422,
+      "SHA256": "B3DEE0CAAF3726F69B1AAA9220F8CD7A247310FE2B4360108B6F0DF98DDBF2FE"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_3.png",
+      "Bytes": 5958,
+      "SHA256": "41EADCE6BA55D53324AB4D0B500EE03FB457A78548748C4231478D42FE9EF078"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_4.png",
+      "Bytes": 5493,
+      "SHA256": "8CB2A6DDE00DE3290BDF6FC7F5277461909879ADAE03D7EAC198959FEFE777BF"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_5.png",
+      "Bytes": 6645,
+      "SHA256": "28665B6D4A8E7C9D8090BEB1A1F85D075707286E3CF01D27A7BBE807892E7D6A"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_6.png",
+      "Bytes": 7588,
+      "SHA256": "D243297AFEF1BCA3C135918C06BC2F6AECD53389899C740DC88F9543A5C75EC4"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_7.png",
+      "Bytes": 5718,
+      "SHA256": "EDDDC96C62121D697D6063E4FE3BFA45ADB0F236943931DBF04F9E5CC5219C70"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_8.png",
+      "Bytes": 7009,
+      "SHA256": "1B22EFEA1ED981BB3C730C5B84AD4F7104D2D43D41FD56B4DFCD2BF24E735B11"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/femaleUpper_9.png",
+      "Bytes": 7996,
+      "SHA256": "FE6B0A792B2670BA7D9551136DD5633C31363EC088EFE1B4C3FCE93521047674"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/jackson.png",
+      "Bytes": 5627,
+      "SHA256": "51833DFC2A1C15CEBDB15383CEC3BFB89C38A5CB390A8CADFD27398B775BE474"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/JACKSON1.png",
+      "Bytes": 586,
+      "SHA256": "5F97DBB82442B576E4907C0A335202B82A2A12328066DA119D77D1F9C0F77607"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/JACKSON2.png",
+      "Bytes": 586,
+      "SHA256": "5F97DBB82442B576E4907C0A335202B82A2A12328066DA119D77D1F9C0F77607"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleBM_0.png",
+      "Bytes": 5750,
+      "SHA256": "39EED36DE5140E1F8BCFA62895B648BC1BF44F1904F400E5082CFD8886ED0A95"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleBM_1.png",
+      "Bytes": 6877,
+      "SHA256": "DE22BD8D4100281752207A0B832DF6C9A36BE836A73A420C2393087036BB0FD4"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleBM_2.png",
+      "Bytes": 6167,
+      "SHA256": "57C2B68384909C95D532DC3195D3ADE24BF1E1933EA3551C3F3ABD15A25A2FA4"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleBM_3.png",
+      "Bytes": 5989,
+      "SHA256": "DD9A38868BBEE9F30FE2B085783D72330D1DB6E19A7361B73FD30E67F73F9DBB"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleBM_4.png",
+      "Bytes": 6367,
+      "SHA256": "9852A41F1A59215910E58D4BAFE9A83CFCF504987AE751189323DF34F4C04DAF"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleBM_5.png",
+      "Bytes": 7699,
+      "SHA256": "21B58A39C624AF11508D0484A4E9F82349A5300ECA2B18EF20D06C15E5874484"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleChef_0.png",
+      "Bytes": 5301,
+      "SHA256": "4D231F59AD70F7C15ABF1C3AD75D034A8FE332105F02B9A2EBDD4E88E18EC851"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleChef_1.png",
+      "Bytes": 5403,
+      "SHA256": "E669F3EB35F421D8DE6A6A902FE59ACCCDAAFAE43A5171F948D3AFB706707766"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleChef_2.png",
+      "Bytes": 5098,
+      "SHA256": "8D2C4FC8A3261789E2D855F29B57BA93336F12102771A0315298D2A7F161F796"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleEng_0.png",
+      "Bytes": 7319,
+      "SHA256": "8824E3562EFC25011876399E7D83CADCE7E997F34148820F9E6193D963D27D63"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleEng_1.png",
+      "Bytes": 6977,
+      "SHA256": "0A7ABF301655B0F418A453D4A34C86EE3C3C6AF48BA4B4D4219F8896EF590005"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleEng_2.png",
+      "Bytes": 7683,
+      "SHA256": "6A83F63597A8D55E06145C0344A1CEB020EA27428C629802CF70A68E254CF789"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleEng_3.png",
+      "Bytes": 6383,
+      "SHA256": "43B323B2739B24AB835F19189B6B2ECC1E7AD3D89D80268A8ECAAF2C501A7C0F"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleEng_4.png",
+      "Bytes": 8301,
+      "SHA256": "2A2815615D8B2A363D28AE3086BAEFE02504B5582D721B766DDAF0DD223C2F5A"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleEng_5.png",
+      "Bytes": 7699,
+      "SHA256": "21B58A39C624AF11508D0484A4E9F82349A5300ECA2B18EF20D06C15E5874484"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleFarmer_0.png",
+      "Bytes": 6919,
+      "SHA256": "9F4D77D1B573D889EA3D80CE470F79B4B158F290ED373B1E3B974A1BECCB8557"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleFarmer_1.png",
+      "Bytes": 6692,
+      "SHA256": "568B83D06ECF476C853568EA03129EC2F6E06774EBA516D57E4533A24D558522"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleFarmer_2.png",
+      "Bytes": 6769,
+      "SHA256": "6F1B6C6F84D18E03A29040A3B93034AA7E45102A02EF1E014D26778BB138DD72"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleFarmer_3.png",
+      "Bytes": 6621,
+      "SHA256": "04B80CFD636346AB4D4EB9B4C43F237E52165B92CAE2815B9FE25F7153A0A132"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_0.png",
+      "Bytes": 7035,
+      "SHA256": "31313066A78C04FEA31009DBC2C9F1942D5BBA0AD4C09D53C37DCE443996632F"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_1.png",
+      "Bytes": 5761,
+      "SHA256": "E99334F220D9893BDF2EFE80F8DCAABFFF3120601FF06C74577B104852EB900F"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_10.png",
+      "Bytes": 7240,
+      "SHA256": "7F09F465BBBF3CCE5A8234AEEF323FE0DCA14B2C22436EED4801F6184B4828EF"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_2.png",
+      "Bytes": 5211,
+      "SHA256": "E74B3BFF1CCE2BF525B52AD0ABAC3A59923977FCB1D1B02C7516807CD54029E5"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_3.png",
+      "Bytes": 5135,
+      "SHA256": "8AB6C4D6F2BE2640FEF048C16973C5F4E274B7D9BB882CC7797633B7F3AFA297"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_4.png",
+      "Bytes": 6478,
+      "SHA256": "1811AB6BC12809D7C7FD4A9ECA911E933F51A4165CEE4E8833E797E1C260AF5A"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_5.png",
+      "Bytes": 7457,
+      "SHA256": "84E9FAA58F9263C7A0F2AF3503A470EECA6D04AC43851BF1F57C9AA2FE05C3F6"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_6.png",
+      "Bytes": 7174,
+      "SHA256": "275A0A1CAC4595224FE26E1B616C8B43B7C15DAAB219129178CF4A9EB5511971"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_7.png",
+      "Bytes": 6125,
+      "SHA256": "19E1E0BB49FD33BDC3E715558C7FCB1FE7469F90A11E97A03B343ADA465C0873"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_8.png",
+      "Bytes": 7564,
+      "SHA256": "FE261644CA37FE227E1AD01C474BB33F4DA47FD7ED57B4B95144FF446DD6B9B8"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleLower_9.png",
+      "Bytes": 5694,
+      "SHA256": "17E9A0F8B6EBCC5CAA5E945BE8ADE297582E0585CA5D5F0ACFFCAB5E0EC06F2B"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleMed_0.png",
+      "Bytes": 6217,
+      "SHA256": "9DBF8F8EE8473999E623DA37BF6C20D719A2D467A997BD28A75644777723CADC"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleMed_1.png",
+      "Bytes": 6074,
+      "SHA256": "FA6D5E7A568ABB5181B01E69FFC26D98C3B17CE4F57F35A6CFF878726A796975"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleMerc_0.png",
+      "Bytes": 5989,
+      "SHA256": "DD9A38868BBEE9F30FE2B085783D72330D1DB6E19A7361B73FD30E67F73F9DBB"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleMerc_1.png",
+      "Bytes": 6270,
+      "SHA256": "A65EB81DA1D5C6F73770EDBCB07AA2B16530540E5EDAA8D6A63DA0B6E16B1C63"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleMerc_2.png",
+      "Bytes": 6195,
+      "SHA256": "FF13B2FC269A9EE9C9544C924E40B799634BC618B5E17736CBE722B5B00DAD57"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleMerc_3.png",
+      "Bytes": 6366,
+      "SHA256": "37E9ACDD2AEAB5D612F4A18B01B6C73BFD6585A27E06B49BCA0699BE01A35D1C"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleRev_0.png",
+      "Bytes": 5676,
+      "SHA256": "A3FD7B18A903DB9DD08BFC72F46879A0F09791E021C9FF5F8E098C27FD6922F5"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleRev_1.png",
+      "Bytes": 5698,
+      "SHA256": "3DB3184284A9E5FA14CE209C46DE67FCB7357BF160591CE81BEE636A64676129"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleRev_2.png",
+      "Bytes": 7862,
+      "SHA256": "022E05655765D2B5969ABE257EC6CBCA0767D701273D0CE803DCCE6B282F2211"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleRev_3.png",
+      "Bytes": 6276,
+      "SHA256": "9CE8124F0F81DDC47B9A3E99C26A21C3C4EF4C7F9E60ACABBD38BFD1D25F8D79"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav1.png",
+      "Bytes": 9524,
+      "SHA256": "795A3C0FE386C04A6C8C0C8C79C9968836CCE7FFE45B3047CAE93AA67417144F"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav10.png",
+      "Bytes": 8100,
+      "SHA256": "088CE48D0DD6D7DD678FA393BCDA53A3E16EB41E847668E1333E7B516FA676F1"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav11.png",
+      "Bytes": 6875,
+      "SHA256": "74D676BBBB5AC3B0BBE1FE0CBE63C495A3C001BEF432C1E9779442D91C0A9EB2"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav2.png",
+      "Bytes": 8791,
+      "SHA256": "F5A3AAC638FB497450CE8635366337307DEFE1934FFC530196CF7E24DE16A6AC"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav3.png",
+      "Bytes": 8165,
+      "SHA256": "69D6D025C4834F6E7A07878A640C578262DF116D3BAEA0584CE03717E10662DD"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav4.png",
+      "Bytes": 8758,
+      "SHA256": "D15FBE7697073FD2791B2E4F8AEC95C5DBE7C2FE0AE4749CE70A9EF0BAD16AC6"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav5.png",
+      "Bytes": 8655,
+      "SHA256": "F87C97CA6FF39BB1C5353E342687ED950DA08C5619503DBABC9F0236D6FA7405"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav6.png",
+      "Bytes": 6928,
+      "SHA256": "392C4EEBD6134E3674EF98A22BEA10CA18082ECFE68B4429B0F108C7D396A0F7"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav7.png",
+      "Bytes": 9536,
+      "SHA256": "E38C0B72733C6A6474EE5F7FB81EFA09F9270988E73E9438A5CBFEEB812A7635"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav8.png",
+      "Bytes": 8337,
+      "SHA256": "594AC6C0B0EC611BCA6E265BA2FE1E5DE1615A09BFE26F88980A53E20C855E12"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleScav9.png",
+      "Bytes": 9342,
+      "SHA256": "727ABF9AAB0AF06BC97D24909CCBED9B113142307D20DBD3B848306E750CF2EA"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSci_0.png",
+      "Bytes": 5920,
+      "SHA256": "25BCD65B002CDD7532A4CBE613222BCECB91F9026BB11011B5C48519343F003E"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSci_1.png",
+      "Bytes": 5981,
+      "SHA256": "8C7999E214DA88630CE7AF879A68E148D3D90B7CDAAA0289B74E8AF10A5DC6D1"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSec_0.png",
+      "Bytes": 6653,
+      "SHA256": "32CBF3B12383EB71026C54CE639D3181A59EF16B3A32686037E61B680DBF4ADC"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSec_1.png",
+      "Bytes": 6556,
+      "SHA256": "94AE258774E6D2D81DDDC350EFE533D70E96B3B969A25CEB6E0D82ADFC38739C"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSec_2.png",
+      "Bytes": 6521,
+      "SHA256": "DFC8024361C96ADBD1A150996592C3A7C4622A3CE9D0F4CF515576EF5F14BF79"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSec_3.png",
+      "Bytes": 6501,
+      "SHA256": "6B9CFFF1BE815042EBD5C594BBF3C25ADDA37DE514C7C58C322A35339C607D3B"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSec_4.png",
+      "Bytes": 6738,
+      "SHA256": "4A909A9778E0142E3AEA61836BD2099322584AECBA0B571704C6B9225023315E"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSec_5.png",
+      "Bytes": 7536,
+      "SHA256": "F43119B202A0308A0957AA87DF3349352856B33C3F5C55C479748E2D943EAB62"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSecCorpo_0.png",
+      "Bytes": 5892,
+      "SHA256": "A54B2BAD1003DD2B72B7210B9214F4F9FA30F76C3C7B0876B405AF8AC7C5BAD4"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSecCorpo_1.png",
+      "Bytes": 6191,
+      "SHA256": "DB739DA00352F9E24AC98DFC55892DF8C158901C6CA719323B872382537ED01F"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSecOff_0.png",
+      "Bytes": 7369,
+      "SHA256": "0A31D75B1108EF4323EEC073ACE16EBCA997DC457783E7D0EDF81D1A33524D78"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSecOff_1.png",
+      "Bytes": 5348,
+      "SHA256": "FB08F4E0A92934E93D6CA9DEB5AFF8C36BAF4B7E1980EAEBEDDF6BEB40EE436A"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleSecOff_2.png",
+      "Bytes": 5647,
+      "SHA256": "073558543E40086E5B408300CC7AFD49386510295D60C26BAC3902241C3E15D5"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_0.png",
+      "Bytes": 6556,
+      "SHA256": "A8E24EFFAF7C86D33554F9E400406F1BA67D9BC73B60424371B33F2325F6FDD9"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_1.png",
+      "Bytes": 14420,
+      "SHA256": "BEA1ED15C2AE220099DDCFBA15C9C12BCFC9D83F7D62F4E06E2E16834BAE4833"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_2.png",
+      "Bytes": 7627,
+      "SHA256": "1306FB826313F61DFCFB97129B4B944DE241A20C6376F360E633E6A86FCCD464"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_3.png",
+      "Bytes": 6417,
+      "SHA256": "57019156C83ED8B9D77A0DC44E76751FC076EEA896095E9689DD7997C607F1CC"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_4.png",
+      "Bytes": 5968,
+      "SHA256": "D13B0C8E1FB89D53E70EE27DBA0F22B09561A9EA9C947EE1CC37C9AB1257927D"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_5.png",
+      "Bytes": 6610,
+      "SHA256": "9BB583A35D63BFA2DE33D3B5F0B695A383E0AA779451C0AAE2E441829B1AECE7"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_6.png",
+      "Bytes": 6421,
+      "SHA256": "2EA453A283F36E1FC0DCE29DA12AC9E2F1BE2DA46F7DB8FA6070626784A4FF00"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_7.png",
+      "Bytes": 6766,
+      "SHA256": "3A1BDFEFB6D07FBE23BACAC22E340CCC5AD0B43588985D9C4C76B0A48754C324"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/maleUpper_8.png",
+      "Bytes": 6376,
+      "SHA256": "B0FB0BCCC9AD01ED7AE937A5DC695150ABA135A4754CA28A2DBAB5473B890350"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/mentor_contract.png",
+      "Bytes": 122,
+      "SHA256": "6F9D1015C44B5F5A91B7855067E4A7D3E4F54EBA83710493863C95230F60590B"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/Mentor.png",
+      "Bytes": 5068,
+      "SHA256": "D71C63D2C68720C0B102FAFB04904E24D358A098F567B68CCFD05A081FC69ECC"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/mentors_notes.png",
+      "Bytes": 1764,
+      "SHA256": "108901A5F638F95CFF3CA909394BA878BA7CDED287E407B99D34000559C53620"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/odin.png",
+      "Bytes": 8047,
+      "SHA256": "1C5398E3D691F448320B6D474C7AD80A6C45DFA8F9A4EF4D1FCF0B091AA9D88F"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_0.png",
+      "Bytes": 6711,
+      "SHA256": "4CAFCD04416A50613AAB04E7383C53EB8D55BB7A35BF5D2A3E9D7CEE8D59C2B7"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_1.png",
+      "Bytes": 7697,
+      "SHA256": "469422E10FA682D188E0E3E98801071EC38CE0B420F74194A9FBC6920E7EE715"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_10.png",
+      "Bytes": 7817,
+      "SHA256": "7615D27AA61D52AFBA0388BA018C324720B769F052653FC286CFA3DC07DD9896"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_11.png",
+      "Bytes": 8157,
+      "SHA256": "9F1AA4CC0CE64B55334A51C197C81158ABB72BCA647CCACF50E7BEEF5BC45E45"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_12.png",
+      "Bytes": 7110,
+      "SHA256": "412CB3E82BCF4C862B377914B279953CA90F591729DD1E37EEA242CA4DFB6D29"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_13.png",
+      "Bytes": 8422,
+      "SHA256": "BB8B076DD8B768FC450EB3C0CE94B6EBEAFFBC13350A058CE52DDFBC5B9826F0"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_2.png",
+      "Bytes": 5808,
+      "SHA256": "BAC3245805FD5993FEB1255CA18022D640ABEBD4C83E118DF833CF65A0DEA326"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_3.png",
+      "Bytes": 6692,
+      "SHA256": "31B84EE6210D16B623FF98D65F80BF9EC3C71645BBD1D5248A2AF843FC07404F"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_4.png",
+      "Bytes": 7823,
+      "SHA256": "EA92E9C547782C9CEAB9B1FD52BC816886F71AF1F482D471F51B8EF2DCBBBF75"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_5.png",
+      "Bytes": 8091,
+      "SHA256": "A008F020B66BBCED177A563816B48897C7AAE098C7678A091229DFDE39740062"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_6.png",
+      "Bytes": 7790,
+      "SHA256": "D1BD941961800C13C329A238FD54067C9C0F0470130A83315B65F8E2774401D0"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_7.png",
+      "Bytes": 7317,
+      "SHA256": "9ADCEDDFFD31EDFE699470E5BA0629CE6D7CCF3A05C0FE59D9496139CBF723E2"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_8.png",
+      "Bytes": 7524,
+      "SHA256": "13F4B12E9B755CB8B9A79DEB08842D56E7458DC7823D8D10A012A3847CB917C2"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavFemale_9.png",
+      "Bytes": 7525,
+      "SHA256": "1AB3BE1553C8E202740AFB019C38B583302CF1BBEC0583B0F5EB077552785025"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavMale_0.png",
+      "Bytes": 8003,
+      "SHA256": "B8719B3062076D53155F9B3D4D25B5B8CFA5BE5F760C787DFBE94B22AD8B5C3C"
+    },
+    {
+      "Path": "evidence/portraits/native/Sprite/scavMale_1.png",
+      "Bytes": 6030,
+      "SHA256": "9FB783F529B895642B4F9AB8463FD21537D52BC2D17E66FE81047659382777C6"
+    },
+    {
+      "Path": "evidence/portraits/portraits-native-sheet.png",
+      "Bytes": 108056,
+      "SHA256": "E220BA6B60FC0621A8680F02F18390C344157DCCF358D651C42C3DEC812E383A"
+    },
+    {
+      "Path": "evidence/portraits/selected/femaleEng_0__1003.png",
+      "Bytes": 6763,
+      "SHA256": "13C08138CC76E1CFB6808A266750B1211F9AA0197F0BF6AE2F19ABB3038AF08E"
+    },
+    {
+      "Path": "evidence/portraits/selected/femaleLower_0__1142.png",
+      "Bytes": 7369,
+      "SHA256": "90135FE44542B9298894EC0DF3D76C59DD4C64CAA4D6B8EA8E31E1EDD58A40C2"
+    },
+    {
+      "Path": "evidence/portraits/selected/femaleLower_0__1805.png",
+      "Bytes": 7481,
+      "SHA256": "36CD2A4161410B9E1FD4F19D880CB687FB095D9C40DD9ACE865541DE3F3CE88F"
+    },
+    {
+      "Path": "evidence/portraits/selected/femaleMed_0__1755.png",
+      "Bytes": 6458,
+      "SHA256": "F8255466D0A20A4584DEC24C960BA6F4CC2133258A683A4A42A5ECD7F3AE5690"
+    },
+    {
+      "Path": "evidence/portraits/selected/femaleSci_0__1781.png",
+      "Bytes": 5528,
+      "SHA256": "9FBC6EBF91F9E850A0611519DB0D1B965567D98A9C7BD6BF0ED12D695D4959D9"
+    },
+    {
+      "Path": "evidence/portraits/selected/femaleUpper_1__1053.png",
+      "Bytes": 7527,
+      "SHA256": "6FE65403E682FB4DE578DDCD2016DDB3651589F33E25FB7E48E2C1E4167E37F9"
+    },
+    {
+      "Path": "evidence/portraits/selected/femaleUpper_1__1060.png",
+      "Bytes": 7709,
+      "SHA256": "2DE97AF085CD273B2CE99C22335D0B4D4D50EE04B247C6C1878BBB0CB775CB95"
+    },
+    {
+      "Path": "evidence/portraits/selected/jackson__1631.png",
+      "Bytes": 5627,
+      "SHA256": "51833DFC2A1C15CEBDB15383CEC3BFB89C38A5CB390A8CADFD27398B775BE474"
+    },
+    {
+      "Path": "evidence/portraits/selected/maleLower_0__1038.png",
+      "Bytes": 7035,
+      "SHA256": "31313066A78C04FEA31009DBC2C9F1942D5BBA0AD4C09D53C37DCE443996632F"
+    },
+    {
+      "Path": "evidence/portraits/selected/maleLower_0__1771.png",
+      "Bytes": 6854,
+      "SHA256": "AAA17B3647DAD68D50DF3F4D5E995118070AFA68E79CA24FFF05F5ECD6731142"
+    },
+    {
+      "Path": "evidence/portraits/selected/maleSecOff_0__1083.png",
+      "Bytes": 6626,
+      "SHA256": "3D26EF8B95FDF38D509A98EA643B5E8F26403D7C1334E1791A1A39871C9A8719"
+    },
+    {
+      "Path": "evidence/portraits/selected/maleUpper_0__1037.png",
+      "Bytes": 6556,
+      "SHA256": "A8E24EFFAF7C86D33554F9E400406F1BA67D9BC73B60424371B33F2325F6FDD9"
+    },
+    {
+      "Path": "evidence/portraits/selected/maleUpper_0__1133.png",
+      "Bytes": 6440,
+      "SHA256": "411BE826DA6DD5F1A91A9694CEA46A256EB994838D0A4226EBB7C3CDA5130760"
+    },
+    {
+      "Path": "evidence/portraits/selected/Mentor__1282.png",
+      "Bytes": 5068,
+      "SHA256": "D71C63D2C68720C0B102FAFB04904E24D358A098F567B68CCFD05A081FC69ECC"
+    },
+    {
+      "Path": "evidence/portraits/selected/odin__1570.png",
+      "Bytes": 8047,
+      "SHA256": "1C5398E3D691F448320B6D474C7AD80A6C45DFA8F9A4EF4D1FCF0B091AA9D88F"
+    },
+    {
+      "Path": "evidence/scaling-phase-comparison.png",
+      "Bytes": 39082,
+      "SHA256": "DFDAB83E6EFBED5F9D2B26A40D66B849909D9679074BADE16A9502CFE017F82B"
+    },
+    {
+      "Path": "evidence/scaling-source.png",
+      "Bytes": 1351016,
+      "SHA256": "2DF692D48E9F3BB3B52FAD6709EC1656AA81BED7555974EBD7EA9341466F3483"
+    },
+    {
+      "Path": "evidence/style-machines.png",
+      "Bytes": 56304,
+      "SHA256": "75A6717EB5840E444841CE219A72AD650595B1668E89BCB50C112C0DC3BF21E6"
+    },
+    {
+      "Path": "evidence/style-small.png",
+      "Bytes": 44807,
+      "SHA256": "0FDF898EAEAE8BBAAFE8A7D6C51F0E25EFD527F60DFFB2C785C2BEC90D500F4E"
+    }
+  ]
+}

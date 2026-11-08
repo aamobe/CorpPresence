@@ -1,0 +1,19 @@
+{
+  "m_Width": 512,
+  "m_Height": 512,
+  "m_TextureFormat": "RGBA32",
+  "m_MipMap": false,
+  "m_MipCount": 10,
+  "m_TextureSettings": {
+    "m_FilterMode": 0,
+    "m_Aniso": 1,
+    "m_MipBias": 0.0,
+    "m_WrapMode": 1
+  },
+  "image_data": {
+    "Size": 1398100
+  },
+  "m_StreamData": null,
+  "m_Name": "items_husbandry",
+  "Name": "items_husbandry"
+}

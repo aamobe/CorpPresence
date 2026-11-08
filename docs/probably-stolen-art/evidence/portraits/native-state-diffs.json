@@ -1,0 +1,54 @@
+[
+  {
+    "Name": "maleLower_0",
+    "From": 1038,
+    "To": 1771,
+    "RGBA": 127,
+    "Alpha": 0,
+    "Bounds": [
+      131,
+      80,
+      167,
+      112
+    ]
+  },
+  {
+    "Name": "femaleUpper_1",
+    "From": 1053,
+    "To": 1060,
+    "RGBA": 171,
+    "Alpha": 9,
+    "Bounds": [
+      130,
+      89,
+      170,
+      106
+    ]
+  },
+  {
+    "Name": "maleUpper_0",
+    "From": 1037,
+    "To": 1133,
+    "RGBA": 144,
+    "Alpha": 0,
+    "Bounds": [
+      131,
+      79,
+      169,
+      98
+    ]
+  },
+  {
+    "Name": "femaleLower_0",
+    "From": 1142,
+    "To": 1805,
+    "RGBA": 117,
+    "Alpha": 0,
+    "Bounds": [
+      131,
+      91,
+      169,
+      117
+    ]
+  }
+]

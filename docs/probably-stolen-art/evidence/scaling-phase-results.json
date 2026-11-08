@@ -1,0 +1,44 @@
+[
+  {
+    "SampleOffset": 0,
+    "BaselineOffset": 8,
+    "ChangedPixels": 1030,
+    "CanvasPixels": 3072,
+    "ChangedPercent": 33.53
+  },
+  {
+    "SampleOffset": 7,
+    "BaselineOffset": 8,
+    "ChangedPixels": 392,
+    "CanvasPixels": 3072,
+    "ChangedPercent": 12.76
+  },
+  {
+    "SampleOffset": 8,
+    "BaselineOffset": 8,
+    "ChangedPixels": 0,
+    "CanvasPixels": 3072,
+    "ChangedPercent": 0.0
+  },
+  {
+    "SampleOffset": 9,
+    "BaselineOffset": 8,
+    "ChangedPixels": 349,
+    "CanvasPixels": 3072,
+    "ChangedPercent": 11.36
+  },
+  {
+    "SampleOffset": 12,
+    "BaselineOffset": 8,
+    "ChangedPixels": 615,
+    "CanvasPixels": 3072,
+    "ChangedPercent": 20.02
+  },
+  {
+    "SampleOffset": 15,
+    "BaselineOffset": 8,
+    "ChangedPixels": 940,
+    "CanvasPixels": 3072,
+    "ChangedPercent": 30.6
+  }
+]

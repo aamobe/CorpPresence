@@ -1,0 +1,18 @@
+[
+  {
+    "From": "battery0",
+    "To": "battery100",
+    "Width": 16,
+    "Height": 32,
+    "ChangedRGBA": 50,
+    "ChangedAlpha": 0
+  },
+  {
+    "From": "furnace",
+    "To": "furnace_on",
+    "Width": 48,
+    "Height": 48,
+    "ChangedRGBA": 192,
+    "ChangedAlpha": 0
+  }
+]

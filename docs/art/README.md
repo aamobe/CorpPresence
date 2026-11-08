@@ -1,5 +1,7 @@
 # 美术维护入口
 
+完整资料已整理到[深空当铺美术目录](../probably-stolen-art/README.md)。开始制作、修改、缩放或导入前，先读[总规范](../probably-stolen-art/AGENTS.md)，再按[人物](../probably-stolen-art/PORTRAITS.md)、[物品结构与材质](../probably-stolen-art/STYLE-REFERENCE.md)、[缩放与防杂色](../probably-stolen-art/SCALING.md)分流。下文保留简要维护说明。
+
 游戏内PNG位于[src/Assets](../../src/Assets)，以项目`EmbeddedResource`嵌入。文件名如`CorpPresence.art.solana.perfume_mixer.png`同时参与资源查找，不能只改文件名而不查调用。
 
 ## 分类
@@ -28,4 +30,4 @@
 
 素材记录至少包含来源版本、尺寸、Alpha、改动区域、缩放过程、静态预览和运行时验证状态。仅编译通过不能写“画面已验证”。
 
-本次整理只恢复已发布素材，不制作、重绘或导入新图。独立工作区内的未发布罗森立绘和宣传图不随本次源码同步进入发布基线。
+游戏正式素材仍以`src/Assets`为准。美术资料目录收录的是固定参考、测量和规范，本次资料上传不更换游戏素材，不把未发布罗森改稿或宣传图加入运行时发布基线。
