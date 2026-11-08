@@ -94,8 +94,12 @@ internal static class Brand
 		}
 	}
 
+	private static int _translationVersion = -1;
+
 	public static Entry Info(string key)
 	{
+		int version = OfficialTranslations.Version;
+		if (_translationVersion != version) { Cache.Clear(); _translationVersion = version; }
 		string key2 = L.Locale + ":" + key;
 		if (Cache.TryGetValue(key2, out var value))
 		{

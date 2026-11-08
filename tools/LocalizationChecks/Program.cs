@@ -15,8 +15,53 @@ void Equal<T>(T expected, T actual)
     if (!EqualityComparer<T>.Default.Equals(expected, actual)) throw new Exception($"Expected [{expected}], got [{actual}]");
 }
 void Locale(string locale) { LocHelper.Locale = locale; UnityEngine.Time.frameCount++; }
+Check("official CSV lookup overrides built-in text and menus without mod file IO", () => {
+    var mod = new LoadedMod();
+    ModLoader.Mods.Add(mod);
+    try {
+        Locale("fr"); Equal("Catalogue de marque", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
+        mod.Localization["fr"] = new() { ["ui.menu.brandCatalog"] = "CSV catalogue" };
+        Locale("fr"); Equal("CSV catalogue", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
+        Equal("CSV catalogue", MenuLabels.Get(9, L.En)[3]);
+        Equal("CSV catalogue", Brand.Info("shampoo").Name);
+        if (ModHelper.Calls == 0) throw new Exception("Official API was never called");
+    } finally { ModLoader.Mods.Clear(); Locale("en"); }
+});
 Check("built-in release contains no external translation file loader", () => {
     Equal<Type>(null, typeof(L).Assembly.GetType("CorpPresence.ExternalTranslations"));
+});
+Check("partial official CSV preserves regional, Chinese and missing-entry fallback", () => {
+    var mod = new LoadedMod(); ModLoader.Mods.Add(mod);
+    try {
+        mod.Localization["en"] = new() { ["ui.menu.brandCatalog"] = "English CSV" };
+        mod.Localization["fr-CA"] = new() { ["ui.menu.brandCatalog"] = " " };
+        Locale("fr-CA"); Equal("Catalogue de marque", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
+        Equal("Untranslated", L.K("missing.key", "中文", "Untranslated"));
+        Locale("zh-CN"); Equal("中文原文", L.K("ui.menu.brandCatalog", "中文原文", "Brand Catalog"));
+        mod.Localization["zh-CN"] = new() { ["ui.menu.brandCatalog"] = "中文CSV", ["ui.checkout.cash"] = "余额 {0}₵" };
+        Locale("zh-CN"); Equal("中文CSV", L.K("ui.menu.brandCatalog", "品牌目录", "Brand Catalog"));
+        Equal("中文CSV", L.K(new[] { "ui.menu.brandCatalog" }, new[] { "品牌目录" }, new[] { "Brand Catalog" })[0]);
+        Equal("余额 42₵", L.K("ui.checkout.cash", (FormattableString)$"现金 {42}₵", (FormattableString)$"Cash {42}₵"));
+        Locale("en"); Equal("English CSV", MenuLabels.Get(9, L.En)[3]);
+        mod.Localization["de"] = new() { ["ui.menu.brandCatalog"] = "Katalog" };
+        Locale("de"); Equal("Katalog", MenuLabels.Get(9, L.En)[3]);
+    } finally { ModLoader.Mods.Clear(); Locale("en"); }
+});
+Check("official CSV invalid placeholders and runtime formats use existing fallback", () => {
+    var mod = new LoadedMod(); ModLoader.Mods.Add(mod);
+    try {
+        var table = mod.Localization["fr"] = new();
+        Locale("fr");
+        foreach (string bad in new[] { "Missing argument", "Wrong {1}", "Broken {0", "Bad {0,+3}", "Bad {0:Q}" }) {
+            table["ui.checkout.cash"] = bad;
+            Equal(string.Format(TextTranslations.Select("Cash {0}₵", "fr"), 42), L.F("ui.checkout.cash", "现金 {0}₵", "Cash {0}₵", 42));
+            Equal(string.Format(TextTranslations.Select("Cash {0}₵", "fr"), 42), L.K("ui.checkout.cash", (FormattableString)$"现金 {42}₵", (FormattableString)$"Cash {42}₵"));
+        }
+        table["checks.order"] = "{1}: {0:0.00} / {0:0.00}";
+        Equal($"value: {12.5:0.00} / {12.5:0.00}", L.K("checks.order", (FormattableString)$"中文 {12.5} {"value"}", (FormattableString)$"Amount {12.5} {"value"}"));
+        table["production.perfume.plants.registerAroma.producesMLOilflowerMash"] = "CSV {0:0.#} mL";
+        Equal($"CSV {16.5:0.#} mL", L.KRendered("production.perfume.plants.registerAroma.producesMLOilflowerMash", "中文", (FormattableString)$"Produces {16.5:0.#} mL of oilflower mash."));
+    } finally { ModLoader.Mods.Clear(); Locale("en"); }
 });
 string Key(string key, string zh, string en)
 {
@@ -137,6 +182,23 @@ void VerifyMigrationCases(string filename, int expectedCount)
     } finally { System.Globalization.CultureInfo.CurrentCulture = priorCulture; }
 }
 Check("batch 2 calls preserve all four languages and culture-specific formatting", () => VerifyMigrationCases("Batch2Cases.json", 258));
+Check("shipped CSV preserves all migration fixtures in four languages and two cultures", () => {
+    var mod = new LoadedMod();
+    foreach (var locale in new[] { "en", "ru", "fr" }) {
+        var entries = mod.Localization[locale] = new();
+        foreach (string line in File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "Localization", locale + ".csv"))) {
+            int separator = line.IndexOf(',');
+            string raw = line[(separator + 1)..].Trim();
+            string value = raw[1..^1].Replace("\"\"", "\"").Replace("\\n", "\n");
+            entries.Add(line[..separator], value);
+        }
+        Equal(1621, entries.Count);
+    }
+    ModLoader.Mods.Add(mod);
+    try {
+        foreach (var (file, count) in new[] { ("Batch2Cases.json", 258), ("Batch3Cases.json", 171), ("Batch4Cases.json", 793), ("DefinitionCases.json", 231), ("DynamicCases.json", 38), ("ConfigCases.json", 77), ("CourierCases.json", 22) }) VerifyMigrationCases(file, count);
+    } finally { ModLoader.Mods.Clear(); Locale("en"); }
+});
 Check("batch 3 company texts preserve all four languages and culture-specific formatting", () => VerifyMigrationCases("Batch3Cases.json", 171));
 Check("remaining fixed texts preserve all four languages and culture-specific formatting", () => VerifyMigrationCases("Batch4Cases.json", 793));
 Check("all bound item display fields preserve their source translations", () => VerifyMigrationCases("DefinitionCases.json", 231));

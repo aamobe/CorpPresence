@@ -41,4 +41,9 @@ $runner = Join-Path $artifacts 'bin/Checks/debug/Checks.dll'
 if ($CompiledAssembly) { & $Dotnet $runner (Resolve-Path -LiteralPath $CompiledAssembly).Path }
 else { & $Dotnet $runner }
 if ($LASTEXITCODE -ne 0) { throw 'Localization checks failed.' }
+$csvArtifacts = Join-Path $repoRoot 'artifacts/official-csv-checks'
+& $Dotnet build (Join-Path $PSScriptRoot 'OfficialCsvChecks/Checks.csproj') --artifacts-path $csvArtifacts
+if ($LASTEXITCODE -ne 0) { throw 'Official CSV checks failed to compile.' }
+& $Dotnet (Join-Path $csvArtifacts 'bin/Checks/debug/Checks.dll') $managed $repoRoot (Join-Path $repoRoot 'Localization')
+if ($LASTEXITCODE -ne 0) { throw 'Official game CSV parser checks failed.' }
 Write-Output 'Translation code and embedded resource checks only; no game launch or gameplay test.'

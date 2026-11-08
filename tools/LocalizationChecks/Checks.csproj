@@ -9,12 +9,15 @@
   <ItemGroup>
     <None Update="Migration.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="MenuBaseline.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../Localization/*.csv" Link="Localization/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Batch2Cases.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Batch3Cases.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Batch4Cases.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="DefinitionCases.json;DynamicCases.json;ConfigCases.json;CourierCases.json;Composed.json" CopyToOutputDirectory="PreserveNewest" />
     <Compile Include="../../src/CorpPresence/Presentation/L.cs" Link="L.cs" />
     <Compile Include="../../src/CorpPresence/Presentation/TextTranslations.cs" Link="TextTranslations.cs" />
+    <Compile Include="../../src/CorpPresence/Presentation/OfficialTranslations.cs" Link="OfficialTranslations.cs" />
+    <Compile Include="../../src/CorpPresence/Presentation/TranslationFormat.cs" Link="TranslationFormat.cs" />
     <Compile Include="../../src/CorpPresence/Presentation/ConfigDisplay.cs" Link="ConfigDisplay.cs" />
     <Compile Include="../../src/CorpPresence/Presentation/GoodsText.cs" Link="GoodsText.cs" />
     <Compile Include="../../src/CorpPresence/UI/MenuLabels.cs" Link="MenuLabels.cs" />

@@ -1,11 +1,26 @@
 {
   "version": "1.0.0",
-  "variant": "stable-built-in-translations-no-permissions",
+  "variant": "stable-official-csv-localization-no-permissions",
   "recordedOn": "2026-11-09",
-  "sourceFileCount": 323,
+  "sourceFileCount": 325,
   "assetFileCount": 167,
   "hashPolicy": "Text: UTF-8 without BOM, CRLF/CR normalized to LF. Binary: exact bytes.",
   "files": [
+    {
+      "path": "Localization/en.csv",
+      "hashMode": "utf8-lf",
+      "sha256": "917FCECC31D5BA4D253CE1C7F0DE80B3CA45B291DFB9F8AFE804ECA1AD755255"
+    },
+    {
+      "path": "Localization/fr.csv",
+      "hashMode": "utf8-lf",
+      "sha256": "73BD704AAA12D8D2267DCF16CB0927EB6AE75228FD303410ED2DCAB363EAA0D6"
+    },
+    {
+      "path": "Localization/ru.csv",
+      "hashMode": "utf8-lf",
+      "sha256": "BA98B00395D7CEAF42B7A44E666D01451D5B9635416A04BAACE6A27DFEED8386"
+    },
     {
       "path": "manifest.xml",
       "hashMode": "utf8-lf",
@@ -929,7 +944,7 @@
     {
       "path": "src/CorpPresence/Companies/Brand.cs",
       "hashMode": "utf8-lf",
-      "sha256": "382DB0B63976158A73872BE3C0634125B12058E7CDD450A6F5C7B260BEB3D1E8"
+      "sha256": "8DC7EE179574A6DC268A81287093E3E2BE58750D487DA06D0987CA4582B34106"
     },
     {
       "path": "src/CorpPresence/Companies/CarmichaelCo.cs",
@@ -1069,7 +1084,7 @@
     {
       "path": "src/CorpPresence/Companies/SpacerCo.cs",
       "hashMode": "utf8-lf",
-      "sha256": "68C79C51F6E69CF3DA115865DC7296B909713B13CD52077A67C0161ADA2A28DF"
+      "sha256": "8DB4CE7AFE29DBFA772939DCFE671F36CCBCE42E54943FCE065C3247F80AAF7A"
     },
     {
       "path": "src/CorpPresence/Companies/Visitor.cs",
@@ -1304,7 +1319,12 @@
     {
       "path": "src/CorpPresence/Presentation/L.cs",
       "hashMode": "utf8-lf",
-      "sha256": "91144AB2E9F1F2BFDD9571BA01482175866DC119CA485D803481E8678823A7C7"
+      "sha256": "DEF47EB48585851A0058FDBD84674F85C5CDF8DE07E21602D5FDB8560E8B0940"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/OfficialTranslations.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F410FB930B51A266C8C1D32CE4CBA1C19B70F87F3B3D85ECA7E86FB733A9BE87"
     },
     {
       "path": "src/CorpPresence/Presentation/Phone.cs",
@@ -1339,7 +1359,12 @@
     {
       "path": "src/CorpPresence/Presentation/TextTranslations.cs",
       "hashMode": "utf8-lf",
-      "sha256": "E481D26B1D3731ED4C0C7357BC61D23087C5CD5FB8FC6384AB0C05FCB006A01A"
+      "sha256": "BF799B1FFD644891F8C96036783F028D3DD1B4A43D0F858E7E088D60FF6D3081"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/TranslationFormat.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5C986B7A59FD6CADF498B099497DE9A44AD04EF3692A94FB00E87D259CE1BF6E"
     },
     {
       "path": "src/CorpPresence/Presentation/Translations.json",
@@ -1589,7 +1614,7 @@
     {
       "path": "src/CorpPresence/UI/MenuLabels.cs",
       "hashMode": "utf8-lf",
-      "sha256": "67E945A4B1E6403226B016B239E796B3A5AB850124791E7C3269D6B33D6EA0F7"
+      "sha256": "1040790EA99EEA453261ABAD2AE2E6B33A5A3702C048851BBBF6700A87517D84"
     },
     {
       "path": "src/CorpPresence/UI/Notebook.cs",
@@ -1626,5 +1651,6 @@
       "hashMode": "utf8-lf",
       "sha256": "CBE76793568B3333810959FB74071BC9ABDB564ABD6EA4485A06DC273947D573"
     }
-  ]
+  ],
+  "localizationFileCount": 3
 }

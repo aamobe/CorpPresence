@@ -59,7 +59,7 @@ internal static class L
 	public static string K(string key, string zh, string en)
 	{
 		if (En) return TextTranslations.SelectKey(key, en, _locale);
-		return zh;
+		return OfficialTranslations.TryGet(key, en, _locale, out var translated) ? translated : zh;
 	}
 
 	// These overloads preserve existing L.En branches and eagerly formatted Chinese text.
@@ -68,7 +68,7 @@ internal static class L
 	internal static string K(string key, FormattableString en)
 	{
 		string locale = Locale;
-		return FormatBuiltIn(key, en, locale);
+		return OfficialTranslations.TryFormat(key, en, locale, out var translated) ? translated : FormatBuiltIn(key, en, locale);
 	}
 
 	private static string FormatBuiltIn(string key, FormattableString en, string locale)
@@ -82,6 +82,7 @@ internal static class L
 	public static string K(string key, string zh, FormattableString en)
 	{
 		bool english = En;
+		if (OfficialTranslations.TryFormat(key, en, _locale, out var translated)) return translated;
 		return english ? FormatBuiltIn(key, en, _locale) : zh;
 	}
 
@@ -89,6 +90,7 @@ internal static class L
 	public static string K(string key, FormattableString zh, FormattableString en)
 	{
 		bool english = En;
+		if (OfficialTranslations.TryFormat(key, en, _locale, out var translated)) return translated;
 		return english ? FormatBuiltIn(key, en, _locale) : zh.ToString();
 	}
 
@@ -96,6 +98,8 @@ internal static class L
 	internal static string F(string key, string zh, string en, params object[] arguments)
 	{
 		if (En) return TextTranslations.FormatKey(key, en, _locale, arguments);
+		var source = System.Runtime.CompilerServices.FormattableStringFactory.Create(en, arguments);
+		if (OfficialTranslations.TryFormat(key, source, _locale, out var translated)) return translated;
 		return string.Format(zh, arguments);
 	}
 
@@ -103,6 +107,7 @@ internal static class L
 	internal static string KRendered(string key, string zh, FormattableString en)
 	{
 		bool english = En;
+		if (OfficialTranslations.TryFormat(key, en, _locale, out var translated)) return translated;
 		return english ? TextTranslations.Select(en.ToString(), _locale) : zh;
 	}
 
@@ -131,13 +136,14 @@ internal static class L
 	internal static string[] K(string[] keys, string[] zh, string[] en)
 	{
 		bool english = En;
-		if (!english) return zh;
+		if (!english && (!OfficialTranslations.HasLocale(_locale) || zh == null || en == null)) return zh;
 		if (!TextTranslations.HasLocale(_locale) || en == null) return en;
 		var result = new string[en.Length];
 		for (int i = 0; i < en.Length; i++)
 		{
 			string key = keys != null && i < keys.Length ? keys[i] : null;
-			result[i] = TextTranslations.SelectKey(key, en[i], _locale);
+			result[i] = english ? TextTranslations.SelectKey(key, en[i], _locale)
+				: OfficialTranslations.TryGet(key, en[i], _locale, out var translated) ? translated : zh[i];
 		}
 		return result;
 	}

@@ -4,9 +4,9 @@
 
 **最终状态：既有本地化调用及自有动态文案已完成稳定键迁移，累计1621键。源码中的旧`L.T`/`L.Translate`消费调用为0；旧接口和旧表保留兼容。**下方前三批数据是实施历史，当前范围以“最终收尾”和“迁移完成状态”为准。
 
-**当前采用内置翻译：**2026-11-09移除外部翻译包加载及语言覆盖，取消文件访问权限；保留全部稳定键、内置译文和回退。维护方式见[译者说明](../localization/README.md)。
+**当前采用官方CSV翻译：**复用1621键，通过ModHelper.GetLocalized查询游戏加载的Localization目录；不自行读文件，保持零权限。内置表和原文保留回退。使用方式见[译者说明](../localization/README.md)。
 
-此前外部包功能已撤回；历史计划和检查记录不代表当前运行时功能。发布前运行本地化检查与零权限包扫描。
+此前自行读取JSON的外部包功能已撤回；官方CSV已接入。历史计划和检查记录不代表当前运行时功能。发布前运行本地化检查与零权限包扫描。
 
 ## 查询与回退
 
@@ -18,7 +18,7 @@ L.K("ui.checkout.cash", (FormattableString)$"现金 {Cash}₵",
 
 键采用`区域.模块.用途`命名，如`ui.menu.solana.perfumery`，不以英文原文、数组位置或句子哈希命名。改文案时保留原用途的键；含义不同则使用不同键。
 
-- 中文继续返回调用处中文原文；英文和不支持的语言返回调用处英文原文。
+- 当前语言CSV优先，由OfficialTranslations适配官方API；缺少条目时保留调用处中文或既有俄法/英文回退，避免官方英文回退覆盖原有中文及俄法地区文案。
 - 俄法按游戏语言及地区代码查[Translations.Keys.json](../../src/CorpPresence/Presentation/Translations.Keys.json)，数组仍为`[ru, fr]`。未命中、null、空翻译或短数组时，查原[Translations.json](../../src/CorpPresence/Presentation/Translations.json)，最后回退英文；中文缺键保留中文。资源读取异常也沿用该回退。
 - 两张表分别懒加载，使用固定嵌入资源名`CorpPresence.Translations.json`和`CorpPresence.Translations.Keys.json`。
 - 插值文本需要**显式转换两个参数为`FormattableString`**，否则C#会选择string重载，模板会提前格式化。俄法先翻译英文模板，再用原参数和当前文化格式化；格式错误回退原英文格式化结果。中文模板中的参数顺序可与英文不同，不把中文占位索引套到英文上。
@@ -38,7 +38,7 @@ L.K("ui.carmichael.bloodRecovery.availableAgainDay", $"第 {nextDay} 天可再�
 
 两参数`L.K(key, en)`对应原`L.Translate(en)`，即使在中文环境调用，也像旧入口一样返回英文回退；仅在原代码已有中文分支时使用。混合重载`L.K(key, string zh, FormattableString en)`保留中文字符串已经格式化的调用方式。插值英文仍须显式转换为`FormattableString`；已有三参数双模板重载的调用无需改写。
 
-中英回退文本仍保留在源码中，内置稳定表承载俄法译文；当前不读取外部翻译文件，新增语言需要源码接入和编译。修改英文原文不会使稳定键失效；若含义或占位符改变，须同步审查对应译文。
+中英回退文本仍保留在源码中，内置稳定表承载俄法译文；官方加载器可读取CSV；新增CSV需匹配游戏选中语言代码，增加游戏语言菜单和字体仍需额外接入。修改英文原文不会使稳定键失效；若含义或占位符改变，须同步审查对应译文。
 
 ## 第一批实际范围
 

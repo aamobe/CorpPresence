@@ -53,6 +53,9 @@ new[] { "ui.menu.spacer.arms", "ui.menu.spacer.pharmacy", "ui.menu.spacer.suppli
 
  private static readonly System.Lazy<string[][]> Russian = new(() => TranslateEnglish("ru"));
  private static readonly System.Lazy<string[][]> French = new(() => TranslateEnglish("fr"));
+ private static string _csvLocale;
+ private static int _csvVersion = -1;
+ private static string[][] _csvLabels;
 
  private static string[][] TranslateEnglish(string locale)
  {
@@ -69,6 +72,22 @@ new[] { "ui.menu.spacer.arms", "ui.menu.spacer.pharmacy", "ui.menu.spacer.suppli
  public static string[] Get(int index, bool english)
  {
      string locale = L.Locale;
+     if (OfficialTranslations.HasLocale(locale))
+     {
+         int version = OfficialTranslations.Version;
+         if (_csvLabels == null || _csvLocale != locale || _csvVersion != version)
+         {
+             var translated = new string[English.Length][];
+             for (int group = 0; group < English.Length; group++)
+             {
+                 translated[group] = new string[English[group].Length];
+                 for (int line = 0; line < English[group].Length; line++)
+                     translated[group][line] = L.K(Keys[group][line], Chinese[group][line], English[group][line]);
+             }
+             _csvLabels = translated; _csvLocale = locale; _csvVersion = version;
+         }
+         return _csvLabels[index];
+     }
      if (!english) return Chinese[index];
      if (TextTranslations.IsBuiltInLocale(locale, "ru")) return Russian.Value[index];
      if (TextTranslations.IsBuiltInLocale(locale, "fr")) return French.Value[index];

@@ -249,7 +249,7 @@ internal sealed class SpacerCo : Company
 	{
 		get
 		{
-			if (!L.En)
+			if (!L.En && !OfficialTranslations.HasLocale(L.Locale))
 			{
 				return TechCreditsZh;
 			}
