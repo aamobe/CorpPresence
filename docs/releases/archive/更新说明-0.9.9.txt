@@ -1,0 +1,21 @@
+公司增强 CorpPresence 0.9.9 正式版
+
+- 以 0.9.8fix3-preview 为基础转为正式版，包含之前的 Fix、Fix2、Fix3 修复和游戏 100-Rev12 兼容更新。
+- 正式启用先行版的 18 张新版物品和机器贴图、7 张状态图及运行切换。精锻熔炉沿用先行版的 3×3 外形和占格。
+- 绞肉机、卷烟机的成品槽内有成品时显示运行图，取空后恢复静态图。
+- 过夜机器满足下一批原料、电力和成品空间条件时显示运行图，结算后仍可加工就保持运行图，否则恢复静态图。
+- 默认公司人物预算改为动态，服务强度和人物收货价改为原版，合作度改为每 400 信用点涨 1 点，开启每周订货限量。
+- 海明威标签戳单独固定售价为 400₵，米洛上门售卖和电话订货均不叠加违禁品溢价、市场事件或价格倍率。电话订货每期最多两个，新购标签戳可用八次。
+- 海明威标签戳可按原版同类物品的方式拖拽合并，剩余次数相加，合计最多 24 次。超过上限时不能合并。新购标签戳仍有 8 次，电话订货每期最多两个。
+- 已保存的设置保留，新默认值用于首次安装或重置对应选项。仅新开存档不会重置设置。
+
+CorpPresence 0.9.9
+
+- Promoted 0.9.8fix3-preview to the official release, including the earlier Fix, Fix2 and Fix3 changes and game 100-Rev12 compatibility.
+- Includes the preview's 18 updated item and machine sprites, 7 state sprites, and machine state switching. The Precision Forge retains the preview's 3x3 footprint.
+- Button-operated grinders and rolling machines show the active sprite while their output tray contains products.
+- Overnight machines show the active sprite when ingredients, power and output space allow the next batch, and keep it after settlement if another batch is possible.
+- Defaults now use dynamic company visitor budgets, Vanilla service strength and buying prices, 400 credits per cooperation point, and weekly order limits.
+- The Hemingway Label Stamp now costs a fixed 400₵ from Milo and by phone, unaffected by contraband markups, market events or price multipliers. Phone orders remain limited to two per period, and new stamps have eight uses.
+- Owned Hemingway Label Stamps can be combined by dragging one onto another, following vanilla item-combining controls. Remaining uses are added, up to 24. Combining is blocked if the total would exceed 24. New stamps still have 8 uses, with a phone-order quota of two per period.
+- Existing settings are preserved. The new defaults apply on first installation or when the corresponding options are reset. Starting a new save alone does not reset mod settings.

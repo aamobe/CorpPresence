@@ -9,3 +9,19 @@ obj/
 .env
 .env.*
 令牌.txt
+
+# Local builds, packages and workspaces
+artifacts/
+dist/
+outputs/
+tmp/
+.worktrees/
+*.zip
+*.7z
+
+# Local authentication and game session data
+*.vdf
+*.dmp
+*.sav
+*.secrets.json
+tools/RestorationChecks/State/RegisteredCrates.cs

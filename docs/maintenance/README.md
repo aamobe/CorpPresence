@@ -1,0 +1,19 @@
+# 维护指南
+
+1. 先读[当前发布记录](../releases/0.9.9.md)，确认修改所基于的源码。
+2. 用[源码地图](architecture.md)找入口，并沿调用链检查UI、后端校验和存档。
+3. 涉及液体、库存、读档或会员时，读[兼容与回归](compatibility-and-regressions.md)。
+4. 完成修改后按[构建与发布](build-and-release.md)验证，并更新受影响文档。
+
+## 按任务查找
+
+| 维护任务 | 文档/位置 |
+| --- | --- |
+| 修改价格、会员门槛、限购 | [源码地图](architecture.md#公司与订货) |
+| 修改机器、配方或植物 | [功能目录](../features/README.md)；香水详见[规则](../features/perfume.md) |
+| 处理普通水拒收、旧物品或读档异常 | [兼容与回归](compatibility-and-regressions.md) |
+| 增加翻译 | `src/CorpPresence/Presentation/Translations.json`及对应的`L.T`调用 |
+| 导入或改动PNG | [美术入口](../art/README.md) |
+| 发布GitHub源码或工坊更新 | [构建与发布](build-and-release.md) |
+
+源码和文档共同维护。只改介绍文字，不应顺带调整游戏规则；只整理目录，不应改变已发布物品ID或资源名。

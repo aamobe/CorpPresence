@@ -1,0 +1,36 @@
+name: BUG反馈
+description: 提供版本、复现步骤和脱敏日志，便于定位问题。
+title: "[BUG] "
+body:
+  - type: input
+    id: versions
+    attributes:
+      label: 游戏与模组版本
+      placeholder: 例如 游戏100-Rev12，模组0.9.9香水线会员修复版
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 模式、存档与相关设置
+      description: 普通或恶意模式；新档或旧档；其他模组；会员问题请附等级、订阅和目录提示。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 按实际操作顺序描述，包含问题出现前后的动作。
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 截图与脱敏日志
+      description: 只提供相关片段，移除个人路径、账号、令牌等信息。

@@ -1,0 +1,36 @@
+# 文档总目录
+
+当前版本：[0.9.9香水线及会员修复](releases/0.9.9.md)。源码定位和发布操作从[维护指南](maintenance/README.md)进入。
+
+## 玩家与功能
+
+| 文档 | 内容 |
+| --- | --- |
+| [游玩流程](../公司增强游玩流程.txt) | 公司来访、电话服务、剧情条件与机器操作 |
+| [功能目录](features/README.md) | 五条工艺线、会员和恶意模式的代码入口 |
+| [香水生产线](features/perfume.md) | 花材化学处理、基底油材料、血袋、采血、基因、模组和扩容 |
+| [0.9.9默认难度](default-difficulty-0.9.9.md) | 默认预算、服务强度、收货价、合作度与限购 |
+
+## 维护与发布
+
+| 文档 | 内容 |
+| --- | --- |
+| [维护首页](maintenance/README.md) | 按维护任务选择入口 |
+| [源码地图](maintenance/architecture.md) | 目录职责、生命周期、数据流与常见修改位置 |
+| [构建与发布](maintenance/build-and-release.md) | 本地依赖、编译、部署、版本核对与发布记录 |
+| [兼容边界与回归](maintenance/compatibility-and-regressions.md) | 普通水、身份注册、存档、限购、会员及机器风险 |
+| [工具目录](../tools/README.md) | 构建和静态检查脚本、已有诊断程序的用途 |
+| [贡献与反馈](../CONTRIBUTING.md) | 修改范围、反馈信息、权利约束 |
+
+## 美术
+
+[美术维护入口](art/README.md)说明素材路径、原生尺寸、缩放和状态差分要求。宣传图与游戏精灵分开验收；当前仓库不收录未发布的立绘改稿。
+
+## 版本与历史
+
+- [版本目录](releases/README.md)：当前源码与工坊的对应关系。
+- [0.9.9记录](releases/0.9.9.md)：正式版功能、香水线和会员修复。
+- [0.9.8香水线旧说明](perfume-update-0.9.8.md)：保留旧链接，历史版本不代表当前发布基线。
+- [0.9.7兼容修复](compatibility-0.9.7.md)、[水系统边界历史记录](water-compatibility.md)：用于追踪旧问题；当前维护约束以兼容回归文档和实际源码为准。
+
+历史更新说明收在 [releases/archive](releases/archive)。不要以旧文件中的版本名决定下一次发布基线。
