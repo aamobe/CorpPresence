@@ -2719,9 +2719,9 @@
     "Штамп для этикеток «Хемингуэй»",
     "Tampon d’étiquette Hemingway"
   ],
-  "Put it in a packaging machine's label slot. 8 uses; only works in the packaging machine.": [
-    "Вставьте в слот для этикеток машины для упаковки сигарет. Хватает на 8 применений и работает только в этой машине.",
-    "Placez-le dans l’emplacement pour tampon de l’emballeuse à cigarettes. 8 utilisations, uniquement dans cette machine."
+  "Put it in a packaging machine's label slot. A new stamp has 8 uses. Drag one owned stamp onto another to combine their remaining uses, up to 24. They cannot be combined if the total exceeds 24. Only works in the packaging machine.": [
+    "Вставьте в слот для этикеток машины для упаковки сигарет. Новый штамп рассчитан на 8 применений. Перетащите один принадлежащий вам штамп на другой, чтобы сложить оставшиеся применения, максимум до 24. Если сумма превышает 24, объединение невозможно. Работает только в машине для упаковки сигарет.",
+    "Placez-le dans l’emplacement pour tampon de l’emballeuse à cigarettes. Un tampon neuf permet 8 utilisations. Faites glisser un tampon vous appartenant sur un autre pour additionner leurs utilisations restantes, jusqu’à 24. La combinaison est impossible si le total dépasse 24. Fonctionne uniquement dans cette machine."
   ],
   "The division's stamp for Limited Edition packaging, tape wrapped around the handle. You can't buy one outside.": [
     "Фирменный штамп для ограниченных серий, ручка обмотана лентой. На стороне такой не купишь.",
@@ -2767,9 +2767,9 @@
     "Наценка на заказ (×)",
     "Coefficient de prix des commandes (×)"
   ],
-  "Phone order price = item value × this (default 1.1). Each higher cooperation tier is 0.05 cheaper: Signed ×1.1, Regular ×1.05, Partner ×1.0 (at the default).\nMeridian's high-end attachments and the Leviathan use this multiplier too (regardless of tier). The Spacer grab box is a fixed 500₵.": [
-    "Цена заказа по телефону = стоимость товара × этот коэффициент (по умолчанию 1,1). Каждый следующий уровень сотрудничества снижает коэффициент на 0,05. При настройках по умолчанию: «По договору» ×1,1, «Постоянный» ×1,05, «Партнёр» ×1,0.\nТот же коэффициент применяется к дорогим аксессуарам «Меридиана» и «Левиафану» на любом уровне. Коробка-сюрприз космонавтов всегда стоит 500₵.",
-    "Prix d’une commande téléphonique = valeur de l’article × ce coefficient (1,1 par défaut). Chaque niveau de coopération supérieur réduit le coefficient de 0,05. Par défaut : Partenaire sous contrat ×1,1, Habitué ×1,05, Partenaire ×1,0.\nLes accessoires haut de gamme de Meridian et le Léviathan appliquent le même coefficient quel que soit le niveau. La boîte surprise des Spacers coûte toujours 500₵."
+  "Phone order price = item value × this (default 1.1). Each higher cooperation tier is 0.05 cheaper: Signed ×1.1, Regular ×1.05, Partner ×1.0 (at the default).\nMeridian's high-end attachments and the Leviathan use this multiplier too (regardless of tier). The Spacer grab box is a fixed 500₵. The Hemingway Label Stamp is a fixed 400₵.": [
+    "Цена заказа по телефону = стоимость товара × этот коэффициент (по умолчанию 1,1). Каждый следующий уровень сотрудничества снижает коэффициент на 0,05. При настройках по умолчанию: «По договору» ×1,1, «Постоянный» ×1,05, «Партнёр» ×1,0.\nТот же коэффициент применяется к дорогим аксессуарам «Меридиана» и «Левиафану» на любом уровне. Коробка-сюрприз космонавтов всегда стоит 500₵. Штамп для этикеток Hemingway всегда стоит 400₵.",
+    "Prix d’une commande téléphonique = valeur de l’article × ce coefficient (1,1 par défaut). Chaque niveau de coopération supérieur réduit le coefficient de 0,05. Par défaut : Partenaire sous contrat ×1,1, Habitué ×1,05, Partenaire ×1,0.\nLes accessoires haut de gamme de Meridian et le Léviathan appliquent le même coefficient quel que soit le niveau. La boîte surprise des Spacers coûte toujours 500₵. Le tampon d’étiquetage Hemingway coûte toujours 400₵."
   ],
   "Company character credits": [
     "Бюджет представителей компаний",
@@ -2827,9 +2827,9 @@
     "Сотрудничество: кредитов за очко",
     "Coopération : crédits par point"
   ],
-  "Trading with company people, phone orders (including the Leviathan), the pastel dealer fee and Meridian refurbishment fees give 1 cooperation point per this many credits (default 100); selling the company's products counts at 3x that (default 1 point per 300₵).\nVanilla faction reputation rises 1 point per 400₵. Story rewards and the Spacer reputation conversion are not affected.": [
-    "Сделки с представителями компаний, заказы по телефону (включая «Левиафан»), дилерский взнос «Пастель» и плата «Меридиану» за восстановление приносят 1 очко сотрудничества за указанное число кредитов (по умолчанию 100). При продаже товаров самой компании требуется втрое больше (по умолчанию 1 очко за 300₵).\nВ базовой игре репутация фракции растёт на 1 очко за 400₵. Сюжетные награды и пересчёт репутации космонавтов работают по прежним правилам.",
-    "Les transactions avec les visiteurs des sociétés, les commandes par téléphone (dont le Léviathan), les frais d’agrément de pastel et de remise en état chez Meridian rapportent 1 point de coopération par tranche du montant indiqué (100 par défaut). Vendre des produits de la société exige trois fois plus de crédits par point (1 point pour 300₵ par défaut).\nLa réputation auprès des factions du jeu de base augmente de 1 point par tranche de 400₵. Les récompenses de l’histoire et la conversion de la réputation des Spacers gardent leur fonctionnement."
+  "Trading with company people, phone orders (including the Leviathan), the pastel dealer fee and Meridian refurbishment fees give 1 cooperation point per this many credits (default 400); selling the company's products counts at 3x that (default 1 point per 1200₵).\nVanilla faction reputation rises 1 point per 400₵. Story rewards and the Spacer reputation conversion are not affected.": [
+    "Сделки с представителями компаний, заказы по телефону (включая «Левиафан»), дилерский взнос «Пастель» и плата «Меридиану» за восстановление приносят 1 очко сотрудничества за указанное число кредитов (по умолчанию 400). При продаже товаров самой компании требуется втрое больше (по умолчанию 1 очко за 1200₵).\nВ базовой игре репутация фракции растёт на 1 очко за 400₵. Сюжетные награды и пересчёт репутации космонавтов работают по прежним правилам.",
+    "Les transactions avec les visiteurs des sociétés, les commandes par téléphone (dont le Léviathan), les frais d’agrément de pastel et de remise en état chez Meridian rapportent 1 point de coopération par tranche du montant indiqué (400 par défaut). Vendre des produits de la société exige trois fois plus de crédits par point (1 point pour 1200₵ par défaut).\nLa réputation auprès des factions du jeu de base augmente de 1 point par tranche de 400₵. Les récompenses de l’histoire et la conversion de la réputation des Spacers gardent leur fonctionnement."
   ],
   "Phone service window size (x)": [
     "Масштаб окна телефонных услуг (×)",

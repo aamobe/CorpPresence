@@ -14,9 +14,7 @@ internal sealed class Host : MonoBehaviour
         new RuntimeTask("记事簿", Notebook.Tick, Report),
         new RuntimeTask("中文后备字体", CjkFallback.Tick, Report),
         new RuntimeTask("配送箱清理", Crates.Tick, Report),
-#if PREVIEW_ART
         new RuntimeTask("机器状态贴图", MachineAppearance.Tick, Report),
-#endif
         new RuntimeTask("巨企通知", Envoy.Tick, Report),
         new RuntimeTask("立绘换档", Portraits.Tick, Report)
     };

@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 
 [assembly: AssemblyCompany("CorpPresence")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyFileVersion("0.9.8.0")]
+[assembly: AssemblyFileVersion("0.9.9.0")]
 [assembly: AssemblyInformationalVersion(CorpPresence.Main.Version)]
 [assembly: AssemblyProduct("CorpPresence")]
 [assembly: AssemblyTitle("CorpPresence")]

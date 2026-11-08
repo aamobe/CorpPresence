@@ -76,6 +76,10 @@ internal static class Hooks
 			postfix: nameof(PhoneDialogueLayout.AfterClientText), args: new[] { typeof(Dialogue) });
 		Patch<DialoguePhoneUIManager>(h, nameof(DialoguePhoneUIManager.DisplayerPlayerText), typeof(PhoneDialogueLayout),
 			postfix: nameof(PhoneDialogueLayout.AfterPlayerText), args: new[] { typeof(Dialogue) });
+		MethodInfo scalePhoneBubbles = AccessTools.Method(typeof(DialoguePhoneUIManager), "ApplyBubbleScale", Type.EmptyTypes);
+		if (scalePhoneBubbles != null)
+			Patch(h, scalePhoneBubbles, "DialoguePhoneUIManager.ApplyBubbleScale", typeof(PhoneDialogueLayout),
+				prefix: nameof(PhoneDialogueLayout.Reset), postfix: nameof(PhoneDialogueLayout.AfterBubbleScale));
 		Patch<DialogUIManager>(h, nameof(DialogUIManager.ScaleByDialogSpeed), typeof(ReadingPace),
 			postfix: nameof(ReadingPace.AfterDialoguePause), args: new[] { typeof(float) });
 		Patch<StoreUIManager>(h, "GetLocaleSpeedMultiplier", typeof(ReadingPace), postfix: nameof(ReadingPace.AfterTypewriterSpeed));
@@ -378,14 +382,12 @@ internal static class Hooks
 	{
 		try
 		{
-#if PREVIEW_ART
 			Sprite appearance = MachineAppearance.SpriteOverride(__instance);
 			if (appearance != null)
 			{
 				__result = appearance;
 				return false;
 			}
-#endif
 			return BeforeResolveSprite(__instance?.spritePath, ref __result);
 		}
 		catch
@@ -832,7 +834,7 @@ internal static class Hooks
 		if (!__runOriginal) return;
 		try
 		{
-			long? num = Engine.BuyFixedPrice(__instance);
+			long? num = Engine.SellFixedPrice(__instance) ?? Engine.BuyFixedPrice(__instance);
 			if (num.HasValue && num.Value >= 0)
 			{
 				__result = num.Value;

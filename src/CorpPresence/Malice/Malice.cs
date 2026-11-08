@@ -241,7 +241,9 @@ internal static class Malice
 
 	private static int CatalogTier(Company c, CompanyState s, int coopTier)
 	{
-		if (Applies(c))
+		// Solana uses membership tiers; its terms page has no catalog applications.
+		// Subscription and story restrictions are still enforced by OrderBlocked.
+		if (Applies(c) && !IsMembership(c))
 		{
 			CorpTerms corpTerms = TermsOf(c);
 			if (corpTerms != null)

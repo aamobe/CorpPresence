@@ -22,6 +22,15 @@ internal static partial class Engine
     private static bool AcceptsVisit(Character character, GameItem item, string kind) =>
         kind.StartsWith("daily", StringComparison.Ordinal) ? character.DailyAccepts(item) : character.Accepts(item);
 
+    public static long? SellFixedPrice(GameItem item)
+    {
+        if (!GameResources.Ready || item?.identifier != Tobacco.StampId || Owned(item)) return null;
+        StoreClient client = SaveSlot.CurrentStore?.currentClientInstance?.GetClientBlueprint();
+        return client?.identifier?.StartsWith("corp_milo_", StringComparison.Ordinal) == true
+            && (client.clientIntent == StoreClient.ClientIntent.SELL || client.clientIntent == StoreClient.ClientIntent.SELLNBUY)
+            ? Tobacco.StampPrice : null;
+    }
+
     public static long? BuyFixedPrice(GameItem item)
     {
         StoreClient client = CurrentBuyer(item);

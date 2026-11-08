@@ -2,16 +2,14 @@
 <!-- 官方 mod 加载器读的清单。和 CorpPresence.dll 一起放进 <游戏>\Mods\CorpPresence\ -->
 <Mod>
   <ID>CorpPresence</ID>
-  <Name>公司增强 CorpPresence</Name>
+  <Name>公司增强 CorpPresence 0.9.9 香水线更新</Name>
   <Author>aamobe</Author>
-  <ModVersion>0.9.8</ModVersion>
+  <ModVersion>0.9.9</ModVersion>
   <Description>各大公司的人物上门做买卖：伊莎、米洛、瑟琳、罗森、多琳和导师，各有章节故事和日常来访；公司目录、名片、合作度与独家商品。</Description>
-  <GameVersions/>
-  <Prerequisites/>
+  <GameVersions />
+  <Prerequisites />
   <Assemblies>
     <Assembly>CorpPresence.dll</Assembly>
   </Assemblies>
-  <Capabilities/>
+  <Capabilities />
 </Mod>
-
-

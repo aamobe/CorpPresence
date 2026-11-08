@@ -569,7 +569,6 @@ internal static class Goods
 			[Perfume.MixerKey + "_red"] = ("solana", Perfume.MixerKey + "_red"),
 			[Perfume.MixerKey + "_blue"] = ("solana", Perfume.MixerKey + "_blue"),
 			[Perfume.CollectorKey + "_running"] = ("solana", Perfume.CollectorKey + "_running"),
-#if PREVIEW_ART
 			["rolling_machine_running"] = ("pastel", "rolling_machine_running"),
 			["packaging_machine_running"] = ("pastel", "packaging_machine_running"),
 			["meat_grinder_running"] = ("davre", "meat_grinder_running"),
@@ -577,7 +576,6 @@ internal static class Goods
 			["seafood_sealer_running"] = ("davre", "seafood_sealer_running"),
 			["forge_furnace_running"] = ("forge", "forge_furnace"),
 			["isomer_reactor_running"] = ("carmicheal", "isomer_reactor_running"),
-#endif
 			["rat_wheel_generator_occupied"] = ("husbandry", "rat_wheel_generator_retrofit_occupied"),
 			["candle_lit"] = ("solana", "solana_candle_lit"),
 			["hemingway_limited"] = ("pastel", "hemingway_limited"),

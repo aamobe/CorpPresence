@@ -288,6 +288,7 @@ internal sealed class CatalogEntry
 
 	public int ListValue()
 	{
+		if (Id == "@hemingway_stamp") return Tobacco.StampPrice;
 		if (Id == "@modbox") return 500;
 		int bundle = Bundle;
 		return TryValues(Settings.OrderEvents, out _, out var value, includeTagMarkup: true)
@@ -296,6 +297,7 @@ internal sealed class CatalogEntry
 
 	public int Quote(double rate)
 	{
+		if (Id == "@hemingway_stamp") return Tobacco.StampPrice;
 		if (double.IsNaN(rate) || double.IsInfinity(rate) || rate <= 0.0)
 		{
 			return 0;
@@ -312,7 +314,7 @@ internal sealed class CatalogEntry
 
 	public double EventFactor()
 	{
-		if (!Settings.OrderEvents || Id == "@modbox")
+		if (!Settings.OrderEvents || Id == "@modbox" || Id == "@hemingway_stamp")
 		{
 			return 1.0;
 		}

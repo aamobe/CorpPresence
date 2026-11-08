@@ -34,6 +34,10 @@ internal static class Tobacco
 
 	public const int StampUses = 8;
 
+	public const int StampMaxUses = 24;
+
+	public const int StampPrice = 400;
+
 	private const int SpeedScale = 100;
 
 	private const string CarryTag = "CORP_PACK_CARRY_INT";
@@ -137,7 +141,7 @@ internal static class Tobacco
 		{
 			Name = "海明威标签戳",
 			NameEn = "Hemingway Label Stamp",
-			Value = 400L,
+			Value = StampPrice,
 			Company = "pastel",
 			Art = "hemingway_stamp",
 			Fallback = "food_stamp",
@@ -147,8 +151,8 @@ internal static class Tobacco
 			H = 2,
 			Shell = Empty,
 			Setup = InitStamp,
-			Desc = "放进分装机的标签槽。可以用 8 次，只在分装机里管用。",
-			DescEn = "Put it in a packaging machine's label slot. 8 uses; only works in the packaging machine.",
+			Desc = "放进分装机的标签槽。全新标签戳可用 8 次。把自己的标签戳拖到另一个上可合并剩余次数，合计最多 24 次；超过上限不能合并。只在分装机里管用。",
+			DescEn = "Put it in a packaging machine's label slot. A new stamp has 8 uses. Drag one owned stamp onto another to combine their remaining uses, up to 24. They cannot be combined if the total exceeds 24. Only works in the packaging machine.",
 			Flavor = "分部印限量包装用的标签戳，手柄上缠着一圈胶带。外面买不到。",
 			FlavorEn = "The division's stamp for Limited Edition packaging, tape wrapped around the handle. You can't buy one outside."
 		}
@@ -206,7 +210,10 @@ internal static class Tobacco
 	{
 		ContrabandHelper.InitContrabandItem(item, 3);
 		item.EnableTag("NOT_FOR_RESALE");
-		DurabilityHelper.InitItemWithDurability(item, 8);
+		DurabilityHelper.InitItemWithDurability(item, StampUses);
+		item.mayThisTargetItemFunc += CanMergeStamps;
+		item.canThisTargetItemFunc += CanMergeStamps;
+		item.onThisTargetItemFunc += MergeStamps;
 	}
 
 	public static Sprite PlantOverlay()
@@ -444,10 +451,8 @@ internal static class Tobacco
 		string description = L.T(text.Zh, text.En);
 		string perfumeEffects = Perfume.EffectText(machine);
 		if (perfumeEffects != null) description += "\n\n" + perfumeEffects;
-#if PREVIEW_ART
 		if (Goods.IdOf(machine) is "meat_grinder" or "rolling_machine")
 			description += "\n" + L.T("成品槽有成品时显示运行图，取空后恢复静态图。", "The active sprite stays visible until the output tray is emptied.");
-#endif
 		return description;
 	}
 
@@ -457,6 +462,30 @@ internal static class Tobacco
 	internal static bool Put(GameInventory inv, List<GameItem> items)
 	{
 		return ProductionOutput.TryAddBatch(inv, items);
+	}
+
+	private static bool CanMergeStamps(GameItem source, GameItem target)
+	{
+		if (source == null || target == null || source == target ||
+			source.identifier != StampId || target.identifier != StampId ||
+			source.unitCount != 1 || target.unitCount != 1 ||
+			StorePlacement.Destroyed(source) || StorePlacement.Destroyed(target) ||
+			!GeneralHelper.IsItemOwned(source, target)) return false;
+
+		int incoming = DurabilityHelper.GetRealDurability(source);
+		int remaining = DurabilityHelper.GetRealDurability(target);
+		return incoming > 0 && incoming <= StampMaxUses && remaining > 0 &&
+			remaining <= StampMaxUses - incoming;
+	}
+
+	private static void MergeStamps(GameItem source, GameItem target)
+	{
+		if (!CanMergeStamps(source, target)) return;
+		int uses = DurabilityHelper.GetRealDurability(source) + DurabilityHelper.GetRealDurability(target);
+		int capacity = Math.Max(StampUses, uses);
+		DurabilityHelper.SetDurability(target, uses, capacity, capacity);
+		source.Destroy();
+		AudioManager.Instance?.Play3("click_vintage");
 	}
 }
 

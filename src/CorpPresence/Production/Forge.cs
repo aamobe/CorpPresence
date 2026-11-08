@@ -127,15 +127,9 @@ internal static class Forge
 			Company = "forge",
 			Fallback = "furnace",
 			Types = new string[1] { "MACHINE" },
-#if PREVIEW_ART
 			Art = "forge_furnace_open",
 			W = 3,
 			H = 3,
-#else
-			Art = "forge_furnace",
-			W = 2,
-			H = 2,
-#endif
 			Shell = BuildFurnace,
 			Manual = FurnaceManual,
 			Desc = "放进高纯度以上的金属锭、插上电池，每晚把 1 块锭炼成 1 块精锻钢胚，默认每晚 2 块，耗 15 电。性能模组多炼（也多用锭），效率模组省电。",

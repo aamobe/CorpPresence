@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using CorpPresence.Runtime;
 using CorpPresence.UI;
 using HarmonyLib;
@@ -8,7 +8,7 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-    private const string ReleaseVersion = "0.9.8";
+    private const string ReleaseVersion = "0.9.9";
 #if WATER_TRACE
     public const string Version = ReleaseVersion + "-watertrace";
 #else

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -25,7 +24,6 @@ internal static class MachineAppearance
         public bool Running;
     }
 
-    [Conditional("PREVIEW_ART")]
     internal static void WatchOutput(GameItem machine, GameInventory output)
     {
         Outputs.Add(machine, output);
@@ -34,7 +32,6 @@ internal static class MachineAppearance
         machine.onLoaded += _ => Refresh(machine);
     }
 
-    [Conditional("PREVIEW_ART")]
     internal static void WatchCycle(GameItem machine, GameInventory output, Func<string> readyProduct, Func<int> batchSize = null)
     {
         var cycle = new Cycle { Output = output, ReadyProduct = readyProduct, BatchSize = batchSize };
@@ -63,7 +60,6 @@ internal static class MachineAppearance
         };
     }
 
-    [Conditional("PREVIEW_ART")]
     internal static void Rearm(GameItem machine)
     {
         if (machine == null || !Cycles.TryGetValue(machine, out var cycle) || cycle.Settling) return;

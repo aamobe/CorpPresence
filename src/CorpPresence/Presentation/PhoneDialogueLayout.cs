@@ -13,6 +13,15 @@ internal static class PhoneDialogueLayout
 
 	internal static void AfterPlayerText(DialoguePhoneUIManager __instance) => Fit(__instance.playerBubble, ref _player);
 
+	internal static void AfterBubbleScale(DialoguePhoneUIManager __instance)
+	{
+		if (__instance.currentDialog == null) return;
+		if (__instance.clientBubble != null && __instance.clientBubble.gameObject.activeSelf)
+			AfterClientText(__instance);
+		if (__instance.playerBubble != null && __instance.playerBubble.gameObject.activeSelf)
+			AfterPlayerText(__instance);
+	}
+
 	private static void Fit(TextBubble bubble, ref BubbleLayout state)
 	{
 		if (bubble == null || bubble.textfield == null || bubble.backgroundImage == null) return;

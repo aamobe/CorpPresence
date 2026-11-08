@@ -35,8 +35,8 @@ internal static partial class Perfume
     internal static readonly Dictionary<string, Goods.Def> Defs = new()
     {
         ["oilflower_seed"] = Item("油花种子", "Oilflower Seeds", 220, "oilflower_seed", 1, 1,
-            "标准条件约6晚收获4份花材。先天具有芳香物质Ⅰ、不育Ⅹ；按营养果方式抑制返种，移除不育后可返种并移入多年生。多年生再次结果基础进度21，产量与生长速度遵循原版基因效果。金卡会员每7天限购2颗。",
-            "About 6 nights for 4 flowers. Innate Aromatic Compounds I and Infertile X suppress seed returns like Nutrifruit. Remove infertility to recover seeds and insert Perennial. Refruit base work: 21, with native gene yield and speed modifiers. Gold members may buy 2 per rolling 7 days.",
+            "标准条件约6晚收获4份花材。先天具有芳香物质Ⅰ、不育Ⅲ；不育降低返种概率，仍可能返种。移除不育后可移入多年生。多年生再次结果基础进度21，产量与生长速度遵循原版基因效果。金卡会员每7天限购2颗。",
+            "About 6 nights for 4 flowers. Innate Aromatic Compounds I and Infertile III reduce, but do not eliminate, seed returns. Remove infertility to insert Perennial. Refruit base work: 21, with native gene yield and speed modifiers. Gold members may buy 2 per rolling 7 days.",
             InitFlowerSeed, "SEED"),
         ["oilflower"] = Item("油花花材", "Oilflower Blossoms", 15, "oilflower", 1, 2,
             "可用搅拌机打浆，再以酒精温浸释放基底油成分。含油混合液放进基底油提取器，每10mL油成分制成1份材料，无纯度要求。芳香物质Ⅰ时每份花材理想产油10mL，高等级增加花浆产量。不能种植。",

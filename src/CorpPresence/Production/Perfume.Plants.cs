@@ -10,7 +10,8 @@ internal static partial class Perfume
     private static Sprite _flowerSprite;
     internal const string AromaTrait = "production_corp_flower_mash";
     private static PlantTrait _aroma;
-    private const string GeneticsVersion = "CORP_OILFLOWER_GENETICS_V1_TAG";
+    private const string LegacyGeneticsVersion = "CORP_OILFLOWER_GENETICS_V1_TAG";
+    private const string GeneticsVersion = "CORP_OILFLOWER_GENETICS_V2_TAG";
 
     private static void RegisterFlower()
     {
@@ -23,7 +24,7 @@ internal static partial class Perfume
         RegisterAroma();
         _flower = new PlantDefinition(SeedId, "Oilflower", FlowerId, 42, 4)
             .Nutriment(300, 75, 60).Water(100).Contaminant(1.1)
-            .Refruit(21).ReturnsSeeds().Innate("infertile", 10)
+            .Refruit(21).ReturnsSeeds().Innate("infertile", 3)
             .Innate(AromaTrait).Innate("complex_genome").Innate("frail")
             .OnHarvest(ctx => {
                 ctx.OutputById(SeedId);
@@ -42,11 +43,15 @@ internal static partial class Perfume
     internal static void RepairFlowerGenetics(GameItem seed)
     {
         if (seed?.identifier != SeedId || seed.IsTag(GeneticsVersion)) return;
-        // Decode replaces factory state. Migrate only old seeds, once, preserving later edits.
-        if (PlantGeneticsHelper.GetTraitRank(seed, AromaTrait) <= 0)
+        // Decode replaces factory state. Older defaults migrate once; an edited
+        // V1 seed with infertility removed or set to another rank stays edited.
+        bool legacyDefault = !seed.IsTag(LegacyGeneticsVersion);
+        if (legacyDefault && PlantGeneticsHelper.GetTraitRank(seed, AromaTrait) <= 0)
             PlantGeneticsHelper.SetTraitRank(seed, AromaTrait, 1);
-        if (PlantGeneticsHelper.GetTraitRank(seed, "perennial") <= 0)
-            PlantGeneticsHelper.SetTraitRank(seed, "infertile", 10);
+        int infertility = PlantGeneticsHelper.GetTraitRank(seed, "infertile");
+        if (PlantGeneticsHelper.GetTraitRank(seed, "perennial") <= 0 &&
+            (infertility == 10 || legacyDefault && infertility == 0))
+            PlantGeneticsHelper.SetTraitRank(seed, "infertile", 3);
         seed.EnableTag(GeneticsVersion);
     }
 
