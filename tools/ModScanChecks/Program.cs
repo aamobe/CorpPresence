@@ -22,12 +22,19 @@ var detected = ((IEnumerable<string>)resultType.GetField("Capabilities")!.GetVal
 var capability = game.GetType("ModCapability")!;
 var unknown = declared.Where(c => !(bool)capability.GetMethod("IsKnown")!.Invoke(null, new object[] { c })!).ToArray();
 var missing = ((IEnumerable<string>)capability.GetMethod("Undeclared")!.Invoke(null, new object[] { detected, declared })!).ToArray();
+var pending = (resultType.GetField("Pending")?.GetValue(result) as System.Collections.IEnumerable)?.Cast<object>().ToArray() ?? Array.Empty<object>();
+Console.WriteLine($"Pending findings: {pending.Length}");
+foreach (var finding in pending)
+{
+    var type = finding.GetType();
+    Console.WriteLine($"Pending: {type.GetField("Kind")?.GetValue(finding)}: {type.GetField("Location")?.GetValue(finding)} -> {type.GetField("Target")?.GetValue(finding)}");
+}
 Console.WriteLine($"Methods scanned: {resultType.GetField("MethodsScanned")!.GetValue(result)}");
 Console.WriteLine($"Detected: {string.Join(", ", detected)}; declared: {string.Join(", ", declared)}");
 Console.WriteLine($"Unknown declarations: {unknown.Length}; undeclared capabilities: {missing.Length}");
 Console.WriteLine($"Refused: {resultType.GetProperty("Refused")!.GetValue(result)}; error: {resultType.GetField("Error")!.GetValue(result) ?? "none"}");
 Console.WriteLine(resultType.GetMethod("FormatFindings")!.Invoke(result, new object[] { 12 }));
 bool requireNone = args.Length == 3 && args[2] == "--require-none";
-if (requireNone) Console.WriteLine($"Zero-permission check: {(detected.Length == 0 && declared.Length == 0 ? "PASS" : "FAIL")}");
+if (requireNone) Console.WriteLine($"Zero-permission check: {(detected.Length == 0 && declared.Length == 0 && pending.Length == 0 ? "PASS" : "FAIL")}");
 return (bool)resultType.GetProperty("Refused")!.GetValue(result)! || missing.Length > 0 || unknown.Length > 0 ||
-    (requireNone && (detected.Length > 0 || declared.Length > 0)) ? 1 : 0;
+    (requireNone && (detected.Length > 0 || declared.Length > 0 || pending.Length > 0)) ? 1 : 0;

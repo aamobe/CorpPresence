@@ -277,7 +277,7 @@ internal static class Rebels
 			// Stop accepting goods immediately, including the rest of a bulk sale.
 			// The same buyer can inspect several items before the placement call returns.
 			__instance.clientBuyingTagList.Remove("ALL_TYPE");
-			DialogUIManager.Instance.StartCoroutine(LeaveAfterInspection(() =>
+			ModHelper.StartCoroutine(Main.DisplayName, LeaveAfterInspection(() =>
 			{
 				if (ReferenceEquals(PlayerStore.Instance, store) && ReferenceEquals(store.currentClientInstance, visitor))
 					store.DismissCurrentClient(callNextWhenPossible: false);

@@ -36,7 +36,25 @@ dotnet build ./src/CorpPresence.csproj -c Release --artifacts-path ./artifacts/b
 6. 工坊更新使用正确的appid和publishedfileid；不需要改变简介时，不在上传配置中填`description`或`title`。
 7. 保存发布结果。只有明确成功回执才能说“上传成功”；获得下载权限后可回下载并比较SHA256，未执行则如实记录。
 
-发布目录准备好后运行`tools/Check-ModPermissions.ps1 -GameManaged <游戏Managed目录> -ModFolder <待发布目录>`。此工具直接调用游戏安装目录中的`ModScanner.Scan`，不启动游戏或执行模组代码；扫描错误、拒绝项、未知权限或未声明权限均使检查失败。当前内置翻译版清单必须保持`<Capabilities />`，发布前加`-RequireNone`确认实际检测权限与声明均为零。
+发布目录准备好后运行`tools/Check-ModPermissions.ps1 -GameManaged <游戏Managed目录> -ModFolder <待发布目录>`。此工具直接调用游戏安装目录中的`ModScanner.Scan`，不启动游戏或执行模组代码；扫描错误、拒绝项、未知权限或未声明权限均使检查失败。当前内置翻译版清单必须保持`<Capabilities />`，发布前加`-RequireNone`确认实际检测权限、声明和 `Pending` 过渡期警告均为零。只检查 `Capabilities` 或 `Refused` 会漏掉新版扫描器的待生效规则。
+
+## 新功能的权限边界
+
+按官方 2026-11-08 的 API 更新记录，增加公司、人物、剧情、商品、合作度、订单或生产线本身不需要权限；是否触发检查取决于实现使用的接口。
+
+| 功能或实现 | 可能触发的规则 | 推荐方式 |
+| --- | --- | --- |
+| 导出订单、交易流水到桌面，或读取外部配置 | 通用文件 API 触发 `files`，目前不细分只读与写入 | 优先使用限定目录的 `ReadModFile*`、`Read/WriteModDataFile*`；配置用 `GetConfig`，本局数据用 `SetModData` |
+| 在线更新目录、翻译或立绘，联网检查更新 | `network`；直接保存文件还可能触发 `files` | 仅在功能确有需要时申请，并按工坊验证规则准备审核 |
+| 自建线程、Task、定时器；在其他游戏组件上启动协程 | `threads` 过渡期警告 | 使用 `ModHelper.StartCoroutine`、`Delay`、`RunInBackground` 等随模组停止而取消的接口 |
+| 动态加载插件 DLL 或生成代码 | `dynamic-code` | 优先静态引用与官方依赖接口 |
+| 调用原生库、指针，或无法静态确定目标的外部反射 | `native`、`reflection-external` | 使用受支持游戏 API，按需使用受限的 `ModReflect` |
+
+官方受限文件接口可只读模组目录、读写自身模组数据目录，并拒绝绝对或越界路径。通用 `files` 仍是较宽的类别，不代表扫描器已经确认实际读写了任意文件。翻译 CSV 由加载器读取，当前公司增强无需文件权限。
+
+官方公布：2026-12-10 更新起，工坊模组声明 `files` 或 `network` 任一项都需开发者验证；`threads`、`dynamic-code`、`native`、`reflection-external` 将被拒绝。以实际安装版本和官方后续公告为准；静态扫描通过不代替游戏内功能测试。
+
+参考：[官方文件接口](https://github.com/dragonpan2/probably-stolen-modding/blob/main/ModdingGuide.md#reading-and-writing-files-without-the-capability)、[权限分类](https://github.com/dragonpan2/probably-stolen-modding/blob/main/ModdingGuide.md#declaring-capabilities)、[2026-11-08 更新记录](https://github.com/dragonpan2/probably-stolen-modding/blob/main/APIChanges.md#november-8-2026)。
 
 工坊目标：游戏appid `4348910`，项目ID `3828913695`。上传凭证只保存在本地工具环境，不进仓库。
 
