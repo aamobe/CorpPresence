@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "variant": "stable-official-csv-pastel-expanded-no-permissions",
+  "variant": "stable-official-csv-korean-startup-no-permissions",
   "recordedOn": "2026-11-09",
   "sourceFileCount": 326,
   "assetFileCount": 167,
@@ -1229,7 +1229,7 @@
     {
       "path": "src/CorpPresence/Malice/Rebels.cs",
       "hashMode": "utf8-lf",
-      "sha256": "3664E9A0F620B23042044641887A0925AF56F7A077A801CD02671D53BC44BF6D"
+      "sha256": "372908D94A71A649BF4B568412F57F0C3778ADB2BC61BEDAA15B28019E6524C8"
     },
     {
       "path": "src/CorpPresence/Malice/RebelState.cs",
@@ -1509,7 +1509,7 @@
     {
       "path": "src/CorpPresence/Runtime/GameResources.cs",
       "hashMode": "utf8-lf",
-      "sha256": "169DE0BAA526D3A5FE5E0398EACEE77C70DE830992D9F0F561EA62D5D790E1D9"
+      "sha256": "C3C6C342562BFAECDE2061BF1E2D465912136D1D3F1B9F7CA5046FAA9148E9B5"
     },
     {
       "path": "src/CorpPresence/Runtime/Host.cs",
@@ -1657,5 +1657,8 @@
       "sha256": "CBE76793568B3333810959FB74071BC9ABDB564ABD6EA4485A06DC273947D573"
     }
   ],
-  "localizationFileCount": 3
+  "localizationFileCount": 3,
+  "distributionBuildMode": "targeted-patch-of-subscription-dll",
+  "completeDistributionSource": false,
+  "distributionBaselineSha256": "855CF8D493E3B8DC74E584449208DCE457ADE86C4159003873D9AD609F35A744"
 }

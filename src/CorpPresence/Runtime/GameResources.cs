@@ -53,7 +53,7 @@ internal static class GameResources
         return LocHelper.ResolveStartupLocale() switch
         {
             "zh" => "zh", "ru" => "ru", "de" => "de", "ja" => "ja",
-            "fr" => "fr", "es" => "es", "pl" => "pl",
+            "fr" => "fr", "es" => "es", "pl" => "pl", "ko" => "ko",
             _ => "en",
         };
     }

@@ -1,0 +1,42 @@
+{
+  "version": "1.0.0",
+  "variant": "korean-startup-on-nov09-1622-subscription",
+  "recordedOn": "2026-11-09",
+  "workshopAppId": "4348910",
+  "workshopItemId": "3828913695",
+  "sourceMappingPatchBase": "d0856e8f693ba8837ba3491296aa49e77df810ba",
+  "distributionBaselineSha256": "855CF8D493E3B8DC74E584449208DCE457ADE86C4159003873D9AD609F35A744",
+  "distributionBuildMode": "targeted-patch-of-subscription-dll",
+  "completeDistributionSource": false,
+  "hashAlgorithm": "SHA256",
+  "files": [
+    {
+      "path": "CHANGELOG-1.0.txt",
+      "sha256": "328767F738A915ACCB9547573541D997627DF3DCD9BD015117502ECA0E4F4AE1"
+    },
+    {
+      "path": "CorpPresence.dll",
+      "sha256": "7D10C9BDE91F3F59A69A3994A71ED2F638EF3B520A35B4A7BDFA2A64B3846D96"
+    },
+    {
+      "path": "Localization/en.csv",
+      "sha256": "917FCECC31D5BA4D253CE1C7F0DE80B3CA45B291DFB9F8AFE804ECA1AD755255"
+    },
+    {
+      "path": "Localization/fr.csv",
+      "sha256": "73BD704AAA12D8D2267DCF16CB0927EB6AE75228FD303410ED2DCAB363EAA0D6"
+    },
+    {
+      "path": "Localization/ru.csv",
+      "sha256": "BA98B00395D7CEAF42B7A44E666D01451D5B9635416A04BAACE6A27DFEED8386"
+    },
+    {
+      "path": "manifest.xml",
+      "sha256": "A0CB994ECDE53C907A6AFC3DFE0CCB8765520A739BCA009A90255DD1888966CA"
+    },
+    {
+      "path": "TRANSLATIONS.txt",
+      "sha256": "3001F758EE9A8044DF5355CDCB7D2E5E07C281DA549055471A4A077DC0194192"
+    }
+  ]
+}

@@ -4,6 +4,7 @@
 
 | 工具 | 用途 | 是否启动游戏 |
 | --- | --- | --- |
+| [GameResourcesChecks](GameResourcesChecks) | 检查包括韩语在内的启动语言映射及切换等待；使用真实GameResources与游戏边界替代 | 否 |
 | [Build.ps1](Build.ps1) | 编译正式模组，要求本地游戏引用 | 否 |
 | [Check-ModPermissions.ps1](Check-ModPermissions.ps1) | 用已安装游戏的真实扫描器检查待发布目录、清单权限和拒绝项 | 否 |
 | [Check-Repository.ps1](Check-Repository.ps1) | 检查本地文档链接、版本字段；可选核对发布源码快照 | 否 |
