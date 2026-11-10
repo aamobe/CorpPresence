@@ -366,6 +366,19 @@ internal sealed class Theme
 		t.Box = MakeBox(t.Window, pastel ? 4 : 5);
 		t.CellBox = MakeBox(t.Cell, 4);
 		t.CellOnBox = MakeBox(t.CellOn, 4);
+		if (t.Company == "pastel")
+		{
+			// 帕斯泰尔窗口放大后的字号（从 1.0.0 订阅版还原，2026-11-10）。
+			t.Title.fontSize = t.HotTitle.fontSize = 24;
+			t.Body.fontSize = t.Price.fontSize = 18;
+			t.Small.fontSize = t.Desk.fontSize = 15;
+			t.Wrap.fontSize = t.Center.fontSize = 16;
+			t.Tight.fontSize = 13;
+			t.BannerTitle.fontSize = 20;
+			t.BtnStyle.fontSize = t.BtnHotStyle.fontSize = 17;
+			t.NavStyle.fontSize = t.NavOnStyle.fontSize = 16;
+			t.NavStyle.wordWrap = t.NavOnStyle.wordWrap = true;
+		}
 		return t;
 	}
 

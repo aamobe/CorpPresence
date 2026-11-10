@@ -25,7 +25,7 @@ internal static partial class CompanyWindow
 		for (int i = 0; i < PastelModules.Length; i++)
 		{
 			bool flag = PastelUnlocked(i, out var _);
-			Rect r2 = new Rect(position.x + 6f, position.y + 30f + (float)(i * 32), position.width - 12f, 28f);
+			Rect r2 = new Rect(position.x + 6f, position.y + 30f + (float)(i * 42), position.width - 12f, 38f);
 			string text = ((i == _module) ? "› " : "  ") + PastelModules[i] + (flag ? "" : L.K("ui.pastel.overview.locked", "（未解锁）", " (locked)"));
 			if (Ui.Button(r2, text, (i == _module) ? theme.NavOnStyle : theme.NavStyle))
 			{
@@ -108,7 +108,7 @@ internal static partial class CompanyWindow
 		{
 			_page = "日用";
 		}
-		if (Ui.Button(new Rect(r.x + 96f, r.y, 140f, 26f), flag ? L.K("ui.pastel.orders.hemingway", "海明威", "Hemingway") : L.K("ui.pastel.orders.hemingwayLocked", "海明威（未解锁）", "Hemingway (locked)"), (_page == "海明威") ? theme.BtnHotStyle : theme.BtnStyle))
+		if (Ui.Button(new Rect(r.x + 96f, r.y, 170f, 28f), flag ? L.K("ui.pastel.orders.hemingway", "海明威", "Hemingway") : L.K("ui.pastel.orders.hemingwayLocked", "海明威（未解锁）", "Hemingway (locked)"), (_page == "海明威") ? theme.BtnHotStyle : theme.BtnStyle))
 		{
 			if (flag)
 			{
@@ -120,7 +120,7 @@ internal static partial class CompanyWindow
 			}
 		}
 		bool flag2 = PastelCo.CraftDone(1);
-		if (Ui.Button(new Rect(r.x + 242f, r.y, 90f, 26f), flag2 ? L.K("ui.pastel.orders.craft", "工艺", "Craft") : "？？？", (_page == "工艺") ? theme.BtnHotStyle : theme.BtnStyle))
+		if (Ui.Button(new Rect(r.x + 272f, r.y, 90f, 28f), flag2 ? L.K("ui.pastel.orders.craft", "工艺", "Craft") : "？？？", (_page == "工艺") ? theme.BtnHotStyle : theme.BtnStyle))
 		{
 			if (flag)
 			{
@@ -138,7 +138,7 @@ internal static partial class CompanyWindow
 			Ui.Fill(new Rect(r.x + 3f, r.yMax - 4f, r.width - 6f, 1f), Tex.Hex(12224851));
 		}
 		bool flag3 = Services.CanOrderToday(_company);
-		GUI.Label(new Rect(r.x + 340f, r.y, r.width - 340f, 26f), flag3 ? L.K("ui.pastel.orders.orderTodayDeliveredTomorrow", "今天下单，明天送到", "Order today, delivered tomorrow") : L.K("ui.pastel.orders.alreadyOrderedToday", "今天已经下过单了", "Already ordered today"), theme.Small);
+		GUI.Label(new Rect(r.x + 370f, r.y, r.width - 370f, 28f), flag3 ? L.K("ui.pastel.orders.orderTodayDeliveredTomorrow", "今天下单，明天送到", "Order today, delivered tomorrow") : L.K("ui.pastel.orders.alreadyOrderedToday", "今天已经下过单了", "Already ordered today"), theme.Small);
 		CatalogEntry[] array = PastelCo.Entries.Where((CatalogEntry e) => e.Page == _page).ToArray();
 		CatalogEntry catalogEntry = PastelSpecial();
 		int num2 = (array.Length + 2) / 3;
@@ -186,7 +186,7 @@ internal static partial class CompanyWindow
 			int num7 = Math.Min(10, Services.Left(state, catalogEntry2));
 			if (catalogEntry2.Limit() > 0)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 76f, rect.width, 16f), (L.En ? L.K("ui.pastel.orders.quotaRemaining", (System.FormattableString)$"{num7} left {Services.PeriodWord}") : $"{Services.PeriodWord}还剩 {num7}"), theme.Small);
+				GUI.Label(new Rect(rect.x, rect.y + 76f, rect.width, 22f), (L.En ? L.K("ui.pastel.orders.quotaRemaining", (System.FormattableString)$"{num7} left {Services.PeriodWord}") : $"{Services.PeriodWord}还剩 {num7}"), theme.Small);
 			}
 			Cart.TryGetValue(catalogEntry2, out var value);
 			value = Ui.Qty(new Rect(rect.x + 6f, rect.yMax - 28f, rect.width - 12f, 24f), value, Math.Min(10, num7), theme.BtnStyle, theme.Center);
@@ -266,10 +266,10 @@ internal static partial class CompanyWindow
 			Ui.Image(r2, texture2D);
 		}
 		GUI.Label(new Rect(r.x + 6f, r.y + 104f, 130f, 22f), L.K("ui.pastel.footer.milo", "米洛", "Milo"), theme.Center);
-		GUI.Label(new Rect(r.x + 144f, r.y + 10f, 300f, 22f), "“" + MiloLines[Day % MiloLines.Length] + "”", theme.Body);
-		GUI.Label(new Rect(r.x + 144f, r.y + 40f, 300f, 22f), (L.En ? L.K("ui.pastel.footer.cooperation", (System.FormattableString)$"Cooperation {state.Coop}  ·  {TierLabel(state)}") : $"合作度 {state.Coop}  ·  {TierLabel(state)}"), theme.Body);
-		CoopBar(new Rect(r.x + 144f, r.y + 66f, 300f, 12f));
-		GUI.Label(new Rect(r.x + 144f, r.y + 82f, 300f, 20f), NextTierHint(), theme.Small);
+		GUI.Label(new Rect(r.x + 144f, r.y + 10f, r.width - 350f, 44f), "“" + MiloLines[Day % MiloLines.Length] + "”", theme.Wrap);
+		GUI.Label(new Rect(r.x + 144f, r.y + 62f, r.width - 350f, 24f), (L.En ? L.K("ui.pastel.footer.cooperation", (System.FormattableString)$"Cooperation {state.Coop}  ·  {TierLabel(state)}") : $"合作度 {state.Coop}  ·  {TierLabel(state)}"), theme.Body);
+		CoopBar(new Rect(r.x + 144f, r.y + 92f, r.width - 350f, 12f));
+		GUI.Label(new Rect(r.x + 144f, r.y + 112f, r.width - 350f, 42f), NextTierHint(), theme.Wrap);
 		if (_module != 0 || !PastelUnlocked(0, out var _))
 		{
 			return;

@@ -25,6 +25,7 @@ internal static class Hooks
 	{
 		Type typeFromHandle = typeof(Hooks);
 		Type typeFromHandle2 = typeof(ItemRegistry);
+		RatWheelGenerator.Install(h);
 		Patch<SaveManager>(h, "DecodeNodes", typeFromHandle2, "BeforeDecode", null, new Type[1] { typeof(List<SaveItemNode>) });
 		Patch<SaveManager>(h, "DecodeNodes", typeof(ItemTags), null, "AfterDecode", new Type[1] { typeof(List<SaveItemNode>) });
 		Patch<SaveManager>(h, "EncodeNode", typeFromHandle2, "BeforeEncode", null, new Type[1] { typeof(GameItem) });

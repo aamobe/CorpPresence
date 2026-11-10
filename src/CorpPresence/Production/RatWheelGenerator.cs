@@ -1,14 +1,230 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 
 namespace CorpPresence;
 
 internal static class RatWheelGenerator
 {
+    private const string WidthTag = "CORP_RAT_WHEEL_WIDTH";
+    private const string HeightTag = "CORP_RAT_WHEEL_HEIGHT";
     internal const string GoodsKey = "rat_wheel_generator";
     private const int EnergyPerRat = 2;
     private const int MaxNightlyEnergyPerBattery = 16;
+
+    // 以下到 Definition 之前：独立笼体与容量标签（从 1.0.0 订阅版还原，2026-11-10）。
+    // 不借用原版 CreateAnimalCage 和 CAGE_SIZE_TAG，改用自己的宽高标签；读档时把旧的尺寸标签换算过来并移除。
+    internal static void Install(Harmony harmony)
+    {
+        harmony.Patch(AccessTools.Method(typeof(GameItem), "ValidateShapeState"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeValidateCapacity")
+        {
+            priority = 800
+        });
+        harmony.Patch(AccessTools.Method(typeof(AnimalCage), "CanUpgradeSize"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeCanUpgrade"));
+        harmony.Patch(AccessTools.Method(typeof(AnimalCage), "UpgradeSize"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeUpgrade"));
+        harmony.Patch(AccessTools.Method(typeof(AnimalCage), "CreateTooltip"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeCageTooltip"));
+    }
+
+    private static bool Ours(GameItem item)
+    {
+        if (item?.state != null)
+        {
+            if (!item.state.IsTag("CORP_RAT_WHEEL_HEIGHT"))
+            {
+                return Goods.IdOf(item) == "rat_wheel_generator";
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static GameItem FeederIn(GameSlotInventory slot)
+    {
+        if (slot?.childItem == null || !slot.childItem.IsTag("FEED_DISPENSER_TAG"))
+        {
+            return null;
+        }
+        return slot.childItem;
+    }
+
+    private static GameItem CreateIndependentCage()
+    {
+        (PixelWindow, GameInventory, GameSlotInventory, MachineryButton, GameSlotInventory, MachineryButton) tuple = AnimalCage.CreateCageWindow();
+        PixelWindow item2 = tuple.Item1;
+        GameInventory storage = tuple.Item2;
+        GameSlotInventory feeder = tuple.Item3;
+        MachineryButton blend = tuple.Item4;
+        GameSlotInventory item3 = tuple.Item5;
+        MachineryButton item4 = tuple.Item6;
+        GameItem machine = ItemDirectory.CreateEmptyItem().SetContentWindow(item2).SetSpriteAndShape("Items/items_husbandry", "animal_cage");
+        machine.EnableTag("CAGE_TAG");
+        machine.EnableTag("CONTAINER_TAG");
+        machine.EnableTag("IMPORTANT_TAG");
+        machine.state.GetTag("CORP_RAT_WHEEL_WIDTH").Enable().SetInt(10);
+        machine.state.GetTag("CORP_RAT_WHEEL_HEIGHT").Enable().SetInt(3);
+        machine.state.GetTag("CAGE_HEALTH_TAG").Enable().SetInt(100);
+        machine.state.GetTag("CAGE_MAX_HEALTH_TAG").Enable().SetInt(100);
+        AudioHelper.InitMetalMachine(machine);
+        storage.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(machine, item) && !item.IsTag("CONTAINER_TAG") && (!item.IsGameItemType("MACHINE") || item.IsTag("ALLOWED_IN_CAGE_TAG"));
+        feeder.mayInventoryAddItemFunc = (GameItem item, GameInventory _) => GeneralHelper.IsItemOwned(machine, item) && item.IsTag("FEED_DISPENSER_TAG");
+        feeder.SetBackgroundFadeSprite("Items/items_husbandry", "animal_feeder");
+        blend.SetCallback(delegate
+        {
+            GameItem gameItem2 = FeederIn(feeder);
+            if (gameItem2 != null)
+            {
+                MachineFeedDispenser.Blend(gameItem2, MachineFeedDispenser.GetStorageGrid(gameItem2));
+            }
+        });
+        GameSlotInventory gameSlotInventory = feeder;
+        gameSlotInventory.onSlotAddItemEndFunc = (Action<GameItem, GameInventory, SlotMarker>)Delegate.Combine(gameSlotInventory.onSlotAddItemEndFunc, (Action<GameItem, GameInventory, SlotMarker>)delegate
+        {
+            RefreshFeeder();
+        });
+        GameSlotInventory gameSlotInventory2 = feeder;
+        gameSlotInventory2.onSlotRemoveItemEndFunc = (Action<GameItem, GameInventory, SlotMarker>)Delegate.Combine(gameSlotInventory2.onSlotRemoveItemEndFunc, (Action<GameItem, GameInventory, SlotMarker>)delegate
+        {
+            RefreshFeeder();
+        });
+        GameItem gameItem = machine;
+        gameItem.onLoaded = (Action<GameItem>)Delegate.Combine(gameItem.onLoaded, (Action<GameItem>)delegate(GameItem item)
+        {
+            RestoreCapacity(item, (GameGridInventory)storage);
+            RefreshFeeder();
+        });
+        RefreshFeeder();
+        MachineAutoButcher.SetupHostSlot(machine, item3, item4);
+        machine.onCycleEndSlotItemFunc = delegate(GameItem item, GameInventory _, SlotMarker _)
+        {
+            int num = 0;
+            bool flag = false;
+            foreach (GameItem childItem in storage.childItems)
+            {
+                if (childItem.IsTag("ANIMAL_ITEM_TAG") && !childItem.IsTag("ANIMAL_IS_DEAD_TAG"))
+                {
+                    num += childItem.GetItemSize();
+                    flag |= childItem.GetTagReadonly("ANIMAL_OVERCROWDING_TAG").GetInt() > 0;
+                }
+            }
+            int wear = num * ((!flag) ? 1 : 2) / 4;
+            if (wear > 0)
+            {
+                item.ModifyTag("CAGE_HEALTH_TAG", delegate(TagState s)
+                {
+                    s.SetInt(Math.Max(0, item.GetTagReadonly("CAGE_HEALTH_TAG").GetInt() - wear));
+                });
+            }
+        };
+        return machine;
+        void RefreshFeeder()
+        {
+            blend.SetHidden(FeederIn(feeder) == null);
+        }
+    }
+
+    public static void BeforeValidateCapacity(GameItem __instance)
+    {
+        if (Ours(__instance))
+        {
+            int @int = __instance.state.GetTag("CAGE_SIZE_TAG").GetInt();
+            (int, int) tuple = RatWheelCapacity.Restore(__instance.state.GetTag("CORP_RAT_WHEEL_WIDTH").GetInt(), __instance.state.GetTag("CORP_RAT_WHEEL_HEIGHT").GetInt(), @int, 0, 0, 0, 0);
+            __instance.state.GetTag("CORP_RAT_WHEEL_WIDTH").Enable().SetInt(tuple.Item1);
+            __instance.state.GetTag("CORP_RAT_WHEEL_HEIGHT").Enable().SetInt(tuple.Item2);
+            __instance.state.dict.Remove("CAGE_SIZE_TAG");
+            __instance.modifiedState?.dict.Remove("CAGE_SIZE_TAG");
+        }
+    }
+
+    private static void RestoreCapacity(GameItem item, GameGridInventory grid)
+    {
+        BeforeValidateCapacity(item);
+        item.EnableTag("IMPORTANT_TAG", skipValidate: true);
+        int num = 0;
+        int num2 = 0;
+        foreach (GameItem childItem in grid.childItems)
+        {
+            GridShape modifiedShape = childItem.modifiedShape;
+            if (modifiedShape != null)
+            {
+                num = Math.Max(num, modifiedShape.maxX + 1);
+                num2 = Math.Max(num2, modifiedShape.maxY + 1);
+            }
+        }
+        (int, int) tuple = RatWheelCapacity.Restore(item.state.GetTag("CORP_RAT_WHEEL_WIDTH").GetInt(), item.state.GetTag("CORP_RAT_WHEEL_HEIGHT").GetInt(), 0, grid.inventoryShape.width, grid.inventoryShape.height, num, num2);
+        item.state.GetTag("CORP_RAT_WHEEL_WIDTH").Enable().SetInt(tuple.Item1);
+        item.state.GetTag("CORP_RAT_WHEEL_HEIGHT").Enable().SetInt(tuple.Item2);
+        item.ValidateShapeState();
+        grid.SetShape(tuple.Item1, tuple.Item2);
+        grid.Validate();
+        item.contentWindow.Validate();
+        item.Validate();
+    }
+
+    public static bool BeforeCanUpgrade(GameItem cage, ref bool __result)
+    {
+        if (!Ours(cage))
+        {
+            return true;
+        }
+        __result = RatWheelCapacity.CanUpgrade(cage.state.GetTag("CORP_RAT_WHEEL_HEIGHT").GetInt());
+        return false;
+    }
+
+    public static bool BeforeUpgrade(GameItem cage, GameItem ingot)
+    {
+        if (!Ours(cage))
+        {
+            return true;
+        }
+        BeforeValidateCapacity(cage);
+        int @int = cage.state.GetTag("CORP_RAT_WHEEL_HEIGHT").GetInt();
+        if (!RatWheelCapacity.CanUpgrade(@int))
+        {
+            return false;
+        }
+        cage.state.GetTag("CORP_RAT_WHEEL_HEIGHT").SetInt(@int + 1);
+        int maxHealth = cage.GetTagReadonly("CAGE_MAX_HEALTH_TAG").GetInt() + 20;
+        cage.ModifyTag("CAGE_MAX_HEALTH_TAG", delegate(TagState s)
+        {
+            s.SetInt(maxHealth);
+        }, skipValidate: true);
+        cage.ModifyTag("CAGE_HEALTH_TAG", delegate(TagState s)
+        {
+            s.SetInt(Math.Min(maxHealth, cage.GetTagReadonly("CAGE_HEALTH_TAG").GetInt() + 20));
+        }, skipValidate: true);
+        RestoreCapacity(cage, AnimalCage.GetCageInventory(cage));
+        cage.unitValue += 40L;
+        StartingPerkContent.ConsumeUpgradeMaterial(ingot);
+        EmporiumAudioPlayer.Instance.ratchet.Play();
+        return false;
+    }
+
+    public static bool BeforeCageTooltip(RichTextBuilder builder, GameItem item)
+    {
+        if (!Ours(item))
+        {
+            return true;
+        }
+        int @int = item.GetTagReadonly("CAGE_HEALTH_TAG").GetInt();
+        int int2 = item.GetTagReadonly("CAGE_MAX_HEALTH_TAG").GetInt();
+        builder.AddLine(" ");
+        builder.Add(LocHelper.GetLocalizedMechanic("husbandry_cage_durability"), RenderHandler.ColorPalette.LightCyan);
+        builder.AddProgressBar((int2 > 0) ? ((float)@int / (float)int2) : 0f, 10, RenderHandler.ColorPalette.LightCyan, RenderHandler.ColorPalette.VeryDarkCyan, null, " ");
+        builder.AddLine($"({@int}/{int2})", ignoreEmpty: true, RenderHandler.ColorPalette.LightCyan);
+        MachineFeedDispenser.CreateSlottedTooltip(builder, FeederIn(AnimalCage.GetDispenserSlot(item)));
+        int int3 = item.state.GetTag("CORP_RAT_WHEEL_HEIGHT").GetInt();
+        builder.AddLine(LocHelper.GetLocalizedMechanic(RatWheelCapacity.CanUpgrade(int3) ? "husbandry_cage_expand_hint" : "husbandry_cage_max_size", Math.Max(0, 8 - int3)), ignoreEmpty: true, RenderHandler.ColorPalette.LightBlue);
+        if (AnimalCage.CanRepair(item))
+        {
+            builder.AddLine(LocHelper.GetLocalizedMechanic("husbandry_cage_repair_hint"), ignoreEmpty: true, RenderHandler.ColorPalette.LightBlue);
+        }
+        else
+        {
+            builder.AddLine(LocHelper.GetLocalizedMechanic("husbandry_cage_fully_repaired"), ignoreEmpty: true, RenderHandler.ColorPalette.Cyan);
+        }
+        return false;
+    }
 
     internal static Goods.Def Definition() => new Goods.Def
     {
@@ -33,7 +249,7 @@ internal static class RatWheelGenerator
 
     private static GameItem Build()
     {
-        var machine = AnimalCage.CreateAnimalCage();
+        var machine = CreateIndependentCage();
         var cage = AnimalCage.GetCageInventory(machine);
         var accepts = cage.mayInventoryAddItemFunc;
         cage.mayInventoryAddItemFunc = (item, inventory) =>

@@ -16,3 +16,20 @@ dotnet artifacts/korean-subscription-patch/bin/Checks/debug/Checks.dll '<16:22�
 ```
 
 分发文件的实际SHA256见[发布文件清单](../releases/1.0.0-artifacts.json)。
+
+## 2026-11-10：底包改动已补回源码
+
+把本机订阅的 1.0.0 文件（SHA256 `7D10C9BDE91F3F59A69A3994A71ED2F638EF3B520A35B4A7BDFA2A64B3846D96`）反编译后，与提交 `111312244b15709774feac5f0da1289b04e83b70` 的编译产物逐文件对比，订阅版多出的改动共五处，已全部补进源码：
+
+- 新增 `src/CorpPresence/Production/RatWheelCapacity.cs`：跑轮发电机笼格的容量恢复规则。
+- `Production/RatWheelGenerator.cs`：改用独立笼体和自己的宽高标签（`CORP_RAT_WHEEL_WIDTH`、`CORP_RAT_WHEEL_HEIGHT`），读档时换算并移除旧的 `CAGE_SIZE_TAG`，接管扩容、扩容判断和说明文字四个入口。
+- `Integration/Hooks.cs`：核心阶段安装上述四个补丁。
+- `UI/Theme.cs`：帕斯泰尔窗口的字号。
+- `UI/CompanyWindow.Pastel.cs`：帕斯泰尔窗口九处布局尺寸。
+
+核对方式和范围：补入后重新编译（0 警告、0 错误），再反编译，与订阅版反编译结果比较，125 个源文件中 124 个完全一致；剩下的 `GameResources.ResolveMenuStartupLocale` 只是写法不同（订阅版是修补工具插入的判断，源码是 switch 里的一项），行为相同。167 张嵌入图片与订阅版逐字节一致。
+
+没有做的：没有启动游戏验证；重新编译的文件与订阅文件不是逐字节相同（大小相差约 2 KB）。跑轮发电机的代码是从反编译结果整理的，变量名是反编译器起的，原来的注释无法恢复。
+
+从这次起，普通 `Build.ps1` 的产物在逻辑上对应订阅版，下次发布可以从源码构建，不必再从订阅底包修补。
+
