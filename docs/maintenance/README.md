@@ -1,11 +1,11 @@
 # 维护指南
 
 1. 先读[当前发布记录](../releases/1.0.0.md)，确认修改所基于的源码。
-2. 用[源码地图](architecture.md)找入口，并沿调用链检查UI、后端校验和存档。
+2. 用[源码地图](../源码地图.md)找入口，并沿调用链检查UI、后端校验和存档。
 3. 涉及液体、库存、读档或会员时，读[兼容与回归](compatibility-and-regressions.md)。
 4. 完成修改后按[构建与发布](build-and-release.md)验证，并更新受影响文档。
 
-开发中重复遇到的问题，先查[历史问题复盘](retrospective/README.md)。其中按40个案例区分现场记录、历史复现、已撤回方案和未闭环反馈，供新MOD开发借鉴。
+开发中重复遇到的问题，先查[历史问题复盘](../retrospective/README.md)。其中按40个案例区分现场记录、历史复现、已撤回方案和未闭环反馈，供新MOD开发借鉴。
 
 准备新功能或新MOD时，可按[MOD制作与项目管理指南](../mod-development-guide.md)确认环境、职责边界、旧档影响和交付目标，并复用其中的任务卡。
 
@@ -13,8 +13,8 @@
 
 | 维护任务 | 文档/位置 |
 | --- | --- |
-| 修改价格、会员门槛、限购 | [源码地图](architecture.md#公司与订货) |
-| 修改机器、配方或植物 | [功能目录](../features/README.md)；香水详见[规则](../features/perfume.md) |
+| 修改价格、会员门槛、限购 | [源码地图](../源码地图.md#公司与订货) |
+| 修改机器、配方或植物 | [功能目录](../specs/README.md)；香水详见[规则](../specs/perfume.md) |
 | 处理普通水拒收、旧物品或读档异常 | [兼容与回归](compatibility-and-regressions.md) |
 | 增加翻译 | `src/CorpPresence/Presentation/Translations.json`及对应的`L.T`调用 |
 | 导入或改动PNG | [美术入口](../art/README.md) |

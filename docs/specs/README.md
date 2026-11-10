@@ -15,4 +15,4 @@
 | 恶意巨企、订阅和阵营 | [Malice](../../src/CorpPresence/Malice)、`CompanyWindow.Malice` |
 | 存档与卸载清理 | [Persistence](../../src/CorpPresence/Persistence)、`LoadedItemRepair` |
 
-共用模块往往被多家公司调用。改UI文字时确认对应后端；改后端时检查其所有调用者。配置默认值另见[0.9.9默认难度](../default-difficulty-0.9.9.md)。
+共用模块往往被多家公司调用。改UI文字时确认对应后端；改后端时检查其所有调用者。配置默认值另见[0.9.9默认难度](default-difficulty-0.9.9.md)。

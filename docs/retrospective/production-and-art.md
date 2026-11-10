@@ -32,7 +32,7 @@
 
 **反例所在**：它不提供完整回滚，却增加了持久故障状态；当时没有自动恢复或游戏内解除入口。保护可能把短暂异常变成玩家长期无法使用的机器。该方案是未发布候选，不能说已造成所有玩家锁机。
 
-**最终处理**：后续明确撤回ProductionCommit及七条入口的锁机逻辑；读档只幂等清除旧候选标记，不返还、删除或重算物资。当前[ProductionCompatibility.cs](../../../src/CorpPresence/Production/ProductionCompatibility.cs)保留此兼容意图。
+**最终处理**：后续明确撤回ProductionCommit及七条入口的锁机逻辑；读档只幂等清除旧候选标记，不返还、删除或重算物资。当前[ProductionCompatibility.cs](../../src/CorpPresence/Production/ProductionCompatibility.cs)保留此兼容意图。
 
 **防复发**：先修具体可复现路径。增加锁、暂停标记或新故障状态前，必须说明恢复条件、旧档迁移和资源所有权；不能因“理论上更安全”就引入无法退出的状态。
 

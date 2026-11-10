@@ -14,7 +14,7 @@
 
 ## A02：过早碰本地化/液体静态类型，引出水系统连锁问题
 
-**现象与证据**：历史启动记录指出WaterFeatureHelper及Liquid会同步读取Mechanic表，未就绪时可触发无效句柄；现场还确认过水名缓存与动态名称错配。来源S04及仓库[水系统记录](../../water-compatibility.md)。
+**现象与证据**：历史启动记录指出WaterFeatureHelper及Liquid会同步读取Mechanic表，未就绪时可触发无效句柄；现场还确认过水名缓存与动态名称错配。来源S04及仓库[水系统记录](../releases/archive/water-compatibility.md)。
 
 **根因**：安装水相关补丁、注册工厂或液体，本身就可能触发静态类型初始化。给外层加catch后不断重试，不能恢复已失败的CLR静态初始化。反复改全局水名又扩大了影响范围。
 

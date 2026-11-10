@@ -1,6 +1,6 @@
 # 0.9.7 兼容修复边界
 
-> 历史版本记录：其中额外权限和跨模组钩子说明不代表当前版本。当前清单的Capabilities为空，维护时先读[当前兼容约束](maintenance/compatibility-and-regressions.md)。
+> 历史版本记录：其中额外权限和跨模组钩子说明不代表当前版本。当前清单的Capabilities为空，维护时先读[当前兼容约束](../../maintenance/compatibility-and-regressions.md)。
 
 发行为 `0.9.7compat`，文件版本 `0.9.7.2`。包含 `0.9.7fix` 的已有修复。
 

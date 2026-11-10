@@ -1,6 +1,6 @@
 # 从公司增强实践整理的MOD制作指南
 
-整理日期：2026-11-08。依据本仓库的源码、维护文档和[40个问题案例](maintenance/retrospective/README.md)，说明从功能设计到维护发布的工作方法。
+整理日期：2026-11-08。依据本仓库的源码、维护文档和[40个问题案例](retrospective/README.md)，说明从功能设计到维护发布的工作方法。
 
 本文不是某个加载器的通用安装教程。游戏后端、官方接口、生命周期和持久化方式不同，接入方法必须重新确认。文中的公司增强类名是可追踪实例，不是要求其他MOD照抄的框架。
 
@@ -89,7 +89,7 @@
 | 生产与共享出料 | `Perfume.*`等产线、`ProductionOutput`、`MachineUpgrade` |
 | 会话、保存和清理 | `SaveBinding`、`StoreSession`、`Cleanup` |
 
-完整位置见[源码地图](maintenance/architecture.md)。为其他项目拆模块时，按真正不同的责任划分，不为了模仿目录数量造空层。
+完整位置见[源码地图](源码地图.md)。为其他项目拆模块时，按真正不同的责任划分，不为了模仿目录数量造空层。
 
 例如新增一种电话商品，至少核对目录注册、真实生成、报价、门槛、付款、订单保存、配送箱、送货人、签收和额度核销。博士漏注册配送箱的案例B08，说明“入口可见”不是完成标准。
 
@@ -298,6 +298,6 @@ UI可以隐藏按钮和解释条件，但最终提交入口仍需校验。反过
 
 ### 当前仓库的入口
 
-构建、静态检查与输出位置见[构建与发布](maintenance/build-and-release.md)。当前版本见[版本目录](releases/README.md)，实现定位见[源码地图](maintenance/architecture.md)，具体教训见[问题复盘](maintenance/retrospective/README.md)和[证据索引](maintenance/retrospective/sources.md)。
+构建、静态检查与输出位置见[构建与发布](maintenance/build-and-release.md)。当前版本见[版本目录](releases/README.md)，实现定位见[源码地图](源码地图.md)，具体教训见[问题复盘](retrospective/README.md)和[证据索引](retrospective/sources.md)。
 
 本文的通用建议来自本项目经验，不能代替目标游戏的接口文档、权限机制及分发约定。移植到新项目时先重做环境与边界确认，再选择值得复用的部分。
