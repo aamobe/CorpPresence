@@ -14,3 +14,7 @@
 | [验证](verify.md) | 本次证据范围、后续自动检查和手测 |
 
 前轮交付见[总览](../add-maintenance-interfaces/overview.md)、[实施证据](../add-maintenance-interfaces/evidence.md)、[维护手册](../../maintenance/internal-maintenance.md)、[前轮任务](../add-maintenance-interfaces/tasks.md)、[前轮设计](../add-maintenance-interfaces/design.md)、[前轮提案](../add-maintenance-interfaces/proposal.md)与[原版契约](../add-maintenance-interfaces/native-contracts.md)。工程历史见[分期核查](../runtime-performance/checkpoint.md)和[复盘目录](../../retrospective/README.md)。
+
+## 首期细化
+
+2026-11-11 已补充[第一期详细设计与换机交接](phase-one-design.md)。定义安装提交状态、释放失败标志、只读快照字段、错误传播及 T1–T6 实现顺序。状态仍为设计草案，生产代码尚未实施。
