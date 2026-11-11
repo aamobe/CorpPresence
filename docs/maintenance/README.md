@@ -11,6 +11,8 @@
 
 ## 按任务查找
 
+[框架跨设备交接](../changes/organize-internal-lifecycle/cross-device-handoff.md)提供换机复现步骤、模块接入清单、检查选择表及待游戏验证场景。
+
 [官方接口跟踪](official-api.md)记录官方文档版本、API 更新及本项目验证边界。
 
 只读诊断、三个生命周期事件和真实付款回归已实现并发布。使用方法见[维护手册](internal-maintenance.md)，验证边界见[实施证据](../changes/add-maintenance-interfaces/evidence.md)。后续整理见[待评审方案](../changes/organize-internal-lifecycle/overview.md)。
