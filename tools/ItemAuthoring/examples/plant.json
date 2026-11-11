@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "plant",
+  "key": "reference_plant",
+  "identity": {
+    "id": "corp_presence_reference_plant",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "普通植物需求",
+    "en": "Reference request: plant"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "种子、植株和收获物身份分开；记录健康、基因等级与生长进度",
+    "ownership": "原版推进生长，模组只处理自有产量和基因规则",
+    "persistence": "恢复玩家基因；默认基因只在新建时给予",
+    "verification": "检查健康边界、成熟目标同步、迁移幂等和完整生长",
+    "behavior": "定义种子到成熟到收获的过程，不含额外化学能力",
+    "failure": "满输出不丢产物，重复收获不得再次结算"
+  }
+}

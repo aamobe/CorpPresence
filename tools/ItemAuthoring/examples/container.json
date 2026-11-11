@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "container",
+  "key": "reference_container",
+  "identity": {
+    "id": "corp_presence_reference_container",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "箱体需求",
+    "en": "Reference request: container"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "外部占格与内部容量独立；新增槽位只能追加",
+    "ownership": "原版拥有库存关系，模组拥有筛选和清理回调",
+    "persistence": "保存内容与扩容等级，读档重绑而非清空",
+    "verification": "检查嵌套、所有权、扩容幂等和跨档清理",
+    "behavior": "打开并存取合法物品，定义嵌套限制",
+    "failure": "满仓拒收；取空清理前复核当前会话"
+  }
+}

@@ -15,6 +15,7 @@
 | 查香水配方、植物基因和设备属性 | [香水生产线](docs/specs/perfume.md) |
 | 找到某个功能的实现位置 | [源码地图](docs/源码地图.md) |
 | 查以前踩过的坑与处理方法 | [开发问题复盘](docs/retrospective/README.md) |
+| 规范化接入新物品、查分类开发参考 | [物品开发工具](tools/ItemAuthoring/README.md) · [15类参考](docs/maintenance/item-authoring/README.md) · [验收评估](docs/maintenance/item-authoring/evaluation.md) |
 | 从立项到维护制作一个MOD | [MOD制作与项目管理指南](docs/mod-development-guide.md) |
 | 构建、部署或准备发布 | [构建与发布](docs/maintenance/build-and-release.md) |
 | 修改液体、读档、订货或会员条件 | [兼容边界与回归](docs/maintenance/compatibility-and-regressions.md) |

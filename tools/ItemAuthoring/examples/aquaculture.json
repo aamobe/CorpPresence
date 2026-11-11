@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "aquaculture",
+  "key": "reference_aquaculture",
+  "identity": {
+    "id": "corp_presence_reference_aquaculture",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "养殖活体需求",
+    "en": "Reference request: aquaculture"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "阶段、年龄、健康、饥饿与重量分开记录",
+    "ownership": "原版TickTank管理年龄和喂食，模组不再按夜加龄",
+    "persistence": "恢复当前阶段与玩家状态，不重新初始化活体",
+    "verification": "检查物种过滤、阶段边界、入缸归属和重载",
+    "behavior": "物种按原版阶段成长；繁殖条件需要单独核验",
+    "failure": "成长空间不足不越界，死亡必须走明确转换"
+  }
+}

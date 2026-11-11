@@ -1,0 +1,8 @@
+[{{Key}}] = new Def
+{
+    Name = {{NameZh}}, NameEn = {{NameEn}},
+    Desc = {{DescZh}}, DescEn = {{DescEn}},
+    Company = {{Company}}, Art = {{Art}}, Manufacturer = {{Company}},
+    Value = {{Value}}L, Types = new string[] { {{Types}} },
+    W = {{Width}}, H = {{Height}}, Shape = {{Shape}}
+}

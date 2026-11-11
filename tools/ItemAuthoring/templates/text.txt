@@ -1,0 +1,1 @@
+[{{Key}}] = new Keys({{NameKey}}, null, {{DescKey}}, null, null)

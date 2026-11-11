@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "creature",
+  "key": "reference_creature",
+  "identity": {
+    "id": "corp_presence_reference_creature",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "非鱼类生物需求",
+    "en": "Reference request: creature"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "活动状态与实际保存位置分开登记",
+    "ownership": "原版管理库存保存，模组管理独立生物规则",
+    "persistence": "恢复当前档，不重放上次逃逸事件",
+    "verification": "检查身份过滤、寻位失败、重复事件与跨档",
+    "behavior": "不强套鱼类模型；列出活动、逃逸和捕获条件",
+    "failure": "放置失败不标记已保存，不额外发奖励"
+  }
+}

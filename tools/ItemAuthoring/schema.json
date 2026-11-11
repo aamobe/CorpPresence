@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CorpPresence item authoring input v1",
+  "description": "Ordinary static goods only for generation. Complex non-liquid kinds are reference-only. All liquid capabilities are rejected before schema validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "key", "identity", "names", "description", "art", "shape", "value", "types", "acquisition"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"enum": ["ordinary", "consumable", "equipment", "container", "machine", "plant", "plant-produce", "aquaculture", "seafood-raw", "food", "creature", "credential", "multistate"]},
+    "key": {"type": "string", "minLength": 3, "maxLength": 64, "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+    "identity": {
+      "type": "object", "additionalProperties": false, "required": ["id", "base"],
+      "properties": {"id": {"type": "string", "pattern": "^corp_presence_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"}, "base": {"const": "toothpaste"}}
+    },
+    "names": {"$ref": "#/$defs/localized"},
+    "description": {"$ref": "#/$defs/localized"},
+    "art": {
+      "type": "object", "additionalProperties": false, "required": ["path"],
+      "properties": {"path": {"type": "string", "pattern": "^src/Assets/[^:]+\\.png$"}}
+    },
+    "shape": {
+      "type": "object", "additionalProperties": false, "required": ["width", "height", "cells"],
+      "properties": {
+        "width": {"type": "integer", "minimum": 1, "maximum": 16},
+        "height": {"type": "integer", "minimum": 1, "maximum": 16},
+        "cells": {"type": "string", "pattern": "^[.#]+(\\|[.#]+)*$"}
+      }
+    },
+    "value": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+    "types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["HOUSEHOLD_GOOD", "TOOL", "LUXURY_ITEM", "CONTRABAND", "MEDICAL", "FOOD"]}},
+    "acquisition": {
+      "type": "object", "additionalProperties": false, "required": ["company", "page", "minTier"],
+      "properties": {"company": {"const": "pastel"}, "page": {"const": "日用"}, "minTier": {"type": "integer", "minimum": 1, "maximum": 3}}
+    },
+    "requirements": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "behavior": {"$ref": "#/$defs/text"}, "states": {"$ref": "#/$defs/text"},
+        "ownership": {"$ref": "#/$defs/text"}, "persistence": {"$ref": "#/$defs/text"},
+        "failure": {"$ref": "#/$defs/text"}, "verification": {"$ref": "#/$defs/text"}
+      }
+    }
+  },
+  "allOf": [{
+    "if": {"properties": {"kind": {"const": "ordinary"}}},
+    "then": {"properties": {"requirements": {"maxProperties": 0}}},
+    "else": {"required": ["requirements"], "properties": {"requirements": {"required": ["behavior", "states", "ownership", "persistence", "failure", "verification"]}}}
+  }],
+  "$defs": {
+    "text": {"type": "string", "minLength": 1, "maxLength": 4000},
+    "localized": {
+      "type": "object", "additionalProperties": false, "required": ["zh", "en"],
+      "properties": {"zh": {"$ref": "#/$defs/text"}, "en": {"$ref": "#/$defs/text"}, "ru": {"$ref": "#/$defs/text"}, "fr": {"$ref": "#/$defs/text"}}
+    }
+  }
+}
