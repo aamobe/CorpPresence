@@ -1,0 +1,49 @@
+{
+  "version": "1.2.0",
+  "tag": "v1.2.0",
+  "sourceRevision": "9ce9689113ac9e37af1c0f337c69c98f05cb1864",
+  "status": "uploaded",
+  "uploadedAt": "2026-11-12T03:47:42.9595525+08:00",
+  "workshopItem": "3828913695",
+  "receipt": "Committing update...Success",
+  "exitCode": 0,
+  "redownloadVerified": false,
+  "additionalTestsRun": false,
+  "files": [
+    {
+      "path": "CHANGELOG-1.2.0.txt",
+      "bytes": 1799,
+      "sha256": "30D5D0C389F8CDAE2C435435C87AB162FEF59B8383C2D12F133853E1B60F20F0"
+    },
+    {
+      "path": "CorpPresence.dll",
+      "bytes": 8140288,
+      "sha256": "641587D51774A83500BCD730F97C6B1A106C8040DF24BEA901B8691C960E6440"
+    },
+    {
+      "path": "Localization/en.csv",
+      "bytes": 171905,
+      "sha256": "0BFB76DA329E036329E7E84BF772C1163425A63D82AB93F49BFEDDA68ABB8416"
+    },
+    {
+      "path": "Localization/fr.csv",
+      "bytes": 197501,
+      "sha256": "9078CAA490E3A67A5490518FBBAAE42B94155DD06C1E31726359EB885E58432A"
+    },
+    {
+      "path": "Localization/ru.csv",
+      "bytes": 252720,
+      "sha256": "23DC939C3E9D848C08F3503CB53F8F8957E32FE5D4085DF3D998210DC73CBD0F"
+    },
+    {
+      "path": "manifest.xml",
+      "bytes": 629,
+      "sha256": "CEC1E04BBD081A3C002E535802D1F1F3765DA69D0E1154487B35B313B45DF6C4"
+    },
+    {
+      "path": "TRANSLATIONS.txt",
+      "bytes": 498,
+      "sha256": "1891A0966E59977CA1B323FC86273B309C5F13B8A088E2EE30E3BC039799E438"
+    }
+  ]
+}
