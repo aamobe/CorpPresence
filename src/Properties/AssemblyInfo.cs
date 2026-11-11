@@ -7,6 +7,7 @@ using System.Runtime.Versioning;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyFileVersion("1.1.0.0")]
 [assembly: AssemblyInformationalVersion(CorpPresence.Main.Version)]
+[assembly: AssemblyMetadata("SourceRevision", CorpPresence.BuildIdentity.SourceRevision)]
 [assembly: AssemblyProduct("CorpPresence")]
 [assembly: AssemblyTitle("CorpPresence")]
 [assembly: AssemblyVersion("1.0.0.0")]

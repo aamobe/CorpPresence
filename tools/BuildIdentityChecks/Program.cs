@@ -1,7 +1,8 @@
 using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using System.Text;
-if (args.Length != 2) throw new Exception("Expected assembly path and exact expected development suffix");
+bool release = args.Length == 4 && args[1] == "--release";
+if (args.Length != 2 && !release) throw new Exception("Expected assembly path and development suffix, or --release version revision");
 using var stream = File.OpenRead(args[0]);
 using var pe = new PEReader(stream);
 var md = pe.GetMetadataReader();
@@ -24,8 +25,24 @@ string Attribute(string name) {
     throw new Exception("Missing " + name);
 }
 var version = Constant("Version");
-var expected = Constant("ReleaseVersion") + args[1];
-if (version != expected) throw new Exception($"Expected development identity {expected}; got {version}");
+var expected = release ? args[2] : Constant("ReleaseVersion") + args[1];
+if (version != expected) throw new Exception($"Expected identity {expected}; got {version}");
 if (Attribute("AssemblyInformationalVersionAttribute") != version) throw new Exception("Informational version differs from runtime version");
-if (Attribute("AssemblyFileVersionAttribute") != "1.1.0.0") throw new Exception("Historical file version changed");
-Console.WriteLine("PASS runtime constant / informational version: " + version + "; historical file version preserved");
+if (Attribute("AssemblyFileVersionAttribute") != Constant("ReleaseVersion") + ".0") throw new Exception("File version differs from release baseline");
+if (release) {
+    if (!System.Text.RegularExpressions.Regex.IsMatch(version, @"^\d+\.\d+\.\d+$")) throw new Exception("Not a release version");
+    var forbidden = new[] { "MaintenanceConsole", "LocalTestFunds", "WaterTrace", "TestKit" };
+    if (md.TypeDefinitions.Any(h => forbidden.Contains(md.GetString(md.GetTypeDefinition(h).Name)))) throw new Exception("Release contains development-only types");
+    bool revisionMatches = false;
+    foreach (var handle in md.GetAssemblyDefinition().GetCustomAttributes()) {
+        var a = md.GetCustomAttribute(handle);
+        if (a.Constructor.Kind != HandleKind.MemberReference) continue;
+        var member = md.GetMemberReference((MemberReferenceHandle)a.Constructor);
+        if (member.Parent.Kind != HandleKind.TypeReference || md.GetString(md.GetTypeReference((TypeReferenceHandle)member.Parent).Name) != "AssemblyMetadataAttribute") continue;
+        var blob = md.GetBlobReader(a.Value);
+        if (blob.ReadUInt16() != 1) throw new Exception("Invalid metadata attribute");
+        if (blob.ReadSerializedString() == "SourceRevision") revisionMatches = blob.ReadSerializedString() == args[3];
+    }
+    if (!revisionMatches) throw new Exception("Release source revision mismatch");
+}
+Console.WriteLine("PASS runtime / informational / file version: " + version + (release ? "; release revision verified" : ""));
