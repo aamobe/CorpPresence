@@ -47,14 +47,14 @@ dotnet build ./src/CorpPresence.csproj -c Release --artifacts-path ./artifacts/b
 | 功能或实现 | 可能触发的规则 | 推荐方式 |
 | --- | --- | --- |
 | 导出订单、交易流水到桌面，或读取外部配置 | 通用文件 API 触发 `files`，目前不细分只读与写入 | 优先使用限定目录的 `ReadModFile*`、`Read/WriteModDataFile*`；配置用 `GetConfig`，本局数据用 `SetModData` |
-| 在线更新目录、翻译或立绘，联网检查更新 | `network`；直接保存文件还可能触发 `files` | 仅在功能确有需要时申请，并按工坊验证规则准备审核 |
+| 在线更新目录、翻译或立绘，联网检查更新 | `network`；直接保存文件还可能触发 `files` | 按实际使用声明权限，并向玩家解释用途 |
 | 自建线程、Task、定时器；在其他游戏组件上启动协程 | `threads` 过渡期警告 | 使用 `ModHelper.StartCoroutine`、`Delay`、`RunInBackground` 等随模组停止而取消的接口 |
 | 动态加载插件 DLL 或生成代码 | `dynamic-code` | 优先静态引用与官方依赖接口 |
 | 调用原生库、指针，或无法静态确定目标的外部反射 | `native`、`reflection-external` | 使用受支持游戏 API，按需使用受限的 `ModReflect` |
 
 官方受限文件接口可只读模组目录、读写自身模组数据目录，并拒绝绝对或越界路径。通用 `files` 仍是较宽的类别，不代表扫描器已经确认实际读写了任意文件。翻译 CSV 由加载器读取，当前公司增强无需文件权限。
 
-官方公布：2026-12-10 更新起，工坊模组声明 `files` 或 `network` 任一项都需开发者验证；`threads`、`dynamic-code`、`native`、`reflection-external` 将被拒绝。以实际安装版本和官方后续公告为准；静态扫描通过不代替游戏内功能测试。
+2026-11-11 核对官方 100-Rev14 beta 文档，`files` / `network` 的强制开发者验证要求已撤回，玩家授权提示继续保留。官方仍公告 2026-12-10 起 `threads`、`dynamic-code`、`native`、`reflection-external` 将被拒绝。以实际安装版本和官方后续公告为准；静态扫描通过不代替游戏内功能测试。来源与新版接口见[官方接口跟踪](official-api.md)。
 
 参考：[官方文件接口](https://github.com/dragonpan2/probably-stolen-modding/blob/main/ModdingGuide.md#reading-and-writing-files-without-the-capability)、[权限分类](https://github.com/dragonpan2/probably-stolen-modding/blob/main/ModdingGuide.md#declaring-capabilities)、[2026-11-08 更新记录](https://github.com/dragonpan2/probably-stolen-modding/blob/main/APIChanges.md#november-8-2026)。
 

@@ -52,6 +52,8 @@ manifest.xml            官方加载器清单
 
 ## 从源码构建
 
+官方接口资料与接入状态见[官方接口跟踪](docs/maintenance/official-api.md)。
+
 需要 **.NET 8 SDK或更高版本**及本地游戏文件。使用游戏自带的官方模组加载接口，入口是 `IMod`；无需为本项目另装BepInEx。
 
 ```powershell

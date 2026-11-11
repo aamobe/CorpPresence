@@ -26,6 +26,8 @@
 
 ## 维护与发布
 
+[官方接口跟踪](maintenance/official-api.md)汇总游戏官方 API 更新、版本与权限变化。
+
 | 文档 | 内容 |
 | --- | --- |
 | [维护首页](maintenance/README.md) | 按维护任务选择入口 |
