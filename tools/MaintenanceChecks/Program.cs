@@ -112,3 +112,14 @@ PlayerStore.Instance=new();
 Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"runtime task failures do not leak into another save");
 task.Run(62);
 Check(MaintenanceDiagnostics.Capture().Faults.Single(f=>f.Source=="runtime").Count==1 && taskLogs==2,"new save receives failures even while old log throttle remains active");
+MaintenanceDiagnostics.Reset();int stages=0;
+var guardedTask=new CorpPresence.Runtime.RuntimeTask("outer.repair",()=>{
+    HookGuard.Run("inner.repair",()=>throw new InvalidOperationException("private-save-message"));
+    HookGuard.Run("next.repair",()=>stages++);
+},(_,_,_)=>throw new Exception("outer should not log a handled exception"));
+guardedTask.Run(0);
+snap=MaintenanceDiagnostics.Capture();
+Check(stages==1 && snap.Faults.Count==1 && snap.Faults[0].Source=="hooks" && snap.Faults[0].Stage=="inner.repair","handled inner hook failure reaches diagnostics exactly once and later stages continue");
+Check(!snap.Faults[0].Detail.Contains("private-save-message"),"inner hook diagnostic excludes exception message");
+ModLog.Fail=true;guardedTask.Run(1);ModLog.Fail=false;
+Check(stages==2 && MaintenanceDiagnostics.Capture().Faults.Single().Count==2,"hook logging failure cannot hide diagnostics or stop later stages");

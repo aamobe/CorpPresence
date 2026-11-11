@@ -22,20 +22,6 @@ internal static class LifecycleChecks
         check(Ext.BeforeSave.Owners.Count==0 && Ext.StateReset.Owners.Count==1,"reporter errors do not block rollback");
         blocker.Dispose();
 
-        Module.Install();
-        var callbacks=(OwnedCallbacks)field.GetValue(null);
-        var order=new List<int>();
-        callbacks.Own(new ReleaseAction(()=>order.Add(1)));
-        callbacks.Own(new ReleaseAction(()=>{order.Add(2);throw new InvalidOperationException("private-release-message");}));
-        callbacks.Own(new ReleaseAction(()=>order.Add(3)));
-        ModLog.Warnings.Clear();MaintenanceDiagnostics.Fail=true;ModLog.Fail=true;
-        Module.Uninstall();Module.Uninstall();
-        MaintenanceDiagnostics.Fail=false;ModLog.Fail=false;
-        check(ReleaseFailed(),"failed actual release remains visible across no-op uninstall");
-        check(order.SequenceEqual(new[]{3,2,1}) && Ext.DayStart.Owners.Count==0 && Ext.BeforeSave.Owners.Count==0 && Ext.StateReset.Owners.Count==0,"release failure and reporter failures preserve reverse cleanup");
-        check(ModLog.Warnings.Any(s=>s.Contains("malice/uninstall") && s.Contains("InvalidOperationException") && !s.Contains("private-release-message")),"release warning identifies stage without private message");
-        Module.Install();check(!ReleaseFailed(),"new install attempt clears previous release outcome");Module.Uninstall();
-
         // Main's two-phase ownership pattern, with both production classes linked.
         var runtime=new RuntimeLifetime(_=>throw new Exception("reporter"));
         int baseReleases=0;
@@ -60,5 +46,26 @@ internal static class LifecycleChecks
         Start();Continue();
         check(Module.IsInstalled && Ext.BeforeSave.Owners.Count==1 && Ext.StateReset.Owners.Count==1 && Ext.DayStart.Owners.SequenceEqual(new[]{"external","malice"}),"clean rollback allows one successful reenable");
         runtime.Stop();external.Dispose();
+        // A failed release is tested last: this module must remain quarantined for this process.
+        var failedRuntime=new RuntimeLifetime(_=>throw new Exception("reporter"));
+        int remainingCleanup=0;
+        failedRuntime.Start(()=>{failedRuntime.Own(()=>{},()=>remainingCleanup++);failedRuntime.Own(Module.Install,Module.Uninstall);});
+        var callbacks=(OwnedCallbacks)field.GetValue(null);
+        var order=new List<int>();
+        callbacks.Own(new ReleaseAction(()=>order.Add(1)));
+        callbacks.Own(new ReleaseAction(()=>{order.Add(2);throw new InvalidOperationException("private-release-message");}));
+        callbacks.Own(new ReleaseAction(()=>order.Add(3)));
+        ModLog.Warnings.Clear();MaintenanceDiagnostics.Fail=true;ModLog.Fail=true;
+        failedRuntime.Stop();failedRuntime.Stop();
+        MaintenanceDiagnostics.Fail=false;ModLog.Fail=false;
+        check(ReleaseFailed() && !Module.IsInstalled && remainingCleanup==1,"failed actual release remains visible while other runtime cleanup continues");
+        check(order.SequenceEqual(new[]{3,2,1}) && Ext.DayStart.Owners.Count==0 && Ext.BeforeSave.Owners.Count==0 && Ext.StateReset.Owners.Count==0,"release failure and reporter failures preserve reverse cleanup");
+        check(ModLog.Warnings.Any(s=>s.Contains("malice/uninstall") && s.Contains("InvalidOperationException") && !s.Contains("private-release-message")),"release warning identifies stage without private message");
+        bool blockedModule=false,blockedRuntime=false;
+        try{Module.Install();}catch(InvalidOperationException){blockedModule=true;}
+        try{failedRuntime.Start(()=>{});}catch(InvalidOperationException){blockedRuntime=true;}
+        check(blockedModule && blockedRuntime && ReleaseFailed(),"failed cleanup blocks module and runtime reinstallation without clearing evidence");
+        try{Module.Uninstall();}catch(InvalidOperationException){}
+        check(ReleaseFailed() && order.SequenceEqual(new[]{3,2,1}),"unknown partial releases are not replayed by repeated uninstall");
     }
 }

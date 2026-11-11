@@ -290,14 +290,7 @@ internal static class Hooks
 
 	private static void Guard(string what, Action action)
 	{
-		try
-		{
-			action();
-		}
-		catch (Exception ex)
-		{
-			try { ModLog.Warn(what + " 出错：" + ex.Message); } catch { }
-		}
+		HookGuard.Run(what, action);
 	}
 
 	private static void AfterBeginDay()

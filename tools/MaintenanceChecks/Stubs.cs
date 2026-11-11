@@ -13,7 +13,7 @@ namespace CorpPresence
     internal sealed class StoreClient { }
     internal sealed class Client { internal StoreClient Blueprint; internal StoreClient GetClientBlueprint() => Blueprint; }
     internal static class GameResources { internal static bool Ready = true; internal static bool Poll()=>Ready; internal static long Generation = 1; }
-    internal static class ModLog { internal static void Warn(string text) { } internal static int Reports; internal static bool Fail; internal static void Info(string text) { Reports++; if(Fail) throw new Exception("output failure"); } }
+    internal static class ModLog { internal static void Warn(string text) { if(Fail) throw new Exception("warning failed"); } internal static int Reports; internal static bool Fail; internal static void Info(string text) { Reports++; if(Fail) throw new Exception("output failure"); } }
 }
 namespace CorpPresence.Malice
 {

@@ -47,7 +47,13 @@ internal static class DirectoryMaster
     internal static readonly Dictionary<string,Func<GameItem>> Native=new();
     internal static bool Has<T>(string id)=>Native.ContainsKey(id) || Current?.Has(id)==true;
     internal static Func<GameItem> GetFactory<T>(string id)=>Native.TryGetValue(id,out var factory)?factory:Current?.factoryDictionary.GetValueOrDefault(id);
-    internal static GameItem Item(string id,bool isOwned)=>Native.TryGetValue(id,out var factory)?factory():Current.factoryDictionary[id]();
+    internal static int DummyCreates, PostprocessCalls;
+    internal static GameItem Item(string id,bool isOwned)
+    {
+        var item=Native.TryGetValue(id,out var factory)?factory():Current.factoryDictionary[id]();
+        if(item==null){DummyCreates++;return new(){identifier=id,spritePath="unknown"};}
+        item.identifier=id;PostprocessCalls++;return item;
+    }
 }
 internal static class ItemIdentity
 {
@@ -63,7 +69,8 @@ internal static class Goods
 {
     internal static int Builds;
     internal static GameItem Product;
-    internal static GameItem Build(ItemIdentity.Entry entry) { Builds++;return Product ?? new(){identifier=entry.Id}; }
+    internal static bool ReturnNull;
+    internal static GameItem Build(ItemIdentity.Entry entry) { Builds++;return ReturnNull?null:Product ?? new(){identifier=entry.Id}; }
 }
 internal static class Cards
 {

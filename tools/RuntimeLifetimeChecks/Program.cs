@@ -65,8 +65,10 @@ Check("resource phase failure releases resource and core owners despite cleanup 
     }
     catch (InvalidOperationException) { }
     Require(released.SequenceEqual(new[] { 2, 1 }) && reported == 1);
-    Require(lifetime.Start(() => { }));
+    bool blocked=false;try { lifetime.Start(() => { }); } catch(InvalidOperationException) { blocked=true; }
+    Require(blocked);
     lifetime.Stop();
+    Require(released.SequenceEqual(new[] { 2, 1 }));
 });
 
 Check("stop during startup rejects completion and remains restartable", () =>
@@ -165,6 +167,17 @@ Check("rolling quota agrees with independent window sum across sparse and dense 
 });
 
 Console.WriteLine($"{passed} total passed");
+
+Check("failed callback cleanup cannot be forgotten by reuse", () =>
+{
+    int attempts=0; Action current=()=>{}; Action owned=()=>{}; bool fail=false;
+    var callbacks=new OwnedCallbacks(_=>{});
+    callbacks.Replace(()=>current,value=>{attempts++;if(fail)throw new Exception();current=value;},owned);
+    fail=true;callbacks.Release();fail=false;callbacks.Release();
+    Require(ReferenceEquals(current,owned) && attempts==2);
+    bool blocked=false;try{callbacks.Replace(()=>current,value=>current=value,new Action(()=>{}));}catch(InvalidOperationException){blocked=true;}
+    Require(blocked);
+});
 
 Check("register audio failure cannot interrupt debit or repeat delivered cash", () =>
 {

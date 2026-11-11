@@ -9,6 +9,7 @@ internal static partial class Malice
 	private static CorpPresence.Runtime.OwnedCallbacks _callbacks;
 	public static void Install()
 	{
+		if (_lastReleaseFailed) throw new InvalidOperationException("恶意模式清理失败，不能重新安装；请重启游戏");
 		if (_installed)
 		{
 			return;
@@ -65,18 +66,25 @@ internal static partial class Malice
 		{
 			ReportLifecycleFailure("install", error);
 			callbacks.Release();
+			if (callbacks.ReleaseFailed) _callbacks = callbacks;
 			throw;
 		}
 	}
 
 	public static void Uninstall()
 	{
-		if (!_installed) return;
+		if (!_installed)
+		{
+			if (_lastReleaseFailed) throw new InvalidOperationException("恶意模式清理失败，不能重放可能部分完成的释放");
+			return;
+		}
 		_installed = false;
 		_lastReleaseFailed = false;
 		var callbacks = _callbacks;
-		_callbacks = null;
 		callbacks?.Release();
+		if (callbacks?.ReleaseFailed == true)
+			throw new InvalidOperationException("恶意模式清理失败，已继续其他释放；请重启游戏");
+		_callbacks = null;
 	}
 
 	private static void ReportLifecycleFailure(string stage, Exception error)

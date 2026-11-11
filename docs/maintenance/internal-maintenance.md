@@ -64,11 +64,11 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 正式版保留三个事件每事件一次的安全告警；故障聚合仍逐次记录。日志和诊断器失败均不阻断后续监听者。
 # 第一期模块状态
 
-维护报告的 `malice 安装已提交` 只表示 Install 已完成；关闭恶意模式或切换存档不会把它变成未安装。`清理遇错` 表示最近一次实际释放中出现异常，重复空卸载保留此结果，新的安装尝试或实际释放开始时清除。未安装与清理遇错可以同时为真；不能据未安装断言所有资源已回收。
+维护报告的 `malice 安装已提交` 只表示 Install 已完成；关闭恶意模式或切换存档不会把它变成未安装。`清理遇错` 表示释放中出现异常，失败后保留此结果，并拒绝再次安装；重复卸载不重放可能部分完成的释放动作。未安装与清理遇错可以同时为真；不能据未安装断言所有资源已回收。
 
 模块值在捕获时复制，只读列表不会随之后启停变化；采集不稳定时显示“模块状态未知”。故障警告以 `malice/install`、`malice/rollback`、`malice/uninstall` 标记阶段并包含异常类型，不写原始异常消息。日志和聚合故障分别隔离。
 
-当前 OwnedCallbacks 释放遇错仍继续并清空释放表，因此失败动作不会自动重试。实现和替身边界见[第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)。
+OwnedCallbacks 释放遇错仍继续其他动作，完成后关闭集合并保留 ReleaseFailed，禁止再次向该集合获取资源。RuntimeLifetime 的通用释放失败进入 Faulted；同一运行期拒绝重启，避免重复获取残留资源。清理动作可能已部分成功，因此不盲目重试；应停止启用并重启游戏，保留日志定位根因。Malice 将自己的失败向运行期传播。当前修复见[异常闭环](../changes/organize-internal-lifecycle/closure-fixes.md)，[第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)保留为历史记录。
 
 物品扩展的接入与身份基线检查见[新增物品接入清单](item-extension.md)；第二期优先此方向，原版事件模块试点暂缓。
 
@@ -85,3 +85,5 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 Host 的 RuntimeTask 每次执行失败都记录模块 `runtime`、阶段为源码中的固定任务名、代码 `task_failed`。一分钟日志限流只影响文字输出，不减少报告中的异常计数；成功执行不产生故障记录，原执行顺序和重试频率不变。
 
 换档清除旧会话故障后，即使文字日志仍在限流，新异常也会进入新会话报告。诊断保留异常类型与受限方法链，不保存异常消息、路径或异常对象；任务重试不是业务事务回滚，查看报告不会自动修复失败任务。实施证据见[运行任务诊断](../changes/organize-internal-lifecycle/runtime-task-diagnostics.md)。
+
+Hooks 内层 Guard 已接入 HookGuard：已捕获的异常记录为 `hooks/<固定阶段>/stage_failed`，后续阶段仍可运行，外层 RuntimeTask 不会重复记录这次已处理异常。故障报告没有自动修复语义；读档修复仍为单次尝试，不重放可能部分完成的修复操作。其他业务内自行捕获的异常仍需按模块审查，不能据此宣称所有 catch 都已进入报告。

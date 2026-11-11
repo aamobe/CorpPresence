@@ -29,6 +29,15 @@ Check(Goods.Builds==0 && Cards.Builds==0,"registration only installs factories")
 ModHook.Fire(latest);ItemRegistry.Activate();Check(latest.Adds==3,"repeat registration and activation do not duplicate factories");
 Check(ItemRegistry.Create("corp_presence_test")?.identifier=="corp_presence_test" && Goods.Builds==1,"goods use actual registered factory");
 Check(ItemRegistry.Create("corp_presence_card_test")?.identifier=="corp_presence_card_test" && Cards.Builds==1,"cards use card factory");
+int dummyBefore=DirectoryMaster.DummyCreates, postBefore=DirectoryMaster.PostprocessCalls;
+Goods.ReturnNull=true;
+Check(ItemRegistry.Create("corp_presence_test")==null && DirectoryMaster.DummyCreates==dummyBefore && DirectoryMaster.PostprocessCalls==postBefore,"failed owned factory never becomes an official dummy success");
+bool directFailure=false;try{latest.factoryDictionary["corp_presence_test"]();}catch(InvalidOperationException){directFailure=true;}
+Check(directFailure,"direct official use of registered factory also rejects null product");
+Goods.ReturnNull=false;Goods.Builds=1;
+DirectoryMaster.Native["native_empty"]=()=>null;
+Check(ItemRegistry.Create("native_empty")?.spritePath=="unknown" && DirectoryMaster.DummyCreates==dummyBefore+1,"unowned vanilla empty factories retain official behavior");
+DirectoryMaster.Native.Remove("native_empty");
 var counters=new List<MaintenanceCounter>();ItemRegistry.AppendDiagnostics(counters);
 Check(counters.Single(c=>c.Name=="items.registered").Value==3 && Goods.Builds==1 && Cards.Builds==1,"diagnostics do not instantiate items");
 Func<GameItem> external=()=>new(){identifier="external"};latest.factoryDictionary["corp_presence_other"]=external;

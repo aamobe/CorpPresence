@@ -125,7 +125,7 @@ internal static class ItemRegistry
 				}
 				if (!Factories.TryGetValue(entry.Id, out var value))
 				{
-					Func<GameItem> func = () => (entry.Goods == null) ? Cards.Build(entry) : Goods.Build(entry);
+					Func<GameItem> func = () => BuildRegistered(entry);
 					Factories.Add(entry.Id, value = func);
 				}
 				if (directory.Add(entry.Id, value))
@@ -190,7 +190,9 @@ internal static class ItemRegistry
 			}
 			return null;
 		}
-		GameItem gameItem = DirectoryMaster.Item(id, isOwned: false);
+		GameItem gameItem;
+		try { gameItem = DirectoryMaster.Item(id, isOwned: false); }
+		catch (FactoryCreationException) { return null; }
 		if (gameItem != null && gameItem.identifier == id)
 		{
 			return gameItem;
@@ -226,6 +228,25 @@ internal static class ItemRegistry
 			Warn("migrate-item", "迁移旧公司物品失败：" + ex.Message);
 			return false;
 		}
+	}
+
+	private sealed class FactoryCreationException : InvalidOperationException
+	{
+		internal FactoryCreationException(string id) : base("公司物品工厂创建失败：" + id) { }
+	}
+
+	private static GameItem BuildRegistered(ItemIdentity.Entry entry)
+	{
+		var item = entry.Goods == null ? Cards.Build(entry) : Goods.Build(entry);
+		if (item != null && item.identifier == entry.Id) return item;
+		if (item != null && item.parentInventory == null && !StorePlacement.Destroyed(item))
+		{
+			try { item.Destroy(); }
+			catch (Exception error) { Report("create", "discard_failed", error); }
+		}
+		Report("create", item == null ? "factory_failed" : "wrong_identity");
+		// Throw before DirectoryMaster can turn an empty result into a same-ID dummy.
+		throw new FactoryCreationException(entry.Id);
 	}
 
 	private static string MigrationTarget(string id, string sprite)
