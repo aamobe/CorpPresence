@@ -1,0 +1,38 @@
+# 实施证据
+
+基线 ccc80c0；SDK 8.0.426；Assembly-CSharp SHA256 725CB999D019DFF1FF31BED353C7F9BB8D81A7605A15DE1F80F5A3A6CF7B1D05。已有文档改动为本方案，原样保留。远端此前已核对并推送芒果分支，当前创建 feat/internal-maintenance。
+
+## 决策记录
+
+- 使用现有 checkout 新工作分支；用户授权继续现有方案，不另建 worktree。
+- 现有方案为中文 T1–T6 清单，不符合技能脚本的 Task 标题解析；按同一任务顺序在本证据文件记录任务、基线、命令和结果，不改造计划只为适配脚本。
+- T1→T2 只读绑定、T2→T3 报告、T2→T4 故障记录、T4→T2 登记快照、T2→T5 支付诊断、T1–T5→T6 检查命令均采用 design.md 签名；无接口冲突。
+
+## 用户调整为先出总方案
+
+暂停接口实施。尚未修改生产代码；创建的 MaintenanceChecks 草稿已移动到本地忽略目录，不能视为正式检查入口。已观察到的红测试仅证明类型尚不存在，不证明新接口实现。任务清单保持未勾选。后续用户设立目标时重新核对环境与源码。
+
+## 已运行的既有基线（不计作新接口完成）
+
+在用户调整为先写总方案之前启动的检查现已结束：
+
+| 命令 | 结果 | 范围 |
+| --- | --- | --- |
+| dotnet run --project tools/RuntimeLifetimeChecks/Checks.csproj | 退出 0，13 项通过 | 现有生命周期与回调所有权替身 |
+| dotnet run --project tools/SaveStateChecks/Checks.csproj -p:GameManaged=<Managed> | 退出 0，6+4+6 项通过 | 当前存档、会话、芒果领取状态 |
+| dotnet run --project tools/OrderChecks/Checks.csproj | 退出 0 | 当前订单入口，仍使用旧付款替身 |
+| python tools/RestorationChecks/State/run.py | 退出 0，37 项通过 | 当前配送恢复 |
+| tools/Check-Localization.ps1 -GameManaged <Managed> | 成功 | 1661 键及游戏 CSV 解析 |
+| tools/Build.ps1 -GameManaged <Managed> -Dotnet <SDK> | 成功，0 警告、0 错误 | 当前正式源码，不含新接口 |
+| tools/Check-Repository.ps1 | 成功，77 文档、401 链接 | 总方案落地后的文档静态检查 |
+
+本次未启动游戏、未部署、未发布。待用户游戏验证场景仅是未来接口验收规划。当前只有方案文档未提交、未推送；无需用户额外决定，下一步由用户设立目标。新增发现为只读绑定查询可能产生内部更新，以及测试必须核对原生回调顺序，均已写入总方案。
+
+## T1 完成：基线与约定
+
+1. 完成扩展字段清单，逐项列明调用者、默认/异常语义、释放和副作用；只读诊断来源和付款四态已明确。生产源码保持 ccc80c0。
+2. 已重新核对远端：main=1f33188，芒果分支=ccc80c0，与本地相符；remote.origin.fetch 仅包含 main，因此通过 ls-remote 核对芒果分支。上述基线检查日志仍在本地，源码无变化；文档检查再次通过。没有游戏/发布验证。
+3. 本期没有新增游戏功能；后续主菜单无存档报告、在档只读和跨档场景按 verify.md 验证。
+4. 方案与 T1 文档作工作分支本地提交，不推送，不合并 main。
+5. 无待用户决定事项；可以进入 T2。
+6. 记录纯查询绑定缺口和原生回调契约风险；保持接口签名集中于 design.md。
