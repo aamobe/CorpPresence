@@ -22,7 +22,7 @@
 
 ## 已移除的子模组间接层
 
-以下十个 Ext 单槽字段只有 Malice.Install 一个生产赋值者，已删除字段、Replace 安装样板和无用 Forced 辅助函数。调用直接指向内置业务，继续以 Malice.IsInstalled 控制启用期边界；Ext.Ask 只作为已有异常保护，不再承载可替换实现。
+以下十一个 Ext 单槽字段只有 Malice.Install 一个生产赋值者，已删除字段、Replace 安装样板和无用 Forced 辅助函数。调用直接指向内置业务，继续以 Malice.IsInstalled 控制启用期边界；Ext.Ask 只作为已有异常保护，不再承载可替换实现。
 
 | 原字段 | 当前调用位置 | 未安装/关闭/失败语义 |
 | --- | --- | --- |
@@ -36,14 +36,14 @@
 | CatalogTier | Company.CatalogTier | 未安装及异常沿用合作度档位；会员公司例外仍由 Malice 判断 |
 | Limit | CatalogEntry.Limit | 显式 WeeklyLimit 优先；未安装及异常无覆盖，继续原有普通限购规则 |
 | ServicePrice | Services.Fee | 未安装或公司不存在返回原价；已安装沿用异常回退原价及非负钳制 |
+| Charge | Services.Pay / Malice.VoucherDeduction | 未安装不调用模块且不预览代金券；已安装保留三态返回、异常不补扣现金 |
 
 安装未提交或卸载开始后不再进入这些业务查询；三个生命周期事件与更新租约仍按原顺序安装/撤回。变更不增加新的同义策略包装。
 
-## 其余九个单槽字段的迁移顺序
+## 其余八个单槽字段的迁移顺序
 
 | 字段 | 实际边界 | 处理要求 |
 | --- | --- | --- |
-| Charge | 付款及代金券所有权 | 随 B2 迁移；必须保持 null=走原现金、空串=已处理、非空=拒绝及异常不补扣语义；当前代金券查询还有委托身份判断，不能只删字段 |
 | ExtraModule / DrawExtraModule | 公司面板 | 随 B3 页面状态整理，将内置合约页归明确页面职责 |
 | SpawnVisitor | 预约重试 | 必须保留异常与 null 的区别：null取消预约，异常保留重试；不得用返回null的通用保护吞掉异常 |
 | ScheduleExtra / SoldToClient / CustomerReported | 剧情调度与交易通知 | 按原调用顺序迁移，并保留现有故障隔离和模式判断 |
@@ -70,3 +70,12 @@ MaliceState 的专用结构校验已从 Persistence/SaveStructure 移回 MaliceS
 仓库 UI、后端强制成交价、物品定义共用价格常量；目录初始化只引用 const，不调用带 Companies.All 静态依赖的 CargoWarehouse 方法，避免初始化环。订单后端按 ID 校验解锁与额度的逻辑尚未迁移，不能仅信任可构造的目录对象来放行。CatalogEntry.Make 的特殊创建路径和页面内特殊倍率仍待后续按职责整理。
 
 本批生产和链接真实 CatalogEntry 的 RestorationChecks 工程编译通过，未执行测试。最终验收需对照固定商品标价、公司倍率、盲盒与印章例外、普通物品事件价及实际扣款。
+
+
+## 内置付款处理契约
+
+Services.Pay 完成存档和公司状态检查后，仅在 Malice 已安装且公司非空时调用 Malice.Charge。Charge 是内置业务入口，不是可替换插件槽；代金券预览以相同安装状态及 Applies 判断，不再比较委托身份。
+
+返回 null 表示未处理，继续原现金流程；空字符串表示付款完成，不再扣现金；非空字符串表示拒绝，返回原因。任何异常都表示结果不确定，记录故障并停止，不补扣现金。保留原 payment.extension 诊断阶段名，以免旧日志筛选规则失效。实际业务中的代金券优先、余额预检、现金扣款、扣券与返券顺序未变。
+
+必要定向验证执行真实 Services.Payment 和 Services.Orders、替身游戏/恶意模式边界：PaymentChecks 的23项检查通过；OrderChecks 通过付款拒绝、成功单扣、重入、报价/付款异常、数量/额度拒绝及会话变化场景。这不代表真实 Malice 代金券业务或游戏实测已完成，集中验收仍须覆盖混合支付、纯现金、纯代金券及模式开关。

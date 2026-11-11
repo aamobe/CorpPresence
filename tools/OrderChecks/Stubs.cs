@@ -31,7 +31,6 @@ static class Companies {
  public static CompanyState StateOf(Company c) => State;
 }
 static class Ext {
- public static Func<Company,int,string,string> Charge;
  public static T Ask<T>(string name,Func<T> action,T fallback) => action();
 }
 static class Perfume { public static List<CatalogEntry> Catalog = new(); }
@@ -64,7 +63,7 @@ static partial class Services {
  public static string PeriodKey => "week";
  public static string PeriodWord => "week";
  public static int Charges {get=>PlayerStore.Instance.Calls;set=>PlayerStore.Instance.Calls=value;}
- public static Func<string> Payment {set {Ext.Charge=value==null ? null : (_,_,_)=>value();}}
+ public static Func<string> Payment {set {Malice.Malice.Handler=value==null ? null : (_,_,_)=>value();}}
  public static void AddCoop(Company c,double amount,string reason) { Companies.State.Cooperation += amount; }
 }
 

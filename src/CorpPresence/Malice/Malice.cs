@@ -278,7 +278,7 @@ internal static partial class Malice
 
 	public static int VoucherDeduction(Company c, int amount)
 	{
-		if (amount <= 0 || !Applies(c) || Ext.Charge != Charge) return 0;
+		if (amount <= 0 || !IsInstalled || !Applies(c)) return 0;
 		var terms = MaliceState.Get()?.Corps;
 		return terms != null && terms.TryGetValue(c.Id, out var balance) ? VoucherDeduction(balance, amount) : 0;
 	}
@@ -288,7 +288,8 @@ internal static partial class Malice
 		return Math.Min(terms.Vouchers, amount);
 	}
 
-	private static string Charge(Company c, int amount, string what)
+	// null: use ordinary cash; empty: paid; nonempty: refused. Exceptions are uncertain.
+	internal static string Charge(Company c, int amount, string what)
 	{
 		if (On && c is RebelCo)
 		{

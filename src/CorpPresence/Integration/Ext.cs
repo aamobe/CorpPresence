@@ -13,8 +13,6 @@ internal static class Ext
 
 	public static readonly ExtensionEvent StateReset = new("StateReset");
 
-	public static Func<Company, int, string, string> Charge;
-
 	public static Func<Company, string> ExtraModule;
 
 	public static Action<Company, Rect, Theme> DrawExtraModule;
