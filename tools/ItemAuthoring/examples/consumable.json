@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "consumable",
+  "key": "reference_consumable",
+  "identity": {
+    "id": "corp_presence_reference_consumable",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "消耗品需求",
+    "en": "Reference request: consumable"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "次数和截止日分别记录，持续期是否包含当日须人工确定",
+    "ownership": "原版管理库存，模组管理自有效果",
+    "persistence": "读档保留次数和截止日，迁移只执行一次",
+    "verification": "检查到期边界、重复调用、重载与拒绝使用",
+    "behavior": "成功使用后生效一次并消耗一件；先复核玩家资格",
+    "failure": "失败不消耗，切档使旧回调失效"
+  }
+}

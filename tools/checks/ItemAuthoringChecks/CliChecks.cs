@@ -33,6 +33,17 @@ internal static class CliChecks
                             throw new Exception("Liquid refusal contract failed: "+result.Output);
                     });
                 }
+            foreach(string kind in Spec.Kinds.Where(k=>k!="ordinary"))
+                check("reference example "+kind+" previews only and cannot apply/check",()=> {
+                    string spec=Path.GetFullPath("tools/ItemAuthoring/examples/"+kind+".json");
+                    if(!File.Exists("docs/maintenance/item-authoring/"+kind+".md")) throw new Exception("Missing category reference");
+                    var before=Snapshot(target);
+                    var preview=RunTool("--spec",spec,"--repo",target,"--mode","preview");
+                    if(preview.Code!=0 || !preview.Output.Contains("REFERENCE_ONLY")) throw new Exception(preview.Output);
+                    foreach(string mode in new[]{"apply","check"})
+                        if(RunTool("--spec",spec,"--repo",target,"--mode",mode).Code==0) throw new Exception("Complex implementation accepted");
+                    if(Snapshot(target)!=before) throw new Exception("Reference request wrote target");
+                });
         }
         finally
         {

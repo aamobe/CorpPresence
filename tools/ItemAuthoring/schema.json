@@ -8,10 +8,10 @@
   "properties": {
     "schemaVersion": {"const": 1},
     "kind": {"enum": ["ordinary", "consumable", "equipment", "container", "machine", "plant", "plant-produce", "aquaculture", "seafood-raw", "food", "creature", "credential", "multistate"]},
-    "key": {"type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$"},
+    "key": {"type": "string", "minLength": 3, "maxLength": 64, "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
     "identity": {
       "type": "object", "additionalProperties": false, "required": ["id", "base"],
-      "properties": {"id": {"type": "string", "pattern": "^corp_presence_[a-z][a-z0-9_]{2,63}$"}, "base": {"const": "toothpaste"}}
+      "properties": {"id": {"type": "string", "pattern": "^corp_presence_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"}, "base": {"const": "toothpaste"}}
     },
     "names": {"$ref": "#/$defs/localized"},
     "description": {"$ref": "#/$defs/localized"},
@@ -31,7 +31,7 @@
     "types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["HOUSEHOLD_GOOD", "TOOL", "LUXURY_ITEM", "CONTRABAND", "MEDICAL", "FOOD"]}},
     "acquisition": {
       "type": "object", "additionalProperties": false, "required": ["company", "page", "minTier"],
-      "properties": {"company": {"const": "pastel"}, "page": {"const": "日用"}, "minTier": {"type": "integer", "minimum": 1, "maximum": 5}}
+      "properties": {"company": {"const": "pastel"}, "page": {"const": "日用"}, "minTier": {"type": "integer", "minimum": 1, "maximum": 3}}
     },
     "requirements": {
       "type": "object", "additionalProperties": false,

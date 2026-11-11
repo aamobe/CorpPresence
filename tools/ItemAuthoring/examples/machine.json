@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "machine",
+  "key": "reference_machine",
+  "identity": {
+    "id": "corp_presence_reference_machine",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "固体加工设备需求",
+    "en": "Reference request: machine"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "模式、功率和进度分别持久化，槽位按角色定义",
+    "ownership": "原版拥有周期与库存，模组拥有自有配方",
+    "persistence": "恢复模式和升级等级，不重排槽位",
+    "verification": "检查低电、缺料、满输出、部分失败与重载",
+    "behavior": "仅固体原料转成品，明确启动与每批消耗",
+    "failure": "先准备和放置输出，再结算原料；失败回收本批"
+  }
+}

@@ -2,6 +2,8 @@
 
 本目录外层是入口脚本；回归检查工程在 [checks/](checks/README.md) 下，每个目录一个。
 
+物品开发入口：[ItemAuthoring](ItemAuthoring/README.md)，普通静态商品Preview/Apply/Check；复杂类别仅人工待办，液体整单拒绝。独立检查入口[Check-ItemAuthoring.ps1](Check-ItemAuthoring.ps1)，也已接入便携和维护检查。
+
 物品框架新增 `ItemDefinitionChecks`：读取正式 DLL 的真实定义/身份/文本/资源，并验证重复定义、缺名称/键/图像和身份贴图解析。`Check-Maintenance.ps1` 已包含构建和执行该工具两步（实际步数以该次入口输出为准，含正式/维护双扫描）。单独执行编译后的 Checks.dll 时传正式 DLL 和 Managed 两个路径；无参数只测检查器负例，不算真实内容验收。详见[物品接入](../docs/maintenance/item-extension.md)。
 
 静态检查脚本需要PowerShell 7或更高版本，以按大小写区分翻译JSON的键。正式构建仍由.NET SDK完成。

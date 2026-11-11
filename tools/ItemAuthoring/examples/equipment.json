@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "equipment",
+  "key": "reference_equipment",
+  "identity": {
+    "id": "corp_presence_reference_equipment",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "装备需求",
+    "en": "Reference request: equipment"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "耐久、电量、弹药各自单位和上下限需填写",
+    "ownership": "原版管理消耗，模组管理自己的配件显示",
+    "persistence": "恢复原有槽位和玩家改装，不重新赋满电",
+    "verification": "检查空电、兼容矩阵、绑定幂等和重载",
+    "behavior": "装卸模块时复用原版许可，额外限定本物品兼容表",
+    "failure": "拒绝不兼容模块，不复制或丢失模块"
+  }
+}

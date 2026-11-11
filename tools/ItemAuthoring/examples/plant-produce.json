@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "plant-produce",
+  "key": "reference_plant_produce",
+  "identity": {
+    "id": "corp_presence_reference_plant_produce",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "纯固体收获物需求",
+    "en": "Reference request: plant-produce"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "固体件数与品质等级分开，明确遗传范围",
+    "ownership": "原版执行收获时序，模组拥有输出修正",
+    "persistence": "不在重载时重复赋予收获增量",
+    "verification": "检查来源过滤、整数取整、一次性钩子和加工资格",
+    "behavior": "由明确种子产出固体物品并供后续加工",
+    "failure": "放置失败保留原料，不能重复乘产量倍率"
+  }
+}

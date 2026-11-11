@@ -36,10 +36,22 @@ public static class Planner
             throw new AuthoringException("INVALID_ART","Duplicate embedded resource name");
         string textPrefix="items.authored."+string.Concat(spec.Key.Split('_').Select((s,i)=>i==0?s:char.ToUpperInvariant(s[0])+s[1..]));
         string nameKey=textPrefix+".name", descKey=textPrefix+".description";
-        string def=$"[{Q(spec.Key)}] = new Def {{ Name = {Q(spec.Names["zh"])}, NameEn = {Q(spec.NameEn)}, Desc = {Q(spec.Description["zh"])}, DescEn = {Q(spec.Description["en"])}, Company = {Q(spec.Company)}, Art = {Q(art)}, Manufacturer = {Q(spec.Company)}, Value = {spec.Value}L, Types = new string[] {{ {string.Join(", ",spec.Types.Select(Q))} }}, W = {spec.Width}, H = {spec.Height}, Shape = {Q(spec.Cells)} }}";
-        string identity=$"Good({Q(spec.Key)}, {Q(spec.Base)})";
-        string texts=$"[{Q(spec.Key)}] = new Keys({Q(nameKey)}, null, {Q(descKey)}, null, null)";
-        string catalog=$"new CatalogEntry {{ Id = {Q("@"+spec.Key)}, Page = {Q(spec.Page)}, MinTier = {spec.MinTier}, Label = {Q(spec.Names["zh"])}, LabelEn = {Q(spec.NameEn)}, LabelKey = {Q(nameKey)} }}";
+        var textTree=CSharpSyntaxTree.ParseText(plan.ReadText(Texts)).GetRoot();
+        var bindings=textTree.DescendantNodes().OfType<VariableDeclaratorSyntax>()
+            .Single(n=>n.Identifier.ValueText=="Definitions").DescendantNodes().OfType<InitializerExpressionSyntax>().First();
+        foreach(var binding in bindings.Expressions.OfType<AssignmentExpressionSyntax>())
+        {
+            string? owner=binding.Left.DescendantTokens().FirstOrDefault(t=>t.IsKind(SyntaxKind.StringLiteralToken)).ValueText;
+            if(owner!=spec.Key && binding.Right.DescendantTokens().Any(t=>t.IsKind(SyntaxKind.StringLiteralToken) && (t.ValueText==nameKey || t.ValueText==descKey)))
+                throw new AuthoringException("REGISTRATION_CONFLICT","Stable text key already owned by "+owner);
+        }
+        var fields=new Dictionary<string,string>{["Key"]=Q(spec.Key),["NameZh"]=Q(spec.Names["zh"]),["NameEn"]=Q(spec.NameEn),
+            ["DescZh"]=Q(spec.Description["zh"]),["DescEn"]=Q(spec.Description["en"]),["Company"]=Q(spec.Company),["Art"]=Q(art),
+            ["Value"]=spec.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),["Types"]=string.Join(", ",spec.Types.Select(Q)),
+            ["Width"]=spec.Width.ToString(),["Height"]=spec.Height.ToString(),["Shape"]=Q(spec.Cells),["Base"]=Q(spec.Base),
+            ["NameKey"]=Q(nameKey),["DescKey"]=Q(descKey),["OrderKey"]=Q("@"+spec.Key),["Page"]=Q(spec.Page),["MinTier"]=spec.MinTier.ToString()};
+        string def=Templates.Render("definition",fields), identity=Templates.Render("identity",fields),
+            texts=Templates.Render("text",fields), catalog=Templates.Render("catalog",fields);
 
         // Reject identities/keys outside the four exact editable nodes, including constant-based definitions.
         // This is a conservative source collision scan; compiled checks remain required after Apply.
@@ -132,14 +144,14 @@ public static class Planner
         while(!parser.EndOfData)
         {
             var fields=parser.ReadFields();
-            if(fields==null || fields.Length!=2 || !existing.TryAdd(fields[0],fields[1]))
+            if(fields==null || fields.Length!=2 || !existing.TryAdd(fields[0],fields[1].Replace("\\n","\n")))
                 throw new AuthoringException("INVALID_CSV",path);
         }
         var additions=new List<string>();
         foreach(var row in rows)
             if(existing.TryGetValue(row.Key,out string? value))
             {if(value!=row.Value) throw new AuthoringException("REGISTRATION_CONFLICT",path+": "+row.Key);}
-            else additions.Add(row.Key+",\""+row.Value.Replace("\"","\"\"")+"\"");
+            else additions.Add(row.Key+",\""+row.Value.Replace("\n","\\n").Replace("\"","\"\"")+"\"");
         if(additions.Count==0) return;
         string nl=original.Contains("\r\n")?"\r\n":"\n";
         AddPreservingBom(plan,path,original+(original.EndsWith('\n')?"":nl)+string.Join(nl,additions)+nl,"append translations (missing ru/fr use explicit English fallback)");

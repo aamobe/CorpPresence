@@ -31,6 +31,10 @@ Check("ordinary input preserves quoted and multiline text", () => {
 Reject("unknown field rejected", "INVALID_SPEC", n=>n["code"]="Console.WriteLine(1)");
 Reject("unknown category never falls back", "INVALID_SPEC", n=>n["kind"]="typo");
 Reject("unknown schema version rejected", "INVALID_SPEC", n=>n["schemaVersion"]=2);
+Reject("pastel tier above its actual three levels rejected", "INVALID_SPEC", n=>n["acquisition"]!["minTier"]=4);
+Reject("empty key segment rejected", "INVALID_SPEC", n=>{n["key"]="test__sample";n["identity"]!["id"]="corp_presence_test__sample";});
+Reject("trailing key separator rejected", "INVALID_SPEC", n=>{n["key"]="test_sample_";n["identity"]!["id"]="corp_presence_test_sample_";});
+Reject("literal backslash-n cannot round-trip official CSV", "INVALID_SPEC", n=>n["description"]!["en"]="literal\\ntext");
 Reject("identity cannot alias released goods", "INVALID_SPEC", n=>n["identity"]!["id"]="corp_presence_gloves");
 Reject("path traversal rejected", "INVALID_SPEC", n=>n["art"]!["path"]="../outside.png");
 Reject("absolute path rejected", "INVALID_SPEC", n=>n["art"]!["path"]="C:/outside.png");

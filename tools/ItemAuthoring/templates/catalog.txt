@@ -1,0 +1,5 @@
+new CatalogEntry
+{
+    Id = {{OrderKey}}, Page = {{Page}}, MinTier = {{MinTier}},
+    Label = {{NameZh}}, LabelEn = {{NameEn}}, LabelKey = {{NameKey}}
+}

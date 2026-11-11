@@ -29,6 +29,9 @@ internal static class PlannerChecks
             check("ordinary preview plans all nine registration files",()=> {
                 var plan=Planner.Create(root,spec);
                 if(plan.Changes.Count!=9) throw new Exception("Expected four C#, two JSON and three CSV files");
+                var csv=System.Text.Encoding.UTF8.GetString(plan.Changes.Single(c=>c.RelativePath=="Localization/en.csv").After);
+                if(!csv.Contains("items.authored.authoringSample.name,\"Sample\\nitem\""))
+                    throw new Exception("CSV must encode newlines using the game's single-line protocol");
                 if(File.ReadAllText(Path.Combine(root,"src/CorpPresence/Items/Goods.Definitions.cs")).Contains("authoring_sample"))
                     throw new Exception("Preview changed source");
             });
@@ -45,6 +48,13 @@ internal static class PlannerChecks
                 try {Planner.Create(root,spec with {ArtPath="src/Assets/missing.png"});}
                 catch(AuthoringException e) when(e.Code=="MISSING_ART") {return;}
                 throw new Exception("Missing image accepted");
+            });
+            check("different goods cannot share a camelized localization key",()=> {
+                var first=spec with {Key="aaa1",Id="corp_presence_aaa1"};
+                Planner.Create(root,first).Apply();
+                try {Planner.Create(root,first with {Key="aaa_1",Id="corp_presence_aaa_1"});}
+                catch(AuthoringException e) when(e.Code=="REGISTRATION_CONFLICT") {return;}
+                throw new Exception("Two goods acquired the same text keys");
             });
         }
         finally

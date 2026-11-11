@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "multistate",
+  "key": "reference_multistate",
+  "identity": {
+    "id": "corp_presence_reference_multistate",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "组合状态物品需求",
+    "en": "Reference request: multistate"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "权威状态、状态图、截止日和组合内容分开记录",
+    "ownership": "原版拥有能量和库存，模组拥有自有模式",
+    "persistence": "恢复中间态，不重放切换副作用",
+    "verification": "检查非法转换、边界状态、重复回调和迁移",
+    "behavior": "显式列出转换守卫和同一身份或新身份的理由",
+    "failure": "拆解失败保留输入，成功输出数量和内容守恒"
+  }
+}

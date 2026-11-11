@@ -9,6 +9,7 @@
 | [Check-Maintenance.ps1](../Check-Maintenance.ps1) | 完整回归，需要本地游戏程序集 |
 | [Check-Portable.ps1](../Check-Portable.ps1) | 不依赖游戏的部分，GitHub 工作流运行的就是它 |
 | [Check-Localization.ps1](../Check-Localization.ps1) | 本地化专项 |
+| [Check-ItemAuthoring.ps1](../Check-ItemAuthoring.ps1) | 开发端生成器、事务、示例与三模式液体拒绝；不运行游戏 |
 
 各检查的覆盖范围和替身边界见[工具目录](../README.md)。
 

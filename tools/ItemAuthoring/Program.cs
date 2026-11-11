@@ -46,6 +46,7 @@ internal static class Program
                 ShowDelta(change);
             }
             Console.WriteLine("TRANSLATION: omitted ru/fr explicitly fall back to English. Existing identity baseline remains read-only.");
+            Console.WriteLine("CHECKS: after Apply, run Check for real compilation, ItemDefinitionChecks, ItemChecks and LocalizationChecks; review gameplay separately when adding a real item.");
             if(mode=="apply")
             {
                 if(options.GetValueOrDefault("--expected-plan")!=hash) throw new AuthoringException("PLAN_CHANGED","Pass --expected-plan from the reviewed Preview; re-preview if any input or target changed.");

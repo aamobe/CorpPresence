@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "food",
+  "key": "reference_food",
+  "identity": {
+    "id": "corp_presence_reference_food",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "固体食品需求",
+    "en": "Reference request: food"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "每份热量、件数和品质分别记录",
+    "ownership": "原版管理食用和交易，模组管理自己的固体配方",
+    "persistence": "重载保留品质，不携带活体成长回调",
+    "verification": "检查热量、数量、食用能力、耗材与失败提交",
+    "behavior": "明确热量与食用行为，生产完成后走原版食用流程",
+    "failure": "可复用耗材不能每批消耗，放置失败回收成品"
+  }
+}

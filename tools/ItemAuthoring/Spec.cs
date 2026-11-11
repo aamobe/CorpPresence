@@ -39,7 +39,7 @@ public sealed record Spec(string Kind, string Key, string Id, string Base,
             Require(root.GetProperty("schemaVersion").GetInt32() == 1, "Unsupported schemaVersion");
             string kind = Text(root, "kind"), key = Text(root, "key");
             Require(Kinds.Contains(kind), "Unknown kind");
-            Require(Regex.IsMatch(key, "^[a-z][a-z0-9_]{2,63}$"), "Invalid goods key");
+            Require(key.Length is >= 3 and <= 64 && Regex.IsMatch(key, "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"), "Invalid goods key; empty underscore segments are not allowed");
             var identity = root.GetProperty("identity"); Object(identity, "id", "base");
             string id = Text(identity, "id"), baseId = Text(identity, "base");
             Require(id == "corp_presence_" + key, "Identity must match goods key");
@@ -64,7 +64,7 @@ public sealed record Spec(string Kind, string Key, string Id, string Base,
             var acquisition = root.GetProperty("acquisition"); Object(acquisition, "company", "page", "minTier");
             string company = Text(acquisition, "company"), page = Text(acquisition, "page");
             int tier = acquisition.GetProperty("minTier").GetInt32();
-            Require(company == "pastel" && page == "日用" && tier is >= 1 and <= 5, "First version supports pastel 日用, tier 1–5");
+            Require(company == "pastel" && page == "日用" && tier is >= 1 and <= 3, "First version supports pastel 日用, tier 1–3 (actual company levels)");
             var requirements = new Dictionary<string,string>();
             if(root.TryGetProperty("requirements", out var req))
             {
@@ -115,6 +115,11 @@ public sealed record Spec(string Kind, string Key, string Id, string Base,
         var result = new Dictionary<string,string> { ["zh"] = Text(node, "zh"), ["en"] = Text(node,"en") };
         foreach(var language in new[]{"ru","fr"})
             if(node.TryGetProperty(language, out _)) result[language] = Text(node,language);
+        foreach(string language in result.Keys.ToArray())
+        {
+            Require(!result[language].Contains("\\n",StringComparison.Ordinal), "Literal backslash-n cannot round-trip through official CSV");
+            result[language]=result[language].Replace("\r\n","\n").Replace("\r","\n");
+        }
         return result;
     }
     private static void Require(bool condition, string message)

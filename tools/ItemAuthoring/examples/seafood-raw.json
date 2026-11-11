@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "seafood-raw",
+  "key": "reference_seafood_raw",
+  "identity": {
+    "id": "corp_presence_reference_seafood_raw",
+    "base": "toothpaste"
+  },
+  "names": {
+    "zh": "死亡水产原料需求",
+    "en": "Reference request: seafood-raw"
+  },
+  "description": {
+    "zh": "只输出人工需求待办，不登记游戏实现。",
+    "en": "Reference only; no runtime registration."
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  },
+  "requirements": {
+    "states": "活死、整条或切片、件数和克数分别登记",
+    "ownership": "原版管理生物状态，模组管理精确验料谓词",
+    "persistence": "恢复原料状态，不把死亡对象重新初始化为活体",
+    "verification": "检查全部验料反例、转换守恒与加工重载",
+    "behavior": "只接受指定物种和阶段的死亡整鱼进行固体加工",
+    "failure": "拒收错误物种、阶段和切片，部分失败不扣整批"
+  }
+}
