@@ -52,7 +52,8 @@ internal static class MaintenanceDiagnostics
         try
         {
             CheckSession();
-            var faults = runtime || SaveSlot.CurrentStore == null ? RuntimeFaults : Faults;
+            bool runtimeScope = runtime || SaveSlot.CurrentStore == null;
+            var faults = runtimeScope ? RuntimeFaults : Faults;
             source = Bound(source, 128); stage = Bound(stage, 128); code = Bound(code, 128);
             string type = error == null ? "none" : Bound(error.GetType().FullName, 256);
             for (int i = 0; i < faults.Count; i++)
@@ -73,7 +74,7 @@ internal static class MaintenanceDiagnostics
                 }
             }
             if (faults.Count == 64) faults.RemoveAt(16);
-            faults.Add(new MaintenanceFault(source, stage, code, type, detail.ToString(0, Math.Min(detail.Length, 4096))));
+            faults.Add(new MaintenanceFault(source, stage, code, type, detail.ToString(0, Math.Min(detail.Length, 4096)), scope: runtimeScope ? MaintenanceFaultScope.Runtime : MaintenanceFaultScope.Session));
         }
         catch { /* Diagnostics must not escape into the business operation. */ }
     }
@@ -128,5 +129,5 @@ internal static class MaintenanceDiagnostics
 
     private static MaintenanceSnapshot Unknown() => new(Main.Version, GameResources.Ready, GameResources.Generation,
         SaveDiagnosticStatus.Unstable, null, null, null, null, Array.Empty<MaintenanceCounter>(),
-        Array.Empty<MaintenanceFault>(), Array.Empty<MaintenanceRegistration>(), Array.Empty<MaintenanceModuleState>());
+        RuntimeFaults.ToArray(), Array.Empty<MaintenanceRegistration>(), Array.Empty<MaintenanceModuleState>());
 }

@@ -9,7 +9,7 @@ internal static class PatchInstallation
     internal static void Reset() => _installed = 0;
     internal static void AppendDiagnostics(ICollection<MaintenanceCounter> counters)
         => counters.Add(new MaintenanceCounter("hooks.installed", _installed));
-    internal static void Run(string label, Func<bool> install)
+    internal static void Run(string label, Func<bool> install, bool required = false)
     {
         bool installed;
         try { installed = install(); }
@@ -20,6 +20,7 @@ internal static class PatchInstallation
         }
         if (installed) { _installed++; return; }
         MaintenanceDiagnostics.RecordRuntime("hooks", label, "target_missing", null);
+        if (required) throw new MissingMethodException("必需补丁目标不存在：" + label);
         try { ModLog.Warn("找不到 " + label + "，相关功能停用"); } catch { }
     }
 }
