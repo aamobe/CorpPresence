@@ -13,7 +13,7 @@ internal static class Ext {internal static Func<Company,int,string,string> Charg
 internal static class L {internal static string K(string k,string zh,string en)=>en;}
 internal static class ModLog {internal static void Warn(string s){}}
 internal class EmporiumAudioPlayer {internal static EmporiumAudioPlayer Instance=new();internal static bool Fail;internal void PlayRegister(){if(Fail)throw new Exception("audio");}}
-internal class NegociationUIManager {internal static NegociationUIManager Instance;internal Audio audioSourceCashRegister;}
+internal class NegociationUIManager {internal static NegociationUIManager Instance=null;internal Audio audioSourceCashRegister=null;}
 internal class Audio {internal void Play(){}}
 internal static class MaintenanceDiagnostics {internal static List<string> Codes=new();internal static bool Fail;internal static void Record(string source,string stage,string code,Exception e){if(Fail)throw new Exception("diagnostic");Codes.Add(stage+":"+code);}}
 }

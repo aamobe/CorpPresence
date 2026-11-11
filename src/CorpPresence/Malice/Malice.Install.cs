@@ -25,8 +25,9 @@ internal static partial class Malice
 		try
 		{
 			callbacks.Own(Ext.BeforeSave.Subscribe("malice", MaliceState.Save));
-			callbacks.Own(Ext.StateReset.Subscribe("malice", MaliceState.Reset));
+			callbacks.Own(Ext.StateReset.Subscribe("malice", () => { MaliceState.Reset(); Envoy.ResetNotifications(); }));
 			callbacks.Own(Ext.DayStart.Subscribe("malice", OnDayStart));
+			callbacks.Own(CorpPresence.Runtime.RuntimeUpdates.Register("malice.envoy", Envoy.Tick));
 			callbacks.Replace(() => Ext.ExtraModule, value => Ext.ExtraModule = value, (Company c) => (!Applies(c)) ? null : L.K("malice.malice.install.corporateTerms", "巨企合约", "Corporate Terms"));
 			callbacks.Replace(() => Ext.DrawExtraModule, value => Ext.DrawExtraModule = value, MalicePanel.Draw);
 			callbacks.Replace(() => Ext.OrderBlocked, value => Ext.OrderBlocked = value, OrderBlocked);
@@ -66,6 +67,7 @@ internal static partial class Malice
 		{
 			ReportLifecycleFailure("install", error);
 			callbacks.Release();
+			Envoy.ResetNotifications();
 			if (callbacks.ReleaseFailed) _callbacks = callbacks;
 			throw;
 		}
@@ -79,6 +81,7 @@ internal static partial class Malice
 			return;
 		}
 		_installed = false;
+		Envoy.ResetNotifications();
 		_lastReleaseFailed = false;
 		var callbacks = _callbacks;
 		callbacks?.Release();

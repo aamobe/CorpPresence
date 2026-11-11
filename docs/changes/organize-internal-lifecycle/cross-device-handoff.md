@@ -6,13 +6,13 @@
 
 2026-11-11（Asia/Shanghai）。本轮基于 GitHub `a948375`，在另一台已有游戏和 SDK 的机器上复现；不是全新系统或空依赖缓存验证。用户选择保留旧分支，并基于远端继续。旧分支 github-main 的 `740c067` 未合并，当前工作分支 work/framework-phase-three。
 
-第三期决定见[保留现有实现](phase-three-decision.md)。本轮范围是复现与文档交接，不新增物品、不调整运行行为。新提交不等于工坊更新，工坊身份仍查[发布记录](../../releases/1.1.0-internal-maintenance.md)。
+第三期决定见[F3 · 保留现有实现](phase-three-decision.md)。本轮范围是复现与文档交接，不新增物品、不调整运行行为。新提交不等于工坊更新，工坊身份仍查[发布记录](../../releases/1.1.0-internal-maintenance.md)。
 
 ## 下一台机器的执行顺序
 
 1. 检查工作区状态，fetch 后比较本地与远端。干净且只落后才快进；分叉先保留旧分支、确认后从远端建立工作分支，不强推覆盖其他机器成果。
 2. 确认 .NET SDK 8 或更高、PowerShell 7、实际可执行的 Python。先分别运行版本命令；WindowsApps 的 python.exe 可能只是占位程序，Get-Command 找得到不代表能执行。
-3. 显式配置本机 GameManaged、Dotnet、Python，不把个人路径提交。核对 Steam buildid 与 Assembly-CSharp.dll 的 SHA256；变化时重新核对[官方接口与本机能力](phase-zero-evidence.md)，不能直接套用旧结果。
+3. 显式配置本机 GameManaged、Dotnet、Python，不把个人路径提交。核对 Steam buildid 与 Assembly-CSharp.dll 的 SHA256；变化时重新核对[F0 · 官方接口与本机能力](phase-zero-evidence.md)，不能直接套用旧结果。
 4. 在仓库内运行下列命令。必要时将 DOTNET_CLI_HOME 指向本地忽略的 artifacts/dotnet-cli。统一入口为每次运行建立独立输出，记录 results.json 与逐步日志。
 
 ```powershell

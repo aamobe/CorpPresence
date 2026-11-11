@@ -4,6 +4,8 @@
 
 ## 完整流程
 
+结构与性能评审的[后续修复](../bugs/framework-review/followup.md)覆盖存档通知隔离、模块更新租约、面板事件筛选和估值样品释放；其中说明了不能直接销毁活物品 Sprite 的所有权边界。
+
 评审后的诊断修复与裁决见[框架评审修复](../bugs/framework-review/assessment.md)；十项游戏场景统一记录到[单次验收表](../bugs/framework-review/manual-verification.md)。
 
 Main 核心阶段安装身份与补丁 → ResourceBootstrap 按实际资源状态等待 → 资源阶段激活物品目录及业务 → Host 执行运行任务 → SaveSlot/SaveBinding 绑定当前存档 → 公司目录/付款/配送取得物品 → Goods 创建、设备自行加工和恢复 → 停用逆序释放。
@@ -41,7 +43,7 @@ Catalog 仅描述物品；ItemIdentity 保持持久身份；ItemRegistry 负责�
 
 ## 统一验收与完成标准
 
-运行 `tools/Check-Maintenance.ps1`，显式传 GameManaged、Dotnet、Python。当前含 29 步，包括物品结构检查、物品与运行期所有权组合、付款订单存档回归，以及正式/维护两份官方权限扫描；任一步失败均停止。检查入口变动时另跑 Check-MaintenanceContract。
+运行 `tools/Check-Maintenance.ps1`，显式传 GameManaged、Dotnet、Python。范围以当次入口输出为准，包括物品结构检查、物品与运行期所有权组合、付款订单存档回归，以及正式/维护两份官方权限扫描；任一步失败均停止。检查入口变动时另跑 Check-MaintenanceContract。
 
 统一入口不等于全部专项或游戏覆盖。涉及加工、种植、养殖、资源等待等行为时，再按对应 tools 说明选择专项。不能因没有引入通用设备模板而补造玩法；也不能因统一检查全绿而跳过真实业务验收。
 

@@ -25,4 +25,4 @@
 
 ## 本机核对（2026-11-11）
 
-Steam buildid 26525552 的本地程序集缺少 Rev14 的版本查询、自定义 F9 面板和结局接口。既有 IMod、物品目录及顾客/夜间服务事件存在。详细签名、哈希与工具环境见[第零期现场证据](../changes/organize-internal-lifecycle/phase-zero-evidence.md)。
+Steam buildid 26525552 的本地程序集缺少 Rev14 的版本查询、自定义 F9 面板和结局接口。既有 IMod、物品目录及顾客/夜间服务事件存在。详细签名、哈希与工具环境见[F0 · 第零期现场证据](../changes/organize-internal-lifecycle/phase-zero-evidence.md)。

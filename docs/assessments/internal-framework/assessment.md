@@ -22,7 +22,7 @@
 | 推断/预期 | 用“可能、预期、待测”标明，并提供验证方法 |
 | 尚无证据 | 不给性能倍数、节省百分比、故障率或综合分数 |
 
-本次是评估文档任务，未重新运行构建、26 步套件、官方扫描、游戏或发布核验。既有最终运行记录见[第二期证据](../../changes/organize-internal-lifecycle/phase-two-items.md)：26 步、41 条物品断言、双构建零警告零错误、双版本零权限扫描及三类入口失败检查通过。26 是检查步骤数，41 是顶层断言数，90 是身份记录数，均不是代码覆盖率。
+本次是评估文档任务，未重新运行构建、26 步套件、官方扫描、游戏或发布核验。既有最终运行记录见[F2 · 第二期证据](../../changes/organize-internal-lifecycle/phase-two-items.md)：26 步、41 条物品断言、双构建零警告零错误、双版本零权限扫描及三类入口失败检查通过。26 是检查步骤数，41 是顶层断言数，90 是身份记录数，均不是代码覆盖率。
 
 ## 2. 1.0.0 对照与收益归属
 
@@ -159,7 +159,7 @@ Goods 汇总多条生产线定义时使用字典索引赋值，后写同键会�
 本报告不改变已确认的五期路线，不将候选事项自动加入开发范围；剩余实施仍按用户此前要求留待跨设备继续。
 
 - [总方案与阶段状态](../../changes/organize-internal-lifecycle/master-plan.md)
-- [一期证据](../../changes/organize-internal-lifecycle/phase-one-evidence.md)、[二期证据](../../changes/organize-internal-lifecycle/phase-two-items.md)
+- [F1 · 一期证据](../../changes/organize-internal-lifecycle/phase-one-evidence.md)、[F2 · 二期证据](../../changes/organize-internal-lifecycle/phase-two-items.md)
 - [物品接入清单](../../maintenance/item-extension.md)、[维护接口手册](../../maintenance/internal-maintenance.md)
 - [游戏验收清单](../../changes/organize-internal-lifecycle/verify.md)、[原 M1–M6](../../changes/add-maintenance-interfaces/verify.md)
 - [历史复盘与未闭环反馈](../../retrospective/README.md)、[发布目录](../../releases/README.md)

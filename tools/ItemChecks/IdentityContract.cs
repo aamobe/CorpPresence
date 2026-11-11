@@ -5,6 +5,14 @@ internal sealed record IdentityEntry(string Id,string LegacyId,string LegacySpri
 internal sealed record IdentityBaseline(string SourceCommit,string DllSha256,List<IdentityEntry> Entries);
 internal static class IdentityContract
 {
+    internal static List<string> ValidateRelease(IReadOnlyList<IdentityEntry> current,IReadOnlyList<IdentityEntry> baseline)
+    {
+        var errors=Validate(current,baseline);
+        var known=baseline.Select(entry=>entry.Id).ToHashSet(StringComparer.Ordinal);
+        foreach(var entry in current)
+            if(!known.Contains(entry.Id)) errors.Add("unrecorded release identity: "+entry.Id);
+        return errors;
+    }
     internal static List<string> Validate(IReadOnlyList<IdentityEntry> current,IReadOnlyList<IdentityEntry> baseline)
     {
         var errors=new List<string>();

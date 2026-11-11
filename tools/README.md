@@ -1,6 +1,6 @@
 # 工具目录
 
-物品框架新增 `ItemDefinitionChecks`：读取正式 DLL 的真实定义/身份/文本/资源，并验证重复定义、缺名称/键/图像和身份贴图解析。`Check-Maintenance.ps1` 已包含构建和执行该工具两步（当前合计 29 步，含正式/维护双扫描）。单独执行编译后的 Checks.dll 时传正式 DLL 和 Managed 两个路径；无参数只测检查器负例，不算真实内容验收。详见[物品接入](../docs/maintenance/item-extension.md)。
+物品框架新增 `ItemDefinitionChecks`：读取正式 DLL 的真实定义/身份/文本/资源，并验证重复定义、缺名称/键/图像和身份贴图解析。`Check-Maintenance.ps1` 已包含构建和执行该工具两步（实际步数以该次入口输出为准，含正式/维护双扫描）。单独执行编译后的 Checks.dll 时传正式 DLL 和 Managed 两个路径；无参数只测检查器负例，不算真实内容验收。详见[物品接入](../docs/maintenance/item-extension.md)。
 
 静态检查脚本需要PowerShell 7或更高版本，以按大小写区分翻译JSON的键。正式构建仍由.NET SDK完成。
 
@@ -34,8 +34,16 @@
 
 ## 内部维护检查
 
+`Check-Portable.ps1 -Dotnet '<SDK dotnet>'` 在没有游戏程序集的机器上运行文档静态检查及 RuntimeLifetime、Extension、Host、SpacerModValues 替身检查；GitHub 的 Portable checks 工作流使用同一入口。它不能替代下列完整入口、原版权限扫描或游戏验收。
+
+`Check-ReleaseIdentities.ps1 -Assembly '<待发布 DLL>' -Dotnet '<SDK dotnet>'` 是发布前的严格身份门禁：新增身份必须已写入人工审阅基线；开发期 ItemChecks 仍允许新增。不执行打包或上传。
+
+`HostChecks` 检查真实 Host 的事件路由与模块任务；`SpacerModValuesChecks` 检查真实盲盒估值采样和临时物品释放。两者已纳入完整入口。
+
+`Check-BuildIdentity.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>'` 验证正常/维护构建的 dev 与实际提交标识、错误覆盖输入和源码归档 unknown；已纳入完整入口。可选 `-OutputRoot` 隔离证据目录。生成身份发生在编译期，运行时不访问 Git。
+
 `./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python>'` 固定串联维护相关检查并记录分层证据；失败非零退出，不启动游戏、部署或打包。`Check-MaintenanceContract.ps1` 使用相同参数验证总入口失败契约。详细使用及证据边界见[内部维护手册](../docs/maintenance/internal-maintenance.md)。
 
 ## 物品接入检查
 
-`ItemChecks` 链接真实 ItemRegistry 并使用目录/物品替身；同时读取本次正式 DLL 的真实 ItemIdentity 与 ResolveId，对照固定 90 条身份基线。已接入 Check-Maintenance，统一入口现为 29 步，含真实 RuntimeLifetime 与注册器组合回归及正式/维护双扫描。单独运行需先 build 到独立 artifacts 目录，再执行新 Checks.dll 并传入正式 CorpPresence.dll 路径。不要自动覆盖 IdentityBaseline.json；接入与覆盖边界见[物品接入清单](../docs/maintenance/item-extension.md)。
+`ItemChecks` 链接真实 ItemRegistry 并使用目录/物品替身；同时读取本次正式 DLL 的真实 ItemIdentity 与 ResolveId，对照固定 90 条身份基线。已接入 Check-Maintenance，统一入口步数以当次输出为准，含真实 RuntimeLifetime 与注册器组合回归及正式/维护双扫描。单独运行需先 build 到独立 artifacts 目录，再执行新 Checks.dll 并传入正式 CorpPresence.dll 路径。不要自动覆盖 IdentityBaseline.json；接入与覆盖边界见[物品接入清单](../docs/maintenance/item-extension.md)。

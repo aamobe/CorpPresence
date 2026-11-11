@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CorpPresence;
 
-internal sealed class SpacerCo : Company
+internal sealed partial class SpacerCo : Company
 {
 	public const string ModBox = "@modbox";
 
@@ -13,15 +13,6 @@ internal sealed class SpacerCo : Company
 	public const int ModBoxMin = 300;
 
 	public const int ModBoxMax = 750;
-
-	private static readonly string[] ModPool = new string[30]
-	{
-		"internal_springs", "trigger_group", "match_barrel", "pistol_switch", "ammo_display", "grip_gel", "rds", "rds_makeshift", "silencer", "silencer2",
-		"silencer_makeshift", "barrel", "compensator", "laser", "laser2", "laser_toy", "bipod", "gl", "grip", "mag_10mm",
-		"mag_10mm_high", "mag_10mm_ext", "mag_10mm_smg", "mag_10mm_smg_high", "mag_10mm_smg_box", "mag_22", "mag_22_high", "mag_22_ext", "stock", "short_stock"
-	};
-
-	private static Dictionary<string, long> _modValues;
 
 	public const double RepToTrust = 0.5;
 
@@ -257,32 +248,6 @@ internal sealed class SpacerCo : Company
 				? TranslateTechCredits()
 				: TechCreditsEn;
 		}
-	}
-
-	private static Dictionary<string, long> ModValues()
-	{
-		if (_modValues != null)
-		{
-			return _modValues;
-		}
-		Dictionary<string, long> dictionary = new Dictionary<string, long>();
-		string[] modPool = ModPool;
-		foreach (string text in modPool)
-		{
-			try
-			{
-				GameItem gameItem = DirectoryMaster.Item(text, isOwned: false);
-				if (gameItem != null && gameItem.unitValue > 0)
-				{
-					dictionary[text] = gameItem.unitValue;
-					gameItem.Destroy();
-				}
-			}
-			catch
-			{
-			}
-		}
-		return _modValues = ((dictionary.Count > 0) ? dictionary : null);
 	}
 
 	public static List<string> RollModBox()

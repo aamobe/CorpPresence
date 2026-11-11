@@ -36,7 +36,7 @@
 ./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python>'
 ```
 
-该入口先编译正式与维护 DLL，再执行包含 ItemChecks 的检查，最后完成本地化及正式/维护两份官方零权限扫描。当前共 29 步，实际范围见[总框架验收](framework.md)。
+该入口先编译正式与维护 DLL，再执行包含 ItemChecks 的检查，最后完成本地化及正式/维护两份官方零权限扫描。实际步数以当次入口输出为准，实际范围见[总框架验收](framework.md)。
 
 ItemChecks 的注册器测试链接真实 ItemRegistry，但目录、工厂产物及少量身份输入是替身；身份兼容检查则读取刚编译 DLL 的真实 ItemIdentity 表及 ResolveId，并与 `tools/ItemChecks/IdentityBaseline.json` 的 90 条基线逐条比较。允许追加，拒绝删除或修改旧映射；重复 ID、无工厂类别或两种类别并存、歧义旧映射会报错。
 

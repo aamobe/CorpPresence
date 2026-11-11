@@ -1,9 +1,11 @@
 namespace CorpPresence { internal static class MaintenanceDiagnostics {internal static bool Fail;internal static int Reports;internal static void Record(string source,string stage,string code,Exception error){Reports++;if(Fail)throw new Exception();}} }
 namespace UnityEngine {internal struct Rect {}}
+namespace UnityEngine {internal static class Time {internal static float unscaledTime;}}
+namespace CorpPresence {internal sealed class StoreUIManager {internal static StoreUIManager Instance=new(); internal readonly List<string> Messages=new(); internal void Notify(string text)=>Messages.Add(text);}}
 namespace CorpPresence.UI {internal class Theme {}}
 namespace CorpPresence {
 internal class Company {} internal class CompanyState {} internal class CatalogEntry {} internal class StoreClient {} internal class GameItem {} internal class StoreClientManager {} internal class Dialogue {}
-internal static class ModLog {internal static List<string> Warnings=new();internal static bool Fail;internal static void Warn(string s){Warnings.Add(s);if(Fail)throw new Exception("logger failed");}}
+internal static class ModLog {internal static void Info(string text){}internal static List<string> Warnings=new();internal static bool Fail;internal static void Warn(string s){Warnings.Add(s);if(Fail)throw new Exception("logger failed");}}
 internal static class L {internal static string K(string k,string zh,string en)=>zh;}
 }
 namespace CorpPresence.Malice {
@@ -20,6 +22,6 @@ private static string Charge(Company c,int n,string k)=>null;
 internal static class MaliceState {internal static int Saves,Resets;internal static void Save(){Saves++;}internal static void Reset(){Resets++;}}
 internal static class MalicePanel {internal static void Draw(Company c,UnityEngine.Rect r,CorpPresence.UI.Theme t){}}
 internal static class Rebels {internal static StoreClient SpawnVisitor(Company c,string s)=>null;internal static void SoldToClient(StoreClient c,GameItem i,int n){}internal static double BuyFactor(GameItem i)=>1;}
-internal static class Envoy {internal static void SoldToClient(StoreClient c,GameItem i,int n){}internal static void Schedule(StoreClientManager m){}internal static Dialogue MentorCall(Company c)=>null;internal static bool ClientBuys(StoreClient c,GameItem i)=>false;internal static int LuckBonus()=>0;internal static double OrderFactor()=>1;}
+internal static partial class Envoy {internal static void SoldToClient(StoreClient c,GameItem i,int n){}internal static void Schedule(StoreClientManager m){}internal static Dialogue MentorCall(Company c)=>null;internal static bool ClientBuys(StoreClient c,GameItem i)=>false;internal static int LuckBonus()=>0;internal static double OrderFactor()=>1;}
 internal static class RebelStory {internal static void SoldToClient(StoreClient c,GameItem i,int n){}internal static void Schedule(StoreClientManager m){}internal static void OnReported(string s,int n){}internal static bool ClientBuys(StoreClient c,GameItem i)=>false;internal static double BuyFactor(GameItem i)=>1;}
 }

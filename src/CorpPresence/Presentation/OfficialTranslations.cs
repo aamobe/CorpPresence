@@ -6,6 +6,26 @@ namespace CorpPresence;
 // CSV files are read by the game's loader, never by this mod.
 internal static class OfficialTranslations
 {
+    // Cache only successful, pure format checks. Lookup stays live so table edits,
+    // mod replacement and resources becoming ready are visible in the same frame.
+    private const int FormatCacheCapacity = 256;
+    private const int FormatCacheTextLimit = 4096;
+    private static readonly HashSet<(string Source, string Candidate)> CompatibleFormats = new();
+
+    private static bool Compatible(string source, string candidate)
+    {
+        var pair = (source, candidate);
+        if (CompatibleFormats.Contains(pair)) return true;
+        if (!TranslationFormat.Compatible(source, candidate)) return false;
+        // Bound both entry count and retained text; large templates still work uncached.
+        if (candidate.Length <= FormatCacheTextLimit && source.Length <= FormatCacheTextLimit - candidate.Length)
+        {
+            if (CompatibleFormats.Count >= FormatCacheCapacity) CompatibleFormats.Clear();
+            CompatibleFormats.Add(pair);
+        }
+        return true;
+    }
+
     private static LoadedMod _lastMod;
     private static string _lastLocale;
     private static Dictionary<string, string> _lastTable;
@@ -39,7 +59,7 @@ internal static class OfficialTranslations
             var table = Current(locale);
             if (table == null || !table.TryGetValue(key, out var entry) || string.IsNullOrWhiteSpace(entry)) return false;
             string candidate = ModHelper.GetLocalized("CorpPresence", key);
-            if (string.IsNullOrWhiteSpace(candidate) || !TranslationFormat.Compatible(source, candidate)) return false;
+            if (string.IsNullOrWhiteSpace(candidate) || !Compatible(source, candidate)) return false;
             value = candidate;
             return true;
         }

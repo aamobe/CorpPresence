@@ -6,12 +6,12 @@ namespace CorpPresence
         internal static int LazyCreates;
         internal static PlayerStore Instance { get { if (_instance == null) { LazyCreates++; _instance = new(); } return _instance; } set => _instance = value; }
         internal static bool IsInstanceExist() => _instance != null;
-        internal Client currentClientInstance;
+        internal Client currentClientInstance=null;
         internal string runID = "test";
         internal Dictionary<string, string> modData = new();
     }
     internal sealed class StoreClient { }
-    internal sealed class Client { internal StoreClient Blueprint; internal StoreClient GetClientBlueprint() => Blueprint; }
+    internal sealed class Client { internal StoreClient Blueprint=null; internal StoreClient GetClientBlueprint() => Blueprint; }
     internal static class GameResources { internal static bool Ready = true; internal static bool Poll()=>Ready; internal static long Generation = 1; }
     internal static class ModLog { internal static void Warn(string text) { if(Fail) throw new Exception("warning failed"); } internal static int Reports; internal static bool Fail; internal static void Info(string text) { Reports++; if(Fail) throw new Exception("output failure"); } }
 }

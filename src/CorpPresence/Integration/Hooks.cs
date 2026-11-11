@@ -32,9 +32,9 @@ internal static class Hooks
 		Patch(h, AccessTools.Method(typeof(StorageExpansionHelper), nameof(StorageExpansionHelper.RestoreTabs), new[] { typeof(GameItem) }),
 			"StorageExpansionHelper.RestoreTabs", typeof(ProductionWorkBay), prefix: nameof(ProductionWorkBay.BeforeRestoreNativeTabs));
 		Patch<SaveManager>(h, "EncodeNode", typeFromHandle2, "BeforeEncode", null, new Type[1] { typeof(GameItem) });
-		Patch<PlayerStore>(h, "SaveGame", typeFromHandle, "BeforeSave");
+		Patch<PlayerStore>(h, "SaveGame", typeFromHandle, nameof(BeforeSave));
 		Patch<PlayerStore>(h, "LoadGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(AfterLoadGame));
-		Patch<PlayerStore>(h, "StartNewGame", typeFromHandle, nameof(BeforeStoreTransition), "ResetState");
+		Patch<PlayerStore>(h, "StartNewGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(ResetState));
 		Patch(h, AccessTools.Method(typeof(ModConfigWindow), nameof(ModConfigWindow.Open), new[] { typeof(LoadedMod) }),
 			"ModConfigWindow.Open", typeof(ConfigLocalization), postfix: nameof(ConfigLocalization.AfterOpen));
 #if TESTKIT
@@ -45,18 +45,18 @@ internal static class Hooks
 	private static void InstallGameplay(Harmony h)
 	{
 		Type typeFromHandle = typeof(Hooks);
-		Patch<PlayerStore>(h, "BeginDay", typeFromHandle, null, "AfterBeginDay");
-		Patch<PlayerStore>(h, "GetNextClient", typeFromHandle, "BeforeNextClient");
+		Patch<PlayerStore>(h, "BeginDay", typeFromHandle, null, nameof(AfterBeginDay));
+		Patch<PlayerStore>(h, "GetNextClient", typeFromHandle, nameof(BeforeNextClient));
 		Patch<HydroponicHelper>(h, nameof(HydroponicHelper.ContinueGrowing), typeof(CropHealth),
 			postfix: nameof(CropHealth.AfterContinueGrowing), args: new[] { typeof(GameItem), typeof(int), typeof(GameItem) });
-		Patch<GameItem>(h, "GetNegociatedValue", typeFromHandle, null, "AfterNegociatedValue");
+		Patch<GameItem>(h, "GetNegociatedValue", typeFromHandle, null, nameof(AfterNegociatedValue));
 		Patch<StoreClient>(h, nameof(StoreClient.ClientExposeFeature), typeof(Malice.Rebels), nameof(Malice.Rebels.BeforeClientExposeFeature), null, new[] { typeof(GameItem) });
-		Patch<StoreClient>(h, "OnItemSold", typeFromHandle, null, "AfterClientSold", new Type[2]
+		Patch<StoreClient>(h, "OnItemSold", typeFromHandle, null, nameof(AfterClientSold), new Type[2]
 		{
 			typeof(GameItem),
 			typeof(int)
 		});
-		Patch<StoreClient>(h, "OnItemBought", typeFromHandle, null, "AfterClientBought", new Type[2]
+		Patch<StoreClient>(h, "OnItemBought", typeFromHandle, null, nameof(AfterClientBought), new Type[2]
 		{
 			typeof(GameItem),
 			typeof(int)
@@ -67,12 +67,12 @@ internal static class Hooks
 			args: new[] { typeof(GameItem), typeof(int) });
 		Patch<RunStats>(h, nameof(RunStats.OnVendingSale), typeFromHandle, postfix: nameof(AfterVendingSale), args: new[] { typeof(int) });
 		Patch<RunStats>(h, nameof(RunStats.OnFountainSale), typeFromHandle, postfix: nameof(AfterFountainWaterSale), args: new[] { typeof(int) });
-		Patch<PlayerStore>(h, "EndDay", typeFromHandle, "BeforeEndDay");
-		Patch<StorePhoneClient>(h, "InitPhoneClientDict", typeFromHandle, null, "AfterInitPhones");
-		Patch<StorePhoneClient>(h, "GetCallDialog", typeFromHandle, null, "AfterGetCallDialog");
-		Patch<PhoneUIManager>(h, "WillAnswerCall", typeFromHandle, null, "AfterWillAnswer", new Type[1] { typeof(long) });
-		Patch<PhoneUIManager>(h, "HandleCall", typeFromHandle, "BeforeHandleCall", null, new Type[1] { typeof(long) });
-		Patch<StorePhoneClient>(h, "GetLocalizedDisplayName", typeFromHandle, null, "AfterPhoneName");
+		Patch<PlayerStore>(h, "EndDay", typeFromHandle, nameof(BeforeEndDay));
+		Patch<StorePhoneClient>(h, "InitPhoneClientDict", typeFromHandle, null, nameof(AfterInitPhones));
+		Patch<StorePhoneClient>(h, "GetCallDialog", typeFromHandle, null, nameof(AfterGetCallDialog));
+		Patch<PhoneUIManager>(h, "WillAnswerCall", typeFromHandle, null, nameof(AfterWillAnswer), new Type[1] { typeof(long) });
+		Patch<PhoneUIManager>(h, "HandleCall", typeFromHandle, nameof(BeforeHandleCall), null, new Type[1] { typeof(long) });
+		Patch<StorePhoneClient>(h, "GetLocalizedDisplayName", typeFromHandle, null, nameof(AfterPhoneName));
 		Patch<DialoguePhoneUIManager>(h, nameof(DialoguePhoneUIManager.DisplayClientText), typeof(PhoneDialogueLayout),
 			postfix: nameof(PhoneDialogueLayout.AfterClientText), args: new[] { typeof(Dialogue) });
 		Patch<DialoguePhoneUIManager>(h, nameof(DialoguePhoneUIManager.DisplayerPlayerText), typeof(PhoneDialogueLayout),
@@ -81,9 +81,9 @@ internal static class Hooks
 		if (scalePhoneBubbles != null)
 			Patch(h, scalePhoneBubbles, "DialoguePhoneUIManager.ApplyBubbleScale", typeof(PhoneDialogueLayout),
 				prefix: nameof(PhoneDialogueLayout.Reset), postfix: nameof(PhoneDialogueLayout.AfterBubbleScale));
-		Patch<GameItemElement>(h, "ResolveSpriteByName", typeFromHandle, "BeforeResolveSprite", null, new Type[1] { typeof(string) });
-		Patch<GameItemElement>(h, "ResolveItemSprite", typeFromHandle, "BeforeResolveItemSprite");
-		Patch<SpriteDict>(h, "GetSprite", typeFromHandle, "BeforeGetSprite", null, new Type[1] { typeof(string) });
+		Patch<GameItemElement>(h, "ResolveSpriteByName", typeFromHandle, nameof(BeforeResolveSprite), null, new Type[1] { typeof(string) });
+		Patch<GameItemElement>(h, "ResolveItemSprite", typeFromHandle, nameof(BeforeResolveItemSprite));
+		Patch<SpriteDict>(h, "GetSprite", typeFromHandle, nameof(BeforeGetSprite), null, new Type[1] { typeof(string) });
 		Patch<ItemConditionActionList>(h, "GenuineCigaretteAction", typeof(PastelCo), null, "AfterGenuineAction", new Type[1] { typeof(GameItem) });
 		Patch<HusbandryHelper>(h, "CreateButcherCuts", typeof(Forge), "BeforeButcherCuts", "AfterButcherCuts", new Type[1] { typeof(GameItem) });
 		Patch<GameItem>(h, "BuildShapeFromSprite", typeof(Goods), "BeforeBuildShape", null, new Type[2]
@@ -136,46 +136,46 @@ internal static class Hooks
 		{
 			typeof(string),
 			typeof(string)
-		}), "RenderHandler.LoadFromAtlasRaw", typeFromHandle, "BeforeLoadFromAtlas");
-		Patch<GameItem>(h, "ActivateSlotItem", typeFromHandle, "BeforeActivateItem");
-		Patch<PaperUIManager>(h, "CloseAllPaperUI", typeFromHandle, null, "AfterCloseAllPaper");
-		Patch<GameItem>(h, "MayActivateSlotItem", typeFromHandle, null, "AfterCanActivate");
-		Patch<PowerHelper>(h, "ChargeBattery", typeFromHandle, "BeforeChargeBattery", "AfterBatteryChange", new Type[1] { typeof(GameItem) });
-		Patch<PowerHelper>(h, "UpdateEnergyCreditSprite", typeFromHandle, null, "AfterBatteryChange", new Type[1] { typeof(GameItem) });
-		Patch<PowerHelper>(h, "SetPowerSourceAt", typeFromHandle, null, "AfterBatteryChange", new Type[2]
+		}), "RenderHandler.LoadFromAtlasRaw", typeFromHandle, nameof(BeforeLoadFromAtlas));
+		Patch<GameItem>(h, "ActivateSlotItem", typeFromHandle, nameof(BeforeActivateItem));
+		Patch<PaperUIManager>(h, "CloseAllPaperUI", typeFromHandle, null, nameof(AfterCloseAllPaper));
+		Patch<GameItem>(h, "MayActivateSlotItem", typeFromHandle, null, nameof(AfterCanActivate));
+		Patch<PowerHelper>(h, "ChargeBattery", typeFromHandle, nameof(BeforeChargeBattery), nameof(AfterBatteryChange), new Type[1] { typeof(GameItem) });
+		Patch<PowerHelper>(h, "UpdateEnergyCreditSprite", typeFromHandle, null, nameof(AfterBatteryChange), new Type[1] { typeof(GameItem) });
+		Patch<PowerHelper>(h, "SetPowerSourceAt", typeFromHandle, null, nameof(AfterBatteryChange), new Type[2]
 		{
 			typeof(GameItem),
 			typeof(int)
 		});
-		Patch<PowerHelper>(h, "DrawPowerSource", typeFromHandle, null, "AfterBatteryChange", new Type[2]
+		Patch<PowerHelper>(h, "DrawPowerSource", typeFromHandle, null, nameof(AfterBatteryChange), new Type[2]
 		{
 			typeof(GameItem),
 			typeof(int)
 		});
-		Patch<PowerHelper>(h, "ChargeBattery", typeFromHandle, "BeforeChargeBattery", "AfterBatteryChange", new Type[3]
+		Patch<PowerHelper>(h, "ChargeBattery", typeFromHandle, nameof(BeforeChargeBattery), nameof(AfterBatteryChange), new Type[3]
 		{
 			typeof(GameItem),
 			typeof(int),
 			typeof(bool)
 		});
-		Patch<GameItem>(h, "CanActivateSlotItem", typeFromHandle, null, "AfterCanActivate");
-		Patch<ScavHelper>(h, "GetMaxScavAttempts", typeFromHandle, null, "AfterMaxScav");
-		Patch<ScavHelper>(h, "GetMinorWoundChance", typeFromHandle, null, "AfterMinorWoundChance");
-		Patch<ScavHelper>(h, "GetMajorWoundChance", typeFromHandle, null, "AfterWoundChance");
-		Patch<HealthData>(h, "GetTotalAddictionPenalty", typeFromHandle, null, "AfterAddictionPenalty");
-		Patch<HealthData>(h, "GetLuck", typeFromHandle, null, "AfterGetLuck");
-		Patch<PlayerStore>(h, "OnCustomerReported", typeFromHandle, "BeforeReported", "AfterReported");
-		Patch<HealthData>(h, "HasNicotineDebuff", typeFromHandle, null, "AfterNicotineDebuff");
-		Patch(h, AccessTools.Method(typeof(ShowcaseHelper), "HandleDisplayCase", Type.EmptyTypes), "ShowcaseHelper.HandleDisplayCase", typeFromHandle, null, "AfterDisplayCase");
-		Patch<StoreClient>(h, "GetTradeRepMultiplier", typeFromHandle, null, "AfterTradeRepMultiplier", new Type[1] { typeof(bool) });
-		Patch<PlayerStore>(h, "HandleAfterhourDebuff", typeFromHandle, "BeforeAfterhourDebuff");
-		Patch<StorePhoneClient>(h, "ShownInPhoneBook", typeFromHandle, null, "AfterShownInPhoneBook");
-		Patch<AmenitiesItemDirectory>(h, "OnPortableWaterPurifierUsed", typeFromHandle, "BeforePurifierUsed", null, new Type[2]
+		Patch<GameItem>(h, "CanActivateSlotItem", typeFromHandle, null, nameof(AfterCanActivate));
+		Patch<ScavHelper>(h, "GetMaxScavAttempts", typeFromHandle, null, nameof(AfterMaxScav));
+		Patch<ScavHelper>(h, "GetMinorWoundChance", typeFromHandle, null, nameof(AfterMinorWoundChance));
+		Patch<ScavHelper>(h, "GetMajorWoundChance", typeFromHandle, null, nameof(AfterWoundChance));
+		Patch<HealthData>(h, "GetTotalAddictionPenalty", typeFromHandle, null, nameof(AfterAddictionPenalty));
+		Patch<HealthData>(h, "GetLuck", typeFromHandle, null, nameof(AfterGetLuck));
+		Patch<PlayerStore>(h, "OnCustomerReported", typeFromHandle, nameof(BeforeReported), nameof(AfterReported));
+		Patch<HealthData>(h, "HasNicotineDebuff", typeFromHandle, null, nameof(AfterNicotineDebuff));
+		Patch(h, AccessTools.Method(typeof(ShowcaseHelper), "HandleDisplayCase", Type.EmptyTypes), "ShowcaseHelper.HandleDisplayCase", typeFromHandle, null, nameof(AfterDisplayCase));
+		Patch<StoreClient>(h, "GetTradeRepMultiplier", typeFromHandle, null, nameof(AfterTradeRepMultiplier), new Type[1] { typeof(bool) });
+		Patch<PlayerStore>(h, "HandleAfterhourDebuff", typeFromHandle, nameof(BeforeAfterhourDebuff));
+		Patch<StorePhoneClient>(h, "ShownInPhoneBook", typeFromHandle, null, nameof(AfterShownInPhoneBook));
+		Patch<AmenitiesItemDirectory>(h, "OnPortableWaterPurifierUsed", typeFromHandle, nameof(BeforePurifierUsed), null, new Type[2]
 		{
 			typeof(GameItem),
 			typeof(GameItem)
 		});
-		Patch<PhoneUIManager>(h, "OpenUI", typeFromHandle, null, "AfterPhoneOpen");
+		Patch<PhoneUIManager>(h, "OpenUI", typeFromHandle, null, nameof(AfterPhoneOpen));
 		Type typeFromHandle3 = typeof(InputShield);
 		Patch<InputActionManager>(h, "Update", typeFromHandle3, "BeforeGameInput");
 		Patch<CustomEventHandler>(h, "Update", typeFromHandle3, "BeforeDoubleClick");

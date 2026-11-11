@@ -50,7 +50,7 @@ static class CargoWarehouse {
  public static string UnlockHint() => "locked";
 }
 static class Settings {
- public static bool MaliceMode;
+ public static bool MaliceMode=false;
  public const double CoopCredits = 100;
  public static int Period(string key,int fallback) => fallback;
 }
@@ -76,7 +76,7 @@ class PlayerStore {
  public void PayMoney(int n,bool playRegisterSound){Cash-=n;Calls++;}
  public void ModCash(int n,bool playSound){Cash+=n;}
 }
-class EmporiumAudioPlayer {public static EmporiumAudioPlayer Instance;public void PlayRegister(){}}
-class NegociationUIManager {public static NegociationUIManager Instance;public Audio audioSourceCashRegister;}
+class EmporiumAudioPlayer {public static EmporiumAudioPlayer Instance=null;public void PlayRegister(){}}
+class NegociationUIManager {public static NegociationUIManager Instance=null;public Audio audioSourceCashRegister=null;}
 class Audio {public void Play(){}}
 static class MaintenanceDiagnostics {public static void Record(string source,string stage,string code,Exception error){}}

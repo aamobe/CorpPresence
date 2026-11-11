@@ -67,4 +67,6 @@ using(var bad=Ext.DayStart.Subscribe("warning-reset",()=>throw new Exception("pr
     Check(ModLog.Warnings.Count==2 && Ext.DayStart.Owners.Contains("warning-reset"),"new runtime warns again while retaining listeners and throttling repeats");
 }
 
+NotificationChecks.Run(Check);
+RuntimeUpdateChecks.Run(Check);
 LifecycleChecks.Run(Check);

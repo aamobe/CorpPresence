@@ -27,4 +27,5 @@
   <Target Name="CheckGameDirectory" BeforeTargets="ResolveReferences" Condition="!Exists('$(GameManaged)\Assembly-CSharp.dll')">
     <Error Text="Set GameManaged to the game's Probably Stolen_Data/Managed directory." />
   </Target>
+  <Import Project="BuildIdentity.targets" />
 </Project>

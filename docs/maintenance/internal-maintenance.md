@@ -53,7 +53,7 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 固定检查包含仓库静态检查、正式/维护构建、诊断/事件/付款/订单/生命周期/存档/芒果回归、DLL 元数据边界、冲突构建、配送恢复、本地化与官方权限扫描。指定 SDK 显式传给所有 dotnet 子检查，包括 Python 恢复检查与权限扫描。正式构建将警告视为错误。
 
-物品定义/身份/基底检查与注册器/RuntimeLifetime 组合测试也在统一入口内；正式和维护 DLL 分别扫描，当前合计 29 步，不再需要补跑第二份扫描。
+物品定义/身份/基底检查与注册器/RuntimeLifetime 组合测试也在统一入口内；正式和维护 DLL 分别扫描，实际步数以该次入口输出为准，不再需要补跑第二份扫描。
 
 `Check-MaintenanceContract.ps1` 使用相同三个依赖参数，独立检查错误 SDK、缺游戏引用和失败子命令的退出契约。测试生成的临时脚本仅放 artifacts，不进入正式 DLL。
 
@@ -68,7 +68,7 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 模块值在捕获时复制，只读列表不会随之后启停变化；采集不稳定时显示“模块状态未知”。故障警告以 `malice/install`、`malice/rollback`、`malice/uninstall` 标记阶段并包含异常类型，不写原始异常消息。日志和聚合故障分别隔离。
 
-OwnedCallbacks 释放遇错仍继续其他动作，完成后关闭集合并保留 ReleaseFailed，禁止再次向该集合获取资源。RuntimeLifetime 的通用释放失败进入 Faulted；同一运行期拒绝重启，避免重复获取残留资源。清理动作可能已部分成功，因此不盲目重试；应停止启用并重启游戏，保留日志定位根因。Malice 将自己的失败向运行期传播。当前修复见[异常闭环](../changes/organize-internal-lifecycle/closure-fixes.md)，[第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)保留为历史记录。
+OwnedCallbacks 释放遇错仍继续其他动作，完成后关闭集合并保留 ReleaseFailed，禁止再次向该集合获取资源。RuntimeLifetime 的通用释放失败进入 Faulted；同一运行期拒绝重启，避免重复获取残留资源。清理动作可能已部分成功，因此不盲目重试；应停止启用并重启游戏，保留日志定位根因。Malice 将自己的失败向运行期传播。当前修复见[异常闭环](../changes/organize-internal-lifecycle/closure-fixes.md)，[F1 · 第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)保留为历史记录。
 
 物品扩展的接入与身份基线检查见[新增物品接入清单](item-extension.md)；第二期优先此方向，原版事件模块试点暂缓。
 
@@ -81,6 +81,8 @@ OwnedCallbacks 释放遇错仍继续其他动作，完成后关闭集合并保�
 故障聚合使用固定模块 `items`，阶段 `register/create/release`；异常消息不进入结构化快照。记录失败不阻断业务或后续清理。
 
 ## 宿主运行任务
+
+可选模块的逐帧任务由 RuntimeUpdates 返回租约，Malice 安装时登记 `malice.envoy`，卸载时撤回；Host 不直接引用 Envoy。任务异常仍走 RuntimeTask，遍历中撤回的任务立即跳过，新登记任务下次更新生效。换档、卸载及失败回滚清理 Envoy 的延时/待发送通知；模式开关不等同模块卸载。
 
 Host 的 RuntimeTask 每次执行失败都记录模块 `runtime`、阶段为源码中的固定任务名、代码 `task_failed`。一分钟日志限流只影响文字输出，不减少报告中的异常计数；成功执行不产生故障记录，原执行顺序和重试频率不变。
 

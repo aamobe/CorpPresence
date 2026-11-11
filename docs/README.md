@@ -4,6 +4,14 @@
 
 ## 规则与流程
 
+分期编号按领域区分，交接时使用前缀，避免只说“一期”。旧文件名保留，链接标题和阶段标题标明归属。
+
+| 前缀 | 所属计划 | 范围 |
+| --- | --- | --- |
+| E1–E6 | [分期工程](maintenance/engineering-roadmap.md) | 运行底座、交易、生产、仓库、阵营、整体工程 |
+| F0–F4 | [内部框架](changes/organize-internal-lifecycle/master-plan.md) | 框架基线、模块试点、物品接入、共用规则、交接 |
+| R1–R6 | [运行性能核查](changes/runtime-performance/checkpoint.md) | 各领域的历史运行与性能验证记录 |
+
 | 文档 | 内容 |
 | --- | --- |
 | [AGENTS.md](../AGENTS.md) | 给助手和维护者的入口：项目档案、命令、硬规则、流程、按情况查文档的目录 |

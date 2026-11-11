@@ -126,6 +126,8 @@ MaintenanceDiagnostics.Fail=false;Reset();
 var saved=new IdentityEntry("corp_presence_saved","ammo_box","corp_med_saved","saved",null);
 var appended=new IdentityEntry("corp_presence_new",null,"corp_med_new","new",null);
 Check(IdentityContract.Validate(new[]{saved,appended},new[]{saved}).Count==0,"identity contract permits additions");
+Check(IdentityContract.ValidateRelease(new[]{saved,appended},new[]{saved}).Count>0,"release rejects identities absent from reviewed baseline");
+Check(IdentityContract.ValidateRelease(new[]{saved},new[]{saved}).Count==0,"release accepts the exact reviewed identity set");
 Check(IdentityContract.Validate(Array.Empty<IdentityEntry>(),new[]{saved}).Any(e=>e.Contains("removed")),"identity contract rejects removal");
 foreach(var changed in new[]{saved with {LegacyId="different"},saved with {LegacySprite="different"},saved with {Goods="different"},saved with {Company="different"}})
     Check(IdentityContract.Validate(new[]{changed},new[]{saved}).Any(e=>e.Contains("changed")),"identity contract rejects changed old mapping");
@@ -138,11 +140,11 @@ foreach(var entry in new[]{appended with {Goods="",Company="test"},appended with
 Check(IdentityContract.Validate(new[]{saved,appended with {LegacyId=saved.LegacyId,LegacySprite=saved.LegacySprite}},new[]{saved}).Any(e=>e.Contains("legacy")),"identity contract rejects ambiguous legacy pair");
 Check(IdentityContract.ValidateRejectedPairs((id,sprite)=>sprite==saved.LegacySprite?saved.Id:null,new[]{saved}).Count>0,"resolver check rejects sprite-only recognition");
 Check(IdentityContract.ValidateRejectedPairs((id,sprite)=>id==saved.LegacyId?saved.Id:null,new[]{saved}).Count>0,"resolver check rejects legacy-ID-only recognition");
-if(args.Length!=1)throw new ArgumentException("Pass the freshly compiled regular CorpPresence.dll path.");
+if(args.Length<1 || args.Length>2 || (args.Length==2 && args[1]!="--release-baseline"))throw new ArgumentException("Pass the freshly compiled regular CorpPresence.dll path and optional --release-baseline.");
 var baseline=IdentityContract.ReadBaseline(Path.Combine(AppContext.BaseDirectory,"IdentityBaseline.json"));
 Check(baseline.SourceCommit=="99719c4" && baseline.Entries.Count==90,"identity baseline is the explicit reviewed 90-entry snapshot");
 var actual=IdentityContract.ReadAssembly(args[0]);
-var errors=IdentityContract.Validate(actual,baseline.Entries);
+var errors=args.Length==2 ? IdentityContract.ValidateRelease(actual,baseline.Entries) : IdentityContract.Validate(actual,baseline.Entries);
 if(errors.Count!=0)throw new Exception(string.Join(Environment.NewLine,errors));
 Check(actual.Count>=90,$"actual compiled identity table preserves baseline; entries={actual.Count}");
 Console.WriteLine($"ALL ITEM CHECKS PASSED: {passed}; no Unity factories or game loaded.");

@@ -14,6 +14,7 @@ void Equal<T>(T expected, T actual)
 {
     if (!EqualityComparer<T>.Default.Equals(expected, actual)) throw new Exception($"Expected [{expected}], got [{actual}]");
 }
+OfficialTranslationChecks.Run(Check);
 void Locale(string locale) { LocHelper.Locale = locale; UnityEngine.Time.frameCount++; }
 Check("dialogue omits selected decorative actions while preserving standalone and essential beats", () => {
     foreach (var locale in new[] { "zh", "en", "ru", "fr" }) {

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 namespace CorpPresence {
-internal class GameItem { public object parentInventory; public bool destroyed; public bool Backpack; public string Key; public string identifier; public GameItem SetContentWindow(object window)=>this; public List<GameItem> Items=new(); public void Destroy(){destroyed=true;parentInventory=null;foreach(var i in Items)i.Destroy();} }
+internal class GameItem { public object parentInventory; public bool destroyed; public bool Backpack; public string Key; public string identifier=null; public GameItem SetContentWindow(object window)=>this; public List<GameItem> Items=new(); public void Destroy(){destroyed=true;parentInventory=null;foreach(var i in Items)i.Destroy();} }
 internal static class Goods {
- internal class Def { public string Name,NameEn,Flavor,FlavorEn,Desc,DescEn,Company,Art,Shape,Fallback;public int Value,W,H;public bool Crate; public string[] Types;public Func<GameItem> Shell; }
+ internal class Def { public string Name,NameEn,Flavor,FlavorEn,Desc,DescEn,Company,Art,Shape,Fallback;public int Value,W,H;public bool Crate=false; public string[] Types;public Func<GameItem> Shell; }
  public static string FailKey;public static List<GameItem> Made=new();
  public static GameItem Make(string key){if(key==FailKey)return null;var i=new GameItem{Key=key};Made.Add(i);return i;}
 }

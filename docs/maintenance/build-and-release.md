@@ -4,6 +4,8 @@
 
 ## 构建条件
 
+当前源码为开发版本：Main.Version 和 AssemblyInformationalVersion 在编译时追加 `-dev+<源码提交>`，有未提交变更时带 `-dirty`，源码归档无法核实 Git 时为 `-dev+unknown`；维护构建仍以 `-maintenance` 结尾。清单和数值文件版本保留发布基线，它们不能单独证明二进制与工坊相同。真实发布需另行确定版本和发布身份，不能把开发构建直接称作已发布 1.1.0。
+
 - .NET 8 SDK或更高版本；目标仍为`netstandard2.1`，C#版本为12。
 - 本地安装游戏；`GameManaged`必须包含`Assembly-CSharp.dll`、Unity库、`0Harmony.dll`和`Newtonsoft.Json.dll`。
 - 仓库不分发游戏DLL、反编译代码、存档、登录缓存或令牌。
@@ -29,6 +31,8 @@ dotnet build ./src/CorpPresence.csproj -c Release --artifacts-path ./artifacts/b
 日常修复、整理和“继续工作”不自动生成分发包。仅在用户明确要求打包、压缩或导出安装包时生成。上传授权只用于指定发布目标，不顺带修改页面介绍、标题或其他服务。
 
 ## 发布前
+
+物品身份发布门禁：对准备发布的 DLL 执行 `./tools/Check-ReleaseIdentities.ps1 -Assembly '<待发布 DLL>' -Dotnet '<SDK dotnet>'`。开发检查允许新增身份；发布检查要求每条身份已经进入人工审阅的 IdentityBaseline.json，缺失记录会非零退出。不得为了通过自动覆盖基线；新增条目和基线来源需一并审阅。本门禁只验证身份，不代替游戏验收、权限扫描或发布授权。
 
 1. 从[版本目录](../releases/README.md)确认基线，区分已发布源码与本地草稿，禁止从旧版本文件夹名推断真实版本。
 2. 检查`Main.ReleaseVersion`、`AssemblyFileVersion`和`manifest.xml`一致性。同一0.9.9修复用提交和发布说明区分，不伪称不同二进制是同一个文件。

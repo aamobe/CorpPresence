@@ -1,0 +1,41 @@
+<Project>
+  <PropertyGroup>
+    <!-- An archive nested in another checkout must not inherit that repository's identity. -->
+    <_CorpPresenceSourceRoot>$(MSBuildThisFileDirectory)..</_CorpPresenceSourceRoot>
+  </PropertyGroup>
+  <!-- Build identity is generated at compile time; the mod never reads Git or files.
+       Read actual HEAD: an SDK SourceRevisionId override is not evidence of source identity. -->
+  <Target Name="GenerateCorpPresenceBuildIdentity" BeforeTargets="CoreCompile">
+    <PropertyGroup>
+      <_CorpPresenceRevision>unknown</_CorpPresenceRevision>
+      <_CorpPresenceIdentityFile>$(IntermediateOutputPath)CorpPresence.BuildIdentity.g.cs</_CorpPresenceIdentityFile>
+    </PropertyGroup>
+    <Exec Command="git rev-parse HEAD" WorkingDirectory="$(_CorpPresenceSourceRoot)"
+          Condition="Exists('$(_CorpPresenceSourceRoot)/.git')"
+          IgnoreStandardErrorWarningFormat="true" ConsoleToMSBuild="true" IgnoreExitCode="true"
+          StandardOutputImportance="Low" StandardErrorImportance="Low">
+      <Output TaskParameter="ExitCode" PropertyName="_CorpPresenceGitRevisionExitCode" />
+      <Output TaskParameter="ConsoleOutput" PropertyName="_CorpPresenceGitRevision" />
+    </Exec>
+    <PropertyGroup>
+      <_CorpPresenceRevisionValid>$([System.Text.RegularExpressions.Regex]::IsMatch('$(_CorpPresenceGitRevision)', '^[0-9a-fA-F]{40}([0-9a-fA-F]{24})?$'))</_CorpPresenceRevisionValid>
+    </PropertyGroup>
+    <Exec Command="git status --porcelain --untracked-files=normal" WorkingDirectory="$(_CorpPresenceSourceRoot)"
+          Condition="'$(_CorpPresenceGitRevisionExitCode)' == '0' and '$(_CorpPresenceRevisionValid)' == 'True'"
+          IgnoreStandardErrorWarningFormat="true" ConsoleToMSBuild="true" IgnoreExitCode="true"
+          StandardOutputImportance="Low" StandardErrorImportance="Low">
+      <Output TaskParameter="ExitCode" PropertyName="_CorpPresenceGitStatusExitCode" />
+      <Output TaskParameter="ConsoleOutput" ItemName="_CorpPresenceGitStatus" />
+    </Exec>
+    <PropertyGroup Condition="'$(_CorpPresenceRevisionValid)' == 'True' and '$(_CorpPresenceGitStatusExitCode)' == '0'">
+      <_CorpPresenceRevision>$(_CorpPresenceGitRevision)</_CorpPresenceRevision>
+      <_CorpPresenceRevision Condition="'@(_CorpPresenceGitStatus)' != ''">$(_CorpPresenceGitRevision)-dirty</_CorpPresenceRevision>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(_CorpPresenceIdentityFile)" Overwrite="true" WriteOnlyWhenDifferent="true"
+                      Lines="namespace CorpPresence { internal static class BuildIdentity { internal const string DevelopmentSuffix = &quot;-dev+$(_CorpPresenceRevision)&quot;%3B } }" />
+    <ItemGroup>
+      <Compile Include="$(_CorpPresenceIdentityFile)" />
+      <FileWrites Include="$(_CorpPresenceIdentityFile)" />
+    </ItemGroup>
+  </Target>
+</Project>

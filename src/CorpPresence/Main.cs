@@ -10,13 +10,13 @@ public class Main : IMod
 {
     private const string ReleaseVersion = "1.1.0";
 #if MAINTENANCE
-    public const string Version = ReleaseVersion + "-maintenance";
+    public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-maintenance";
 #elif WATER_TRACE
-    public const string Version = ReleaseVersion + "-watertrace";
+    public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-watertrace";
 #elif LOCAL_TEST_FUNDS
-    public const string Version = ReleaseVersion + "-localtest";
+    public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-localtest";
 #else
-    public const string Version = ReleaseVersion;
+    public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix;
 #endif
     public const string DisplayName = "CorpPresence";
     private Harmony _harmony;

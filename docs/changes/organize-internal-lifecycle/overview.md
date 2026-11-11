@@ -2,7 +2,7 @@
 
 当前执行的是[总框架整合](framework-integration-plan.md)，将物品接入现有生命周期、诊断、统一检查和[全系统模块契约](../../maintenance/framework.md)。结果见[整合证据](framework-integration-evidence.md)。以下分期记录保留历史范围，未测游戏场景仍待验收。
 
-最新续接：用户确认先完成物品框架，再提交物品需求，并依托原框架搭建。见[框架实施记录](item-framework-evidence.md)和[接入清单](../../maintenance/item-extension.md)。此前的[保留现有实现决定](phase-three-decision.md)与[换机记录](cross-device-handoff.md)保留为历史证据；前期游戏验收继续待测。
+最新续接：用户确认先完成物品框架，再提交物品需求，并依托原框架搭建。见[框架实施记录](item-framework-evidence.md)和[接入清单](../../maintenance/item-extension.md)。此前的[F3 · 保留现有实现决定](phase-three-decision.md)与[换机记录](cross-device-handoff.md)保留为历史证据；前期游戏验收继续待测。
 
 2026-11-11 的[完整评估](../../assessments/internal-framework/assessment.md)核对接口与框架的实际收益、1.0.0 对照、成本及未验证项，供跨设备继续前参考。
 
@@ -23,7 +23,7 @@
 
 ## 首期细化
 
-2026-11-11 已补充[第一期详细设计与换机交接](phase-one-design.md)。定义安装提交状态、释放失败标志、只读快照字段、错误传播及 T1–T6 实现顺序。一期已开始实施，代码及检查结果见[实施证据](phase-one-evidence.md)，游戏验收仍待完成。
+2026-11-11 已补充[F1 · 第一期详细设计与换机交接](phase-one-design.md)。定义安装提交状态、释放失败标志、只读快照字段、错误传播及 T1–T6 实现顺序。一期已开始实施，代码及检查结果见[F1 · 实施证据](phase-one-evidence.md)，游戏验收仍待完成。
 
 ## 总体推进入口
 
@@ -31,8 +31,8 @@
 
 ## 第零期现场记录
 
-环境、实际 API 可用性和自动检查见[第零期证据](phase-zero-evidence.md)。游戏验收继续按 M1–M6 逐项记录。
+环境、实际 API 可用性和自动检查见[F0 · 第零期证据](phase-zero-evidence.md)。游戏验收继续按 M1–M6 逐项记录。
 
 ## 第二期当前入口
 
-[物品接入计划与证据](phase-two-items.md) · [新增物品接入清单](../../maintenance/item-extension.md)。原版顾客/夜间事件试点暂缓。
+[F2 · 物品接入计划与证据](phase-two-items.md) · [新增物品接入清单](../../maintenance/item-extension.md)。原版顾客/夜间事件试点暂缓。

@@ -1,5 +1,4 @@
 using System;
-using CorpPresence.Malice;
 using CorpPresence.Runtime;
 using CorpPresence.UI;
 using UnityEngine;
@@ -15,7 +14,7 @@ internal sealed class Host : MonoBehaviour
         new RuntimeTask("中文后备字体", CjkFallback.Tick, Report),
         new RuntimeTask("配送箱清理", Crates.Tick, Report),
         new RuntimeTask("机器状态贴图", MachineAppearance.Tick, Report),
-        new RuntimeTask("巨企通知", Envoy.Tick, Report),
+        new RuntimeTask("模块任务", () => RuntimeUpdates.Run(Time.unscaledTime), Report),
         new RuntimeTask("立绘换档", Portraits.Tick, Report)
     };
     private readonly RuntimeTask _draw = new RuntimeTask("面板绘制", CompanyWindow.Draw, Report);
@@ -39,7 +38,9 @@ internal sealed class Host : MonoBehaviour
     private void OnGUI()
     {
         float now = Time.unscaledTime;
-        _draw.Run(now);
+        // CompanyWindow uses explicit rectangles and consumes queued clicks on repaint.
+        // CargoSortWindow has native scrolling controls and must still receive input events.
+        if (Event.current != null && Event.current.type == EventType.Repaint) _draw.Run(now);
         _drawCargoSort.Run(now);
     }
 
