@@ -8,7 +8,7 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-    private const string ReleaseVersion = "1.0.0";
+    private const string ReleaseVersion = "1.0.1";
 #if WATER_TRACE
     public const string Version = ReleaseVersion + "-watertrace";
 #else
