@@ -11,6 +11,8 @@
 
 ## 按任务查找
 
+[物品开发参考](item-authoring/README.md)记录各类别接入约束；[液体系统参考](item-authoring/liquid-systems.md)区分原版水扩展和独立液体系统。水系统按最高兼容风险对待，新工具禁止参与新液体设计与生成。
+
 [总框架接入与验收](framework.md)统一启动、资源、物品、设备、付款配送、存档、扩展、UI 与诊断的接入契约和回归选择；物品具体字段继续见[物品接入](item-extension.md)。
 
 [框架跨设备交接](../changes/archive/organize-internal-lifecycle/cross-device-handoff.md)提供换机复现步骤、模块接入清单、检查选择表及待游戏验证场景。
