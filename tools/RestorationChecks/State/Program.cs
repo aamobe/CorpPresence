@@ -25,6 +25,24 @@ Check("panel catalog resolves language live and retries a failed name", () =>
     panel.Reset(); panel.Reset(); Assert(sample.DestroyCount == 1);
     L.En = false;
 });
+Check("catalog factory owns creation independently of display page", () =>
+{
+    int calls = 0;
+    var entry = new CatalogEntry { Id = "sample", Page = "display", Factory = id => { calls++; return new GameItem { identifier = id, Value = 77 }; } };
+    Assert(entry.BaseValue() == 77);
+    entry.Page = "renamed";
+    Assert(entry.BaseValue() == 77);
+    var delivered = entry.Make();
+    Assert(delivered.identifier == "sample" && delivered.Value == 77 && calls == 3);
+    CatalogPricing.Release(entry);
+    delivered.Destroy();
+});
+Check("explicit null catalog factory never falls through to default goods", () =>
+{
+    int made = 0; Goods.Factory = () => { made++; return new GameItem(); };
+    var entry = new CatalogEntry { Id = "sample", Factory = _ => null };
+    Assert(entry.Make() == null && entry.BaseValue() == -1 && made == 0);
+});
 CatalogEntry Entry() => new CatalogEntry { Id="sample", Page="test" };
 Check("bundle overflow fails closed", () => { Goods.Factory=()=>new GameItem{Value=int.MaxValue}; Assert(new CatalogEntry{Id="sample",Bundle=2}.BaseValue()==-1); });
 Check("nonfinite rate fails closed", () => Assert(Entry().Quote(double.PositiveInfinity)==0));

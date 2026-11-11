@@ -21,18 +21,21 @@ internal sealed class MeridianCo : Company
 		new CatalogEntry
 		{
 			Id = "@glock_receiver",
+			Factory = MakeNew,
 			Page = "制式",
 			Label = "哨兵3型"
 		},
 		new CatalogEntry
 		{
 			Id = "@smg",
+			Factory = MakeNew,
 			Page = "制式",
 			Label = "“和平使者”重型冲锋枪"
 		},
 		new CatalogEntry
 		{
 			Id = "@shotgun",
+			Factory = MakeNew,
 			Page = "制式",
 			MinTier = 2,
 			Label = "“壁垒”双动式霰弹枪"
@@ -40,16 +43,19 @@ internal sealed class MeridianCo : Company
 		new CatalogEntry
 		{
 			Id = "heavy_pistol_ammo",
+			Factory = MakeNew,
 			Page = "制式"
 		},
 		new CatalogEntry
 		{
 			Id = "heavy_pistol_ammo_nl",
+			Factory = MakeNew,
 			Page = "制式"
 		},
 		new CatalogEntry
 		{
 			Id = "heavy_pistol_ammo_p",
+			Factory = MakeNew,
 			Page = "制式",
 			MinTier = 2
 		}

@@ -21,12 +21,14 @@ internal sealed partial class SpacerCo : Company
 		new CatalogEntry
 		{
 			Id = "@handmade_pistol",
+			Factory = MakeCatalogGun,
 			Page = "军械",
 			Label = "“巢火”紧凑型手枪"
 		},
 		new CatalogEntry
 		{
 			Id = "@heavy_handmade_pistol",
+			Factory = MakeCatalogGun,
 			Page = "军械",
 			Label = "“铁铸10”手枪"
 		},
@@ -70,6 +72,7 @@ internal sealed partial class SpacerCo : Company
 		new CatalogEntry
 		{
 			Id = ModBox,
+			Factory = static _ => null,
 			FixedBaseValue = ModBoxPrice,
 			FixedListValue = ModBoxPrice,
 			Page = "军械",
@@ -285,6 +288,9 @@ internal sealed partial class SpacerCo : Company
 		}
 		return Entries.Where((CatalogEntry e) => e.Page == "码头" || MerchantExtras.Contains(e.Id));
 	}
+
+	private static GameItem MakeCatalogGun(string id) => Goods.Has(id.Substring(1))
+		? CatalogEntry.MakeDefault(id) : MakeGun(id.Substring(1));
 
 	public static GameItem MakeGun(string id)
 	{

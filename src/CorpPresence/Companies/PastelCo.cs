@@ -82,6 +82,7 @@ internal sealed class PastelCo : Company
 		new CatalogEntry
 		{
 			Id = "@hemingway_genuine",
+			Factory = static _ => GenuineHemingway(),
 			Page = "海明威",
 			Label = "海明威香烟（正品）",
 			LabelKey = "companies.catalog.hemingwayCigarettesGenuine.name",
@@ -107,6 +108,7 @@ internal sealed class PastelCo : Company
 		new CatalogEntry
 		{
 			Id = "@hemingway_limited",
+			Factory = static _ => GenuineHemingway(limited: true),
 			Page = "海明威",
 			MinTier = 3,
 			WeeklyLimit = 2,

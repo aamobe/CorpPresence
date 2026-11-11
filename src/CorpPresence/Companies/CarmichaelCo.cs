@@ -22,38 +22,45 @@ internal sealed class CarmichaelCo : Company
 		new CatalogEntry
 		{
 			Id = "large_purple_injector",
+			Factory = MakeGenuine,
 			Page = "药品"
 		},
 		new CatalogEntry
 		{
 			Id = "pure_white_injector",
+			Factory = MakeGenuine,
 			Page = "药品"
 		},
 		new CatalogEntry
 		{
 			Id = "phagimycin_pill",
+			Factory = MakeGenuine,
 			Page = "药品"
 		},
 		new CatalogEntry
 		{
 			Id = "smelling_salt",
+			Factory = MakeGenuine,
 			Page = "药品"
 		},
 		new CatalogEntry
 		{
 			Id = "pink_injector",
+			Factory = MakeGenuine,
 			Page = "药品",
 			Label = "奥克西莫注射器"
 		},
 		new CatalogEntry
 		{
 			Id = "zerochew",
+			Factory = MakeGenuine,
 			Page = "药品",
 			MinTier = 2
 		},
 		new CatalogEntry
 		{
 			Id = "@painblock",
+			Factory = MakeGenuine,
 			Page = "药品",
 			MinTier = 2,
 			Label = "痛觉屏蔽剂"
@@ -61,6 +68,7 @@ internal sealed class CarmichaelCo : Company
 		new CatalogEntry
 		{
 			Id = "@immunin_case",
+			Factory = MakeGenuine,
 			Page = "药品",
 			MinTier = 3,
 			WeeklyLimit = 1,

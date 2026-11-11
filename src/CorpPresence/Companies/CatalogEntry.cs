@@ -64,38 +64,12 @@ internal sealed class CatalogEntry
 		(int.MaxValue, 3)
 	};
 
-	public GameItem Make()
-	{
-		if (Id == "@modbox")
-		{
-			return null;
-		}
-		if (Id == "@hemingway_genuine")
-		{
-			return PastelCo.GenuineHemingway();
-		}
-		if (Id == "@hemingway_limited")
-		{
-			return PastelCo.GenuineHemingway(limited: true);
-		}
-		if (Page == "药品")
-		{
-			return CarmichaelCo.MakeGenuine(Id);
-		}
-		if (Page == "制式")
-		{
-			return MeridianCo.MakeNew(Id);
-		}
-		if (Page == "净水" && Id.StartsWith("@") && !Goods.Has(Id.Substring(1)))
-		{
-			return DavreCo.MakePrebuilt(Id);
-		}
-		if (Page == "军械" && Id.StartsWith("@") && !Goods.Has(Id.Substring(1)))
-		{
-			return SpacerCo.MakeGun(Id.Substring(1));
-		}
-		return Goods.MakeSpecial(Id) ?? ItemRegistry.Create(Id);
-	}
+	// A factory is chosen with the definition, not from UI page labels at runtime.
+	public Func<string, GameItem> Factory { get; init; }
+
+	public GameItem Make() => Factory != null ? Factory(Id) : MakeDefault(Id);
+
+	internal static GameItem MakeDefault(string id) => Goods.MakeSpecial(id) ?? ItemRegistry.Create(id);
 
 	private bool SampleIsCurrent()
 	{

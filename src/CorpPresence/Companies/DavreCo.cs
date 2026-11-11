@@ -19,6 +19,7 @@ internal sealed class DavreCo : Company
 		new CatalogEntry
 		{
 			Id = "@tablets",
+			Factory = MakeCatalogPrebuilt,
 			Page = "净水",
 			Label = "一瓶净水药片",
 			LabelKey = "companies.catalog.bottleOfWaterTablets.name",
@@ -27,6 +28,7 @@ internal sealed class DavreCo : Company
 		new CatalogEntry
 		{
 			Id = "@strips",
+			Factory = MakeCatalogPrebuilt,
 			Page = "净水",
 			Label = "水质检测试剂盒",
 			LabelKey = "companies.catalog.waterTestKit.name",
@@ -92,6 +94,9 @@ internal sealed class DavreCo : Company
 	public static bool CanningOpen => StateOf()?.CanningOwned ?? false;
 
 	public static bool CanningOffered => CorpState.Get()?.Of("doreen").SideDone.Contains(4) ?? false;
+
+	private static GameItem MakeCatalogPrebuilt(string id) => Goods.Has(id.Substring(1))
+		? CatalogEntry.MakeDefault(id) : MakePrebuilt(id);
 
 	public static GameItem MakePrebuilt(string id)
 	{
