@@ -463,10 +463,6 @@
     "Сегодня уже заказывали.",
     "Commande déjà passée aujourd’hui."
   ],
-  "ui.davre.orders.tierRequired": [
-    "Доступно на уровне «{0}»",
-    "Accessible au niveau « {0} »"
-  ],
   "ui.davre.orders.unavailable": [
     "Недоступно",
     "Indisponible"
@@ -839,10 +835,6 @@
     "Сегодня уже заказывали.",
     "Commande déjà passée aujourd’hui."
   ],
-  "ui.meridian.equipmentOrder.tierRequired": [
-    "Доступно на уровне «{0}»",
-    "Accessible au niveau « {0} »"
-  ],
   "ui.meridian.equipmentOrder.unavailable": [
     "Недоступно",
     "Indisponible"
@@ -974,10 +966,6 @@
   "ui.pastel.orders.alreadyOrderedToday": [
     "Сегодня уже заказывали",
     "Commande déjà passée aujourd’hui"
-  ],
-  "ui.pastel.orders.tierRequired": [
-    "Открывается на уровне «{0}»",
-    "Se débloque au niveau « {0} »"
   ],
   "ui.pastel.orders.unavailable": [
     "Недоступно",
@@ -1196,10 +1184,6 @@
   "ui.spacer.orders.alreadyOrderedToday": [
     "Сегодня уже заказывали. ",
     "Commande déjà passée aujourd’hui. "
-  ],
-  "ui.spacer.orders.value": [
-    "С уровня «{0}»",
-    "Dès le niveau « {0} »"
   ],
   "ui.spacer.orders.unavailable": [
     "Недоступно",
