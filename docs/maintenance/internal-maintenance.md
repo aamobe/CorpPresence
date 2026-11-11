@@ -25,7 +25,9 @@ dotnet build src/CorpPresence.csproj -c Release --artifacts-path artifacts/maint
 
 ## 当前阶段
 
-只读诊断和维护输入已实现；事件登记迁移、真实付款检查和统一检查入口待后续 T4–T6 完成。诊断当前不声称提供全部扩展字段的归属查询。
+只读诊断、维护输入和三个生命周期事件已实现；真实付款检查和统一检查入口待 T5–T6 完成。报告仅列出 BeforeSave、DayStart、StateReset 的登记者，其他委托尚未迁移。
+
+登记使用固定 owner 和 Subscribe，返回租约由 OwnedCallbacks.Own 持有。重复 owner 拒绝；分发按登记顺序，新增者下次生效，已撤销者跳过；异常分别记录，重入不递归。安装全部成功才提交标志，失败释放本次租约；模式开关不是卸载，不能用关闭恶意模式推断登记必须消失。
 
 本地检查 `dotnet run --project tools/MaintenanceChecks -p:GameManaged='<游戏 Managed>'` 使用真实存档类型和诊断实现、替身游戏边界。DLL 类型隔离检查使用 `tools/MaintenanceBuildChecks`，参数为正式 DLL、维护 DLL。不能将这些检查当作游戏内验收。
 

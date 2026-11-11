@@ -2,7 +2,7 @@ using System;
 
 namespace CorpPresence.Malice;
 
-internal static class Malice
+internal static partial class Malice
 {
 	private static readonly string[] OurPrefixes = new string[5] { "corp_", "malice_", "envoy_", "rebel_", "solana_vip" };
 
@@ -28,8 +28,7 @@ internal static class Malice
 
 	private static readonly string[] CorpIds = new string[5] { "pastel", "solana", "carmicheal", "meridian", "davre" };
 
-	private static bool _installed;
-	private static CorpPresence.Runtime.OwnedCallbacks _callbacks;
+
 
 	public static bool On => Settings.MaliceMode;
 
@@ -79,59 +78,6 @@ internal static class Malice
 			return IsCorp(c);
 		}
 		return false;
-	}
-
-	public static void Install()
-	{
-		if (_installed)
-		{
-			return;
-		}
-		_installed = true;
-		_callbacks = new CorpPresence.Runtime.OwnedCallbacks(error => ModLog.Warn("释放扩展回调失败：" + error.Message));
-		_callbacks.Add(() => Ext.BeforeSave, value => Ext.BeforeSave = value, new Action(MaliceState.Save));
-		_callbacks.Add(() => Ext.StateReset, value => Ext.StateReset = value, new Action(MaliceState.Reset));
-		_callbacks.Add(() => Ext.DayStart, value => Ext.DayStart = value, new Action(OnDayStart));
-		_callbacks.Replace(() => Ext.ExtraModule, value => Ext.ExtraModule = value, (Company c) => (!Applies(c)) ? null : L.K("malice.malice.install.corporateTerms", "巨企合约", "Corporate Terms"));
-		_callbacks.Replace(() => Ext.DrawExtraModule, value => Ext.DrawExtraModule = value, MalicePanel.Draw);
-		_callbacks.Replace(() => Ext.OrderBlocked, value => Ext.OrderBlocked = value, OrderBlocked);
-		_callbacks.Replace(() => Ext.CatalogTier, value => Ext.CatalogTier = value, CatalogTier);
-		_callbacks.Replace(() => Ext.Limit, value => Ext.Limit = value, Limit);
-		_callbacks.Replace(() => Ext.ServicePrice, value => Ext.ServicePrice = value, ServicePrice);
-		_callbacks.Replace(() => Ext.Charge, value => Ext.Charge = value, Charge);
-		_callbacks.Replace(() => Ext.SpawnVisitor, value => Ext.SpawnVisitor = value, Rebels.SpawnVisitor);
-		_callbacks.Replace(() => Ext.SoldToClient, value => Ext.SoldToClient = value, (StoreClient cl, GameItem it, int amt) =>
-		{
-			Rebels.SoldToClient(cl, it, amt);
-			if (On)
-			{
-				Envoy.SoldToClient(cl, it, amt);
-				RebelStory.SoldToClient(cl, it, amt);
-			}
-		});
-		_callbacks.Replace(() => Ext.ScheduleExtra, value => Ext.ScheduleExtra = value, (StoreClientManager m) =>
-		{
-			Envoy.Schedule(m);
-			RebelStory.Schedule(m);
-		});
-		_callbacks.Replace(() => Ext.CustomerReported, value => Ext.CustomerReported = value, RebelStory.OnReported);
-		_callbacks.Replace(() => Ext.CallDialog, value => Ext.CallDialog = value, Envoy.MentorCall);
-		_callbacks.Replace(() => Ext.ClientBuys, value => Ext.ClientBuys = value, (StoreClient cl, GameItem it) => Envoy.ClientBuys(cl, it) || RebelStory.ClientBuys(cl, it));
-		_callbacks.Replace(() => Ext.LuckBonus, value => Ext.LuckBonus = value, Envoy.LuckBonus);
-		_callbacks.Replace(() => Ext.OrderFactor, value => Ext.OrderFactor = value, (Company c) => (!Applies(c)) ? 1.0 : Envoy.OrderFactor());
-		_callbacks.Replace(() => Ext.BuyFactor, value => Ext.BuyFactor = value, (GameItem it) => (!On) ? 1.0 : (Rebels.BuyFactor(it) * RebelStory.BuyFactor(it)));
-		_callbacks.Replace(() => Ext.LockVanillaDifficulty, value => Ext.LockVanillaDifficulty = value, () => On);
-		_callbacks.Replace(() => Ext.ForceOrderLimits, value => Ext.ForceOrderLimits = value, () => On);
-		_callbacks.Replace(() => Ext.ForceRestockWeeks, value => Ext.ForceRestockWeeks = value, () => On ? 1 : 0);
-	}
-
-	public static void Uninstall()
-	{
-		if (!_installed) return;
-		_installed = false;
-		var callbacks = _callbacks;
-		_callbacks = null;
-		callbacks?.Release();
 	}
 
 	private static CorpTerms TermsOf(Company c)

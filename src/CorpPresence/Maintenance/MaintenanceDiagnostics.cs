@@ -93,12 +93,16 @@ internal static class MaintenanceDiagnostics
             Portraits.AppendDiagnostics(counters);
             CatalogPricing.AppendDiagnostics(counters);
             ItemRegistry.AppendDiagnostics(counters);
+            var registrations = new List<MaintenanceRegistration>();
+            foreach (var owner in Ext.BeforeSave.Owners) registrations.Add(new MaintenanceRegistration("BeforeSave", owner));
+            foreach (var owner in Ext.DayStart.Owners) registrations.Add(new MaintenanceRegistration("DayStart", owner));
+            foreach (var owner in Ext.StateReset.Owners) registrations.Add(new MaintenanceRegistration("StateReset", owner));
             if (!ReferenceEquals(store, SaveSlot.CurrentStore) || !ReferenceEquals(data, store?.modData)
                 || generation != GameResources.Generation || ready != GameResources.Ready || !ReferenceEquals(state, CorpState.Current)
                 || (status == SaveDiagnosticStatus.Bound && !state.IsBoundReadonly(store)))
             { CheckSession(); return Unknown(); }
             return new MaintenanceSnapshot(Main.Version, ready, generation, status, corp, malice, orders, units,
-                counters, Faults, Array.Empty<MaintenanceRegistration>());
+                counters, Faults, registrations);
         }
         catch { return Unknown(); }
     }

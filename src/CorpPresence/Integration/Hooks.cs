@@ -312,7 +312,7 @@ internal static class Hooks
 			Brand.ScanOwned();
 			SilverBlood.OnDayStart();
 			CarmichaelCo.OnDayStart();
-			Ext.Fire("DayStart", Ext.DayStart);
+			Ext.DayStart.Publish();
 		});
 	}
 
@@ -748,7 +748,7 @@ internal static class Hooks
 		try
 		{
 			Guard("写入存档", CorpState.Save);
-			Ext.Fire("BeforeSave", Ext.BeforeSave);
+			Ext.BeforeSave.Publish();
 			Guard("卸载前清理", Cleanup.BeforeSave);
 		}
 		catch (Exception error)
@@ -795,7 +795,7 @@ internal static class Hooks
 		{
 			try { ModLog.Warn("换档关闭面板失败，继续重置公司状态：" + error.Message); } catch { }
 		}
-		try { Ext.Fire("StateReset", Ext.StateReset); }
+		try { Ext.StateReset.Publish(); }
 		catch (Exception error)
 		{
 			try { ModLog.Warn("重置扩展状态失败：" + error.Message); } catch { }

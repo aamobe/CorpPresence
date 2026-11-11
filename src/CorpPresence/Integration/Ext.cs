@@ -7,11 +7,11 @@ namespace CorpPresence;
 
 internal static class Ext
 {
-	public static Action BeforeSave;
+	public static readonly ExtensionEvent BeforeSave = new("BeforeSave");
 
-	public static Action DayStart;
+	public static readonly ExtensionEvent DayStart = new("DayStart");
 
-	public static Action StateReset;
+	public static readonly ExtensionEvent StateReset = new("StateReset");
 
 	public static Func<Company, string> OrderBlocked;
 

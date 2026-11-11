@@ -1,6 +1,6 @@
 # 内部维护接口设计
 
-状态：拟议，等待用户设立目标后实施。总范围见 [overview.md](overview.md)。对应[提案](proposal.md)。
+状态：按已设立目标实施，T1–T3 已完成；当前迁移生命周期事件。总范围见 [overview.md](overview.md)。对应[提案](proposal.md)。
 
 ## 已有机制与实际风险
 
@@ -22,6 +22,7 @@
 | `src/CorpPresence/Maintenance/MaintenanceFormatter.cs` | 纯文本格式化，不读取游戏状态 |
 | `src/CorpPresence/Maintenance/MaintenanceConsole.cs` | 仅 MAINTENANCE 构建中的本地按键入口 |
 | `src/CorpPresence/Integration/ExtensionEvent.cs` | 三个无参生命周期事件共用的具名登记、释放、分发 |
+| `src/CorpPresence/Malice/Malice.Install.cs` | 同一 partial 类的真实安装/卸载逻辑，供安装回归直接链接 |
 | `src/CorpPresence/Companies/Services.Payment.cs` | 从 Services.cs 原样移出的 Pay，仍属于 Services partial 类 |
 | `tools/MaintenanceChecks/`、`tools/ExtensionChecks/`、`tools/PaymentChecks/` | 直接编译相应真实代码，替换游戏边界 |
 | `tools/Check-Maintenance.ps1` | 串联必要检查、保存本地摘要，失败即非零退出 |

@@ -56,3 +56,7 @@ UnityEngine.Input.Down=false;UnityEngine.Time.unscaledTime=2;MaintenanceConsole.
 UnityEngine.Input.Down=true;UnityEngine.Time.unscaledTime=0.5f;MaintenanceConsole.Tick();Check(ModLog.Reports==1,"console throttles within one second");
 UnityEngine.Time.unscaledTime=2;ModLog.Fail=true;MaintenanceConsole.Tick();Check(ModLog.Reports==2,"output failure does not escape");
 ModLog.Fail=false;UnityEngine.Time.unscaledTime=4;UnityEngine.Input.Held.Clear();MaintenanceConsole.Tick();Check(ModLog.Reports==2,"F10 alone does not request report");
+
+int events=0;var lease=Ext.DayStart.Subscribe("test-owner",()=>events++);
+snap=MaintenanceDiagnostics.Capture();Check(snap.Registrations.Any(r=>r.EventName=="DayStart" && r.Owner=="test-owner") && events==0,"snapshot reads event ownership without publishing");
+lease.Dispose();Check(snap.Registrations.Count==1 && MaintenanceDiagnostics.Capture().Registrations.Count==0,"registration snapshots are independent");

@@ -83,11 +83,11 @@
 
 接口：使用 design.md 定义的 ExtensionEvent 全部方法；OwnedCallbacks.Own(IDisposable)。其余 Func 字段及调用策略不变。
 
-- [ ] 新增并先运行失败测试：同名 owner 拒绝且旧订阅不变；登记 A/B 顺序为 A→B；A 异常仍执行 B；A 中登记 C 本轮不执行 C；A 中撤销 B 本轮跳过 B；同事件重入不递归；Dispose 两次无副作用；Clear 后旧租约不能移除新订阅。
-- [ ] 实现具名事件及租约管理，复用 T2 记录来源和错误代码；只在安装/卸载时改变登记。测试中诊断器失败也不能阻止后续订阅。
-- [ ] 先迁移 StateReset 并运行现有生命周期/存档检查，再迁移 BeforeSave、DayStart；移除对应旧字段赋值和 Fire 包装，确保每个原调用点只分发一次。模式切换和存档切换不应意外清空运行期订阅。
-- [ ] Malice 安装用局部租约集准备，失败释放已安装项，完成后才置 _installed；测试第二项登记失败后的计数、正常卸载、再次安装及第三方无关租约保留（这里只用测试订阅，不提供第三方功能）。
-- [ ] 运行 ExtensionChecks、RuntimeLifetimeChecks、SaveStateChecks 和 Release 构建；核对顺序仍为原每日顺序、诊断不触发 Publish。写三期总结并提交。
+- [x] 新增并先运行失败测试：同名 owner 拒绝且旧订阅不变；登记 A/B 顺序为 A→B；A 异常仍执行 B；A 中登记 C 本轮不执行 C；A 中撤销 B 本轮跳过 B；同事件重入不递归；Dispose 两次无副作用；Clear 后旧租约不能移除新订阅。
+- [x] 实现具名事件及租约管理，复用 T2 记录来源和错误代码；只在安装/卸载时改变登记。测试中诊断器失败也不能阻止后续订阅。
+- [x] 先迁移 StateReset 并运行现有生命周期/存档检查，再迁移 BeforeSave、DayStart；移除对应旧字段赋值和 Fire 包装，确保每个原调用点只分发一次。模式切换和存档切换不应意外清空运行期订阅。
+- [x] Malice 安装用局部租约集准备，失败释放已安装项，完成后才置 _installed；测试第二项登记失败后的计数、正常卸载、再次安装及第三方无关租约保留（这里只用测试订阅，不提供第三方功能）。
+- [x] 运行 ExtensionChecks、RuntimeLifetimeChecks、SaveStateChecks 和 Release 构建；核对顺序仍为原每日顺序、诊断不触发 Publish。写三期总结并提交。
 
 ## T5 · 让付款检查执行真实入口
 

@@ -9,6 +9,12 @@ internal sealed class OwnedCallbacks
     private readonly Action<Exception> _report;
     public OwnedCallbacks(Action<Exception> report) { _report = report; }
 
+    public void Own(IDisposable lease)
+    {
+        if (lease == null) throw new ArgumentNullException(nameof(lease));
+        _releases.Add(lease.Dispose);
+    }
+
     public void Add(Func<Action> read, Action<Action> write, Action owned)
     {
         _releases.Add(() => write((Action)Delegate.Remove(read(), owned)));

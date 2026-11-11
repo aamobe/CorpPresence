@@ -58,3 +58,15 @@
 - 未运行游戏或发布；游戏待验为 M1/M2/M6：主菜单手动请求、在档查询只读、正式版组合键无入口。
 - 本地提交，不推送；无待决定事项。维护使用方式、报告未知状态及替身边界写入 internal-maintenance.md。
 - T3 判定完成，可进入 T4；游戏未验不影响本地源码交付，但不能报告游戏实测通过。
+
+## T4：三个生命周期事件迁移
+
+基线 6db6d7a。新增 ExtensionEvent 与 OwnedCallbacks.Own；Ext 的 StateReset/BeforeSave/DayStart 为 readonly 事件。Hooks 三处各 Publish 一次，保留原顺序；其余 Func 不改。
+
+- 新事件测试先因缺少实现失败；实现后事件顺序、重复 owner、快照新增/撤销、重入、独立释放、Clear 和诊断抛错隔离通过。
+- 先迁移 StateReset：生命周期 13 项、存档 6+4+6 项和正式编译通过，再迁移其余两事件。
+- 真实 Malice 安装代码移至同一 partial 类 Malice.Install.cs，以便直接链接测试，不复制安装逻辑。原先先置 _installed 的实现，在第二项注册冲突后泄漏首项订阅；测试复现失败，再改为局部 OwnedCallbacks、成功后赋值标志、失败逆序释放。全部安装测试转绿。
+- ExtensionChecks 共 19 项，MaintenanceChecks 共 34 项，RuntimeLifetimeChecks 13 项、SaveStateChecks 6+4+6 项通过；正式构建 0 警告、0 错误。维护事件快照独立，Capture 不分发事件。静态检索无旧三字段赋值/Fire 调用。
+- Ruling：拆出 Malice.Install.cs 是为了链接真实安装路径，范围仅搬迁安装/卸载和所有权字段；业务方法留原处。代价是新增一个 partial 文件，避免测试复制实现的更高维护风险。
+- 游戏待验 M3/M4：切档和模式切换不重复每日处理，实际停用/重启后登记不累加。仅关闭恶意模式不等于卸载，验证清单已澄清。
+- 本地提交，不推送、部署或发布；无用户待决定事项。可进入 T5。游戏证据仍为空，不将替身检查称为游戏通过。

@@ -46,3 +46,9 @@ internal static class Input { internal static HashSet<KeyCode> Held=new(); inter
 }
 internal static class Time { internal static float unscaledTime; }
 }
+
+
+
+
+
+namespace CorpPresence {internal static class Ext {internal static readonly ExtensionEvent BeforeSave=new("BeforeSave"), DayStart=new("DayStart"), StateReset=new("StateReset");}}
