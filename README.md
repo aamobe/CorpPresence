@@ -4,7 +4,7 @@
 
 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3828913695) · [游玩流程](公司增强游玩流程.txt) · [文档总目录](docs/README.md) · [维护指南](docs/maintenance/README.md)
 
-当前版本为 **1.0 稳定版（1.0.0）**。在0.9.9香水线及索拉纳会员目录修复基线上，完成1621个稳定本地化键，接入官方CSV翻译且无需文件访问权限，保留原有玩法与存档标识。详见[当前版本记录](docs/releases/1.0.0.md)和[翻译维护说明](docs/localization/README.md)。
+当前版本为 **1.0.1**。恶意模式下，撒该在发现扶持金要求的订阅失效后会给一天补订时间。详见[当前版本记录](docs/releases/1.0.1.md)和[翻译维护说明](docs/localization/README.md)。
 
 ## 常用入口
 

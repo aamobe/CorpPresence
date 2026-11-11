@@ -68,4 +68,4 @@ dotnet build ./src/CorpPresence.csproj -c Release --artifacts-path ./artifacts/b
 ./tools/Check-Repository.ps1 -CheckReleaseBaseline
 ```
 
-这个参数是发布快照比对，不是运行测试。文本使用去UTF-8 BOM、统一LF后的内容计算SHA256，避免Git的CRLF转换造成误报；PNG使用原始字节。开发中新修改尚未发布时可能故意不匹配，不要为让检查通过而覆盖未审阅的发布记录。后续正式更新时，按实际发布源码重新生成[源码快照](../releases/0.9.9-source-manifest.json)。
+这个参数是发布快照比对，不是运行测试。文本使用去UTF-8 BOM、统一LF后的内容计算SHA256，避免Git的CRLF转换造成误报；PNG使用原始字节。开发中新修改尚未发布时可能故意不匹配，不要为让检查通过而覆盖未审阅的发布记录。后续正式更新时，按实际发布源码重新生成[对应版本的源码快照](../releases/README.md)。

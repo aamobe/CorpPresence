@@ -1,0 +1,47 @@
+{
+  "version": "1.0.1",
+  "variant": "envoy-aid-subscription-grace",
+  "recordedOn": "2026-11-11",
+  "workshopAppId": "4348910",
+  "workshopItemId": "3828913695",
+  "sourceCommit": "cb463e1e602a1f49dc2c0e9dda45b1b134b8550b",
+  "distributionBuildMode": "release-build-from-source",
+  "hashAlgorithm": "SHA256",
+  "workshopUpload": "confirmed",
+  "workshopDownload": "all-files-sha256-match",
+  "gameplayVerified": false,
+  "files": [
+    {
+      "path": "CHANGELOG-1.0.1.txt",
+      "sha256": "017D9D305E520C3B62E69F89CA7DEEAF0407408961D86C7EBE1C546B90BD23E5"
+    },
+    {
+      "path": "CHANGELOG-1.0.txt",
+      "sha256": "328767F738A915ACCB9547573541D997627DF3DCD9BD015117502ECA0E4F4AE1"
+    },
+    {
+      "path": "CorpPresence.dll",
+      "sha256": "1E6C53C8F2FECD5203C98F5A251041A929451FF57BD2EE1A1555B1F150A79DC1"
+    },
+    {
+      "path": "manifest.xml",
+      "sha256": "983C8B7ACB5FE7C74B9E7844B2C52C87F10258D66564716DD31FF09A7C678487"
+    },
+    {
+      "path": "TRANSLATIONS.txt",
+      "sha256": "3001F758EE9A8044DF5355CDCB7D2E5E07C281DA549055471A4A077DC0194192"
+    },
+    {
+      "path": "Localization/en.csv",
+      "sha256": "E58FFDE59FA6E6C5B98135A8CA91034F0BE0E07EB05B72CF3A08495DF3D0933B"
+    },
+    {
+      "path": "Localization/fr.csv",
+      "sha256": "6CBD44E98D37DF9253BD77849FAA061BD1EB6A721EDE4573C010393C50A4D55C"
+    },
+    {
+      "path": "Localization/ru.csv",
+      "sha256": "9B934FB2B64E3E8367E8AE33A0229A3DB60A863B3ADE9E7C840B20F0388EE84F"
+    }
+  ]
+}
