@@ -23,6 +23,8 @@ internal sealed class JacksonContact : Company
         new() { Id = CargoWarehouse.ControllerOrderId, MinTier = 0, FixedListValue = CargoWarehouse.ControllerPrice }
     };
 
+    protected override double OrderPriceRate(CatalogEntry entry, CompanyState state) => 1.0;
+
     public override string Id => "jackson_private";
     public override string Name => L.K("companies.jacksonContact.name.drJacksonPrivateLine", "杰克逊博士 · 私人电话", "Dr. Jackson · Private Line");
     public override string CharacterId => "dr_jackson";

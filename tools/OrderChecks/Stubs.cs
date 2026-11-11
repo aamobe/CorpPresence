@@ -7,7 +7,7 @@ readonly struct StoreSession
  public static StoreSession Capture() => new(Companies.State);
  public bool IsCurrent => ReferenceEquals(state, Companies.State);
 }
-class Company { public string EntryError; public string OrderEntryError(CatalogEntry entry, CompanyState state) => EntryError; public string Name => "Test"; public int CatalogTier(CompanyState s) => 2; }
+class Company { public int OrderUnitPrice(CatalogEntry entry, CompanyState state) => EquipmentOrderRule.For(entry.Id)?.FixedPrice is > 0 ? EquipmentOrderRule.For(entry.Id).FixedPrice : 100; public string EntryError; public string OrderEntryError(CatalogEntry entry, CompanyState state) => EntryError; public string Name => "Test"; public int CatalogTier(CompanyState s) => 2; }
 class JacksonContact : Company {}
 class SolanaCo : Company {}
 class MeridianCo : Company {}

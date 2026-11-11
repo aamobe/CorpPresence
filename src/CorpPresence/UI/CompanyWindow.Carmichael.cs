@@ -89,11 +89,7 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static int CarmUnitPrice(CatalogEntry e)
-	{
-		double rate = Company.OrderRate(_company, _company.Tier(State));
-		return e.Quote(rate);
-	}
+	private static int CarmUnitPrice(CatalogEntry e) => _company.OrderUnitPrice(e, State);
 
 	private static string CarmLocked(CatalogEntry e) => _company.OrderEntryError(e, State);
 

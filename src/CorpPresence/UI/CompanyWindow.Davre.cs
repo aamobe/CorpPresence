@@ -81,10 +81,7 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static int DavreUnitPrice(CatalogEntry e)
-	{
-		return e.Quote(Company.OrderRate(_company, _company.Tier(State)));
-	}
+	private static int DavreUnitPrice(CatalogEntry e) => _company.OrderUnitPrice(e, State);
 
 	private static void DrawDavreOrder(Rect r)
 	{

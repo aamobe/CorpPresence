@@ -10,6 +10,8 @@ internal sealed class RebelCo : Company
 
 	public static readonly string[] Factions = new string[2] { "FACTION_REVOLUTION", "FACTION_LOWER_LEVEL" };
 
+	protected override double OrderPriceRate(CatalogEntry entry, CompanyState state) => entry.Id == SpacerCo.ModBox ? 1.0 : base.OrderPriceRate(entry, state);
+
 	public override string Id => "rebel";
 
 	public override string Name => L.K("malice.rebel.name.resistance", "反抗军", "The Resistance");

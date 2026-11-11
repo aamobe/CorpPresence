@@ -165,6 +165,15 @@ internal sealed class PastelCo : Company
 
 	public override string DeskAsk => L.K("companies.pastel.deskAsk.wantSeeTodaySList", "看看今天的单子？", "Want to see today's list?");
 
+	internal CatalogEntry DailySpecial(CompanyState state)
+	{
+		int tier = CatalogTier(state);
+		var available = Array.FindAll(Entries, e => e.Page == "日用" && e.MinTier <= tier);
+		return available.Length == 0 ? null : available[StoreStation.GetDayCounter() * 31 % available.Length];
+	}
+
+	protected override double OrderPriceRate(CatalogEntry entry, CompanyState state) => base.OrderPriceRate(entry, state) * (entry == DailySpecial(state) ? 0.9 : 1.0);
+
 	protected override string ContentOrderError(CatalogEntry entry)
 	{
 		if ((entry.Page == "海明威" || entry.Page == "工艺") && !HemingwayOpen())

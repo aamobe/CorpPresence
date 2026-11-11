@@ -111,3 +111,11 @@ Require(Services.PlaceOrder(company, cart, _ => throw new Exception("must not qu
 Require(Services.Charges == 0 && Companies.State.Orders.Count == 0 && Companies.State.LimitedBought.Count == 0);
 company.EntryError = null;
 Console.WriteLine("PASS shared content eligibility rejects before quote, payment and reservation");
+
+foreach (int stalePrice in new[] { 1, 99, 101, int.MaxValue })
+{
+    Companies.State = new(); Services.Charges = 0; Services.Payment = null;
+    Require(Services.PlaceOrder(company, cart, _ => stalePrice) != null);
+    Require(Services.Charges == 0 && Companies.State.Orders.Count == 0 && Companies.State.LimitedBought.Count == 0);
+}
+Console.WriteLine("PASS stale or forged ordinary quotes cannot debit or reserve quota");

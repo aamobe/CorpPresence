@@ -83,7 +83,9 @@ internal static partial class Services
 			if ((equipment?.UsesCounter ?? true) && !QuotaCounts.TryAdd(s.LimitedBought, key, item.Value, out _))
 				return L.K("companies.services.orders.placeOrder.purchaseHistoryInvalidOrOut", "历史订购计数异常或超出范围，尚未扣款。", "Purchase history is invalid or out of range. You have not been charged.");
 			int fixedPrice = equipment?.FixedPrice ?? 0;
-			if (!OrderAmounts.TryAdd(ref num, fixedPrice > 0 ? fixedPrice : unitPrice(item.Key), item.Value, bundle, out int count))
+			int shownPrice = fixedPrice > 0 ? fixedPrice : unitPrice(item.Key);
+			int actualPrice = c.OrderUnitPrice(item.Key, s);
+			if (shownPrice != actualPrice || !OrderAmounts.TryAdd(ref num, actualPrice, item.Value, bundle, out int count))
 				return L.K("companies.services.orders.placeOrder.invalidOrderQuantityOrAmount", "订单数量或金额无效，尚未扣款。", "Invalid order quantity or amount. You have not been charged.");
 			for (int i = 0; i < count; i++) order.Items.Add(id);
 			limits[line++] = (id, window, item.Value, key, equipment);

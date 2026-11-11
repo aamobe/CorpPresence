@@ -98,10 +98,7 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static int MeridianUnitPrice(CatalogEntry e)
-	{
-		return e.Quote((Array.IndexOf(MeridianCo.Parts, e) >= 0) ? MeridianCo.PartsRate : Company.OrderRate(_company, _company.Tier(State)));
-	}
+	private static int MeridianUnitPrice(CatalogEntry e) => _company.OrderUnitPrice(e, State);
 
 	private static void DrawMeridianOrder(Rect r, CatalogEntry[] entries, string note)
 		=> DrawEquipmentOrder(r, entries, note, MeridianUnitPrice, L.K("ui.meridian.orders.submitRequisition", "提交申领", "Submit requisition"));

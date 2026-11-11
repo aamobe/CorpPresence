@@ -79,10 +79,7 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static int SpacerUnitPrice(CatalogEntry e)
-	{
-		return e.Quote((e.Id == "@modbox") ? 1.0 : Company.OrderRate(_company, _company.Tier(State)));
-	}
+	private static int SpacerUnitPrice(CatalogEntry e) => _company.OrderUnitPrice(e, State);
 
 	private static void DrawSpacerOrder(Rect r, string page)
 	{

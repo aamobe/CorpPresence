@@ -77,26 +77,9 @@ internal static partial class CompanyWindow
 		return why == null;
 	}
 
-	private static int PastelUnitPrice(CatalogEntry e)
-	{
-		double num = Company.OrderRate(_company, _company.Tier(State));
-		if (e == PastelSpecial())
-		{
-			num *= 0.9;
-		}
-		return e.Quote(num);
-	}
+	private static int PastelUnitPrice(CatalogEntry e) => _company.OrderUnitPrice(e, State);
 
-	private static CatalogEntry PastelSpecial()
-	{
-		int tier = _company.CatalogTier(State);
-		CatalogEntry[] array = PastelCo.Entries.Where((CatalogEntry e) => e.Page == "日用" && e.MinTier <= tier).ToArray();
-		if (array.Length != 0)
-		{
-			return array[Day * 31 % array.Length];
-		}
-		return null;
-	}
+	private static CatalogEntry PastelSpecial() => ((PastelCo)_company).DailySpecial(State);
 
 	private static void DrawPastelOrder(Rect r)
 	{

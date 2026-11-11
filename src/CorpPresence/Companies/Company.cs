@@ -78,6 +78,15 @@ internal abstract class Company
 		return tier;
 	}
 
+	public int OrderUnitPrice(CatalogEntry entry, CompanyState state)
+	{
+		if (entry == null || state == null) return 0;
+		int fixedPrice = EquipmentOrderRule.For(entry.Id)?.FixedPrice ?? 0;
+		return fixedPrice > 0 ? fixedPrice : entry.Quote(OrderPriceRate(entry, state));
+	}
+
+	protected virtual double OrderPriceRate(CatalogEntry entry, CompanyState state) => OrderRate(this, Tier(state));
+
 	public static double PriceRate(int tier)
 	{
 		return Settings.OrderMarkup - 0.05 * (double)(Math.Max(1, Math.Min(3, tier)) - 1);
