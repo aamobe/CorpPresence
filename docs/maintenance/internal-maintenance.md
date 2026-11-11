@@ -58,3 +58,10 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 统一入口对每个检查先 build，再使用同一 SDK 直接运行新产物的绝对路径；不使用带 --artifacts-path 的 dotnet run，以免运行旧默认输出。当前原版付款、存读档、开店和电话回调契约见[契约核对记录](../changes/add-maintenance-interfaces/native-contracts.md)。
 
 正式版保留三个事件每事件一次的安全告警；故障聚合仍逐次记录。日志和诊断器失败均不阻断后续监听者。
+# 第一期模块状态
+
+维护报告的 `malice 安装已提交` 只表示 Install 已完成；关闭恶意模式或切换存档不会把它变成未安装。`清理遇错` 表示最近一次实际释放中出现异常，重复空卸载保留此结果，新的安装尝试或实际释放开始时清除。未安装与清理遇错可以同时为真；不能据未安装断言所有资源已回收。
+
+模块值在捕获时复制，只读列表不会随之后启停变化；采集不稳定时显示“模块状态未知”。故障警告以 `malice/install`、`malice/rollback`、`malice/uninstall` 标记阶段并包含异常类型，不写原始异常消息。日志和聚合故障分别隔离。
+
+当前 OwnedCallbacks 释放遇错仍继续并清空释放表，因此失败动作不会自动重试。实现和替身边界见[第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)。

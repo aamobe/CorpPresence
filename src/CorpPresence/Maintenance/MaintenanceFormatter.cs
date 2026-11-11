@@ -10,6 +10,9 @@ internal static class MaintenanceFormatter
         text.Append(" 恶意记录写保护=").Append(snapshot.MaliceWriteProtected?.ToString() ?? "未知");
         text.Append(" 待配送订单=").Append(snapshot.PendingOrders?.ToString() ?? "未知");
         text.Append(" 剩余物品条目=").Append(snapshot.PendingItemUnits?.ToString() ?? "未知");
+        if (snapshot.Modules.Count == 0) text.Append("\n[维护] 模块状态未知");
+        foreach (var m in snapshot.Modules) text.Append("\n[维护] ").Append(m.Owner)
+            .Append(" 安装已提交=").Append(m.Installed).Append(" 清理遇错=").Append(m.ReleaseFailed);
         foreach (var c in snapshot.Counters) text.Append("\n[维护] ").Append(c.Name).Append('=').Append(c.Value);
         text.Append("\n[维护] 事件登记仅包含 BeforeSave/DayStart/StateReset；其他委托未迁移。缓存/登记计数不代表场景实物数量。");
         foreach (var r in snapshot.Registrations) text.Append("\n[维护] ").Append(r.EventName).Append(" owner=").Append(r.Owner);

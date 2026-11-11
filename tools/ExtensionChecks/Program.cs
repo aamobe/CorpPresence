@@ -22,13 +22,26 @@ bool nullRejected=false;try{e.Subscribe("null",null);}catch(ArgumentNullExceptio
 e.Clear();a=e.Subscribe("A",()=>e.Clear());b=e.Subscribe("B",()=>throw new Exception("must not run"));e.Publish();Check(e.Owners.Count==0,"clear during publish revokes pending callbacks");
 
 // Execute the actual production installer, not a model of it.
+bool ModuleFlag(string name)
+{
+    var property=typeof(CorpPresence.Malice.Malice).GetProperty(name,System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic);
+    Check(property!=null,"module exposes readonly "+name);
+    Check(property.SetMethod==null,"module flag has no setter "+name);
+    return (bool)property.GetValue(null);
+}
+Check(!ModuleFlag("IsInstalled") && !ModuleFlag("LastReleaseFailed"),"initial module state is uninstalled and clean");
 var blocker=Ext.StateReset.Subscribe("malice",()=>{});
 bool failed=false;try{CorpPresence.Malice.Malice.Install();}catch(InvalidOperationException){failed=true;}
 Check(failed && Ext.BeforeSave.Owners.Count==0 && Ext.StateReset.Owners.Count==1,"second registration failure rolls back first without removing other lease");
+Check(!ModuleFlag("IsInstalled") && !ModuleFlag("LastReleaseFailed"),"failed install remains uninstalled after clean rollback");
 blocker.Dispose();CorpPresence.Malice.Malice.Install();CorpPresence.Malice.Malice.Install();
 Check(Ext.BeforeSave.Owners.Count==1 && Ext.DayStart.Owners.Count==1 && Ext.StateReset.Owners.Count==1,"installer retry succeeds and repeated install is idempotent");
+Check(ModuleFlag("IsInstalled"),"successful installation is committed");
 Ext.BeforeSave.Publish();Ext.DayStart.Publish();Ext.StateReset.Publish();
 Check(CorpPresence.Malice.MaliceState.Saves==1 && CorpPresence.Malice.MaliceState.Resets==1 && CorpPresence.Malice.Malice.Days==1,"real installer callbacks dispatched once");
 var unrelated=Ext.DayStart.Subscribe("unrelated",()=>{});CorpPresence.Malice.Malice.Uninstall();CorpPresence.Malice.Malice.Uninstall();
 Check(Ext.BeforeSave.Owners.Count==0 && Ext.StateReset.Owners.Count==0 && Ext.DayStart.Owners.SequenceEqual(new[]{"unrelated"}),"actual uninstall preserves unrelated event lease");
+Check(!ModuleFlag("IsInstalled") && !ModuleFlag("LastReleaseFailed"),"repeated normal uninstall remains clean");
 CorpPresence.Malice.Malice.Install();Check(Ext.DayStart.Owners.SequenceEqual(new[]{"unrelated","malice"}),"reinstall preserves existing order");CorpPresence.Malice.Malice.Uninstall();unrelated.Dispose();
+
+LifecycleChecks.Run(Check);

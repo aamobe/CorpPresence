@@ -3,6 +3,9 @@ namespace CorpPresence.Malice;
 internal static partial class Malice
 {
 	private static bool _installed;
+	internal static bool IsInstalled => _installed;
+	internal static bool LastReleaseFailed => _lastReleaseFailed;
+	private static bool _lastReleaseFailed;
 	private static CorpPresence.Runtime.OwnedCallbacks _callbacks;
 	public static void Install()
 	{
@@ -10,7 +13,14 @@ internal static partial class Malice
 		{
 			return;
 		}
-		var callbacks = new CorpPresence.Runtime.OwnedCallbacks(error => ModLog.Warn("释放扩展回调失败：" + error.Message));
+		_lastReleaseFailed = false;
+		// The captured stage belongs to this lease collection, not a global state machine.
+		string releaseStage = "rollback";
+		var callbacks = new CorpPresence.Runtime.OwnedCallbacks(error =>
+		{
+			_lastReleaseFailed = true;
+			ReportLifecycleFailure(releaseStage, error);
+		});
 		try
 		{
 			callbacks.Own(Ext.BeforeSave.Subscribe("malice", MaliceState.Save));
@@ -48,10 +58,12 @@ internal static partial class Malice
 			callbacks.Replace(() => Ext.ForceOrderLimits, value => Ext.ForceOrderLimits = value, () => On);
 			callbacks.Replace(() => Ext.ForceRestockWeeks, value => Ext.ForceRestockWeeks = value, () => On ? 1 : 0);
 			_callbacks = callbacks;
+			releaseStage = "uninstall";
 			_installed = true;
 		}
-		catch
+		catch (Exception error)
 		{
+			ReportLifecycleFailure("install", error);
 			callbacks.Release();
 			throw;
 		}
@@ -61,9 +73,17 @@ internal static partial class Malice
 	{
 		if (!_installed) return;
 		_installed = false;
+		_lastReleaseFailed = false;
 		var callbacks = _callbacks;
 		_callbacks = null;
 		callbacks?.Release();
+	}
+
+	private static void ReportLifecycleFailure(string stage, Exception error)
+	{
+		// Startup rollback clears diagnostics; a safe warning must stand on its own.
+		try { ModLog.Warn("模块 malice/" + stage + " 失败：" + error.GetType().FullName); } catch { }
+		try { MaintenanceDiagnostics.Record("malice", stage, "lifecycle-failed", error); } catch { }
 	}
 
 }

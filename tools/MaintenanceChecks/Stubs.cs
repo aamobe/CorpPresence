@@ -17,6 +17,11 @@ namespace CorpPresence
 }
 namespace CorpPresence.Malice
 {
+    internal static class Malice
+    {
+        internal static bool IsInstalled;
+        internal static bool LastReleaseFailed;
+    }
     // Only required to compile the unused malice validation overload.
     internal sealed class MaliceState
     {

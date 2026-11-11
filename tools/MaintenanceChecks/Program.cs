@@ -67,3 +67,24 @@ var reportsBefore=ModLog.Reports;
 typeof(CorpPresence.Runtime.ResourceBootstrap).GetMethod("Update",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(bootstrap,null);
 Check(ModLog.Reports==reportsBefore+1 && completed==0 && !MaintenanceDiagnostics.Capture().ResourcesReady,"bootstrap reports while resources are unavailable without completing initialization");
 bootstrap.Detach();GameResources.Ready=true;
+
+// Read actual Capture/Formatter results; module inputs alone are substituted here.
+var moduleProperty=typeof(MaintenanceSnapshot).GetProperty("Modules");
+Check(moduleProperty!=null,"snapshot exposes module values");
+System.Collections.IList Modules(MaintenanceSnapshot value)=>(System.Collections.IList)moduleProperty.GetValue(value);
+bool Flag(object value,string name)=>(bool)value.GetType().GetProperty(name).GetValue(value);
+PlayerStore.Instance=null;CorpState.Current=null;
+CorpPresence.Malice.Malice.IsInstalled=true;CorpPresence.Malice.Malice.LastReleaseFailed=false;
+snap=MaintenanceDiagnostics.Capture();
+Check(Modules(snap).Count==1 && Flag(Modules(snap)[0],"Installed") && !Flag(Modules(snap)[0],"ReleaseFailed") && !PlayerStore.IsInstanceExist() && CorpState.Current==null,"module capture is readonly without a player or save");
+CorpPresence.Malice.Malice.IsInstalled=false;CorpPresence.Malice.Malice.LastReleaseFailed=true;
+Check(Flag(Modules(snap)[0],"Installed") && !Flag(Modules(snap)[0],"ReleaseFailed"),"old module snapshot does not follow live state");
+readOnly=false;try{Modules(snap).Clear();}catch(NotSupportedException){readOnly=true;}Check(readOnly,"module list rejects mutation");
+snap=MaintenanceDiagnostics.Capture();
+Check(MaintenanceFormatter.Format(snap).Contains("malice 安装已提交=False 清理遇错=True"),"formatter distinguishes uninstalled from failed cleanup");
+CorpPresence.Malice.Malice.IsInstalled=true;CorpPresence.Malice.Malice.LastReleaseFailed=false;
+PlayerStore.Instance=new();MaintenanceDiagnostics.Reset();
+Check(Flag(Modules(MaintenanceDiagnostics.Capture())[0],"Installed"),"session reset does not revoke module installation");
+Portraits.Probe=()=>GameResources.Generation++;
+snap=MaintenanceDiagnostics.Capture();Portraits.Probe=null;
+Check(snap.SaveStatus==SaveDiagnosticStatus.Unstable && Modules(snap).Count==0 && MaintenanceFormatter.Format(snap).Contains("模块状态未知"),"unstable module state is unknown not uninstalled");

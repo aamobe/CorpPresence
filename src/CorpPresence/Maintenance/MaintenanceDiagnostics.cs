@@ -97,17 +97,18 @@ internal static class MaintenanceDiagnostics
             foreach (var owner in Ext.BeforeSave.Owners) registrations.Add(new MaintenanceRegistration("BeforeSave", owner));
             foreach (var owner in Ext.DayStart.Owners) registrations.Add(new MaintenanceRegistration("DayStart", owner));
             foreach (var owner in Ext.StateReset.Owners) registrations.Add(new MaintenanceRegistration("StateReset", owner));
+            var modules = new[] { new MaintenanceModuleState("malice", Malice.Malice.IsInstalled, Malice.Malice.LastReleaseFailed) };
             if (!ReferenceEquals(store, SaveSlot.CurrentStore) || !ReferenceEquals(data, store?.modData)
                 || generation != GameResources.Generation || ready != GameResources.Ready || !ReferenceEquals(state, CorpState.Current)
                 || (status == SaveDiagnosticStatus.Bound && !state.IsBoundReadonly(store)))
             { CheckSession(); return Unknown(); }
             return new MaintenanceSnapshot(Main.Version, ready, generation, status, corp, malice, orders, units,
-                counters, Faults, registrations);
+                counters, Faults, registrations, modules);
         }
         catch { return Unknown(); }
     }
 
     private static MaintenanceSnapshot Unknown() => new(Main.Version, GameResources.Ready, GameResources.Generation,
         SaveDiagnosticStatus.Unstable, null, null, null, null, Array.Empty<MaintenanceCounter>(),
-        Array.Empty<MaintenanceFault>(), Array.Empty<MaintenanceRegistration>());
+        Array.Empty<MaintenanceFault>(), Array.Empty<MaintenanceRegistration>(), Array.Empty<MaintenanceModuleState>());
 }
