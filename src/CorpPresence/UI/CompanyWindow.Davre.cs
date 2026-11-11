@@ -105,9 +105,10 @@ internal static partial class CompanyWindow
 			Rect status = new Rect(columns.Unit.x, num4, columns.ListPrice.x - columns.Unit.x, 34f);
 			DrawOrderItem(columns.Item, catalogEntry, State, theme);
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(catalogEntry)), theme.Center);
-			if (catalogEntry.MinTier > num)
+			string entryError = _company.OrderEntryError(catalogEntry, State);
+			if (entryError != null)
 			{
-				GUI.Label(status, (L.En ? L.K("ui.davre.orders.tierRequired", (System.FormattableString)$"Opens at {_company.TierNames[catalogEntry.MinTier - 1]}") : _company.TierNames[catalogEntry.MinTier - 1] + "开放"), theme.Small);
+				GUI.Label(status, entryError, theme.Small);
 				Orders.Cart.Remove(catalogEntry);
 				num4 += 36f;
 				continue;

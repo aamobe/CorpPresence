@@ -228,6 +228,8 @@ internal sealed partial class SpacerCo : Company
 
 	public override string FrontDeskDone => L.K("companies.spacer.frontDeskDone.tomorrow", "明天到。", "Tomorrow.");
 
+	protected override string ContentOrderError(CatalogEntry entry) => Settings.MaliceMode && !PageEntries("码头").Contains(entry) ? UnavailableOrderEntry() : null;
+
 	public override CatalogEntry[] Catalog => Entries;
 
 	public static int MutualFee => Services.Fee("spacer", "mutual", 30);

@@ -124,10 +124,7 @@ internal static partial class CompanyWindow
 			Rect status = new Rect(columns.Unit.x, num4, columns.ListPrice.x - columns.Unit.x, 34f);
 			DrawOrderItem(columns.Item, catalogEntry, State, theme);
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(catalogEntry)), theme.Center);
-			string blocked = _company is MeridianCo ? Rosen.SaleBlocked(catalogEntry.Id) : null;
-			blocked ??= EquipmentOrderRule.For(catalogEntry.Id)?.AccessError(_company);
-			if (blocked == null && catalogEntry.MinTier > num)
-				blocked = L.En ? L.K("ui.meridian.equipmentOrder.tierRequired", (System.FormattableString)$"Opens at {_company.TierNames[catalogEntry.MinTier - 1]}") : _company.TierNames[catalogEntry.MinTier - 1] + "开放";
+			string blocked = _company.OrderEntryError(catalogEntry, State);
 			if (blocked != null)
 			{
 				GUI.Label(status, blocked, theme.Small);

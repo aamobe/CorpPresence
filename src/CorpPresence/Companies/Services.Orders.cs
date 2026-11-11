@@ -59,11 +59,8 @@ internal static partial class Services
 		{
 			return L.K("companies.services.orders.placeOrder.someItemsAreUnavailableRight", "有货品暂不可用，请稍后再试。尚未扣款。", "Some items are unavailable right now. Try again later. You have not been charged.");
 		}
-		if (c is MeridianCo)
-		{
-			string permitError = purchases.Select(kv => Rosen.SaleBlocked(kv.Key.Id)).FirstOrDefault(reason => reason != null);
-			if (permitError != null) return permitError;
-		}
+		string entryError = purchases.Select(kv => c.OrderEntryError(kv.Key, s)).FirstOrDefault(reason => reason != null);
+		if (entryError != null) return entryError;
 		CatalogEntry catalogEntry = purchases.FirstOrDefault(kv => kv.Value > Left(s, kv.Key, refreshControllerStock: true)).Key;
 		if (catalogEntry != null)
 		{

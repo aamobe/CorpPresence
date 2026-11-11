@@ -166,10 +166,11 @@ internal static partial class CompanyWindow
 				continue;
 			}
 			string listPrice = ItemListPrice(ItemListValue(catalogEntry2), labeled: true);
-			if (flag4)
+			string entryError = _company.OrderEntryError(catalogEntry2, state);
+			if (entryError != null)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 22f), (L.En ? L.K("ui.pastel.orders.tierRequired", (System.FormattableString)$"Unlocks at {_company.TierNames[catalogEntry2.MinTier - 1]}") : _company.TierNames[catalogEntry2.MinTier - 1] + "解锁"), theme.Center);
-				GUI.Label(new Rect(rect.center.x, rect.y + 76f, rect.width / 2f, 22f), listPrice, theme.Center);
+				Orders.Cart.Remove(catalogEntry2);
+				GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 44f), entryError, theme.Wrap);
 				continue;
 			}
 			int num6 = PastelUnitPrice(catalogEntry2);

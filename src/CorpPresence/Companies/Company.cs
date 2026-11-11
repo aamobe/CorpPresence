@@ -33,6 +33,22 @@ internal abstract class Company
 
 	public virtual bool Active => true;
 
+	public string OrderEntryError(CatalogEntry entry, CompanyState state)
+	{
+		if (!Active || state == null || entry == null || Catalog == null || !Catalog.Contains(entry))
+			return UnavailableOrderEntry();
+		if (entry.MinTier > CatalogTier(state))
+		{
+			if (entry.MinTier < 1 || entry.MinTier > TierNames.Length) return UnavailableOrderEntry();
+			return L.En ? L.K("ui.carmichael.availability.tierRequired", (FormattableString)$"Opens at {TierNames[entry.MinTier - 1]}") : TierNames[entry.MinTier - 1] + "开放";
+		}
+		return EquipmentOrderRule.For(entry.Id)?.AccessError(this) ?? ContentOrderError(entry);
+	}
+
+	protected virtual string ContentOrderError(CatalogEntry entry) => null;
+
+	protected static string UnavailableOrderEntry() => L.K("companies.services.orders.placeOrder.someItemsAreUnavailableRight", "有货品暂不可用，请稍后再试。尚未扣款。", "Some items are unavailable right now. Try again later. You have not been charged.");
+
 	public int Tier(CompanyState s)
 	{
 		return TierAt.Count((int t) => s.Coop >= t);

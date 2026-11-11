@@ -104,3 +104,10 @@ Require(Services.PlaceOrder(jackson, new() { [controller] = 1 }, _ => 1) == null
 Require(Companies.State.LimitedBought.Count == 0 && Services.Left(Companies.State, controller) == 0);
 Console.WriteLine("PASS equipment rules enforce unlock, seller, duplicate identity, fixed price, lifetime count and queued controller reservation");
 Services.Payment = null;
+
+Companies.State = new(); Services.Charges = 0;
+company.EntryError = "content locked";
+Require(Services.PlaceOrder(company, cart, _ => throw new Exception("must not quote locked goods")) == "content locked");
+Require(Services.Charges == 0 && Companies.State.Orders.Count == 0 && Companies.State.LimitedBought.Count == 0);
+company.EntryError = null;
+Console.WriteLine("PASS shared content eligibility rejects before quote, payment and reservation");

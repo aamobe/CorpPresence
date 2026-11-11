@@ -129,6 +129,9 @@ internal sealed class CarmichaelCo : Company
 
 	public static int SwapGap => Settings.Period("swap", 3);
 
+	protected override string ContentOrderError(CatalogEntry entry) => entry.Id == "@painblock" && !PainBlockOpen()
+		? L.K("ui.carmichael.availability.afterIsaChapter", "伊莎第 4 章后", "After Isa chapter 4") : null;
+
 	public override CatalogEntry[] Catalog => Entries;
 
 	private static CompanyState CState => CorpState.Get()?.CompanyOf("carmicheal");

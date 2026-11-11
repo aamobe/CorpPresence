@@ -165,6 +165,13 @@ internal sealed class PastelCo : Company
 
 	public override string DeskAsk => L.K("companies.pastel.deskAsk.wantSeeTodaySList", "看看今天的单子？", "Want to see today's list?");
 
+	protected override string ContentOrderError(CatalogEntry entry)
+	{
+		if ((entry.Page == "海明威" || entry.Page == "工艺") && !HemingwayOpen())
+			return L.K("ui.pastel.orders.thisPageOpensOnceMilo", "米洛调去海明威之后才有这一页", "This page opens once Milo transfers to Hemingway");
+		return CraftUnlocked(entry) ? null : UnavailableOrderEntry();
+	}
+
 	public override CatalogEntry[] Catalog => Entries;
 
 	private static (string Zh, string En) LimitedFlavor => (Zh: "海明威分部的限量包装", En: "Hemingway division Limited Edition.");

@@ -154,9 +154,10 @@ internal static partial class CompanyWindow
 			Rect status = new Rect(columns.Unit.x, num4, columns.ListPrice.x - columns.Unit.x, 32f);
 			DrawOrderItem(columns.Item, item, State, theme);
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(item)), theme.Center);
-			if (item.MinTier > num)
+			string entryError = _company.OrderEntryError(item, State);
+			if (entryError != null)
 			{
-				GUI.Label(status, (L.En ? L.K("ui.spacer.orders.value", (System.FormattableString)$"At {_company.TierNames[item.MinTier - 1]}") : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
+				GUI.Label(status, entryError, theme.Small);
 				Orders.Cart.Remove(item);
 				num4 += 33f;
 				continue;

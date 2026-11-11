@@ -191,6 +191,8 @@ internal sealed class MeridianCo : Company
 
 	public static double PartsRate => Settings.OrderMarkup;
 
+	protected override string ContentOrderError(CatalogEntry entry) => Rosen.SaleBlocked(entry.Id);
+
 	public override CatalogEntry[] Catalog => AllEntries;
 
 	public static int RefurbishGap => Settings.Period("refurbish", 3);

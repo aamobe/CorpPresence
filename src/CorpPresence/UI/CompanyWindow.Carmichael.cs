@@ -95,18 +95,7 @@ internal static partial class CompanyWindow
 		return e.Quote(rate);
 	}
 
-	private static string CarmLocked(CatalogEntry e)
-	{
-		if (e.MinTier > _company.CatalogTier(State))
-		{
-			return (L.En ? L.K("ui.carmichael.availability.tierRequired", (System.FormattableString)$"Opens at {_company.TierNames[e.MinTier - 1]}") : _company.TierNames[e.MinTier - 1] + "开放");
-		}
-		if (e.Id == "@painblock" && !CarmichaelCo.PainBlockOpen())
-		{
-			return L.K("ui.carmichael.availability.afterIsaChapter", "伊莎第 4 章后", "After Isa chapter 4");
-		}
-		return null;
-	}
+	private static string CarmLocked(CatalogEntry e) => _company.OrderEntryError(e, State);
 
 	private static void DrawCarmOrder(Rect r)
 	{
