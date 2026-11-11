@@ -90,10 +90,9 @@ internal static partial class CompanyVisitors
 		case "lab":
 			return Insert(manager, LabBuyer(c, state, visit));
 		default:
-			// Preserve the extension's existing null-as-cancel convention.
-			Func<Company, string, StoreClient> spawn = Ext.SpawnVisitor;
-			if (spawn == null) return true;
-			StoreClient extra = spawn(c, visit.Kind);
+			// Null cancels; exceptions propagate to the caller so the visit can retry.
+			if (!Malice.Malice.IsInstalled) return true;
+			StoreClient extra = Malice.Rebels.SpawnVisitor(c, visit.Kind);
 			return extra == null || Insert(manager, extra);
 		}
 	}

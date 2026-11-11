@@ -11,18 +11,6 @@ internal static class Ext
 
 	public static readonly ExtensionEvent StateReset = new("StateReset");
 
-	public static Func<Company, string, StoreClient> SpawnVisitor;
-
-	public static Action<StoreClient, GameItem, int> SoldToClient;
-
-	public static Action<StoreClientManager> ScheduleExtra;
-
-	public static Func<Company, Dialogue> CallDialog;
-
-	public static Func<StoreClient, GameItem, bool> ClientBuys;
-
-	public static Action<string, int> CustomerReported;
-
 	private static readonly HashSet<string> Reported = new HashSet<string>();
 
 	internal static void ResetWarnings()

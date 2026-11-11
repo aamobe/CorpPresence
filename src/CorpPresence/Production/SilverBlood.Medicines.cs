@@ -144,10 +144,9 @@ internal static partial class SilverBlood
 			__result = Malice.Envoy.CanReceiveBomb(__instance);
 			return;
 		}
-		Func<StoreClient, GameItem, bool> f = Ext.ClientBuys;
-		if (!__result && f != null && __instance != null && gameItem != null)
+		if (!__result && Malice.Malice.IsInstalled && __instance != null && gameItem != null)
 		{
-			__result = Ext.Ask("ClientBuys", () => f(__instance, gameItem), fallback: false);
+			__result = Ext.Ask("ClientBuys", () => Malice.Envoy.ClientBuys(__instance, gameItem) || Malice.RebelStory.ClientBuys(__instance, gameItem), fallback: false);
 		}
 	}
 

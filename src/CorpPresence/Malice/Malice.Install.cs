@@ -28,24 +28,6 @@ internal static partial class Malice
 			callbacks.Own(Ext.StateReset.Subscribe("malice", () => { MaliceState.Reset(); Envoy.ResetNotifications(); }));
 			callbacks.Own(Ext.DayStart.Subscribe("malice", OnDayStart));
 			callbacks.Own(CorpPresence.Runtime.RuntimeUpdates.Register("malice.envoy", Envoy.Tick));
-			callbacks.Replace(() => Ext.SpawnVisitor, value => Ext.SpawnVisitor = value, Rebels.SpawnVisitor);
-			callbacks.Replace(() => Ext.SoldToClient, value => Ext.SoldToClient = value, (StoreClient cl, GameItem it, int amt) =>
-			{
-				Rebels.SoldToClient(cl, it, amt);
-				if (On)
-				{
-					Envoy.SoldToClient(cl, it, amt);
-					RebelStory.SoldToClient(cl, it, amt);
-				}
-			});
-			callbacks.Replace(() => Ext.ScheduleExtra, value => Ext.ScheduleExtra = value, (StoreClientManager m) =>
-			{
-				Envoy.Schedule(m);
-				RebelStory.Schedule(m);
-			});
-			callbacks.Replace(() => Ext.CustomerReported, value => Ext.CustomerReported = value, RebelStory.OnReported);
-			callbacks.Replace(() => Ext.CallDialog, value => Ext.CallDialog = value, Envoy.MentorCall);
-			callbacks.Replace(() => Ext.ClientBuys, value => Ext.ClientBuys = value, (StoreClient cl, GameItem it) => Envoy.ClientBuys(cl, it) || RebelStory.ClientBuys(cl, it));
 			_callbacks = callbacks;
 			releaseStage = "uninstall";
 			_installed = true;

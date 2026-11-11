@@ -23,7 +23,7 @@
 
 ## 已移除的子模组间接层
 
-以下十三个 Ext 单槽字段只有 Malice.Install 一个生产赋值者，已删除字段、Replace 安装样板和无用 Forced 辅助函数。调用直接指向内置业务，继续以 Malice.IsInstalled 控制启用期边界；Ext.Ask 只作为已有异常保护，不再承载可替换实现。
+以下十九个 Ext 单槽字段只有 Malice.Install 一个生产赋值者，已删除字段、Replace 安装样板和无用 Forced 辅助函数。调用直接指向内置业务，继续以 Malice.IsInstalled 控制启用期边界；Ext.Ask 只作为已有异常保护，不再承载可替换实现。
 
 | 原字段 | 当前调用位置 | 未安装/关闭/失败语义 |
 | --- | --- | --- |
@@ -41,15 +41,20 @@
 
 安装未提交或卸载开始后不再进入这些业务查询；三个生命周期事件与更新租约仍按原顺序安装/撤回。变更不增加新的同义策略包装。
 
-## 其余六个单槽字段的迁移顺序
+## 最后一批单槽字段的直接归属
 
-| 字段 | 实际边界 | 处理要求 |
-| --- | --- | --- |
-| SpawnVisitor | 预约重试 | 必须保留异常与 null 的区别：null取消预约，异常保留重试；不得用返回null的通用保护吞掉异常 |
-| ScheduleExtra / SoldToClient / CustomerReported | 剧情调度与交易通知 | 按原调用顺序迁移，并保留现有故障隔离和模式判断 |
-| CallDialog / ClientBuys | 电话和收货 | 保留原空值/false回退及短路顺序，再移除安装样板 |
+| 原字段 | 当前入口与保留语义 |
+| --- | --- |
+| SpawnVisitor | CompanyVisitors 直接调用 Rebels；未安装/返回null沿用取消，异常仍传到外层以保留预约重试 |
+| ScheduleExtra | Engine.Scheduling 在会话仍有效且模块已安装时，按 Envoy、RebelStory 顺序调用；同一异常隔离边界 |
+| SoldToClient | Services 按 Rebels → 模式开启时 Envoy → RebelStory 顺序通知；不改变前一步异常时后续不执行的语义 |
+| CustomerReported | Hooks.Effects 直接通知 RebelStory，保留举报ID清空时机及异常隔离 |
+| CallDialog | Phone 直接查询 Envoy，异常/未安装返回null并沿用普通通话 |
+| ClientBuys | SilverBlood 收货钩子先查询 Envoy，再短路查询 RebelStory；原结果为true不覆盖，异常回退false |
 
-这些字段是待迁移项目，不以暂时仍存在作为永久保留理由。三个具名生命周期事件和 RuntimeUpdates 有实际多订阅、撤回及异常隔离职责，继续保留。
+至此十九个旧单槽均已删除，Malice.Install 只负责三个生命周期事件与一个更新任务的实际租约。OwnedCallbacks 删除无生产使用者的 Add/Replace，仅保留 Own/Release；检查迁移为实际租约的逆序释放、失败隔离、不可重用语义。Ext 保留多订阅事件和 Ask/Fire 异常保护，没有新增同义业务门面。
+
+本批生产、RuntimeLifetimeChecks 和 ExtensionChecks 工程编译零警告零错误；没有运行回归。原安装器检查仍链接真实安装代码，最终统一执行。该结果只证明间接槽清理落实，不等于全部状态归属、交易规则或生命周期验收完成。
 
 ## 存档校验的取舍
 

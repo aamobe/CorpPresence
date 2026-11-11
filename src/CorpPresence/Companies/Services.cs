@@ -95,12 +95,16 @@ internal static partial class Services
 				}
 			}
 		}
-		Action<StoreClient, GameItem, int> sold = Ext.SoldToClient;
-		if (sold != null)
+		if (Malice.Malice.IsInstalled)
 		{
 			Ext.Fire("SoldToClient", () =>
 			{
-				sold(client, item, amount);
+				Malice.Rebels.SoldToClient(client, item, amount);
+				if (Malice.Malice.On)
+				{
+					Malice.Envoy.SoldToClient(client, item, amount);
+					Malice.RebelStory.SoldToClient(client, item, amount);
+				}
 			});
 		}
 	}

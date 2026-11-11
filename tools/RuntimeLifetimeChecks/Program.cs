@@ -168,14 +168,16 @@ Check("rolling quota agrees with independent window sum across sparse and dense 
 
 Console.WriteLine($"{passed} total passed");
 
-Check("failed callback cleanup cannot be forgotten by reuse", () =>
+Check("failed lease cleanup cannot be forgotten by reuse", () =>
 {
-    int attempts=0; Action current=()=>{}; Action owned=()=>{}; bool fail=false;
-    var callbacks=new OwnedCallbacks(_=>{});
-    callbacks.Replace(()=>current,value=>{attempts++;if(fail)throw new Exception();current=value;},owned);
-    fail=true;callbacks.Release();fail=false;callbacks.Release();
-    Require(ReferenceEquals(current,owned) && attempts==2);
-    bool blocked=false;try{callbacks.Replace(()=>current,value=>current=value,new Action(()=>{}));}catch(InvalidOperationException){blocked=true;}
+    int attempts = 0;
+    var callbacks = new OwnedCallbacks(_ => { });
+    callbacks.Own(new CheckLease(() => { attempts++; throw new Exception(); }));
+    callbacks.Release(); callbacks.Release();
+    Require(callbacks.ReleaseFailed && attempts == 1);
+    bool blocked = false;
+    try { callbacks.Own(new CheckLease(() => { })); }
+    catch (InvalidOperationException) { blocked = true; }
     Require(blocked);
 });
 
@@ -192,38 +194,19 @@ Check("register audio failure cannot interrupt debit or repeat delivered cash", 
 
 Console.WriteLine($"{passed} total passed");
 
-Check("callback replacement restores previous owner and release is idempotent", () =>
+Check("lease release is reverse ordered and survives cleanup reporter failure", () =>
 {
-    Func<int> original = () => 1, owned = () => 2;
-    Func<int> current = original;
-    var callbacks = new OwnedCallbacks(null);
-    callbacks.Replace(() => current, value => current = value, owned);
-    Require(current() == 2);
-    callbacks.Release(); callbacks.Release();
-    Require(ReferenceEquals(current, original));
-});
-Check("callback release preserves later replacement", () =>
-{
-    Func<int> current = () => 1, owned = () => 2, later = () => 3;
-    var callbacks = new OwnedCallbacks(null);
-    callbacks.Replace(() => current, value => current = value, owned);
-    current = later;
-    callbacks.Release();
-    Require(ReferenceEquals(current, later));
-});
-Check("event release removes only owned callback and survives cleanup reporter failure", () =>
-{
-    int originalCalls = 0, ownedCalls = 0, laterCalls = 0;
-    Action current = () => originalCalls++;
-    Action owned = () => ownedCalls++;
+    var released = new List<int>();
     var callbacks = new OwnedCallbacks(_ => throw new Exception("report failure"));
-    callbacks.Add(() => current, value => current = value, owned);
-    current += () => laterCalls++;
-    Func<int> broken = () => 1;
-    bool reject = false;
-    callbacks.Replace(() => broken, value => { if (reject) throw new Exception("release failure"); broken = value; }, new Func<int>(() => 2));
-    reject = true;
-    callbacks.Release(); current();
-    Require(originalCalls == 1 && laterCalls == 1 && ownedCalls == 0);
+    callbacks.Own(new CheckLease(() => released.Add(1)));
+    callbacks.Own(new CheckLease(() => { released.Add(2); throw new Exception("release failure"); }));
+    callbacks.Own(new CheckLease(() => released.Add(3)));
+    callbacks.Release(); callbacks.Release();
+    Require(callbacks.ReleaseFailed && released.SequenceEqual(new[] { 3, 2, 1 }));
 });
 Console.WriteLine($"{passed} total passed");
+
+sealed class CheckLease(Action release) : IDisposable
+{
+    public void Dispose() => release();
+}
