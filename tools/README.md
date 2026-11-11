@@ -1,6 +1,6 @@
 # 工具目录
 
-物品框架新增 `ItemDefinitionChecks`：读取正式 DLL 的真实定义/身份/文本/资源，并验证重复定义、缺名称/键/图像和身份贴图解析。`Check-Maintenance.ps1` 已包含构建和执行该工具两步（当前合计 28 步）。单独执行编译后的 Checks.dll 时传正式 DLL 和 Managed 两个路径；无参数只测检查器负例，不算真实内容验收。详见[物品接入](../docs/maintenance/item-extension.md)。
+物品框架新增 `ItemDefinitionChecks`：读取正式 DLL 的真实定义/身份/文本/资源，并验证重复定义、缺名称/键/图像和身份贴图解析。`Check-Maintenance.ps1` 已包含构建和执行该工具两步（当前合计 29 步，含正式/维护双扫描）。单独执行编译后的 Checks.dll 时传正式 DLL 和 Managed 两个路径；无参数只测检查器负例，不算真实内容验收。详见[物品接入](../docs/maintenance/item-extension.md)。
 
 静态检查脚本需要PowerShell 7或更高版本，以按大小写区分翻译JSON的键。正式构建仍由.NET SDK完成。
 
@@ -38,4 +38,4 @@
 
 ## 物品接入检查
 
-`ItemChecks` 链接真实 ItemRegistry 并使用目录/物品替身；同时读取本次正式 DLL 的真实 ItemIdentity 与 ResolveId，对照固定 90 条身份基线。已接入 Check-Maintenance，统一入口现为 26 步。单独运行需先 build 到独立 artifacts 目录，再执行新 Checks.dll 并传入正式 CorpPresence.dll 路径。不要自动覆盖 IdentityBaseline.json；接入与覆盖边界见[物品接入清单](../docs/maintenance/item-extension.md)。
+`ItemChecks` 链接真实 ItemRegistry 并使用目录/物品替身；同时读取本次正式 DLL 的真实 ItemIdentity 与 ResolveId，对照固定 90 条身份基线。已接入 Check-Maintenance，统一入口现为 29 步，含真实 RuntimeLifetime 与注册器组合回归及正式/维护双扫描。单独运行需先 build 到独立 artifacts 目录，再执行新 Checks.dll 并传入正式 CorpPresence.dll 路径。不要自动覆盖 IdentityBaseline.json；接入与覆盖边界见[物品接入清单](../docs/maintenance/item-extension.md)。

@@ -26,7 +26,7 @@ internal static class ModHook
 internal sealed class ModItemDirectory
 {
     internal readonly Dictionary<string,Func<GameItem>> factoryDictionary=new(StringComparer.Ordinal);
-    internal string RejectId, ThrowId;
+    internal string RejectId, ThrowId, ThrowRemoveId;
     internal int Adds;
     internal bool Has(string id)=>factoryDictionary.ContainsKey(id);
     internal bool Add(string id,Func<GameItem> factory)
@@ -39,13 +39,14 @@ internal sealed class ModItemDirectory
         DirectoryMaster.Current?.factoryDictionary.Remove(id);
         return factoryDictionary.TryAdd(id,factory);
     }
-    internal bool Remove(string id)=>factoryDictionary.Remove(id);
+    internal bool Remove(string id) { if(id==ThrowRemoveId) throw new InvalidOperationException("remove failed"); return factoryDictionary.Remove(id); }
 }
 internal static class DirectoryMaster
 {
     internal static ModItemDirectory Current;
     internal static readonly Dictionary<string,Func<GameItem>> Native=new();
     internal static bool Has<T>(string id)=>Native.ContainsKey(id) || Current?.Has(id)==true;
+    internal static Func<GameItem> GetFactory<T>(string id)=>Native.TryGetValue(id,out var factory)?factory:Current?.factoryDictionary.GetValueOrDefault(id);
     internal static GameItem Item(string id,bool isOwned)=>Native.TryGetValue(id,out var factory)?factory():Current.factoryDictionary[id]();
 }
 internal static class ItemIdentity
@@ -61,10 +62,18 @@ internal static class ItemIdentity
 internal static class Goods
 {
     internal static int Builds;
-    internal static GameItem Build(ItemIdentity.Entry entry) { Builds++;return new(){identifier=entry.Id}; }
+    internal static GameItem Product;
+    internal static GameItem Build(ItemIdentity.Entry entry) { Builds++;return Product ?? new(){identifier=entry.Id}; }
 }
 internal static class Cards
 {
     internal static int Builds;
     internal static GameItem Build(ItemIdentity.Entry entry) { Builds++;return new(){identifier=entry.Id}; }
+}
+internal static class MaintenanceDiagnostics
+{
+    internal static readonly List<(string Source,string Stage,string Code)> Faults=new();
+    internal static bool Fail;
+    internal static void Record(string source,string stage,string code,Exception error)
+    { if(Fail) throw new Exception("diagnostic failure"); Faults.Add((source,stage,code)); }
 }

@@ -76,7 +76,7 @@ bool Flag(object value,string name)=>(bool)value.GetType().GetProperty(name).Get
 PlayerStore.Instance=null;CorpState.Current=null;
 CorpPresence.Malice.Malice.IsInstalled=true;CorpPresence.Malice.Malice.LastReleaseFailed=false;
 snap=MaintenanceDiagnostics.Capture();
-Check(Modules(snap).Count==1 && Flag(Modules(snap)[0],"Installed") && !Flag(Modules(snap)[0],"ReleaseFailed") && !PlayerStore.IsInstanceExist() && CorpState.Current==null,"module capture is readonly without a player or save");
+Check(Modules(snap).Count==2 && Flag(Modules(snap)[0],"Installed") && !Flag(Modules(snap)[0],"ReleaseFailed") && !PlayerStore.IsInstanceExist() && CorpState.Current==null,"module capture is readonly without a player or save");
 CorpPresence.Malice.Malice.IsInstalled=false;CorpPresence.Malice.Malice.LastReleaseFailed=true;
 Check(Flag(Modules(snap)[0],"Installed") && !Flag(Modules(snap)[0],"ReleaseFailed"),"old module snapshot does not follow live state");
 readOnly=false;try{Modules(snap).Clear();}catch(NotSupportedException){readOnly=true;}Check(readOnly,"module list rejects mutation");
@@ -88,3 +88,8 @@ Check(Flag(Modules(MaintenanceDiagnostics.Capture())[0],"Installed"),"session re
 Portraits.Probe=()=>GameResources.Generation++;
 snap=MaintenanceDiagnostics.Capture();Portraits.Probe=null;
 Check(snap.SaveStatus==SaveDiagnosticStatus.Unstable && Modules(snap).Count==0 && MaintenanceFormatter.Format(snap).Contains("模块状态未知"),"unstable module state is unknown not uninstalled");
+ItemRegistry.IsInstalled=true;ItemRegistry.LastReleaseFailed=false;
+snap=MaintenanceDiagnostics.Capture();
+Check(MaintenanceFormatter.Format(snap).Contains("items 安装已提交=True 清理遇错=False"),"items lifecycle is part of the shared module report");
+ItemRegistry.IsInstalled=false;ItemRegistry.LastReleaseFailed=true;
+Check(MaintenanceFormatter.Format(snap).Contains("items 安装已提交=True 清理遇错=False") && MaintenanceFormatter.Format(MaintenanceDiagnostics.Capture()).Contains("items 安装已提交=False 清理遇错=True"),"item module snapshot is immutable and keeps release failures visible");

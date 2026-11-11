@@ -25,12 +25,15 @@ Reject(() => set.AddRange("batch", new[] { KeyValuePair.Create("three", new obje
 Check(!set.Values.ContainsKey("three"), "duplicate batch is atomic");
 Console.WriteLine($"DEFINITION CHECKS PASSED: {count}");
 var row = new ContentRow("one", "ordinary", new[] { "name" }, new[] { "one.png" });
-var identity = new FactoryRow("corp_presence_one", "one", null);
+var identity = new FactoryRow("corp_presence_one", "one", null, LegacyId: "ammo_box");
 var texts = new HashSet<string> { "name" };
 var resources = new HashSet<string> { "one.png" };
 List<string> Validate(ContentRow[] rows, FactoryRow[] ids, HashSet<string> t = null, HashSet<string> r = null) =>
     ContentContract.Validate(rows, ids, t ?? texts, r ?? resources);
 Check(Validate(new[] { row }, new[] { identity }).Count == 0, "valid content association");
+foreach(var missingBase in new string[] {null,""," "})
+    Check(Validate(new[]{row},new[]{identity with {LegacyId=missingBase}}).Any(e=>e.Contains("missing shell base")),"ordinary item without a creation base is rejected");
+Check(Validate(new[]{row with {IndependentShell=true}},new[]{identity with {LegacyId=null}}).Count==0,"custom shell or crate does not require a vanilla base");
 Check(Validate(new[] { row }, new[] { identity with { Goods = "missing" } }).Any(e => e.Contains("missing definition")), "missing factory definition rejected");
 Check(Validate(new[] { row }, Array.Empty<FactoryRow>()).Any(e => e.Contains("missing identity")), "unregistered definition rejected");
 Check(Validate(new[] { row }, new[] { identity }, new()).Any(e => e.Contains("missing text")), "missing text rejected");

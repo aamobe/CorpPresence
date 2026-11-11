@@ -6,7 +6,7 @@
 
 ## 后续自动检查
 
-在该期提交上执行 `./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python>'`。要求检查全绿、两种构建零警告零错误、正式 DLL 的官方权限、拒绝和待生效均为零，且无维护输入。统一入口只扫描正式 DLL。维护版另在隔离检查目录用 Check-ModPermissions.ps1 -RequireNone 扫描，验收标准相同。新增测试应纳入同一入口，先 build 到当次独立 artifacts 目录，再由同一 SDK 直接运行新 DLL 的绝对路径。避免 `dotnet run --artifacts-path` 误用默认旧产物。改动检查入口时同时运行同参数的 `Check-MaintenanceContract.ps1`。
+在该期提交上执行 `./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python>'`。要求检查全绿、两种构建零警告零错误、正式 DLL 的官方权限、拒绝和待生效均为零，且无维护输入。当前统一入口同时扫描正式与维护 DLL，两份均要求零权限；历史单扫描记录不能替代当前检查。新增测试应纳入同一入口，先 build 到当次独立 artifacts 目录，再由同一 SDK 直接运行新 DLL 的绝对路径。避免 `dotnet run --artifacts-path` 误用默认旧产物。改动检查入口时同时运行同参数的 `Check-MaintenanceContract.ps1`。
 
 | 规格 | 自动证据 | 游戏证据 |
 | --- | --- | --- |

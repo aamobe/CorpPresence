@@ -2,6 +2,8 @@
 
 公司增强以物品扩展为主。新增内容复用现有定义、身份、官方目录和配送流程，不新增一套加载器或注册协议。
 
+物品模块属于[总框架](framework.md)：Main 安装及激活，RuntimeLifetime 负责释放，Maintenance 显示安装/清理状态，统一检查验证与其他模块的连接。接入物品还须核对获取、付款配送、保存恢复及表现路径。
+
 2026-11-11：已在原有流程上增加带来源的定义汇总与真实编译内容检查。入口为 [Goods.Catalog](../../src/CorpPresence/Items/Goods.Definitions.cs) 和 [DefinitionSet](../../src/CorpPresence/Items/DefinitionSet.cs)。实施范围及证据见[物品框架实施](../changes/organize-internal-lifecycle/item-framework-evidence.md)。
 
 ## 一件物品经过哪些入口
@@ -34,15 +36,21 @@
 ./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python>'
 ```
 
-该入口先编译正式与维护 DLL，再执行包含 ItemChecks 的检查，最后完成本地化及正式版官方扫描。维护版单独运行零权限扫描，命令见[框架验证](../changes/organize-internal-lifecycle/verify.md)。
+该入口先编译正式与维护 DLL，再执行包含 ItemChecks 的检查，最后完成本地化及正式/维护两份官方零权限扫描。当前共 29 步，实际范围见[总框架验收](framework.md)。
 
 ItemChecks 的注册器测试链接真实 ItemRegistry，但目录、工厂产物及少量身份输入是替身；身份兼容检查则读取刚编译 DLL 的真实 ItemIdentity 表及 ResolveId，并与 `tools/ItemChecks/IdentityBaseline.json` 的 90 条基线逐条比较。允许追加，拒绝删除或修改旧映射；重复 ID、无工厂类别或两种类别并存、歧义旧映射会报错。
+
+该检查同时链接真实 RuntimeLifetime，覆盖等待、激活、回滚、重复停用、失败清理重试和重启。创建与旧档迁移必须确认本地及官方最终工厂仍归本模块所有，ID 存在本身不代表可用。清理失败不遗忘所有权，也不删除其他模块替换后的工厂。
+
+上述所有权约束只针对 ItemIdentity 声明的独立身份。ItemRegistry.Create 同时用于原版原料、标签模板及奖励；这些 ID 保留既有官方目录创建路径，不要求由本模组注册。
 
 **不要为通过检查直接重生成身份基线。** 新增条目在首个正式发布确认后单独审查并追加；改变旧映射需要明确迁移设计和旧档验证。该基线保护的是 99719c4 已有身份，不证明所有新增物品已经可生成。
 
 ItemDefinitionChecks 读取本次正式 DLL 的 Catalog、ItemIdentity、GoodsText 与实际嵌入资源，检查名称、稳定文本键、定义到身份的创建命名、身份贴图键解析和自有图像。公司卡片身份单独核对公司及 card 图像。基础图像、19 组显式状态图像与电池半电/空电图像使用现有规则；共享定义及 candle_lit 是合法关系，不要求 GoodsKey 唯一。
 
 检查不会执行 Shell/Setup/OnNew 或调用 Unity 工厂，不证明原版外观名称在实际游戏里可用，也不覆盖生产线所有动态资源访问、公司目录/剧情获取路径、视觉、占格、原版音效和加工结算。现有本地化检查继续覆盖语言回退和实际 CSV 解析，游戏行为仍须手测。
+
+实际描述中的 Crate 或 Shell 表示独立壳体；两者都没有时，每个对应身份必须提供非空 LegacyId 作为创建基底。检查拒绝缺失/空白基底，但不会据此宣称原版基底存在或其工厂行为通过。
 
 ## 接入步骤与边界
 

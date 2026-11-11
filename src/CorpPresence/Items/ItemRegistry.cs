@@ -5,6 +5,8 @@ namespace CorpPresence;
 
 internal static class ItemRegistry
 {
+    internal static bool IsInstalled => _onInit != null;
+    internal static bool LastReleaseFailed { get; private set; }
     internal static void AppendDiagnostics(System.Collections.Generic.ICollection<MaintenanceCounter> target)
     {
         target.Add(new MaintenanceCounter("items.factories", Factories.Count));
@@ -28,6 +30,11 @@ internal static class ItemRegistry
 
 	public static void Install()
 	{
+		if (LastReleaseFailed)
+		{
+			Uninstall();
+			if (LastReleaseFailed) throw new InvalidOperationException("物品工厂清理尚未完成，不能重新安装");
+		}
 		if (_onInit == null)
 		{
 			_onInit = Register;
@@ -42,18 +49,37 @@ internal static class ItemRegistry
 			ModHook.OnModItemDirectoryInit -= _onInit;
 			_onInit = null;
 		}
-		if (_directory != null)
-		{
-			foreach (string id in Registered)
-				if (Factories.TryGetValue(id, out var factory) && _directory.factoryDictionary.TryGetValue(id, out var current) && ReferenceEquals(factory, current))
-					_directory.Remove(id);
-		}
-		Registered.Clear();
-		_directory = null;
+		ReleaseFactories();
 		_pendingDirectory = null;
 		Reported.Clear();
 		_reportedRegisteredCount = 0;
 		_hasReportedSummary = false;
+	}
+
+	private static void ReleaseFactories()
+	{
+		LastReleaseFailed = false;
+		foreach (string id in new List<string>(Registered))
+		{
+			try
+			{
+				if (_directory != null && Factories.TryGetValue(id, out var factory)
+					&& _directory.factoryDictionary.TryGetValue(id, out var current) && ReferenceEquals(factory, current))
+				{
+					_directory.Remove(id);
+					if (_directory.factoryDictionary.TryGetValue(id, out current) && ReferenceEquals(factory, current))
+						throw new InvalidOperationException("物品工厂移除未生效");
+				}
+				Registered.Remove(id);
+			}
+			catch (Exception ex)
+			{
+				LastReleaseFailed = true;
+				Report("release", "remove_failed", ex);
+				Warn("release:" + id, "清理独立物品失败，保留所有权供重试：" + id);
+			}
+		}
+		if (Registered.Count == 0) _directory = null;
 	}
 
 	public static void Activate()
@@ -73,6 +99,8 @@ internal static class ItemRegistry
 		if (!GameResources.Ready) { _pendingDirectory = directory; return; }
 		if ((object)_directory != directory)
 		{
+			ReleaseFactories();
+			if (LastReleaseFailed) return;
 			_directory = directory;
 			Registered.Clear();
 		}
@@ -80,13 +108,18 @@ internal static class ItemRegistry
 		{
 			try
 			{
-				if (Registered.Contains(entry.Id) && directory.Has(entry.Id))
+				// Global availability can be shadowed while we still own the local entry.
+				// Retain that ownership so replacement/disable can release it later.
+				if (Registered.Contains(entry.Id) && Factories.TryGetValue(entry.Id, out var owned)
+					&& directory.factoryDictionary.TryGetValue(entry.Id, out var current) && ReferenceEquals(owned, current))
 				{
+					if (!IsAvailable(entry.Id)) Report("register", "shadowed");
 					continue;
 				}
 				Registered.Remove(entry.Id);
 				if (directory.Has(entry.Id) || DirectoryMaster.Has<GameItem>(entry.Id))
 				{
+					Report("register", "collision");
 					Warn("collision:" + entry.Id, "独立物品 ID 已被占用，保留现有工厂：" + entry.Id);
 					continue;
 				}
@@ -101,11 +134,13 @@ internal static class ItemRegistry
 				}
 				else
 				{
+					Report("register", "add_refused");
 					Warn("add:" + entry.Id, "注册独立物品失败：" + entry.Id);
 				}
 			}
 			catch (Exception ex)
 			{
+				Report("register", "add_failed", ex);
 				Warn("register:" + entry.Id, "注册 " + entry.Id + " 失败：" + ex.Message);
 			}
 		}
@@ -125,7 +160,13 @@ internal static class ItemRegistry
 		}
 		try
 		{
-			return DirectoryMaster.Has<GameItem>(id);
+			// This shared creation entry also serves vanilla ingredients, templates and rewards.
+			// Only our declared independent identities require registry ownership.
+			if (ItemIdentity.Find(id, null) == null) return DirectoryMaster.Has<GameItem>(id);
+			return IsInstalled && GameResources.Ready && !LastReleaseFailed
+				&& Registered.Contains(id) && Factories.TryGetValue(id, out var owned)
+				&& _directory != null && _directory.factoryDictionary.TryGetValue(id, out var current)
+				&& ReferenceEquals(owned, current) && ReferenceEquals(owned, DirectoryMaster.GetFactory<GameItem>(id));
 		}
 		catch (Exception ex)
 		{
@@ -142,6 +183,7 @@ internal static class ItemRegistry
 		}
 		if (!IsAvailable(id))
 		{
+			Report("create", "unavailable");
 			if (ItemIdentity.Find(id, null) != null)
 			{
 				Warn("missing:" + id, "物品目录未就绪，暂不生成：" + id);
@@ -159,6 +201,7 @@ internal static class ItemRegistry
 			catch (Exception ex) { Warn("discard:" + id, "回收错误身份的临时物品失败：" + id + "；" + ex.Message); }
 		}
 		Warn("create:" + id, "物品工厂返回了不匹配的身份：" + id);
+		Report("create", "wrong_identity");
 		return null;
 	}
 
@@ -227,11 +270,16 @@ internal static class ItemRegistry
 		Migrate(__0);
 	}
 
+	private static void Report(string stage, string code, Exception error = null)
+	{
+		try { MaintenanceDiagnostics.Record("items", stage, code, error); } catch { }
+	}
+
 	private static void Warn(string key, string message)
 	{
 		if (Reported.Add(key))
 		{
-			ModLog.Warn("[CorpPresence] " + message);
+			try { ModLog.Warn("[CorpPresence] " + message); } catch { }
 		}
 	}
 }

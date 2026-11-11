@@ -97,7 +97,10 @@ internal static class MaintenanceDiagnostics
             foreach (var owner in Ext.BeforeSave.Owners) registrations.Add(new MaintenanceRegistration("BeforeSave", owner));
             foreach (var owner in Ext.DayStart.Owners) registrations.Add(new MaintenanceRegistration("DayStart", owner));
             foreach (var owner in Ext.StateReset.Owners) registrations.Add(new MaintenanceRegistration("StateReset", owner));
-            var modules = new[] { new MaintenanceModuleState("malice", Malice.Malice.IsInstalled, Malice.Malice.LastReleaseFailed) };
+            var modules = new[] {
+                new MaintenanceModuleState("malice", Malice.Malice.IsInstalled, Malice.Malice.LastReleaseFailed),
+                new MaintenanceModuleState("items", ItemRegistry.IsInstalled, ItemRegistry.LastReleaseFailed)
+            };
             if (!ReferenceEquals(store, SaveSlot.CurrentStore) || !ReferenceEquals(data, store?.modData)
                 || generation != GameResources.Generation || ready != GameResources.Ready || !ReferenceEquals(state, CorpState.Current)
                 || (status == SaveDiagnosticStatus.Bound && !state.IsBoundReadonly(store)))

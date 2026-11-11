@@ -48,14 +48,15 @@ internal static class CompiledContent
                 catch (ArgumentException ex) { throw new Exception($"{sources[key]}/{key}: {ex.Message}", ex); }
                 if (Field(def, "ArtSource").ToString() == "TintedNativeSprite" && !key.StartsWith("fate_coin_", StringComparison.Ordinal))
                     throw new Exception($"{sources[key]}/{key}: tinted native art currently requires the fate_coin_ runtime route");
-                rows.Add(new(key, sources[key], textKeys.ToArray(), images, Text(def, "Name")));
+                rows.Add(new(key, sources[key], textKeys.ToArray(), images, Text(def, "Name"),
+                    (bool)Field(def, "Crate") || Field(def, "Shell") != null));
             }
             var identityType = assembly.GetType("CorpPresence.ItemIdentity", true);
             var identities = new List<FactoryRow>();
             foreach (var entry in (IEnumerable)identityType.GetProperty("All").GetValue(null))
             {
                 string Get(string name) => (string)entry.GetType().GetProperty(name).GetValue(entry);
-                identities.Add(new(Get("Id"), Get("Goods"), Get("Company"), Get("LegacySprite")));
+                identities.Add(new(Get("Id"), Get("Goods"), Get("Company"), Get("LegacySprite"), Get("LegacyId")));
             }
             using var stream = assembly.GetManifestResourceStream("CorpPresence.Translations.Keys.json") ?? throw new Exception("Missing keyed translations resource");
             using var json = JsonDocument.Parse(stream);

@@ -2,6 +2,8 @@
 
 仅供本项目开发维护；不提供第三方兼容承诺。完整范围见[总方案](../changes/add-maintenance-interfaces/overview.md)。
 
+当前全系统接入、所有权与回归选择见[总框架手册](framework.md)；历史维护接口方案保留为设计来源。
+
 ## 构建和请求报告
 
 ```powershell
@@ -51,6 +53,8 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 固定检查包含仓库静态检查、正式/维护构建、诊断/事件/付款/订单/生命周期/存档/芒果回归、DLL 元数据边界、冲突构建、配送恢复、本地化与官方权限扫描。指定 SDK 显式传给所有 dotnet 子检查，包括 Python 恢复检查与权限扫描。正式构建将警告视为错误。
 
+物品定义/身份/基底检查与注册器/RuntimeLifetime 组合测试也在统一入口内；正式和维护 DLL 分别扫描，当前合计 29 步，不再需要补跑第二份扫描。
+
 `Check-MaintenanceContract.ps1` 使用相同三个依赖参数，独立检查错误 SDK、缺游戏引用和失败子命令的退出契约。测试生成的临时脚本仅放 artifacts，不进入正式 DLL。
 
 停用时 Main 的所有权释放清除诊断，Malice 释放其事件租约；切换存档会清除旧会话故障。不要为排错重置业务进度或重发整单。
@@ -67,3 +71,11 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 当前 OwnedCallbacks 释放遇错仍继续并清空释放表，因此失败动作不会自动重试。实现和替身边界见[第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)。
 
 物品扩展的接入与身份基线检查见[新增物品接入清单](item-extension.md)；第二期优先此方向，原版事件模块试点暂缓。
+
+## 物品模块状态
+
+报告的 `items 安装已提交` 表示目录事件订阅已安装；等待资源期间可为真，不能推断全部身份已注册。`items.factories` 是缓存工厂数，`items.registered` 是当前跟踪的所有权条目数，不是全局有效工厂数。报告不读取 Goods.Catalog，不初始化物品或加载纹理。
+
+`items 清理遇错` 表示仍有本次未成功释放的所有权；实际失败条目保留，重复卸载或下一次安装前会重试。若他人已替换该工厂，只清本模块记录，不移除他人工厂。安装前清理仍失败会明确拒绝安装。物品的此语义与 Malice 清空释放表后的失败记录不同。
+
+故障聚合使用固定模块 `items`，阶段 `register/create/release`；异常消息不进入结构化快照。记录失败不阻断业务或后续清理。

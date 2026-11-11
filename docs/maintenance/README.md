@@ -11,6 +11,8 @@
 
 ## 按任务查找
 
+[总框架接入与验收](framework.md)统一启动、资源、物品、设备、付款配送、存档、扩展、UI 与诊断的接入契约和回归选择；物品具体字段继续见[物品接入](item-extension.md)。
+
 [框架跨设备交接](../changes/organize-internal-lifecycle/cross-device-handoff.md)提供换机复现步骤、模块接入清单、检查选择表及待游戏验证场景。
 
 [官方接口跟踪](official-api.md)记录官方文档版本、API 更新及本项目验证边界。

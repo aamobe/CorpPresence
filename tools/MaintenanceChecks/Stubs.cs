@@ -40,7 +40,7 @@ namespace CorpPresence {
 internal static class Main {internal const string Version="test";}
 internal static class Portraits {internal static Action Probe; internal static void AppendDiagnostics(ICollection<MaintenanceCounter> c){Probe?.Invoke();c.Add(new MaintenanceCounter("portrait.textures",2));}}
 internal static class CatalogPricing {internal static void AppendDiagnostics(ICollection<MaintenanceCounter> c){}}
-internal static class ItemRegistry {internal static void AppendDiagnostics(ICollection<MaintenanceCounter> c){}}
+internal static class ItemRegistry {internal static bool IsInstalled, LastReleaseFailed; internal static void AppendDiagnostics(ICollection<MaintenanceCounter> c){}}
 }
 
 namespace UnityEngine {

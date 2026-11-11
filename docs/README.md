@@ -33,6 +33,7 @@
 | 文档 | 内容 |
 | --- | --- |
 | [维护首页](maintenance/README.md) | 按维护任务选择入口 |
+| [总框架接入与验收](maintenance/framework.md) | 全系统模块契约、物品集成、跨模块回归与完成标准 |
 | [源码地图](源码地图.md) | 目录职责、生命周期、数据流与常见修改位置 |
 | [分期工程](maintenance/engineering-roadmap.md) | 各期依赖、代码入口、实施顺序和验收条件 |
 | [构建与发布](maintenance/build-and-release.md) | 本地依赖、编译、部署、版本核对与发布记录 |

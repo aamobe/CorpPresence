@@ -2,6 +2,8 @@
 
 本文为 b1e1dd2 对应的换机记录。后续物品框架改动与当前检查入口见[物品框架实施](item-framework-evidence.md)；本文的 26 步及 DLL 哈希不代表后续产物。
 
+当前换机请使用[总框架手册](../../maintenance/framework.md)与[整合证据](framework-integration-evidence.md)。下文为历史步骤：当前入口已同时扫描正式/维护 DLL；不再等待新物品需求才整合框架。
+
 2026-11-11（Asia/Shanghai）。本轮基于 GitHub `a948375`，在另一台已有游戏和 SDK 的机器上复现；不是全新系统或空依赖缓存验证。用户选择保留旧分支，并基于远端继续。旧分支 github-main 的 `740c067` 未合并，当前工作分支 work/framework-phase-three。
 
 第三期决定见[保留现有实现](phase-three-decision.md)。本轮范围是复现与文档交接，不新增物品、不调整运行行为。新提交不等于工坊更新，工坊身份仍查[发布记录](../../releases/1.1.0-internal-maintenance.md)。

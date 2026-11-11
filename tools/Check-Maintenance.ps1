@@ -71,6 +71,11 @@ try {
  Copy-Item -LiteralPath $regular -Destination (Join-Path $scan 'CorpPresence.dll')
  Copy-Item -LiteralPath (Join-Path $repo 'manifest.xml') -Destination $scan
  Invoke-Check 'permissions' 'native-scanner' $pwsh @('-NoProfile','-File',(Join-Path $PSScriptRoot 'Check-ModPermissions.ps1'),'-GameManaged',$managed,'-ModFolder',$scan,'-Dotnet',$sdk,'-RequireNone')
+ $maintenanceScan=Join-Path $runRoot 'maintenance-scan'
+ New-Item -ItemType Directory -Path $maintenanceScan | Out-Null
+ Copy-Item -LiteralPath $maintenance -Destination (Join-Path $maintenanceScan 'CorpPresence.dll')
+ Copy-Item -LiteralPath (Join-Path $repo 'manifest.xml') -Destination $maintenanceScan
+ Invoke-Check 'maintenance-permissions' 'native-scanner' $pwsh @('-NoProfile','-File',(Join-Path $PSScriptRoot 'Check-ModPermissions.ps1'),'-GameManaged',$managed,'-ModFolder',$maintenanceScan,'-Dotnet',$sdk,'-RequireNone')
  Write-Output "ALL CHECKS PASSED: $($results.Count) checks; evidence: $runRoot"
  Write-Output 'No game launch, deployment, package, upload, merge or push. Gameplay remains user-manual.'
 }

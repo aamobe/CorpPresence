@@ -12,6 +12,12 @@ ModItemDirectory Directory()
     var directory=new ModItemDirectory();DirectoryMaster.Current=directory;ModHook.Fire(directory);return directory;
 }
 Reset();
+foreach(var nativeId in new[]{"ammo_box","blood_bag","c4","galaxy_blend"})
+{
+    DirectoryMaster.Native[nativeId]=()=>new(){identifier=nativeId};
+    Check(ItemRegistry.IsAvailable(nativeId) && ItemRegistry.Create(nativeId)?.identifier==nativeId,"native factory remains available through existing shared entry: "+nativeId);
+}
+DirectoryMaster.Native.Clear();
 ItemRegistry.Install();ItemRegistry.Install();Check(ModHook.Count==1,"install subscribes once");
 var first=Directory();var latest=Directory();
 Check(first.Adds==0 && latest.Adds==0 && Goods.Builds==0,"waiting for resources does not register or build items");
@@ -34,13 +40,18 @@ Reset();ItemRegistry.Install();GameResources.Ready=true;
 var collision=new ModItemDirectory();collision.factoryDictionary["corp_presence_test"]=external;
 DirectoryMaster.Native["corp_presence_other"]=external;DirectoryMaster.Current=collision;ModHook.Fire(collision);
 Check(ReferenceEquals(collision.factoryDictionary["corp_presence_test"],external) && !collision.Has("corp_presence_other") && collision.Has("corp_presence_card_test"),"both mod and native collisions preserve existing factories and allow other entries");
+int foreignCalls=0;
+collision.factoryDictionary["corp_presence_test"]=()=>{foreignCalls++;return new(){identifier="corp_presence_test"};};
+var blockedNode=new SaveItemNode {identifier="ammo_box",spritePath="corp_med_test"};
+ItemRegistry.BeforeDecode(new(){blockedNode});
+Check(!ItemRegistry.IsAvailable("corp_presence_test") && ItemRegistry.Create("corp_presence_test")==null && foreignCalls==0 && blockedNode.identifier=="ammo_box","conflicted factories cannot create or receive migrated saves");
 int warnings=ModLog.Warnings.Count;ModHook.Fire(collision);Check(ModLog.Warnings.Count==warnings,"collision warnings deduplicate");
 Reset();ItemRegistry.Install();GameResources.Ready=true;
 var partial=new ModItemDirectory {RejectId="corp_presence_test",ThrowId="corp_presence_other"};DirectoryMaster.Current=partial;ModHook.Fire(partial);
 Check(partial.factoryDictionary.Count==1 && partial.Has("corp_presence_card_test"),"rejected and throwing registrations do not block later entries");
 partial.RejectId=partial.ThrowId=null;ModHook.Fire(partial);Check(partial.factoryDictionary.Count==3,"later directory notification retries failed entries");
 var replacement=Directory();Check(replacement.factoryDictionary.Count==3,"a replacement directory receives all factories");
-// Earlier directory ownership is deliberately not claimed by these counts; see the handoff boundary.
+Check(partial.factoryDictionary.Count==0,"switching directories releases the previous owned factories");
 Reset();ItemRegistry.Install();GameResources.Ready=true;var migration=Directory();
 var legacy=new GameItem {identifier="ammo_box",spritePath="corp_med_test"};
 Check(ItemRegistry.Migrate(legacy) && legacy.identifier=="corp_presence_test" && !ItemRegistry.Migrate(legacy),"legacy migration changes identity once");
@@ -51,15 +62,57 @@ ItemRegistry.BeforeDecode(new(){null,node});Check(node.identifier=="corp_presenc
 DirectoryMaster.Current=null;var unavailable=new GameItem {identifier="ammo_box",spritePath="corp_med_test"};
 Check(!ItemRegistry.Migrate(unavailable) && unavailable.identifier=="ammo_box" && ItemRegistry.Create("corp_presence_test")==null,"unavailable destination prevents migration and creation");
 DirectoryMaster.Current=migration;
+var ownedFactory=migration.factoryDictionary["corp_presence_test"];
+foreignCalls=0;
+migration.factoryDictionary["corp_presence_test"]=()=>{foreignCalls++;return new(){identifier="corp_presence_test"};};
+Check(ItemRegistry.Create("corp_presence_test")==null && foreignCalls==0,"replacement factory is not invoked even if its product would match the ID");
+migration.factoryDictionary["corp_presence_test"]=ownedFactory;
+DirectoryMaster.Native["corp_presence_test"]=()=>{foreignCalls++;return new(){identifier="corp_presence_test"};};
+Check(ItemRegistry.Create("corp_presence_test")==null && foreignCalls==0,"global factory shadowing blocks creation even while local registration survives");
+ModHook.Fire(migration);
+var shadowCounters=new List<MaintenanceCounter>();ItemRegistry.AppendDiagnostics(shadowCounters);
+Check(shadowCounters.Single(c=>c.Name=="items.registered").Value==3,"directory notification retains local ownership when a global factory shadows it");
+DirectoryMaster.Native.Remove("corp_presence_test");
 foreach(var (parent,destroyed,expected) in new[]{(false,false,1),(true,false,0),(false,true,0)})
 {
     var wrong=new GameItem {identifier="wrong",parentInventory=parent?new object():null,IsDestroyed=destroyed};
-    migration.factoryDictionary["corp_presence_test"]=()=>wrong;
+    Goods.Product=wrong;
     Check(ItemRegistry.Create("corp_presence_test")==null && wrong.DestroyCalls==expected,"wrong identity cleanup respects ownership "+(parent,destroyed));
 }
+Goods.Product=null;
 Check(ItemRegistry.Create(null)==null && !ItemRegistry.Migrate(null),"null inputs remain harmless");
+DirectoryMaster.Native["corp_presence_test"]=external;ModHook.Fire(migration);ItemRegistry.Uninstall();
+Check(migration.factoryDictionary.Count==0 && ReferenceEquals(DirectoryMaster.Native["corp_presence_test"],external),"uninstall releases shadowed local factories and preserves the global replacement");
 Reset();
 Console.WriteLine($"{passed} registry checks passed; game objects and identity inputs substituted.");
+bool RegistryFlag(string name)=>(bool)(typeof(ItemRegistry).GetProperty(name,System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic)?.GetValue(null) ?? false);
+var lifetime=new CorpPresence.Runtime.RuntimeLifetime(_=>{});
+lifetime.Start(()=>lifetime.Own(ItemRegistry.Install,ItemRegistry.Uninstall));
+var waiting=Directory();
+Check(RegistryFlag("IsInstalled") && !RegistryFlag("LastReleaseFailed") && waiting.Adds==0,"runtime owns item subscription before resources are ready");
+GameResources.Ready=true;lifetime.Continue(ItemRegistry.Activate);
+Check(waiting.Adds==3 && Goods.Builds==0,"resource continuation registers factories without creating items");
+waiting.ThrowRemoveId="corp_presence_test";
+lifetime.Stop();
+Check(!RegistryFlag("IsInstalled") && RegistryFlag("LastReleaseFailed") && waiting.factoryDictionary.Count==1 && ModHook.Count==0,"failed release continues other removals and exposes degraded module state");
+Check(!ItemRegistry.IsAvailable("corp_presence_test") && MaintenanceDiagnostics.Faults.Any(f=>f.Source=="items" && f.Stage=="release"),"failed cleanup does not authorize stale factory and reports fixed module stage");
+bool refusedRestart=false;try { ItemRegistry.Install(); } catch(InvalidOperationException) {refusedRestart=true;}
+Check(refusedRestart && ModHook.Count==0 && RegistryFlag("LastReleaseFailed"),"reinstall refuses to hide cleanup that still fails");
+waiting.ThrowRemoveId=null;
+ItemRegistry.Uninstall();
+Check(waiting.factoryDictionary.Count==0 && !RegistryFlag("LastReleaseFailed"),"repeat uninstall retries retained owned cleanup");
+lifetime.Start(()=>lifetime.Own(ItemRegistry.Install,ItemRegistry.Uninstall));
+var restarted=Directory();
+Check(restarted.factoryDictionary.Count==3 && ModHook.Count==1,"runtime restart has one subscription and one factory per identity");
+lifetime.Stop();lifetime.Stop();
+Check(restarted.factoryDictionary.Count==0 && ModHook.Count==0,"runtime repeated stop leaves no owned registrations");
+try { lifetime.Start(()=>{lifetime.Own(ItemRegistry.Install,ItemRegistry.Uninstall);Directory();throw new InvalidOperationException("later module failed");}); } catch(InvalidOperationException) {}
+Check(ModHook.Count==0 && DirectoryMaster.Current.factoryDictionary.Count==0,"later module startup failure rolls back item ownership");
+MaintenanceDiagnostics.Fail=true;
+ItemRegistry.Install();var diagnosticCollision=new ModItemDirectory();diagnosticCollision.factoryDictionary["corp_presence_test"]=external;
+DirectoryMaster.Current=diagnosticCollision;ModHook.Fire(diagnosticCollision);
+Check(diagnosticCollision.Has("corp_presence_card_test"),"diagnostics failure cannot abort other item registration");
+MaintenanceDiagnostics.Fail=false;Reset();
 
 var saved=new IdentityEntry("corp_presence_saved","ammo_box","corp_med_saved","saved",null);
 var appended=new IdentityEntry("corp_presence_new",null,"corp_med_new","new",null);

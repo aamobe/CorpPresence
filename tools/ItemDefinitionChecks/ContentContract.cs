@@ -1,5 +1,5 @@
-internal sealed record ContentRow(string Key, string Source, string[] TextKeys, string[] Resources, string Name = "name");
-internal sealed record FactoryRow(string Id, string Goods, string Company, string Sprite = null);
+internal sealed record ContentRow(string Key, string Source, string[] TextKeys, string[] Resources, string Name = "name", bool IndependentShell = false);
+internal sealed record FactoryRow(string Id, string Goods, string Company, string Sprite = null, string LegacyId = null);
 
 internal static class ContentContract
 {
@@ -38,7 +38,12 @@ internal static class ContentContract
                 if (string.IsNullOrWhiteSpace(resource) || !resources.Contains(resource)) errors.Add($"missing resource: {row.Source}/{row.Key}: {resource}");
         }
         foreach (var identity in identities)
+        {
             if (identity.Goods != null && !keys.Contains(identity.Goods)) errors.Add($"missing definition: {identity.Id}/{identity.Goods}");
+            var definition = definitions.FirstOrDefault(d => d.Key == identity.Goods);
+            if (definition != null && !definition.IndependentShell && string.IsNullOrWhiteSpace(identity.LegacyId))
+                errors.Add($"missing shell base: {definition.Source}/{definition.Key}/{identity.Id}");
+        }
         return errors;
     }
     internal static List<string> ValidateSpritePaths(IReadOnlyList<FactoryRow> identities, Func<FactoryRow, bool> resolves) =>

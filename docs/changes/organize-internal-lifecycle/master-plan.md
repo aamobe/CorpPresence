@@ -1,6 +1,8 @@
 # 内部框架建设总方案
 
-2026-11-11 · 二期自动检查已完成；第三期按用户后续要求依托原框架补齐物品定义与关联检查；第四期交接进行中，游戏验收待补 · 任务 [Issue #2](https://github.com/aamobe/CorpPresence/issues/2)
+2026-11-11 · 物品已纳入总框架，本轮开发与自动验收完成；游戏验收与远端交接待完成 · 任务 [Issue #2](https://github.com/aamobe/CorpPresence/issues/2)
+
+当前执行入口：[总框架整合计划](framework-integration-plan.md)、[证据](framework-integration-evidence.md)、[全系统模块契约与回归矩阵](../../maintenance/framework.md)。物品是总框架的内容模块，共用 Main/RuntimeLifetime、Maintenance 和 Check-Maintenance，不作为另一套独立框架维护。既有阶段历史保留，当前完成状态以本轮证据为准。
 
 目标是降低公司增强新增功能、故障定位、回归与跨设备交接的成本。生产基线为 2500a6e；本方案建立在 46970f1 的设计文档上。现有诊断、三个具名事件、回调租约和 Malice 局部失败回滚作为基础能力继续使用。
 
@@ -78,6 +80,9 @@ Main 显式装配，RuntimeLifetime 持有运行期释放动作，ResourceBootst
 首期 Malice 已有自动证据；原第二候选的原版事件段已按用户意见暂缓，改为物品接入。阶段工作量用任务和验收结果衡量，当前没有可信工期。任何新增接口先写明真实调用者、可变化依赖和失败契约；缺少依据时采用普通内部方法。
 
 ## 任务总表
+
+- [x] 总框架整合：物品所有权、生命周期组合回归、只读模块诊断、真实创建描述检查、统一双扫描及全系统接入矩阵；[本轮证据](framework-integration-evidence.md)。
+- [ ] 本轮远端同步与真实游戏验收；下列历史游戏欠项继续保留。
 
 - [ ] 零期环境与游戏验收基线。
 - [ ] 一期 Malice 模块观测及真实入口验证。
