@@ -53,6 +53,7 @@ internal sealed class ExtensionEvent
         try { ModLog.Warn("子模组事件 " + Label(_name) + " 出错：" + Label(owner) + "/" + code); } catch { }
     }
     private static string Label(string value) => value.Length <= 128 ? value : value.Substring(0, 128);
+    internal void ResetWarning() => _warned = false;
     internal void Clear()
     {
         foreach (var lease in _listeners.ToArray()) lease.Dispose();

@@ -44,4 +44,27 @@ Check(Ext.BeforeSave.Owners.Count==0 && Ext.StateReset.Owners.Count==0 && Ext.Da
 Check(!ModuleFlag("IsInstalled") && !ModuleFlag("LastReleaseFailed"),"repeated normal uninstall remains clean");
 CorpPresence.Malice.Malice.Install();Check(Ext.DayStart.Owners.SequenceEqual(new[]{"unrelated","malice"}),"reinstall preserves existing order");CorpPresence.Malice.Malice.Uninstall();unrelated.Dispose();
 
+// Every failed invocation is diagnosed even when human warnings are suppressed.
+MaintenanceDiagnostics.Reports=0;ModLog.Warnings.Clear();
+for(int i=0;i<3;i++) {
+    Check(Ext.Ask<int>("review.ask",()=>throw new InvalidOperationException("private-path"),7)==7,"failed query keeps fallback");
+    Ext.Fire("review.fire",()=>throw new InvalidOperationException("private-path"));
+}
+Check(MaintenanceDiagnostics.Reports==6,"Ask and Fire diagnose failures hidden by warning throttle");
+Check(ModLog.Warnings.Count==2 && ModLog.Warnings.All(x=>!x.Contains("private-path")),"extension warnings omit exception messages");
+MaintenanceDiagnostics.Fail=true;ModLog.Fail=true;
+Check(Ext.Ask<int>("review.logger",()=>throw new Exception("secret"),9)==9,"query fallback survives broken diagnostics and logger");
+Ext.Fire("review.logger.fire",()=>throw new Exception("secret"));
+MaintenanceDiagnostics.Fail=false;ModLog.Fail=false;
+
+var resetWarnings=typeof(Ext).GetMethod("ResetWarnings",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic);
+Check(resetWarnings!=null,"runtime exposes warning reset without revoking leases");
+using(var bad=Ext.DayStart.Subscribe("warning-reset",()=>throw new Exception("private"))) {
+    Ext.DayStart.Publish();ModLog.Warnings.Clear();
+    resetWarnings.Invoke(null,null);
+    Ext.DayStart.Publish();Ext.DayStart.Publish();
+    Ext.Fire("review.fire",()=>throw new Exception());Ext.Fire("review.fire",()=>throw new Exception());
+    Check(ModLog.Warnings.Count==2 && Ext.DayStart.Owners.Contains("warning-reset"),"new runtime warns again while retaining listeners and throttling repeats");
+}
+
 LifecycleChecks.Run(Check);

@@ -4,6 +4,8 @@
 
 ## 实施与验收进行中
 
+- [框架评审修复](../bugs/framework-review/assessment.md) · 异常诊断、保留策略、告警复位与补丁安装结果；[统一游戏验收表](../bugs/framework-review/manual-verification.md)。
+
 - [内部生命周期框架分期方案](organize-internal-lifecycle/overview.md) · 轻量模块整理的提案、调研、设计、规格、任务与验收清单。
 - [总框架整合](organize-internal-lifecycle/framework-integration-plan.md) · 物品接入总生命周期/诊断，真实内容检查与全系统交接；[结果](organize-internal-lifecycle/framework-integration-evidence.md)。
 

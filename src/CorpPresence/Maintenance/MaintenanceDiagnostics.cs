@@ -8,10 +8,15 @@ namespace CorpPresence;
 internal static class MaintenanceDiagnostics
 {
     private static readonly List<MaintenanceFault> Faults = new();
+    private static readonly List<MaintenanceFault> RuntimeFaults = new();
     private static WeakReference<PlayerStore> _store;
     private static WeakReference<Dictionary<string, string>> _data;
     private static long _generation;
     private static bool _sessionKnown;
+
+    internal static void RegisterLifetime(CorpPresence.Runtime.RuntimeLifetime lifetime)
+        // Keep shutdown/rollback evidence until the next enabled lifetime begins.
+        => lifetime.Own(Reset, () => { });
 
     private static bool Same<T>(WeakReference<T> weak, T value) where T : class =>
         weak == null ? value == null : weak.TryGetTarget(out var target) && ReferenceEquals(target, value);
@@ -31,23 +36,30 @@ internal static class MaintenanceDiagnostics
 
     internal static void Reset()
     {
-        Faults.Clear(); _store = null; _data = null; _sessionKnown = false;
+        Faults.Clear(); RuntimeFaults.Clear(); _store = null; _data = null; _sessionKnown = false;
     }
 
     private static string Bound(string value, int limit) => string.IsNullOrEmpty(value) ? "unknown" : value.Length <= limit ? value : value.Substring(0, limit);
 
     internal static void Record(string source, string stage, string code, Exception error)
+        => RecordCore(source, stage, code, error, false);
+
+    internal static void RecordRuntime(string source, string stage, string code, Exception error)
+        => RecordCore(source, stage, code, error, true);
+
+    private static void RecordCore(string source, string stage, string code, Exception error, bool runtime)
     {
         try
         {
             CheckSession();
+            var faults = runtime || SaveSlot.CurrentStore == null ? RuntimeFaults : Faults;
             source = Bound(source, 128); stage = Bound(stage, 128); code = Bound(code, 128);
             string type = error == null ? "none" : Bound(error.GetType().FullName, 256);
-            for (int i = 0; i < Faults.Count; i++)
+            for (int i = 0; i < faults.Count; i++)
             {
-                var previous = Faults[i];
+                var previous = faults[i];
                 if (previous.Source == source && previous.Stage == stage && previous.Code == code && previous.ExceptionType == type)
-                { Faults[i] = previous.Repeated(); return; }
+                { faults[i] = previous.Repeated(); return; }
             }
             var detail = new StringBuilder();
             if (error != null)
@@ -60,8 +72,8 @@ internal static class MaintenanceDiagnostics
                     if (method != null) detail.Append(Bound(method.DeclaringType?.FullName, 256)).Append('.').Append(Bound(method.Name, 128)).Append(';');
                 }
             }
-            if (Faults.Count == 64) Faults.RemoveAt(0);
-            Faults.Add(new MaintenanceFault(source, stage, code, type, detail.ToString(0, Math.Min(detail.Length, 4096))));
+            if (faults.Count == 64) faults.RemoveAt(16);
+            faults.Add(new MaintenanceFault(source, stage, code, type, detail.ToString(0, Math.Min(detail.Length, 4096))));
         }
         catch { /* Diagnostics must not escape into the business operation. */ }
     }
@@ -93,6 +105,7 @@ internal static class MaintenanceDiagnostics
             Portraits.AppendDiagnostics(counters);
             CatalogPricing.AppendDiagnostics(counters);
             ItemRegistry.AppendDiagnostics(counters);
+            PatchInstallation.AppendDiagnostics(counters);
             var registrations = new List<MaintenanceRegistration>();
             foreach (var owner in Ext.BeforeSave.Owners) registrations.Add(new MaintenanceRegistration("BeforeSave", owner));
             foreach (var owner in Ext.DayStart.Owners) registrations.Add(new MaintenanceRegistration("DayStart", owner));
@@ -105,8 +118,10 @@ internal static class MaintenanceDiagnostics
                 || generation != GameResources.Generation || ready != GameResources.Ready || !ReferenceEquals(state, CorpState.Current)
                 || (status == SaveDiagnosticStatus.Bound && !state.IsBoundReadonly(store)))
             { CheckSession(); return Unknown(); }
+            var faults = new List<MaintenanceFault>(RuntimeFaults);
+            faults.AddRange(Faults);
             return new MaintenanceSnapshot(Main.Version, ready, generation, status, corp, malice, orders, units,
-                counters, Faults, registrations, modules);
+                counters, faults, registrations, modules);
         }
         catch { return Unknown(); }
     }

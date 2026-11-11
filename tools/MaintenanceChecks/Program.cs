@@ -12,7 +12,7 @@ PlayerStore.Instance.modData=new();Check(MaintenanceDiagnostics.Capture().SaveSt
 CorpState.Get();Portraits.Probe=()=>PlayerStore.Instance=new();Check(MaintenanceDiagnostics.Capture().SaveStatus==SaveDiagnosticStatus.Unstable,"SessionChangeDiscardsCounts");Portraits.Probe=null;
 CorpState.Get();Portraits.Probe=()=>GameResources.Generation++;Check(MaintenanceDiagnostics.Capture().PendingOrders==null,"resource generation change discards counts");Portraits.Probe=null;
 MaintenanceDiagnostics.Reset();for(int i=0;i<65;i++)MaintenanceDiagnostics.Record("test","phase",i.ToString(),null);
-snap=MaintenanceDiagnostics.Capture();Check(snap.Faults.Count==64 && snap.Faults[0].Code=="1","FaultBufferEvictsAt64");
+snap=MaintenanceDiagnostics.Capture();Check(snap.Faults.Count==64 && snap.Faults[0].Code=="0" && !snap.Faults.Any(f=>f.Code=="16") && snap.Faults.Last().Code=="64","bounded buffer retains initial causes and recent failures");
 MaintenanceDiagnostics.Record("test","phase","64",new InvalidOperationException("secret/path"));
 snap=MaintenanceDiagnostics.Capture();Check(snap.Faults.All(f=>!f.Detail.Contains("secret")),"no exception message leakage");
 MaintenanceDiagnostics.Record("test","phase","64",new InvalidOperationException());
@@ -46,7 +46,11 @@ CorpState.Get();snap=MaintenanceDiagnostics.Capture();Check(snap.CorpWriteProtec
 MaintenanceDiagnostics.Record("test","phase","old",null);PlayerStore.Instance=null;CorpState.Current=null;
 Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"leaving store drops business faults");
 MaintenanceDiagnostics.Record("startup","phase","error",null);PlayerStore.Instance=new();
-Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"entering store drops menu faults");
+Check(MaintenanceDiagnostics.Capture().Faults.Single().Source=="startup","entering store preserves runtime faults");
+GameResources.Generation++;
+Check(MaintenanceDiagnostics.Capture().Faults.Single().Source=="startup","resource refresh preserves runtime faults");
+MaintenanceDiagnostics.Record("test","phase","session-only",null);PlayerStore.Instance=new();
+Check(MaintenanceDiagnostics.Capture().Faults.Single().Source=="startup","changing saves clears only session faults");
 MaintenanceDiagnostics.Record("test","phase","reset",null);MaintenanceDiagnostics.Reset();Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"disable reset clears diagnostics");
 
 UnityEngine.Time.unscaledTime=0;UnityEngine.Input.Down=false;MaintenanceConsole.Tick();Check(ModLog.Reports==0,"console does not report automatically");
@@ -123,3 +127,36 @@ Check(stages==1 && snap.Faults.Count==1 && snap.Faults[0].Source=="hooks" && sna
 Check(!snap.Faults[0].Detail.Contains("private-save-message"),"inner hook diagnostic excludes exception message");
 ModLog.Fail=true;guardedTask.Run(1);ModLog.Fail=false;
 Check(stages==2 && MaintenanceDiagnostics.Capture().Faults.Single().Count==2,"hook logging failure cannot hide diagnostics or stop later stages");
+
+MaintenanceDiagnostics.Reset();PlayerStore.Instance=new();
+PatchInstallation.Run("test.missing",()=>false);
+Check(MaintenanceDiagnostics.Capture().Faults.Any(f=>f.Source=="hooks" && f.Stage=="test.missing" && f.Code=="target_missing"),"missing patch target is visible in diagnostics");
+var patchError=new InvalidOperationException("private-path");bool propagated=false;
+try { PatchInstallation.Run("test.throw",()=>throw patchError); } catch(Exception error) { propagated=ReferenceEquals(error,patchError); }
+Check(propagated && MaintenanceDiagnostics.Capture().Faults.Any(f=>f.Stage=="test.throw" && f.Code=="patch_failed"),"patch failure is recorded and original exception still triggers rollback");
+PlayerStore.Instance=new();GameResources.Generation++;
+Check(MaintenanceDiagnostics.Capture().Faults.Count==2,"patch installation faults survive save and resource changes");
+ModLog.Fail=true;PatchInstallation.Run("test.missing.logger",()=>false);ModLog.Fail=false;
+Check(MaintenanceDiagnostics.Capture().Faults.Count==3,"missing patch diagnostics survive logger failure");
+PatchInstallation.Run("test.success",()=>true);
+var patchCounters=new List<MaintenanceCounter>();
+var appendPatches=typeof(PatchInstallation).GetMethod("AppendDiagnostics",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic);
+Check(appendPatches!=null,"patch installations expose readonly counters");
+appendPatches.Invoke(null,new object[]{patchCounters});
+Check(patchCounters.Single(c=>c.Name=="hooks.installed").Value==1,"only successful patch applications count as installed");
+var resetPatches=typeof(PatchInstallation).GetMethod("Reset",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic);
+Check(resetPatches!=null,"patch counters support lifetime reset");
+resetPatches.Invoke(null,null);patchCounters.Clear();appendPatches.Invoke(null,new object[]{patchCounters});
+Check(patchCounters.Single(c=>c.Name=="hooks.installed").Value==0,"successful unpatch resets installation count");
+
+var rollback=new CorpPresence.Runtime.RuntimeLifetime(_=>{});
+try {
+    rollback.Start(()=>{
+        MaintenanceDiagnostics.RegisterLifetime(rollback);
+        rollback.Own(()=>PatchInstallation.Run("test.rollback",()=>throw patchError),PatchInstallation.Reset);
+    });
+} catch(Exception error) { Check(ReferenceEquals(error,patchError),"startup rollback preserves original patch exception"); }
+Check(MaintenanceDiagnostics.Capture().Faults.Any(f=>f.Stage=="test.rollback"),"startup rollback retains failure diagnostics");
+rollback.Start(()=>MaintenanceDiagnostics.RegisterLifetime(rollback));
+Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"next enabled lifetime starts fresh diagnostics");
+rollback.Stop();

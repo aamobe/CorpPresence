@@ -4,6 +4,8 @@
 
 ## 完整流程
 
+评审后的诊断修复与裁决见[框架评审修复](../bugs/framework-review/assessment.md)；十项游戏场景统一记录到[单次验收表](../bugs/framework-review/manual-verification.md)。
+
 Main 核心阶段安装身份与补丁 → ResourceBootstrap 按实际资源状态等待 → 资源阶段激活物品目录及业务 → Host 执行运行任务 → SaveSlot/SaveBinding 绑定当前存档 → 公司目录/付款/配送取得物品 → Goods 创建、设备自行加工和恢复 → 停用逆序释放。
 
 Catalog 仅描述物品；ItemIdentity 保持持久身份；ItemRegistry 负责工厂所有权；设备保留库存和加工规则。维护报告读取登记状态，不为了显示定义数量而初始化 Catalog、加载纹理或生成物品。

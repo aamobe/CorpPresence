@@ -214,28 +214,20 @@ internal static class Hooks
 
 	private static void Patch<T>(Harmony h, string method, Type owner, string prefix = null, string postfix = null, Type[] args = null)
 	{
+		// Preserve the original typed lookup shape for the official permission scanner.
 		Type[] parameters = args ?? Type.EmptyTypes;
 		MethodInfo methodInfo = AccessTools.Method(typeof(T), method, parameters);
-		if (methodInfo == null)
-		{
-			ModLog.Warn("找不到 " + typeof(T).Name + "." + method + "，相关功能停用");
-		}
-		else
-		{
-			h.Patch(methodInfo, (prefix == null) ? null : new HarmonyMethod(owner, prefix), (postfix == null) ? null : new HarmonyMethod(owner, postfix));
-		}
+		Patch(h, methodInfo, typeof(T).Name + "." + method, owner, prefix, postfix);
 	}
 
 	private static void Patch(Harmony h, MethodInfo original, string label, Type owner, string prefix = null, string postfix = null)
 	{
-		if (original == null)
+		PatchInstallation.Run(label, () =>
 		{
-			ModLog.Warn("找不到 " + label + "，相关功能停用");
-		}
-		else
-		{
+			if (original == null) return false;
 			h.Patch(original, (prefix == null) ? null : new HarmonyMethod(owner, prefix), (postfix == null) ? null : new HarmonyMethod(owner, postfix));
-		}
+			return true;
+		});
 	}
 
 	private static void InstallSilverBloodPlacement(Harmony h)
@@ -246,15 +238,15 @@ internal static class Hooks
 			new[] { typeof(int), typeof(int), typeof(List<Vector2Int>) });
 		if (grow == null || wander == null || fits == null)
 		{
-			ModLog.Warn("找不到原版养殖缸占位方法，三叶蜥的边界保护停用");
+			PatchInstallation.Run("AquacultureHelper.Placement", () => false);
 			return;
 		}
 		Type owner = typeof(SilverBlood);
 		var prefix = new HarmonyMethod(owner, nameof(SilverBlood.BeginPlacement));
 		var finalizer = new HarmonyMethod(owner, nameof(SilverBlood.EndPlacement));
-		h.Patch(grow, prefix: prefix, finalizer: finalizer);
-		h.Patch(wander, prefix: prefix, finalizer: finalizer);
-		h.Patch(fits, prefix: new HarmonyMethod(owner, nameof(SilverBlood.BeforeTankFits)));
+		PatchInstallation.Run("AquacultureHelper.TryGrowIntoRoom", () => { h.Patch(grow, prefix: prefix, finalizer: finalizer); return true; });
+		PatchInstallation.Run("AquacultureHelper.TryWander", () => { h.Patch(wander, prefix: prefix, finalizer: finalizer); return true; });
+		PatchInstallation.Run("AquacultureHelper.TankOccupancy.Fits", () => { h.Patch(fits, prefix: new HarmonyMethod(owner, nameof(SilverBlood.BeforeTankFits))); return true; });
 	}
 
 	public static void InstallEvents()

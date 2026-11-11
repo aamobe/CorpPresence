@@ -23,7 +23,7 @@ dotnet build src/CorpPresence.csproj -c Release --artifacts-path artifacts/maint
 - 未加载、失配、不稳定和保护中的订单计数显示“未知”，不可理解为零订单。
 - 订单数是订单张数；剩余物品条目数是各订单 Items.Count 的和，不推测堆叠数量或现金奖励。
 - 缓存和物品注册计数只读现有集合，不代表场景实际物品扫描。
-- 故障最多 64 个聚合键，重复计数饱和；不保存异常原文、个人路径或存档 JSON。切换会话和停用清理。
+- 运行期和存档会话各最多 64 个聚合键，每层保留最早 16 个及最近 48 个，重复计数饱和；快照合并两层，最多 128 条。不保存异常原文、个人路径或存档 JSON。无玩家实例时的故障及明确调用 RecordRuntime 的补丁安装故障属于运行期；进档、换档和资源更新不清除它们。会话层仍在换档、字典或资源代次变化时清除；Reset 清除两层。
 
 ## 当前阶段
 
@@ -57,7 +57,7 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 `Check-MaintenanceContract.ps1` 使用相同三个依赖参数，独立检查错误 SDK、缺游戏引用和失败子命令的退出契约。测试生成的临时脚本仅放 artifacts，不进入正式 DLL。
 
-停用时 Main 的所有权释放清除诊断，Malice 释放其事件租约；切换存档会清除旧会话故障。不要为排错重置业务进度或重发整单。
+停用时 Malice 释放其事件租约，运行期诊断保留至下一次启用；切换存档会清除旧会话故障。不要为排错重置业务进度或重发整单。
 
 统一入口对每个检查先 build，再使用同一 SDK 直接运行新产物的绝对路径；不使用带 --artifacts-path 的 dotnet run，以免运行旧默认输出。当前原版付款、存读档、开店和电话回调契约见[契约核对记录](../changes/add-maintenance-interfaces/native-contracts.md)。
 
@@ -87,3 +87,13 @@ Host 的 RuntimeTask 每次执行失败都记录模块 `runtime`、阶段为源�
 换档清除旧会话故障后，即使文字日志仍在限流，新异常也会进入新会话报告。诊断保留异常类型与受限方法链，不保存异常消息、路径或异常对象；任务重试不是业务事务回滚，查看报告不会自动修复失败任务。实施证据见[运行任务诊断](../changes/organize-internal-lifecycle/runtime-task-diagnostics.md)。
 
 Hooks 内层 Guard 已接入 HookGuard：已捕获的异常记录为 `hooks/<固定阶段>/stage_failed`，后续阶段仍可运行，外层 RuntimeTask 不会重复记录这次已处理异常。故障报告没有自动修复语义；读档修复仍为单次尝试，不重放可能部分完成的修复操作。其他业务内自行捕获的异常仍需按模块审查，不能据此宣称所有 catch 都已进入报告。
+
+## 扩展点与补丁安装故障
+
+Main 通过 RegisterLifetime 在下一次启用开始时清空诊断；停用及失败回滚不再清空刚产生的故障。资源代次改变仍会清除会话层，运行期安装失败保留。完全回滚后维护热键宿主可能已销毁，不能保证仍可用热键查询；内存中的快照可供调试，原始启动错误仍由现有启动日志输出。
+
+Ask/Fire 每次失败记录 `ext/<扩展点>/callback_failed`；文字日志每个扩展点在一个 Mod 启用周期内只警告一次，且只写异常类型。日志或诊断失败不改变回退值；付款 Charge 的独立结果语义不变。Main 的正常启停重置节流及三个 ExtensionEvent 的告警标志，不清理其他模块订阅。单独切换恶意模式不代表新的 Mod 启用周期。
+
+Hooks 的统一 Patch 入口和养殖占位补丁经 PatchInstallation 记录：目标缺失为 `target_missing`，安装异常为 `patch_failed`，异常仍抛给原有回滚。`hooks.installed` 统计这些入口成功完成的安装调用数（同一目标的前后缀算一次），不是全局 Harmony 补丁总量，不包括其他模块自有安装器或他人补丁；只有 UnpatchAll 成功后归零。可选兼容探测未选择安装不算失败。计数不能证明补丁已在游戏里执行。
+
+本轮裁决、证据和未完成项见[框架评审修复](../bugs/framework-review/assessment.md)，合并后的[游戏验收表](../bugs/framework-review/manual-verification.md)可用于一次测试交接。
