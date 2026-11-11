@@ -1,16 +1,17 @@
-# 变更
+# 变更目录
 
-一个改动一个文件夹，放提案、规格的变化和任务清单；做完后移进 `archive/`。写法见根目录 `总方案.md` 第五章和附录 A、B、D。小改不需要建文件夹。
+按变更查找提案、实施任务和验证证据。历史记录保留原路径，便于追踪引用。
 
-## 进行中
+## 待评审
 
-- [1231 芒果彩蛋](add-mango-gift/plan.md)：独立芒果箱、可重复存取的芒果背包及每档一次送礼。
+- [内部生命周期框架分期方案](organize-internal-lifecycle/overview.md) · 轻量模块整理的提案、调研、设计、规格、任务与验收清单。
 
-- [内部接口建设总方案](add-maintenance-interfaces/overview.md)：面向自身开发维护，分五期补只读诊断、生命周期事件登记和真实付款回归；待审阅，尚未实施，不含第三方接口。
-- [公司增强分期工程核查](runtime-performance/checkpoint.md)：一期至六期已完成代码审查及本地检查；用户授权跳过本次游戏实测，保留具体场景和证据边界。发布状态见 [1.1.0](../releases/1.1.0.md)。
+## 已发布，游戏回归待完成
+
+- [内部维护接口](add-maintenance-interfaces/overview.md) · 只读诊断、三个具名事件和真实付款回归已实现。见[实施证据](add-maintenance-interfaces/evidence.md)、[游戏验收](add-maintenance-interfaces/verify.md)和[最新发布记录](../releases/1.1.0-internal-maintenance.md)。
+- [1231 芒果功能](add-mango-gift/plan.md) · 独立芒果箱、可重复存取背包及每档一次送礼。已上传，完整游戏回归待完成。
+- [分期工程核查](runtime-performance/checkpoint.md) · 一至六期的源码检查和本地验证记录；游戏实测缺口按原记录保留。见[首次 1.1.0 发布](../releases/1.1.0.md)。
 
 ## 已归档
 
-`archive/` 下是 2026-11-08 至 11-09 的七份实施计划（本地化稳定键、外部翻译包、官方 CSV、对白动作精简）。它们是当时的轻量任务清单：一段做法加若干勾选项，每项附了实际的验证结果。
-
-注意：其中“外部翻译包”的方案后来撤回，改用官方 CSV；归档的计划只代表当时的实施过程，不代表现在的运行时功能。现状以 [本地化键维护](../maintenance/localization-keys.md) 为准。
+[archive](archive/) 收录 2026-11-08 至 11-09 的七份历史实施计划，包括本地化稳定键、外部翻译包、官方 CSV 和对白动作精简。外部翻译包后来撤回，现状见[本地化键维护](../maintenance/localization-keys.md)。

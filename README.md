@@ -4,7 +4,7 @@
 
 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3828913695) · [游玩流程](公司增强游玩流程.txt) · [文档总目录](docs/README.md) · [维护指南](docs/maintenance/README.md)
 
-当前版本为 **1.0.1**。恶意模式下，撒该在发现扶持金要求的订阅失效后会给一天补订时间。详见[当前版本记录](docs/releases/1.0.1.md)和[翻译维护说明](docs/localization/README.md)。
+当前工坊版本标识为 **1.1.0**，最新接口版对应源码提交 `2500a6e`。已获上传成功回执，本次按用户要求省略回下载核对，完整游戏回归待完成。详见[最新发布记录](docs/releases/1.1.0-internal-maintenance.md)和[版本目录](docs/releases/README.md)。
 
 ## 常用入口
 
@@ -26,17 +26,29 @@
 ## 仓库目录
 
 ```text
-src/                    模组源码、嵌入素材与项目文件
+src/                    C# 源码、嵌入素材与项目文件
+Localization/           官方加载器读取的 en、ru、fr 翻译
 docs/
-  features/             产线和玩法规则
-  maintenance/          源码定位、构建发布与兼容约束
-  releases/             当前版本、发布证据与历史更新说明
-  art/                  像素素材和状态差分规范
-tools/                  构建、静态检查与已有诊断工具
-.github/ISSUE_TEMPLATE/ 问题反馈模板
-manifest.xml            官方模组加载器清单
+  specs/                当前玩法、产线与维护规则
+  maintenance/          构建发布、兼容回归与内部诊断
+  changes/              变更方案、实施任务及验收证据
+  decisions/            已接受与拟议的技术决策
+  releases/             发布记录、文件清单及历史版本
+  retrospective/        历史问题、反例与证据索引
+  art/                  项目美术维护入口
+  probably-stolen-art/  美术规范、参考资料与分析工具
+  localization/         翻译协作说明
+  源码地图.md           实现位置与调用链
+  存档数据模型.md       存档字段与兼容约束
+tools/                  构建、静态检查和回归程序
+.github/                GitHub 工作流与问题反馈模板
+AGENTS.md               项目约定与命令入口
+总方案.md              开发流程、设计检查与模板
+manifest.xml            官方加载器清单
 公司增强游玩流程.txt    玩家操作说明
 ```
+
+目录导航见[源码地图](docs/源码地图.md)和[工具目录](tools/README.md)。本地构建与检查输出位于已忽略的 `artifacts/`。
 
 ## 从源码构建
 

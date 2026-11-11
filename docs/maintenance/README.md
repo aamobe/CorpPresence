@@ -1,6 +1,6 @@
 # 维护指南
 
-1. 先读[当前发布记录](../releases/1.0.0.md)，确认修改所基于的源码。
+1. 先读[当前发布记录](../releases/1.1.0-internal-maintenance.md)，确认修改所基于的源码。
 2. 用[源码地图](../源码地图.md)找入口，并沿调用链检查UI、后端校验和存档。
 3. 涉及液体、库存、读档或会员时，读[兼容与回归](compatibility-and-regressions.md)。
 4. 完成修改后按[构建与发布](build-and-release.md)验证，并更新受影响文档。
@@ -11,7 +11,7 @@
 
 ## 按任务查找
 
-内部维护建设见[总方案](../changes/add-maintenance-interfaces/overview.md)，已完成的只读报告入口见[内部维护手册](internal-maintenance.md)；事件与付款检查按后续任务实施，不属于第三方扩展接口。
+只读诊断、三个生命周期事件和真实付款回归已实现并发布。使用方法见[维护手册](internal-maintenance.md)，验证边界见[实施证据](../changes/add-maintenance-interfaces/evidence.md)。后续整理见[待评审方案](../changes/organize-internal-lifecycle/overview.md)。
 
 | 维护任务 | 文档/位置 |
 | --- | --- |

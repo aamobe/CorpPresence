@@ -1,6 +1,6 @@
 # 文档总目录
 
-当前版本：[1.0稳定版](releases/1.0.0.md)。源码定位和发布操作从[维护指南](maintenance/README.md)进入。
+当前发布：[1.1.0 接口版](releases/1.1.0-internal-maintenance.md)，源码提交 `2500a6e`。源码定位和发布操作从[维护指南](maintenance/README.md)进入。
 
 ## 规则与流程
 
