@@ -1,6 +1,6 @@
 # 内部维护接口设计
 
-状态：按已设立目标实施，T1–T3 已完成；当前迁移生命周期事件。总范围见 [overview.md](overview.md)。对应[提案](proposal.md)。
+状态：按已设立目标实施，三类接口已实施，最终证据见 evidence.md。总范围见 [overview.md](overview.md)。对应[提案](proposal.md)。
 
 ## 已有机制与实际风险
 
@@ -29,7 +29,7 @@
 
 ### 快照与故障记录
 
-拟定入口：`MaintenanceDiagnostics.Capture(): MaintenanceSnapshot`、`Record(string source, string stage, string code, Exception error): void`、`Reset(): void`；`MaintenanceFormatter.Format(MaintenanceSnapshot snapshot): string`。
+实现入口：`MaintenanceDiagnostics.Capture(): MaintenanceSnapshot`、`Record(string source, string stage, string code, Exception error): void`、`Reset(): void`；`MaintenanceFormatter.Format(MaintenanceSnapshot snapshot): string`。
 
 快照字段：`Version:string`、`ResourcesReady:bool`、`Generation:long`、`SaveStatus:SaveDiagnosticStatus`、`CorpWriteProtected:bool?`、`MaliceWriteProtected:bool?`、`PendingOrders:int?`、`PendingItemUnits:long?`、`Counters:IReadOnlyList<MaintenanceCounter>`、`Faults:IReadOnlyList<MaintenanceFault>`。SaveDiagnosticStatus 为 NoStore、NotLoaded、Bound、Stale、Unstable；未加载/失配/不稳定时订单数量为 null，不能显示 0。
 
@@ -57,7 +57,7 @@ Ext 的 BeforeSave、DayStart、StateReset 改为只读 ExtensionEvent 实例。
 
 PaymentChecks 覆盖 null/空串/拒绝/抛异常四种扩展返回，实际扣款后异常不补扣。需要的诊断阶段为 `payment.check`、`payment.extension`、`payment.cash`，结果不确定用固定代码记录；记录不能改变现有返回文本或支付次数。保留历史限制：这不能证明跨档付款持久化或任意原版接口已提交后异常能够回滚。
 
-## 九项设计核查（拟定约束，实施后必须复核）
+## 九项设计核查（最终实现按以下约束复核）
 
 | 门禁 | 设计回答 |
 | --- | --- |
@@ -69,8 +69,14 @@ PaymentChecks 覆盖 null/空串/拒绝/抛异常四种扩展返回，实际扣�
 | 简单性 | 首批只迁移三个无参事件；不做第三方 API、依赖注入容器或内容框架 |
 | 性能 | 查询按需；缓存读 Count；故障容量固定；无新增场景扫描；按键入口只做按下沿判断 |
 | 权限 | 不新增文件/网络/线程/动态代码接口，最终仍用实际 ModScanner 核对零权限 |
-| 授权与来源 | 使用现有代码与依赖；无新素材；本次仅写方案，后续开发授权不等于部署/发布授权 |
+| 授权与来源 | 使用现有代码与依赖；无新素材；本轮已授权源码与本地验证，开发授权不等于部署/发布授权 |
 
 ## 停止扩大范围的条件
 
 若某个计数只能通过全场景扫描获得，首版省略该计数并说明。若付款提取要求改业务顺序，先缩小到原方法直接链接测试。发现真实缺陷先登记独立修复任务，不混进等价重构。定向修复功能只有出现已确认根因、可重复故障与幂等操作时另立提案。
+
+## 收尾补充
+
+维护快捷键同时接入 ResourceBootstrap.Update 和 Host.Update：等待资源时也能手动报告；共享同一节流器避免交接帧重复。正式构建两处调用均被条件编译移除。
+
+三个事件保留每事件一次的正式日志告警，固定事件/owner 标识最多 128 字符，不输出异常 Message；诊断队列和日志分别隔离异常。去重生命周期与原 Ext.Fire 一致，不因换档重复刷屏。

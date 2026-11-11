@@ -8,6 +8,7 @@ internal sealed class ExtensionEvent
     private readonly string _name;
     private readonly List<Lease> _listeners = new();
     private bool _publishing;
+    private bool _warned;
     internal ExtensionEvent(string name)
     {
         if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Event name required", nameof(name));
@@ -45,7 +46,13 @@ internal sealed class ExtensionEvent
     private void Report(string owner, string code, Exception error)
     {
         try { MaintenanceDiagnostics.Record(owner, "event." + _name, code, error); } catch { }
+        // Preserve the old once-per-event warning in regular builds as well.
+        // Only fixed identifiers are emitted; never log exception text here.
+        if (_warned) return;
+        _warned = true;
+        try { ModLog.Warn("子模组事件 " + Label(_name) + " 出错：" + Label(owner) + "/" + code); } catch { }
     }
+    private static string Label(string value) => value.Length <= 128 ? value : value.Substring(0, 128);
     internal void Clear()
     {
         foreach (var lease in _listeners.ToArray()) lease.Dispose();

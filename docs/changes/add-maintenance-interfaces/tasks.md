@@ -10,7 +10,7 @@
 
 **规格：** [proposal.md](proposal.md)。**接口及九门核查：** [design.md](design.md)。**游戏清单：** [verify.md](verify.md)。
 
-状态：目标已生效，按 T1→T6 实施；进度和实际证据见 evidence.md。总体入口见 [overview.md](overview.md)。
+状态：T1–T6 源码与本地验证完成，游戏验证待用户执行；进度和实际证据见 evidence.md。总体入口见 [overview.md](overview.md)。
 
 ## 全局约束
 
@@ -107,12 +107,12 @@
 
 脚本参数：`-GameManaged <目录> -Dotnet <SDK可执行文件> -Python <解释器>`；可选 `-OutputRoot <本地输出目录>`，默认 artifacts/maintenance-checks。所有子检查使用指定 SDK；脚本不把参数写回仓库。未来生成的检查与日志只保留在忽略目录。
 
-- [ ] 先验证错误 SDK、缺游戏引用及子检查非零返回时总脚本失败，不出现“全部通过”；检查列表固定，不靠扫描并执行未知工程。
-- [ ] 串联仓库检查、Release 构建、MaintenanceChecks、ExtensionChecks、PaymentChecks、OrderChecks、RuntimeLifetimeChecks、SaveStateChecks、RestorationChecks/State、本地化及最终官方权限扫描。临时扫描目录仅放当前 DLL 和 manifest，不生成分发压缩包。
-- [ ] 检查脚本输出测试名称、退出码和证据层级；扫描须 Pending=0、Unknown=0、undeclared=0、Refused=False，正式构建零警告/错误。其他生产线未改则不为凑数量全量重跑。
-- [ ] 最终差异审查重点为诊断副作用、回调遗漏/重复、收费默认回退、测试代码排除；回填 verify 的实际层级，不把未执行的游戏场景勾为通过。
-- [ ] 更新维护文档：如何构建维护版、请求报告、解释未知状态、复跑回归、卸载清理；把实际诊断字段及事件清单写回源码地图。新存档字段应为零，如有变化需先重开设计核查。
-- [ ] 写五期总结与总交付报告，逐项列出未提交/未推送、用户待决策和文档发现；本地提交。发布、版本号和主分支合并在后续明确授权范围内处理。
+- [x] 先验证错误 SDK、缺游戏引用及子检查非零返回时总脚本失败，不出现“全部通过”；检查列表固定，不靠扫描并执行未知工程。
+- [x] 串联仓库检查、Release 构建、MaintenanceChecks、ExtensionChecks、PaymentChecks、OrderChecks、RuntimeLifetimeChecks、SaveStateChecks、RestorationChecks/State、本地化及最终官方权限扫描。临时扫描目录仅放当前 DLL 和 manifest，不生成分发压缩包。
+- [x] 检查脚本输出测试名称、退出码和证据层级；扫描须 Pending=0、Unknown=0、undeclared=0、Refused=False，正式构建零警告/错误。其他生产线未改则不为凑数量全量重跑。
+- [x] 最终差异审查重点为诊断副作用、回调遗漏/重复、收费默认回退、测试代码排除；回填 verify 的实际层级，不把未执行的游戏场景勾为通过。
+- [x] 更新维护文档：如何构建维护版、请求报告、解释未知状态、复跑回归、卸载清理；把实际诊断字段及事件清单写回源码地图。新存档字段应为零，如有变化需先重开设计核查。
+- [x] 写五期总结与总交付报告，逐项列出未提交/未推送、用户待决策和文档发现；本地提交。发布、版本号和主分支合并在后续明确授权范围内处理。
 
 ## 命令约定
 
@@ -128,7 +128,7 @@ python tools/RestorationChecks/State/run.py
 ./tools/Check-Localization.ps1 -GameManaged '<游戏Managed>' -Dotnet '<SDK dotnet>' -CompiledAssembly './artifacts/build/bin/CorpPresence/release/CorpPresence.dll'
 ```
 
-MaintenanceChecks、ExtensionChecks、PaymentChecks 和 Check-Maintenance.ps1 是上述任务将创建的入口，现在不存在，不能标记为已运行。测试框架不引入新 NuGet 包，沿用仓库控制台检查方式。
+MaintenanceChecks、ExtensionChecks、PaymentChecks 和 Check-Maintenance.ps1 均已实现。统一入口显式 build 后执行该目录 DLL，避免 dotnet run 在重定向产物时运行旧默认输出。测试框架不引入新 NuGet 包，沿用仓库控制台检查方式。
 
 ## 每期总结模板与方案自查
 

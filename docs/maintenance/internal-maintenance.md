@@ -9,7 +9,7 @@ dotnet build src/CorpPresence.csproj -c Release --artifacts-path artifacts/regul
 dotnet build src/CorpPresence.csproj -c Release --artifacts-path artifacts/maintenance -p:GameManaged='<游戏 Managed>' -p:Maintenance=true
 ```
 
-第二份版本带 `-maintenance`。仅维护版中，按 Ctrl+Shift+F10 输出一次 `[维护]` 报告到已有日志；按住不重复，最短间隔 1 秒。主菜单和存档内均可请求；不创建 UI，不写诊断文件或存档。部署和启动游戏需另行授权。
+第二份版本带 `-maintenance`。仅维护版中，按 Ctrl+Shift+F10 输出一次 `[维护]` 报告到已有日志；按住不重复，最短间隔 1 秒。主菜单等待资源时由 ResourceBootstrap 接收，资源就绪后由 Host 接收，存档内也可请求；不创建 UI，不写诊断文件或存档。部署和启动游戏需另行授权。
 
 维护模式不得与 LocalTestFunds 或 WaterTrace 同时构建；正式 DLL 不含 MaintenanceConsole。两份产物必须分目录，不能用维护 DLL 发布工坊。
 
@@ -25,7 +25,7 @@ dotnet build src/CorpPresence.csproj -c Release --artifacts-path artifacts/maint
 
 ## 当前阶段
 
-只读诊断、维护输入和三个生命周期事件已实现；真实付款检查已接入；统一检查入口待 T6 完成。报告仅列出 BeforeSave、DayStart、StateReset 的登记者，其他委托尚未迁移。
+只读诊断、维护输入和三个生命周期事件已实现；真实付款检查已接入；统一检查入口已提供，最终验收结果见实施证据。报告仅列出 BeforeSave、DayStart、StateReset 的登记者，其他委托尚未迁移。
 
 登记使用固定 owner 和 Subscribe，返回租约由 OwnedCallbacks.Own 持有。重复 owner 拒绝；分发按登记顺序，新增者下次生效，已撤销者跳过；异常分别记录，重入不递归。安装全部成功才提交标志，失败释放本次租约；模式开关不是卸载，不能用关闭恶意模式推断登记必须消失。
 
@@ -39,4 +39,22 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 扩展返回 null 才走现金，空串代表扩展已成功，非空表示拒绝；抛异常返回状态不确定，禁止补扣。支付后异常没有被证明已回滚。现金原生扣款抛错仍按原契约向上抛出；音效失败不影响成功结算。诊断失败不能影响这些结果。
 
-`dotnet run --project tools/PaymentChecks -p:GameManaged='<游戏 Managed>'` 检查付款契约；`dotnet run --project tools/OrderChecks` 检查真实付款与订单提交的连接。它们不证明跨档付款持久化、原版存档异常恢复或真实代金券/期限规则，仍需 M5 验收。
+`dotnet run --project tools/PaymentChecks -p:GameManaged='<游戏 Managed>'` 检查付款契约；`dotnet run --project tools/OrderChecks -p:GameManaged='<游戏 Managed>'` 检查真实付款与订单提交的连接。它们不证明跨档付款持久化、原版存档异常恢复或真实代金券/期限规则，仍需 M5 验收。
+
+## 一次运行完整检查
+
+```powershell
+./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python 解释器>'
+```
+
+默认输出在 artifacts/maintenance-checks 的独立运行子目录，可用 OutputRoot 指定本地证据目录。results.json 记录每项命令、退出码和日志；失败立即抛错，不输出 ALL CHECKS PASSED。输出有本机路径，仅留本地忽略目录，不提交。
+
+固定检查包含仓库静态检查、正式/维护构建、诊断/事件/付款/订单/生命周期/存档/芒果回归、DLL 元数据边界、冲突构建、配送恢复、本地化与官方权限扫描。指定 SDK 显式传给所有 dotnet 子检查，包括 Python 恢复检查与权限扫描。正式构建将警告视为错误。
+
+`Check-MaintenanceContract.ps1` 使用相同三个依赖参数，独立检查错误 SDK、缺游戏引用和失败子命令的退出契约。测试生成的临时脚本仅放 artifacts，不进入正式 DLL。
+
+停用时 Main 的所有权释放清除诊断，Malice 释放其事件租约；切换存档会清除旧会话故障。不要为排错重置业务进度或重发整单。
+
+统一入口对每个检查先 build，再使用同一 SDK 直接运行新产物的绝对路径；不使用带 --artifacts-path 的 dotnet run，以免运行旧默认输出。当前原版付款、存读档、开店和电话回调契约见[契约核对记录](../changes/add-maintenance-interfaces/native-contracts.md)。
+
+正式版保留三个事件每事件一次的安全告警；故障聚合仍逐次记录。日志和诊断器失败均不阻断后续监听者。

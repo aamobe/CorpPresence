@@ -29,3 +29,7 @@
 ## 芒果彩蛋替身检查
 
 `dotnet run --project tools/MangoGiftChecks` 检查一次领取、投递事务、电话回调和背包工厂边界，不启动游戏。
+
+## 内部维护检查
+
+`./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python>'` 固定串联维护相关检查并记录分层证据；失败非零退出，不启动游戏、部署或打包。`Check-MaintenanceContract.ps1` 使用相同参数验证总入口失败契约。详细使用及证据边界见[内部维护手册](../docs/maintenance/internal-maintenance.md)。

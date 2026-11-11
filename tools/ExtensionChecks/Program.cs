@@ -1,6 +1,11 @@
 using CorpPresence;
 using CorpPresence.Runtime;
 void Check(bool ok,string name){if(!ok)throw new Exception(name);Console.WriteLine("PASS "+name);}
+var logging=new ExtensionEvent("logging");int continued=0;
+logging.Subscribe("broken",()=>throw new Exception("private-message"));logging.Subscribe("next",()=>continued++);
+MaintenanceDiagnostics.Fail=true;ModLog.Fail=true;logging.Publish();logging.Publish();MaintenanceDiagnostics.Fail=false;ModLog.Fail=false;
+Check(continued==2 && ModLog.Warnings.Count==1,"event warning survives diagnostic failure, deduplicates and isolates logger failure");
+Check(ModLog.Warnings[0].Contains("logging") && ModLog.Warnings[0].Contains("broken") && !ModLog.Warnings[0].Contains("private-message"),"event warning identifies fixed owner and event without exception text");
 var e=new ExtensionEvent("test");var calls=new List<string>();
 var a=e.Subscribe("A",()=>calls.Add("A"));var b=e.Subscribe("B",()=>calls.Add("B"));
 try{e.Subscribe("A",()=>{});throw new Exception("duplicate accepted");}catch(InvalidOperationException){}

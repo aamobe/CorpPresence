@@ -1,6 +1,6 @@
 # 公司 MOD 内部接口建设总方案
 
-日期：2026-11-11。状态：用户已设立目标，按 T1→T6 执行；各阶段结果见 evidence.md。
+日期：2026-11-11。状态：T1–T6 源码与本地验证完成；游戏验证待用户执行。各阶段结果见 evidence.md。
 
 > 执行时使用 `executing-plans` 逐任务实现。本文定义总范围、顺序和验收；[proposal.md](proposal.md) 定义需求，[design.md](design.md) 定义接口，[tasks.md](tasks.md) 给出 T1–T6 实施清单，[verify.md](verify.md) 记录游戏验收。以项目根目录 AGENTS.md 和《总方案》为开发依据。
 
@@ -23,7 +23,7 @@
 ## 二、基线和边界
 
 - 以 `ccc80c0` 为本地源码起点，包含已发布的芒果彩蛋及发布记录；其父提交 `e163674` 为功能源码。两者已推送到 `feat/mango-phone-gift`，尚未合并 main。
-- 当前准备分支为 `feat/internal-maintenance`。设立目标后开工仍需检查 Git 状态和远端，不丢弃已有方案文档。
+- 当前工作分支为 `feat/internal-maintenance`。开工已核对 Git 状态和远端，已有方案文档已保留。
 - 工坊仍使用 1.1.0 标识；最新实际发布 DLL 以 [芒果发布记录](../add-mango-gift/plan.md) 和 [文件哈希](../add-mango-gift/published-files.json) 为准。历史 1.1.0 快照不可覆盖为本轮结果。
 - 面向项目内部，不提供第三方 SDK、插件发现、动态加载或公共 API 兼容承诺。
 - 不改物品 ID、存档字段、槽位顺序、价格、限购、订阅或剧情规则；不添加诊断持久化字段。
@@ -142,9 +142,9 @@ PaymentChecks 链接正式 Pay、CompanyMoney、SaveSlot 等必要代码；仅�
 | 变更组 | 主要文件 |
 | --- | --- |
 | 诊断数据和报告 | Maintenance/MaintenanceSnapshot.cs、MaintenanceDiagnostics.cs、MaintenanceFormatter.cs |
-| 维护构建入口 | Maintenance/MaintenanceConsole.cs、Runtime/Host.cs、Main.cs、CorpPresence.csproj |
+| 维护构建入口 | Maintenance/MaintenanceConsole.cs、Runtime/Host.cs、Runtime/ResourceBootstrap.cs、Main.cs、CorpPresence.csproj |
 | 只读来源 | Persistence/SaveBinding.cs、CorpState.cs；Portraits.cs、CatalogPricing.cs、ItemRegistry.cs |
-| 内部事件 | Integration/ExtensionEvent.cs、Ext.cs、Hooks.cs；Runtime/OwnedCallbacks.cs；Malice/Malice.cs |
+| 内部事件 | Integration/ExtensionEvent.cs、Ext.cs、Hooks.cs；Runtime/OwnedCallbacks.cs；Malice/Malice.Install.cs |
 | 付款与检查 | Companies/Services.Payment.cs；tools/MaintenanceChecks、ExtensionChecks、PaymentChecks、OrderChecks |
 | 总入口与说明 | tools/Check-Maintenance.ps1；docs/maintenance/internal-maintenance.md；本目录证据与验证清单 |
 
@@ -165,12 +165,12 @@ PaymentChecks 链接正式 Pay、CompanyMoney、SaveSlot 等必要代码；仅�
 
 ## 九、最终完成标准
 
-- [ ] A、B、C 对应 T1–T6 实施项有实际证据，不以文档或类型数量代替功能。
-- [ ] 正式/维护构建边界明确，存档结构和业务规则未改变。
-- [ ] 必需测试及权限扫描通过，真实业务与替身边界写清。
-- [ ] 独立审查完成，阻塞问题处理后有回归证据。
-- [ ] 游戏检查逐项交接：主菜单报告、在档只读、跨档、模式及生命周期、付款、正式版无维护入口。
-- [ ] 代码、手册、字段清单、阶段总结、提交状态齐全；未验证项如实记录。
+- [x] A、B、C 对应 T1–T6 实施项有实际证据，不以文档或类型数量代替功能。
+- [x] 正式/维护构建边界明确，存档结构和业务规则未改变。
+- [x] 必需测试及权限扫描通过，真实业务与替身边界写清。
+- [x] 独立审查完成，阻塞问题处理后有回归证据。
+- [x] 游戏检查逐项交接：主菜单报告、在档只读、跨档、模式及生命周期、付款、正式版无维护入口。
+- [x] 代码、手册、字段清单、阶段总结、提交状态齐全；未验证项如实记录。
 
 “源码和本地验证完成”与“游戏实测通过”分开记录。用户未执行游戏验证时可以交付前者，但不得宣称后者。发布是另外的明确授权步骤。
 

@@ -60,3 +60,10 @@ ModLog.Fail=false;UnityEngine.Time.unscaledTime=4;UnityEngine.Input.Held.Clear()
 int events=0;var lease=Ext.DayStart.Subscribe("test-owner",()=>events++);
 snap=MaintenanceDiagnostics.Capture();Check(snap.Registrations.Any(r=>r.EventName=="DayStart" && r.Owner=="test-owner") && events==0,"snapshot reads event ownership without publishing");
 lease.Dispose();Check(snap.Registrations.Count==1 && MaintenanceDiagnostics.Capture().Registrations.Count==0,"registration snapshots are independent");
+// Run the real bootstrap Update while resources are unavailable.
+var bootstrap=new CorpPresence.Runtime.ResourceBootstrap();int completed=0;bootstrap.Configure(()=>completed++, _=>{});
+GameResources.Ready=false;UnityEngine.Time.unscaledTime=10;UnityEngine.Input.Down=true;UnityEngine.Input.Held.Add(UnityEngine.KeyCode.LeftControl);UnityEngine.Input.Held.Add(UnityEngine.KeyCode.LeftShift);
+var reportsBefore=ModLog.Reports;
+typeof(CorpPresence.Runtime.ResourceBootstrap).GetMethod("Update",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(bootstrap,null);
+Check(ModLog.Reports==reportsBefore+1 && completed==0 && !MaintenanceDiagnostics.Capture().ResourcesReady,"bootstrap reports while resources are unavailable without completing initialization");
+bootstrap.Detach();GameResources.Ready=true;

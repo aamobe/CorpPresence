@@ -23,7 +23,13 @@ internal sealed class ResourceBootstrap : MonoBehaviour
         _directory = null; _complete = null; _abort = null;
     }
 
-    private void Update() => Tick();
+    private void Update()
+    {
+#if MAINTENANCE
+        MaintenanceConsole.Tick();
+#endif
+        Tick();
+    }
 
     public void Tick()
     {

@@ -3,7 +3,7 @@ namespace UnityEngine {internal struct Rect {}}
 namespace CorpPresence.UI {internal class Theme {}}
 namespace CorpPresence {
 internal class Company {} internal class CompanyState {} internal class CatalogEntry {} internal class StoreClient {} internal class GameItem {} internal class StoreClientManager {} internal class Dialogue {}
-internal static class ModLog {internal static void Warn(string s){}}
+internal static class ModLog {internal static List<string> Warnings=new();internal static bool Fail;internal static void Warn(string s){Warnings.Add(s);if(Fail)throw new Exception("logger failed");}}
 internal static class L {internal static string K(string k,string zh,string en)=>zh;}
 }
 namespace CorpPresence.Malice {
