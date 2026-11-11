@@ -12,6 +12,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(WaterTrace)' == 'true'"><DefineConstants>$(DefineConstants);WATER_TRACE</DefineConstants></PropertyGroup>
   <PropertyGroup Condition="'$(LocalTestFunds)' == 'true'"><DefineConstants>$(DefineConstants);LOCAL_TEST_FUNDS</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(Maintenance)' == 'true'"><DefineConstants>$(DefineConstants);MAINTENANCE</DefineConstants></PropertyGroup>
+  <Target Name="CheckMaintenanceFlags" BeforeTargets="CoreCompile" Condition="'$(Maintenance)' == 'true' and ('$(LocalTestFunds)' == 'true' or '$(WaterTrace)' == 'true')">
+    <Error Text="Maintenance cannot be combined with LocalTestFunds or WaterTrace." />
+  </Target>
   <ItemGroup>
     <Reference Include="$(GameManaged)\Unity*.dll;$(GameManaged)\Assembly-CSharp.dll;$(GameManaged)\0Harmony.dll;$(GameManaged)\Newtonsoft.Json.dll">
       <Private>false</Private>

@@ -11,7 +11,7 @@
 
 ## 按任务查找
 
-规划中的内部维护能力见[五期实施方案](../changes/add-maintenance-interfaces/overview.md)，目前尚未实现；不属于第三方扩展接口。
+内部维护建设见[总方案](../changes/add-maintenance-interfaces/overview.md)，已完成的只读报告入口见[内部维护手册](internal-maintenance.md)；事件与付款检查按后续任务实施，不属于第三方扩展接口。
 
 | 维护任务 | 文档/位置 |
 | --- | --- |

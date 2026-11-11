@@ -9,7 +9,9 @@ namespace CorpPresence;
 public class Main : IMod
 {
     private const string ReleaseVersion = "1.1.0";
-#if WATER_TRACE
+#if MAINTENANCE
+    public const string Version = ReleaseVersion + "-maintenance";
+#elif WATER_TRACE
     public const string Version = ReleaseVersion + "-watertrace";
 #elif LOCAL_TEST_FUNDS
     public const string Version = ReleaseVersion + "-localtest";

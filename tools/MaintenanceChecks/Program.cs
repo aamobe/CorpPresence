@@ -48,3 +48,11 @@ Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"leaving store drops busi
 MaintenanceDiagnostics.Record("startup","phase","error",null);PlayerStore.Instance=new();
 Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"entering store drops menu faults");
 MaintenanceDiagnostics.Record("test","phase","reset",null);MaintenanceDiagnostics.Reset();Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"disable reset clears diagnostics");
+
+UnityEngine.Time.unscaledTime=0;UnityEngine.Input.Down=false;MaintenanceConsole.Tick();Check(ModLog.Reports==0,"console does not report automatically");
+UnityEngine.Input.Held.Add(UnityEngine.KeyCode.LeftControl);UnityEngine.Input.Held.Add(UnityEngine.KeyCode.RightShift);UnityEngine.Input.Down=true;
+MaintenanceConsole.Tick();Check(ModLog.Reports==1,"modifier chord reports once");
+UnityEngine.Input.Down=false;UnityEngine.Time.unscaledTime=2;MaintenanceConsole.Tick();Check(ModLog.Reports==1,"held key does not repeat");
+UnityEngine.Input.Down=true;UnityEngine.Time.unscaledTime=0.5f;MaintenanceConsole.Tick();Check(ModLog.Reports==1,"console throttles within one second");
+UnityEngine.Time.unscaledTime=2;ModLog.Fail=true;MaintenanceConsole.Tick();Check(ModLog.Reports==2,"output failure does not escape");
+ModLog.Fail=false;UnityEngine.Time.unscaledTime=4;UnityEngine.Input.Held.Clear();MaintenanceConsole.Tick();Check(ModLog.Reports==2,"F10 alone does not request report");

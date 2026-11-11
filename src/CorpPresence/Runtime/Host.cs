@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CorpPresence.Malice;
 using CorpPresence.Runtime;
 using CorpPresence.UI;
@@ -25,6 +25,9 @@ internal sealed class Host : MonoBehaviour
     {
         float now = Time.unscaledTime;
         for (int i = 0; i < _updates.Length; i++) _updates[i].Run(now);
+#if MAINTENANCE
+        MaintenanceConsole.Tick();
+#endif
 #if LOCAL_TEST_FUNDS
         LocalTestFunds.Tick();
 #endif

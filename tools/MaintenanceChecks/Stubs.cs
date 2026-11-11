@@ -13,7 +13,7 @@ namespace CorpPresence
     internal sealed class StoreClient { }
     internal sealed class Client { internal StoreClient Blueprint; internal StoreClient GetClientBlueprint() => Blueprint; }
     internal static class GameResources { internal static bool Ready = true; internal static long Generation = 1; }
-    internal static class ModLog { internal static void Warn(string text) { } }
+    internal static class ModLog { internal static void Warn(string text) { } internal static int Reports; internal static bool Fail; internal static void Info(string text) { Reports++; if(Fail) throw new Exception("output failure"); } }
 }
 namespace CorpPresence.Malice
 {
@@ -36,4 +36,13 @@ internal static class Main {internal const string Version="test";}
 internal static class Portraits {internal static Action Probe; internal static void AppendDiagnostics(ICollection<MaintenanceCounter> c){Probe?.Invoke();c.Add(new MaintenanceCounter("portrait.textures",2));}}
 internal static class CatalogPricing {internal static void AppendDiagnostics(ICollection<MaintenanceCounter> c){}}
 internal static class ItemRegistry {internal static void AppendDiagnostics(ICollection<MaintenanceCounter> c){}}
+}
+
+namespace UnityEngine {
+internal enum KeyCode { LeftControl, RightControl, LeftShift, RightShift, F10 }
+internal static class Input { internal static HashSet<KeyCode> Held=new(); internal static bool Down;
+ internal static bool GetKey(KeyCode key)=>Held.Contains(key);
+ internal static bool GetKeyDown(KeyCode key)=>key==KeyCode.F10 && Down;
+}
+internal static class Time { internal static float unscaledTime; }
 }
