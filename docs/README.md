@@ -28,6 +28,8 @@
 
 [官方接口跟踪](maintenance/official-api.md)汇总游戏官方 API 更新、版本与权限变化。
 
+[接口与物品扩展框架评估](assessments/internal-framework/assessment.md)区分 1.0.0 已有基础、当前增量、验证缺口和后续投入收益。
+
 | 文档 | 内容 |
 | --- | --- |
 | [维护首页](maintenance/README.md) | 按维护任务选择入口 |
