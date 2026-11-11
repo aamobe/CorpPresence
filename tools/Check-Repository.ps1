@@ -8,7 +8,7 @@ $failures = New-Object 'System.Collections.Generic.List[string]'
 $documents = @()
 $documents += Get-ChildItem -LiteralPath $repoRoot -File -Filter '*.md'
 $documents += Get-ChildItem -LiteralPath (Join-Path $repoRoot 'docs') -File -Recurse -Filter '*.md'
-$documents += Get-ChildItem -LiteralPath (Join-Path $repoRoot 'tools') -File -Recurse -Filter '*.md' |
+$documents += @('tools', 'art') | ForEach-Object { Get-ChildItem -LiteralPath (Join-Path $repoRoot $_) -File -Recurse -Filter '*.md' } |
     Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' }
 $linkCount = 0
 foreach ($document in $documents) {

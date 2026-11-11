@@ -50,7 +50,7 @@
 - [CargoWarehouse](../../src/CorpPresence/Production/CargoWarehouse.cs) 与 [CargoWarehouse.Sorting](../../src/CorpPresence/Production/CargoWarehouse.Sorting.cs) 管 24×24 页、追加页、自动分类、控制器与补购库存检查；`CargoSortWindow`、`CargoTabRename` 分别负责勾选界面及原版改名入口。页签名称、过滤规则、页顺序和仓内物品分别验收。
 - 两个仓库共用 `StorageExpansionHelper.RestoreTabs` 的接入，但恢复规则不同。把接入分派与两个仓各自的恢复实现放在明确位置，同时保留原版仓的路径及现有图节点顺序。
 - 博士私人目录、付款和配送由二期的交易链承接。控制器补购需同时检查店内实物、嵌套库存、配送箱及待配送订单，结账前复查。锁定最常见的两个边界：控制器不能进入集装箱的页格，拖到仓体仍能配置；新增页追加到末尾。
-- 验收按[集装箱仓库场景清单](../changes/cargo-warehouse/verify.md)逐项执行，另检查专用工作仓原有五页在满页和读档时的行为。
+- 验收按[集装箱仓库场景清单](../changes/archive/cargo-warehouse/verify.md)逐项执行，另检查专用工作仓原有五页在满页和读档时的行为。
 
 ## E5 · 五期　恶意模式、订阅与阵营剧情
 

@@ -13,7 +13,7 @@ function Invoke-Dotnet([string[]]$Arguments) {
     & $Dotnet @Arguments
     if ($LASTEXITCODE -ne 0) { throw "Build identity check failed: dotnet $($Arguments -join ' ')" }
 }
-Invoke-Dotnet @('build', (Join-Path $PSScriptRoot 'BuildIdentityChecks/Checks.csproj'), '--artifacts-path', (Join-Path $artifacts 'runner'))
+Invoke-Dotnet @('build', (Join-Path $PSScriptRoot 'checks/BuildIdentityChecks/Checks.csproj'), '--artifacts-path', (Join-Path $artifacts 'runner'))
 $runner = Join-Path $artifacts 'runner/bin/Checks/debug/Checks.dll'
 $identity = '-dev+unknown'
 # Match the production target: do not inherit a parent checkout's identity.

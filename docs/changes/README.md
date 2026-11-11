@@ -1,6 +1,6 @@
 # 变更目录
 
-按变更查找提案、实施任务和验证证据。历史记录保留原路径，便于追踪引用。
+按变更查找提案、实施任务和验证证据。本目录外层只放进行中的变更；2026-11-12 起，已完成实施的变更目录都在 [archive](archive/) 下，下面的链接已指向新位置。游戏回归尚未完成的条目仍在下方列出，直到验收记录补齐。
 
 ## 实施与验收进行中
 
@@ -8,14 +8,14 @@
 
 - [框架评审修复](../bugs/framework-review/assessment.md) · 异常诊断、保留策略、告警复位与补丁安装结果；[统一游戏验收表](../bugs/framework-review/manual-verification.md)。
 
-- [内部生命周期框架分期方案](organize-internal-lifecycle/overview.md) · 轻量模块整理的提案、调研、设计、规格、任务与验收清单。
-- [总框架整合](organize-internal-lifecycle/framework-integration-plan.md) · 物品接入总生命周期/诊断，真实内容检查与全系统交接；[结果](organize-internal-lifecycle/framework-integration-evidence.md)。
+- [内部生命周期框架分期方案](archive/organize-internal-lifecycle/overview.md) · 轻量模块整理的提案、调研、设计、规格、任务与验收清单。
+- [总框架整合](archive/organize-internal-lifecycle/framework-integration-plan.md) · 物品接入总生命周期/诊断，真实内容检查与全系统交接；[结果](archive/organize-internal-lifecycle/framework-integration-evidence.md)。
 
 ## 已发布，游戏回归待完成
 
-- [内部维护接口](add-maintenance-interfaces/overview.md) · 只读诊断、三个具名事件和真实付款回归已实现。见[实施证据](add-maintenance-interfaces/evidence.md)、[游戏验收](add-maintenance-interfaces/verify.md)和[最新发布记录](../releases/1.1.0-internal-maintenance.md)。
-- [1231 芒果功能](add-mango-gift/plan.md) · 独立芒果箱、可重复存取背包及每档一次送礼。已上传，完整游戏回归待完成。
-- [分期工程核查](runtime-performance/checkpoint.md) · 一至六期的源码检查和本地验证记录；游戏实测缺口按原记录保留。见[首次 1.1.0 发布](../releases/1.1.0.md)。
+- [内部维护接口](archive/add-maintenance-interfaces/overview.md) · 只读诊断、三个具名事件和真实付款回归已实现。见[实施证据](archive/add-maintenance-interfaces/evidence.md)、[游戏验收](archive/add-maintenance-interfaces/verify.md)和[最新发布记录](../releases/1.1.0-internal-maintenance.md)。
+- [1231 芒果功能](archive/add-mango-gift/plan.md) · 独立芒果箱、可重复存取背包及每档一次送礼。已上传，完整游戏回归待完成。
+- [分期工程核查](archive/runtime-performance/checkpoint.md) · 一至六期的源码检查和本地验证记录；游戏实测缺口按原记录保留。见[首次 1.1.0 发布](../releases/1.1.0.md)。
 
 ## 已归档
 

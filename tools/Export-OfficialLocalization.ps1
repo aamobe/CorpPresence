@@ -2,7 +2,7 @@
 [CmdletBinding()]
 param([string]$OutputDirectory = (Join-Path (Split-Path -Parent $PSScriptRoot) 'Localization'))
 $ErrorActionPreference = 'Stop'
-$mapping = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'LocalizationChecks/Migration.json') -Raw -Encoding utf8 | ConvertFrom-Json -AsHashtable
+$mapping = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'checks/LocalizationChecks/Migration.json') -Raw -Encoding utf8 | ConvertFrom-Json -AsHashtable
 $builtIn = Get-Content -LiteralPath (Join-Path (Split-Path -Parent $PSScriptRoot) 'src/CorpPresence/Presentation/Translations.Keys.json') -Raw -Encoding utf8 | ConvertFrom-Json -AsHashtable
 [string[]]$keys = @($mapping.Keys)
 [Array]::Sort($keys, [StringComparer]::Ordinal)

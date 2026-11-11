@@ -120,11 +120,11 @@ L.K("ui.carmichael.bloodRecovery.availableAgainDay", $"第 {nextDay} 天可再�
 
 定向检查链接真实`L`、`TextTranslations`、`MenuLabels`、配置显示适配器、物品键元数据和真实嵌入JSON，只替代游戏语言/帧边界及元数据绑定所需的最小定义壳。覆盖稳定键脱离英文原文、缺键/空翻译/短数组回退、错误格式及参数顺序、语言切换、1621键与原译文行为一致、42菜单位置的四语言文本和缓存，以及编译后实际嵌入资源内容。
 
-[Migration.json](../../tools/LocalizationChecks/Migration.json)记录已迁移键到迁移时英文模板的对应关系，仅供检查，不嵌入正式模组。[MenuBaseline.json](../../tools/LocalizationChecks/MenuBaseline.json)固定迁移前四语言菜单输出。后续有意改文案时应同步审查这些检查数据，不能为了让检查通过而自动覆盖基线。
+[Migration.json](../../tools/checks/LocalizationChecks/Migration.json)记录已迁移键到迁移时英文模板的对应关系，仅供检查，不嵌入正式模组。[MenuBaseline.json](../../tools/checks/LocalizationChecks/MenuBaseline.json)固定迁移前四语言菜单输出。后续有意改文案时应同步审查这些检查数据，不能为了让检查通过而自动覆盖基线。
 
-[Batch2Cases.json](../../tools/LocalizationChecks/Batch2Cases.json)记录第二批258处调用的中英模板和原调用形态，逐项比较旧接口和新接口在中英俄法、`en-US`/`fr-FR`数字文化下的输出（2064项组合）。本地迁移过程另按逐调用记录反向恢复9个目标文件，与批前快照全文比较一致；该过程检查展示调用以外的代码没有变化，不把它当作游戏实测。
+[Batch2Cases.json](../../tools/checks/LocalizationChecks/Batch2Cases.json)记录第二批258处调用的中英模板和原调用形态，逐项比较旧接口和新接口在中英俄法、`en-US`/`fr-FR`数字文化下的输出（2064项组合）。本地迁移过程另按逐调用记录反向恢复9个目标文件，与批前快照全文比较一致；该过程检查展示调用以外的代码没有变化，不把它当作游戏实测。
 
-[Batch3Cases.json](../../tools/LocalizationChecks/Batch3Cases.json)记录第三批171个展示文本，以同样四语言和两种文化比较1368项组合。三处中文拼接表达式保持原源码，检查程序用示例字符串验证混合重载边界，实际参数和拼接顺序另由源码反向比较核对。
+[Batch3Cases.json](../../tools/checks/LocalizationChecks/Batch3Cases.json)记录第三批171个展示文本，以同样四语言和两种文化比较1368项组合。三处中文拼接表达式保持原源码，检查程序用示例字符串验证混合重载边界，实际参数和拼接顺序另由源码反向比较核对。
 
 已完成静态文本/差异检查、定向程序和Release编译。未启动游戏，未验证实际字体、布局、点击交互或真实游戏内切语言；未部署、打包或发布。
 
@@ -132,7 +132,7 @@ L.K("ui.carmichael.bloodRecovery.availableAgainDay", $"第 {nextDay} 天可再�
 
 第三批结果：15组检查全部通过（含编译后资源），Release编译0警告、0错误；独立审阅确认16文件的原逻辑和参数、9个数组22元素及顺序、171个模板均保持一致。静态检查39份Markdown及277个本地链接通过。
 
-最终结果：23组检查全部通过（含编译后资源），Release编译0警告、0错误。固定批[Batch4Cases.json](../../tools/LocalizationChecks/Batch4Cases.json)、物品字段[DefinitionCases.json](../../tools/LocalizationChecks/DefinitionCases.json)、动态字段[DynamicCases.json](../../tools/LocalizationChecks/DynamicCases.json)、配置[ConfigCases.json](../../tools/LocalizationChecks/ConfigCases.json)、配送[CourierCases.json](../../tools/LocalizationChecks/CourierCases.json)逐项比较四语言和两种数字文化；[Composed.json](../../tools/LocalizationChecks/Composed.json)独立记录旧句子片段，用于核对组合后的俄法模板。检查数据均不嵌入正式模组。78份定义数据的核对只初始化纯托管定义字典，没有调用模组生命周期或游戏运行入口。
+最终结果：23组检查全部通过（含编译后资源），Release编译0警告、0错误。固定批[Batch4Cases.json](../../tools/checks/LocalizationChecks/Batch4Cases.json)、物品字段[DefinitionCases.json](../../tools/checks/LocalizationChecks/DefinitionCases.json)、动态字段[DynamicCases.json](../../tools/checks/LocalizationChecks/DynamicCases.json)、配置[ConfigCases.json](../../tools/checks/LocalizationChecks/ConfigCases.json)、配送[CourierCases.json](../../tools/checks/LocalizationChecks/CourierCases.json)逐项比较四语言和两种数字文化；[Composed.json](../../tools/checks/LocalizationChecks/Composed.json)独立记录旧句子片段，用于核对组合后的俄法模板。检查数据均不嵌入正式模组。78份定义数据的核对只初始化纯托管定义字典，没有调用模组生命周期或游戏运行入口。
 
 最终独立审阅未发现可行动问题，另用Roslyn核对固定展示模板、动态参数、元数据绑定和数组顺序。静态检查40份Markdown、286个本地链接通过。
 

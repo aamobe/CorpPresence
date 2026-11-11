@@ -14,7 +14,7 @@ Main 核心阶段安装身份与补丁 → ResourceBootstrap 按实际资源状�
 
 Catalog 仅描述物品；ItemIdentity 保持持久身份；ItemRegistry 负责工厂所有权；设备保留库存和加工规则。维护报告读取登记状态，不为了显示定义数量而初始化 Catalog、加载纹理或生成物品。
 
-异常路径以[闭环修复](../changes/organize-internal-lifecycle/closure-fixes.md)为准：通用释放失败隔离该运行期，禁止不安全重启；公司工厂失败在官方占位回退前显式拒绝；内部 Guard 将已捕获异常写入统一报告。失败隔离不等于资源全部回收，也不等于业务自动恢复。
+异常路径以[闭环修复](../changes/archive/organize-internal-lifecycle/closure-fixes.md)为准：通用释放失败隔离该运行期，禁止不安全重启；公司工厂失败在官方占位回退前显式拒绝；内部 Guard 将已捕获异常写入统一报告。失败隔离不等于资源全部回收，也不等于业务自动恢复。
 
 ## 模块契约与回归矩阵
 
@@ -57,4 +57,4 @@ Catalog 仅描述物品；ItemIdentity 保持持久身份；ItemRegistry 负责�
 - 切换测试档不串订单、每日次数、库存或剧情；切换模式不重复订阅。
 - 经官方入口停用/重启后无重复日处理和登记；记录官方是否必须重新加载，不宣称未支持的热卸载成功。
 
-开发与自动验收、游戏验收、远端交接、工坊发布四种状态分别记录。本轮结果见[总框架整合证据](../changes/organize-internal-lifecycle/framework-integration-evidence.md)。
+开发与自动验收、游戏验收、远端交接、工坊发布四种状态分别记录。本轮结果见[总框架整合证据](../changes/archive/organize-internal-lifecycle/framework-integration-evidence.md)。

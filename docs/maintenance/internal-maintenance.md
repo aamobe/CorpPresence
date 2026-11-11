@@ -1,6 +1,6 @@
 # 内部维护接口
 
-仅供本项目开发维护；不提供第三方兼容承诺。完整范围见[总方案](../changes/add-maintenance-interfaces/overview.md)。
+仅供本项目开发维护；不提供第三方兼容承诺。完整范围见[总方案](../changes/archive/add-maintenance-interfaces/overview.md)。
 
 当前全系统接入、所有权与回归选择见[总框架手册](framework.md)；历史维护接口方案保留为设计来源。
 
@@ -31,9 +31,9 @@ dotnet build src/CorpPresence.csproj -c Release --artifacts-path artifacts/maint
 
 登记使用固定 owner 和 Subscribe，返回租约由 OwnedCallbacks.Own 持有。重复 owner 拒绝；分发按登记顺序，新增者下次生效，已撤销者跳过；异常分别记录，重入不递归。安装全部成功才提交标志，失败释放本次租约；模式开关不是卸载，不能用关闭恶意模式推断登记必须消失。
 
-本地检查 `dotnet run --project tools/MaintenanceChecks -p:GameManaged='<游戏 Managed>'` 使用真实存档类型和诊断实现、替身游戏边界。DLL 类型隔离检查使用 `tools/MaintenanceBuildChecks`，参数为正式 DLL、维护 DLL。不能将这些检查当作游戏内验收。
+本地检查 `dotnet run --project tools/checks/MaintenanceChecks -p:GameManaged='<游戏 Managed>'` 使用真实存档类型和诊断实现、替身游戏边界。DLL 类型隔离检查使用 `tools/checks/MaintenanceBuildChecks`，参数为正式 DLL、维护 DLL。不能将这些检查当作游戏内验收。
 
-游戏场景及结果记录见[验证清单](../changes/add-maintenance-interfaces/verify.md)。
+游戏场景及结果记录见[验证清单](../changes/archive/add-maintenance-interfaces/verify.md)。
 
 ## 付款测试边界
 
@@ -41,7 +41,7 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 扩展返回 null 才走现金，空串代表扩展已成功，非空表示拒绝；抛异常返回状态不确定，禁止补扣。支付后异常没有被证明已回滚。现金原生扣款抛错仍按原契约向上抛出；音效失败不影响成功结算。诊断失败不能影响这些结果。
 
-`dotnet run --project tools/PaymentChecks -p:GameManaged='<游戏 Managed>'` 检查付款契约；`dotnet run --project tools/OrderChecks -p:GameManaged='<游戏 Managed>'` 检查真实付款与订单提交的连接。它们不证明跨档付款持久化、原版存档异常恢复或真实代金券/期限规则，仍需 M5 验收。
+`dotnet run --project tools/checks/PaymentChecks -p:GameManaged='<游戏 Managed>'` 检查付款契约；`dotnet run --project tools/checks/OrderChecks -p:GameManaged='<游戏 Managed>'` 检查真实付款与订单提交的连接。它们不证明跨档付款持久化、原版存档异常恢复或真实代金券/期限规则，仍需 M5 验收。
 
 ## 一次运行完整检查
 
@@ -59,7 +59,7 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 停用时 Malice 释放其事件租约，运行期诊断保留至下一次启用；切换存档会清除旧会话故障。不要为排错重置业务进度或重发整单。
 
-统一入口对每个检查先 build，再使用同一 SDK 直接运行新产物的绝对路径；不使用带 --artifacts-path 的 dotnet run，以免运行旧默认输出。当前原版付款、存读档、开店和电话回调契约见[契约核对记录](../changes/add-maintenance-interfaces/native-contracts.md)。
+统一入口对每个检查先 build，再使用同一 SDK 直接运行新产物的绝对路径；不使用带 --artifacts-path 的 dotnet run，以免运行旧默认输出。当前原版付款、存读档、开店和电话回调契约见[契约核对记录](../changes/archive/add-maintenance-interfaces/native-contracts.md)。
 
 正式版保留三个事件每事件一次的安全告警；故障聚合仍逐次记录。日志和诊断器失败均不阻断后续监听者。
 # 第一期模块状态
@@ -68,7 +68,7 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 
 模块值在捕获时复制，只读列表不会随之后启停变化；采集不稳定时显示“模块状态未知”。故障警告以 `malice/install`、`malice/rollback`、`malice/uninstall` 标记阶段并包含异常类型，不写原始异常消息。日志和聚合故障分别隔离。
 
-OwnedCallbacks 释放遇错仍继续其他动作，完成后关闭集合并保留 ReleaseFailed，禁止再次向该集合获取资源。RuntimeLifetime 的通用释放失败进入 Faulted；同一运行期拒绝重启，避免重复获取残留资源。清理动作可能已部分成功，因此不盲目重试；应停止启用并重启游戏，保留日志定位根因。Malice 将自己的失败向运行期传播。当前修复见[异常闭环](../changes/organize-internal-lifecycle/closure-fixes.md)，[F1 · 第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)保留为历史记录。
+OwnedCallbacks 释放遇错仍继续其他动作，完成后关闭集合并保留 ReleaseFailed，禁止再次向该集合获取资源。RuntimeLifetime 的通用释放失败进入 Faulted；同一运行期拒绝重启，避免重复获取残留资源。清理动作可能已部分成功，因此不盲目重试；应停止启用并重启游戏，保留日志定位根因。Malice 将自己的失败向运行期传播。当前修复见[异常闭环](../changes/archive/organize-internal-lifecycle/closure-fixes.md)，[F1 · 第一期证据](../changes/archive/organize-internal-lifecycle/phase-one-evidence.md)保留为历史记录。
 
 物品扩展的接入与身份基线检查见[新增物品接入清单](item-extension.md)；第二期优先此方向，原版事件模块试点暂缓。
 
@@ -86,7 +86,7 @@ OwnedCallbacks 释放遇错仍继续其他动作，完成后关闭集合并保�
 
 Host 的 RuntimeTask 每次执行失败都记录模块 `runtime`、阶段为源码中的固定任务名、代码 `task_failed`。一分钟日志限流只影响文字输出，不减少报告中的异常计数；成功执行不产生故障记录，原执行顺序和重试频率不变。
 
-换档清除旧会话故障后，即使文字日志仍在限流，新异常也会进入新会话报告。诊断保留异常类型与受限方法链，不保存异常消息、路径或异常对象；任务重试不是业务事务回滚，查看报告不会自动修复失败任务。实施证据见[运行任务诊断](../changes/organize-internal-lifecycle/runtime-task-diagnostics.md)。
+换档清除旧会话故障后，即使文字日志仍在限流，新异常也会进入新会话报告。诊断保留异常类型与受限方法链，不保存异常消息、路径或异常对象；任务重试不是业务事务回滚，查看报告不会自动修复失败任务。实施证据见[运行任务诊断](../changes/archive/organize-internal-lifecycle/runtime-task-diagnostics.md)。
 
 Hooks 内层 Guard 已接入 HookGuard：已捕获的异常记录为 `hooks/<固定阶段>/stage_failed`，后续阶段仍可运行，外层 RuntimeTask 不会重复记录这次已处理异常。故障报告没有自动修复语义；读档修复仍为单次尝试，不重放可能部分完成的修复操作。其他业务内自行捕获的异常仍需按模块审查，不能据此宣称所有 catch 都已进入报告。
 

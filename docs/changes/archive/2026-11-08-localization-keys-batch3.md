@@ -12,4 +12,4 @@
 - [x] 编译后资源核对通过，累计15组检查、0失败；静态检查39份Markdown和277个本地链接通过。
 - [x] 独立审阅无可行动问题：核对16文件、9数组22元素、171模板和3处动态中文表达式；剩余886处旧入口。未启动游戏、部署或发布。
 
-本地临时工具、批前快照及差异仅在`artifacts`。持续维护的检查数据是[Batch3Cases.json](../../../tools/LocalizationChecks/Batch3Cases.json)，不嵌入正式模组。剩余范围见[维护说明](../../maintenance/localization-keys.md)。
+本地临时工具、批前快照及差异仅在`artifacts`。持续维护的检查数据是[Batch3Cases.json](../../../tools/checks/LocalizationChecks/Batch3Cases.json)，不嵌入正式模组。剩余范围见[维护说明](../../maintenance/localization-keys.md)。

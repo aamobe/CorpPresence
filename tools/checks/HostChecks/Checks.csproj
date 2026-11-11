@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../src/CorpPresence/Runtime/Host.cs" />
+    <Compile Include="../../../src/CorpPresence/Runtime/RuntimeTask.cs" />
+    <Compile Include="../../../src/CorpPresence/Runtime/RuntimeUpdates.cs" />
+  </ItemGroup>
+</Project>

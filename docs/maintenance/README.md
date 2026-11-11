@@ -13,11 +13,11 @@
 
 [总框架接入与验收](framework.md)统一启动、资源、物品、设备、付款配送、存档、扩展、UI 与诊断的接入契约和回归选择；物品具体字段继续见[物品接入](item-extension.md)。
 
-[框架跨设备交接](../changes/organize-internal-lifecycle/cross-device-handoff.md)提供换机复现步骤、模块接入清单、检查选择表及待游戏验证场景。
+[框架跨设备交接](../changes/archive/organize-internal-lifecycle/cross-device-handoff.md)提供换机复现步骤、模块接入清单、检查选择表及待游戏验证场景。
 
 [官方接口跟踪](official-api.md)记录官方文档版本、API 更新及本项目验证边界。
 
-只读诊断、三个生命周期事件和真实付款回归已实现并发布。使用方法见[维护手册](internal-maintenance.md)，验证边界见[实施证据](../changes/add-maintenance-interfaces/evidence.md)。后续整理见[待评审方案](../changes/organize-internal-lifecycle/overview.md)。
+只读诊断、三个生命周期事件和真实付款回归已实现并发布。使用方法见[维护手册](internal-maintenance.md)，验证边界见[实施证据](../changes/archive/add-maintenance-interfaces/evidence.md)。后续整理见[待评审方案](../changes/archive/organize-internal-lifecycle/overview.md)。
 
 | 维护任务 | 文档/位置 |
 | --- | --- |
@@ -25,7 +25,7 @@
 | 修改机器、配方或植物 | [功能目录](../specs/README.md)；香水详见[规则](../specs/perfume.md) |
 | 处理普通水拒收、旧物品或读档异常 | [兼容与回归](compatibility-and-regressions.md) |
 | 增加翻译 | `src/CorpPresence/Presentation/Translations.json`及对应的`L.T`调用 |
-| 导入或改动PNG | [美术入口](../art/README.md) |
+| 导入或改动PNG | [美术入口](../../art/OVERVIEW.md) |
 | 发布GitHub源码或工坊更新 | [构建与发布](build-and-release.md) |
 
 源码和文档共同维护。只改介绍文字，不应顺带调整游戏规则；只整理目录，不应改变已发布物品ID或资源名。

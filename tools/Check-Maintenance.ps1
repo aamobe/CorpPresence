@@ -49,23 +49,23 @@ try {
  $regular=Join-Path $regularRoot 'bin/CorpPresence/release/CorpPresence.dll'
  $maintenance=Join-Path $maintenanceRoot 'bin/CorpPresence/release/CorpPresence.dll'
  $definitionsRoot=Join-Path $runRoot 'ItemDefinitionChecks'
- Invoke-Check 'ItemDefinitionChecks-build' 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot 'ItemDefinitionChecks/Checks.csproj'),'--artifacts-path',$definitionsRoot)
+ Invoke-Check 'ItemDefinitionChecks-build' 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot 'checks/ItemDefinitionChecks/Checks.csproj'),'--artifacts-path',$definitionsRoot)
  Invoke-Check 'ItemDefinitionChecks' 'compiled-content' $sdk @((Join-Path $definitionsRoot 'bin/Checks/debug/Checks.dll'),$regular,$managed)
  foreach($name in @('ItemTagChecks','MaintenanceChecks','ExtensionChecks','HostChecks','SpacerModValuesChecks','PaymentChecks','OrderChecks','RuntimeLifetimeChecks','SaveStateChecks','MangoGiftChecks','ItemChecks')){
   $checkRoot=Join-Path $runRoot $name
-  Invoke-Check "$name-build" 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot "$name/Checks.csproj"),'--artifacts-path',$checkRoot,"-p:GameManaged=$managed")
+  Invoke-Check "$name-build" 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot "checks/$name/Checks.csproj"),'--artifacts-path',$checkRoot,"-p:GameManaged=$managed")
   $checkArgs=@((Join-Path $checkRoot 'bin/Checks/debug/Checks.dll'))
   if($name -eq 'ItemChecks'){$checkArgs+= $regular}
   Invoke-Check $name 'substitute' $sdk $checkArgs
  }
  $boundaryRoot=Join-Path $runRoot 'build-boundary'
- Invoke-Check 'build-boundary-build' 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot 'MaintenanceBuildChecks/Checks.csproj'),'--artifacts-path',$boundaryRoot)
+ Invoke-Check 'build-boundary-build' 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot 'checks/MaintenanceBuildChecks/Checks.csproj'),'--artifacts-path',$boundaryRoot)
  Invoke-Check 'build-boundary' 'metadata' $sdk @((Join-Path $boundaryRoot 'bin/Checks/debug/Checks.dll'),$regular,$maintenance)
  Invoke-Check 'build-identity' 'metadata' $pwsh @('-NoProfile','-File',(Join-Path $PSScriptRoot 'Check-BuildIdentity.ps1'),'-GameManaged',$managed,'-Dotnet',$sdk,'-OutputRoot',(Join-Path $runRoot 'build-identity'))
  foreach($flag in @('WaterTrace','LocalTestFunds')){
   Invoke-Check "conflict-$flag" 'compile-negative' $sdk @('build',$project,'-c','Release','--artifacts-path',(Join-Path $runRoot "conflict-$flag"),"-p:GameManaged=$managed",'-p:Maintenance=true',"-p:${flag}=true") 1 'Maintenance cannot be combined'
  }
- Invoke-Check 'restoration' 'substitute' $pythonExe @((Join-Path $PSScriptRoot 'RestorationChecks/State/run.py'),'--dotnet',$sdk,'--artifacts-path',(Join-Path $runRoot 'restoration'))
+ Invoke-Check 'restoration' 'substitute' $pythonExe @((Join-Path $PSScriptRoot 'checks/RestorationChecks/State/run.py'),'--dotnet',$sdk,'--artifacts-path',(Join-Path $runRoot 'restoration'))
  Invoke-Check 'localization' 'substitute-and-native-parser' $pwsh @('-NoProfile','-File',(Join-Path $PSScriptRoot 'Check-Localization.ps1'),'-GameManaged',$managed,'-Dotnet',$sdk,'-CompiledAssembly',$regular)
  $scan=Join-Path $runRoot 'scan'
  New-Item -ItemType Directory -Path $scan | Out-Null
