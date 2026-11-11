@@ -22,18 +22,20 @@ internal sealed class MaintenanceRegistration
     public string Owner { get; }
     public MaintenanceRegistration(string eventName, string owner) { EventName = eventName; Owner = owner; }
 }
+internal enum MaintenanceFaultScope { Session, Runtime }
 internal sealed class MaintenanceFault
 {
+    public MaintenanceFaultScope Scope { get; }
     public string Source { get; }
     public string Stage { get; }
     public string Code { get; }
     public string ExceptionType { get; }
     public string Detail { get; }
     public int Count { get; }
-    public MaintenanceFault(string source, string stage, string code, string type, string detail, int count = 1)
-    { Source = source; Stage = stage; Code = code; ExceptionType = type; Detail = detail; Count = count; }
+    public MaintenanceFault(string source, string stage, string code, string type, string detail, int count = 1, MaintenanceFaultScope scope = MaintenanceFaultScope.Session)
+    { Scope = scope; Source = source; Stage = stage; Code = code; ExceptionType = type; Detail = detail; Count = count; }
     internal static int Increment(int value) => value == int.MaxValue ? value : value + 1;
-    internal MaintenanceFault Repeated() => new(Source, Stage, Code, ExceptionType, Detail, Increment(Count));
+    internal MaintenanceFault Repeated() => new(Source, Stage, Code, ExceptionType, Detail, Increment(Count), Scope);
 }
 internal sealed class MaintenanceSnapshot
 {

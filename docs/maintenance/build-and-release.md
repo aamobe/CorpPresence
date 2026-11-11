@@ -73,3 +73,17 @@ dotnet build ./src/CorpPresence.csproj -c Release --artifacts-path ./artifacts/b
 ```
 
 这个参数是发布快照比对，不是运行测试。文本使用去UTF-8 BOM、统一LF后的内容计算SHA256，避免Git的CRLF转换造成误报；PNG使用原始字节。开发中新修改尚未发布时可能故意不匹配，不要为让检查通过而覆盖未审阅的发布记录。后续正式更新时，按实际发布源码重新生成[对应版本的源码快照](../releases/README.md)。
+## 显式发布构建（框架开发中）
+
+普通 `Build.ps1` 继续输出带源码提交身份的开发构建。正式构建使用：
+
+```powershell
+./tools/Build.ps1 -GameManaged '<游戏 Managed>' -PublishRelease
+./tools/Check-ReleaseBuild.ps1 -Assembly 'artifacts/publish-build/bin/CorpPresence/release/CorpPresence.dll'
+```
+
+发布模式要求 Release 配置、自身 Git 工作区干净、当前提交包含与源码 ReleaseVersion 一致的 `v主.次.补丁` 标签、清单版本及文件版本一致，并拒绝维护和测试开关。它不创建标签、不提交文件，也不上传工坊。版本选择、提交和正式标签应在实际发布准备中完成，不能通过临时改版本绕过检查。
+
+发布 DLL 的运行版本和信息版本不含 dev 后缀，SourceRevision 程序集元数据保留实际提交；核验脚本检查三类版本、源码提交和开发专用类型。此检查不替代物品身份基线、权限扫描和游戏验收。
+
+SDK 实际已默认开启 Deterministic；本轮显式保留并增加源码/中间输出路径映射。同一工作树两个输出目录的 DLL 哈希已验证一致，不等于已验证不同源码目录或不同机器。完整可复现性与干净标签发布成功路径留待最终统一验收。

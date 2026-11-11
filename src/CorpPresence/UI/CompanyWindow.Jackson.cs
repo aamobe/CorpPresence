@@ -10,6 +10,6 @@ internal static partial class CompanyWindow
         GUI.Label(new Rect(24f, 49f, _rect.width - 48f, 24f), _desk, _theme.Small);
         DrawEquipmentOrder(new Rect(24f, 83f, _rect.width - 48f, _rect.height - 107f),
             _company.Catalog, L.K("ui.jackson.overview.workshopBuiltMachinesCustomParts", "工作间自制机器与改装配件，次日送达。", "Workshop-built machines & custom parts. Delivery tomorrow."),
-            static entry => entry.Quote(1.0), L.K("ui.jackson.overview.placeOrder", "确认订购", "Place order"));
+            entry => _company.OrderUnitPrice(entry, State), L.K("ui.jackson.overview.placeOrder", "确认订购", "Place order"));
     }
 }

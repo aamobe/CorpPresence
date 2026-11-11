@@ -32,3 +32,5 @@ static class Engine {public static Character Find(string id)=>null;}
 namespace CorpPresence.Malice {class RebelCo:CorpPresence.Company {}static class CrateFillGate {public static bool Allows(CorpPresence.GameInventory inv)=>true;public static object Enter(CorpPresence.GameInventory inv)=>null;public static void Restore(object value){}}}
 namespace UnityEngine {class Object {public static T FindObjectOfType<T>() where T:class=>null;}}
 namespace CorpPresence.Malice {static class MaliceState {public static void Get(){}}}
+
+namespace CorpPresence.Malice {static class Malice {public static bool IsInstalled => false; public static int? Limit(CorpPresence.CatalogEntry entry) => null;}}

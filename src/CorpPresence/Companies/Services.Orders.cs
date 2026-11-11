@@ -14,10 +14,9 @@ internal static partial class Services
 
 	public static string OrderBlocked(Company c)
 	{
-		Func<Company, string> f = Ext.OrderBlocked;
-		if (f != null && c != null)
+		if (Malice.Malice.IsInstalled && c != null)
 		{
-			return Ext.Ask("OrderBlocked", () => f(c), null);
+			return Ext.Ask("OrderBlocked", () => Malice.Malice.OrderBlocked(c), null);
 		}
 		return null;
 	}
@@ -50,10 +49,9 @@ internal static partial class Services
 		}
 		if (cart == null || unitPrice == null) return L.K("companies.services.orders.placeOrder.orderNotReadyHaveNot", "订单未就绪，尚未扣款。", "Order not ready. You have not been charged.");
 		KeyValuePair<CatalogEntry, int>[] purchases = cart.ToArray();
-		if (purchases.Any(kv => CargoWarehouse.Price(kv.Key?.Id) > 0) &&
-			(c is not JacksonContact || !CargoWarehouse.Unlocked()))
-			return CargoWarehouse.UnlockHint();
-		if (purchases.Where(kv => CargoWarehouse.Limit(kv.Key?.Id) > 0).GroupBy(kv => kv.Key.Id).Any(group => group.Count() > 1))
+		string equipmentError = purchases.Select(kv => EquipmentOrderRule.For(kv.Key?.Id)?.AccessError(c)).FirstOrDefault(error => error != null);
+		if (equipmentError != null) return equipmentError;
+		if (purchases.Where(kv => EquipmentOrderRule.For(kv.Key?.Id)?.RejectDuplicateLines == true).GroupBy(kv => kv.Key.Id).Any(group => group.Count() > 1))
 			return L.K("companies.services.orders.placeOrder.invalidOrderQuantityOrAmount", "订单数量或金额无效，尚未扣款。", "Invalid order quantity or amount. You have not been charged.");
 		if (c is SolanaCo && purchases.Any(kv => !Perfume.Catalog.Contains(kv.Key) || kv.Key.MinTier > c.CatalogTier(s)))
 			return L.K("companies.services.orders.placeOrder.perfumerySuppliesRequireGoldMembership", "香水工艺供应仅向金卡及以上会员开放。", "Perfumery supplies require Gold membership or above.");
@@ -61,11 +59,8 @@ internal static partial class Services
 		{
 			return L.K("companies.services.orders.placeOrder.someItemsAreUnavailableRight", "有货品暂不可用，请稍后再试。尚未扣款。", "Some items are unavailable right now. Try again later. You have not been charged.");
 		}
-		if (c is MeridianCo)
-		{
-			string permitError = purchases.Select(kv => Rosen.SaleBlocked(kv.Key.Id)).FirstOrDefault(reason => reason != null);
-			if (permitError != null) return permitError;
-		}
+		string entryError = purchases.Select(kv => c.OrderEntryError(kv.Key, s)).FirstOrDefault(reason => reason != null);
+		if (entryError != null) return entryError;
 		CatalogEntry catalogEntry = purchases.FirstOrDefault(kv => kv.Value > Left(s, kv.Key, refreshControllerStock: true)).Key;
 		if (catalogEntry != null)
 		{
@@ -74,7 +69,7 @@ internal static partial class Services
 		int num = 0;
 		int orderDay = Day;
 		string period = PeriodKey;
-		var limits = new (string Id, int WindowDays, int Count, string Key)[purchases.Length];
+		var limits = new (string Id, int WindowDays, int Count, string Key, EquipmentOrderRule Equipment)[purchases.Length];
 		int line = 0;
 		Order order = new Order { Day = orderDay + 1 };
 		foreach (KeyValuePair<CatalogEntry, int> item in purchases)
@@ -83,16 +78,17 @@ internal static partial class Services
 			int window = item.Key.WindowDays;
 			int bundle = item.Key.Bundle;
 			if (string.IsNullOrEmpty(id)) return L.K("companies.services.orders.placeOrder.itemIdentifierNotReadyHave", "货品标识未就绪，尚未扣款。", "Item identifier not ready. You have not been charged.");
-			string key = id == ProductionWorkBay.OrderId
-				? ProductionWorkBay.PurchaseKey
-				: CargoWarehouse.Limit(id) > 0 ? id + "@lifetime" : QuotaCounts.Key(id, window, orderDay, period);
-			if (id != CargoWarehouse.ControllerOrderId && !QuotaCounts.TryAdd(s.LimitedBought, key, item.Value, out _))
+			var equipment = EquipmentOrderRule.For(id);
+			string key = equipment?.CounterKey ?? QuotaCounts.Key(id, window, orderDay, period);
+			if ((equipment?.UsesCounter ?? true) && !QuotaCounts.TryAdd(s.LimitedBought, key, item.Value, out _))
 				return L.K("companies.services.orders.placeOrder.purchaseHistoryInvalidOrOut", "历史订购计数异常或超出范围，尚未扣款。", "Purchase history is invalid or out of range. You have not been charged.");
-			int cargoPrice = CargoWarehouse.Price(id);
-			if (!OrderAmounts.TryAdd(ref num, cargoPrice > 0 ? cargoPrice : unitPrice(item.Key), item.Value, bundle, out int count))
+			int fixedPrice = equipment?.FixedPrice ?? 0;
+			int shownPrice = fixedPrice > 0 ? fixedPrice : unitPrice(item.Key);
+			int actualPrice = c.OrderUnitPrice(item.Key, s);
+			if (shownPrice != actualPrice || !OrderAmounts.TryAdd(ref num, actualPrice, item.Value, bundle, out int count))
 				return L.K("companies.services.orders.placeOrder.invalidOrderQuantityOrAmount", "订单数量或金额无效，尚未扣款。", "Invalid order quantity or amount. You have not been charged.");
 			for (int i = 0; i < count; i++) order.Items.Add(id);
-			limits[line++] = (id, window, item.Value, key);
+			limits[line++] = (id, window, item.Value, key, equipment);
 		}
 		if (num <= 0) return L.K("companies.services.orders.placeOrder.nothingSelectedYet", "还没有选货", "Nothing selected yet");
 		// Finish allocating and validating the order before invoking payment.
@@ -104,10 +100,7 @@ internal static partial class Services
 		s.LastOrderDay = orderDay;
 		foreach (var item2 in limits)
 		{
-			if (item2.Id == CargoWarehouse.ControllerOrderId) continue; // The queued order reserves the only controller.
-			if (item2.Key == ProductionWorkBay.PurchaseKey) s.LimitedBought[item2.Key] = 1;
-			else if (CargoWarehouse.Limit(item2.Id) > 0)
-				s.LimitedBought[item2.Key] = s.LimitedBought.TryGetValue(item2.Key, out int used) ? used + item2.Count : item2.Count;
+			if (item2.Equipment != null) item2.Equipment.RecordPurchase(s, item2.Count);
 			else RecordLimited(s, item2.Id, item2.WindowDays, item2.Count, orderDay, period, item2.Key);
 		}
 		if (c is not JacksonContact && session.IsCurrent && ReferenceEquals(Companies.StateOf(c), s) && session.IsCurrent)
@@ -129,17 +122,8 @@ internal static partial class Services
 	public static int Left(CompanyState s, CatalogEntry e, bool refreshControllerStock = false)
 	{
 		if (s?.LimitedBought == null || e == null) return 0;
-		if (e.Id == ProductionWorkBay.OrderId)
-			return s.Orders == null || ProductionWorkBay.AlreadyPurchased(s) ? 0 : 1;
-		if (e.Id == CargoWarehouse.ControllerOrderId)
-			return CargoWarehouse.Unlocked() && CargoWarehouse.ControllerAvailable(s, refreshControllerStock) ? 1 : 0;
-		int cargoLimit = CargoWarehouse.Limit(e.Id);
-		if (cargoLimit > 0)
-		{
-			if (!CargoWarehouse.Unlocked()) return 0;
-			s.LimitedBought.TryGetValue(e.Id + "@lifetime", out int used);
-			return used < 0 || used >= cargoLimit ? 0 : cargoLimit - used;
-		}
+		var equipment = EquipmentOrderRule.For(e.Id);
+		if (equipment != null) return equipment.Remaining(s, refreshControllerStock);
 		int num = e.Limit();
 		if (num <= 0)
 		{
@@ -151,12 +135,8 @@ internal static partial class Services
 	public static string LeftText(CompanyState s, CatalogEntry e)
 	{
 		int num = Left(s, e);
-		if (e?.Id == ProductionWorkBay.OrderId)
-			return num == 0
-				? L.K("production.workBay.order.purchased", "本存档已购买", "Already purchased in this save")
-				: L.K("production.workBay.order.once", "每个存档限购 1 件", "Limit 1 per save");
-		if (CargoWarehouse.Limit(e?.Id) > 0)
-			return L.F("production.cargoWarehouse.order.remaining", "本存档还可购买 {0} 件", "{0} remaining in this save", num);
+		var equipment = EquipmentOrderRule.For(e?.Id);
+		if (equipment != null) return equipment.RemainingText(num);
 		if (num != int.MaxValue)
 		{
 			if (e.WindowDays <= 0)

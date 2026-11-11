@@ -24,6 +24,11 @@ internal sealed class CatalogEntry
 
 	public int Bundle;
 
+	// Per catalog unit, including any bundle. Null retains sampled valuation.
+	public int? FixedBaseValue;
+	public int? FixedListValue;
+	public bool IgnoreOrderRate;
+
 	private GameItem _sample;
 	private (string, int)[] _samplePermits;
 
@@ -59,38 +64,12 @@ internal sealed class CatalogEntry
 		(int.MaxValue, 3)
 	};
 
-	public GameItem Make()
-	{
-		if (Id == "@modbox")
-		{
-			return null;
-		}
-		if (Id == "@hemingway_genuine")
-		{
-			return PastelCo.GenuineHemingway();
-		}
-		if (Id == "@hemingway_limited")
-		{
-			return PastelCo.GenuineHemingway(limited: true);
-		}
-		if (Page == "药品")
-		{
-			return CarmichaelCo.MakeGenuine(Id);
-		}
-		if (Page == "制式")
-		{
-			return MeridianCo.MakeNew(Id);
-		}
-		if (Page == "净水" && Id.StartsWith("@") && !Goods.Has(Id.Substring(1)))
-		{
-			return DavreCo.MakePrebuilt(Id);
-		}
-		if (Page == "军械" && Id.StartsWith("@") && !Goods.Has(Id.Substring(1)))
-		{
-			return SpacerCo.MakeGun(Id.Substring(1));
-		}
-		return Goods.MakeSpecial(Id) ?? ItemRegistry.Create(Id);
-	}
+	// A factory is chosen with the definition, not from UI page labels at runtime.
+	public Func<string, GameItem> Factory { get; init; }
+
+	public GameItem Make() => Factory != null ? Factory(Id) : MakeDefault(Id);
+
+	internal static GameItem MakeDefault(string id) => Goods.MakeSpecial(id) ?? ItemRegistry.Create(id);
 
 	private bool SampleIsCurrent()
 	{
@@ -278,10 +257,7 @@ internal sealed class CatalogEntry
 
 	public int BaseValue()
 	{
-		if (Id == "@modbox")
-		{
-			return 500;
-		}
+		if (FixedBaseValue.HasValue) return FixedBaseValue.Value;
 		int bundle = Bundle;
 		if (!TryValues(includeEvents: false, out var baseline, out var _) || Bundle != bundle || !TryTotal(baseline, bundle, out var total))
 		{
@@ -292,11 +268,7 @@ internal sealed class CatalogEntry
 
 	public int ListValue()
 	{
-		if (Id == "@hemingway_stamp") return Tobacco.StampPrice;
-		if (Id == ProductionWorkBay.OrderId) return ProductionWorkBay.Price;
-		int cargoPrice = CargoWarehouse.Price(Id);
-		if (cargoPrice > 0) return cargoPrice;
-		if (Id == "@modbox") return 500;
+		if (FixedListValue.HasValue) return FixedListValue.Value;
 		int bundle = Bundle;
 		return TryValues(Settings.OrderEvents, out _, out var value, includeTagMarkup: true)
 			&& Bundle == bundle && TryTotal(value, bundle, out var total) ? total : -1;
@@ -304,7 +276,7 @@ internal sealed class CatalogEntry
 
 	public int Quote(double rate)
 	{
-		if (Id == "@hemingway_stamp") return Tobacco.StampPrice;
+		if (IgnoreOrderRate) return Math.Max(0, ListValue());
 		if (double.IsNaN(rate) || double.IsInfinity(rate) || rate <= 0.0)
 		{
 			return 0;
@@ -321,7 +293,7 @@ internal sealed class CatalogEntry
 
 	public double EventFactor()
 	{
-		if (!Settings.OrderEvents || Id == "@modbox" || Id == "@hemingway_stamp" || Id == ProductionWorkBay.OrderId || CargoWarehouse.Price(Id) > 0)
+		if (!Settings.OrderEvents || FixedListValue.HasValue)
 		{
 			return 1.0;
 		}
@@ -338,8 +310,8 @@ internal sealed class CatalogEntry
 		{
 			return WeeklyLimit;
 		}
-		Func<CatalogEntry, int?> f = Ext.Limit;
-		int? num = ((f == null) ? null : Ext.Ask("Limit", () => f(this), null));
+		int? num = Malice.Malice.IsInstalled
+			? Ext.Ask<int?>("Limit", () => Malice.Malice.Limit(this), null) : null;
 		if (num.HasValue)
 		{
 			return num.Value;

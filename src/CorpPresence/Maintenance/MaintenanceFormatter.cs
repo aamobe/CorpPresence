@@ -16,7 +16,7 @@ internal static class MaintenanceFormatter
         foreach (var c in snapshot.Counters) text.Append("\n[维护] ").Append(c.Name).Append('=').Append(c.Value);
         text.Append("\n[维护] 事件登记仅包含 BeforeSave/DayStart/StateReset；其他委托未迁移。缓存/登记计数不代表场景实物数量。");
         foreach (var r in snapshot.Registrations) text.Append("\n[维护] ").Append(r.EventName).Append(" owner=").Append(r.Owner);
-        foreach (var f in snapshot.Faults) text.Append("\n[维护] ").Append(f.Source).Append('/').Append(f.Stage).Append('/').Append(f.Code)
+        foreach (var f in snapshot.Faults) text.Append("\n[维护] ").Append(f.Scope == MaintenanceFaultScope.Runtime ? "运行期 " : "当前存档 ").Append(f.Source).Append('/').Append(f.Stage).Append('/').Append(f.Code)
             .Append(' ').Append(f.ExceptionType).Append(" x").Append(f.Count).Append(' ').Append(f.Detail);
         return text.ToString();
     }

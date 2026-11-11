@@ -160,3 +160,44 @@ Check(MaintenanceDiagnostics.Capture().Faults.Any(f=>f.Stage=="test.rollback"),"
 rollback.Start(()=>MaintenanceDiagnostics.RegisterLifetime(rollback));
 Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"next enabled lifetime starts fresh diagnostics");
 rollback.Stop();
+
+// Unstable session collection must retain independent runtime evidence, never stale session faults.
+MaintenanceDiagnostics.Reset(); PlayerStore.Instance = new();
+MaintenanceDiagnostics.RecordRuntime("test", "install", "failure", null);
+MaintenanceDiagnostics.RecordRuntime("test", "install", "failure", null);
+MaintenanceDiagnostics.Record("test", "save", "failure", null);
+Portraits.Probe = () => PlayerStore.Instance = new();
+var unstable = MaintenanceDiagnostics.Capture();
+Check(unstable.SaveStatus == SaveDiagnosticStatus.Unstable && unstable.Faults.Count == 1 && unstable.Faults[0].Scope == MaintenanceFaultScope.Runtime && unstable.Faults[0].Count == 2, "unstable capture retains runtime scope and repeated count without old session faults");
+Portraits.Probe = () => throw new InvalidOperationException("private save content");
+Check(MaintenanceDiagnostics.Capture().Faults.Single().Scope == MaintenanceFaultScope.Runtime, "collector exception preserves runtime evidence");
+Portraits.Probe = null;
+MaintenanceDiagnostics.Record("test", "new-save", "failure", null);
+var recovered = MaintenanceDiagnostics.Capture();
+Check(recovered.Faults.Count == 2 && recovered.Faults.Any(f => f.Scope == MaintenanceFaultScope.Session && f.Stage == "new-save"), "stable capture resumes current session diagnostics");
+Check(MaintenanceFormatter.Format(recovered).Contains("运行期 test/install") && MaintenanceFormatter.Format(recovered).Contains("当前存档 test/new-save"), "report distinguishes lifetime and save faults");
+MaintenanceDiagnostics.Reset();
+Check(unstable.Faults.Count == 1 && unstable.Faults[0].Count == 2, "unstable snapshot remains immutable after reset");
+
+MaintenanceDiagnostics.Reset(); PatchInstallation.Reset();
+var requiredLifetime = new CorpPresence.Runtime.RuntimeLifetime(_ => {});
+int requiredReleases = 0; bool requiredRejected = false;
+try {
+    requiredLifetime.Start(() => {
+        requiredLifetime.Own(() => {}, () => requiredReleases++);
+        PatchInstallation.Run("required.missing", () => false, required: true);
+    });
+} catch (MissingMethodException) { requiredRejected = true; }
+var requiredFaults = MaintenanceDiagnostics.Capture().Faults;
+Check(requiredRejected && requiredReleases == 1 && requiredFaults.Count == 1 && requiredFaults[0].Code == "target_missing", "missing required patch records failure and triggers lifetime rollback");
+var requiredCounters = new List<MaintenanceCounter>(); PatchInstallation.AppendDiagnostics(requiredCounters);
+Check(requiredCounters.Single().Value == 0, "missing required patch does not inflate installed count");
+
+// Explicit release report entry: no business writes and truthful logger failure result.
+MaintenanceDiagnostics.Reset(); PlayerStore.Instance = null;
+int reportCreates = PlayerStore.LazyCreates, previousReports = ModLog.Reports;
+Check(MaintenanceReport.TryWrite() && ModLog.Reports == previousReports + 1 && PlayerStore.LazyCreates == reportCreates, "explicit report logs without creating a player");
+ModLog.Fail = true;
+Check(!MaintenanceReport.TryWrite(), "explicit report does not claim success after log failure");
+ModLog.Fail = false;
+Check(MaintenanceDiagnostics.Capture().Faults.Any(f => f.Scope == MaintenanceFaultScope.Runtime && f.Code == "write_failed"), "report failure remains available for subsequent diagnostics");

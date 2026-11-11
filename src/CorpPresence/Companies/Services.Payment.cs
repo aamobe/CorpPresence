@@ -27,15 +27,14 @@ internal static partial class Services
         }
         // Free services still consume items or create orders: protect their save data too.
         if (amount <= 0) return null;
-        Func<Company, int, string, string> f = Ext.Charge;
-        if (f != null && c != null)
+        if (Malice.Malice.IsInstalled && c != null)
         {
             string text;
-            try { text = f(c, amount, what); }
+            try { text = Malice.Malice.Charge(c, amount, what); }
             catch (Exception error)
             {
                 RecordPaymentFault("payment.extension", "uncertain", error);
-                try { ModLog.Warn("公司付款回调失败，不再补扣现金：" + error.Message); } catch { }
+                try { ModLog.Warn("公司付款处理失败，不再补扣现金：" + error.Message); } catch { }
                 return L.K("companies.services.pay.paymentStatusUncertainCheckBalance", "付款状态异常，请先核对余额，避免重复付款。", "Payment status is uncertain. Check your balance before trying again.");
             }
             if (text != null)

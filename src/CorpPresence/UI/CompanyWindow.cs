@@ -8,13 +8,10 @@ namespace CorpPresence.UI;
 
 internal static partial class CompanyWindow
 {
-	private static string _brandSel;
-
-	private static float _swapScan = -1f;
-
-	private static readonly List<(string Name, string Reason, string Target)> SwapRows = new List<(string, string, string)>();
-
-	private static int _swapCount;
+	private static readonly OrderPageState Orders = new();
+	private static readonly SwapPageState Swap = new();
+	private static readonly RefurbishmentPageState Refurbishment = new();
+	private static readonly BrandPageState Brands = new();
 
 	private static Company _company;
 
@@ -32,10 +29,6 @@ internal static partial class CompanyWindow
 
 	private static bool _openedThisFrame;
 
-	private static readonly Dictionary<CatalogEntry, int> Cart = new Dictionary<CatalogEntry, int>();
-
-	private static string _page = "日用";
-
 	private static Vector2 _size;
 
 	private const float DragBar = 80f;
@@ -48,31 +41,17 @@ internal static partial class CompanyWindow
 
 	private static Vector2 _center;
 
-	private static CatalogEntry _leviathan;
-
-	private static int _partsPage;
-
 	private const int PartsPerPage = 8;
-
-	private static float _refurbScan = -1f;
-
-	private static readonly List<(string Name, string From, string To, int Fee)> RefurbRows = new List<(string, string, string, int)>();
-
-	private static int _refurbCount;
 
 	private static readonly int[] SolanaModuleTier = new int[5] { 1, 2, 3, 0, 2 };
 
-	private static readonly Dictionary<string, string> NameCache = new Dictionary<string, string>();
+	private static readonly PanelCatalogState Catalog = new();
 
 	private static readonly string[] MerchantPages = new string[3] { "码头", null, "目录" };
 
 	private static readonly string[] AlliancePages = new string[6] { "军械", "药房", "码头", null, "阵线", "目录" };
 
-	private static int _orderPage;
-
-	private static string _orderPageKey;
-
-	private static string[] CarmModules => WithExtra(CarmBase);
+	private static string[] CarmModules => WithTerms(CarmBase);
 
 	private static string[] CarmBase => MenuLabels.Get(0, L.En);
 
@@ -127,15 +106,15 @@ internal static partial class CompanyWindow
 		return DrawVoucherDetails(new Rect(r.x + 126f, r.y, r.width - 126f, r.height), amount);
 	}
 
-	private static string[] DavreModules => WithExtra(DavreBase);
+	private static string[] DavreModules => WithTerms(DavreBase);
 
 	private static string[] DavreBase => MenuLabels.Get(1, L.En);
 
-	private static string[] MeridianModules => WithExtra(MeridianBase);
+	private static string[] MeridianModules => WithTerms(MeridianBase);
 
 	private static string[] MeridianBase => MenuLabels.Get(2, L.En);
 
-	private static string[] PastelModules => WithExtra(PastelBase);
+	private static string[] PastelModules => WithTerms(PastelBase);
 
 	private static string[] PastelBase => MenuLabels.Get(3, L.En);
 
@@ -161,11 +140,11 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static string[] SolanaModules => WithExtra(SolanaBase);
+	private static string[] SolanaModules => WithTerms(SolanaBase);
 
 	private static string[] SolanaBase => MenuLabels.Get(9, L.En);
 
-	private static string[] SpacerServices => WithExtra(SpacerBase);
+	private static string[] SpacerServices => WithTerms(SpacerBase);
 
 	private static string[] SpacerBase
 	{
@@ -229,10 +208,9 @@ internal static partial class CompanyWindow
 			}
 			_theme = theme;
 			_module = 0;
-			_page = "日用";
-			_brandSel = null;
+			Orders.Reset();
+			Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); Catalog.Reset();
 			Brand.ScanOwned();
-			Cart.Clear();
 			_desk = c.FrontDesk[new System.Random().Next(c.FrontDesk.Length)];
 			_toast = null;
 			Vector2 size;
@@ -260,8 +238,6 @@ internal static partial class CompanyWindow
 			{
 				size = ((c is MeridianCo || c is DavreCo) ? new Vector2(860f, 640f) : new Vector2(660f, 796f));
 			}
-			_refurbScan = -1f;
-			_swapScan = -1f;
 			_size = size;
 			_rect = new Rect(((float)Screen.width / Scale - size.x) / 2f, ((float)Screen.height / Scale - size.y) / 2f, size.x, size.y);
 			if (_moved)
@@ -280,6 +256,8 @@ internal static partial class CompanyWindow
 	{
 		ResetStoryGuide();
 		Visible = false;
+		Orders.Reset();
+		Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); Catalog.Reset();
 		Pointer.PendingClick = null;
 		InputShield.Update(visible: false, default);
 		Portraits.ReleasePanelTextures();
@@ -290,8 +268,9 @@ internal static partial class CompanyWindow
 		try { Close(); }
 		finally
 		{
-			_theme = null; _company = null; _toast = null; _brandSel = null;
-			Cart.Clear(); NameCache.Clear(); SwapRows.Clear(); RefurbRows.Clear(); BrandFit.Clear(); _brandFitTheme = null;
+			_theme = null; _company = null; _toast = null;
+			Orders.Reset();
+			Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); Catalog.Reset();
 			_dragging = false; _openedThisFrame = false;
 			Ui.ResetCaches();
 		}
@@ -457,11 +436,10 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static string[] WithExtra(string[] modules)
+	private static string[] WithTerms(string[] modules)
 	{
-		Func<Company, string> f = Ext.ExtraModule;
 		Company c = _company;
-		string text = ((f == null || c == null) ? null : Ext.Ask("ExtraModule", () => f(c), null));
+		string text = ((!Malice.Malice.IsInstalled || c == null) ? null : Ext.Ask("ExtraModule", () => Malice.Malice.Applies(c) ? L.K("malice.malice.install.corporateTerms", "巨企合约", "Corporate Terms") : null, null));
 		string[] array = MenuLabels.Append(modules, text);
 		if (_module >= array.Length)
 		{
@@ -470,20 +448,19 @@ internal static partial class CompanyWindow
 		return array;
 	}
 
-	private static bool DrawExtraIfSelected(int baseCount, Rect body)
+	private static bool DrawTermsIfSelected(int baseCount, Rect body)
 	{
 		if (_module < baseCount)
 		{
 			return false;
 		}
-		Action<Company, Rect, Theme> f = Ext.DrawExtraModule;
 		Company c = _company;
 		Theme t = _theme;
-		if (f != null)
+		if (Malice.Malice.IsInstalled)
 		{
 			Ext.Ask("DrawExtraModule", () =>
 			{
-				f(c, body, t);
+				MalicePanel.Draw(c, body, t);
 				return true;
 			}, fallback: false);
 		}

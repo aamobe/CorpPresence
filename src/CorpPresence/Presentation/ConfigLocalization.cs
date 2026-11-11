@@ -8,7 +8,9 @@ internal static class ConfigLocalization
 
 	internal static void AfterOpen(LoadedMod mod, CustomUIWindow __result)
 	{
-		if (__result == null || mod?.Manifest.ID != "CorpPresence" || !TextTranslations.HasLocale(L.Locale)) return;
+		if (__result == null || mod?.Manifest.ID != "CorpPresence") return;
+		HookGuard.Run("配置诊断入口", () => ConfigDiagnostics.Attach(__result));
+		if (!TextTranslations.HasLocale(L.Locale)) return;
 		ModConfig config = ModConfig.Find(mod.Manifest.ID);
 		if (config == null) return;
 		__result.SetTitle(ConfigDisplay.Text(mod.Manifest.Name));

@@ -14,6 +14,35 @@ Check("escapee ignores the unsaved front counter", () =>
     var pending = new GameItemElement();
     Assert(!EscapeePlacement.TryPlace(store, pending) && pending.parentInventory == null && store.frontInvinvElement.childItems.Count == 0);
 });
+Check("panel catalog resolves language live and retries a failed name", () =>
+{
+    var panel = new CorpPresence.UI.PanelCatalogState();
+    Goods.Factory = () => null;
+    Assert(panel.Name("sample") == "sample");
+    var sample = new GameItem(); Goods.Factory = () => sample;
+    L.En = false; Assert(panel.Name("sample") == "中文");
+    L.En = true; Assert(panel.Name("sample") == "English");
+    panel.Reset(); panel.Reset(); Assert(sample.DestroyCount == 1);
+    L.En = false;
+});
+Check("catalog factory owns creation independently of display page", () =>
+{
+    int calls = 0;
+    var entry = new CatalogEntry { Id = "sample", Page = "display", Factory = id => { calls++; return new GameItem { identifier = id, Value = 77 }; } };
+    Assert(entry.BaseValue() == 77);
+    entry.Page = "renamed";
+    Assert(entry.BaseValue() == 77);
+    var delivered = entry.Make();
+    Assert(delivered.identifier == "sample" && delivered.Value == 77 && calls == 3);
+    CatalogPricing.Release(entry);
+    delivered.Destroy();
+});
+Check("explicit null catalog factory never falls through to default goods", () =>
+{
+    int made = 0; Goods.Factory = () => { made++; return new GameItem(); };
+    var entry = new CatalogEntry { Id = "sample", Factory = _ => null };
+    Assert(entry.Make() == null && entry.BaseValue() == -1 && made == 0);
+});
 CatalogEntry Entry() => new CatalogEntry { Id="sample", Page="test" };
 Check("bundle overflow fails closed", () => { Goods.Factory=()=>new GameItem{Value=int.MaxValue}; Assert(new CatalogEntry{Id="sample",Bundle=2}.BaseValue()==-1); });
 Check("nonfinite rate fails closed", () => Assert(Entry().Quote(double.PositiveInfinity)==0));
@@ -182,7 +211,7 @@ static class L
         (En ? en : zh).ToString();
 }
 static class ModLog {public static void Warn(string s){}public static void Info(string s){}}
-static class Ext {public static Func<CatalogEntry,int?> Limit;public static T Ask<T>(string s,Func<T> f,T other)=>f();}
+static class Ext {public static T Ask<T>(string s,Func<T> f,T other)=>f();}
 static class StorePlacement {public static bool Destroyed(GameItem i)=>i.DestroyCount>0;}
 class StoreEvent {public string identifier;}
 class EventManager {public List<StoreEvent> GetActiveEvents()=>new();}

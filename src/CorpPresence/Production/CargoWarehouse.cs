@@ -17,17 +17,14 @@ internal static partial class CargoWarehouse
     internal const string ModuleOrderId = "@" + ModuleKey;
     internal const string SpriteKey = "corp_med_" + GoodsKey;
     internal const string ModuleSpriteKey = "corp_med_" + ModuleKey;
+    internal const int WarehousePrice = 15000;
+    internal const int ModulePrice = 2000;
     internal const int MaxModules = 4;
     private const string ExtraTabsTag = "corp_presence_cargo_extra_tabs";
     private static readonly ConditionalWeakTable<GameItem, MachineryTabs> Inventories = new();
     private static readonly Company[] Partners = Companies.All
         .Where(c => c is PastelCo or SolanaCo or CarmichaelCo or SpacerCo or MeridianCo or DavreCo).ToArray();
 
-    internal static int Price(string id) => id switch
-    {
-        OrderId => 15000, ModuleOrderId => 2000, ControllerOrderId => ControllerPrice, _ => 0
-    };
-    internal static int Limit(string id) => id switch { OrderId or ControllerOrderId => 1, ModuleOrderId => MaxModules, _ => 0 };
     internal static bool Unlocked() => Partners.All(c => Companies.StateOf(c)?.Coop >= 100);
     internal static string UnlockHint() => L.K("production.cargoWarehouse.unlock",
         "六家公司的合作度均达到 100 后开放", "Requires 100 cooperation with all six companies");
@@ -37,7 +34,7 @@ internal static partial class CargoWarehouse
         Name = "大型集装箱仓库", NameEn = "Cargo Warehouse",
         Desc = "通用仓库。初始一页，每页 24×24 格。使用集装箱扩页模块可扩至五页。",
         DescEn = "General storage. Starts with one 24 × 24 tab and expands to five with cargo expansion modules.",
-        Company = "jackson_private", Value = 15000, Art = GoodsKey, Fallback = "hypertech_bay",
+        Company = "jackson_private", Value = WarehousePrice, Art = GoodsKey, Fallback = "hypertech_bay",
         W = 4, H = 4, Shape = "####|####|####|####", Types = new[] { "STORAGE" }, Shell = CreateWarehouse
     };
 
@@ -55,7 +52,7 @@ internal static partial class CargoWarehouse
         Name = "集装箱扩页模块", NameEn = "Cargo Expansion Module",
         Desc = "拖到大型集装箱仓库上，消耗一件并追加一页。",
         DescEn = "Use on a Cargo Warehouse to consume one module and add one tab.",
-        Company = "jackson_private", Value = 2000, Art = ModuleKey, Fallback = "storage_bay_expansion_kit",
+        Company = "jackson_private", Value = ModulePrice, Art = ModuleKey, Fallback = "storage_bay_expansion_kit",
         W = 1, H = 1, Shape = "#", Types = new[] { "TOOL" }, Shell = CreateModule
     };
 

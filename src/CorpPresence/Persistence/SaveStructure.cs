@@ -25,14 +25,6 @@ internal static class SaveStructure
         }
     }
 
-    public static void Validate(Malice.MaliceState state)
-    {
-        Require(state.Corps != null && state.Envoy != null && state.Rebel != null, "巨企根状态集合缺失");
-        foreach (var entry in state.Corps) Require(entry.Value != null, "巨企合约记录缺失：", entry.Key);
-        Require(state.Envoy.Coins != null && state.Envoy.Visits != null, "特使必要集合缺失");
-        foreach (var visit in state.Envoy.Visits) Require(visit != null, "特使预约记录为空");
-    }
-
     private static void Require(bool valid, string message, string key = null)
     {
         if (!valid) throw new InvalidOperationException(key == null ? message : message + key);

@@ -21,18 +21,21 @@ internal sealed class MeridianCo : Company
 		new CatalogEntry
 		{
 			Id = "@glock_receiver",
+			Factory = MakeNew,
 			Page = "制式",
 			Label = "哨兵3型"
 		},
 		new CatalogEntry
 		{
 			Id = "@smg",
+			Factory = MakeNew,
 			Page = "制式",
 			Label = "“和平使者”重型冲锋枪"
 		},
 		new CatalogEntry
 		{
 			Id = "@shotgun",
+			Factory = MakeNew,
 			Page = "制式",
 			MinTier = 2,
 			Label = "“壁垒”双动式霰弹枪"
@@ -40,16 +43,19 @@ internal sealed class MeridianCo : Company
 		new CatalogEntry
 		{
 			Id = "heavy_pistol_ammo",
+			Factory = MakeNew,
 			Page = "制式"
 		},
 		new CatalogEntry
 		{
 			Id = "heavy_pistol_ammo_nl",
+			Factory = MakeNew,
 			Page = "制式"
 		},
 		new CatalogEntry
 		{
 			Id = "heavy_pistol_ammo_p",
+			Factory = MakeNew,
 			Page = "制式",
 			MinTier = 2
 		}
@@ -184,6 +190,10 @@ internal sealed class MeridianCo : Company
 	public static bool ForgeOffered => CorpState.Get()?.Of("rosen").SideDone.Contains(5) ?? false;
 
 	public static double PartsRate => Settings.OrderMarkup;
+
+	protected override double OrderPriceRate(CatalogEntry entry, CompanyState state) => Array.IndexOf(Parts, entry) >= 0 ? PartsRate : base.OrderPriceRate(entry, state);
+
+	protected override string ContentOrderError(CatalogEntry entry) => Rosen.SaleBlocked(entry.Id);
 
 	public override CatalogEntry[] Catalog => AllEntries;
 

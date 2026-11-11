@@ -7,7 +7,7 @@ readonly struct StoreSession
  public static StoreSession Capture() => new(Companies.State);
  public bool IsCurrent => ReferenceEquals(state, Companies.State);
 }
-class Company { public string Name => "Test"; public int CatalogTier(CompanyState s) => 2; }
+class Company { public int OrderUnitPrice(CatalogEntry entry, CompanyState state) => EquipmentOrderRule.For(entry.Id)?.FixedPrice is > 0 ? EquipmentOrderRule.For(entry.Id).FixedPrice : 100; public string EntryError; public string OrderEntryError(CatalogEntry entry, CompanyState state) => EntryError; public string Name => "Test"; public int CatalogTier(CompanyState s) => 2; }
 class JacksonContact : Company {}
 class SolanaCo : Company {}
 class MeridianCo : Company {}
@@ -31,22 +31,21 @@ static class Companies {
  public static CompanyState StateOf(Company c) => State;
 }
 static class Ext {
- public static Func<Company,int,string,string> Charge;
- public static Func<Company,string> OrderBlocked => null;
  public static T Ask<T>(string name,Func<T> action,T fallback) => action();
 }
 static class Perfume { public static List<CatalogEntry> Catalog = new(); }
 static class Rosen { public static string SaleBlocked(string id) => null; }
 static class ProductionWorkBay {
  public const string OrderId = "@production_work_bay", PurchaseKey = OrderId+"@lifetime";
- public static bool AlreadyPurchased(CompanyState s) => false;
+ public static bool AlreadyPurchased(CompanyState s) => s.LimitedBought.ContainsKey(PurchaseKey) || s.Orders.Any(o=>o.Items.Contains(OrderId));
 }
 static class CargoWarehouse {
  public const string ControllerOrderId = "@cargo_sort_controller";
- public static int Price(string id) => 0;
- public static int Limit(string id) => 0;
- public static bool Unlocked() => true;
- public static bool ControllerAvailable(CompanyState s,bool refresh) => true;
+ public const string OrderId="@cargo_warehouse", ModuleOrderId="@cargo_warehouse_module";
+ public const int WarehousePrice=15000, ModulePrice=2000, ControllerPrice=3000, MaxModules=4;
+ public static bool IsUnlocked=true;
+ public static bool Unlocked() => IsUnlocked;
+ public static bool ControllerAvailable(CompanyState s,bool refresh) => !s.Orders.Any(o=>o.Items.Contains(ControllerOrderId));
  public static string UnlockHint() => "locked";
 }
 static class Settings {
@@ -65,7 +64,7 @@ static partial class Services {
  public static string PeriodKey => "week";
  public static string PeriodWord => "week";
  public static int Charges {get=>PlayerStore.Instance.Calls;set=>PlayerStore.Instance.Calls=value;}
- public static Func<string> Payment {set {Ext.Charge=value==null ? null : (_,_,_)=>value();}}
+ public static Func<string> Payment {set {Malice.Malice.Handler=value==null ? null : (_,_,_)=>value();}}
  public static void AddCoop(Company c,double amount,string reason) { Companies.State.Cooperation += amount; }
 }
 

@@ -90,7 +90,7 @@ internal static partial class CompanyWindow
 			Rect rect = new Rect(r.x + (float)(j % num2) * (num3 + 6f), num5 + (float)(j / num2) * (num7 + 6f), num3, num7);
 			Rect r2 = rect;
 			GUIStyle style;
-			if (flag && text == _brandSel)
+			if (flag && text == Brands.Selected)
 			{
 				style = theme.NavOnStyle;
 			}
@@ -100,7 +100,7 @@ internal static partial class CompanyWindow
 			}
 			if (Ui.Button(r2, "", style) & flag)
 			{
-				_brandSel = text;
+				Brands.Selected = text;
 			}
 			if (!flag)
 			{
@@ -115,37 +115,34 @@ internal static partial class CompanyWindow
 		}
 		Rect position2 = new Rect(r.x, r.yMax - 120f, r.width, 120f);
 		GUI.Box(position2, GUIContent.none, theme.CellBox);
-		if (_brandSel == null || !state.Brand.Contains(_brandSel) || Array.IndexOf(array, _brandSel) < 0)
+		if (Brands.Selected == null || !state.Brand.Contains(Brands.Selected) || Array.IndexOf(array, Brands.Selected) < 0)
 		{
 			GUI.Label(new Rect(position2.x + 10f, position2.y + 10f, position2.width - 20f, 24f), (num == 0) ? L.K("ui.catalog.brand.empty", "还没有经手过这家公司的产品。", "You haven't handled any of this company's products yet.") : L.K("ui.catalog.brand.selectItem", "点一件已收录的物品，看它的介绍。", "Click a recorded item to read about it."), theme.Small);
 			return;
 		}
-		Brand.Entry entry2 = Brand.Info(_brandSel);
+		Brand.Entry entry2 = Brand.Info(Brands.Selected);
 		DrawIcon(new Rect(position2.x + 10f, position2.y + 10f, 128f, 96f), entry2.Icon);
 		GUI.Label(new Rect(position2.x + 150f, position2.y + 8f, position2.width - 160f, 26f), entry2.Name, theme.Title);
 		GUI.Label(new Rect(position2.x + 150f, position2.y + 38f, position2.width - 160f, position2.height - 44f), entry2.Desc, theme.Wrap);
 	}
 
 	// 品牌名在格子里放不放得下：按名字、格子尺寸缓存，不再每次绘制都量一遍文字
-	private static readonly Dictionary<string, (float w, float h, bool fits)> BrandFit = new Dictionary<string, (float, float, bool)>();
 	private static readonly GUIContent FitContent = new GUIContent();
-	private static Theme _brandFitTheme;
-
 	private static bool NameFits(Theme theme, string name, float width, float height)
 	{
-		if (!ReferenceEquals(_brandFitTheme, theme))
+		if (!ReferenceEquals(Brands.Theme, theme))
 		{
-			BrandFit.Clear();
-			_brandFitTheme = theme;
+			Brands.Fits.Clear();
+			Brands.Theme = theme;
 		}
 		string key = name ?? "";
-		if (BrandFit.TryGetValue(key, out var fit) && fit.w == width && fit.h == height)
+		if (Brands.Fits.TryGetValue(key, out var fit) && fit.w == width && fit.h == height)
 		{
 			return fit.fits;
 		}
 		FitContent.text = key;
 		bool fits = theme.Wrap.CalcHeight(FitContent, width) <= height;
-		BrandFit[key] = (width, height, fits);
+		Brands.Fits[key] = (width, height, fits);
 		return fits;
 	}
 
@@ -164,31 +161,7 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static string ItemName(string id)
-	{
-		if (NameCache.TryGetValue(id, out var value))
-		{
-			return value;
-		}
-		GameItem gameItem = null;
-		try
-		{
-			gameItem = DirectoryMaster.Item(id, isOwned: false);
-			value = gameItem?.GetDisplayName() ?? id;
-		}
-		catch
-		{
-			value = id;
-		}
-		try
-		{
-			gameItem?.Destroy();
-		}
-		catch
-		{
-		}
-		return NameCache[id] = value;
-	}
+	private static string ItemName(string id) => Catalog.Name(id);
 
 }
 

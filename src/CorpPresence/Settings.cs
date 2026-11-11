@@ -108,9 +108,9 @@ internal static class Settings
 			ConfigEntry<bool> limits = _limits;
 			if (limits != null && !limits.Value)
 			{
-				if (Ext.ForceOrderLimits != null)
+				if (Malice.Malice.IsInstalled)
 				{
-					return Ext.Ask("ForceOrderLimits", Ext.ForceOrderLimits, fallback: false);
+					return Ext.Ask("ForceOrderLimits", () => Malice.Malice.On, fallback: false);
 				}
 				return false;
 			}
@@ -124,7 +124,7 @@ internal static class Settings
 	{
 		get
 		{
-			int num = Forced(Ext.ForceRestockWeeks, "ForceRestockWeeks");
+			int num = Malice.Malice.IsInstalled ? Ext.Ask("ForceRestockWeeks", () => Malice.Malice.On ? 1 : 0, 0) : 0;
 			return Math.Max(1, Math.Min(3, (num > 0) ? num : Number(_restock, 1)));
 		}
 	}
@@ -183,9 +183,9 @@ internal static class Settings
 	{
 		get
 		{
-			if (Ext.LockVanillaDifficulty != null)
+			if (Malice.Malice.IsInstalled)
 			{
-				return Ext.Ask("LockVanillaDifficulty", Ext.LockVanillaDifficulty, fallback: false);
+				return Ext.Ask("LockVanillaDifficulty", () => Malice.Malice.On, fallback: false);
 			}
 			return false;
 		}
@@ -220,15 +220,6 @@ internal static class Settings
 	public static int VanillaBudget()
 	{
 		return 800 + Rng.Next(0, 251) + StoreStation.GetDayCounter();
-	}
-
-	private static int Forced(Func<int> f, string name)
-	{
-		if (f != null)
-		{
-			return Ext.Ask(name, f, 0);
-		}
-		return 0;
 	}
 
 	public static void Init(string modId)

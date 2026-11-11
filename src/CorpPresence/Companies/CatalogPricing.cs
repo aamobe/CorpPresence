@@ -20,6 +20,14 @@ internal static class CatalogPricing
 		Samples.Add(entry);
 	}
 
+	// Failed release stays tracked for the existing cleanup retry path.
+	internal static void Release(CatalogEntry entry)
+	{
+		if (entry == null) return;
+		if (entry.ReleaseQuoteSample()) Samples.Remove(entry);
+		else Samples.Add(entry);
+	}
+
 	internal static void ReleaseExpiredSamples()
 	{
 		foreach (var entry in new List<CatalogEntry>(Samples))

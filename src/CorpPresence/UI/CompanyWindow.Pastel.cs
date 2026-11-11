@@ -50,7 +50,7 @@ internal static partial class CompanyWindow
 		{
 			DrawPastelTraffic(rect);
 		}
-		else if (!DrawExtraIfSelected(PastelBase.Length, rect))
+		else if (!DrawTermsIfSelected(PastelBase.Length, rect))
 		{
 			DrawBrand(rect);
 		}
@@ -77,26 +77,9 @@ internal static partial class CompanyWindow
 		return why == null;
 	}
 
-	private static int PastelUnitPrice(CatalogEntry e)
-	{
-		double num = Company.OrderRate(_company, _company.Tier(State));
-		if (e == PastelSpecial())
-		{
-			num *= 0.9;
-		}
-		return e.Quote(num);
-	}
+	private static int PastelUnitPrice(CatalogEntry e) => _company.OrderUnitPrice(e, State);
 
-	private static CatalogEntry PastelSpecial()
-	{
-		int tier = _company.CatalogTier(State);
-		CatalogEntry[] array = PastelCo.Entries.Where((CatalogEntry e) => e.Page == "日用" && e.MinTier <= tier).ToArray();
-		if (array.Length != 0)
-		{
-			return array[Day * 31 % array.Length];
-		}
-		return null;
-	}
+	private static CatalogEntry PastelSpecial() => ((PastelCo)_company).DailySpecial(State);
 
 	private static void DrawPastelOrder(Rect r)
 	{
@@ -104,15 +87,15 @@ internal static partial class CompanyWindow
 		CompanyState state = State;
 		int num = _company.CatalogTier(state);
 		bool flag = PastelCo.HemingwayOpen();
-		if (Ui.Button(new Rect(r.x, r.y, 90f, 26f), L.K("ui.pastel.orders.daily", "日用", "Daily"), (_page == "日用") ? theme.BtnHotStyle : theme.BtnStyle))
+		if (Ui.Button(new Rect(r.x, r.y, 90f, 26f), L.K("ui.pastel.orders.daily", "日用", "Daily"), (Orders.Category == "日用") ? theme.BtnHotStyle : theme.BtnStyle))
 		{
-			_page = "日用";
+			Orders.Category = "日用";
 		}
-		if (Ui.Button(new Rect(r.x + 96f, r.y, 170f, 28f), flag ? L.K("ui.pastel.orders.hemingway", "海明威", "Hemingway") : L.K("ui.pastel.orders.hemingwayLocked", "海明威（未解锁）", "Hemingway (locked)"), (_page == "海明威") ? theme.BtnHotStyle : theme.BtnStyle))
+		if (Ui.Button(new Rect(r.x + 96f, r.y, 170f, 28f), flag ? L.K("ui.pastel.orders.hemingway", "海明威", "Hemingway") : L.K("ui.pastel.orders.hemingwayLocked", "海明威（未解锁）", "Hemingway (locked)"), (Orders.Category == "海明威") ? theme.BtnHotStyle : theme.BtnStyle))
 		{
 			if (flag)
 			{
-				_page = "海明威";
+				Orders.Category = "海明威";
 			}
 			else
 			{
@@ -120,18 +103,18 @@ internal static partial class CompanyWindow
 			}
 		}
 		bool flag2 = PastelCo.CraftDone(1);
-		if (Ui.Button(new Rect(r.x + 272f, r.y, 90f, 28f), flag2 ? L.K("ui.pastel.orders.craft", "工艺", "Craft") : "？？？", (_page == "工艺") ? theme.BtnHotStyle : theme.BtnStyle))
+		if (Ui.Button(new Rect(r.x + 272f, r.y, 90f, 28f), flag2 ? L.K("ui.pastel.orders.craft", "工艺", "Craft") : "？？？", (Orders.Category == "工艺") ? theme.BtnHotStyle : theme.BtnStyle))
 		{
 			if (flag)
 			{
-				_page = "工艺";
+				Orders.Category = "工艺";
 			}
 			else
 			{
 				Toast(L.K("ui.pastel.orders.thisPageOpensOnceMilo", "米洛调去海明威之后才有这一页", "This page opens once Milo transfers to Hemingway"));
 			}
 		}
-		if (_page == "海明威" || _page == "工艺")
+		if (Orders.Category == "海明威" || Orders.Category == "工艺")
 		{
 			Ui.Fill(new Rect(r.x, r.y + 32f, r.width, r.height - 32f), Tex.Hex(8730423));
 			Ui.Fill(new Rect(r.x + 3f, r.y + 35f, r.width - 6f, 1f), Tex.Hex(12224851));
@@ -139,7 +122,7 @@ internal static partial class CompanyWindow
 		}
 		bool flag3 = Services.CanOrderToday(_company);
 		GUI.Label(new Rect(r.x + 370f, r.y, r.width - 370f, 28f), flag3 ? L.K("ui.pastel.orders.orderTodayDeliveredTomorrow", "今天下单，明天送到", "Order today, delivered tomorrow") : L.K("ui.pastel.orders.alreadyOrderedToday", "今天已经下过单了", "Already ordered today"), theme.Small);
-		CatalogEntry[] array = PastelCo.Entries.Where((CatalogEntry e) => e.Page == _page).ToArray();
+		CatalogEntry[] array = PastelCo.Entries.Where((CatalogEntry e) => e.Page == Orders.Category).ToArray();
 		CatalogEntry catalogEntry = PastelSpecial();
 		int num2 = (array.Length + 2) / 3;
 		float num3 = (r.width - 18f) / 3f;
@@ -154,7 +137,7 @@ internal static partial class CompanyWindow
 			GUI.Label(new Rect(rect.x + 6f, rect.y + 4f, rect.width - 12f, 44f), flag5 ? "？？？" : catalogEntry2.Name(), theme.Wrap);
 			if (flag5)
 			{
-				Cart.Remove(catalogEntry2);
+				Orders.Cart.Remove(catalogEntry2);
 				if (catalogEntry2.Id == "@packaging_machine" && PastelCo.BribePending)
 				{
 					PastelBribeCell(rect);
@@ -166,10 +149,11 @@ internal static partial class CompanyWindow
 				continue;
 			}
 			string listPrice = ItemListPrice(ItemListValue(catalogEntry2), labeled: true);
-			if (flag4)
+			string entryError = _company.OrderEntryError(catalogEntry2, state);
+			if (entryError != null)
 			{
-				GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 22f), (L.En ? L.K("ui.pastel.orders.tierRequired", (System.FormattableString)$"Unlocks at {_company.TierNames[catalogEntry2.MinTier - 1]}") : _company.TierNames[catalogEntry2.MinTier - 1] + "解锁"), theme.Center);
-				GUI.Label(new Rect(rect.center.x, rect.y + 76f, rect.width / 2f, 22f), listPrice, theme.Center);
+				Orders.Cart.Remove(catalogEntry2);
+				GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 44f), entryError, theme.Wrap);
 				continue;
 			}
 			int num6 = PastelUnitPrice(catalogEntry2);
@@ -177,7 +161,7 @@ internal static partial class CompanyWindow
 			{
 				GUI.Label(new Rect(rect.x, rect.y + 52f, rect.width, 22f), L.K("ui.pastel.orders.unavailable", "暂不可用", "Unavailable"), theme.Center);
 				GUI.Label(new Rect(rect.center.x, rect.y + 76f, rect.width / 2f, 22f), listPrice, theme.Center);
-				Cart.Remove(catalogEntry2);
+				Orders.Cart.Remove(catalogEntry2);
 				continue;
 			}
 			string orderLabel = catalogEntry2 == catalogEntry ? L.K("ui.pastel.orders.deal", "特价", "Deal") : L.K("ui.pastel.orders.buy", "订货", "Buy");
@@ -188,15 +172,15 @@ internal static partial class CompanyWindow
 			{
 				GUI.Label(new Rect(rect.x, rect.y + 76f, rect.width, 22f), (L.En ? L.K("ui.pastel.orders.quotaRemaining", (System.FormattableString)$"{num7} left {Services.PeriodWord}") : $"{Services.PeriodWord}还剩 {num7}"), theme.Small);
 			}
-			Cart.TryGetValue(catalogEntry2, out var value);
+			Orders.Cart.TryGetValue(catalogEntry2, out var value);
 			value = Ui.Qty(new Rect(rect.x + 6f, rect.yMax - 28f, rect.width - 12f, 24f), value, Math.Min(10, num7), theme.BtnStyle, theme.Center);
 			if (value > 0)
 			{
-				Cart[catalogEntry2] = value;
+				Orders.Cart[catalogEntry2] = value;
 			}
 			else
 			{
-				Cart.Remove(catalogEntry2);
+				Orders.Cart.Remove(catalogEntry2);
 			}
 		}
 	}
@@ -274,7 +258,7 @@ internal static partial class CompanyWindow
 		{
 			return;
 		}
-		int num = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => PastelUnitPrice(kv.Key) * kv.Value);
+		int num = Orders.Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => PastelUnitPrice(kv.Key) * kv.Value);
 		GUI.Label(new Rect(r.xMax - 180f, r.y + 12f, 170f, 22f), (L.En ? L.K("ui.pastel.footer.total", (System.FormattableString)$"Total {num}₵") : $"合计 {num}₵"), theme.Price);
 		GUI.Label(new Rect(r.xMax - 180f, r.y + 36f, 170f, 22f), (L.En ? L.K("ui.pastel.footer.cash", (System.FormattableString)$"Cash {Cash}₵") : $"现金 {Cash}₵"), theme.Small);
 		int cashDue = DrawVoucherDetails(new Rect(r.xMax - 320f, r.y + 108f, 310f, 20f), num);
@@ -282,10 +266,10 @@ internal static partial class CompanyWindow
 		GUI.enabled = enabled2 && num > 0 && Services.CanAfford(cashDue) && Services.CanOrderToday(_company);
 		if (Ui.Button(new Rect(r.xMax - 170f, r.y + 64f, 150f, 36f), L.K("ui.pastel.footer.order", "下单", "Order"), theme.BtnHotStyle))
 		{
-			string text = Services.PlaceOrder(_company, Cart, PastelUnitPrice);
+			string text = Services.PlaceOrder(_company, Orders.Cart, PastelUnitPrice);
 			if (text == null)
 			{
-				Cart.Clear();
+				Orders.Cart.Clear();
 				Toast(L.K("ui.pastel.footer.ordered", "已下单！", "Ordered! ") + _company.FrontDeskDone);
 			}
 			else

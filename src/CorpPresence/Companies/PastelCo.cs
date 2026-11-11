@@ -82,6 +82,7 @@ internal sealed class PastelCo : Company
 		new CatalogEntry
 		{
 			Id = "@hemingway_genuine",
+			Factory = static _ => GenuineHemingway(),
 			Page = "海明威",
 			Label = "海明威香烟（正品）",
 			LabelKey = "companies.catalog.hemingwayCigarettesGenuine.name",
@@ -107,6 +108,7 @@ internal sealed class PastelCo : Company
 		new CatalogEntry
 		{
 			Id = "@hemingway_limited",
+			Factory = static _ => GenuineHemingway(limited: true),
 			Page = "海明威",
 			MinTier = 3,
 			WeeklyLimit = 2,
@@ -132,6 +134,8 @@ internal sealed class PastelCo : Company
 		new CatalogEntry
 		{
 			Id = "@hemingway_stamp",
+			FixedListValue = Tobacco.StampPrice,
+			IgnoreOrderRate = true,
 			Page = "工艺",
 			WeeklyLimit = 2
 		}
@@ -160,6 +164,22 @@ internal sealed class PastelCo : Company
 	public override string DeskName => L.K("companies.pastel.deskName.pastelFrontDesk", "帕斯泰尔前台", "pastel Front Desk");
 
 	public override string DeskAsk => L.K("companies.pastel.deskAsk.wantSeeTodaySList", "看看今天的单子？", "Want to see today's list?");
+
+	internal CatalogEntry DailySpecial(CompanyState state)
+	{
+		int tier = CatalogTier(state);
+		var available = Array.FindAll(Entries, e => e.Page == "日用" && e.MinTier <= tier);
+		return available.Length == 0 ? null : available[StoreStation.GetDayCounter() * 31 % available.Length];
+	}
+
+	protected override double OrderPriceRate(CatalogEntry entry, CompanyState state) => base.OrderPriceRate(entry, state) * (entry == DailySpecial(state) ? 0.9 : 1.0);
+
+	protected override string ContentOrderError(CatalogEntry entry)
+	{
+		if ((entry.Page == "海明威" || entry.Page == "工艺") && !HemingwayOpen())
+			return L.K("ui.pastel.orders.thisPageOpensOnceMilo", "米洛调去海明威之后才有这一页", "This page opens once Milo transfers to Hemingway");
+		return CraftUnlocked(entry) ? null : UnavailableOrderEntry();
+	}
 
 	public override CatalogEntry[] Catalog => Entries;
 

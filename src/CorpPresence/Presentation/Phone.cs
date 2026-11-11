@@ -171,8 +171,7 @@ internal static class Phone
 	public static Dialogue CallDialog(Company c)
 	{
 		long generation = unchecked(++_callGeneration);
-		Func<Company, Dialogue> custom = Ext.CallDialog;
-		Dialogue dialogue = ((custom == null) ? null : Ext.Ask("CallDialog", () => custom(c), null));
+		Dialogue dialogue = !Malice.Malice.IsInstalled ? null : Ext.Ask("CallDialog", () => Malice.Envoy.MentorCall(c), null);
 		if (dialogue != null)
 		{
 			return dialogue;

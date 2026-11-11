@@ -33,6 +33,22 @@ internal abstract class Company
 
 	public virtual bool Active => true;
 
+	public string OrderEntryError(CatalogEntry entry, CompanyState state)
+	{
+		if (!Active || state == null || entry == null || Catalog == null || !Catalog.Contains(entry))
+			return UnavailableOrderEntry();
+		if (entry.MinTier > CatalogTier(state))
+		{
+			if (entry.MinTier < 1 || entry.MinTier > TierNames.Length) return UnavailableOrderEntry();
+			return L.En ? L.K("ui.carmichael.availability.tierRequired", (FormattableString)$"Opens at {TierNames[entry.MinTier - 1]}") : TierNames[entry.MinTier - 1] + "开放";
+		}
+		return EquipmentOrderRule.For(entry.Id)?.AccessError(this) ?? ContentOrderError(entry);
+	}
+
+	protected virtual string ContentOrderError(CatalogEntry entry) => null;
+
+	protected static string UnavailableOrderEntry() => L.K("companies.services.orders.placeOrder.someItemsAreUnavailableRight", "有货品暂不可用，请稍后再试。尚未扣款。", "Some items are unavailable right now. Try again later. You have not been charged.");
+
 	public int Tier(CompanyState s)
 	{
 		return TierAt.Count((int t) => s.Coop >= t);
@@ -55,13 +71,21 @@ internal abstract class Company
 	public int CatalogTier(CompanyState s)
 	{
 		int tier = Tier(s);
-		Func<Company, CompanyState, int, int> f = Ext.CatalogTier;
-		if (f != null)
+		if (Malice.Malice.IsInstalled)
 		{
-			return Ext.Ask("CatalogTier", () => f(this, s, tier), tier);
+			return Ext.Ask("CatalogTier", () => Malice.Malice.CatalogTier(this, s, tier), tier);
 		}
 		return tier;
 	}
+
+	public int OrderUnitPrice(CatalogEntry entry, CompanyState state)
+	{
+		if (entry == null || state == null) return 0;
+		int fixedPrice = EquipmentOrderRule.For(entry.Id)?.FixedPrice ?? 0;
+		return fixedPrice > 0 ? fixedPrice : entry.Quote(OrderPriceRate(entry, state));
+	}
+
+	protected virtual double OrderPriceRate(CatalogEntry entry, CompanyState state) => OrderRate(this, Tier(state));
 
 	public static double PriceRate(int tier)
 	{
@@ -71,10 +95,9 @@ internal abstract class Company
 	public static double OrderRate(Company c, int tier)
 	{
 		double num = PriceRate(tier);
-		Func<Company, double> f = Ext.OrderFactor;
-		if (f != null)
+		if (Malice.Malice.IsInstalled)
 		{
-			return num * Ext.Ask("OrderFactor", () => f(c), 1.0);
+			return num * Ext.Ask("OrderFactor", () => Malice.Malice.Applies(c) ? Malice.Envoy.OrderFactor() : 1.0, 1.0);
 		}
 		return num;
 	}

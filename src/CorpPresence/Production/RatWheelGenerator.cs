@@ -17,13 +17,24 @@ internal static class RatWheelGenerator
     // 不借用原版 CreateAnimalCage 和 CAGE_SIZE_TAG，改用自己的宽高标签；读档时把旧的尺寸标签换算过来并移除。
     internal static void Install(Harmony harmony)
     {
-        harmony.Patch(AccessTools.Method(typeof(GameItem), "ValidateShapeState"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeValidateCapacity")
+        InstallRequired<GameItem>(harmony, "ValidateShapeState", new HarmonyMethod(typeof(RatWheelGenerator), nameof(BeforeValidateCapacity))
         {
             priority = 800
         });
-        harmony.Patch(AccessTools.Method(typeof(AnimalCage), "CanUpgradeSize"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeCanUpgrade"));
-        harmony.Patch(AccessTools.Method(typeof(AnimalCage), "UpgradeSize"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeUpgrade"));
-        harmony.Patch(AccessTools.Method(typeof(AnimalCage), "CreateTooltip"), new HarmonyMethod(typeof(RatWheelGenerator), "BeforeCageTooltip"));
+        InstallRequired<AnimalCage>(harmony, "CanUpgradeSize", new HarmonyMethod(typeof(RatWheelGenerator), nameof(BeforeCanUpgrade)));
+        InstallRequired<AnimalCage>(harmony, "UpgradeSize", new HarmonyMethod(typeof(RatWheelGenerator), nameof(BeforeUpgrade)));
+        InstallRequired<AnimalCage>(harmony, "CreateTooltip", new HarmonyMethod(typeof(RatWheelGenerator), nameof(BeforeCageTooltip)));
+    }
+
+    private static void InstallRequired<T>(Harmony harmony, string method, HarmonyMethod prefix)
+    {
+        PatchInstallation.Run(typeof(T).Name + "." + method, () =>
+        {
+            var target = AccessTools.Method(typeof(T), method);
+            if (target == null) return false;
+            harmony.Patch(target, prefix: prefix);
+            return true;
+        }, required: true);
     }
 
     private static bool Ours(GameItem item)

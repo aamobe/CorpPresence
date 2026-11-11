@@ -55,7 +55,7 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(rect.x, rect.y, rect.width, 30f), DavreModules[_module], theme.HotTitle);
 		Ui.Fill(new Rect(rect.x, rect.y + 34f, rect.width, 1f), theme.Ink);
 		Rect rect2 = new Rect(rect.x, rect.y + 44f, rect.width, rect.height - 44f);
-		if (DrawExtraIfSelected(DavreBase.Length, rect2))
+		if (DrawTermsIfSelected(DavreBase.Length, rect2))
 		{
 			return;
 		}
@@ -81,10 +81,7 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static int DavreUnitPrice(CatalogEntry e)
-	{
-		return e.Quote(Company.OrderRate(_company, _company.Tier(State)));
-	}
+	private static int DavreUnitPrice(CatalogEntry e) => _company.OrderUnitPrice(e, State);
 
 	private static void DrawDavreOrder(Rect r)
 	{
@@ -105,10 +102,11 @@ internal static partial class CompanyWindow
 			Rect status = new Rect(columns.Unit.x, num4, columns.ListPrice.x - columns.Unit.x, 34f);
 			DrawOrderItem(columns.Item, catalogEntry, State, theme);
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(catalogEntry)), theme.Center);
-			if (catalogEntry.MinTier > num)
+			string entryError = _company.OrderEntryError(catalogEntry, State);
+			if (entryError != null)
 			{
-				GUI.Label(status, (L.En ? L.K("ui.davre.orders.tierRequired", (System.FormattableString)$"Opens at {_company.TierNames[catalogEntry.MinTier - 1]}") : _company.TierNames[catalogEntry.MinTier - 1] + "开放"), theme.Small);
-				Cart.Remove(catalogEntry);
+				GUI.Label(status, entryError, theme.Small);
+				Orders.Cart.Remove(catalogEntry);
 				num4 += 36f;
 				continue;
 			}
@@ -116,25 +114,25 @@ internal static partial class CompanyWindow
 			if (num5 <= 0)
 			{
 				GUI.Label(status, L.K("ui.davre.orders.unavailable", "暂不可用", "Unavailable"), theme.Small);
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 				num4 += 36f;
 				continue;
 			}
 			GUI.Label(columns.Unit, $"{num5}₵", theme.Price);
-			Cart.TryGetValue(catalogEntry, out var value);
+			Orders.Cart.TryGetValue(catalogEntry, out var value);
 			value = Ui.Qty(columns.Quantity, value, Math.Min(10, Services.Left(State, catalogEntry)), theme.BtnStyle, theme.Center);
 			if (value > 0)
 			{
-				Cart[catalogEntry] = value;
+				Orders.Cart[catalogEntry] = value;
 			}
 			else
 			{
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 			}
 			GUI.Label(columns.Subtotal, (value > 0) ? $"{num5 * value}₵" : "—", theme.Center);
 			num4 += 36f;
 		}
-		int num6 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => DavreUnitPrice(kv.Key) * kv.Value);
+		int num6 = Orders.Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => DavreUnitPrice(kv.Key) * kv.Value);
 		float num7 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num7, 200f, 22f), (L.En ? L.K("ui.davre.orders.total", (System.FormattableString)$"Total {num6}₵") : $"合计 {num6}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num7 + 22f, r.width - 170f, 20f), num6);
@@ -142,10 +140,10 @@ internal static partial class CompanyWindow
 		GUI.enabled = enabled && num6 > 0 && Services.CanAfford(cashDue) && flag;
 		if (Ui.Button(new Rect(r.xMax - 170f, num7 + 2f, 160f, 36f), L.K("ui.davre.orders.submitOrder", "提交供货单", "Submit order"), theme.BtnHotStyle))
 		{
-			string text = Services.PlaceOrder(_company, Cart, DavreUnitPrice);
+			string text = Services.PlaceOrder(_company, Orders.Cart, DavreUnitPrice);
 			if (text == null)
 			{
-				Cart.Clear();
+				Orders.Cart.Clear();
 				Toast(_company.FrontDeskDone);
 			}
 			else
@@ -218,15 +216,7 @@ internal static partial class CompanyWindow
 
 	private static int LeviathanPrice()
 	{
-		if (_leviathan == null)
-		{
-			_leviathan = new CatalogEntry
-			{
-				Id = "@leviathan",
-				Page = "利维坦"
-			};
-		}
-		return _leviathan.Quote(Settings.OrderMarkup);
+		return Catalog.Leviathan.Quote(Settings.OrderMarkup);
 	}
 
 	private static void DrawDavreLeviathan(Rect r)
@@ -252,7 +242,7 @@ internal static partial class CompanyWindow
 		}
 		GUI.Label(new Rect(position.xMax + 20f, position.y + 10f, 240f, 26f), (L.En ? L.K("ui.davre.purifier.quotaUsed", (System.FormattableString)$"Ordered {Services.PeriodWord}: {num2}/{num}") : $"{Services.PeriodWord}已订 {num2}/{num} 台"), theme.Body);
 		GUI.Label(new Rect(position.xMax + 20f, position.y + 40f, 300f, 22f), (L.En ? L.K("ui.davre.purifier.restocksDay", (System.FormattableString)$"Restocks on day {Services.NextRestockDay}") : $"第 {Services.NextRestockDay} 天补货"), theme.Small);
-		GUI.Label(new Rect(r.xMax - 170f, position.y + 10f, 160f, 26f), ItemListPrice(ItemListValue(_leviathan), labeled: true), theme.Center);
+		GUI.Label(new Rect(r.xMax - 170f, position.y + 10f, 160f, 26f), ItemListPrice(ItemListValue(Catalog.Leviathan), labeled: true), theme.Center);
 		float num4 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num4, 200f, 22f), (L.En ? L.K("ui.davre.purifier.unitPrice", (System.FormattableString)$"Unit price {num3}₵") : $"单价 {num3}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num4 + 22f, r.width - 170f, 20f), num3);

@@ -4,7 +4,8 @@ param(
     [string]$GameManaged,
     [ValidateSet('Release', 'Debug')]
     [string]$Configuration = 'Release',
-    [string]$Dotnet = 'dotnet'
+    [string]$Dotnet = 'dotnet',
+    [switch]$PublishRelease
 )
 
 $ErrorActionPreference = 'Stop'
@@ -23,8 +24,8 @@ if ($LASTEXITCODE -ne 0 -or $sdkVersion -notmatch '^(\d+)\.' -or [int]$Matches[1
     throw '.NET SDK 8 or newer is required. A runtime-only dotnet installation cannot build this project.'
 }
 $project = Join-Path $repoRoot 'src/CorpPresence.csproj'
-$artifacts = Join-Path $repoRoot 'artifacts/build'
-& $Dotnet build $project -c $Configuration --artifacts-path $artifacts "-p:GameManaged=$managedPath"
+$artifacts = Join-Path $repoRoot $(if ($PublishRelease) { 'artifacts/publish-build' } else { 'artifacts/build' })
+& $Dotnet build $project -c $Configuration --artifacts-path $artifacts "-p:GameManaged=$managedPath" "-p:PublishRelease=$($PublishRelease.IsPresent)"
 if ($LASTEXITCODE -ne 0) { throw "Build failed (exit $LASTEXITCODE)." }
 $assembly = Join-Path $artifacts ("bin/CorpPresence/{0}/CorpPresence.dll" -f $Configuration.ToLowerInvariant())
 if (!(Test-Path -LiteralPath $assembly -PathType Leaf)) { throw "Build output not found: $assembly" }

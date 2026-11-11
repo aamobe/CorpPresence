@@ -1,5 +1,7 @@
 # 公司增强内部框架分期方案
 
+2026-11-12 收尾：用户已停止继续细化框架，当前工作进入回归与合并；历史计划不再自动推进。见[集中回归记录](../../maintenance/framework-regression-2026-11-12.md)。
+
 2026-11-12 起的当前执行入口为[完整内部框架开发方案](../../superpowers/plans/2026-11-12-integrated-framework.md)。用户明确要求开发期间不做非必要测试，最后统一测试；必要的故障定位和高风险定向验证按新方案执行。下述分期为历史过程，尚未验收的内容不自动视为通过。
 
 上一轮执行的是[总框架整合](framework-integration-plan.md)，将物品接入现有生命周期、诊断、统一检查和[全系统模块契约](../../maintenance/framework.md)。结果见[整合证据](framework-integration-evidence.md)。以下分期记录保留历史范围，未测游戏场景仍待验收。

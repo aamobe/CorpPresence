@@ -208,10 +208,13 @@ internal static partial class Engine
 					WarnVisit(character.Name + "入队失败，保留预约：" + error.Message);
 				}
 			}
-			if (session.IsCurrent && Ext.ScheduleExtra != null)
+			if (session.IsCurrent && Malice.Malice.IsInstalled)
 			{
-				Action<StoreClientManager> extra = Ext.ScheduleExtra;
-				Ext.Fire("ScheduleExtra", () => extra(manager));
+				Ext.Fire("ScheduleExtra", () =>
+				{
+					Malice.Envoy.Schedule(manager);
+					Malice.RebelStory.Schedule(manager);
+				});
 			}
 		}
 		finally { _scheduling = false; }

@@ -21,12 +21,14 @@ internal sealed partial class SpacerCo : Company
 		new CatalogEntry
 		{
 			Id = "@handmade_pistol",
+			Factory = MakeCatalogGun,
 			Page = "军械",
 			Label = "“巢火”紧凑型手枪"
 		},
 		new CatalogEntry
 		{
 			Id = "@heavy_handmade_pistol",
+			Factory = MakeCatalogGun,
 			Page = "军械",
 			Label = "“铁铸10”手枪"
 		},
@@ -69,7 +71,10 @@ internal sealed partial class SpacerCo : Company
 		},
 		new CatalogEntry
 		{
-			Id = "@modbox",
+			Id = ModBox,
+			Factory = static _ => null,
+			FixedBaseValue = ModBoxPrice,
+			FixedListValue = ModBoxPrice,
 			Page = "军械",
 			Label = "改装盲盒（3–5 件随机配件）",
 			LabelKey = "companies.catalog.modGrabBox35RandomAttachments.name",
@@ -223,6 +228,10 @@ internal sealed partial class SpacerCo : Company
 
 	public override string FrontDeskDone => L.K("companies.spacer.frontDeskDone.tomorrow", "明天到。", "Tomorrow.");
 
+	protected override double OrderPriceRate(CatalogEntry entry, CompanyState state) => entry.Id == ModBox ? 1.0 : base.OrderPriceRate(entry, state);
+
+	protected override string ContentOrderError(CatalogEntry entry) => Settings.MaliceMode && !PageEntries("码头").Contains(entry) ? UnavailableOrderEntry() : null;
+
 	public override CatalogEntry[] Catalog => Entries;
 
 	public static int MutualFee => Services.Fee("spacer", "mutual", 30);
@@ -283,6 +292,9 @@ internal sealed partial class SpacerCo : Company
 		}
 		return Entries.Where((CatalogEntry e) => e.Page == "码头" || MerchantExtras.Contains(e.Id));
 	}
+
+	private static GameItem MakeCatalogGun(string id) => Goods.Has(id.Substring(1))
+		? CatalogEntry.MakeDefault(id) : MakeGun(id.Substring(1));
 
 	public static GameItem MakeGun(string id)
 	{

@@ -1,7 +1,9 @@
 <Project>
   <PropertyGroup>
     <!-- An archive nested in another checkout must not inherit that repository's identity. -->
-    <_CorpPresenceSourceRoot>$(MSBuildThisFileDirectory)..</_CorpPresenceSourceRoot>
+    <_CorpPresenceSourceRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..'))</_CorpPresenceSourceRoot>
+    <Deterministic>true</Deterministic>
+    <PathMap>$(BaseIntermediateOutputPath)=/_/CorpPresence/obj,$(_CorpPresenceSourceRoot)=/_/CorpPresence</PathMap>
   </PropertyGroup>
   <!-- Build identity is generated at compile time; the mod never reads Git or files.
        Read actual HEAD: an SDK SourceRevisionId override is not evidence of source identity. -->
@@ -10,6 +12,10 @@
       <_CorpPresenceRevision>unknown</_CorpPresenceRevision>
       <_CorpPresenceIdentityFile>$(IntermediateOutputPath)CorpPresence.BuildIdentity.g.cs</_CorpPresenceIdentityFile>
     </PropertyGroup>
+    <Error Condition="'$(PublishRelease)' != '' and '$(PublishRelease)' != 'true' and '$(PublishRelease)' != 'false'"
+           Text="PublishRelease must be true or false." />
+    <Error Condition="'$(PublishRelease)' == 'true' and ('$(Configuration)' != 'Release' or '$(Maintenance)' == 'true' or '$(WaterTrace)' == 'true' or '$(LocalTestFunds)' == 'true' or $([System.String]::Copy('$(DefineConstants)').Contains('TESTKIT')) or $([System.String]::Copy('$(DefineConstants)').Contains('MAINTENANCE')) or $([System.String]::Copy('$(DefineConstants)').Contains('WATER_TRACE')) or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_FUNDS')))"
+           Text="PublishRelease requires Release configuration without maintenance or test flags." />
     <Exec Command="git rev-parse HEAD" WorkingDirectory="$(_CorpPresenceSourceRoot)"
           Condition="Exists('$(_CorpPresenceSourceRoot)/.git')"
           IgnoreStandardErrorWarningFormat="true" ConsoleToMSBuild="true" IgnoreExitCode="true"
@@ -31,8 +37,34 @@
       <_CorpPresenceRevision>$(_CorpPresenceGitRevision)</_CorpPresenceRevision>
       <_CorpPresenceRevision Condition="'@(_CorpPresenceGitStatus)' != ''">$(_CorpPresenceGitRevision)-dirty</_CorpPresenceRevision>
     </PropertyGroup>
+    <Error Condition="'$(PublishRelease)' == 'true' and ('$(_CorpPresenceRevision)' == 'unknown' or '@(_CorpPresenceGitStatus)' != '')"
+           Text="PublishRelease requires an identifiable clean source Git checkout." />
+    <PropertyGroup Condition="'$(PublishRelease)' == 'true'">
+      <_CorpPresenceReleaseVersion>$([System.Text.RegularExpressions.Regex]::Match($([System.IO.File]::ReadAllText('$(_CorpPresenceSourceRoot)/src/CorpPresence/Main.cs')), 'ReleaseVersion\s*=\s*&quot;([0-9]+\.[0-9]+\.[0-9]+)&quot;').Groups[1].Value)</_CorpPresenceReleaseVersion>
+      <_CorpPresenceFileVersion>$([System.Text.RegularExpressions.Regex]::Match($([System.IO.File]::ReadAllText('$(_CorpPresenceSourceRoot)/src/Properties/AssemblyInfo.cs')), 'AssemblyFileVersion\(&quot;([^&quot;]+)&quot;\)').Groups[1].Value)</_CorpPresenceFileVersion>
+    </PropertyGroup>
+    <Error Condition="'$(PublishRelease)' == 'true' and '$(_CorpPresenceReleaseVersion)' == ''"
+           Text="PublishRelease requires a numeric major.minor.patch ReleaseVersion in Main.cs." />
+    <XmlPeek Condition="'$(PublishRelease)' == 'true'" XmlInputPath="$(_CorpPresenceSourceRoot)/manifest.xml" Query="/Mod/ModVersion/text()">
+      <Output TaskParameter="Result" PropertyName="_CorpPresenceManifestVersion" />
+    </XmlPeek>
+    <Error Condition="'$(PublishRelease)' == 'true' and '$(_CorpPresenceManifestVersion)' != '$(_CorpPresenceReleaseVersion)'"
+           Text="PublishRelease manifest and runtime versions differ." />
+    <Error Condition="'$(PublishRelease)' == 'true' and '$(_CorpPresenceFileVersion)' != '$(_CorpPresenceReleaseVersion).0'"
+           Text="PublishRelease file and runtime versions differ." />
+    <Exec Condition="'$(PublishRelease)' == 'true'"
+          Command="git tag --points-at HEAD --list v$(_CorpPresenceReleaseVersion)" WorkingDirectory="$(_CorpPresenceSourceRoot)"
+          ConsoleToMSBuild="true" StandardOutputImportance="Low">
+      <Output TaskParameter="ConsoleOutput" PropertyName="_CorpPresenceReleaseTag" />
+    </Exec>
+    <Error Condition="'$(PublishRelease)' == 'true' and '$(_CorpPresenceReleaseTag)' != 'v$(_CorpPresenceReleaseVersion)'"
+           Text="PublishRelease requires matching vMAJOR.MINOR.PATCH tag on the current commit." />
+    <PropertyGroup>
+      <_CorpPresenceSuffix>-dev+$(_CorpPresenceRevision)</_CorpPresenceSuffix>
+      <_CorpPresenceSuffix Condition="'$(PublishRelease)' == 'true'"></_CorpPresenceSuffix>
+    </PropertyGroup>
     <WriteLinesToFile File="$(_CorpPresenceIdentityFile)" Overwrite="true" WriteOnlyWhenDifferent="true"
-                      Lines="namespace CorpPresence { internal static class BuildIdentity { internal const string DevelopmentSuffix = &quot;-dev+$(_CorpPresenceRevision)&quot;%3B } }" />
+                      Lines="namespace CorpPresence { internal static class BuildIdentity { internal const string DevelopmentSuffix = &quot;$(_CorpPresenceSuffix)&quot;%3B internal const string SourceRevision = &quot;$(_CorpPresenceRevision)&quot;%3B } }" />
     <ItemGroup>
       <Compile Include="$(_CorpPresenceIdentityFile)" />
       <FileWrites Include="$(_CorpPresenceIdentityFile)" />

@@ -28,25 +28,23 @@ internal static partial class Hooks
 
 	private static void AfterReported()
 	{
-		Action<string, int> f = Ext.CustomerReported;
-		if (f != null && _reportedId != null)
+		if (Malice.Malice.IsInstalled && _reportedId != null)
 		{
 			int delta = Engine.Reputation("FACTION_REVOLUTION") - _revBefore;
 			string id = _reportedId;
 			_reportedId = null;
 			Ext.Fire("CustomerReported", () =>
 			{
-				f(id, delta);
+				Malice.RebelStory.OnReported(id, delta);
 			});
 		}
 	}
 
 	private static void AfterGetLuck(ref int __result)
 	{
-		Func<int> luckBonus = Ext.LuckBonus;
-		if (luckBonus != null)
+		if (Malice.Malice.IsInstalled)
 		{
-			__result += Ext.Ask("LuckBonus", luckBonus, 0);
+			__result += Ext.Ask("LuckBonus", Malice.Envoy.LuckBonus, 0);
 		}
 	}
 

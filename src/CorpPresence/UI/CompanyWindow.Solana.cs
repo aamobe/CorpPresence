@@ -66,7 +66,7 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(rect2.x, rect2.y, rect2.width, 30f), SolanaModules[_module], theme.Title);
 		Ui.Fill(new Rect(rect2.x, rect2.y + 34f, rect2.width, 1f), theme.Line);
 		Rect rect3 = new Rect(rect2.x, rect2.y + 46f, rect2.width, rect2.height - 46f);
-		if (DrawExtraIfSelected(SolanaBase.Length, rect3))
+		if (DrawTermsIfSelected(SolanaBase.Length, rect3))
 		{
 			return;
 		}
