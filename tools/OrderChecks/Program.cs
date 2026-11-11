@@ -79,3 +79,28 @@ Companies.State=new();Services.Charges=0;Services.Payment=()=>{PlayerStore.Insta
 Require(Services.PlaceOrder(company,cart,_=>100)!=null);
 Require(Services.Charges==1 && Companies.State.Orders.Count==0 && Companies.State.LimitedBought.Count==0);
 Console.WriteLine("PASS real payment uncertainty does not supplement debit or reserve quota");
+
+
+// Actual equipment rule + actual order orchestration; game inventory probing remains a substitute.
+Services.Payment = null;
+var jackson = new JacksonContact();
+var warehouse = new CatalogEntry { Id = CargoWarehouse.OrderId };
+Companies.State = new(); Services.Charges = 0;
+CargoWarehouse.IsUnlocked = false;
+Require(Services.Left(Companies.State, warehouse) == 0);
+Require(Services.PlaceOrder(jackson, new() { [warehouse] = 1 }, _ => 1) != null && Services.Charges == 0);
+CargoWarehouse.IsUnlocked = true;
+Require(Services.PlaceOrder(company, new() { [warehouse] = 1 }, _ => 1) != null && Services.Charges == 0);
+Require(Services.PlaceOrder(jackson, new() { [warehouse] = 1, [new CatalogEntry { Id = warehouse.Id }] = 1 }, _ => 1) != null && Services.Charges == 0);
+int paid = 0;
+Services.Payment = () => "";
+CorpPresence.Malice.Malice.Handler = (_, amount, _) => { paid = amount; return ""; };
+Require(Services.PlaceOrder(jackson, new() { [warehouse] = 1 }, _ => 1) == null);
+Require(paid == CargoWarehouse.WarehousePrice && Companies.State.LimitedBought[warehouse.Id + "@lifetime"] == 1);
+Require(Services.Left(Companies.State, warehouse) == 0);
+Companies.State = new();
+var controller = new CatalogEntry { Id = CargoWarehouse.ControllerOrderId };
+Require(Services.PlaceOrder(jackson, new() { [controller] = 1 }, _ => 1) == null);
+Require(Companies.State.LimitedBought.Count == 0 && Services.Left(Companies.State, controller) == 0);
+Console.WriteLine("PASS equipment rules enforce unlock, seller, duplicate identity, fixed price, lifetime count and queued controller reservation");
+Services.Payment = null;

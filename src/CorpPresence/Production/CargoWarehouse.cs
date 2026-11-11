@@ -25,11 +25,6 @@ internal static partial class CargoWarehouse
     private static readonly Company[] Partners = Companies.All
         .Where(c => c is PastelCo or SolanaCo or CarmichaelCo or SpacerCo or MeridianCo or DavreCo).ToArray();
 
-    internal static int Price(string id) => id switch
-    {
-        OrderId => WarehousePrice, ModuleOrderId => ModulePrice, ControllerOrderId => ControllerPrice, _ => 0
-    };
-    internal static int Limit(string id) => id switch { OrderId or ControllerOrderId => 1, ModuleOrderId => MaxModules, _ => 0 };
     internal static bool Unlocked() => Partners.All(c => Companies.StateOf(c)?.Coop >= 100);
     internal static string UnlockHint() => L.K("production.cargoWarehouse.unlock",
         "六家公司的合作度均达到 100 后开放", "Requires 100 cooperation with all six companies");

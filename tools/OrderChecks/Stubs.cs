@@ -37,14 +37,15 @@ static class Perfume { public static List<CatalogEntry> Catalog = new(); }
 static class Rosen { public static string SaleBlocked(string id) => null; }
 static class ProductionWorkBay {
  public const string OrderId = "@production_work_bay", PurchaseKey = OrderId+"@lifetime";
- public static bool AlreadyPurchased(CompanyState s) => false;
+ public static bool AlreadyPurchased(CompanyState s) => s.LimitedBought.ContainsKey(PurchaseKey) || s.Orders.Any(o=>o.Items.Contains(OrderId));
 }
 static class CargoWarehouse {
  public const string ControllerOrderId = "@cargo_sort_controller";
- public static int Price(string id) => 0;
- public static int Limit(string id) => 0;
- public static bool Unlocked() => true;
- public static bool ControllerAvailable(CompanyState s,bool refresh) => true;
+ public const string OrderId="@cargo_warehouse", ModuleOrderId="@cargo_warehouse_module";
+ public const int WarehousePrice=15000, ModulePrice=2000, ControllerPrice=3000, MaxModules=4;
+ public static bool IsUnlocked=true;
+ public static bool Unlocked() => IsUnlocked;
+ public static bool ControllerAvailable(CompanyState s,bool refresh) => !s.Orders.Any(o=>o.Items.Contains(ControllerOrderId));
  public static string UnlockHint() => "locked";
 }
 static class Settings {
