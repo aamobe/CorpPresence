@@ -33,3 +33,7 @@
 ## 内部维护检查
 
 `./tools/Check-Maintenance.ps1 -GameManaged '<游戏 Managed>' -Dotnet '<SDK dotnet>' -Python '<Python>'` 固定串联维护相关检查并记录分层证据；失败非零退出，不启动游戏、部署或打包。`Check-MaintenanceContract.ps1` 使用相同参数验证总入口失败契约。详细使用及证据边界见[内部维护手册](../docs/maintenance/internal-maintenance.md)。
+
+## 物品接入检查
+
+`ItemChecks` 链接真实 ItemRegistry 并使用目录/物品替身；同时读取本次正式 DLL 的真实 ItemIdentity 与 ResolveId，对照固定 90 条身份基线。已接入 Check-Maintenance，统一入口现为 26 步。单独运行需先 build 到独立 artifacts 目录，再执行新 Checks.dll 并传入正式 CorpPresence.dll 路径。不要自动覆盖 IdentityBaseline.json；接入与覆盖边界见[物品接入清单](../docs/maintenance/item-extension.md)。

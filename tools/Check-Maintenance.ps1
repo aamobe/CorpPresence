@@ -48,10 +48,12 @@ try {
  Invoke-Check 'maintenance-build' 'compile' $sdk @('build',$project,'-c','Release','--artifacts-path',$maintenanceRoot,"-p:GameManaged=$managed",'-p:Maintenance=true','-warnaserror')
  $regular=Join-Path $regularRoot 'bin/CorpPresence/release/CorpPresence.dll'
  $maintenance=Join-Path $maintenanceRoot 'bin/CorpPresence/release/CorpPresence.dll'
- foreach($name in @('MaintenanceChecks','ExtensionChecks','PaymentChecks','OrderChecks','RuntimeLifetimeChecks','SaveStateChecks','MangoGiftChecks')){
+ foreach($name in @('MaintenanceChecks','ExtensionChecks','PaymentChecks','OrderChecks','RuntimeLifetimeChecks','SaveStateChecks','MangoGiftChecks','ItemChecks')){
   $checkRoot=Join-Path $runRoot $name
   Invoke-Check "$name-build" 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot "$name/Checks.csproj"),'--artifacts-path',$checkRoot,"-p:GameManaged=$managed")
-  Invoke-Check $name 'substitute' $sdk @((Join-Path $checkRoot 'bin/Checks/debug/Checks.dll'))
+  $checkArgs=@((Join-Path $checkRoot 'bin/Checks/debug/Checks.dll'))
+  if($name -eq 'ItemChecks'){$checkArgs+= $regular}
+  Invoke-Check $name 'substitute' $sdk $checkArgs
  }
  $boundaryRoot=Join-Path $runRoot 'build-boundary'
  Invoke-Check 'build-boundary-build' 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot 'MaintenanceBuildChecks/Checks.csproj'),'--artifacts-path',$boundaryRoot)

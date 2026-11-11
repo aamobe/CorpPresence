@@ -1,0 +1,636 @@
+{
+  "sourceCommit": "99719c4",
+  "dllSha256": "92F95246D1156F726D57F51BB380C71E05CC15076115E1F1CEF37592E4C0E634",
+  "entries": [
+    {
+      "Id": "corp_presence_stamina",
+      "LegacyId": "pink_alt_injector",
+      "LegacySprite": "corp_med_stamina",
+      "Goods": "stamina",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_painblock",
+      "LegacyId": "pink_alt_injector",
+      "LegacySprite": "corp_med_painblock",
+      "Goods": "painblock",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_gloves",
+      "LegacyId": "toothpaste",
+      "LegacySprite": "corp_med_gloves",
+      "Goods": "gloves",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_patch",
+      "LegacyId": "toothpaste",
+      "LegacySprite": "corp_med_patch",
+      "Goods": "patch",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_sign",
+      "LegacyId": "toothpaste",
+      "LegacySprite": "corp_med_sign",
+      "Goods": "sign",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_elixir",
+      "LegacyId": "skincare_cream",
+      "LegacySprite": "corp_med_elixir",
+      "Goods": "elixir",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_mask",
+      "LegacyId": "skincare_cream",
+      "LegacySprite": "corp_med_mask",
+      "Goods": "mask",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_candle",
+      "LegacyId": "skincare_cream",
+      "LegacySprite": "corp_med_candle",
+      "Goods": "candle",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_rosen_revolver",
+      "LegacyId": "revolver",
+      "LegacySprite": "corp_med_rosen_revolver",
+      "Goods": "rosen_revolver",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_rosen_rifle",
+      "LegacyId": "shotgun",
+      "LegacySprite": "corp_med_rosen_rifle",
+      "Goods": "rosen_rifle",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_zhuoyue_battery",
+      "LegacyId": "energy_credit",
+      "LegacySprite": "corp_med_zhuoyue_battery",
+      "Goods": "zhuoyue_battery",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_mutual_medkit",
+      "LegacyId": "common_medical",
+      "LegacySprite": "corp_med_mutual_medkit",
+      "Goods": "mutual_medkit",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_freedom_walkman",
+      "LegacyId": "skincare_cream",
+      "LegacySprite": "corp_med_freedom_walkman",
+      "Goods": "freedom_walkman",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_anchor_cell",
+      "LegacyId": "energy_credit",
+      "LegacySprite": "corp_med_anchor_cell",
+      "Goods": "anchor_cell",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_meridian_cert",
+      "LegacyId": "cert1",
+      "LegacySprite": "corp_med_meridian_cert",
+      "Goods": "meridian_cert",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_leviathan",
+      "LegacyId": "portable_water_purifier",
+      "LegacySprite": "corp_med_leviathan",
+      "Goods": "leviathan",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crate_pastel",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crate_pastel",
+      "Goods": "crate_pastel",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crate_davre",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crate_davre",
+      "Goods": "crate_davre",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crate_solana",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crate_solana",
+      "Goods": "crate_solana",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crate_carmicheal",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crate_carmicheal",
+      "Goods": "crate_carmicheal",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crate_meridian",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crate_meridian",
+      "Goods": "crate_meridian",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crate_spacer",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crate_spacer",
+      "Goods": "crate_spacer",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crate_jackson_private",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crate_jackson_private",
+      "Goods": "crate_jackson_private",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_tobacco_seed",
+      "LegacyId": "kotton_seed",
+      "LegacySprite": "corp_med_tobacco_seed",
+      "Goods": "tobacco_seed",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_oilflower_seed",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_oilflower_seed",
+      "Goods": "oilflower_seed",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_oilflower",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_oilflower",
+      "Goods": "oilflower",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_base_oil_material",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_base_oil_material",
+      "Goods": "perfume_base_oil_material",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_base_oil",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_base_oil",
+      "Goods": "perfume_base_oil",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_extract",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_extract",
+      "Goods": "perfume_extract",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_blue_extract",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_blue_extract",
+      "Goods": "perfume_blue_extract",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_oil_extractor",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_oil_extractor",
+      "Goods": "perfume_oil_extractor",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_blood_extractor",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_blood_extractor",
+      "Goods": "perfume_blood_extractor",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_mixer",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_mixer",
+      "Goods": "perfume_mixer",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_perfume_blood_collector",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_perfume_blood_collector",
+      "Goods": "perfume_blood_collector",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_tobacco_leaf",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_tobacco_leaf",
+      "Goods": "tobacco_leaf",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_loose_cigarette",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_loose_cigarette",
+      "Goods": "loose_cigarette",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_rolling_machine",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_rolling_machine",
+      "Goods": "rolling_machine",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_packaging_machine",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_packaging_machine",
+      "Goods": "packaging_machine",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_hemingway_stamp",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_hemingway_stamp",
+      "Goods": "hemingway_stamp",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fine_mince",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_fine_mince",
+      "Goods": "fine_mince",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_coarse_mince",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_coarse_mince",
+      "Goods": "coarse_mince",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fruit_paste",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_fruit_paste",
+      "Goods": "fruit_paste",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fresh_meat_can",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_fresh_meat_can",
+      "Goods": "fresh_meat_can",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_meat_grinder",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_meat_grinder",
+      "Goods": "meat_grinder",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_canning_machine",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_canning_machine",
+      "Goods": "canning_machine",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fish_mince",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_fish_mince",
+      "Goods": "fish_mince",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_crab_stick",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_crab_stick",
+      "Goods": "crab_stick",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fish_can",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_fish_can",
+      "Goods": "fish_can",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_seafood_sealer",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_seafood_sealer",
+      "Goods": "seafood_sealer",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_rat_wheel_generator",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_rat_wheel_generator",
+      "Goods": "rat_wheel_generator",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_production_work_bay",
+      "LegacyId": null,
+      "LegacySprite": "corp_med_production_work_bay",
+      "Goods": "production_work_bay",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_cargo_warehouse",
+      "LegacyId": null,
+      "LegacySprite": "corp_med_cargo_warehouse",
+      "Goods": "cargo_warehouse",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_mango_warehouse",
+      "LegacyId": null,
+      "LegacySprite": "corp_med_mango_warehouse",
+      "Goods": "mango_warehouse",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_mango_backpack",
+      "LegacyId": null,
+      "LegacySprite": "corp_med_mango_backpack",
+      "Goods": "mango_backpack",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_cargo_warehouse_module",
+      "LegacyId": null,
+      "LegacySprite": "corp_med_cargo_warehouse_module",
+      "Goods": "cargo_warehouse_module",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_cargo_sort_controller",
+      "LegacyId": null,
+      "LegacySprite": "corp_med_cargo_sort_controller",
+      "Goods": "cargo_sort_controller",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_forged_billet",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_forged_billet",
+      "Goods": "forged_billet",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_custom_dagger",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_custom_dagger",
+      "Goods": "custom_dagger",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_custom_saber",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_custom_saber",
+      "Goods": "custom_saber",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_custom_machete",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_custom_machete",
+      "Goods": "custom_machete",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_forge_furnace",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_forge_furnace",
+      "Goods": "forge_furnace",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_forge_anvil",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_forge_anvil",
+      "Goods": "forge_anvil",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_silverblood",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_silverblood",
+      "Goods": "silverblood",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_blood_drawer",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_blood_drawer",
+      "Goods": "blood_drawer",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_silver_blood",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_silver_blood",
+      "Goods": "silver_blood",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_isomer_vial",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_isomer_vial",
+      "Goods": "isomer_vial",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_carapace_small",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_carapace_small",
+      "Goods": "carapace_small",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_carapace_medium",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_carapace_medium",
+      "Goods": "carapace_medium",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_carapace_full",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_carapace_full",
+      "Goods": "carapace_full",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_rejuvenation",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_rejuvenation",
+      "Goods": "rejuvenation",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_implant_compat",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_implant_compat",
+      "Goods": "implant_compat",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_isomer_gel",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_isomer_gel",
+      "Goods": "isomer_gel",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_isomer_reactor",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_isomer_reactor",
+      "Goods": "isomer_reactor",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_anon_parcel",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_anon_parcel",
+      "Goods": "anon_parcel",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_sb_handbook",
+      "LegacyId": "ammo_box",
+      "LegacySprite": "corp_med_sb_handbook",
+      "Goods": "sb_handbook",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_friend_medal",
+      "LegacyId": "cert1",
+      "LegacySprite": "corp_med_friend_medal",
+      "Goods": "friend_medal",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_agent_cert",
+      "LegacyId": "cert4",
+      "LegacySprite": "corp_med_agent_cert",
+      "Goods": "agent_cert",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_rebel_token",
+      "LegacyId": "cert1",
+      "LegacySprite": "corp_med_rebel_token",
+      "Goods": "rebel_token",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_lower_rep_cert",
+      "LegacyId": "cert2",
+      "LegacySprite": "corp_med_lower_rep_cert",
+      "Goods": "lower_rep_cert",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fate_coin_pastel",
+      "LegacyId": "gamblers_coin",
+      "LegacySprite": "corp_med_fate_coin_pastel",
+      "Goods": "fate_coin_pastel",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fate_coin_solana",
+      "LegacyId": "gamblers_coin",
+      "LegacySprite": "corp_med_fate_coin_solana",
+      "Goods": "fate_coin_solana",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fate_coin_carmicheal",
+      "LegacyId": "gamblers_coin",
+      "LegacySprite": "corp_med_fate_coin_carmicheal",
+      "Goods": "fate_coin_carmicheal",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fate_coin_meridian",
+      "LegacyId": "gamblers_coin",
+      "LegacySprite": "corp_med_fate_coin_meridian",
+      "Goods": "fate_coin_meridian",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_fate_coin_davre",
+      "LegacyId": "gamblers_coin",
+      "LegacySprite": "corp_med_fate_coin_davre",
+      "Goods": "fate_coin_davre",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_candle_lit",
+      "LegacyId": "skincare_cream",
+      "LegacySprite": "corp_med_candle_lit",
+      "Goods": "candle",
+      "Company": null
+    },
+    {
+      "Id": "corp_presence_card_pastel",
+      "LegacyId": "card_pharma",
+      "LegacySprite": "corp_card_pastel",
+      "Goods": null,
+      "Company": "pastel"
+    },
+    {
+      "Id": "corp_presence_card_solana",
+      "LegacyId": "card_pharma",
+      "LegacySprite": "corp_card_solana",
+      "Goods": null,
+      "Company": "solana"
+    },
+    {
+      "Id": "corp_presence_card_carmicheal",
+      "LegacyId": "card_pharma",
+      "LegacySprite": "corp_card_carmicheal",
+      "Goods": null,
+      "Company": "carmicheal"
+    },
+    {
+      "Id": "corp_presence_card_meridian",
+      "LegacyId": "card_pharma",
+      "LegacySprite": "corp_card_meridian",
+      "Goods": null,
+      "Company": "meridian"
+    },
+    {
+      "Id": "corp_presence_card_davre",
+      "LegacyId": "card_pharma",
+      "LegacySprite": "corp_card_davre",
+      "Goods": null,
+      "Company": "davre"
+    }
+  ]
+}

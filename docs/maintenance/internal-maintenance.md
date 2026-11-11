@@ -65,3 +65,5 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 模块值在捕获时复制，只读列表不会随之后启停变化；采集不稳定时显示“模块状态未知”。故障警告以 `malice/install`、`malice/rollback`、`malice/uninstall` 标记阶段并包含异常类型，不写原始异常消息。日志和聚合故障分别隔离。
 
 当前 OwnedCallbacks 释放遇错仍继续并清空释放表，因此失败动作不会自动重试。实现和替身边界见[第一期证据](../changes/organize-internal-lifecycle/phase-one-evidence.md)。
+
+物品扩展的接入与身份基线检查见[新增物品接入清单](item-extension.md)；第二期优先此方向，原版事件模块试点暂缓。
