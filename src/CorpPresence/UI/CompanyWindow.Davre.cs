@@ -218,15 +218,7 @@ internal static partial class CompanyWindow
 
 	private static int LeviathanPrice()
 	{
-		if (_leviathan == null)
-		{
-			_leviathan = new CatalogEntry
-			{
-				Id = "@leviathan",
-				Page = "利维坦"
-			};
-		}
-		return _leviathan.Quote(Settings.OrderMarkup);
+		return Catalog.Leviathan.Quote(Settings.OrderMarkup);
 	}
 
 	private static void DrawDavreLeviathan(Rect r)
@@ -252,7 +244,7 @@ internal static partial class CompanyWindow
 		}
 		GUI.Label(new Rect(position.xMax + 20f, position.y + 10f, 240f, 26f), (L.En ? L.K("ui.davre.purifier.quotaUsed", (System.FormattableString)$"Ordered {Services.PeriodWord}: {num2}/{num}") : $"{Services.PeriodWord}已订 {num2}/{num} 台"), theme.Body);
 		GUI.Label(new Rect(position.xMax + 20f, position.y + 40f, 300f, 22f), (L.En ? L.K("ui.davre.purifier.restocksDay", (System.FormattableString)$"Restocks on day {Services.NextRestockDay}") : $"第 {Services.NextRestockDay} 天补货"), theme.Small);
-		GUI.Label(new Rect(r.xMax - 170f, position.y + 10f, 160f, 26f), ItemListPrice(ItemListValue(_leviathan), labeled: true), theme.Center);
+		GUI.Label(new Rect(r.xMax - 170f, position.y + 10f, 160f, 26f), ItemListPrice(ItemListValue(Catalog.Leviathan), labeled: true), theme.Center);
 		float num4 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num4, 200f, 22f), (L.En ? L.K("ui.davre.purifier.unitPrice", (System.FormattableString)$"Unit price {num3}₵") : $"单价 {num3}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num4 + 22f, r.width - 170f, 20f), num3);

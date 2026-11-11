@@ -41,13 +41,11 @@ internal static partial class CompanyWindow
 
 	private static Vector2 _center;
 
-	private static CatalogEntry _leviathan;
-
 	private const int PartsPerPage = 8;
 
 	private static readonly int[] SolanaModuleTier = new int[5] { 1, 2, 3, 0, 2 };
 
-	private static readonly Dictionary<string, string> NameCache = new Dictionary<string, string>();
+	private static readonly PanelCatalogState Catalog = new();
 
 	private static readonly string[] MerchantPages = new string[3] { "码头", null, "目录" };
 
@@ -211,7 +209,7 @@ internal static partial class CompanyWindow
 			_theme = theme;
 			_module = 0;
 			Orders.Reset();
-			Swap.Reset(); Refurbishment.Reset(); Brands.Reset();
+			Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); Catalog.Reset();
 			Brand.ScanOwned();
 			_desk = c.FrontDesk[new System.Random().Next(c.FrontDesk.Length)];
 			_toast = null;
@@ -259,7 +257,7 @@ internal static partial class CompanyWindow
 		ResetStoryGuide();
 		Visible = false;
 		Orders.Reset();
-		Swap.Reset(); Refurbishment.Reset(); Brands.Reset();
+		Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); Catalog.Reset();
 		Pointer.PendingClick = null;
 		InputShield.Update(visible: false, default);
 		Portraits.ReleasePanelTextures();
@@ -272,7 +270,7 @@ internal static partial class CompanyWindow
 		{
 			_theme = null; _company = null; _toast = null;
 			Orders.Reset();
-			Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); NameCache.Clear();
+			Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); Catalog.Reset();
 			_dragging = false; _openedThisFrame = false;
 			Ui.ResetCaches();
 		}

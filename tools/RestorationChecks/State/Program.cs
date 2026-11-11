@@ -14,6 +14,17 @@ Check("escapee ignores the unsaved front counter", () =>
     var pending = new GameItemElement();
     Assert(!EscapeePlacement.TryPlace(store, pending) && pending.parentInventory == null && store.frontInvinvElement.childItems.Count == 0);
 });
+Check("panel catalog resolves language live and retries a failed name", () =>
+{
+    var panel = new CorpPresence.UI.PanelCatalogState();
+    Goods.Factory = () => null;
+    Assert(panel.Name("sample") == "sample");
+    var sample = new GameItem(); Goods.Factory = () => sample;
+    L.En = false; Assert(panel.Name("sample") == "中文");
+    L.En = true; Assert(panel.Name("sample") == "English");
+    panel.Reset(); panel.Reset(); Assert(sample.DestroyCount == 1);
+    L.En = false;
+});
 CatalogEntry Entry() => new CatalogEntry { Id="sample", Page="test" };
 Check("bundle overflow fails closed", () => { Goods.Factory=()=>new GameItem{Value=int.MaxValue}; Assert(new CatalogEntry{Id="sample",Bundle=2}.BaseValue()==-1); });
 Check("nonfinite rate fails closed", () => Assert(Entry().Quote(double.PositiveInfinity)==0));

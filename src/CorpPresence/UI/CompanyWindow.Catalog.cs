@@ -161,31 +161,7 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static string ItemName(string id)
-	{
-		if (NameCache.TryGetValue(id, out var value))
-		{
-			return value;
-		}
-		GameItem gameItem = null;
-		try
-		{
-			gameItem = DirectoryMaster.Item(id, isOwned: false);
-			value = gameItem?.GetDisplayName() ?? id;
-		}
-		catch
-		{
-			value = id;
-		}
-		try
-		{
-			gameItem?.Destroy();
-		}
-		catch
-		{
-		}
-		return NameCache[id] = value;
-	}
+	private static string ItemName(string id) => Catalog.Name(id);
 
 }
 
