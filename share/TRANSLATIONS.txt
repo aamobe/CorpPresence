@@ -1,0 +1,5 @@
+公司增强内置翻译
+
+Localization/en.csv、ru.csv、fr.csv使用游戏官方稳定键CSV。保持键名与格式占位符不变，使用UTF-8；修改后完全退出并重启游戏生效。工坊更新可能覆盖本地修改，请自行备份。
+中文默认来自代码，缺键按现有内置规则回退。CSV每行格式：key,"translation"；引号写成双引号，换行用字面反斜杠n。
+详细说明：https://github.com/aamobe/CorpPresence/blob/main/docs/localization/README.md
