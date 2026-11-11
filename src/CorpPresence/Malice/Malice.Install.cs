@@ -53,12 +53,6 @@ internal static partial class Malice
 			callbacks.Replace(() => Ext.CustomerReported, value => Ext.CustomerReported = value, RebelStory.OnReported);
 			callbacks.Replace(() => Ext.CallDialog, value => Ext.CallDialog = value, Envoy.MentorCall);
 			callbacks.Replace(() => Ext.ClientBuys, value => Ext.ClientBuys = value, (StoreClient cl, GameItem it) => Envoy.ClientBuys(cl, it) || RebelStory.ClientBuys(cl, it));
-			callbacks.Replace(() => Ext.LuckBonus, value => Ext.LuckBonus = value, Envoy.LuckBonus);
-			callbacks.Replace(() => Ext.OrderFactor, value => Ext.OrderFactor = value, (Company c) => (!Applies(c)) ? 1.0 : Envoy.OrderFactor());
-			callbacks.Replace(() => Ext.BuyFactor, value => Ext.BuyFactor = value, (GameItem it) => (!On) ? 1.0 : (Rebels.BuyFactor(it) * RebelStory.BuyFactor(it)));
-			callbacks.Replace(() => Ext.LockVanillaDifficulty, value => Ext.LockVanillaDifficulty = value, () => On);
-			callbacks.Replace(() => Ext.ForceOrderLimits, value => Ext.ForceOrderLimits = value, () => On);
-			callbacks.Replace(() => Ext.ForceRestockWeeks, value => Ext.ForceRestockWeeks = value, () => On ? 1 : 0);
 			_callbacks = callbacks;
 			releaseStage = "uninstall";
 			_installed = true;

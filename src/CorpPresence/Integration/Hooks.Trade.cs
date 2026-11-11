@@ -106,10 +106,9 @@ internal static partial class Hooks
 			{
 				num2 = 1.1;
 			}
-			Func<GameItem, double> bf = Ext.BuyFactor;
-			if (bf != null)
+			if (Malice.Malice.IsInstalled)
 			{
-				num2 *= Ext.Ask("BuyFactor", () => bf(__instance), 1.0);
+				num2 *= Ext.Ask("BuyFactor", () => Malice.Malice.On ? Malice.Rebels.BuyFactor(__instance) * Malice.RebelStory.BuyFactor(__instance) : 1.0, 1.0);
 			}
 			if (num2 != 1.0)
 			{

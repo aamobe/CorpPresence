@@ -43,10 +43,9 @@ internal static partial class Hooks
 
 	private static void AfterGetLuck(ref int __result)
 	{
-		Func<int> luckBonus = Ext.LuckBonus;
-		if (luckBonus != null)
+		if (Malice.Malice.IsInstalled)
 		{
-			__result += Ext.Ask("LuckBonus", luckBonus, 0);
+			__result += Ext.Ask("LuckBonus", Malice.Envoy.LuckBonus, 0);
 		}
 	}
 

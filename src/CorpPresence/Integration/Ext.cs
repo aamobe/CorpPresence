@@ -15,8 +15,6 @@ internal static class Ext
 
 	public static Func<Company, string> OrderBlocked;
 
-	public static Func<Company, double> OrderFactor;
-
 	public static Func<Company, CompanyState, int, int> CatalogTier;
 
 	public static Func<CatalogEntry, int?> Limit;
@@ -33,8 +31,6 @@ internal static class Ext
 
 	public static Action<StoreClient, GameItem, int> SoldToClient;
 
-	public static Func<GameItem, double> BuyFactor;
-
 	public static Action<StoreClientManager> ScheduleExtra;
 
 	public static Func<Company, Dialogue> CallDialog;
@@ -42,14 +38,6 @@ internal static class Ext
 	public static Func<StoreClient, GameItem, bool> ClientBuys;
 
 	public static Action<string, int> CustomerReported;
-
-	public static Func<int> LuckBonus;
-
-	public static Func<bool> LockVanillaDifficulty;
-
-	public static Func<bool> ForceOrderLimits;
-
-	public static Func<int> ForceRestockWeeks;
 
 	private static readonly HashSet<string> Reported = new HashSet<string>();
 
@@ -94,6 +82,6 @@ internal static class Ext
 	{
 		try { MaintenanceDiagnostics.Record("ext", name, "callback_failed", error); } catch { }
 		if (!Reported.Add(name)) return;
-		try { ModLog.Warn("子模组扩展点 " + name + " 出错：" + error.GetType().FullName); } catch { }
+		try { ModLog.Warn("内部回调 " + name + " 出错：" + error.GetType().FullName); } catch { }
 	}
 }

@@ -190,3 +190,11 @@
 - 增加 PublishRelease 显式开关，要求干净自身Git、HEAD匹配版本标签、源码/清单/文件版本一致，拒绝维护和测试标记。发布产物无dev后缀，新增SourceRevision元数据及Check-ReleaseBuild核验入口。尚未创建正式标签或发布产物。
 - 查询SDK确认原已启用Deterministic；新增PathMap。必要定向验证：同一工作树repro-a/repro-b两个输出目录均构建成功且DLL哈希相同，未提交源码发布被正确拒绝，开发身份元数据核验通过。上述构建为83f3420-dirty，不代表最终提交产物；不同源码目录、归档和干净标签成功路径仍待最终测试。
 - 吸收扩展收益评审：不宣称新增内容更快；单独统计框架修复自身的投入；B1新增取消子模组遗留间接层清理，C1新增真实需求前后接入成本记录。已查看Ext与Malice.Install，确认单槽委托仍在，后续按调用语义清理，不能一刀切删除异常/所有权保护。
+
+
+### 2026-11-12：B1 首批间接层清理与校验归属
+
+- 删除六个只有内置实现的单槽委托：ForceOrderLimits、ForceRestockWeeks、LockVanillaDifficulty、LuckBonus、OrderFactor、BuyFactor。调用处直接引用既有Malice/Envoy/Rebels/RebelStory业务，保留安装状态、模式条件及异常回退，不新增同义门面。
+- MaliceState专用校验从Persistence/SaveStructure移回所属模块；仍由实际解码路径调用，保持AcceptRead前校验和错误条件。裁决：此处唯一调用者明确，不增加无意义的校验注册中心。
+- 状态归属表、六项迁移语义及其余13个单槽的逐类处理要求见[模块归属](../../maintenance/module-ownership.md)。付款的三态返回值和预约的异常/取消区别必须先核对后迁移，B1尚未整体完成。
+- 生产编译零警告零错误；未做全量回归或游戏测试。下一轮继续B2交易策略及剩余业务调用清理，最终统一验收需覆盖未安装、模式关闭、正常与异常回退。

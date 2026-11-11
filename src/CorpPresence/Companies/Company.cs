@@ -71,10 +71,9 @@ internal abstract class Company
 	public static double OrderRate(Company c, int tier)
 	{
 		double num = PriceRate(tier);
-		Func<Company, double> f = Ext.OrderFactor;
-		if (f != null)
+		if (Malice.Malice.IsInstalled)
 		{
-			return num * Ext.Ask("OrderFactor", () => f(c), 1.0);
+			return num * Ext.Ask("OrderFactor", () => Malice.Malice.Applies(c) ? Malice.Envoy.OrderFactor() : 1.0, 1.0);
 		}
 		return num;
 	}
