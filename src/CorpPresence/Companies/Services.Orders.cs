@@ -14,10 +14,9 @@ internal static partial class Services
 
 	public static string OrderBlocked(Company c)
 	{
-		Func<Company, string> f = Ext.OrderBlocked;
-		if (f != null && c != null)
+		if (Malice.Malice.IsInstalled && c != null)
 		{
-			return Ext.Ask("OrderBlocked", () => f(c), null);
+			return Ext.Ask("OrderBlocked", () => Malice.Malice.OrderBlocked(c), null);
 		}
 		return null;
 	}

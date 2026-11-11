@@ -32,7 +32,6 @@ static class Companies {
 }
 static class Ext {
  public static Func<Company,int,string,string> Charge;
- public static Func<Company,string> OrderBlocked => null;
  public static T Ask<T>(string name,Func<T> action,T fallback) => action();
 }
 static class Perfume { public static List<CatalogEntry> Catalog = new(); }

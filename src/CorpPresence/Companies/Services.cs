@@ -251,15 +251,14 @@ internal static partial class Services
 
 	public static int Fee(string companyId, string key, int basePrice)
 	{
-		Func<Company, string, int, int> f = Ext.ServicePrice;
-		if (f == null)
+		if (!Malice.Malice.IsInstalled)
 		{
 			return basePrice;
 		}
 		Company c = Companies.Find(companyId);
 		if (c != null)
 		{
-			return Math.Max(0, Ext.Ask("ServicePrice", () => f(c, key, basePrice), basePrice));
+			return Math.Max(0, Ext.Ask("ServicePrice", () => Malice.Malice.ServicePrice(c, key, basePrice), basePrice));
 		}
 		return basePrice;
 	}

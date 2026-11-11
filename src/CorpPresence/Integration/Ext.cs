@@ -13,14 +13,6 @@ internal static class Ext
 
 	public static readonly ExtensionEvent StateReset = new("StateReset");
 
-	public static Func<Company, string> OrderBlocked;
-
-	public static Func<Company, CompanyState, int, int> CatalogTier;
-
-	public static Func<CatalogEntry, int?> Limit;
-
-	public static Func<Company, string, int, int> ServicePrice;
-
 	public static Func<Company, int, string, string> Charge;
 
 	public static Func<Company, string> ExtraModule;

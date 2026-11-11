@@ -338,8 +338,8 @@ internal sealed class CatalogEntry
 		{
 			return WeeklyLimit;
 		}
-		Func<CatalogEntry, int?> f = Ext.Limit;
-		int? num = ((f == null) ? null : Ext.Ask("Limit", () => f(this), null));
+		int? num = Malice.Malice.IsInstalled
+			? Ext.Ask<int?>("Limit", () => Malice.Malice.Limit(this), null) : null;
 		if (num.HasValue)
 		{
 			return num.Value;

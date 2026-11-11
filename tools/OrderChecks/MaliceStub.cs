@@ -1,1 +1,1 @@
-namespace CorpPresence.Malice {internal static class MaliceState {internal static void Get(){}}}
+namespace CorpPresence.Malice {internal static class Malice {internal static bool IsInstalled => false; internal static string OrderBlocked(CorpPresence.Company c) => null;} internal static class MaliceState {internal static void Get(){}}}

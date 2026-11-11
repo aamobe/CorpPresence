@@ -161,7 +161,7 @@ internal static partial class Malice
 		return null;
 	}
 
-	private static string OrderBlocked(Company c)
+	internal static string OrderBlocked(Company c)
 	{
 		if (On && c is RebelCo)
 		{
@@ -186,7 +186,7 @@ internal static partial class Malice
 		return L.K("malice.malice.orderBlocked.sOrderingServiceIsnT", $"{c.Name}的订购服务未开通或已到期，请在“巨企合约”页开通（{SubscriptionPrice(c)}₵）。", (System.FormattableString)$"{c.Name}'s ordering service isn't active. Subscribe on the Corporate Terms page ({SubscriptionPrice(c)}₵).");
 	}
 
-	private static int CatalogTier(Company c, CompanyState s, int coopTier)
+	internal static int CatalogTier(Company c, CompanyState s, int coopTier)
 	{
 		// Solana uses membership tiers; its terms page has no catalog applications.
 		// Subscription and story restrictions are still enforced by OrderBlocked.
@@ -228,7 +228,7 @@ internal static partial class Malice
 		return null;
 	}
 
-	private static int? Limit(CatalogEntry e)
+	internal static int? Limit(CatalogEntry e)
 	{
 		if (!On || e == null || e.Id == null || !IsCorpEntry(e))
 		{
@@ -252,7 +252,7 @@ internal static partial class Malice
 		return false;
 	}
 
-	private static int ServicePrice(Company c, string key, int basePrice)
+	internal static int ServicePrice(Company c, string key, int basePrice)
 	{
 		if (!Applies(c))
 		{

@@ -55,10 +55,9 @@ internal abstract class Company
 	public int CatalogTier(CompanyState s)
 	{
 		int tier = Tier(s);
-		Func<Company, CompanyState, int, int> f = Ext.CatalogTier;
-		if (f != null)
+		if (Malice.Malice.IsInstalled)
 		{
-			return Ext.Ask("CatalogTier", () => f(this, s, tier), tier);
+			return Ext.Ask("CatalogTier", () => Malice.Malice.CatalogTier(this, s, tier), tier);
 		}
 		return tier;
 	}

@@ -22,7 +22,7 @@
 
 ## 已移除的子模组间接层
 
-以下六个 Ext 单槽字段只有 Malice.Install 一个生产赋值者，已删除字段、Replace 安装样板和无用 Forced 辅助函数。调用直接指向内置业务，继续以 Malice.IsInstalled 控制启用期边界；Ext.Ask 只作为已有异常保护，不再承载可替换实现。
+以下十个 Ext 单槽字段只有 Malice.Install 一个生产赋值者，已删除字段、Replace 安装样板和无用 Forced 辅助函数。调用直接指向内置业务，继续以 Malice.IsInstalled 控制启用期边界；Ext.Ask 只作为已有异常保护，不再承载可替换实现。
 
 | 原字段 | 当前调用位置 | 未安装/关闭/失败语义 |
 | --- | --- | --- |
@@ -32,14 +32,17 @@
 | OrderFactor | Company.OrderRate | 未安装不叠加；仅 Applies 公司取 Envoy 倍率；异常回退1 |
 | BuyFactor | Hooks.Trade | 未安装不叠加；模式开启取两项反抗军倍率乘积；异常回退1 |
 | LuckBonus | Hooks.Effects | 未安装不增加；已安装直接调用 Envoy；异常回退0 |
+| OrderBlocked | Services.OrderBlocked | 未安装或公司为空不阻止；异常回退 null；业务限制仍由 Malice 判断 |
+| CatalogTier | Company.CatalogTier | 未安装及异常沿用合作度档位；会员公司例外仍由 Malice 判断 |
+| Limit | CatalogEntry.Limit | 显式 WeeklyLimit 优先；未安装及异常无覆盖，继续原有普通限购规则 |
+| ServicePrice | Services.Fee | 未安装或公司不存在返回原价；已安装沿用异常回退原价及非负钳制 |
 
 安装未提交或卸载开始后不再进入这些业务查询；三个生命周期事件与更新租约仍按原顺序安装/撤回。变更不增加新的同义策略包装。
 
-## 其余单槽字段的迁移顺序
+## 其余九个单槽字段的迁移顺序
 
 | 字段 | 实际边界 | 处理要求 |
 | --- | --- | --- |
-| OrderBlocked / CatalogTier / Limit / ServicePrice | 订单、目录、价格 | 随 B2 核对 UI 与提交规则后直连内置策略，不保留空泛插件槽 |
 | Charge | 付款及代金券所有权 | 随 B2 迁移；必须保持 null=走原现金、空串=已处理、非空=拒绝及异常不补扣语义；当前代金券查询还有委托身份判断，不能只删字段 |
 | ExtraModule / DrawExtraModule | 公司面板 | 随 B3 页面状态整理，将内置合约页归明确页面职责 |
 | SpawnVisitor | 预约重试 | 必须保留异常与 null 的区别：null取消预约，异常保留重试；不得用返回null的通用保护吞掉异常 |
