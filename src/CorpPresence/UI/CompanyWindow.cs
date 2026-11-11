@@ -8,15 +8,10 @@ namespace CorpPresence.UI;
 
 internal static partial class CompanyWindow
 {
-	private static string _brandSel;
-
-	private static float _swapScan = -1f;
-
-	private static readonly List<(string Name, string Reason, string Target)> SwapRows = new List<(string, string, string)>();
-
-	private static int _swapCount;
-
 	private static readonly OrderPageState Orders = new();
+	private static readonly SwapPageState Swap = new();
+	private static readonly RefurbishmentPageState Refurbishment = new();
+	private static readonly BrandPageState Brands = new();
 
 	private static Company _company;
 
@@ -49,12 +44,6 @@ internal static partial class CompanyWindow
 	private static CatalogEntry _leviathan;
 
 	private const int PartsPerPage = 8;
-
-	private static float _refurbScan = -1f;
-
-	private static readonly List<(string Name, string From, string To, int Fee)> RefurbRows = new List<(string, string, string, int)>();
-
-	private static int _refurbCount;
 
 	private static readonly int[] SolanaModuleTier = new int[5] { 1, 2, 3, 0, 2 };
 
@@ -222,7 +211,7 @@ internal static partial class CompanyWindow
 			_theme = theme;
 			_module = 0;
 			Orders.Reset();
-			_brandSel = null;
+			Swap.Reset(); Refurbishment.Reset(); Brands.Reset();
 			Brand.ScanOwned();
 			_desk = c.FrontDesk[new System.Random().Next(c.FrontDesk.Length)];
 			_toast = null;
@@ -251,8 +240,6 @@ internal static partial class CompanyWindow
 			{
 				size = ((c is MeridianCo || c is DavreCo) ? new Vector2(860f, 640f) : new Vector2(660f, 796f));
 			}
-			_refurbScan = -1f;
-			_swapScan = -1f;
 			_size = size;
 			_rect = new Rect(((float)Screen.width / Scale - size.x) / 2f, ((float)Screen.height / Scale - size.y) / 2f, size.x, size.y);
 			if (_moved)
@@ -272,6 +259,7 @@ internal static partial class CompanyWindow
 		ResetStoryGuide();
 		Visible = false;
 		Orders.Reset();
+		Swap.Reset(); Refurbishment.Reset(); Brands.Reset();
 		Pointer.PendingClick = null;
 		InputShield.Update(visible: false, default);
 		Portraits.ReleasePanelTextures();
@@ -282,8 +270,9 @@ internal static partial class CompanyWindow
 		try { Close(); }
 		finally
 		{
-			_theme = null; _company = null; _toast = null; _brandSel = null;
-			Orders.Reset(); NameCache.Clear(); SwapRows.Clear(); RefurbRows.Clear(); BrandFit.Clear(); _brandFitTheme = null;
+			_theme = null; _company = null; _toast = null;
+			Orders.Reset();
+			Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); NameCache.Clear();
 			_dragging = false; _openedThisFrame = false;
 			Ui.ResetCaches();
 		}

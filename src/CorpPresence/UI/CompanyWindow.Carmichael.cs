@@ -234,14 +234,14 @@ internal static partial class CompanyWindow
 
 	private static void ScanFakes()
 	{
-		if (_swapScan >= 0f && Time.unscaledTime - _swapScan < 1f)
+		if (Swap.ScannedAt >= 0f && Time.unscaledTime - Swap.ScannedAt < 1f)
 		{
 			return;
 		}
-		_swapScan = Time.unscaledTime;
-		SwapRows.Clear();
+		Swap.ScannedAt = Time.unscaledTime;
+		Swap.Rows.Clear();
 		List<GameItem> list = Services.FakesOwned();
-		_swapCount = list.Count;
+		Swap.TotalCount = list.Count;
 		foreach (GameItem item2 in list.Take(6))
 		{
 			string item;
@@ -253,7 +253,7 @@ internal static partial class CompanyWindow
 			{
 				item = item2.identifier;
 			}
-			SwapRows.Add((item, CarmichaelCo.FakeReason(item2), ItemName(CarmichaelCo.SwapTarget(item2))));
+			Swap.Rows.Add((item, CarmichaelCo.FakeReason(item2), ItemName(CarmichaelCo.SwapTarget(item2))));
 		}
 	}
 
@@ -341,12 +341,12 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(r.x + 250f, num, 110f, 26f), L.K("ui.carmichael.swap.issue", "问题", "Issue"), theme.Center);
 		GUI.Label(new Rect(r.x + 360f, num, r.width - 360f, 26f), L.K("ui.carmichael.swap.replaceWith", "替换为", "Replace with"), theme.Center);
 		num += 30f;
-		if (SwapRows.Count == 0)
+		if (Swap.Rows.Count == 0)
 		{
 			GUI.Label(new Rect(r.x + 8f, num, r.width, 30f), L.K("ui.carmichael.swap.noneFound", "没有找到。", "None found."), theme.Small);
 			num += 34f;
 		}
-		foreach (var swapRow in SwapRows)
+		foreach (var swapRow in Swap.Rows)
 		{
 			GUI.Label(new Rect(r.x + 8f, num, 240f, 30f), swapRow.Name, theme.Body);
 			GUI.Label(new Rect(r.x + 250f, num, 110f, 30f), swapRow.Reason, theme.Price);
@@ -354,22 +354,22 @@ internal static partial class CompanyWindow
 			Ui.Fill(new Rect(r.x, num + 30f, r.width, 1f), theme.Line);
 			num += 32f;
 		}
-		if (_swapCount > SwapRows.Count)
+		if (Swap.TotalCount > Swap.Rows.Count)
 		{
-			GUI.Label(new Rect(r.x + 8f, num, r.width, 22f), (L.En ? L.K("ui.carmichael.swap.moreSwapThemNextTime", (System.FormattableString)$"{_swapCount - SwapRows.Count} more; swap them next time.") : $"另有 {_swapCount - SwapRows.Count} 件，下次再换。"), theme.Small);
+			GUI.Label(new Rect(r.x + 8f, num, r.width, 22f), (L.En ? L.K("ui.carmichael.swap.moreSwapThemNextTime", (System.FormattableString)$"{Swap.TotalCount - Swap.Rows.Count} more; swap them next time.") : $"另有 {Swap.TotalCount - Swap.Rows.Count} 件，下次再换。"), theme.Small);
 		}
 		int num2 = Services.SwapNextDay(state);
 		bool flag = Day >= num2;
-		int num3 = SwapRows.Count * CarmichaelCo.SwapFee;
+		int num3 = Swap.Rows.Count * CarmichaelCo.SwapFee;
 		float num4 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num4, 300f, 22f), flag ? (L.En ? L.K("ui.carmichael.swap.itemsThisTimeFee", (System.FormattableString)$"{SwapRows.Count} items this time, fee {num3}₵") : $"本次 {SwapRows.Count} 件，手续费 {num3}₵") : (L.En ? L.K("ui.carmichael.swap.nextRequestDay", (System.FormattableString)$"Next request: day {num2}") : $"下次可申请：第 {num2} 天"), flag ? theme.Price : theme.Body);
+		GUI.Label(new Rect(r.x, num4, 300f, 22f), flag ? (L.En ? L.K("ui.carmichael.swap.itemsThisTimeFee", (System.FormattableString)$"{Swap.Rows.Count} items this time, fee {num3}₵") : $"本次 {Swap.Rows.Count} 件，手续费 {num3}₵") : (L.En ? L.K("ui.carmichael.swap.nextRequestDay", (System.FormattableString)$"Next request: day {num2}") : $"下次可申请：第 {num2} 天"), flag ? theme.Price : theme.Body);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num4 + 22f, r.width - 170f, 20f), flag ? num3 : 0);
 		bool enabled = GUI.enabled;
-		GUI.enabled = enabled && flag && SwapRows.Count > 0 && Services.CanAfford(cashDue);
+		GUI.enabled = enabled && flag && Swap.Rows.Count > 0 && Services.CanAfford(cashDue);
 		if (Ui.Button(new Rect(r.xMax - 170f, num4 + 2f, 160f, 36f), L.K("ui.carmichael.swap.requestSwap", "申请换货", "Request swap"), theme.BtnHotStyle))
 		{
 			string text = Services.RequestSwap(_company);
-			_swapScan = -1f;
+			Swap.ScannedAt = -1f;
 			if (text == null)
 			{
 				text = L.K("ui.carmichael.swap.problemDrugsCollectedGenuineReplacements", "问题药品已收回。明早送来正品。", "Problem drugs collected. Genuine replacements arrive tomorrow morning.");

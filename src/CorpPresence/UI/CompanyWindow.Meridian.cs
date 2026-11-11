@@ -182,14 +182,14 @@ internal static partial class CompanyWindow
 
 	private static void ScanRefurb()
 	{
-		if (_refurbScan >= 0f && Time.unscaledTime - _refurbScan < 1f)
+		if (Refurbishment.ScannedAt >= 0f && Time.unscaledTime - Refurbishment.ScannedAt < 1f)
 		{
 			return;
 		}
-		_refurbScan = Time.unscaledTime;
-		RefurbRows.Clear();
+		Refurbishment.ScannedAt = Time.unscaledTime;
+		Refurbishment.Rows.Clear();
 		List<GameItem> list = Services.RefurbishCandidates();
-		_refurbCount = list.Count;
+		Refurbishment.TotalCount = list.Count;
 		foreach (GameItem item2 in list.Take(3))
 		{
 			string item;
@@ -202,7 +202,7 @@ internal static partial class CompanyWindow
 				item = item2.identifier;
 			}
 			int num = MeridianCo.ConditionOf(item2);
-			RefurbRows.Add((item, MeridianCo.ConditionName(num), MeridianCo.ConditionName(num + 1), MeridianCo.RefurbishFee(item2)));
+			Refurbishment.Rows.Add((item, MeridianCo.ConditionName(num), MeridianCo.ConditionName(num + 1), MeridianCo.RefurbishFee(item2)));
 		}
 	}
 
@@ -282,12 +282,12 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(r.x + 270f, num, 160f, 26f), L.K("ui.meridian.refurbishment.condition", "成色", "Condition"), theme.InvCenter);
 		GUI.Label(new Rect(r.x + 430f, num, r.width - 430f, 26f), L.K("ui.meridian.refurbishment.fee", "费用", "Fee"), theme.InvCenter);
 		num += 30f;
-		if (RefurbRows.Count == 0)
+		if (Refurbishment.Rows.Count == 0)
 		{
 			GUI.Label(new Rect(r.x + 8f, num, r.width, 30f), L.K("ui.meridian.refurbishment.noGunsRefurbish", "没有能翻新的枪。", "No guns to refurbish."), theme.Small);
 			num += 34f;
 		}
-		foreach (var refurbRow in RefurbRows)
+		foreach (var refurbRow in Refurbishment.Rows)
 		{
 			GUI.Label(new Rect(r.x + 8f, num, 260f, 32f), refurbRow.Name, theme.Body);
 			GUI.Label(new Rect(r.x + 270f, num, 160f, 32f), refurbRow.From + " → " + refurbRow.To, theme.Center);
@@ -295,22 +295,22 @@ internal static partial class CompanyWindow
 			Ui.Fill(new Rect(r.x, num + 32f, r.width, 1f), theme.Line);
 			num += 34f;
 		}
-		if (_refurbCount > RefurbRows.Count)
+		if (Refurbishment.TotalCount > Refurbishment.Rows.Count)
 		{
-			GUI.Label(new Rect(r.x + 8f, num, r.width, 22f), (L.En ? L.K("ui.meridian.refurbishment.moreSendThemNextTime", (System.FormattableString)$"{_refurbCount - RefurbRows.Count} more; send them next time.") : $"另有 {_refurbCount - RefurbRows.Count} 把，下次再送。"), theme.Small);
+			GUI.Label(new Rect(r.x + 8f, num, r.width, 22f), (L.En ? L.K("ui.meridian.refurbishment.moreSendThemNextTime", (System.FormattableString)$"{Refurbishment.TotalCount - Refurbishment.Rows.Count} more; send them next time.") : $"另有 {Refurbishment.TotalCount - Refurbishment.Rows.Count} 把，下次再送。"), theme.Small);
 		}
 		int num2 = Services.RefurbishNextDay(state);
 		bool flag = Day >= num2;
-		int num3 = RefurbRows.Sum(((string Name, string From, string To, int Fee) x) => x.Fee);
+		int num3 = Refurbishment.Rows.Sum(((string Name, string From, string To, int Fee) x) => x.Fee);
 		float num4 = r.yMax - 44f;
-		GUI.Label(new Rect(r.x, num4, 300f, 22f), flag ? (L.En ? L.K("ui.meridian.refurbishment.gunsThisTime", (System.FormattableString)$"{RefurbRows.Count} guns this time, {num3}₵") : $"本次 {RefurbRows.Count} 把，{num3}₵") : (L.En ? L.K("ui.meridian.refurbishment.nextDropOffDay", (System.FormattableString)$"Next drop-off: day {num2}") : $"下次可送：第 {num2} 天"), flag ? theme.Price : theme.Body);
+		GUI.Label(new Rect(r.x, num4, 300f, 22f), flag ? (L.En ? L.K("ui.meridian.refurbishment.gunsThisTime", (System.FormattableString)$"{Refurbishment.Rows.Count} guns this time, {num3}₵") : $"本次 {Refurbishment.Rows.Count} 把，{num3}₵") : (L.En ? L.K("ui.meridian.refurbishment.nextDropOffDay", (System.FormattableString)$"Next drop-off: day {num2}") : $"下次可送：第 {num2} 天"), flag ? theme.Price : theme.Body);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num4 + 22f, r.width - 170f, 20f), flag ? num3 : 0);
 		bool enabled = GUI.enabled;
-		GUI.enabled = enabled && flag && RefurbRows.Count > 0 && Services.CanAfford(cashDue);
+		GUI.enabled = enabled && flag && Refurbishment.Rows.Count > 0 && Services.CanAfford(cashDue);
 		if (Ui.Button(new Rect(r.xMax - 170f, num4 + 2f, 160f, 36f), L.K("ui.meridian.refurbishment.sendRefurbishment", "送厂翻新", "Send for refurbishment"), theme.BtnHotStyle))
 		{
 			string text = Services.RequestRefurbish(_company);
-			_refurbScan = -1f;
+			Refurbishment.ScannedAt = -1f;
 			if (text == null)
 			{
 				text = L.K("ui.meridian.refurbishment.receivedBackTomorrow", "收到。明天送回。", "Received. Back tomorrow.");
