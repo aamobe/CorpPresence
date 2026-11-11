@@ -30,7 +30,7 @@ function Invoke-PortableCheck([string]$Name, [string]$Executable, [string[]]$Arg
 Push-Location $repo
 try {
     Invoke-PortableCheck 'repository' $pwsh @('-NoProfile', '-File', (Join-Path $PSScriptRoot 'Check-Repository.ps1'))
-    foreach ($name in @('RuntimeLifetimeChecks', 'ExtensionChecks', 'HostChecks', 'SpacerModValuesChecks')) {
+    foreach ($name in @('ItemTagChecks', 'RuntimeLifetimeChecks', 'ExtensionChecks', 'HostChecks', 'SpacerModValuesChecks')) {
         $checkRoot = Join-Path $runRoot $name
         Invoke-PortableCheck "$name-build" $sdk @('build', (Join-Path $PSScriptRoot "$name/Checks.csproj"),
             '--artifacts-path', $checkRoot, '-p:UseSharedCompilation=false', '-warnaserror')

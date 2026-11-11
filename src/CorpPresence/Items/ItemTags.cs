@@ -22,6 +22,9 @@ internal static class ItemTags
 		}
 		// The backpack capability is an internal tag, not a localized item category.
 		if (item.identifier == "corp_presence_mango_backpack") item.EnableTag("BACKPACK_TAG");
+		// Static content types must not erase the native empty/filled container category.
+		// Reclassify only; do not initialize, refill, reprice or expose saved liquid contents.
+		if (item.IsTag("LIQUID_CONTAINER_TAG")) WaterHelper.UpdateContainerGoodType(item);
 	}
 
 	public static void Repair(GameItem item)
