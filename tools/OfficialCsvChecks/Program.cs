@@ -22,13 +22,13 @@ foreach (var (locale, index) in new[] { ("en", -1), ("ru", 0), ("fr", 1) }) {
         string key = line[..separator].Trim();
         if (!actual.TryAdd(key, Parse(line[(separator + 1)..]))) throw new Exception("Duplicate key: " + key);
     }
-    if (actual.Count != 1621 || actual.Count != english.Count) throw new Exception("Wrong CSV key count: " + locale);
+    if (actual.Count != english.Count) throw new Exception("Wrong CSV key count: " + locale);
     foreach (var entry in english) {
         string expected = entry.Value;
         if (index >= 0 && builtIn.TryGetValue(entry.Key, out var row) && row?.Length > index && !string.IsNullOrEmpty(row[index])) expected = row[index];
         if (!actual.TryGetValue(entry.Key, out var value) || value != expected) throw new Exception("CSV round-trip mismatch: " + locale + "/" + entry.Key);
     }
-    Console.WriteLine($"PASS {locale}: 1621 entries exactly match existing text through the installed game's CSV value parser");
+    Console.WriteLine($"PASS {locale}: {actual.Count} entries exactly match existing text through the installed game's CSV value parser");
 }
 if (Parse("\" leading, \"\"quoted\"\"\\ntrailing \"") != " leading, \"quoted\"\ntrailing ") throw new Exception("Official CSV escaping mismatch");
 Console.WriteLine("PASS official parser preserves commas, quotes, line breaks and surrounding spaces");

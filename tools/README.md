@@ -9,8 +9,8 @@
 | [Check-ModPermissions.ps1](Check-ModPermissions.ps1) | 用已安装游戏的真实扫描器检查待发布目录、清单权限和拒绝项 | 否 |
 | [Check-Repository.ps1](Check-Repository.ps1) | 检查本地文档链接、版本字段；可选核对发布源码快照 | 否 |
 | [Check-Localization.ps1](Check-Localization.ps1) | 检查稳定键引用、四语言菜单、旧表一致性、格式/缺键回退；可核对编译后嵌入资源 | 否 |
-| [Export-OfficialLocalization.ps1](Export-OfficialLocalization.ps1) | 将1621键及原译文导出为游戏官方CSV；会覆盖默认CSV | 否 |
-| [Export-TranslationTemplate.ps1](Export-TranslationTemplate.ps1) | 导出1621键和英文参考，供翻译协作及源码集成；运行时不加载 | 否 |
+| [Export-OfficialLocalization.ps1](Export-OfficialLocalization.ps1) | 将稳定键及译文导出为游戏官方CSV；会覆盖默认CSV | 否 |
+| [Export-TranslationTemplate.ps1](Export-TranslationTemplate.ps1) | 导出稳定键和英文参考，供翻译协作及源码集成；运行时不加载 | 否 |
 | [ShopInventoryChecks](ShopInventoryChecks) | 已有的库存/血液回收逻辑诊断程序，独立于正式模组构建 | 否 |
 | [RestorationChecks/State](RestorationChecks/State) | 已有的配送、状态和恢复诊断；Python入口会生成临时代码并调用dotnet | 否 |
 

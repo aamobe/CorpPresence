@@ -183,20 +183,36 @@ internal static class Envoy
 		TrackCash();
 		if (s.Aid == "active" && Day > s.AidStart)
 		{
-			if (Day >= s.AidStart + AidWeeks * 7)
+			bool termEnded = Day >= s.AidStart + AidWeeks * 7;
+			if (!termEnded || s.AidSubscriptionRecheckDay.HasValue)
+			{
+				string[] lapsed = AidCorps.Select(Companies.Find)
+					.Where(company => !Malice.Subscribed(company))
+					.Select(company => company.Name).ToArray();
+				if (lapsed.Length == 0)
+				{
+					s.AidSubscriptionRecheckDay = null;
+				}
+				else if (s.AidSubscriptionRecheckDay is not int recheckDay)
+				{
+					s.AidSubscriptionRecheckDay = Day + 1;
+					string companies = string.Join(", ", lapsed);
+					Notify(L.K("malice.envoy.onDayStart.aidSubscriptionGrace", $"扶持金订阅待补：{companies}。请在明天开店前补齐，届时撒该会复查。", (FormattableString)$"Aid subscription missing: {companies}. Renew before opening tomorrow, when Zacchaeus will check again."));
+				}
+				else if (Day >= recheckDay)
+				{
+					s.AidSubscriptionRecheckDay = null;
+					s.Aid = "repay5";
+					s.RepayLeft = AidRepayWeeks;
+					s.RepayDue = Day + 7;
+					ModLog.Info($"恶意巨企：第 {Day} 天扶持金转还款，次日复查仍无有效订阅：{string.Join(", ", lapsed)}");
+					Notify(L.K("malice.envoy.onDayStart.pastelOrCarmichealSubscriptionLapsed", $"复查时帕斯泰尔或卡迈克尔仍无有效订阅。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", (FormattableString)$"A Pastel or Carmicheal subscription was still inactive at recheck. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks."));
+				}
+			}
+			if (termEnded && s.Aid == "active" && !s.AidSubscriptionRecheckDay.HasValue)
 			{
 				s.Aid = "done";
 				Book("medal", Day);
-			}
-			else if (AidCorps.Any((string id) => !Malice.Subscribed(Companies.Find(id))))
-			{
-				string lapsed = string.Join(", ", AidCorps.Select(Companies.Find)
-					.Where(company => !Malice.Subscribed(company)).Select(company => company.Name));
-				s.Aid = "repay5";
-				s.RepayLeft = AidRepayWeeks;
-				s.RepayDue = Day + 7;
-				ModLog.Info($"恶意巨企：第 {Day} 天扶持金转还款，订购服务已到期：{lapsed}");
-				Notify(L.K("malice.envoy.onDayStart.pastelOrCarmichealSubscriptionLapsed", $"帕斯泰尔或卡迈克尔的订阅断了。撒该要求你每周还 {Installment}₵，共 {AidRepayWeeks} 周。", (System.FormattableString)$"Your Pastel or Carmicheal subscription lapsed. Zacchaeus now wants {Installment}₵ a week for {AidRepayWeeks} weeks."));
 			}
 		}
 		if ((s.Aid == "repay5" || s.Aid == "plan6") && s.RepayDue >= 0 && s.RepayDue <= Day && !Booked("repay"))
@@ -496,7 +512,7 @@ internal static class Envoy
 			{
 				L.K("malice.envoy.create.goodDayIMZacchaeus", "您好。我是撒该·索恩，联合站区管理处站长。", "Good day. I'm Zacchaeus Thorne, director of the Joint District Administration."),
 				L.K("malice.envoy.create.weVeNoticedBusinessHas", "我们注意到您的生意最近不错，想必很需要一笔扶持金来扩大规模。", "We've noticed business has been good lately. Surely you could use a grant to expand."),
-				L.K("malice.envoy.create.administrationCanOfferGrantNeedn", $"管理处可以提供一笔 {2000}₵ 扶持金，甚至不用您偿还。条件很简单：连续三周订阅帕斯泰尔和卡迈克尔的订购服务，我的朋友们最近需要扩大市场。", (System.FormattableString)$"The Administration can offer a {2000}₵ grant, and you needn't even repay it. One simple condition: keep Pastel and Carmicheal's ordering services subscribed for three weeks straight. My friends are looking to expand their market.")
+				L.K("malice.envoy.create.administrationCanOfferGrantNeedn", $"管理处可以提供一笔 {2000}₵ 扶持金，甚至不用您偿还。条件很简单：三周内保持帕斯泰尔和卡迈克尔的订购服务有效。订阅失效时，您有一天时间补办。我的朋友们最近需要扩大市场。", (System.FormattableString)$"The Administration can offer a {2000}₵ grant, and you needn't even repay it. One simple condition: keep Pastel and Carmicheal's ordering services active for three weeks. If a subscription lapses, you have one day to renew. My friends are looking to expand their market.")
 			}, L.K("malice.envoy.create.whatDoSay", "您意下如何？", "What do you say?"), new (string, string, Action)[2]
 			{
 				Opt(L.K("malice.envoy.create.iAccept", "我接受。", "I accept."), L.K("malice.envoy.create.wiseMoneyCounter", "明智。钱已经放在柜台上了。", "Wise. The money is on your counter."), AcceptAid),
@@ -509,7 +525,7 @@ internal static class Envoy
 		case "medal":
 			return Talk(kind, name, Sprite, new string[2]
 			{
-				L.K("malice.envoy.create.threeWeeksNotDayMissed", "三周，一天不落。联合管理处很满意您信守承诺。", "Three weeks, not a day missed. The Administration appreciates someone who keeps their word."),
+				L.K("malice.envoy.create.threeWeeksNotDayMissed", "三周的订阅条件已履行。联合管理处很满意您信守承诺。", "You met the three-week subscription requirement. The Administration appreciates someone who keeps their word."),
 				L.K("malice.envoy.create.pleaseAcceptThisMedalDisplay", "这枚奖牌请收下。摆在显眼的地方，上层区的客人会注意到。", "Please accept this medal. Display it somewhere visible; Upper Levels clients will notice.")
 			}, null, null, () =>
 			{
@@ -614,6 +630,7 @@ internal static class Envoy
 		EnvoyState s = S;
 		s.Aid = "active";
 		s.AidStart = Day;
+		s.AidSubscriptionRecheckDay = null;
 		s.Met = true;
 		Store.playerCash += 2000;
 		MeetPhone();
@@ -1199,6 +1216,10 @@ internal static class Envoy
 		int d = s.AidStart;
 		Shift(ref d);
 		s.AidStart = d;
+		if (s.AidSubscriptionRecheckDay.HasValue)
+		{
+			s.AidSubscriptionRecheckDay -= 7;
+		}
 		int d2 = s.RepayDue;
 		Shift(ref d2);
 		s.RepayDue = d2;

@@ -14,6 +14,8 @@ internal sealed class EnvoyState
 
 	public int AidStart { get; set; } = -1;
 
+	public int? AidSubscriptionRecheckDay { get; set; }
+
 	public int DeclineUntil { get; set; } = -1;
 
 	public int RepayLeft { get; set; }

@@ -3076,9 +3076,13 @@
     "ОК",
     "OK"
   ],
+  "malice.envoy.onDayStart.aidSubscriptionGrace": [
+    "Для субсидии нужна подписка: {0}. Продлите её до завтрашнего открытия магазина, когда Закхей проверит подписки снова.",
+    "Abonnement requis pour la subvention : {0}. Renouvelez-le avant l’ouverture de demain, quand Zacchaeus vérifiera à nouveau."
+  ],
   "malice.envoy.onDayStart.pastelOrCarmichealSubscriptionLapsed": [
-    "Подписка «Пастель» или «Кармайкл» истекла. Теперь Закхей требует по {0}₵ в неделю в течение {1} недель.",
-    "Votre abonnement Pastel ou Carmicheal a expiré. Zacchaeus exige désormais {0}₵ par semaine pendant {1} semaines."
+    "При повторной проверке подписка «Пастель» или «Кармайкл» всё ещё была неактивна. Теперь Закхей требует по {0}₵ в неделю в течение {1} недель.",
+    "Lors du nouveau contrôle, un abonnement Pastel ou Carmicheal était toujours inactif. Zacchaeus exige désormais {0}₵ par semaine pendant {1} semaines."
   ],
   "malice.envoy.onDayStart.giftMissedItsDeadlineNext": [
     "Подарок не доставили вовремя. В ближайшие {0} дней корпорации будут брать сбытовую комиссию в размере {1:0}% с каждой продажи каталожного товара.",
@@ -3105,8 +3109,8 @@
     "Nous avons remarqué que les affaires marchent bien. Une subvention vous aiderait sûrement à vous agrandir."
   ],
   "malice.envoy.create.administrationCanOfferGrantNeedn": [
-    "Администрация предлагает вам субсидию в {0}₵. Возвращать её не нужно. Условие одно: три недели подряд сохраняйте подписку на заказы у «Пастель» и «Кармайкл». Мои друзья хотят расширить рынок сбыта.",
-    "L’Administration vous propose une subvention de {0}₵, sans remboursement. Une seule condition : gardez vos abonnements aux commandes chez Pastel et Carmicheal pendant trois semaines d’affilée. Mes amis cherchent à élargir leur marché."
+    "Администрация предлагает вам субсидию в {0}₵. Возвращать её не нужно. Сохраняйте подписку на заказы у «Пастель» и «Кармайкл» три недели. Если подписка истечёт, у вас будет день на продление. Мои друзья хотят расширить рынок сбыта.",
+    "L’Administration vous propose une subvention de {0}₵, sans remboursement. Gardez vos abonnements aux commandes chez Pastel et Carmicheal pendant trois semaines. Si un abonnement expire, vous avez un jour pour le renouveler. Mes amis cherchent à élargir leur marché."
   ],
   "malice.envoy.create.whatDoSay": [
     "Ну, что скажешь?",
@@ -3129,8 +3133,8 @@
     "Dommage. Les prix du district risquent de devenir quelque peu imprévisibles."
   ],
   "malice.envoy.create.threeWeeksNotDayMissed": [
-    "Три недели без единого пропуска. Администрация ценит людей, которые держат слово.",
-    "Trois semaines, sans manquer un seul jour. L’Administration apprécie les gens qui tiennent parole."
+    "Вы выполнили условие о трёх неделях подписки. Администрация ценит людей, которые держат слово.",
+    "Vous avez rempli la condition des trois semaines d’abonnement. L’Administration apprécie les gens qui tiennent parole."
   ],
   "malice.envoy.create.pleaseAcceptThisMedalDisplay": [
     "Примите эту медаль. Положите её на видное место, клиенты с Верхних уровней заметят.",
@@ -4114,8 +4118,8 @@
     "• Deux articles de luxe admissibles. Identifiants exclus : skincare_cream, neuroactive_perfume, pheromone_perfume, corp_presence_mask, corp_presence_candle, corp_presence_candle_lit, corp_presence_elixir."
   ],
   "presentation.storyGuide.envoyPages.chapterAidMaliceModeEnvoy": [
-    "Глава 1. Субсидия\n\nРежим «Корпоративная злоба» включён, посланник ещё не ушёл, решение о субсидии ещё не принято.\nКогда наличные впервые превысят 3000, этот день будет записан. Визит назначат, когда наличных станет меньше 2500 или пройдёт четыре дня с записанной даты.\n«Пастель» и «Кармайкл» должны быть активны, а их визитки уже получены.\nЕсли принять субсидию, обе подписки нужно поддерживать 21 день. Перерыв в любой подписке приводит к пяти еженедельным платежам по 800. Условия проверяются при открытии магазина, в том числе для ожидающих визитов.",
-    "Chapitre 1 : Subvention\n\nLe mode Malveillance des entreprises est actif, l’envoyé est toujours présent et la subvention n’a pas encore été traitée.\nLe jour où l’argent liquide dépasse 3000 pour la première fois est enregistré. La visite est programmée lorsque l’argent liquide descend ensuite sous 2500, ou quatre jours après la date enregistrée.\npastel et Carmicheal doivent être actifs et vous devez avoir reçu leurs deux cartes de visite.\nEn acceptant, vous devez conserver les deux abonnements pendant 21 jours. Toute interruption entraîne cinq remboursements hebdomadaires de 800. Vérification à l’ouverture, y compris pour les visites en attente."
+    "Глава 1. Субсидия\n\nРежим «Корпоративная злоба» включён, посланник ещё не ушёл, решение о субсидии ещё не принято.\nКогда наличные впервые превысят 3000, этот день будет записан. Визит назначат, когда наличных станет меньше 2500 или пройдёт четыре дня с записанной даты.\n«Пастель» и «Кармайкл» должны быть активны, а их визитки уже получены.\nОбе подписки нужно поддерживать 21 день. Если при открытии магазина одна неактивна, продлите её до следующего открытия, иначе придётся платить по 800 в неделю в течение пяти недель. Для ожидающих визитов также проверяются оба контакта.",
+    "Chapitre 1 : Subvention\n\nLe mode Malveillance des entreprises est actif, l’envoyé est toujours présent et la subvention n’a pas encore été traitée.\nLe jour où l’argent liquide dépasse 3000 pour la première fois est enregistré. La visite est programmée lorsque l’argent liquide descend ensuite sous 2500, ou quatre jours après la date enregistrée.\npastel et Carmicheal doivent être actifs et vous devez avoir reçu leurs deux cartes de visite.\nLes deux abonnements doivent rester actifs pendant 21 jours. Si l’un est inactif à l’ouverture, renouvelez-le avant la prochaine ouverture ou remboursez 800 par semaine pendant cinq semaines. Les deux contacts sont aussi vérifiés pour les visites en attente."
   ],
   "presentation.storyGuide.envoyPages.chapterServiceFeeGiftAid": [
     "Глава 2. Плата за услуги и подарок\n\nСубсидия отработана или отклонена. Решение по главе 2 ещё не принято. Наличные > 6000.\nМожно оплатить услуги, принять подарок или отказаться.\nПодарок нужно передать в течение 14 дней. Его принимает только Один, вызванный специально через раздел «Задания» в телефоне Сопротивления. Другие визиты Одина и подпольные скупщики для этого не подходят. Один придёт на следующий день. В день истечения срока вызывать его уже поздно. Арест, потеря связи или чёрный список блокируют передачу.",
