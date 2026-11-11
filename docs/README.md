@@ -1,5 +1,23 @@
 # 文档总目录
 
+## 目录一览
+
+| 位置 | 放什么 | 不放什么 |
+| --- | --- | --- |
+| [源码地图](源码地图.md)、[存档数据模型](存档数据模型.md)、[章程](章程.md) | 每次改代码前要查的三份 | 过程记录 |
+| [maintenance/](maintenance/README.md) | 日常手册：框架接入、构建发布、兼容回归、诊断、本地化键、官方接口 | 一次性的调查和证据 |
+| [specs/](specs/README.md) | 各功能现在的行为和数值 | 实现计划 |
+| [decisions/](decisions/README.md) | 为什么这么定，一条一个决定 | 操作步骤 |
+| [changes/](changes/README.md) | 进行中的变更；完成后移入 `changes/archive/` | 已完成的变更留在外层 |
+| [bugs/](bugs/framework-review/assessment.md) | 问题调查、修复记录和对应的验收表 | 没查到根因的修复方案 |
+| [assessments/](assessments/internal-framework/assessment.md) | 值不值得做的评估 | 实施任务 |
+| [retrospective/](retrospective/README.md) | 历史问题复盘 | 当前规则 |
+| [releases/](releases/README.md) | 发布记录、文件清单、历史版本说明 | 未发布的改动（记在更新日志） |
+| [localization/](localization/README.md) | 给译者的说明 | 本地化键的维护规则（在 maintenance） |
+| [superpowers/plans/](superpowers/plans/2026-11-12-integrated-framework.md) | 当前执行中的开发计划 | 已结束的计划 |
+
+文档以外的东西不在这里：检查工程在 [tools/checks](../tools/checks/README.md)，美术资料在 [art](../art/README.md)，给玩家的说明在 [share](../share/公司增强游玩流程.txt)。
+
 当前发布：[1.1.0 接口版](releases/1.1.0-internal-maintenance.md)，源码提交 `2500a6e`。源码定位和发布操作从[维护指南](maintenance/README.md)进入。
 
 ## 规则与流程
@@ -9,8 +27,8 @@
 | 前缀 | 所属计划 | 范围 |
 | --- | --- | --- |
 | E1–E6 | [分期工程](maintenance/engineering-roadmap.md) | 运行底座、交易、生产、仓库、阵营、整体工程 |
-| F0–F4 | [内部框架](changes/organize-internal-lifecycle/master-plan.md) | 框架基线、模块试点、物品接入、共用规则、交接 |
-| R1–R6 | [运行性能核查](changes/runtime-performance/checkpoint.md) | 各领域的历史运行与性能验证记录 |
+| F0–F4 | [内部框架](changes/archive/organize-internal-lifecycle/master-plan.md) | 框架基线、模块试点、物品接入、共用规则、交接 |
+| R1–R6 | [运行性能核查](changes/archive/runtime-performance/checkpoint.md) | 各领域的历史运行与性能验证记录 |
 
 | 文档 | 内容 |
 | --- | --- |
@@ -21,13 +39,13 @@
 | [变更](changes/README.md) | 进行中的改动和已归档的实施计划 |
 | [更新日志](../CHANGELOG.md) | 写给玩家看的变化；未发布的改动先记在这里 |
 
-目录布局在 2026-11-11 按总方案整理过，原因和范围见 [这条决策](decisions/adopt-plan-layout-for-docs.md)。新增存档结构见[存档数据模型](存档数据模型.md)。尚未建立的文档：日志约定、许可与素材（权利说明目前在根目录 README）。
+目录布局在 2026-11-11 按总方案整理过，原因和范围见 [这条决策](decisions/adopt-plan-layout-for-docs.md)。2026-11-12 又把检查工程、美术资料、玩家说明和已完成的变更归位，见[重整仓库布局](decisions/reorganize-repository-layout.md)。新增存档结构见[存档数据模型](存档数据模型.md)。尚未建立的文档：日志约定、许可与素材（权利说明目前在根目录 README）。
 
 ## 玩家与功能
 
 | 文档 | 内容 |
 | --- | --- |
-| [游玩流程](../公司增强游玩流程.txt) | 公司来访、电话服务、剧情条件与机器操作 |
+| [游玩流程](../share/公司增强游玩流程.txt) | 公司来访、电话服务、剧情条件与机器操作 |
 | [功能目录](specs/README.md) | 五条工艺线、会员和恶意模式的代码入口 |
 | [香水生产线](specs/perfume.md) | 花材化学处理、基底油材料、血袋、采血、基因、模组和扩容 |
 | [0.9.9默认难度](specs/default-difficulty-0.9.9.md) | 默认预算、服务强度、收货价、合作度与限购 |
@@ -53,9 +71,9 @@
 
 ## 美术
 
-[美术维护入口](art/README.md)说明素材路径、原生尺寸、缩放和状态差分要求。宣传图与游戏精灵分开验收；当前仓库不收录未发布的立绘改稿。
+[美术维护入口](../art/OVERVIEW.md)说明素材路径、原生尺寸、缩放和状态差分要求。宣传图与游戏精灵分开验收；当前仓库不收录未发布的立绘改稿。
 
-完整资料见[深空当铺美术规范与参考目录](probably-stolen-art/README.md)，包含物品/机器、人物与撒该风格、缩放防杂色、参考PNG、元数据、统计和辅助工具。
+完整资料见[深空当铺美术规范与参考目录](../art/README.md)，包含物品/机器、人物与撒该风格、缩放防杂色、参考PNG、元数据、统计和辅助工具。
 
 ## 版本与历史
 

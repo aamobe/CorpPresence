@@ -20,8 +20,8 @@
 
 ## 验证
 
-- `tools/RestorationChecks/State/run.py`：30 项状态及配送检查，游戏接口替身。
-- `dotnet run --project tools/ShopInventoryChecks/Checks.csproj -c Release`：7 项回收边界检查，游戏接口替身。
+- `tools/checks/RestorationChecks/State/run.py`：30 项状态及配送检查，游戏接口替身。
+- `dotnet run --project tools/checks/ShopInventoryChecks/Checks.csproj -c Release`：7 项回收边界检查，游戏接口替身。
 - 0.9.7compat 曾使用游戏 Harmony 执行 6 项可选兼容检查；旧检查已随钩子移除。
 
 尚未完成实际游戏联合验证。新增 `reflection-external` 权限仅为可选跨 Mod 兼容钩子，更新应替换 DLL 和清单两个文件。

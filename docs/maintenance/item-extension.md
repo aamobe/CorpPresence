@@ -4,7 +4,7 @@
 
 物品模块属于[总框架](framework.md)：Main 安装及激活，RuntimeLifetime 负责释放，Maintenance 显示安装/清理状态，统一检查验证与其他模块的连接。接入物品还须核对获取、付款配送、保存恢复及表现路径。
 
-2026-11-11：已在原有流程上增加带来源的定义汇总与真实编译内容检查。入口为 [Goods.Catalog](../../src/CorpPresence/Items/Goods.Definitions.cs) 和 [DefinitionSet](../../src/CorpPresence/Items/DefinitionSet.cs)。实施范围及证据见[物品框架实施](../changes/organize-internal-lifecycle/item-framework-evidence.md)。
+2026-11-11：已在原有流程上增加带来源的定义汇总与真实编译内容检查。入口为 [Goods.Catalog](../../src/CorpPresence/Items/Goods.Definitions.cs) 和 [DefinitionSet](../../src/CorpPresence/Items/DefinitionSet.cs)。实施范围及证据见[物品框架实施](../changes/archive/organize-internal-lifecycle/item-framework-evidence.md)。
 
 ## 一件物品经过哪些入口
 
@@ -16,7 +16,7 @@
 | 建立持久身份 | [ItemIdentity](../../src/CorpPresence/Items/ItemIdentity.cs)；独立 ID、旧 ID/贴图对、GoodsKey 或 Company。旧映射不能随重命名改变。 |
 | 注册与生成 | [ItemRegistry](../../src/CorpPresence/Items/ItemRegistry.cs)；Install 监听目录，资源就绪后 Activate 注册，生成用已有入口。ID 冲突时保留别人，不直接覆盖官方目录；本机官方 Add 会先移除已有同 ID 条目，不能跳过前置检查。 |
 | 配置文案 | [GoodsText](../../src/CorpPresence/Presentation/GoodsText.cs)、[本地化维护](localization-keys.md)；稳定键、内置回退与 Localization CSV 一起维护。 |
-| 准备图像 | [素材规范](../probably-stolen-art/AGENTS.md)；先按类型阅读，再改素材。资源文件经项目 EmbeddedResource 嵌入，运行时图像键与资源名是不同概念，不能直接拿 LegacySprite 当文件名。 |
+| 准备图像 | [素材规范](../../art/AGENTS.md)；先按类型阅读，再改素材。资源文件经项目 EmbeddedResource 嵌入，运行时图像键与资源名是不同概念，不能直接拿 LegacySprite 当文件名。 |
 | 放入目录或剧情 | [公司目录](../../src/CorpPresence/Companies/CatalogEntry.cs)、所属公司/剧情入口；可购买门槛与提交校验一致，沿用付款和发货流程。 |
 | 机器、容器或可用物品 | 所属 Production 文件、Setup/OnNew/交互入口；先明确新建与读档恢复的区别。新增槽位只能追加，不能重排旧槽。 |
 | 旧档与卸载 | [兼容约束](compatibility-and-regressions.md)、[注册器迁移](../../src/CorpPresence/Items/ItemRegistry.cs)；只按已知旧身份配对迁移，不清档、不重发整单、不收养原版物品。 |
@@ -38,7 +38,7 @@
 
 该入口先编译正式与维护 DLL，再执行包含 ItemChecks 的检查，最后完成本地化及正式/维护两份官方零权限扫描。实际步数以当次入口输出为准，实际范围见[总框架验收](framework.md)。
 
-ItemChecks 的注册器测试链接真实 ItemRegistry，但目录、工厂产物及少量身份输入是替身；身份兼容检查则读取刚编译 DLL 的真实 ItemIdentity 表及 ResolveId，并与 `tools/ItemChecks/IdentityBaseline.json` 的 90 条基线逐条比较。允许追加，拒绝删除或修改旧映射；重复 ID、无工厂类别或两种类别并存、歧义旧映射会报错。
+ItemChecks 的注册器测试链接真实 ItemRegistry，但目录、工厂产物及少量身份输入是替身；身份兼容检查则读取刚编译 DLL 的真实 ItemIdentity 表及 ResolveId，并与 `tools/checks/ItemChecks/IdentityBaseline.json` 的 90 条基线逐条比较。允许追加，拒绝删除或修改旧映射；重复 ID、无工厂类别或两种类别并存、歧义旧映射会报错。
 
 该检查同时链接真实 RuntimeLifetime，覆盖等待、激活、回滚、重复停用、失败清理重试和重启。创建与旧档迁移必须确认本地及官方最终工厂仍归本模块所有，ID 存在本身不代表可用。清理失败不遗忘所有权，也不删除其他模块替换后的工厂。
 
@@ -65,7 +65,7 @@ ItemDefinitionChecks 读取本次正式 DLL 的 Catalog、ItemIdentity、GoodsTe
 7. 状态差分：按实际情况复用基础定义，加入明确 ExtraArt 或既有电池状态规则；不要为每张状态图伪造持久身份。扩展新的解析规则时，同时补真实解析入口的正负例。
 8. 运行统一检查，再按上表选择专项测试和下方手测。依次验证取得物品、首次创建、使用/加工、保存重载；“可注册”不代表“可购买或可加工”。
 
-开发时可单独编译 `tools/ItemDefinitionChecks/Checks.csproj`，直接执行当次 Checks.dll 并传两个参数：正式 CorpPresence.dll 绝对路径、游戏 Managed 绝对路径。无参数模式只运行检查器自身的负例，不算真实内容验收。正式验收使用 Check-Maintenance 的完整入口。
+开发时可单独编译 `tools/checks/ItemDefinitionChecks/Checks.csproj`，直接执行当次 Checks.dll 并传两个参数：正式 CorpPresence.dll 绝对路径、游戏 Managed 绝对路径。无参数模式只运行检查器自身的负例，不算真实内容验收。正式验收使用 Check-Maintenance 的完整入口。
 
 ## 游戏验收
 

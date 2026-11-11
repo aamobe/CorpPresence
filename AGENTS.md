@@ -108,7 +108,7 @@ rules:          # 硬规则。不读方案也不能违反。
     - 提交信息用英文（本仓库惯例），正文写明实际做过的验证和没做的验证
     - 普通水的灌装、纯度、分类、估值和原版顾客收货保持原版；不安装覆盖所有液体的补丁。改液体、物品身份、读档、订货、会员之前先读 docs/maintenance/compatibility-and-regressions.md
     - 以发布记录确认基线（docs/releases/README.md），不根据本机目录名判断版本；未发布的素材不混进已发布源码
-    - 制作或修改精灵前检查本地 Aseprite；发现已安装时优先使用集成，在最终原生尺寸直接生成精灵，禁止生成预览图及缩放。先读 docs/probably-stolen-art/AGENTS.md 的机器结构、多色金属高光和交付规则；选色同时查《总方案》附 G。旧素材缩放问题仅按诊断流程处理；只是讨论素材时不生成或替换贴图
+    - 制作或修改精灵前检查本地 Aseprite；发现已安装时优先使用集成，在最终原生尺寸直接生成精灵，禁止生成预览图及缩放。先读 art/AGENTS.md 的机器结构、多色金属高光和交付规则；选色同时查《总方案》附 G。旧素材缩放问题仅按诊断流程处理；只是讨论素材时不生成或替换贴图
     - 日常修复和“继续工作”只改源码、编译、验证；用户明确要求时才生成分发包
     - 排查重复问题或想复用旧方案时，先查 docs/retrospective/README.md，确认那个方案有没有被撤回
     - 公开仓库里不放本机绝对路径、账号、完整个人日志、存档
@@ -147,6 +147,8 @@ index:          # 本项目自己的文档（路径相对项目根目录）
     决策记录: docs/decisions/README.md
     历史问题复盘（40 个案例）: docs/retrospective/README.md
     进行中和已归档的变更: docs/changes/README.md
-    美术规范: docs/probably-stolen-art/AGENTS.md
+    美术规范: art/AGENTS.md
     工具脚本: tools/README.md
+    回归检查工程: tools/checks/README.md
+    面向玩家的说明: share/公司增强游玩流程.txt
 ```

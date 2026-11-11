@@ -7,10 +7,10 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$project = Join-Path $PSScriptRoot 'LocalizationChecks/Checks.csproj'
+$project = Join-Path $PSScriptRoot 'checks/LocalizationChecks/Checks.csproj'
 $artifacts = Join-Path $repoRoot 'artifacts/localization-checks'
 $managed = (Resolve-Path -LiteralPath $GameManaged).Path
-$migration = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'LocalizationChecks/Migration.json') | ConvertFrom-Json -AsHashtable
+$migration = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'checks/LocalizationChecks/Migration.json') | ConvertFrom-Json -AsHashtable
 $catalog = Get-Content -Raw -LiteralPath (Join-Path $repoRoot 'src/CorpPresence/Presentation/Translations.Keys.json') | ConvertFrom-Json -AsHashtable
 $references = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
 foreach ($source in Get-ChildItem -LiteralPath (Join-Path $repoRoot 'src') -Recurse -Filter '*.cs') {
@@ -42,7 +42,7 @@ if ($CompiledAssembly) { & $Dotnet $runner (Resolve-Path -LiteralPath $CompiledA
 else { & $Dotnet $runner }
 if ($LASTEXITCODE -ne 0) { throw 'Localization checks failed.' }
 $csvArtifacts = Join-Path $repoRoot 'artifacts/official-csv-checks'
-& $Dotnet build (Join-Path $PSScriptRoot 'OfficialCsvChecks/Checks.csproj') --artifacts-path $csvArtifacts
+& $Dotnet build (Join-Path $PSScriptRoot 'checks/OfficialCsvChecks/Checks.csproj') --artifacts-path $csvArtifacts
 if ($LASTEXITCODE -ne 0) { throw 'Official CSV checks failed to compile.' }
 & $Dotnet (Join-Path $csvArtifacts 'bin/Checks/debug/Checks.dll') $managed $repoRoot (Join-Path $repoRoot 'Localization')
 if ($LASTEXITCODE -ne 0) { throw 'Official game CSV parser checks failed.' }

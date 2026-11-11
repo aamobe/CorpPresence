@@ -32,7 +32,7 @@ try {
     Invoke-PortableCheck 'repository' $pwsh @('-NoProfile', '-File', (Join-Path $PSScriptRoot 'Check-Repository.ps1'))
     foreach ($name in @('RuntimeLifetimeChecks', 'ExtensionChecks', 'HostChecks', 'SpacerModValuesChecks')) {
         $checkRoot = Join-Path $runRoot $name
-        Invoke-PortableCheck "$name-build" $sdk @('build', (Join-Path $PSScriptRoot "$name/Checks.csproj"),
+        Invoke-PortableCheck "$name-build" $sdk @('build', (Join-Path $PSScriptRoot "checks/$name/Checks.csproj"),
             '--artifacts-path', $checkRoot, '-p:UseSharedCompilation=false', '-warnaserror')
         Invoke-PortableCheck $name $sdk @((Join-Path $checkRoot 'bin/Checks/debug/Checks.dll'))
     }

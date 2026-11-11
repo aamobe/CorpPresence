@@ -17,7 +17,7 @@ if ($version -notmatch '^\d+\.\d+\.\d+$') { throw 'Invalid release manifest vers
 $tag = & git -C $repo tag --points-at HEAD --list "v$version"
 if ($LASTEXITCODE -ne 0 -or $tag -cne "v$version") { throw 'Current commit needs the matching release tag.' }
 $output = Join-Path $repo ('artifacts/release-build-checks/' + [guid]::NewGuid().ToString('N'))
-& $Dotnet build (Join-Path $PSScriptRoot 'BuildIdentityChecks/Checks.csproj') --artifacts-path $output -warnaserror
+& $Dotnet build (Join-Path $PSScriptRoot 'checks/BuildIdentityChecks/Checks.csproj') --artifacts-path $output -warnaserror
 if ($LASTEXITCODE -ne 0) { throw 'Identity checker build failed.' }
 & $Dotnet (Join-Path $output 'bin/Checks/debug/Checks.dll') (Resolve-Path -LiteralPath $Assembly).Path --release $version $revision
 if ($LASTEXITCODE -ne 0) { throw 'Release artifact identity check failed.' }

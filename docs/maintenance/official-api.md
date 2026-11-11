@@ -17,7 +17,7 @@
 
 公司接口版源码为 2500a6e，最近本地扫描基于 Assembly-CSharp.dll 的 SHA256 725CB999D019DFF1FF31BED353C7F9BB8D81A7605A15DE1F80F5A3A6CF7B1D05。该哈希下的扫描通过只覆盖当时的安装程序集。新增 API 在该程序集中的可用性、beta 分支运行时兼容性均待核实。
 
-保存、开店、换档和付款的已有本地契约见[原生契约记录](../changes/add-maintenance-interfaces/native-contracts.md)。正式接口版的游戏验收见[M1–M6](../changes/add-maintenance-interfaces/verify.md)。
+保存、开店、换档和付款的已有本地契约见[原生契约记录](../changes/archive/add-maintenance-interfaces/native-contracts.md)。正式接口版的游戏验收见[M1–M6](../changes/archive/add-maintenance-interfaces/verify.md)。
 
 ## 后续核对入口
 
@@ -25,4 +25,4 @@
 
 ## 本机核对（2026-11-11）
 
-Steam buildid 26525552 的本地程序集缺少 Rev14 的版本查询、自定义 F9 面板和结局接口。既有 IMod、物品目录及顾客/夜间服务事件存在。详细签名、哈希与工具环境见[F0 · 第零期现场证据](../changes/organize-internal-lifecycle/phase-zero-evidence.md)。
+Steam buildid 26525552 的本地程序集缺少 Rev14 的版本查询、自定义 F9 面板和结局接口。既有 IMod、物品目录及顾客/夜间服务事件存在。详细签名、哈希与工具环境见[F0 · 第零期现场证据](../changes/archive/organize-internal-lifecycle/phase-zero-evidence.md)。

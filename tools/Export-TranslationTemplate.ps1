@@ -8,7 +8,7 @@ param(
     [switch]$Force
 )
 $ErrorActionPreference = 'Stop'
-$source = Join-Path $PSScriptRoot 'LocalizationChecks/Migration.json'
+$source = Join-Path $PSScriptRoot 'checks/LocalizationChecks/Migration.json'
 $mapping = Get-Content -Raw -LiteralPath $source -Encoding utf8 | ConvertFrom-Json -AsHashtable
 $translations = [ordered]@{}
 [string[]]$keys = @($mapping.Keys)

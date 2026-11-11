@@ -8,7 +8,7 @@
 
 ## 决定
 
-先验收当前维护能力。用 Malice 验证模块状态、阶段日志和实际安装入口的回归，再由第二模块检验是否存在稳定共性。继续使用显式装配。进入第二期前看第一期定位证据，抽取前看两处共同规则和测试。详见[分期提案](../changes/organize-internal-lifecycle/proposal.md)。
+先验收当前维护能力。用 Malice 验证模块状态、阶段日志和实际安装入口的回归，再由第二模块检验是否存在稳定共性。继续使用显式装配。进入第二期前看第一期定位证据，抽取前看两处共同规则和测试。详见[分期提案](../changes/archive/organize-internal-lifecycle/proposal.md)。
 
 ## 影响
 

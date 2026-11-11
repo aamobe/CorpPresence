@@ -18,4 +18,4 @@
 - [x] 编译后嵌入资源核对通过，共13组检查、0失败；静态检查38份Markdown、274个本地链接通过，Release编译0警告、0错误。
 - [x] 独立审阅反向比较9个UI文件，另用Roslyn核对91个英文插值模板和13个中文模板，无可行动问题。剩余1062处旧入口；未启动游戏、部署或发布。
 
-迁移临时工具和批前快照仅在`artifacts/localization-batch2`等本地产物目录。可维护的检查数据是[Batch2Cases.json](../../../tools/LocalizationChecks/Batch2Cases.json)，未嵌入正式模组。后续范围见[维护说明](../../maintenance/localization-keys.md)。
+迁移临时工具和批前快照仅在`artifacts/localization-batch2`等本地产物目录。可维护的检查数据是[Batch2Cases.json](../../../tools/checks/LocalizationChecks/Batch2Cases.json)，未嵌入正式模组。后续范围见[维护说明](../../maintenance/localization-keys.md)。
