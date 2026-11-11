@@ -50,3 +50,19 @@ var generationGuard = new CharacterVisitSession("seline", CorpState.Current.Of("
 GameResources.Generation++;
 if (generationGuard.IsCurrent) throw new Exception("Runtime generation retained old visit");
 Console.WriteLine("4 passed: completion once; replaced customer, save dictionary and runtime reject stale visits");
+
+foreach(int giftStatus in new[]{0,1,2}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    var giftState=CorpState.Get();
+    if(giftState.MangoGiftStatus!=0)throw new Exception("Old saves must default to unclaimed");
+    giftState.MangoGiftStatus=giftStatus;CorpState.Save();CorpState.Current=null;
+    if(CorpState.Get().MangoGiftStatus!=giftStatus)throw new Exception("Mango gift status lost on load");
+}
+foreach(int bad in new[]{-1,3,int.MaxValue}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    string raw="{\"RunId\":\"test\",\"MangoGiftStatus\":"+bad+"}";
+    PlayerStore.Instance.modData["CorpPresence"]=raw;
+    CorpState.Get();CorpState.Save();
+    if(SaveSlot.CanWrite("CorpPresence")||PlayerStore.Instance.modData["CorpPresence"]!=raw)throw new Exception("Invalid gift state was overwritten");
+}
+Console.WriteLine("6 passed: mango defaults, three-state roundtrip and invalid-state write protection");

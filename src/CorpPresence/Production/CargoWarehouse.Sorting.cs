@@ -85,7 +85,7 @@ internal static partial class CargoWarehouse
 
     private static bool Accepts(GameItem item, GameItem bay, int page)
     {
-        if (item == null || item.identifier == ControllerId || bay?.identifier != ItemId || item == bay || !GeneralHelper.IsItemOwned(item, bay)
+        if (item == null || item.identifier == ControllerId || !IsWarehouse(bay) || item == bay || !GeneralHelper.IsItemOwned(item, bay)
             || item.IsTag("BACKPACK_TAG")
             || ((item.IsTag("CONTAINER_TAG") || item.IsGameItemType("STORAGE"))
                 && !ContainerHelper.IsNestingAllowed(item, bay))) return false;
@@ -140,7 +140,7 @@ internal static partial class CargoWarehouse
     }
 
     private static bool CanConfigure(GameItem source, GameItem bay) =>
-        source?.identifier == ControllerId && bay?.identifier == ItemId
+        source?.identifier == ControllerId && IsWarehouse(bay)
         && GeneralHelper.IsItemOwned(source, bay) && Inventories.TryGetValue(bay, out _);
 
     private static void Configure(GameItem source, GameItem bay)

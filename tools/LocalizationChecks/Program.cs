@@ -281,6 +281,7 @@ Check("stable translations match legacy copy or current feature translations", (
     Equal(migration.Count, catalog.Count);
     foreach (var entry in migration) foreach (var locale in new[] { "ru", "fr" }) {
         string expected = HasNewAidCopy(entry.Key)
+            || entry.Key.StartsWith("mango.", StringComparison.Ordinal)
             || entry.Key.StartsWith("production.workBay.", StringComparison.Ordinal)
             || entry.Key.StartsWith("production.cargoWarehouse.", StringComparison.Ordinal)
             ? catalog[entry.Key][locale == "ru" ? 0 : 1]

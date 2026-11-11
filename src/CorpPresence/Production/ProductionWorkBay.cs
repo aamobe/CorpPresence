@@ -193,7 +193,7 @@ internal static class ProductionWorkBay
     internal static bool BeforeRestoreNativeTabs(GameItem __0, bool __runOriginal)
     {
         if (!__runOriginal) return true;
-        if (__0?.identifier == CargoWarehouse.ItemId && CargoWarehouse.RestoreTabs(__0)) return false;
+        if (CargoWarehouse.IsWarehouse(__0) && CargoWarehouse.RestoreTabs(__0)) return false;
         if (__0?.identifier != ItemId || !Inventories.TryGetValue(__0, out var grids)) return true;
         int level = Level(__0);
         if (level > 0) Resize(__0, grids, level);

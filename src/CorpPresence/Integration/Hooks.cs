@@ -378,6 +378,7 @@ internal static class Hooks
 
 	private static void AfterShownInPhoneBook(StorePhoneClient __instance, ref bool __result)
 	{
+		if (__instance?.locID == MangoGift.PhoneId) { __result = false; return; }
 		try
 		{
 			Notebook.AfterShownInPhoneBook(__instance, ref __result);
@@ -690,6 +691,7 @@ internal static class Hooks
 	{
 		try
 		{
+			if (__instance?.locID == MangoGift.PhoneId) { __result = MangoGift.Call(); return; }
 			Company company = Companies.ByLocId(__instance?.locID);
 			if (company != null)
 			{
@@ -706,7 +708,7 @@ internal static class Hooks
 	{
 		try
 		{
-			if (Companies.ByLocId(__instance?.locID) != null)
+			if (__instance?.locID == MangoGift.PhoneId || Companies.ByLocId(__instance?.locID) != null)
 			{
 				__result = __instance.displayName;
 			}
@@ -802,6 +804,7 @@ internal static class Hooks
 
 	private static void OnGenerateCustomer(StoreClientManager manager)
 	{
+		Guard("芒果彩蛋来访", () => MangoGift.Schedule(manager));
 		Guard("安排来访", () =>
 		{
 			Engine.Schedule(manager);
@@ -812,6 +815,7 @@ internal static class Hooks
 	private static void BeforeNextClient(PlayerStore __instance, bool __runOriginal)
 	{
 		if (!__runOriginal) return;
+		Guard("芒果彩蛋来访", () => MangoGift.Schedule(__instance?.storeClientManager));
 		Guard("安排来访", () =>
 		{
 			Engine.BuyActive = false;

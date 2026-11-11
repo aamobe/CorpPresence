@@ -615,6 +615,8 @@ internal static class Goods
 		Defs[RatWheelGenerator.GoodsKey] = RatWheelGenerator.Definition();
 		Defs[ProductionWorkBay.GoodsKey] = ProductionWorkBay.Definition();
 		Defs[CargoWarehouse.GoodsKey] = CargoWarehouse.Definition();
+		Defs[CargoWarehouse.MangoKey] = CargoWarehouse.MangoDefinition();
+		Defs[MangoGift.BackpackKey] = MangoGift.BackpackDefinition();
 		Defs[CargoWarehouse.ModuleKey] = CargoWarehouse.ModuleDefinition();
 		Defs[CargoWarehouse.ControllerKey] = CargoWarehouse.ControllerDefinition();
 		foreach (KeyValuePair<string, Def> def3 in Forge.Defs)

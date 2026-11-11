@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace CorpPresence;
@@ -20,6 +20,8 @@ internal static class ItemTags
 		{
 			item.SetGameItemType(gameItemType2);
 		}
+		// The backpack capability is an internal tag, not a localized item category.
+		if (item.identifier == "corp_presence_mango_backpack") item.EnableTag("BACKPACK_TAG");
 	}
 
 	public static void Repair(GameItem item)

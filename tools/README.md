@@ -25,3 +25,7 @@
 水产封装检查使用 .NET 8 或更高 SDK：`dotnet run --project tools/SealerChecks/Checks.csproj`。直接编译当前封装与出料代码，15 项断言覆盖正常流程与扣电前后失败；故障注入时出现预期异常日志。它不验证真实游戏堆叠、外观、模块槽定位、转换器或超科技电池。
 
 本地化检查用法见[本地化键维护](../docs/maintenance/localization-keys.md)，译者说明见[内置翻译](../docs/localization/README.md)。检查程序运行真实官方API适配层、内置回退、菜单与品牌缓存代码，只替代游戏本地化API/语言/帧、物品创建及图像等游戏边界，并使用安装游戏的实际CSV值解析器核对默认文件；不能代替游戏内字体、排版与语言切换验收。
+
+## 芒果彩蛋替身检查
+
+`dotnet run --project tools/MangoGiftChecks` 检查一次领取、投递事务、电话回调和背包工厂边界，不启动游戏。

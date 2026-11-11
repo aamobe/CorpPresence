@@ -7,6 +7,9 @@ namespace CorpPresence;
 internal static partial class CargoWarehouse
 {
     internal const string GoodsKey = "cargo_warehouse";
+    internal const string MangoKey = "mango_warehouse";
+    internal const string MangoId = "corp_presence_" + MangoKey;
+    internal static bool IsWarehouse(GameItem item) => item?.identifier == ItemId || item?.identifier == MangoId;
     internal const string ModuleKey = "cargo_warehouse_module";
     internal const string ItemId = "corp_presence_" + GoodsKey;
     internal const string ModuleId = "corp_presence_" + ModuleKey;
@@ -36,6 +39,15 @@ internal static partial class CargoWarehouse
         DescEn = "General storage. Starts with one 24 × 24 tab and expands to five with cargo expansion modules.",
         Company = "jackson_private", Value = 15000, Art = GoodsKey, Fallback = "hypertech_bay",
         W = 4, H = 4, Shape = "####|####|####|####", Types = new[] { "STORAGE" }, Shell = CreateWarehouse
+    };
+
+    internal static Goods.Def MangoDefinition() => new()
+    {
+        Name = "芒果箱", NameEn = "Mango Box",
+        Flavor = "芒果开门", FlavorEn = "Open, mango",
+        Desc = "尝试打开魔法芒果", DescEn = "Try opening the magic mango",
+        Company = "jackson_private", Value = 0, Art = MangoKey, Fallback = "hypertech_bay",
+        W = 1, H = 1, Shape = "#", Types = new[] { "STORAGE" }, Shell = CreateWarehouse
     };
 
     internal static Goods.Def ModuleDefinition() => new()
@@ -84,7 +96,7 @@ internal static partial class CargoWarehouse
     }
 
     private static bool CanExpand(GameItem source, GameItem target) =>
-        source?.identifier == ModuleId && source.unitCount > 0 && target?.identifier == ItemId
+        source?.identifier == ModuleId && source.unitCount > 0 && IsWarehouse(target)
         && GeneralHelper.IsItemOwned(source, target)
         && Inventories.TryGetValue(target, out var tabs) && tabs.count <= MaxModules;
 
@@ -101,7 +113,7 @@ internal static partial class CargoWarehouse
 
     internal static bool RestoreTabs(GameItem bay)
     {
-        if (bay?.identifier != ItemId || !Inventories.TryGetValue(bay, out var tabs)) return false;
+        if (!IsWarehouse(bay) || !Inventories.TryGetValue(bay, out var tabs)) return false;
         int count = 1 + Math.Max(0, Math.Min(MaxModules, bay.GetTagReadonly(ExtraTabsTag).GetInt()));
         while (tabs.count < count) AppendTab(tabs);
         RestoreFilters(bay, tabs.count);
