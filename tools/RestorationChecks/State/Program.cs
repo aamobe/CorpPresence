@@ -138,6 +138,22 @@ Check("refused crate transfer preserves source quantity",()=>{Crates.Reset();Gra
 Check("without stacking delivery retains ten individual items",()=>{Crates.Reset();PlayerStore.Placed.Clear();GraphUtils.Capacity=120;var c=new Company();var s=new CompanyState();var o=new Order{Items=Enumerable.Repeat("a",10).ToList()};s.Orders.Add(o);CorpState.Current.Companies[c.Id]=s;CompanyVisitors.Receipt(c,s,new(){o})();Assert(PlayerStore.Placed.Count==1&&PlayerStore.Placed[0].Inner.childItems.Count==10&&o.Items.Count==0);});
 Check("different identifiers retain independent quantities",()=>{Crates.Reset();GraphUtils.Capacity=120;GraphUtils.Stacking=true;var box=Crates.CreateShell();foreach(var id in new[]{"a","a","b","b","b"})Assert(Crates.Put(box,new GameItem{identifier=id}));Assert(box.Inner.childItems.Count==2&&box.Inner.childItems.Single(x=>x.identifier=="a").unitCount==2&&box.Inner.childItems.Single(x=>x.identifier=="b").unitCount==3);});
 Check("stacking preserves crate native default capacity policy",()=>{Crates.Reset();var box=Crates.CreateShell();Assert(box.Inner.maxSlotAmountItemFunc==null);});
+Check("placed crate retains a live controller after clearing its order", () =>
+{
+    Crates.Reset(); PlayerStore.Placed.Clear(); GraphUtils.Capacity = 10;
+    Goods.Factory = () => new GameItem { identifier = "corp_presence_cargo_sort_controller" };
+    var company = new Company { Id = "jackson_private", Catalog = new() { new CatalogEntry { Id = "@cargo_sort_controller" } } };
+    var state = new CompanyState();
+    var order = new Order { Items = new() { "@cargo_sort_controller" } };
+    state.Orders.Add(order); CorpState.Current.Companies[company.Id] = state;
+    CompanyVisitors.Receipt(company, state, new() { order })();
+    Assert(PlayerStore.Placed.Count == 1 && state.Orders.Count == 0 && order.Items.Count == 0);
+    var crate = PlayerStore.Placed.Single();
+    var inventory = Crates.InnerOf(crate);
+    var controller = inventory.childItems.Single();
+    Assert(crate.parentInventory != null && controller.parentInventory == inventory && controller.unitCount == 1
+        && controller.identifier == "corp_presence_cargo_sort_controller" && controller.DestroyCount == 0);
+});
 Console.WriteLine($"{passed} passed, {failed} failed"); return failed==0?0:1;
 namespace CorpPresence {
 class PlayerStore {public List<(string,int)> ActivePermits=new(); public int contrabandMarkupLow=35, contrabandMarkupMid=70, contrabandMarkupHigh=100, contrabandMarkupCritial=150;public string runID="run"; public Dictionary<string,string> modData=new();public static PlayerStore Instance=>SaveSlot.CurrentStore;public void AddNightLog(string text,string color=null){}public Client currentClientInstance; public static List<GameItem> Placed=new();public bool RefusePlacement; public bool TryAddDirectSellingItemToTable(GameItem crate,bool isOwend){if(RefusePlacement)return false;Placed.Add(crate);crate.parentInventory=new GameInventory();return true;}}
@@ -155,7 +171,16 @@ static class MeridianCo {public static GameItem MakeNew(string id)=>Goods.Factor
 static class DavreCo {public static GameItem MakePrebuilt(string id)=>Goods.Factory();}
 class SpacerCo:Company {public const int MutualFee=10;public static GameItem MakeGun(string id)=>Goods.Factory();public static string RollModBox()=>"a";}
 static class Settings {public static bool OrderEvents=true,OrderLimits=true,MaliceMode;}
-static class L {public static bool En;public static string T(string zh,string en)=>En?en:zh;public static string Translate(FormattableString text)=>text.ToString();}
+static class L
+{
+    public static bool En;
+    public static string T(string zh, string en) => En ? en : zh;
+    public static string Translate(FormattableString text) => text.ToString();
+    public static string K(string key, string zh, string en) => T(zh, en);
+    public static string K(string key, string zh, FormattableString en) => En ? en.ToString() : zh;
+    public static string K(string key, FormattableString zh, FormattableString en) =>
+        (En ? en : zh).ToString();
+}
 static class ModLog {public static void Warn(string s){}public static void Info(string s){}}
 static class Ext {public static Func<CatalogEntry,int?> Limit;public static T Ask<T>(string s,Func<T> f,T other)=>f();}
 static class StorePlacement {public static bool Destroyed(GameItem i)=>i.DestroyCount>0;}

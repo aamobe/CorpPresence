@@ -139,6 +139,7 @@ internal static partial class CompanyVisitors
 		if (m?.clientStack == null || client == null) return false;
 		int count = m.clientStack.Count;
 		int index = ((!front && count > 1) ? Rng.Next(0, count / 2 + 1) : 0);
+		ModHelper.SetClientSource(client, Main.DisplayName);
 		m.clientStack.Insert(index, client);
 		return true;
 	}

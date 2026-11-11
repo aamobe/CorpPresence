@@ -5,9 +5,8 @@ using System.Runtime.Versioning;
 
 [assembly: AssemblyCompany("CorpPresence")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyFileVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 [assembly: AssemblyInformationalVersion(CorpPresence.Main.Version)]
 [assembly: AssemblyProduct("CorpPresence")]
 [assembly: AssemblyTitle("CorpPresence")]
 [assembly: AssemblyVersion("1.0.0.0")]
-

@@ -334,7 +334,7 @@ internal static class Forge
 			List<GameItem> list = input.childItems.Where(IsGoodIngot).ToList();
 			int num3 = num + num2;
 			int n = Math.Min(num3 / 100, list.Count);
-			if (n <= 0 || !MachineHelper.TryDrawCyclePower(machine, battery))
+			if (n <= 0)
 			{
 				return;
 			}
@@ -346,11 +346,17 @@ internal static class Forge
 				{
 					break;
 				}
-				GeneralHelper.SetItemOwned(gameItem);
-				if (!ProductionOutput.TryAdd(output, gameItem))
+				bool readyToConsume = false;
+				try
 				{
-					gameItem.Destroy();
-					break;
+					GeneralHelper.SetItemOwned(gameItem);
+					if (!ProductionOutput.TryAdd(output, gameItem)) break;
+					if (made == 0 && !MachineHelper.TryDrawCyclePower(machine, battery)) break;
+					readyToConsume = true;
+				}
+				finally
+				{
+					if (!readyToConsume) gameItem.Destroy();
 				}
 				list[made].Destroy();
 			}

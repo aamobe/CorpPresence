@@ -125,6 +125,8 @@ internal static partial class CompanyWindow
 			DrawOrderItem(columns.Item, catalogEntry, State, theme);
 			GUI.Label(columns.ListPrice, ItemListPrice(ItemListValue(catalogEntry)), theme.Center);
 			string blocked = _company is MeridianCo ? Rosen.SaleBlocked(catalogEntry.Id) : null;
+			if (_company is JacksonContact && CargoWarehouse.Price(catalogEntry.Id) > 0 && !CargoWarehouse.Unlocked())
+				blocked = CargoWarehouse.UnlockHint();
 			if (blocked == null && catalogEntry.MinTier > num)
 				blocked = L.En ? L.K("ui.meridian.equipmentOrder.tierRequired", (System.FormattableString)$"Opens at {_company.TierNames[catalogEntry.MinTier - 1]}") : _company.TierNames[catalogEntry.MinTier - 1] + "开放";
 			if (blocked != null)

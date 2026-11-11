@@ -180,7 +180,7 @@ internal static partial class Engine
 				try
 				{
 					state = root.Of(character.Id);
-					// 今天排过了就不再排：没走完来访（被送走等）时预约还在，不加这条会每换一位顾客就插回来
+					// 今天排过了就不再排。未到店的预约和未完成的剧情可能仍然保留。
 					if (state.PendingDay < 0 || state.PendingDay > day || state.QueuedDay == day) continue;
 					string prefix = character.Prefix;
 					StoreClient active = SaveSlot.CurrentStore?.currentClientInstance?.GetClientBlueprint();
@@ -195,6 +195,7 @@ internal static partial class Engine
 					if (!session.IsCurrent) return;
 					int count = manager.clientStack.Count;
 					int index = count > 1 ? new System.Random().Next(0, count / 2 + 1) : 0;
+					ModHelper.SetClientSource(client, Main.DisplayName);
 					manager.clientStack.Insert(index, client);
 					state.PendingDay = day;
 					state.QueuedDay = day;

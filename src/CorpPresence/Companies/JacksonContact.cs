@@ -15,8 +15,12 @@ internal sealed class JacksonContact : Company
     private static readonly CatalogEntry[] Equipment =
     {
         new() { Id = "@" + RatWheelGenerator.GoodsKey, MinTier = 0 },
+        new() { Id = ProductionWorkBay.OrderId, MinTier = 0 },
         new() { Id = "animal_cage", MinTier = 0 },
-        new() { Id = "livestock_feed_dispenser", MinTier = 0 }
+        new() { Id = "livestock_feed_dispenser", MinTier = 0 },
+        new() { Id = CargoWarehouse.OrderId, MinTier = 0 },
+        new() { Id = CargoWarehouse.ModuleOrderId, MinTier = 0 },
+        new() { Id = CargoWarehouse.ControllerOrderId, MinTier = 0 }
     };
 
     public override string Id => "jackson_private";

@@ -1,0 +1,21 @@
+using CorpPresence;
+static void Check(bool ok,string label) { if(!ok)throw new Exception(label); Console.WriteLine("PASS "+label); }
+int calls=0;
+var ordinary=new List<int>{1,2,3};
+var result=SilverBloodFlow.WaterChecks(ordinary,x=>false,x=>calls++,false);
+Check(ReferenceEquals(result,ordinary)&&calls==0&&ordinary.SequenceEqual(new[]{1,2,3}),"普通鱼缸复用原列表且不调用豁免");
+var mixed=new List<int>{1,9,2,9,3};
+result=SilverBloodFlow.WaterChecks(mixed,x=>x==9,x=>calls++,false);
+Check(!ReferenceEquals(result,mixed)&&result.SequenceEqual(new[]{1,2,3})&&mixed.SequenceEqual(new[]{1,9,2,9,3})&&calls==2,"有电混养仅过滤水检列表并保留原始死亡检查列表");
+calls=0;
+result=SilverBloodFlow.WaterChecks(mixed,x=>x==9,x=>calls++,true);
+Check(ReferenceEquals(result,mixed)&&mixed.SequenceEqual(new[]{1,2,3})&&calls==2,"无电混养原列表移除豁免对象以延后死亡检查");
+var all=new List<int>{9,9};
+result=SilverBloodFlow.WaterChecks(all,x=>true,x=>{},false);
+Check(result.Count==0&&all.Count==2,"全豁免有电列表保持原存量");
+result=SilverBloodFlow.WaterChecks(all,x=>true,x=>{},true);
+Check(ReferenceEquals(result,all)&&all.Count==0,"全豁免无电列表延后全部死亡检查");
+Check(SilverBloodFlow.WaterChecks<int>(null,x=>true,x=>{},true)==null,"空列表引用不触发回调");
+int delivered=0,committed=0;
+SilverBloodFlow.DeliverPending(5,()=>++delivered<=2,()=>committed++);
+Check(delivered==3&&committed==2,"配送失败保留余量并逐件提交成功数");

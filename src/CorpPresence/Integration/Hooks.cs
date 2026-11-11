@@ -13,6 +13,7 @@ namespace CorpPresence;
 internal static class Hooks
 {
 	private static Action _nightly;
+	private static bool _customerHookInstalled;
 
 	private static string _reportedId;
 
@@ -28,6 +29,8 @@ internal static class Hooks
 		RatWheelGenerator.Install(h);
 		Patch<SaveManager>(h, "DecodeNodes", typeFromHandle2, "BeforeDecode", null, new Type[1] { typeof(List<SaveItemNode>) });
 		Patch<SaveManager>(h, "DecodeNodes", typeof(ItemTags), null, "AfterDecode", new Type[1] { typeof(List<SaveItemNode>) });
+		Patch(h, AccessTools.Method(typeof(StorageExpansionHelper), nameof(StorageExpansionHelper.RestoreTabs), new[] { typeof(GameItem) }),
+			"StorageExpansionHelper.RestoreTabs", typeof(ProductionWorkBay), prefix: nameof(ProductionWorkBay.BeforeRestoreNativeTabs));
 		Patch<SaveManager>(h, "EncodeNode", typeFromHandle2, "BeforeEncode", null, new Type[1] { typeof(GameItem) });
 		Patch<PlayerStore>(h, "SaveGame", typeFromHandle, "BeforeSave");
 		Patch<PlayerStore>(h, "LoadGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(AfterLoadGame));
@@ -42,13 +45,10 @@ internal static class Hooks
 	private static void InstallGameplay(Harmony h)
 	{
 		Type typeFromHandle = typeof(Hooks);
-		Type typeFromHandle2 = typeof(ItemRegistry);
 		Patch<PlayerStore>(h, "BeginDay", typeFromHandle, null, "AfterBeginDay");
-		MethodInfo endDrag = AccessTools.Method(typeof(ItemMouseDragHandler), "EndDrag", new[] { typeof(bool) })
-			?? AccessTools.Method(typeof(ItemMouseDragHandler), "EndDrag", Type.EmptyTypes);
-		Patch(h, endDrag, "ItemMouseDragHandler.EndDrag", typeof(DragFix), nameof(DragFix.BeforeEndDrag), nameof(DragFix.AfterEndDrag));
-		Patch<StoreClientManager>(h, "GenerateClient", typeFromHandle, null, "AfterGenerateClient");
 		Patch<PlayerStore>(h, "GetNextClient", typeFromHandle, "BeforeNextClient");
+		Patch<HydroponicHelper>(h, nameof(HydroponicHelper.ContinueGrowing), typeof(CropHealth),
+			postfix: nameof(CropHealth.AfterContinueGrowing), args: new[] { typeof(GameItem), typeof(int), typeof(GameItem) });
 		Patch<GameItem>(h, "GetNegociatedValue", typeFromHandle, null, "AfterNegociatedValue");
 		Patch<StoreClient>(h, nameof(StoreClient.ClientExposeFeature), typeof(Malice.Rebels), nameof(Malice.Rebels.BeforeClientExposeFeature), null, new[] { typeof(GameItem) });
 		Patch<StoreClient>(h, "OnItemSold", typeFromHandle, null, "AfterClientSold", new Type[2]
@@ -81,13 +81,6 @@ internal static class Hooks
 		if (scalePhoneBubbles != null)
 			Patch(h, scalePhoneBubbles, "DialoguePhoneUIManager.ApplyBubbleScale", typeof(PhoneDialogueLayout),
 				prefix: nameof(PhoneDialogueLayout.Reset), postfix: nameof(PhoneDialogueLayout.AfterBubbleScale));
-		Patch<DialogUIManager>(h, nameof(DialogUIManager.ScaleByDialogSpeed), typeof(ReadingPace),
-			postfix: nameof(ReadingPace.AfterDialoguePause), args: new[] { typeof(float) });
-		Patch<StoreUIManager>(h, "GetLocaleSpeedMultiplier", typeof(ReadingPace), postfix: nameof(ReadingPace.AfterTypewriterSpeed));
-		Patch<ReputationUIManager>(h, nameof(ReputationUIManager.Notify), typeof(ReadingPace),
-			postfix: nameof(ReadingPace.AfterNotification), args: new[] { typeof(string), typeof(string) });
-		Patch<ReputationUIManager>(h, nameof(ReputationUIManager.NotifyReputation), typeof(ReadingPace),
-			postfix: nameof(ReadingPace.AfterNotification), args: new[] { typeof(string), typeof(int) });
 		Patch<GameItemElement>(h, "ResolveSpriteByName", typeFromHandle, "BeforeResolveSprite", null, new Type[1] { typeof(string) });
 		Patch<GameItemElement>(h, "ResolveItemSprite", typeFromHandle, "BeforeResolveItemSprite");
 		Patch<SpriteDict>(h, "GetSprite", typeFromHandle, "BeforeGetSprite", null, new Type[1] { typeof(string) });
@@ -104,11 +97,7 @@ internal static class Hooks
 			typeof(Camera)
 		});
 		Patch<AquacultureHelper>(h, "CreateFilletPieces", typeof(SilverBlood), "BeforeFillet", null, new Type[1] { typeof(GameItem) });
-		// 私有嵌套类用固定的“类型:方法”字符串查找：加载器扫描时按游戏自身类型识别，不需要声明反射权限
-		Patch(h, AccessTools.Method("AquacultureHelper+TankOccupancy:Fits", new Type[3]
-		{
-			typeof(int), typeof(int), typeof(List<Vector2Int>)
-		}), "AquacultureHelper.TankOccupancy.Fits", typeof(SilverBlood), "BeforeTankFits", null);
+		InstallSilverBloodPlacement(h);
 		Patch<AquacultureHelper>(h, "WillSuffocateTonight", typeof(SilverBlood), null, "AfterWillSuffocate", new Type[1] { typeof(GameItem) });
 		Patch<AquacultureHelper>(h, "ApplyWaterChecks", typeof(SilverBlood), "BeforeApplyWaterChecks", null, new Type[3]
 		{
@@ -148,7 +137,6 @@ internal static class Hooks
 			typeof(string),
 			typeof(string)
 		}), "RenderHandler.LoadFromAtlasRaw", typeFromHandle, "BeforeLoadFromAtlas");
-		Patch<ModItemDirectory>(h, "InitDirectory", typeFromHandle2, null, "AfterInitDirectory");
 		Patch<GameItem>(h, "ActivateSlotItem", typeFromHandle, "BeforeActivateItem");
 		Patch<PaperUIManager>(h, "CloseAllPaperUI", typeFromHandle, null, "AfterCloseAllPaper");
 		Patch<GameItem>(h, "MayActivateSlotItem", typeFromHandle, null, "AfterCanActivate");
@@ -250,8 +238,32 @@ internal static class Hooks
 		}
 	}
 
+	private static void InstallSilverBloodPlacement(Harmony h)
+	{
+		MethodInfo grow = AccessTools.Method(typeof(AquacultureHelper), "TryGrowIntoRoom");
+		MethodInfo wander = AccessTools.Method(typeof(AquacultureHelper), "TryWander");
+		MethodInfo fits = AccessTools.Method("AquacultureHelper+TankOccupancy:Fits",
+			new[] { typeof(int), typeof(int), typeof(List<Vector2Int>) });
+		if (grow == null || wander == null || fits == null)
+		{
+			ModLog.Warn("找不到原版养殖缸占位方法，三叶蜥的边界保护停用");
+			return;
+		}
+		Type owner = typeof(SilverBlood);
+		var prefix = new HarmonyMethod(owner, nameof(SilverBlood.BeginPlacement));
+		var finalizer = new HarmonyMethod(owner, nameof(SilverBlood.EndPlacement));
+		h.Patch(grow, prefix: prefix, finalizer: finalizer);
+		h.Patch(wander, prefix: prefix, finalizer: finalizer);
+		h.Patch(fits, prefix: new HarmonyMethod(owner, nameof(SilverBlood.BeforeTankFits)));
+	}
+
 	public static void InstallEvents()
 	{
+		if (!_customerHookInstalled)
+		{
+			ModHook.OnGenerateCustomerVeryLate += OnGenerateCustomer;
+			_customerHookInstalled = true;
+		}
 		if (_nightly == null)
 		{
 			_nightly = () =>
@@ -264,6 +276,11 @@ internal static class Hooks
 
 	public static void UninstallEvents()
 	{
+		if (_customerHookInstalled)
+		{
+			ModHook.OnGenerateCustomerVeryLate -= OnGenerateCustomer;
+			_customerHookInstalled = false;
+		}
 		if (_nightly != null)
 		{
 			ModHook.OnHandlingNightlyServicesEarly -= _nightly;
@@ -285,6 +302,7 @@ internal static class Hooks
 
 	private static void AfterBeginDay()
 	{
+		Guard("清理过期估价样品", CatalogPricing.ReleaseExpiredSamples);
 		Guard("开店检查", () =>
 		{
 			Engine.OnDayStart();
@@ -756,6 +774,8 @@ internal static class Hooks
 
 	private static void BeforeStoreTransition()
 	{
+		CargoSortWindow.Close();
+		CargoWarehouse.ResetControllerStock();
 		_pendingVendingWater = 0;
 		LoadedItemRepair.Reset();
 		Guard("换档配送清理", Crates.Reset);
@@ -780,17 +800,18 @@ internal static class Hooks
 		}
 	}
 
-	private static void AfterGenerateClient(StoreClientManager __instance)
+	private static void OnGenerateCustomer(StoreClientManager manager)
 	{
 		Guard("安排来访", () =>
 		{
-			Engine.Schedule(__instance);
-			Goods.ApplyCandle(__instance);
+			Engine.Schedule(manager);
+			Goods.ApplyCandle(manager);
 		});
 	}
 
-	private static void BeforeNextClient(PlayerStore __instance)
+	private static void BeforeNextClient(PlayerStore __instance, bool __runOriginal)
 	{
+		if (!__runOriginal) return;
 		Guard("安排来访", () =>
 		{
 			Engine.BuyActive = false;

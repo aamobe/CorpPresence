@@ -11,6 +11,7 @@
 | 子午线定制锻造 | [Forge.cs](../../src/CorpPresence/Production/Forge.cs)、`Rosen`、`MeridianCo` |
 | 卡迈克尔银血 | [SilverBlood.cs](../../src/CorpPresence/Production/SilverBlood.cs)及同名前缀文件，`Isa`、`CarmichaelCo` |
 | 索拉纳香水 | [详细规则](perfume.md)，[Perfume.cs](../../src/CorpPresence/Production/Perfume.cs)及同名前缀文件，`Seline`、`SolanaCo` |
+| 专用工作仓 | [五条产线的收纳与私人订购](production-work-bay.md) |
 | 通用机器出料、扩容与外观 | [ProductionOutput.cs](../../src/CorpPresence/Production/ProductionOutput.cs)、[MachineUpgrade.cs](../../src/CorpPresence/Production/MachineUpgrade.cs)、[MachineAppearance.cs](../../src/CorpPresence/Production/MachineAppearance.cs) |
 | 恶意巨企、订阅和阵营 | [Malice](../../src/CorpPresence/Malice)、`CompanyWindow.Malice` |
 | 存档与卸载清理 | [Persistence](../../src/CorpPresence/Persistence)、`LoadedItemRepair` |

@@ -19,17 +19,26 @@ internal sealed class Host : MonoBehaviour
         new RuntimeTask("立绘换档", Portraits.Tick, Report)
     };
     private readonly RuntimeTask _draw = new RuntimeTask("面板绘制", CompanyWindow.Draw, Report);
+    private readonly RuntimeTask _drawCargoSort = new RuntimeTask("仓库分类面板", CargoSortWindow.Draw, Report);
 
     private void Update()
     {
         float now = Time.unscaledTime;
         for (int i = 0; i < _updates.Length; i++) _updates[i].Run(now);
+#if LOCAL_TEST_FUNDS
+        LocalTestFunds.Tick();
+#endif
 #if TESTKIT
         TestKit.Tick();
 #endif
     }
 
-    private void OnGUI() => _draw.Run(Time.unscaledTime);
+    private void OnGUI()
+    {
+        float now = Time.unscaledTime;
+        _draw.Run(now);
+        _drawCargoSort.Run(now);
+    }
 
     private static void Report(string name, Exception error, int suppressed)
     {

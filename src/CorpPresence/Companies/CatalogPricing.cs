@@ -15,6 +15,12 @@ internal static class CatalogPricing
 		Samples.Add(entry);
 	}
 
+	internal static void ReleaseExpiredSamples()
+	{
+		foreach (var entry in new List<CatalogEntry>(Samples))
+			if (entry.ReleaseExpiredQuoteSample()) Samples.Remove(entry);
+	}
+
 	public static void Reset()
 	{
 		if (IsResetting)

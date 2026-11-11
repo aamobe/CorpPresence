@@ -367,7 +367,7 @@ internal sealed class CarmichaelCo : Company
 			Items = new List<string> { id }
 		});
 		Services.AddCoop(c, (double)price / Settings.CoopCredits, "订购标本");
-		ModLog.Info($"标本订单：{id}，{price}₵");
+		try { ModLog.Info($"标本订单：{id}，{price}₵"); } catch { }
 		return null;
 	}
 

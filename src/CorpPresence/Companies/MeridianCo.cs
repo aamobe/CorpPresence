@@ -207,7 +207,7 @@ internal sealed class MeridianCo : Company
 			return false;
 		}
 		companyState.ForgeOwned = true;
-		ModLog.Info($"锻造整套工具 {ForgeFee}₵ 已付");
+		try { ModLog.Info($"锻造整套工具 {ForgeFee}₵ 已付"); } catch { }
 		return true;
 	}
 
@@ -265,7 +265,7 @@ internal sealed class MeridianCo : Company
 			Items = new List<string> { id }
 		});
 		Services.AddCoop(c, (double)price / Settings.CoopCredits, "订购锻造设备");
-		ModLog.Info($"锻造设备订单：{id}，{price}₵");
+		try { ModLog.Info($"锻造设备订单：{id}，{price}₵"); } catch { }
 		return null;
 	}
 

@@ -13,7 +13,7 @@
 | [变更](changes/README.md) | 进行中的改动和已归档的实施计划 |
 | [更新日志](../CHANGELOG.md) | 写给玩家看的变化；未发布的改动先记在这里 |
 
-目录布局在 2026-11-11 按总方案整理过，原因和范围见 [这条决策](decisions/adopt-plan-layout-for-docs.md)。尚未建立的文档：存档数据模型、日志约定、许可与素材（权利说明目前在根目录 README）。
+目录布局在 2026-11-11 按总方案整理过，原因和范围见 [这条决策](decisions/adopt-plan-layout-for-docs.md)。新增存档结构见[存档数据模型](存档数据模型.md)。尚未建立的文档：日志约定、许可与素材（权利说明目前在根目录 README）。
 
 ## 玩家与功能
 
@@ -30,6 +30,7 @@
 | --- | --- |
 | [维护首页](maintenance/README.md) | 按维护任务选择入口 |
 | [源码地图](源码地图.md) | 目录职责、生命周期、数据流与常见修改位置 |
+| [分期工程](maintenance/engineering-roadmap.md) | 各期依赖、代码入口、实施顺序和验收条件 |
 | [构建与发布](maintenance/build-and-release.md) | 本地依赖、编译、部署、版本核对与发布记录 |
 | [兼容边界与回归](maintenance/compatibility-and-regressions.md) | 普通水、身份注册、存档、限购、会员及机器风险 |
 | [开发问题复盘与反例目录](retrospective/README.md) | 40个历史案例、处理方法、验证边界及防复发要点 |

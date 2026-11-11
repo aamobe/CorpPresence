@@ -11,6 +11,7 @@
     <GameManaged Condition="'$(GameManaged)' == ''">F:\SteamLibrary\steamapps\common\Probably Stolen\Probably Stolen_Data\Managed</GameManaged>
   </PropertyGroup>
   <PropertyGroup Condition="'$(WaterTrace)' == 'true'"><DefineConstants>$(DefineConstants);WATER_TRACE</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(LocalTestFunds)' == 'true'"><DefineConstants>$(DefineConstants);LOCAL_TEST_FUNDS</DefineConstants></PropertyGroup>
   <ItemGroup>
     <Reference Include="$(GameManaged)\Unity*.dll;$(GameManaged)\Assembly-CSharp.dll;$(GameManaged)\0Harmony.dll;$(GameManaged)\Newtonsoft.Json.dll">
       <Private>false</Private>

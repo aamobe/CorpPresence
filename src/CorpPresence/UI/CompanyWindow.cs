@@ -246,7 +246,7 @@ internal static partial class CompanyWindow
 			}
 			else if (c is JacksonContact)
 			{
-				size = new Vector2(700f, 365f);
+				size = new Vector2(700f, 473f);
 			}
 			else if (c is SpacerCo || c is RebelCo)
 			{
@@ -282,6 +282,7 @@ internal static partial class CompanyWindow
 		Visible = false;
 		Pointer.PendingClick = null;
 		InputShield.Update(visible: false, default);
+		Portraits.ReleasePanelTextures();
 	}
 
 	public static void ReleaseUi()
@@ -298,7 +299,7 @@ internal static partial class CompanyWindow
 	private static void Toast(string text)
 	{
 		_toast = text;
-		_toastUntil = Time.unscaledTime + 3f + ReadingPace.NoticeExtraSeconds;
+		_toastUntil = Time.unscaledTime + 4.5f;
 	}
 
 	public static void Tick()

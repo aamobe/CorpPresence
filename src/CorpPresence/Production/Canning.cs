@@ -273,7 +273,7 @@ internal static partial class Canning
 		FoodItemHelper.InitFoodItem(item, 800, isCanned: true, isMeat: true);
 	}
 
-	private static string MinceOf(GameItem meat)
+	internal static string MinceOf(GameItem meat)
 	{
 		switch (meat?.identifier)
 		{

@@ -22,6 +22,7 @@ internal static class InputShield
 	{
 		get
 		{
+			if (CargoSortWindow.Active) return true;
 			if (!Pointer.OverWindow)
 			{
 				return CompanyWindow.Dragging;
@@ -122,6 +123,12 @@ internal static class InputShield
 	{
 		try
 		{
+			if (CargoSortWindow.Active)
+			{
+				CargoSortWindow.Close();
+				__result = true;
+				return false;
+			}
 			if (!CompanyWindow.Visible)
 			{
 				return true;

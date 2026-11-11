@@ -210,7 +210,8 @@ internal static class Malice
 		corpTerms.SubUntil = Math.Max(Day, corpTerms.SubUntil) + 7;
 		corpTerms.Subscribed = true;
 		Services.AddCoop(c, (double)num / Settings.CoopCredits, "订阅订购服务");
-		ModLog.Info($"恶意巨企：{c.Name}订购服务续到第 {corpTerms.SubUntil} 天，{num}₵");
+		// Payment and entitlement have committed; logging must not report failure.
+		try { ModLog.Info($"恶意巨企：{c.Name}订购服务续到第 {corpTerms.SubUntil} 天，{num}₵"); } catch { }
 		return null;
 	}
 
@@ -380,7 +381,8 @@ internal static class Malice
 		corpTerms.Vouchers += earnedVouchers;
 		if (voucherDeduction > 0 || earnedVouchers > 0)
 		{
-			ModLog.Info($"恶意巨企：{c.Name} {what} {amount}₵（代金券 {voucherDeduction}，现金 {cashDue}，返券 {earnedVouchers}）");
+			// Payment has committed; optional logging must not change its result.
+			try { ModLog.Info($"恶意巨企：{c.Name} {what} {amount}₵（代金券 {voucherDeduction}，现金 {cashDue}，返券 {earnedVouchers}）"); } catch { }
 		}
 		return "";
 	}
@@ -494,7 +496,7 @@ internal static class Malice
 		catch
 		{
 		}
-		ModLog.Info("恶意巨企：" + text);
+		try { ModLog.Info("恶意巨企：" + text); } catch { }
 	}
 }
 

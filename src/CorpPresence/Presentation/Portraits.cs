@@ -9,7 +9,12 @@ namespace CorpPresence;
 
 internal static class Portraits
 {
-	private static readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
+	private static readonly Dictionary<(string Asset, bool Mipmaps, bool Smooth), Texture2D> Textures = new();
+	private static readonly HashSet<Texture2D> PanelTextures = new();
+	private static readonly HashSet<Texture2D> SpriteTextures = new();
+	private static readonly Dictionary<string, (Dictionary<string, Sprite> Registry, Sprite Original, bool HadOriginal, Sprite Current)> Published = new();
+	private const HideFlags PortraitFlags = HideFlags.HideAndDontSave & ~HideFlags.DontUnloadUnusedAsset;
+	private static int _panelSet;
 
 	private static readonly HashSet<string> Missing = new HashSet<string>();
 
@@ -38,17 +43,45 @@ internal static class Portraits
 
 	public static void ResetSceneReferences() { _cams = Array.Empty<PixelPerfectCamera>(); _camSearchAt = -100f; _nextCheck = 0f; }
 
+	public static void ReleasePanelTextures()
+	{
+		if (PanelTextures.Count == 0) return;
+		PanelTextures.Clear();
+		TrimTextures();
+	}
+
+	public static void Release()
+	{
+		foreach (var pair in Published) Restore(pair.Key, pair.Value);
+		Published.Clear();
+		Known.Clear();
+		Tiers.Clear();
+		PanelTextures.Clear();
+		TrimTextures();
+		Missing.Clear();
+		_panelSet = _tier = 0;
+		ResetSceneReferences();
+	}
+
 	public static Texture2D Texture(string key, string referenceKey)
 	{
-		string text;
-		if (Settings.PortraitSet == 3 && PortraitResources.Exists(key + "_3x"))
+		int set = Settings.PortraitSet;
+		if (set != _panelSet)
 		{
-			string hd = key + "_3x";
-			if (Textures.TryGetValue(hd, out var cached) && cached != null) return cached;
-			byte[] bytes = Read(hd);
-			if (bytes != null) return Textures[hd] = Load(key, bytes, mipmaps: false, smooth: true);
+			ReleasePanelTextures();
+			_panelSet = set;
 		}
-		if (Settings.PortraitSet == 2 && PortraitResources.Exists(key + "_n1x"))
+		string text;
+		if (set == 3 && PortraitResources.Exists(key + "_3x"))
+		{
+			var hd = GetTexture(key + "_3x", mipmaps: false, smooth: true);
+			if (hd != null)
+			{
+				PanelTextures.Add(hd);
+				return hd;
+			}
+		}
+		if (set == 2 && PortraitResources.Exists(key + "_n1x"))
 		{
 			text = key + "_n1x";
 		}
@@ -64,16 +97,60 @@ internal static class Portraits
 		{
 			return null;
 		}
-		if (Textures.TryGetValue(text, out var value) && value != null)
+		Texture2D texture = GetTexture(text, !text.EndsWith("_n1x"), smooth: false);
+		if (texture != null) PanelTextures.Add(texture);
+		return texture;
+	}
+
+	private static Texture2D GetTexture(string asset, bool mipmaps, bool smooth)
+	{
+		var key = (asset, mipmaps, smooth);
+		if (Textures.TryGetValue(key, out var cached) && cached != null) return cached;
+		byte[] bytes = Read(asset);
+		return bytes == null ? null : Textures[key] = Load(asset, bytes, mipmaps, smooth);
+	}
+
+	private static void TrimTextures()
+	{
+		var keep = new HashSet<Texture2D>(PanelTextures);
+		foreach (Sprite sprite in Tiers.Values)
+			if (sprite != null) keep.Add(sprite.texture);
+
+		foreach (var key in new List<(string Asset, bool Mipmaps, bool Smooth)>(Textures.Keys))
 		{
-			return value;
+			Texture2D texture = Textures[key];
+			if (keep.Contains(texture)) continue;
+			Textures.Remove(key);
+			// A retired dialogue sprite may still be used by an inactive game view.
+			// Unity may unload those assets once the last view releases them.
+			if (!SpriteTextures.Remove(texture) && texture != null)
+				UnityEngine.Object.Destroy(texture);
 		}
-		byte[] array = Read(text);
-		if (array == null)
+	}
+
+	private static void Publish(SpriteDict dict, string key, Sprite sprite)
+	{
+		var registry = dict.spriteDictionary;
+		bool hadOriginal = registry.TryGetValue(key, out var original);
+		if (Published.TryGetValue(key, out var previous))
 		{
-			return null;
+			if (!ReferenceEquals(registry, previous.Registry))
+				Restore(key, previous);
+			else if (hadOriginal && ReferenceEquals(original, previous.Current))
+			{
+				original = previous.Original;
+				hadOriginal = previous.HadOriginal;
+			}
 		}
-		return Textures[text] = Load(key, array, !text.EndsWith("_n1x"));
+		registry[key] = sprite;
+		Published[key] = (registry, original, hadOriginal, sprite);
+	}
+
+	private static void Restore(string key, (Dictionary<string, Sprite> Registry, Sprite Original, bool HadOriginal, Sprite Current) binding)
+	{
+		if (!binding.Registry.TryGetValue(key, out var current) || !ReferenceEquals(current, binding.Current)) return;
+		if (binding.HadOriginal) binding.Registry[key] = binding.Original;
+		else binding.Registry.Remove(key);
 	}
 
 	public static string Ensure(string key, string referenceKey)
@@ -88,7 +165,7 @@ internal static class Portraits
 			_tier = CurrentTier();
 		}
 		Known[key] = referenceKey;
-		spriteDict.spriteDictionary[key] = SpriteFor(spriteDict, key, _tier);
+		Publish(spriteDict, key, SpriteFor(spriteDict, key, _tier));
 		return key;
 	}
 
@@ -105,11 +182,11 @@ internal static class Portraits
 		{
 			return;
 		}
-		_tier = num;
 		foreach (string key in Known.Keys)
 		{
-			instance.spriteDictionary[key] = SpriteFor(instance, key, num);
+			Publish(instance, key, SpriteFor(instance, key, num));
 		}
+		_tier = num;
 		int num2 = 0;
 		SpriteRenderer[] array = UnityEngine.Object.FindObjectsOfType<SpriteRenderer>();
 		foreach (SpriteRenderer spriteRenderer in array)
@@ -131,6 +208,11 @@ internal static class Portraits
 				num2++;
 			}
 		}
+		var current = new HashSet<Sprite>();
+		foreach (var binding in Published.Values) current.Add(binding.Current);
+		foreach (string key in new List<string>(Tiers.Keys))
+			if (!current.Contains(Tiers[key])) Tiers.Remove(key);
+		TrimTextures();
 		ModLog.Info(string.Format("分辨率 {0}x{1}，立绘换成{2}{3} 档（画面上换了 {4} 张）", Screen.width, Screen.height, (num > Hd) ? "高清 " : (num > Pixel) ? "像素化新版 " : "平滑新版 ", num % 10, num2));
 	}
 
@@ -166,9 +248,8 @@ internal static class Portraits
 		if (tier > Hd)
 		{
 			string hdFile = num == 3 ? key + "_3x" : key + "_2x";
-			byte[] hdBytes = Read(hdFile);
-			if (hdBytes == null) return SpriteFor(dict, key, tier - Hd + Smooth);   // 这个人没有高清立绘（撒该）：用平滑新版
-			Texture2D hdTex = Load(text, hdBytes, mipmaps: false, smooth: true);
+			Texture2D hdTex = GetTexture(hdFile, mipmaps: false, smooth: true);
+			if (hdTex == null) return SpriteFor(dict, key, tier - Hd + Smooth);   // 这个人没有高清立绘（撒该）：用平滑新版
 			Sprite hdSprite = Create(text, hdTex, sprite);
 			ModLog.Info($"立绘 {text} 已生成：{hdTex.width}x{hdTex.height}，来自 {hdFile}.png，高清立绘、不带多级纹理");
 			return Tiers[text] = hdSprite;
@@ -177,13 +258,12 @@ internal static class Portraits
 		string text3 = $"{key}_s{num}x";
 		bool flag = tier <= 20 ? !PortraitResources.Exists(text3) : PortraitResources.Exists(text2) || !PortraitResources.Exists(text3);
 		string text4 = (flag ? text2 : text3);
-		byte[] array = Read(text4);
-		if (array == null)
+		Texture2D texture2D = GetTexture(text4, !flag && num > 1, smooth: false);
+		if (texture2D == null)
 		{
 			ModLog.Warn("立绘 " + key + " 没有内置图，用原版立绘");
 			return sprite;
 		}
-		Texture2D texture2D = Load(text, array, !flag && num > 1);
 		string text5 = text4 + ".png";
 		Sprite sprite2 = Create(text, texture2D, sprite);
 		ModLog.Info($"立绘 {text} 已生成：{texture2D.width}x{texture2D.height}，来自 {text5}，多级纹理 {texture2D.mipmapCount} 级");
@@ -245,8 +325,9 @@ internal static class Portraits
 		float num = ((reference != null) ? reference.pixelsPerUnit : 100f);
 		Vector2 pivot = ((reference != null) ? new Vector2(reference.pivot.x / reference.rect.width, reference.pivot.y / reference.rect.height) : new Vector2(0.5f, 0.5f));
 		Sprite sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), pivot, num * (float)tex.height / RefHeight(reference));
+		SpriteTextures.Add(tex);
 		sprite.name = name;
-		sprite.hideFlags = HideFlags.HideAndDontSave;
+		sprite.hideFlags = PortraitFlags;
 		return sprite;
 	}
 
@@ -255,10 +336,11 @@ internal static class Portraits
 	{
 		Texture2D texture2D = new Texture2D(2, 2, TextureFormat.RGBA32, mipChain: false)
 		{
-			hideFlags = HideFlags.HideAndDontSave
+			hideFlags = PortraitFlags
 		};
-		if (!texture2D.LoadImage(bytes))
+		if (!texture2D.LoadImage(bytes, markNonReadable: !mipmaps))
 		{
+			UnityEngine.Object.Destroy(texture2D);
 			throw new InvalidDataException(name);
 		}
 		if (!mipmaps)
@@ -272,9 +354,9 @@ internal static class Portraits
 		Color32[] pixels = texture2D.GetPixels32();
 		BleedEdges(pixels, width, height);
 		Texture2D texture2D2 = new Texture2D(width, height, TextureFormat.RGBA32, mipChain: true);
-		texture2D2.hideFlags = HideFlags.HideAndDontSave;
+		texture2D2.hideFlags = PortraitFlags;
 		texture2D2.SetPixels32(pixels);
-		texture2D2.Apply(updateMipmaps: true, makeNoLongerReadable: false);
+		texture2D2.Apply(updateMipmaps: true, makeNoLongerReadable: true);
 		texture2D2.filterMode = FilterMode.Trilinear;
 		texture2D2.wrapMode = TextureWrapMode.Clamp;
 		UnityEngine.Object.Destroy(texture2D);

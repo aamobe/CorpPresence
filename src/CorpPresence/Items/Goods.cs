@@ -613,6 +613,10 @@ internal static class Goods
 			Defs[def2.Key] = def2.Value;
 		}
 		Defs[RatWheelGenerator.GoodsKey] = RatWheelGenerator.Definition();
+		Defs[ProductionWorkBay.GoodsKey] = ProductionWorkBay.Definition();
+		Defs[CargoWarehouse.GoodsKey] = CargoWarehouse.Definition();
+		Defs[CargoWarehouse.ModuleKey] = CargoWarehouse.ModuleDefinition();
+		Defs[CargoWarehouse.ControllerKey] = CargoWarehouse.ControllerDefinition();
 		foreach (KeyValuePair<string, Def> def3 in Forge.Defs)
 		{
 			Defs[def3.Key] = def3.Value;
@@ -899,23 +903,29 @@ internal static class Goods
 		{
 			string key = IdOf(item);
 			if (key is "stamina" or "forge_furnace") RestoreFixedFootprint(item, Defs[key]);
+			if (key == CargoWarehouse.GoodsKey && item.shape.width == 3 && item.shape.height == 3)
+				RestoreFixedFootprint(item, Defs[key]);
+			if (key == ProductionWorkBay.GoodsKey && item.spritePath == "machine_bay_ext" &&
+				RestoreFixedFootprint(item, Defs[key]))
+				item.SetSprite("", ProductionWorkBay.SpriteKey);
 		}
 	}
 
-	private static void RestoreFixedFootprint(GameItem item, Def value)
+	private static bool RestoreFixedFootprint(GameItem item, Def value)
 	{
-		if (item.parentInventory is not GameGridInventory inventory) return;
 		GridShape old = item.shape;
 		if (old.width == value.W && old.height == value.H &&
 			Enumerable.Range(0, value.W).All(x => Enumerable.Range(0, value.H).All(y => old.GetLocal(x, y) != 0)))
-			return;
+			return true;
+		if (item.parentInventory is not GameGridInventory inventory) return false;
 
 		GridShape placed = item.modifiedShape;
 		var replacement = new GridShapeBuilder(value.W, value.H).SetDataFill(1);
 		GridShape candidate = replacement.SetTransform(placed).Build();
-		if (!inventory.CheckShapePlacement(item, candidate, new List<GameItem>())) return;
+		if (!inventory.CheckShapePlacement(item, candidate, new List<GameItem>())) return false;
 		item.SetSprite(item.spriteAtlasPath, item.spritePath);
 		item.SetShape(replacement.SetTransform(old).Build());
+		return true;
 	}
 
 	public static string IdOf(GameItem item)

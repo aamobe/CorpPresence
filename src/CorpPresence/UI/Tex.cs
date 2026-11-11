@@ -70,6 +70,16 @@ internal static class Tex
 		return Cache[key] = value;
 	}
 
+	internal static void ReleaseCardArt(string company)
+	{
+		string key = "art:" + company + "/card_big";
+		if (Cache.TryGetValue(key, out var texture))
+		{
+			Cache.Remove(key);
+			DestroyUiTexture(texture);
+		}
+	}
+
 	public static Texture2D FromSprite(Sprite sp)
 	{
 		if (sp == null)

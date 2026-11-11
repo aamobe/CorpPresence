@@ -18,6 +18,17 @@
 
 检查：旧机器原料和成品保留；旧基底油瓶可取回；玩家改造过的植物基因不被迁移恢复；切换存档后不串订单、库存或每日次数。
 
+## 原版入口核对
+
+目标为 Steam 构建 `26525552`，官方 `IMod` 加载器和 Harmony 2.4.2.0。反编译依据是该构建的 `Assembly-CSharp.dll`，SHA-256 为 `725CB999D019DFF1FF31BED353C7F9BB8D81A7605A15DE1F80F5A3A6CF7B1D05`。
+
+- `ModItemDirectory.InitDirectory()` 触发 `OnModItemDirectoryInit`。物品目录使用该事件登记，并等资源就绪后注册。`StoreClientManager.GenerateClient()` 最后触发 `OnGenerateCustomerVeryLate`，由此排公司来访。取客前的补排仍走原有入口，入队的公司顾客使用官方来源标记。
+- `ItemMouseDragHandler.EndDrag(bool)` 调用 `ClearMayHighlights()`，原版已有空引用保护并负责关闭和清理高亮。对白与通知也由原版处理，公司窗口的提示使用自己的计时。
+- `AquacultureHelper.TryGrowIntoRoom` 和 `TryWander` 的首个参数是本次处理的鱼，二者调用 `TankOccupancy.Fits(int, int, List<Vector2Int>)`。额外的坐标边界检查仅在当前处理银血三叶蜥时启用，方法结束或异常时恢复作用域。
+- `HydroponicHelper.ContinueGrowing(GameItem, int, GameItem)` 在原版水质结算后调用作物回调，但随后写入种子进度时仍用本轮开始前的目标。烟草和油花在该方法返回后用机器进度对齐种子。已移除的种子不处理，多年生进入下一茬时保留原版的归零结果。
+
+游戏内待测：普通顾客与公司顾客混排时核对补排和来访顺序，重载后确认公司物品能正常生成；在普通鱼缸和三叶蜥缸分别养殖一晚，检查成长与换位；用临近成熟的烟草和油花换入低质水，确认种子与机器进度一致，并验证多年生收获后进度归零。
+
 ## 订货与会员
 
 检查UI和付款后端使用相同的门槛。付款前完成商品、数量、金额、额度、订阅及剧情限制校验；失败不能扣款或消耗额度。

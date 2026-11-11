@@ -113,6 +113,8 @@ internal sealed class CatalogEntry
 		return false;
 	}
 
+	internal bool ReleaseExpiredQuoteSample() => !SampleIsCurrent() && ReleaseQuoteSample();
+
 	internal bool ReleaseQuoteSample()
 	{
 		GameItem sample = _sample;
@@ -291,6 +293,9 @@ internal sealed class CatalogEntry
 	public int ListValue()
 	{
 		if (Id == "@hemingway_stamp") return Tobacco.StampPrice;
+		if (Id == ProductionWorkBay.OrderId) return ProductionWorkBay.Price;
+		int cargoPrice = CargoWarehouse.Price(Id);
+		if (cargoPrice > 0) return cargoPrice;
 		if (Id == "@modbox") return 500;
 		int bundle = Bundle;
 		return TryValues(Settings.OrderEvents, out _, out var value, includeTagMarkup: true)
@@ -316,7 +321,7 @@ internal sealed class CatalogEntry
 
 	public double EventFactor()
 	{
-		if (!Settings.OrderEvents || Id == "@modbox" || Id == "@hemingway_stamp")
+		if (!Settings.OrderEvents || Id == "@modbox" || Id == "@hemingway_stamp" || Id == ProductionWorkBay.OrderId || CargoWarehouse.Price(Id) > 0)
 		{
 			return 1.0;
 		}

@@ -8,9 +8,11 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-    private const string ReleaseVersion = "1.0.1";
+    private const string ReleaseVersion = "1.1.0";
 #if WATER_TRACE
     public const string Version = ReleaseVersion + "-watertrace";
+#elif LOCAL_TEST_FUNDS
+    public const string Version = ReleaseVersion + "-localtest";
 #else
     public const string Version = ReleaseVersion;
 #endif
@@ -62,12 +64,14 @@ public class Main : IMod
         _runtime.Own(Noop, Crates.Reset);
         ItemRegistry.Activate();
         _runtime.Own(Noop, Tex.ReleaseUi);
+        _runtime.Own(Noop, CardView.Release);
         _runtime.Own(Noop, Theme.ResetCachedFont);
-        _runtime.Own(Noop, Portraits.ResetSceneReferences);
+        _runtime.Own(Noop, Portraits.Release);
         _runtime.Own(Noop, PhoneDialogueLayout.Reset);
         _runtime.Own(Noop, Notebook.Destroy);
         _runtime.Own(Noop, InputShield.Destroy);
         _runtime.Own(Noop, CompanyWindow.ReleaseUi);
+        _runtime.Own(Noop, CargoSortWindow.Close);
         _runtime.Own(CreateHost, DestroyHost);
         ModLog.Info("公司增强 " + Version + " 资源阶段已加载（人物：" + string.Join("、", Engine.All.Select(c => c.Id)) + "）");
     }
@@ -117,8 +121,3 @@ public class Main : IMod
         _host = null;
     }
 }
-
-
-
-
-

@@ -114,7 +114,7 @@ internal static class MachineUpgrade
 
 	public static void AfterMakeIngot(GameItem __result)
 	{
-		Wrap(__result, CanCap, "metal_ingot");
+		Wrap(__result, target => ProductionWorkBay.CanUpgrade(target) || CanCap(target), "metal_ingot");
 	}
 
 	public static void AfterMakeElectronic(GameItem __result)
@@ -137,7 +137,8 @@ internal static class MachineUpgrade
 		{
 			if (Ours(s, t))
 			{
-				Apply(s, t, kind);
+				if (kind == Ingot && t.identifier == ProductionWorkBay.ItemId) ProductionWorkBay.Upgrade(s, t);
+				else Apply(s, t, kind);
 			}
 			else
 			{
@@ -218,6 +219,7 @@ internal static class MachineUpgrade
 			{
 				return "";
 			}
+			if (m.identifier == ProductionWorkBay.ItemId) return "\n\n" + ProductionWorkBay.UpgradeStatus(m);
 			List<string> list = new List<string>();
 			if (Is(m, CapMachines))
 			{

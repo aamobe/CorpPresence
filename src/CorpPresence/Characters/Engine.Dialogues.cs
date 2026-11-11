@@ -48,6 +48,17 @@ internal static partial class Engine
 			dialogue2 = dialogue2.NextDialogue().SetText(c.Name, v.Lines[i]);
 		}
 		var visitSession = new CharacterVisitSession(c.Id, s, client);
+		if (flag)
+		{
+			bool arrivalRecorded = false;
+			client.OnArrival += () =>
+			{
+				if (arrivalRecorded || !visitSession.IsCurrent) return;
+				arrivalRecorded = true;
+				try { MarkVisited(c, kind); }
+				catch (Exception error) { WarnVisit("日常来访登记失败：" + error.Message); }
+			};
+		}
 		bool done = false;
 		Action startTrade = () =>
 		{
@@ -90,7 +101,7 @@ internal static partial class Engine
 					WarnVisit("摆货失败：" + ex.Message);
 				}
 				if (!visitSession.IsCurrent) return;
-				MarkVisited(c, kind);
+			if (!flag) MarkVisited(c, kind);
 				try
 				{
 					if (kind.StartsWith("ch"))
@@ -256,7 +267,10 @@ internal static partial class Engine
 			characterState.PendingDay = -1;
 			characterState.PendingKind = null;
 		}
-		LogVisit($"{c.Name}来访完成：{kind}，进度第 {characterState.Chapter} 章");
+		if (kind.StartsWith("daily"))
+			LogVisit($"{c.Name}日常到店已登记，下次日常最早第 {characterState.NextDailyDay} 天");
+		else
+			LogVisit($"{c.Name}来访完成：{kind}，进度第 {characterState.Chapter} 章");
 	}
 
 

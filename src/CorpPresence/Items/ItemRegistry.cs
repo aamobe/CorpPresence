@@ -58,11 +58,6 @@ internal static class ItemRegistry
 		if (pending != null) Register(pending);
 	}
 
-	public static void AfterInitDirectory(ModItemDirectory __instance)
-	{
-		Register(__instance);
-	}
-
 	private static void Register(ModItemDirectory directory)
 	{
 		if (directory == null)

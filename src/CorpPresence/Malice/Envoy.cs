@@ -434,6 +434,7 @@ internal static class Envoy
 				}
 				item.QueuedDay = Day;
 				int count = manager.clientStack.Count;
+				ModHelper.SetClientSource(storeClient, Main.DisplayName);
 				manager.clientStack.Insert((count > 1) ? new System.Random().Next(0, count / 2 + 1) : 0, storeClient);
 				ModLog.Info("恶意巨企：" + item.Kind + " 已排进今天的顾客队列");
 			}

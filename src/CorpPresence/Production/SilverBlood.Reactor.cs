@@ -47,27 +47,22 @@ internal static partial class SilverBlood
 				!MachineAppearance.CanPowerCycle(machine, battery, "CORP_SB_REACTOR_CARRY_INT",
 					Math.Max(0, ModuleHelper.GetAjustedQuality(machine)) / 2))
 				return null;
-			string product = ProductFor(Purity(solution));
-			return product == null ? null : "corp_presence_" + product;
+			return ProductFor(Purity(solution), directoryId: true);
 		});
 		return machine;
 	}
 
-	private static string ProductFor(double purity)
+	private static string ProductFor(double purity, bool directoryId = false)
 	{
-		if (!(purity >= 0.97))
-		{
-			if (!(purity >= 0.88))
-			{
-				if (!(purity >= 0.6))
-				{
-					return null;
-				}
-				return "isomer_gel";
-			}
-			return "implant_compat";
-		}
-		return "rejuvenation";
+		const string Prefix = "corp_presence_";
+		const string Rejuvenation = "rejuvenation";
+		const string Implant = "implant_compat";
+		const string Gel = "isomer_gel";
+
+		if (purity >= 0.97) return directoryId ? Prefix + Rejuvenation : Rejuvenation;
+		if (purity >= 0.88) return directoryId ? Prefix + Implant : Implant;
+		if (purity >= 0.6) return directoryId ? Prefix + Gel : Gel;
+		return null;
 	}
 
 	private static void React(GameItem machine, GameSlotInventory battery, GameGridInventory modules, GameSlotInventory tank, GameInventory output)
@@ -100,10 +95,6 @@ internal static partial class SilverBlood
 			}
 			else
 			{
-				if (!MachineHelper.TryDrawCyclePower(machine, battery))
-				{
-					return;
-				}
 				int made;
 				for (made = 0; made < n; made++)
 				{
@@ -118,11 +109,17 @@ internal static partial class SilverBlood
 					{
 						break;
 					}
-					GeneralHelper.SetItemOwned(gameItem);
-					if (!ProductionOutput.TryAdd(output, gameItem))
+					bool readyToConsume = false;
+					try
 					{
-						gameItem.Destroy();
-						break;
+						GeneralHelper.SetItemOwned(gameItem);
+						if (!ProductionOutput.TryAdd(output, gameItem)) break;
+						if (made == 0 && !MachineHelper.TryDrawCyclePower(machine, battery)) break;
+						readyToConsume = true;
+					}
+					finally
+					{
+						if (!readyToConsume) gameItem.Destroy();
 					}
 					WaterHelper.RemoveMl(childItem, (int)Math.Ceiling(30.0 / Math.Max(0.01, num4)));
 				}

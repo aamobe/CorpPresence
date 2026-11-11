@@ -26,10 +26,10 @@ internal static partial class Perfume
             .Nutriment(300, 75, 60).Water(100).Contaminant(1.1)
             .Refruit(21).ReturnsSeeds().Innate("infertile", 3)
             .Innate(AromaTrait).Innate("complex_genome").Innate("frail")
+            .OnGrowTick(CropHealth.UpdateMaturityTarget)
             .OnHarvest(ctx => {
                 ctx.OutputById(SeedId);
-                double health = ctx.health <= 30 ? 0.5 : ctx.health <= 70 ? 0.75 : 1;
-                ctx.OutputById(FlowerId, Math.Max(1, (int)Math.Floor(ctx.harvestCount * health)));
+                ctx.OutputById(FlowerId, CropHealth.HarvestCount(ctx.harvestCount, ctx.health));
             }); // Native infertility controls returned seeds; perennial must be inserted.
         PlantRegistry.Add(_flower);
     }

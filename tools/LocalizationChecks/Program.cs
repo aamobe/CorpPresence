@@ -200,6 +200,10 @@ void VerifyMigrationCases(string filename, int expectedCount)
 Check("batch 2 calls preserve all four languages and culture-specific formatting", () => VerifyMigrationCases("Batch2Cases.json", 258));
 Check("shipped CSV preserves all migration fixtures in four languages and two cultures", () => {
     var mod = new LoadedMod();
+    var audit = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Migration.json")));
+    using var catalogStream = typeof(L).Assembly.GetManifestResourceStream("CorpPresence.Translations.Keys.json");
+    using var catalogReader = new StreamReader(catalogStream);
+    var catalog = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(catalogReader.ReadToEnd());
     foreach (var locale in new[] { "en", "ru", "fr" }) {
         var entries = mod.Localization[locale] = new();
         foreach (string line in File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "Localization", locale + ".csv"))) {
@@ -208,7 +212,9 @@ Check("shipped CSV preserves all migration fixtures in four languages and two cu
             string value = raw[1..^1].Replace("\"\"", "\"").Replace("\\n", "\n");
             entries.Add(line[..separator], value);
         }
-        Equal(1622, entries.Count);
+        Equal(audit.Count, entries.Count);
+        foreach (var entry in audit.Where(entry => entry.Key.StartsWith("production.workBay.", StringComparison.Ordinal)))
+            Equal(locale == "en" ? entry.Value : catalog[entry.Key][locale == "ru" ? 0 : 1], entries[entry.Key]);
     }
     ModLoader.Mods.Add(mod);
     try {
@@ -264,7 +270,7 @@ Check("company order error uses a stable key even after English copy changes", (
     Equal(TextTranslations.Select("Save not ready", "ru"),
         L.K("companies.services.orders.placeOrder.saveNotReady", "存档未就绪", "Changed fallback"));
 });
-Check("stable translations match legacy copy or the current aid catalog", () => {
+Check("stable translations match legacy copy or current feature translations", () => {
     using var stream = typeof(L).Assembly.GetManifestResourceStream("CorpPresence.Translations.Keys.json");
     if (stream == null) throw new Exception("Missing keyed embedded resource");
     using var reader = new StreamReader(stream);
@@ -275,6 +281,8 @@ Check("stable translations match legacy copy or the current aid catalog", () => 
     Equal(migration.Count, catalog.Count);
     foreach (var entry in migration) foreach (var locale in new[] { "ru", "fr" }) {
         string expected = HasNewAidCopy(entry.Key)
+            || entry.Key.StartsWith("production.workBay.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("production.cargoWarehouse.", StringComparison.Ordinal)
             ? catalog[entry.Key][locale == "ru" ? 0 : 1]
             : composed.TryGetValue(entry.Key, out var parts)
             ? string.Concat(parts.Select(p => p.Translate ? TextTranslations.Select(p.Text, locale) : p.Text))

@@ -176,7 +176,8 @@ internal static class Tobacco
 		if (!GameResources.Ready) throw new InvalidOperationException("烟草资源尚未就绪");
 		if (PlantRegistry.Contains("corp_presence_tobacco_seed")) return;
 		_ownedPlant = new PlantDefinition("corp_presence_tobacco_seed", "Tobacco", "corp_presence_tobacco_leaf", 28, 10).Nutriment(300, 100, 60).Contaminant(1.1).Water(150)
-			.Refruit(14).ReturnsSeeds().Innate("sparse").Innate("thirsty").Innate("frail").Innate("complex_genome").OnHarvest(Harvest);
+			.Refruit(14).ReturnsSeeds().Innate("sparse").Innate("thirsty").Innate("frail").Innate("complex_genome")
+			.OnGrowTick(CropHealth.UpdateMaturityTarget).OnHarvest(Harvest);
 		PlantRegistry.Add(_ownedPlant);
 	}
 
@@ -189,7 +190,7 @@ internal static class Tobacco
 	private static void Harvest(PlantHarvestContext ctx)
 	{
 		ctx.OutputById("corp_presence_tobacco_seed");
-		ctx.OutputById("corp_presence_tobacco_leaf", Math.Max(1, ctx.harvestCount));
+		ctx.OutputById("corp_presence_tobacco_leaf", CropHealth.HarvestCount(ctx.harvestCount, ctx.health));
 	}
 
 	private static void InitSeed(GameItem item)
@@ -361,7 +362,7 @@ internal static class Tobacco
 			List<GameItem> list = input.childItems.Where((GameItem i) => i?.identifier == "corp_presence_loose_cigarette").ToList();
 			int num3 = num + num2;
 			int packs = Math.Min(num3 / 100, list.Count / 3);
-			if (packs <= 0 || !MachineHelper.TryDrawCyclePower(machine, battery))
+			if (packs <= 0)
 			{
 				return;
 			}
@@ -375,11 +376,17 @@ internal static class Tobacco
 				{
 					break;
 				}
-				GeneralHelper.SetItemOwned(gameItem);
-				if (!ProductionOutput.TryAdd(output, gameItem))
+				bool readyToConsume = false;
+				try
 				{
-					gameItem.Destroy();
-					break;
+					GeneralHelper.SetItemOwned(gameItem);
+					if (!ProductionOutput.TryAdd(output, gameItem)) break;
+					if (made == 0 && !MachineHelper.TryDrawCyclePower(machine, battery)) break;
+					readyToConsume = true;
+				}
+				finally
+				{
+					if (!readyToConsume) gameItem.Destroy();
 				}
 				for (int num5 = 0; num5 < 3; num5++)
 				{

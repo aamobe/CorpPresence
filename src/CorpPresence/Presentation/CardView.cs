@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CorpPresence.UI;
 using TMPro;
 using UnityEngine;
@@ -8,7 +7,9 @@ namespace CorpPresence;
 
 internal static class CardView
 {
-	private static readonly Dictionary<string, GameObject> Panels = new Dictionary<string, GameObject>();
+	private static GameObject _panel;
+	private static Sprite _sprite;
+	private static string _companyId;
 
 	public static bool IsOurs(GameItem item)
 	{
@@ -30,15 +31,20 @@ internal static class CardView
 			return;
 		}
 		CloseAll();
-		if (!Panels.TryGetValue(text, out var value) || value == null)
+		_companyId = company.Id;
+		try
 		{
-			value = Object.Instantiate(instance.cardPharma, instance.cardPharma.transform.parent, worldPositionStays: false);
-			value.name = "CorpPresence_Card_" + text;
-			Setup(value, company);
-			Panels[text] = value;
+			_panel = Object.Instantiate(instance.cardPharma, instance.cardPharma.transform.parent, worldPositionStays: false);
+			_panel.name = "CorpPresence_Card_" + text;
+			Setup(_panel, company);
+			_panel.SetActive(value: true);
+			_panel.transform.SetAsLastSibling();
 		}
-		value.SetActive(value: true);
-		value.transform.SetAsLastSibling();
+		catch
+		{
+			Release();
+			throw;
+		}
 		try
 		{
 			instance.audioSourcePickup?.Play();
@@ -50,20 +56,27 @@ internal static class CardView
 
 	public static void CloseAll()
 	{
-		foreach (GameObject value in Panels.Values)
+		bool wasOpen = _panel != null && _panel.activeSelf;
+		Release();
+		if (wasOpen)
 		{
-			if (value != null && value.activeSelf)
-			{
-				value.SetActive(value: false);
-				try
-				{
-					PaperUIManager.Instance?.audioSourceDrop?.Play();
-				}
-				catch
-				{
-				}
-			}
+			try { PaperUIManager.Instance?.audioSourceDrop?.Play(); }
+			catch { }
 		}
+	}
+
+	internal static void Release()
+	{
+		if (_panel != null)
+		{
+			_panel.SetActive(false);
+			Object.Destroy(_panel);
+		}
+		if (_sprite != null) Object.Destroy(_sprite);
+		if (_companyId != null) Tex.ReleaseCardArt(_companyId);
+		_panel = null;
+		_sprite = null;
+		_companyId = null;
 	}
 
 	private static void Setup(GameObject panel, Company c)
@@ -75,7 +88,8 @@ internal static class CardView
 			Image image = Compat.Get<Image>(panel);
 			if (image != null)
 			{
-				image.sprite = Sprite.Create(texture2D, new Rect(0f, 0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 100f);
+				_sprite = Sprite.Create(texture2D, new Rect(0f, 0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 100f);
+				image.sprite = _sprite;
 			}
 			TextMeshProUGUI[] array = componentsInChildren;
 			for (int i = 0; i < array.Length; i++)

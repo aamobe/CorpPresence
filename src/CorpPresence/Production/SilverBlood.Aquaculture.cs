@@ -33,8 +33,23 @@ internal static partial class SilverBlood
 		}
 	}
 
-	public static bool BeforeTankFits(int originX, int originY, List<Vector2Int> cells, int ___width, int ___height, ref bool __result)
+	[ThreadStatic]
+	private static bool _placingSilverBlood;
+
+	internal static void BeginPlacement(GameItem __0, out bool? __state)
 	{
+		__state = _placingSilverBlood;
+		_placingSilverBlood = IsCreature(__0);
+	}
+
+	internal static void EndPlacement(bool? __state)
+	{
+		if (__state.HasValue) _placingSilverBlood = __state.Value;
+	}
+
+	public static bool BeforeTankFits(int originX, int originY, List<Vector2Int> cells, int ___width, int ___height, bool __runOriginal, ref bool __result)
+	{
+		if (!__runOriginal || !_placingSilverBlood) return true;
 		// Native FindFit can try a negative saved origin. Reject invalid cells, then let
 		// the original search choose another position; never cancel nightly processing.
 		foreach (Vector2Int cell in cells)
