@@ -4,6 +4,8 @@
 
 ## 实施与验收进行中
 
+- [完整内部框架开发方案](../superpowers/plans/2026-11-12-integrated-framework.md) · 当前开发入口：框架随公司增强发布；开发阶段仅必要定向验证，最后统一回归与游戏验收。
+
 - [框架评审修复](../bugs/framework-review/assessment.md) · 异常诊断、保留策略、告警复位与补丁安装结果；[统一游戏验收表](../bugs/framework-review/manual-verification.md)。
 
 - [内部生命周期框架分期方案](organize-internal-lifecycle/overview.md) · 轻量模块整理的提案、调研、设计、规格、任务与验收清单。

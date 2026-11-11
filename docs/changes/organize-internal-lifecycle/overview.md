@@ -1,6 +1,8 @@
 # 公司增强内部框架分期方案
 
-当前执行的是[总框架整合](framework-integration-plan.md)，将物品接入现有生命周期、诊断、统一检查和[全系统模块契约](../../maintenance/framework.md)。结果见[整合证据](framework-integration-evidence.md)。以下分期记录保留历史范围，未测游戏场景仍待验收。
+2026-11-12 起的当前执行入口为[完整内部框架开发方案](../../superpowers/plans/2026-11-12-integrated-framework.md)。用户明确要求开发期间不做非必要测试，最后统一测试；必要的故障定位和高风险定向验证按新方案执行。下述分期为历史过程，尚未验收的内容不自动视为通过。
+
+上一轮执行的是[总框架整合](framework-integration-plan.md)，将物品接入现有生命周期、诊断、统一检查和[全系统模块契约](../../maintenance/framework.md)。结果见[整合证据](framework-integration-evidence.md)。以下分期记录保留历史范围，未测游戏场景仍待验收。
 
 最新续接：用户确认先完成物品框架，再提交物品需求，并依托原框架搭建。见[框架实施记录](item-framework-evidence.md)和[接入清单](../../maintenance/item-extension.md)。此前的[F3 · 保留现有实现决定](phase-three-decision.md)与[换机记录](cross-device-handoff.md)保留为历史证据；前期游戏验收继续待测。
 
