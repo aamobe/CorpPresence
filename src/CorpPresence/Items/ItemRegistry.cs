@@ -1,10 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace CorpPresence;
 
 internal static class ItemRegistry
 {
+    internal static void AppendDiagnostics(System.Collections.Generic.ICollection<MaintenanceCounter> target)
+    {
+        target.Add(new MaintenanceCounter("items.factories", Factories.Count));
+        target.Add(new MaintenanceCounter("items.registered", Registered.Count));
+    }
+
 	private static readonly Dictionary<string, Func<GameItem>> Factories = new Dictionary<string, Func<GameItem>>(StringComparer.Ordinal);
 
 	private static readonly HashSet<string> Registered = new HashSet<string>(StringComparer.Ordinal);

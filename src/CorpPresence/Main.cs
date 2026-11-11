@@ -40,6 +40,7 @@ public class Main : IMod
     private void EnableCore()
     {
         _runtime.Own(GameResources.Begin, GameResources.Reset);
+        _runtime.Own(Noop, MaintenanceDiagnostics.Reset);
         _runtime.Own(Noop, LoadedItemRepair.Reset);
         _runtime.Own(ItemRegistry.Install, ItemRegistry.Uninstall);
         _runtime.Own(() => Hooks.InstallCore(_harmony), () => _harmony?.UnpatchAll(_harmony.Id));

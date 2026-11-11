@@ -9,6 +9,13 @@ namespace CorpPresence;
 
 internal static class Portraits
 {
+    internal static void AppendDiagnostics(System.Collections.Generic.ICollection<MaintenanceCounter> target)
+    {
+        target.Add(new MaintenanceCounter("portrait.textures", Textures.Count));
+        target.Add(new MaintenanceCounter("portrait.tiers", Tiers.Count));
+        target.Add(new MaintenanceCounter("portrait.published", Published.Count));
+    }
+
 	private static readonly Dictionary<(string Asset, bool Mipmaps, bool Smooth), Texture2D> Textures = new();
 	private static readonly HashSet<Texture2D> PanelTextures = new();
 	private static readonly HashSet<Texture2D> SpriteTextures = new();

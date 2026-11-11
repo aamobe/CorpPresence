@@ -19,6 +19,15 @@ internal sealed class SaveBinding
 
     private string Read(Dictionary<string, string> data) => data != null && data.TryGetValue(_key, out string value) ? value : null;
 
+    // Unlike Matches, observing an empty/new dictionary must not adopt it.
+    internal bool MatchesReadonly(PlayerStore store)
+    {
+        if (store == null || !_store.TryGetTarget(out var owner) || !ReferenceEquals(owner, store)) return false;
+        var data = store.modData;
+        if (_data == null) return data == null && _raw == null;
+        return _data.TryGetTarget(out var original) && ReferenceEquals(original, data) && ReferenceEquals(_raw, Read(data));
+    }
+
     public bool Matches(PlayerStore store)
     {
         if (store == null || !_store.TryGetTarget(out var owner) || !ReferenceEquals(owner, store)) return false;

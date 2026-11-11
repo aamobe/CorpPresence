@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+namespace CorpPresence;
+internal enum SaveDiagnosticStatus { NoStore, NotLoaded, Bound, Stale, Unstable }
+internal sealed class MaintenanceCounter
+{
+    public string Name { get; }
+    public long Value { get; }
+    public MaintenanceCounter(string name, long value) { Name = name; Value = value; }
+}
+internal sealed class MaintenanceRegistration
+{
+    public string EventName { get; }
+    public string Owner { get; }
+    public MaintenanceRegistration(string eventName, string owner) { EventName = eventName; Owner = owner; }
+}
+internal sealed class MaintenanceFault
+{
+    public string Source { get; }
+    public string Stage { get; }
+    public string Code { get; }
+    public string ExceptionType { get; }
+    public string Detail { get; }
+    public int Count { get; }
+    public MaintenanceFault(string source, string stage, string code, string type, string detail, int count = 1)
+    { Source = source; Stage = stage; Code = code; ExceptionType = type; Detail = detail; Count = count; }
+    internal static int Increment(int value) => value == int.MaxValue ? value : value + 1;
+    internal MaintenanceFault Repeated() => new(Source, Stage, Code, ExceptionType, Detail, Increment(Count));
+}
+internal sealed class MaintenanceSnapshot
+{
+    public string Version { get; }
+    public bool ResourcesReady { get; }
+    public long Generation { get; }
+    public SaveDiagnosticStatus SaveStatus { get; }
+    public bool? CorpWriteProtected { get; }
+    public bool? MaliceWriteProtected { get; }
+    public int? PendingOrders { get; }
+    public long? PendingItemUnits { get; }
+    public IReadOnlyList<MaintenanceCounter> Counters { get; }
+    public IReadOnlyList<MaintenanceFault> Faults { get; }
+    public IReadOnlyList<MaintenanceRegistration> Registrations { get; }
+    public MaintenanceSnapshot(string version, bool ready, long generation, SaveDiagnosticStatus status,
+        bool? corpProtected, bool? maliceProtected, int? orders, long? units,
+        IEnumerable<MaintenanceCounter> counters, IEnumerable<MaintenanceFault> faults,
+        IEnumerable<MaintenanceRegistration> registrations)
+    {
+        Version = version; ResourcesReady = ready; Generation = generation; SaveStatus = status;
+        CorpWriteProtected = corpProtected; MaliceWriteProtected = maliceProtected;
+        PendingOrders = orders; PendingItemUnits = units;
+        Counters = new List<MaintenanceCounter>(counters).AsReadOnly();
+        Faults = new List<MaintenanceFault>(faults).AsReadOnly();
+        Registrations = new List<MaintenanceRegistration>(registrations).AsReadOnly();
+    }
+}

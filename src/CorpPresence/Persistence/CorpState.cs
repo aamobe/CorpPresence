@@ -8,6 +8,8 @@ internal sealed class CorpState
 	private const string Key = "CorpPresence";
 	private SaveBinding _binding;
 
+	internal bool IsBoundReadonly(PlayerStore store) => _binding != null && _binding.MatchesReadonly(store);
+
 	internal bool IsBoundTo(PlayerStore store) => _binding != null && _binding.Matches(store);
 
 	public string RunId { get; set; }

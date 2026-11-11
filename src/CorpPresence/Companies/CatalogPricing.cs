@@ -4,6 +4,11 @@ namespace CorpPresence;
 
 internal static class CatalogPricing
 {
+    internal static void AppendDiagnostics(System.Collections.Generic.ICollection<MaintenanceCounter> target)
+    {
+        target.Add(new MaintenanceCounter("catalog.samples", Samples.Count));
+    }
+
 	private static readonly HashSet<CatalogEntry> Samples = new HashSet<CatalogEntry>();
 
 	public static long Epoch { get; private set; }

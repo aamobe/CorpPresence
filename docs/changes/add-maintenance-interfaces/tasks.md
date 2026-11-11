@@ -59,11 +59,11 @@
 
 产出接口：design.md 中 Capture/Record/Reset/Format 和三个 AppendDiagnostics。输入：真实 SaveSlot/SaveBinding/CorpState 的已有状态；不得用会生成记录的访问器。无需外部文件读写。
 
-- [ ] 编写失败测试 `CaptureWithoutStoreDoesNotCreatePlayer`、`CaptureDoesNotLoadOrRepairState`、`StaleBindingHasUnknownOrderCount`：验证无单例创建、无 Get/Write 调用；坏 JSON 原文及保护集合不变，过期绑定计数为 null。
-- [ ] 编写 `SnapshotDoesNotExposeLiveCollections`、`SessionChangeDiscardsCounts`：修改原状态不改变已返回快照；采集期间换 store/modData/资源代次返回 Unstable。先运行新项目，确认因缺实现失败而非环境错误。
-- [ ] 实现最小快照和缓存计数；用真实状态类型连接测试，游戏对象才用替身。pending 单位数为订单明细剩余条目数之和，使用 long，不把订单张数当件数。
-- [ ] 编写并运行失败测试 `FaultBufferEvictsAt64`、`DuplicateFaultSaturates`、`FaultsResetAcrossStores`、`DiagnosticFailureDoesNotEscape`；实现聚合队列、脱敏调用链、会话清理和不抛出记录边界。包含超长内容、无异常对象及诊断输出器抛异常场景。
-- [ ] 运行 `dotnet run --project tools/MaintenanceChecks/Checks.csproj`、Release 构建及相关存档检查；检查无新增全场景查找、无持久化键。提交本任务，证据注明替身边界。
+- [x] 编写失败测试 `CaptureWithoutStoreDoesNotCreatePlayer`、`CaptureDoesNotLoadOrRepairState`、`StaleBindingHasUnknownOrderCount`：验证无单例创建、无 Get/Write 调用；坏 JSON 原文及保护集合不变，过期绑定计数为 null。
+- [x] 编写 `SnapshotDoesNotExposeLiveCollections`、`SessionChangeDiscardsCounts`：修改原状态不改变已返回快照；采集期间换 store/modData/资源代次返回 Unstable。先运行新项目，确认因缺实现失败而非环境错误。
+- [x] 实现最小快照和缓存计数；用真实状态类型连接测试，游戏对象才用替身。pending 单位数为订单明细剩余条目数之和，使用 long，不把订单张数当件数。
+- [x] 编写并运行失败测试 `FaultBufferEvictsAt64`、`DuplicateFaultSaturates`、`FaultsResetAcrossStores`、`DiagnosticFailureDoesNotEscape`；实现聚合队列、脱敏调用链、会话清理和不抛出记录边界。包含超长内容、无异常对象及诊断输出器抛异常场景。
+- [x] 运行 `dotnet run --project tools/MaintenanceChecks/Checks.csproj`、Release 构建及相关存档检查；检查无新增全场景查找、无持久化键。提交本任务，证据注明替身边界。
 
 ## T3 · 提供可使用的维护触发器
 
