@@ -48,6 +48,9 @@ try {
  Invoke-Check 'maintenance-build' 'compile' $sdk @('build',$project,'-c','Release','--artifacts-path',$maintenanceRoot,"-p:GameManaged=$managed",'-p:Maintenance=true','-warnaserror')
  $regular=Join-Path $regularRoot 'bin/CorpPresence/release/CorpPresence.dll'
  $maintenance=Join-Path $maintenanceRoot 'bin/CorpPresence/release/CorpPresence.dll'
+ $definitionsRoot=Join-Path $runRoot 'ItemDefinitionChecks'
+ Invoke-Check 'ItemDefinitionChecks-build' 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot 'ItemDefinitionChecks/Checks.csproj'),'--artifacts-path',$definitionsRoot)
+ Invoke-Check 'ItemDefinitionChecks' 'compiled-content' $sdk @((Join-Path $definitionsRoot 'bin/Checks/debug/Checks.dll'),$regular,$managed)
  foreach($name in @('MaintenanceChecks','ExtensionChecks','PaymentChecks','OrderChecks','RuntimeLifetimeChecks','SaveStateChecks','MangoGiftChecks','ItemChecks')){
   $checkRoot=Join-Path $runRoot $name
   Invoke-Check "$name-build" 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot "$name/Checks.csproj"),'--artifacts-path',$checkRoot,"-p:GameManaged=$managed")

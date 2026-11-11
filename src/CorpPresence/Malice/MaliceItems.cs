@@ -17,7 +17,7 @@ internal static class MaliceItems
 
 	public static readonly string[] CoinCompanies = new string[5] { "pastel", "solana", "carmicheal", "meridian", "davre" };
 
-	internal static readonly Dictionary<string, Goods.Def> Defs = BuildDefs();
+	internal static readonly DefinitionSet<Goods.Def> Defs = BuildDefs();
 	private static Sprite _platinumCoin;
 
 	public static string Coin(string companyId)
@@ -72,9 +72,9 @@ internal static class MaliceItems
 		};
 	}
 
-	private static Dictionary<string, Goods.Def> BuildDefs()
+	private static DefinitionSet<Goods.Def> BuildDefs()
 	{
-		Dictionary<string, Goods.Def> dictionary = new Dictionary<string, Goods.Def>();
+		DefinitionSet<Goods.Def> dictionary = new DefinitionSet<Goods.Def>("MaliceItems");
 		dictionary["friend_medal"] = new Goods.Def
 		{
 			Name = "巨企之友",
@@ -107,7 +107,7 @@ internal static class MaliceItems
 			Flavor = "金框证书，盖着五家巨企的联合钢印。落款处原本该签名的地方空着。",
 			FlavorEn = "A gold-framed certificate stamped with the joint seal of five corporations. The line where a signature should be is blank."
 		};
-		Dictionary<string, Goods.Def> dictionary2 = dictionary;
+		DefinitionSet<Goods.Def> dictionary2 = dictionary;
 		dictionary2["rebel_token"] = new Goods.Def
 		{
 			Name = "反抗站点信物",
@@ -154,6 +154,7 @@ internal static class MaliceItems
 			var (text2, text3) = dictionary3[text];
 			dictionary2[Coin(text)] = new Goods.Def
 			{
+				ArtSource = Goods.ArtKind.TintedNativeSprite,
 				Name = text2 + "的命运硬币",
 				NameEn = text3 + "'s Coin of Fate",
 				Value = 50L,

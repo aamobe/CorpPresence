@@ -32,7 +32,7 @@ internal static partial class Perfume
     // Member supply prices are explicit, so catalog markup cannot change the agreed prices.
     internal static int CatalogPrice(CatalogEntry entry) => entry == null ? 0 : (int)Goods.ValueOf(entry.Id.TrimStart('@'));
 
-    internal static readonly Dictionary<string, Goods.Def> Defs = new()
+    internal static readonly DefinitionSet<Goods.Def> Defs = new("Perfume")
     {
         ["oilflower_seed"] = Item("油花种子", "Oilflower Seeds", 220, "oilflower_seed", 1, 1,
             "标准条件约6晚收获4份花材。先天具有芳香物质Ⅰ、不育Ⅲ；不育降低返种概率，仍可能返种。移除不育后可移入多年生。多年生再次结果基础进度21，产量与生长速度遵循原版基因效果。金卡会员每7天限购2颗。",

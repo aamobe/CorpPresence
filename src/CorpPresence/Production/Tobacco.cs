@@ -42,7 +42,7 @@ internal static class Tobacco
 
 	private const string CarryTag = "CORP_PACK_CARRY_INT";
 
-	internal static readonly Dictionary<string, Goods.Def> Defs = new Dictionary<string, Goods.Def>
+	internal static readonly DefinitionSet<Goods.Def> Defs = new("Tobacco")
 	{
 		["tobacco_seed"] = new Goods.Def
 		{

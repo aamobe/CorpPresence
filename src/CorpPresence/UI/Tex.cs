@@ -38,7 +38,7 @@ internal static class Tex
 		try
 		{
 			byte[] array = null;
-			using (Stream stream = typeof(Tex).Assembly.GetManifestResourceStream("CorpPresence.art." + company + "." + name + ".png"))
+			using (Stream stream = typeof(Tex).Assembly.GetManifestResourceStream(ArtResource.Name(company, name)))
 			{
 				if (stream != null)
 				{

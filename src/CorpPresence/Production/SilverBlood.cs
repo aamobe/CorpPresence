@@ -62,7 +62,7 @@ internal static partial class SilverBlood
 
 	private const int IsomerValuePerMl = 6;
 
-	internal static readonly Dictionary<string, Goods.Def> Defs = new Dictionary<string, Goods.Def>
+	internal static readonly DefinitionSet<Goods.Def> Defs = new("SilverBlood")
 	{
 		["silverblood"] = new Goods.Def
 		{
@@ -218,6 +218,7 @@ internal static partial class SilverBlood
 		},
 		["sb_handbook"] = new Goods.Def
 		{
+			ArtSource = Goods.ArtKind.NativeSprite,
 			Name = "银血提纯手册",
 			NameEn = "Silver Blood Refining Handbook",
 			Value = 50L,

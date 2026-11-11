@@ -99,7 +99,7 @@ internal static class GoodsText
         ["zhuoyue_battery"] = new Keys("items.definitions.eninenceEnergyCell.name", "items.definitions.eninenceEnergyCell.flavor", "items.definitions.eninenceEnergyCell.description", null, null),
     };
     internal static Keys ForId(string id) => id != null && Definitions.TryGetValue(id, out var keys) ? keys : null;
-    internal static void Bind(Dictionary<string, Goods.Def> definitions)
+    internal static void Bind(IReadOnlyDictionary<string, Goods.Def> definitions)
     {
         foreach (var pair in definitions) pair.Value.TextKeys = ForId(pair.Key);
     }

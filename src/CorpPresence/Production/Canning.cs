@@ -57,7 +57,7 @@ internal static partial class Canning
 
 	private const string Prion = "ANIMAL_PRION_TAG";
 
-	internal static readonly Dictionary<string, Goods.Def> Defs = new Dictionary<string, Goods.Def>
+	internal static readonly DefinitionSet<Goods.Def> Defs = new("Canning")
 	{
 		["fish_mince"] = SeafoodFood("鱼肉糜", "Fish Mince", 29, "fish_mince", 200, false,
 			("用鱼片绞成的肉糜。放进封装机，4 份可做 1 份风味蟹肉棒。", "Ground fish fillets. Four portions make one crab-flavored stick in a sealer."),

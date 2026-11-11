@@ -2,13 +2,15 @@
 
 公司增强以物品扩展为主。新增内容复用现有定义、身份、官方目录和配送流程，不新增一套加载器或注册协议。
 
+2026-11-11：已在原有流程上增加带来源的定义汇总与真实编译内容检查。入口为 [Goods.Catalog](../../src/CorpPresence/Items/Goods.Definitions.cs) 和 [DefinitionSet](../../src/CorpPresence/Items/DefinitionSet.cs)。实施范围及证据见[物品框架实施](../changes/organize-internal-lifecycle/item-framework-evidence.md)。
+
 ## 一件物品经过哪些入口
 
 `Goods.Def / 生产线定义 → Goods 汇总 → ItemIdentity 身份 → ItemRegistry 官方工厂 → Goods.Make / ItemRegistry.Create → 订货或剧情发放`
 
 | 要做的事 | 入口与约束 |
 | --- | --- |
-| 定义名称、用途、价值、占格、图像键 | [Goods.Def 与汇总](../../src/CorpPresence/Items/Goods.cs)；生产线已有 Defs 时把定义留在所属生产线。检查合并键不会覆盖已有定义。 |
+| 定义名称、用途、价值、占格、图像键 | [Goods.Def](../../src/CorpPresence/Items/Goods.cs) 与 [Catalog 汇总](../../src/CorpPresence/Items/Goods.Definitions.cs)；生产线已有 Defs 时把定义留在所属生产线。DefinitionSet 的初始化与 AddRange 均拒绝重复，报错含键和来源。 |
 | 建立持久身份 | [ItemIdentity](../../src/CorpPresence/Items/ItemIdentity.cs)；独立 ID、旧 ID/贴图对、GoodsKey 或 Company。旧映射不能随重命名改变。 |
 | 注册与生成 | [ItemRegistry](../../src/CorpPresence/Items/ItemRegistry.cs)；Install 监听目录，资源就绪后 Activate 注册，生成用已有入口。ID 冲突时保留别人，不直接覆盖官方目录；本机官方 Add 会先移除已有同 ID 条目，不能跳过前置检查。 |
 | 配置文案 | [GoodsText](../../src/CorpPresence/Presentation/GoodsText.cs)、[本地化维护](localization-keys.md)；稳定键、内置回退与 Localization CSV 一起维护。 |
@@ -38,7 +40,22 @@ ItemChecks 的注册器测试链接真实 ItemRegistry，但目录、工厂产�
 
 **不要为通过检查直接重生成身份基线。** 新增条目在首个正式发布确认后单独审查并追加；改变旧映射需要明确迁移设计和旧档验证。该基线保护的是 99719c4 已有身份，不证明所有新增物品已经可生成。
 
-现有本地化检查覆盖键、语言回退和实际 CSV 解析；本期没有完成所有 Goods 定义、所有贴图资源与所有公司目录的自动关联校验。视觉、防杂色、占格、原版材质/音效、加工结算及真实旧档恢复仍需各物品的检查和游戏手测。
+ItemDefinitionChecks 读取本次正式 DLL 的 Catalog、ItemIdentity、GoodsText 与实际嵌入资源，检查名称、稳定文本键、定义到身份的创建命名、身份贴图键解析和自有图像。公司卡片身份单独核对公司及 card 图像。基础图像、19 组显式状态图像与电池半电/空电图像使用现有规则；共享定义及 candle_lit 是合法关系，不要求 GoodsKey 唯一。
+
+检查不会执行 Shell/Setup/OnNew 或调用 Unity 工厂，不证明原版外观名称在实际游戏里可用，也不覆盖生产线所有动态资源访问、公司目录/剧情获取路径、视觉、占格、原版音效和加工结算。现有本地化检查继续覆盖语言回退和实际 CSV 解析，游戏行为仍须手测。
+
+## 接入步骤与边界
+
+1. 普通物品：在所属 DefinitionSet 添加 Def，填写非空 Name 与其他需要的字段；GoodsText 增加稳定名称键及实际非空描述对应的键，同时维护翻译资源。定义、名称、身份和图片由检查关联，获取入口仍需明确配置。
+2. 身份：在 ItemIdentity 追加稳定记录；Goods.Make(key) 使用 `corp_presence_` 加 key 定位身份。旧记录和基线不改。LegacySprite 必须能通过 Catalog.TryGetArt 对应的 `corp_med_` 路径解析；公司卡片使用原有 `corp_card_` 路径。
+3. 图像：默认 ArtSource=Embedded，Company/Art 映射到 `CorpPresence.art.<Company>.<Art>.png`，生产与工具共用 ArtResource.Name。Fallback 不能让缺自有图像通过检查。确实仅用原版外观才明确标 NativeSprite 并填写 Fallback；TintedNativeSprite 目前仅描述已有 fate_coin_ 染色路径，不能拿它给任意新物品添加染色行为。
+4. 新生产线：将该线的 DefinitionSet 以固定来源名接入 Catalog 的 AddRange；不得在运行时改目录。批次存在冲突或非法定义时，在写入该批次任何条目前失败。最终目录提供只读字典视图；Def 的业务字段仍沿用原来的数据结构，不是深度不可变对象。
+5. 设备：在所属线提供 Shell/Setup 等实际行为，Catalog 只保存描述与委托。Shell 创建壳体，Setup 在 Goods.Build 设置物品时运行；OnNew 仅由 Goods.Make 的新建流程调用，不用于重放读档奖励或清空原料。新增定义不能在静态初始化时调用游戏对象、读取存档或加载纹理，否则离线检查无法安全读取。
+6. 容器：沿用专属创建与恢复入口，槽位只追加；库存、扩容、筛选和改造归所属模块。框架不会自动实现任意新容器的恢复。
+7. 状态差分：按实际情况复用基础定义，加入明确 ExtraArt 或既有电池状态规则；不要为每张状态图伪造持久身份。扩展新的解析规则时，同时补真实解析入口的正负例。
+8. 运行统一检查，再按上表选择专项测试和下方手测。依次验证取得物品、首次创建、使用/加工、保存重载；“可注册”不代表“可购买或可加工”。
+
+开发时可单独编译 `tools/ItemDefinitionChecks/Checks.csproj`，直接执行当次 Checks.dll 并传两个参数：正式 CorpPresence.dll 绝对路径、游戏 Managed 绝对路径。无参数模式只运行检查器自身的负例，不算真实内容验收。正式验收使用 Check-Maintenance 的完整入口。
 
 ## 游戏验收
 

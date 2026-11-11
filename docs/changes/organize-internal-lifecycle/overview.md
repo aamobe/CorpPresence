@@ -1,6 +1,6 @@
 # 公司增强内部框架分期方案
 
-本轮续接：用户确认暂无新物品需求，第三期记录[保留现有实现的决定](phase-three-decision.md)，第四期整理[跨设备复现与交接](cross-device-handoff.md)。前期游戏验收继续待测。
+最新续接：用户确认先完成物品框架，再提交物品需求，并依托原框架搭建。见[框架实施记录](item-framework-evidence.md)和[接入清单](../../maintenance/item-extension.md)。此前的[保留现有实现决定](phase-three-decision.md)与[换机记录](cross-device-handoff.md)保留为历史证据；前期游戏验收继续待测。
 
 2026-11-11 的[完整评估](../../assessments/internal-framework/assessment.md)核对接口与框架的实际收益、1.0.0 对照、成本及未验证项，供跨设备继续前参考。
 

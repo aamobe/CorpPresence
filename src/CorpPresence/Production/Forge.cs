@@ -45,7 +45,7 @@ internal static class Forge
 		new Blade("custom_machete", 3)
 	};
 
-	internal static readonly Dictionary<string, Goods.Def> Defs = new Dictionary<string, Goods.Def>
+	internal static readonly DefinitionSet<Goods.Def> Defs = new("Forge")
 	{
 		["forged_billet"] = new Goods.Def
 		{
