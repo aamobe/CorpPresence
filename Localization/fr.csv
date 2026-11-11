@@ -1659,3 +1659,7 @@ mango.backpack.name,"Sac à dos mangue"
 mango.backpack.description,"Essayez de l’ouvrir"
 mango.warehouse.flavor,"Mangue, ouvre-toi"
 mango.backpack.flavor,"Une délicieuse mangue géante"
+diagnostics.report.help,Diagnostic : lecture de l’état sans modifier les sauvegardes.
+diagnostics.report.button,Générer un rapport de diagnostic
+diagnostics.report.success,Rapport écrit dans Player.log.
+diagnostics.report.failure,Échec de l’écriture du rapport. Conservez le journal actuel.

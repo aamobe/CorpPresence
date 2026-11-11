@@ -192,3 +192,12 @@ var requiredFaults = MaintenanceDiagnostics.Capture().Faults;
 Check(requiredRejected && requiredReleases == 1 && requiredFaults.Count == 1 && requiredFaults[0].Code == "target_missing", "missing required patch records failure and triggers lifetime rollback");
 var requiredCounters = new List<MaintenanceCounter>(); PatchInstallation.AppendDiagnostics(requiredCounters);
 Check(requiredCounters.Single().Value == 0, "missing required patch does not inflate installed count");
+
+// Explicit release report entry: no business writes and truthful logger failure result.
+MaintenanceDiagnostics.Reset(); PlayerStore.Instance = null;
+int reportCreates = PlayerStore.LazyCreates, previousReports = ModLog.Reports;
+Check(MaintenanceReport.TryWrite() && ModLog.Reports == previousReports + 1 && PlayerStore.LazyCreates == reportCreates, "explicit report logs without creating a player");
+ModLog.Fail = true;
+Check(!MaintenanceReport.TryWrite(), "explicit report does not claim success after log failure");
+ModLog.Fail = false;
+Check(MaintenanceDiagnostics.Capture().Faults.Any(f => f.Scope == MaintenanceFaultScope.Runtime && f.Code == "write_failed"), "report failure remains available for subsequent diagnostics");

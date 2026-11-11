@@ -15,12 +15,19 @@ function Invoke-Dotnet([string[]]$Arguments) {
 }
 Invoke-Dotnet @('build', (Join-Path $PSScriptRoot 'BuildIdentityChecks/Checks.csproj'), '--artifacts-path', (Join-Path $artifacts 'runner'))
 $runner = Join-Path $artifacts 'runner/bin/Checks/debug/Checks.dll'
-$revision = & git -C $repoRoot rev-parse HEAD
-if ($LASTEXITCODE -ne 0) { throw 'Run this check from the source Git checkout.' }
-$status = & git -C $repoRoot status --porcelain --untracked-files=normal
-if ($LASTEXITCODE -ne 0) { throw 'Cannot determine source working tree status.' }
-$identity = "-dev+$revision"
-if ($status) { $identity += '-dirty' }
+$identity = '-dev+unknown'
+# Match the production target: do not inherit a parent checkout's identity.
+if ((Test-Path -LiteralPath (Join-Path $repoRoot '.git')) -and (Get-Command git -ErrorAction SilentlyContinue)) {
+    $revision = & git -C $repoRoot rev-parse HEAD
+    $revisionOk = $LASTEXITCODE -eq 0 -and $revision -match '^[0-9a-fA-F]{40}([0-9a-fA-F]{24})?$'
+    if ($revisionOk) {
+        $status = & git -C $repoRoot status --porcelain --untracked-files=normal
+        if ($LASTEXITCODE -eq 0) {
+            $identity = "-dev+$revision"
+            if ($status) { $identity += '-dirty' }
+        }
+    }
+}
 foreach ($maintenance in @($false, $true)) {
     $flavor = if ($maintenance) { 'maintenance' } else { 'regular' }
     $output = Join-Path $artifacts $flavor

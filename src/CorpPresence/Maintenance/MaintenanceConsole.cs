@@ -14,7 +14,7 @@ internal static class MaintenanceConsole
             float now = Time.unscaledTime;
             if (now - _lastRequest < 1f) return;
             _lastRequest = now;
-            ModLog.Info(MaintenanceFormatter.Format(MaintenanceDiagnostics.Capture()));
+            MaintenanceReport.TryWrite();
         }
         catch { /* Debug input and logging must not affect gameplay. */ }
     }

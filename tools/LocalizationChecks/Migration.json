@@ -1659,5 +1659,9 @@
   "companies.courier.farewell.iNodsI": "<i>(nods)</i>",
   "companies.courier.farewell.iTakesBackTheReceiptIThank": "<i>(takes back the receipt)</i>Thank you for your cooperation.",
   "companies.courier.farewell.iBowsSlightlyIHaveAPleasant": "<i>(bows slightly)</i>Have a pleasant day.",
-  "companies.courier.farewell.iNodsISeeYouNextTime": "<i>(nods)</i>See you next time."
+  "companies.courier.farewell.iNodsISeeYouNextTime": "<i>(nods)</i>See you next time.",
+  "diagnostics.report.help": "Diagnostics: reads runtime state without changing saves.",
+  "diagnostics.report.button": "Generate diagnostic report",
+  "diagnostics.report.success": "Report written to Player.log.",
+  "diagnostics.report.failure": "Report could not be written. Keep the current log."
 }

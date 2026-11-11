@@ -6324,5 +6324,9 @@
   "companies.courier.farewell.iNodsISeeYouNextTime": [
     "<i>(кивает)</i>До встречи.",
     "<i>(hoche la tête)</i>À la prochaine."
-  ]
+  ],
+  "diagnostics.report.help": ["Диагностика: чтение состояния без изменения сохранений.", "Diagnostic : lecture de l’état sans modifier les sauvegardes."],
+  "diagnostics.report.button": ["Создать диагностический отчёт", "Générer un rapport de diagnostic"],
+  "diagnostics.report.success": ["Отчёт записан в Player.log.", "Rapport écrit dans Player.log."],
+  "diagnostics.report.failure": ["Не удалось записать отчёт. Сохраните текущий журнал.", "Échec de l’écriture du rapport. Conservez le journal actuel."]
 }

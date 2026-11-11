@@ -1659,3 +1659,7 @@ mango.backpack.name,"Mango Backpack"
 mango.backpack.description,"Try opening it"
 mango.warehouse.flavor,"Open, mango"
 mango.backpack.flavor,"A delicious giant mango"
+diagnostics.report.help,Diagnostics: reads runtime state without changing saves.
+diagnostics.report.button,Generate diagnostic report
+diagnostics.report.success,Report written to Player.log.
+diagnostics.report.failure,Report could not be written. Keep the current log.

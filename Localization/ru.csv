@@ -1659,3 +1659,7 @@ mango.backpack.name,"Рюкзак-манго"
 mango.backpack.description,"Попробуйте открыть"
 mango.warehouse.flavor,"Манго, откройся"
 mango.backpack.flavor,"Вкусное большое манго"
+diagnostics.report.help,Диагностика: чтение состояния без изменения сохранений.
+diagnostics.report.button,Создать диагностический отчёт
+diagnostics.report.success,Отчёт записан в Player.log.
+diagnostics.report.failure,Не удалось записать отчёт. Сохраните текущий журнал.
