@@ -4,9 +4,7 @@
 
 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3828913695) · [游玩流程](share/公司增强游玩流程.txt) · [文档总目录](docs/README.md) · [维护指南](docs/maintenance/README.md)
 
-当前工坊版本标识为 **1.1.0**，最新接口版对应源码提交 `2500a6e`。已获上传成功回执，本次按用户要求省略回下载核对，完整游戏回归待完成。详见[最新发布记录](docs/releases/1.1.0-internal-maintenance.md)和[版本目录](docs/releases/README.md)。
-
-源码现已准备 **1.2.0 — 框架整合与稳定性更新**，尚未上传工坊；见[1.2.0发布记录](docs/releases/1.2.0.md)。
+当前工坊版本为 **1.2.0 — 框架整合与稳定性更新**，发布源码提交 `9ce9689`，标签 `v1.2.0`。已获 SteamCMD 上传成功回执；按用户要求未追加测试，未执行回下载核对。详见[发布记录](docs/releases/1.2.0.md)和[版本目录](docs/releases/README.md)。
 
 ## 常用入口
 
