@@ -30,12 +30,15 @@ foreach (bool failDuringPayment in new[] { false, true })
     Companies.State = new();
     Services.Charges = 0;
     Services.Payment = failDuringPayment ? () => throw new InvalidOperationException("payment probe") : null;
-    try
+    if (failDuringPayment)
+        Require(Services.PlaceOrder(company, cart, _ => 100) != null); // Real Pay catches extension uncertainty.
+    else
     {
-        Services.PlaceOrder(company, cart, _ => failDuringPayment ? 100 : throw new InvalidOperationException("quote probe"));
-        throw new Exception("Injected exception was not reached");
+        bool quoteFailed = false;
+        try { Services.PlaceOrder(company, cart, _ => throw new InvalidOperationException("quote probe")); }
+        catch (InvalidOperationException) { quoteFailed = true; }
+        Require(quoteFailed);
     }
-    catch (InvalidOperationException) { }
     Require(Services.Charges == 0 && Companies.State.Orders.Count == 0);
     Services.Payment = null;
     Require(Services.PlaceOrder(company, cart, _ => 100) == null);
@@ -71,3 +74,8 @@ Services.PlaceOrder(company, cart, _ => 100);
 Console.WriteLine($"payment switch: current cooperation={Companies.State.Cooperation}; current orders={Companies.State.Orders.Count}");
 Require(Companies.State.Cooperation == 0 && Companies.State.Orders.Count == 0);
 Require(previousState.Orders.Count == 1 && Services.Charges == 1);
+
+Companies.State=new();Services.Charges=0;Services.Payment=()=>{PlayerStore.Instance.PayMoney(100,false);throw new InvalidOperationException();};
+Require(Services.PlaceOrder(company,cart,_=>100)!=null);
+Require(Services.Charges==1 && Companies.State.Orders.Count==0 && Companies.State.LimitedBought.Count==0);
+Console.WriteLine("PASS real payment uncertainty does not supplement debit or reserve quota");

@@ -15,9 +15,10 @@ class CompanyState {
  public double Cooperation;
  public int LastOrderDay = -1;
  public List<Order> Orders = new();
+ public List<object> Visitors = new();
  public Dictionary<string,int> LimitedBought = new();
 }
-class Order { public int Day; public List<string> Items = new(); }
+class Order { public int Cash; public int Day; public List<string> Items = new(); }
 class CatalogEntry {
  public string Id = "item";
  public int WindowDays = 7, Bundle = 1, MinTier = 1, Quota = 10;
@@ -30,6 +31,7 @@ static class Companies {
  public static CompanyState StateOf(Company c) => State;
 }
 static class Ext {
+ public static Func<Company,int,string,string> Charge;
  public static Func<Company,string> OrderBlocked => null;
  public static T Ask<T>(string name,Func<T> action,T fallback) => action();
 }
@@ -48,6 +50,7 @@ static class CargoWarehouse {
  public static string UnlockHint() => "locked";
 }
 static class Settings {
+ public static bool MaliceMode;
  public const double CoopCredits = 100;
  public static int Period(string key,int fallback) => fallback;
 }
@@ -61,12 +64,19 @@ static partial class Services {
  public static int Day => 20;
  public static string PeriodKey => "week";
  public static string PeriodWord => "week";
- public static int Charges;
- public static Func<string> Payment;
- public static string Pay(Company c,int amount,string kind) {
-  string error=Payment?.Invoke();
-  if(error == null) Charges++;
-  return error;
- }
+ public static int Charges {get=>PlayerStore.Instance.Calls;set=>PlayerStore.Instance.Calls=value;}
+ public static Func<string> Payment {set {Ext.Charge=value==null ? null : (_,_,_)=>value();}}
  public static void AddCoop(Company c,double amount,string reason) { Companies.State.Cooperation += amount; }
 }
+
+class PlayerStore {
+ public static PlayerStore Instance=new();public static bool IsInstanceExist()=>Instance!=null;
+ public Dictionary<string,string> modData=new();public int Cash=1000000,Calls;
+ public bool CanPay(int n)=>Cash>=n;
+ public void PayMoney(int n,bool playRegisterSound){Cash-=n;Calls++;}
+ public void ModCash(int n,bool playSound){Cash+=n;}
+}
+class EmporiumAudioPlayer {public static EmporiumAudioPlayer Instance;public void PlayRegister(){}}
+class NegociationUIManager {public static NegociationUIManager Instance;public Audio audioSourceCashRegister;}
+class Audio {public void Play(){}}
+static class MaintenanceDiagnostics {public static void Record(string source,string stage,string code,Exception error){}}

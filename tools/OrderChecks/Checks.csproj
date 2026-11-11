@@ -4,5 +4,5 @@
 <Compile Include="../../src/CorpPresence/Companies/Services.Orders.cs" />
 <Compile Include="../../src/CorpPresence/Companies/OrderAmounts.cs" />
 <Compile Include="../../src/CorpPresence/Companies/QuotaCounts.cs" />
-</ItemGroup>
+<Compile Include="../../src/CorpPresence/Companies/Services.Payment.cs"/><Compile Include="../../src/CorpPresence/Companies/CompanyMoney.cs"/><Compile Include="../../src/CorpPresence/Persistence/SaveSlot.cs"/></ItemGroup>
 </Project>
