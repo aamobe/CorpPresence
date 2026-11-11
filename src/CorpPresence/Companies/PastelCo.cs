@@ -132,6 +132,8 @@ internal sealed class PastelCo : Company
 		new CatalogEntry
 		{
 			Id = "@hemingway_stamp",
+			FixedListValue = Tobacco.StampPrice,
+			IgnoreOrderRate = true,
 			Page = "工艺",
 			WeeklyLimit = 2
 		}

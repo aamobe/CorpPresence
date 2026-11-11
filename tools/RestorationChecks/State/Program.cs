@@ -182,7 +182,7 @@ static class L
         (En ? en : zh).ToString();
 }
 static class ModLog {public static void Warn(string s){}public static void Info(string s){}}
-static class Ext {public static Func<CatalogEntry,int?> Limit;public static T Ask<T>(string s,Func<T> f,T other)=>f();}
+static class Ext {public static T Ask<T>(string s,Func<T> f,T other)=>f();}
 static class StorePlacement {public static bool Destroyed(GameItem i)=>i.DestroyCount>0;}
 class StoreEvent {public string identifier;}
 class EventManager {public List<StoreEvent> GetActiveEvents()=>new();}

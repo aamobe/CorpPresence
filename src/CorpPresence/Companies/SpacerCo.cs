@@ -69,7 +69,9 @@ internal sealed partial class SpacerCo : Company
 		},
 		new CatalogEntry
 		{
-			Id = "@modbox",
+			Id = ModBox,
+			FixedBaseValue = ModBoxPrice,
+			FixedListValue = ModBoxPrice,
 			Page = "军械",
 			Label = "改装盲盒（3–5 件随机配件）",
 			LabelKey = "companies.catalog.modGrabBox35RandomAttachments.name",
