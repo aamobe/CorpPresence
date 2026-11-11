@@ -52,3 +52,8 @@
 
 标签显示修复：芒果背包不将 BACKPACK_TAG 注册为可见类型；统一标签同步后恢复内部背包标记，覆盖新建及已有物品读档。描述、简介保留用户原文。
 
+
+## 工坊发布（2026-11-11）
+
+按用户授权更新既有工坊项目 3828913695，沿用 1.1.0 标识；源码提交 e163674。上传省略 changenote、title 和 description，不增加游戏内彩蛋入口或主动提示。SteamCMD 返回 Committing update...Success，回下载 7 个文件与上传文件 SHA256 全部一致，见 published-files.json。DLL SHA256：F2F06055E14070F8CF2110E1BBEBE79CC7DDF214AAF4597F5E7047C763A3F934。此前 1.1.0 发布文件仍保留作为回滚基线。未推送 GitHub，完整游戏回归仍待用户验证。
+
