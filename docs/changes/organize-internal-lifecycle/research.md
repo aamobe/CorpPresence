@@ -13,3 +13,21 @@
 - **NUnit · 可测试设计。** 参数化用例适合逐个枚举安装失败位置。清理实现先标记 setup 已进入，即使 setup 抛错也可在对应层清理，并单列清理失败。本项目用现有控制台检查链接真实安装实现，通过替身控制原版入口并恢复每个用例状态。项目清理还要求某个释放异常后继续释放其他资源，沿用项目自己的逐项隔离。测试框架的反射和运行器无需进入游戏 DLL。 [SetUpTearDownItem 源码](https://raw.githubusercontent.com/nunit/nunit/v5.0.0/src/NUnitFramework/framework/Internal/Commands/SetUpTearDownItem.cs) · [TestCase](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html) · [TearDown](https://docs.nunit.org/articles/nunit/writing-tests/attributes/teardown.html)
 
 这些项目只提供设计参照。适用于当前 Mod 的判断来自现有源码与官方 IMod 契约，兼容性最终以项目扫描和实测为准。
+
+## 游戏 Mod 框架补充调研
+
+2026-11-11 通过 GitHub REST 元数据、README 与所列源码核对。以下项目按相关性选取。三个仓库均未归档，最近推送时间为 UTC；推送活动包含文档与维护提交。
+
+| 项目 | 星数 / 最近推送 | 许可核对 | 用于本项目 |
+| --- | --- | --- | --- |
+| [HugsLib](https://github.com/UnlimitedHugs/RimworldHugsLib) | 304 / 2025-07-13 | API 返回 NOASSERTION，本文不认定为 MIT；采用代码前须单独核对许可全文 | 一期生命周期契约与固定模块日志标识 |
+| [Vanilla Expanded Framework](https://github.com/Vanilla-Expanded/VanillaExpandedFramework) | 136 / 2026-11-11 | 根 LICENSE 为 CC BY-NC-ND 4.0；本文仅研究组织原则 | 二、三期按功能组织及变更兼容评估 |
+| [R2API](https://github.com/risk-of-thunder/R2API) | 167 / 2026-11-08 | MIT | 三期按需依赖与独立模块职责 |
+
+HugsLib 的 ModBase 明确区分 EarlyInitialize、StaticInitialize、WorldLoaded、MapLoaded、MapDiscarded 等时机，并提供独立日志标识。借鉴点是为每个入口写清触发条件及次数。它还自动实例化派生类型、扫描 Harmony 补丁；这些接入方式依赖 RimWorld 环境，公司增强继续使用官方 IMod 和显式装配。README 的日志上传与设置文件机制也不能直接引入本项目零权限环境。[ModBase 源码](https://github.com/UnlimitedHugs/RimworldHugsLib/blob/master/Source/ModBase.cs) · [项目说明](https://github.com/UnlimitedHugs/RimworldHugsLib/blob/master/README.md)
+
+VEF README 明确作为多个 Vanilla Expanded Mod 的共用库，并警告 1.6 命名空间变化会破坏依赖它的 XML 与 C# Mod。我们据此要求共用代码有真实消费者，迁移列出所有调用点，避免为了目录统一重命名存档相关类型。当前仅核对其组织说明与许可，未开展其存档实现审计。[项目说明](https://github.com/Vanilla-Expanded/VanillaExpandedFramework/blob/main/README.md) · [许可](https://github.com/Vanilla-Expanded/VanillaExpandedFramework/blob/main/LICENSE)
+
+R2API 从 5.0.0 起建议按需引用子模块，文档展示 BepInDependency 依赖声明。可借鉴“功能只依赖自己需要的能力”；公司增强可先落实为清晰的源码职责和显式调用，独立包与 BepInEx 加载机制超出当前范围。本轮核对文档及目录，未将其运行时卸载行为视为已验证依据。[项目说明](https://github.com/risk-of-thunder/R2API/blob/master/README.md)
+
+上述三个项目提供不同游戏生态的经验。具体设计仍须通过公司增强真实入口测试与游戏验收证明。
