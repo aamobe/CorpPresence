@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordinary",
+  "key": "authoring_sample",
+  "identity": {
+    "id": "corp_presence_authoring_sample",
+    "base": "toothpaste"
+  },
+  "names": {
+    "en": "Authoring sample",
+    "zh": "工具演练样品"
+  },
+  "description": {
+    "en": "Development integration exercise; not for release.",
+    "zh": "仅验证开发接入，不发布。"
+  },
+  "art": {
+    "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png"
+  },
+  "shape": {
+    "width": 2,
+    "cells": "##|##",
+    "height": 2
+  },
+  "value": 100,
+  "types": [
+    "HOUSEHOLD_GOOD"
+  ],
+  "acquisition": {
+    "minTier": 1,
+    "company": "pastel",
+    "page": "日用"
+  }
+}
