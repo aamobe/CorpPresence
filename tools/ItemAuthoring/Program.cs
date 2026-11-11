@@ -60,6 +60,8 @@ internal static class Program
     private static string Fingerprint(ChangePlan plan)
     {
         using var hash=IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+        foreach(var dependency in plan.Dependencies.OrderBy(p=>p.Key,StringComparer.Ordinal))
+        {hash.AppendData(Encoding.UTF8.GetBytes(dependency.Key));hash.AppendData(SHA256.HashData(dependency.Value));}
         foreach(var change in plan.Changes)
         {
             hash.AppendData(Encoding.UTF8.GetBytes(change.RelativePath));

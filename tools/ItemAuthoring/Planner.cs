@@ -23,7 +23,7 @@ public static class Planner
         var plan = new ChangePlan(root);
         string artPath=plan.SafePath(spec.ArtPath);
         if(!File.Exists(artPath)) throw new AuthoringException("MISSING_ART",spec.ArtPath);
-        byte[] png=File.ReadAllBytes(artPath);
+        byte[] png=plan.Read(spec.ArtPath);
         if(png.Length<33 || !png.AsSpan(0,8).SequenceEqual(new byte[]{137,80,78,71,13,10,26,10}) ||
             BinaryPrimitives.ReadInt32BigEndian(png.AsSpan(16,4))<=0 || BinaryPrimitives.ReadInt32BigEndian(png.AsSpan(20,4))<=0)
             throw new AuthoringException("INVALID_ART","Expected PNG with nonzero native dimensions");
@@ -31,7 +31,7 @@ public static class Planner
         string filename=Path.GetFileNameWithoutExtension(spec.ArtPath);
         if(!filename.StartsWith(prefix,StringComparison.Ordinal)) throw new AuthoringException("INVALID_ART","Image resource must use " + prefix + "<art>.png");
         string art=filename[prefix.Length..];
-        if(Directory.EnumerateFiles(plan.SafePath("src/Assets"),"*.png",SearchOption.AllDirectories)
+        if(plan.Files("src/Assets",".png")
             .Count(p=>string.Equals(Path.GetFileName(p),Path.GetFileName(artPath),StringComparison.OrdinalIgnoreCase))!=1)
             throw new AuthoringException("INVALID_ART","Duplicate embedded resource name");
         string textPrefix="items.authored."+string.Concat(spec.Key.Split('_').Select((s,i)=>i==0?s:char.ToUpperInvariant(s[0])+s[1..]));
@@ -43,11 +43,10 @@ public static class Planner
 
         // Reject identities/keys outside the four exact editable nodes, including constant-based definitions.
         // This is a conservative source collision scan; compiled checks remain required after Apply.
-        foreach(string file in Directory.EnumerateFiles(plan.SafePath("src/CorpPresence"),"*.cs",SearchOption.AllDirectories))
+        foreach(string relative in plan.Files("src/CorpPresence",".cs"))
         {
-            string relative=Path.GetRelativePath(root,file).Replace('\\','/');
             if(new[]{Definitions,Identities,Texts,Catalog}.Contains(relative)) continue;
-            if(CSharpSyntaxTree.ParseText(File.ReadAllText(file)).GetRoot().DescendantTokens()
+            if(CSharpSyntaxTree.ParseText(plan.ReadText(relative)).GetRoot().DescendantTokens()
                 .Any(t=>t.IsKind(SyntaxKind.StringLiteralToken) && (t.ValueText==spec.Key || t.ValueText==spec.Id || t.ValueText=="@"+spec.Key)))
                 throw new AuthoringException("REGISTRATION_CONFLICT","Goods identity already referenced by " + relative);
         }
@@ -66,7 +65,7 @@ public static class Planner
         => text.TryGetValue(language,out string? translated)?translated:text["en"];
     private static void Edit(ChangePlan plan,string relative,string target,string key,string expression)
     {
-        string original=File.ReadAllText(plan.SafePath(relative));
+        string original=plan.ReadText(relative);
         var tree=CSharpSyntaxTree.ParseText(original);
         if(tree.GetDiagnostics().Any(d=>d.Severity==DiagnosticSeverity.Error)) throw new AuthoringException("SOURCE_LAYOUT_CHANGED",relative);
         var root=tree.GetRoot();
@@ -74,6 +73,9 @@ public static class Planner
             ? root.DescendantNodes().OfType<PropertyDeclarationSyntax>().Single(n=>n.Identifier.ValueText==target)
             : root.DescendantNodes().OfType<VariableDeclaratorSyntax>().Single(n=>n.Identifier.ValueText==target);
         var initializer=owner.DescendantNodes().OfType<InitializerExpressionSyntax>().First();
+        if(root.DescendantTokens().Any(t=>t.IsKind(SyntaxKind.StringLiteralToken) &&
+            (t.ValueText==key || t.ValueText=="corp_presence_"+key) && !initializer.Span.Contains(t.Span)))
+            throw new AuthoringException("REGISTRATION_CONFLICT",relative+": key outside editable initializer");
         // Parse dictionary entries inside a valid initializer, rather than as standalone expressions.
         var parsed=SyntaxFactory.ParseExpression("new object {"+expression+"}")
             .DescendantNodes().OfType<InitializerExpressionSyntax>().First().Expressions.Single();
@@ -103,7 +105,7 @@ public static class Planner
     }
     private static void AddJson(ChangePlan plan,string path,IEnumerable<(string Key,JsonElement Value)> rows)
     {
-        string original=File.ReadAllText(plan.SafePath(path));
+        string original=plan.ReadText(path);
         using var document=JsonDocument.Parse(original);
         var additions=new List<string>();
         foreach(var row in rows)
@@ -124,7 +126,7 @@ public static class Planner
     }
     private static void AddCsv(ChangePlan plan,string path,IEnumerable<(string Key,string Value)> rows)
     {
-        string original=File.ReadAllText(plan.SafePath(path));
+        string original=plan.ReadText(path);
         using var parser=new TextFieldParser(new StringReader(original)) {HasFieldsEnclosedInQuotes=true,TrimWhiteSpace=false};
         parser.SetDelimiters(","); var existing=new Dictionary<string,string>();
         while(!parser.EndOfData)
@@ -144,7 +146,7 @@ public static class Planner
     }
     private static void AddPreservingBom(ChangePlan plan,string relative,string result,string reason)
     {
-        byte[] original=File.ReadAllBytes(plan.SafePath(relative));
+        byte[] original=plan.Read(relative);
         byte[] text=Encoding.UTF8.GetBytes(result);
         if(original.AsSpan().StartsWith(new byte[]{239,187,191})) text=[239,187,191,..text];
         plan.Add(relative,text,reason);

@@ -9,7 +9,9 @@ public sealed class ChangePlan
 {
     private readonly string root;
     private readonly List<FileChange> changes = [];
+    private readonly Dictionary<string,byte[]> reads = new(StringComparer.OrdinalIgnoreCase);
     public IReadOnlyList<FileChange> Changes => changes;
+    public IReadOnlyDictionary<string,byte[]> Dependencies => reads;
     public ChangePlan(string root) { this.root = Path.GetFullPath(root); SafePath("."); }
 
     public string SafePath(string relative)
@@ -22,9 +24,26 @@ public sealed class ChangePlan
         {
             if((File.Exists(part) || Directory.Exists(part)) &&
                 (File.GetAttributes(part) & FileAttributes.ReparsePoint) != 0) Unsafe();
-            if(part == root) break;
         }
         return path;
+    }
+
+    public byte[] Read(string relative)
+    {
+        if(!reads.TryGetValue(relative,out byte[]? bytes))
+            reads.Add(relative,bytes=File.ReadAllBytes(SafePath(relative)));
+        return bytes;
+    }
+    public string ReadText(string relative) => Encoding.UTF8.GetString(Read(relative)).TrimStart('\uFEFF');
+    public IEnumerable<string> Files(string relative,string extension)
+    {
+        foreach(string entry in Directory.EnumerateFileSystemEntries(SafePath(relative)))
+        {
+            string child=Path.GetRelativePath(root,entry).Replace('\\','/');
+            SafePath(child);
+            if(Directory.Exists(entry)) {foreach(string file in Files(child,extension)) yield return file;}
+            else if(entry.EndsWith(extension,StringComparison.OrdinalIgnoreCase)) yield return child;
+        }
     }
 
     public void Add(string relative, string after, string reason = "authoring registration")
@@ -35,7 +54,7 @@ public sealed class ChangePlan
         if(!File.Exists(path)) throw new AuthoringException("MISSING_TARGET", relative);
         if(changes.Any(c => string.Equals(c.RelativePath,relative,StringComparison.OrdinalIgnoreCase)))
             throw new AuthoringException("DUPLICATE_TARGET",relative);
-        byte[] before = File.ReadAllBytes(path);
+        byte[] before = Read(relative);
         if(!before.AsSpan().SequenceEqual(after)) changes.Add(new(relative,before,after,reason));
     }
 
@@ -43,9 +62,11 @@ public sealed class ChangePlan
     {
         if(changes.Count == 0) return null;
         foreach(var c in changes) Unchanged(c);
+        CheckDependencies();
         string staging = SafePath("artifacts/item-authoring"); Directory.CreateDirectory(staging);
         using var gate = new FileStream(SafePath("artifacts/item-authoring/apply.lock"),FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);
         foreach(var c in changes) Unchanged(c);
+        CheckDependencies();
         string backup = Path.Combine(staging, "backup-"+DateTime.UtcNow.ToString("yyyyMMddHHmmss")+"-"+Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(backup);
         // Save all originals before touching any target. Backup names never derive from spec paths.
@@ -81,6 +102,12 @@ public sealed class ChangePlan
                 "Concurrent edits preserved; originals in " + backup + "; inspect " + string.Join(", ",conflicts) + ". Initial error: " + error.Message);
             throw;
         }
+    }
+    private void CheckDependencies()
+    {
+        foreach(var entry in reads)
+            if(!File.Exists(SafePath(entry.Key)) || !File.ReadAllBytes(SafePath(entry.Key)).AsSpan().SequenceEqual(entry.Value))
+                throw new AuthoringException("CONCURRENT_CHANGE",entry.Key+" changed during planning.");
     }
     private void Unchanged(FileChange change)
     {

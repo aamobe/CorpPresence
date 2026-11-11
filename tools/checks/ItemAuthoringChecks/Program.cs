@@ -50,4 +50,5 @@ Check("duplicate JSON members rejected", () => {
 });
 TransactionChecks.Run(Check);
 PlannerChecks.Run(Check,valid);
+CliChecks.Run(Check);
 Console.WriteLine($"{passed} checks passed.");

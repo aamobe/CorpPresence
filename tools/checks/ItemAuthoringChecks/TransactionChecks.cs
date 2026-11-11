@@ -24,6 +24,13 @@ internal static class TransactionChecks
                 { if(File.ReadAllText(a)=="newer user change") return; }
                 throw new Exception("Concurrent change lost");
             });
+            check("source changing between planning read and Add is not overwritten",()=> {
+                var plan=new ChangePlan(root); plan.Read("a.txt");
+                File.WriteAllText(a,"changed during planning"); plan.Add("a.txt","generated A");
+                try {plan.Apply();} catch(AuthoringException e) when(e.Code=="CONCURRENT_CHANGE")
+                {if(File.ReadAllText(a)=="changed during planning") {File.WriteAllText(a,"newer user change");return;}}
+                throw new Exception("Planning read race lost user work");
+            });
             check("write failure restores original bytes including user edits",()=> {
                 var plan=new ChangePlan(root); plan.Add("a.txt","generated A"); plan.Add("b.txt","generated B");
                 try {plan.Apply(i=> {if(i==1) throw new IOException("Injected failure");});}

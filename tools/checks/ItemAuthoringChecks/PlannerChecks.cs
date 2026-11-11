@@ -18,6 +18,14 @@ internal static class PlannerChecks
                 Directory.CreateDirectory(Path.GetDirectoryName(dest)!); File.Copy(source,dest);
             }
             var spec=Spec.Read(valid.Replace("src/Assets/pastel_gloves.png","src/Assets/CorpPresence.art.pastel.pastel_gloves.png"));
+            check("same-file key outside editable node is rejected",()=> {
+                string path=Path.Combine(root,"src/CorpPresence/Items/Goods.Definitions.cs");
+                string original=File.ReadAllText(path);
+                File.WriteAllText(path,original.Replace("internal static class Catalog","private const string ReservedAuthoringKey = \"rogue_sample\";\n    internal static class Catalog"));
+                try {Planner.Create(root,spec with {Key="rogue_sample",Id="corp_presence_rogue_sample"});}
+                catch(AuthoringException e) when(e.Code=="REGISTRATION_CONFLICT") {File.WriteAllText(path,original);return;}
+                throw new Exception("Same-file reservation ignored");
+            });
             check("ordinary preview plans all nine registration files",()=> {
                 var plan=Planner.Create(root,spec);
                 if(plan.Changes.Count!=9) throw new Exception("Expected four C#, two JSON and three CSV files");
