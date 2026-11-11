@@ -93,3 +93,22 @@ snap=MaintenanceDiagnostics.Capture();
 Check(MaintenanceFormatter.Format(snap).Contains("items 安装已提交=True 清理遇错=False"),"items lifecycle is part of the shared module report");
 ItemRegistry.IsInstalled=false;ItemRegistry.LastReleaseFailed=true;
 Check(MaintenanceFormatter.Format(snap).Contains("items 安装已提交=True 清理遇错=False") && MaintenanceFormatter.Format(MaintenanceDiagnostics.Capture()).Contains("items 安装已提交=False 清理遇错=True"),"item module snapshot is immutable and keeps release failures visible");
+
+// The same RuntimeTask used by Host must report every failure, even while logs are throttled.
+MaintenanceDiagnostics.Reset();
+int executions=0, taskLogs=0, suppressedFailures=-1;
+var task=new CorpPresence.Runtime.RuntimeTask("test.task",()=>{executions++;throw new InvalidOperationException("private/path");},
+    (_,_,suppressed)=>{taskLogs++;suppressedFailures=suppressed;throw new Exception("log unavailable");});
+task.Run(0);task.Run(1);task.Run(2);
+snap=MaintenanceDiagnostics.Capture();
+Check(executions==3 && taskLogs==1 && snap.Faults.Single(f=>f.Source=="runtime" && f.Stage=="test.task").Count==3,"runtime task diagnostics count failures suppressed from logs");
+Check(snap.Faults.All(f=>!f.Detail.Contains("private/path")),"runtime task diagnostics exclude exception messages");
+task.Run(60);
+Check(taskLogs==2 && suppressedFailures==2 && MaintenanceDiagnostics.Capture().Faults.Single(f=>f.Source=="runtime").Count==4,"log throttling and failed logger do not alter diagnostics or task retries");
+var successfulTask=new CorpPresence.Runtime.RuntimeTask("test.success",()=>executions++,(_,_,_)=>taskLogs++);
+successfulTask.Run(61);
+Check(executions==5 && taskLogs==2 && MaintenanceDiagnostics.Capture().Faults.Count==1,"healthy tasks create no diagnostic faults");
+PlayerStore.Instance=new();
+Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"runtime task failures do not leak into another save");
+task.Run(62);
+Check(MaintenanceDiagnostics.Capture().Faults.Single(f=>f.Source=="runtime").Count==1 && taskLogs==2,"new save receives failures even while old log throttle remains active");

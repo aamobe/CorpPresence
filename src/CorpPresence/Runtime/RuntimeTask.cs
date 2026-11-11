@@ -21,6 +21,8 @@ internal sealed class RuntimeTask
         try { _execute(); }
         catch (Exception error)
         {
+            // Structured counts must include failures hidden by the human-readable log throttle.
+            try { MaintenanceDiagnostics.Record("runtime", _name, "task_failed", error); } catch { }
             if (now < _reportAt)
             {
                 if (_suppressed < int.MaxValue) _suppressed++;

@@ -79,3 +79,9 @@ PaymentChecks 链接正式 Services.Payment、CompanyMoney、SaveSlot、CompanyS
 `items 清理遇错` 表示仍有本次未成功释放的所有权；实际失败条目保留，重复卸载或下一次安装前会重试。若他人已替换该工厂，只清本模块记录，不移除他人工厂。安装前清理仍失败会明确拒绝安装。物品的此语义与 Malice 清空释放表后的失败记录不同。
 
 故障聚合使用固定模块 `items`，阶段 `register/create/release`；异常消息不进入结构化快照。记录失败不阻断业务或后续清理。
+
+## 宿主运行任务
+
+Host 的 RuntimeTask 每次执行失败都记录模块 `runtime`、阶段为源码中的固定任务名、代码 `task_failed`。一分钟日志限流只影响文字输出，不减少报告中的异常计数；成功执行不产生故障记录，原执行顺序和重试频率不变。
+
+换档清除旧会话故障后，即使文字日志仍在限流，新异常也会进入新会话报告。诊断保留异常类型与受限方法链，不保存异常消息、路径或异常对象；任务重试不是业务事务回滚，查看报告不会自动修复失败任务。实施证据见[运行任务诊断](../changes/organize-internal-lifecycle/runtime-task-diagnostics.md)。

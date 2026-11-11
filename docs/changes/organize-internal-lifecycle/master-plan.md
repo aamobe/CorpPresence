@@ -4,6 +4,8 @@
 
 当前执行入口：[总框架整合计划](framework-integration-plan.md)、[证据](framework-integration-evidence.md)、[全系统模块契约与回归矩阵](../../maintenance/framework.md)。物品是总框架的内容模块，共用 Main/RuntimeLifetime、Maintenance 和 Check-Maintenance，不作为另一套独立框架维护。既有阶段历史保留，当前完成状态以本轮证据为准。
 
+后续方向：继续在公司增强内部验证共用能力，不拆独立框架或新增公共前置依赖。本轮续接[运行任务诊断](runtime-task-diagnostics.md)，将 Host 任务异常纳入统一报告，补齐日志限流与换档之间的观测缺口。
+
 目标是降低公司增强新增功能、故障定位、回归与跨设备交接的成本。生产基线为 2500a6e；本方案建立在 46970f1 的设计文档上。现有诊断、三个具名事件、回调租约和 Malice 局部失败回滚作为基础能力继续使用。
 
 ## 总体路线
