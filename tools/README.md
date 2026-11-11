@@ -49,3 +49,7 @@
 ## 物品接入检查
 
 `ItemChecks` 链接真实 ItemRegistry 并使用目录/物品替身；同时读取本次正式 DLL 的真实 ItemIdentity 与 ResolveId，对照固定 90 条身份基线。已接入 Check-Maintenance，统一入口步数以当次输出为准，含真实 RuntimeLifetime 与注册器组合回归及正式/维护双扫描。单独运行需先 build 到独立 artifacts 目录，再执行新 Checks.dll 并传入正式 CorpPresence.dll 路径。不要自动覆盖 IdentityBaseline.json；接入与覆盖边界见[物品接入清单](../docs/maintenance/item-extension.md)。
+
+## 液体动态分类回归
+
+`ItemTagChecks` 链接真实ItemTags，覆盖静态标签修复后的原版液体分类委托、新建/读档/重复修复、空瓶、无water成分混合物及原版/外部物品隔离，已接入维护和便携检查。游戏对象和WaterHelper为边界替身，验证调用时序及状态不被改写，不重新实现或验证原版纯度公式，也不证明实际售水通过。完整证据见[液体分类修复](../docs/maintenance/liquid-classification-fix-2026-11-12.md)。

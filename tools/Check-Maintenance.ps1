@@ -51,7 +51,7 @@ try {
  $definitionsRoot=Join-Path $runRoot 'ItemDefinitionChecks'
  Invoke-Check 'ItemDefinitionChecks-build' 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot 'checks/ItemDefinitionChecks/Checks.csproj'),'--artifacts-path',$definitionsRoot)
  Invoke-Check 'ItemDefinitionChecks' 'compiled-content' $sdk @((Join-Path $definitionsRoot 'bin/Checks/debug/Checks.dll'),$regular,$managed)
- foreach($name in @('MaintenanceChecks','ExtensionChecks','HostChecks','SpacerModValuesChecks','PaymentChecks','OrderChecks','RuntimeLifetimeChecks','SaveStateChecks','MangoGiftChecks','ItemChecks')){
+ foreach($name in @('ItemTagChecks','MaintenanceChecks','ExtensionChecks','HostChecks','SpacerModValuesChecks','PaymentChecks','OrderChecks','RuntimeLifetimeChecks','SaveStateChecks','MangoGiftChecks','ItemChecks')){
   $checkRoot=Join-Path $runRoot $name
   Invoke-Check "$name-build" 'compile-test' $sdk @('build',(Join-Path $PSScriptRoot "checks/$name/Checks.csproj"),'--artifacts-path',$checkRoot,"-p:GameManaged=$managed")
   $checkArgs=@((Join-Path $checkRoot 'bin/Checks/debug/Checks.dll'))
