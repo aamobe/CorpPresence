@@ -56,7 +56,7 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(rect.x, rect.y, rect.width, 30f), MeridianModules[_module], theme.HotTitle);
 		Ui.Fill(new Rect(rect.x, rect.y + 34f, rect.width, 1f), theme.Ink);
 		Rect rect2 = new Rect(rect.x, rect.y + 44f, rect.width, rect.height - 44f);
-		if (DrawExtraIfSelected(MeridianBase.Length, rect2))
+		if (DrawTermsIfSelected(MeridianBase.Length, rect2))
 		{
 			return;
 		}
@@ -73,17 +73,17 @@ internal static partial class CompanyWindow
 		case 1:
 		{
 			int num2 = (MeridianCo.Parts.Length + 8 - 1) / 8;
-			_partsPage = Math.Max(0, Math.Min(_partsPage, num2 - 1));
-			if (Ui.Button(new Rect(rect2.xMax - 150f, rect2.y - 40f, 32f, 26f), "‹", theme.BtnStyle) && _partsPage > 0)
+			Orders.PartsPage = Math.Max(0, Math.Min(Orders.PartsPage, num2 - 1));
+			if (Ui.Button(new Rect(rect2.xMax - 150f, rect2.y - 40f, 32f, 26f), "‹", theme.BtnStyle) && Orders.PartsPage > 0)
 			{
-				_partsPage--;
+				Orders.PartsPage--;
 			}
-			GUI.Label(new Rect(rect2.xMax - 116f, rect2.y - 40f, 80f, 26f), $"{_partsPage + 1}/{num2}", theme.Center);
-			if (Ui.Button(new Rect(rect2.xMax - 34f, rect2.y - 40f, 32f, 26f), "›", theme.BtnStyle) && _partsPage < num2 - 1)
+			GUI.Label(new Rect(rect2.xMax - 116f, rect2.y - 40f, 80f, 26f), $"{Orders.PartsPage + 1}/{num2}", theme.Center);
+			if (Ui.Button(new Rect(rect2.xMax - 34f, rect2.y - 40f, 32f, 26f), "›", theme.BtnStyle) && Orders.PartsPage < num2 - 1)
 			{
-				_partsPage++;
+				Orders.PartsPage++;
 			}
-			DrawMeridianOrder(rect2, MeridianCo.Parts.Skip(_partsPage * 8).Take(8).ToArray(), (L.En ? L.K("ui.meridian.overview.vanillaAttachmentsSteadySupplyX", (System.FormattableString)$"Vanilla attachments, steady supply, at {MeridianCo.PartsRate:0.0}x value. Counts as the same daily order as standard issue.") : $"原版配件，稳定供货，按价值的 {MeridianCo.PartsRate:0.0} 倍。和制式订货算同一天的一单。"));
+			DrawMeridianOrder(rect2, MeridianCo.Parts.Skip(Orders.PartsPage * 8).Take(8).ToArray(), (L.En ? L.K("ui.meridian.overview.vanillaAttachmentsSteadySupplyX", (System.FormattableString)$"Vanilla attachments, steady supply, at {MeridianCo.PartsRate:0.0}x value. Counts as the same daily order as standard issue.") : $"原版配件，稳定供货，按价值的 {MeridianCo.PartsRate:0.0} 倍。和制式订货算同一天的一单。"));
 			break;
 		}
 		case 2:
@@ -132,7 +132,7 @@ internal static partial class CompanyWindow
 			if (blocked != null)
 			{
 				GUI.Label(status, blocked, theme.Small);
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 				num4 += 36f;
 				continue;
 			}
@@ -140,25 +140,25 @@ internal static partial class CompanyWindow
 			if (num5 <= 0)
 			{
 				GUI.Label(status, L.K("ui.meridian.equipmentOrder.unavailable", "暂不可用", "Unavailable"), theme.Small);
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 				num4 += 36f;
 				continue;
 			}
 			GUI.Label(columns.Unit, $"{num5}₵", theme.Price);
-			Cart.TryGetValue(catalogEntry, out var value);
+			Orders.Cart.TryGetValue(catalogEntry, out var value);
 			value = Ui.Qty(columns.Quantity, value, Math.Min(10, Services.Left(State, catalogEntry)), theme.BtnStyle, theme.Center);
 			if (value > 0)
 			{
-				Cart[catalogEntry] = value;
+				Orders.Cart[catalogEntry] = value;
 			}
 			else
 			{
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 			}
 			GUI.Label(columns.Subtotal, (value > 0) ? $"{num5 * value}₵" : "—", theme.Center);
 			num4 += 36f;
 		}
-		int num6 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => unitPrice(kv.Key) * kv.Value);
+		int num6 = Orders.Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => unitPrice(kv.Key) * kv.Value);
 		float num7 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num7, 200f, 22f), (L.En ? L.K("ui.meridian.equipmentOrder.total", (System.FormattableString)$"Total {num6}₵") : $"合计 {num6}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num7 + 22f, r.width - 170f, 20f), num6);
@@ -166,10 +166,10 @@ internal static partial class CompanyWindow
 		GUI.enabled = enabled && num6 > 0 && Services.CanAfford(cashDue) && flag;
 		if (Ui.Button(new Rect(r.xMax - 170f, num7 + 2f, 160f, 36f), submitLabel, theme.BtnHotStyle))
 		{
-			string text = Services.PlaceOrder(_company, Cart, unitPrice);
+			string text = Services.PlaceOrder(_company, Orders.Cart, unitPrice);
 			if (text == null)
 			{
-				Cart.Clear();
+				Orders.Cart.Clear();
 				Toast(_company.FrontDeskDone);
 			}
 			else

@@ -60,7 +60,7 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(rect.x, rect.y, rect.width, 30f), CarmModules[_module], theme.Title);
 		Ui.Fill(new Rect(rect.x, rect.y + 34f, rect.width, 1f), theme.Line);
 		Rect rect2 = new Rect(rect.x, rect.y + 44f, rect.width, rect.height - 44f);
-		if (DrawExtraIfSelected(CarmBase.Length, rect2))
+		if (DrawTermsIfSelected(CarmBase.Length, rect2))
 		{
 			return;
 		}
@@ -133,7 +133,7 @@ internal static partial class CompanyWindow
 			if (text2 != null)
 			{
 				GUI.Label(status, text2, theme.Small);
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 				num3 += 36f;
 				continue;
 			}
@@ -141,25 +141,25 @@ internal static partial class CompanyWindow
 			if (num4 <= 0)
 			{
 				GUI.Label(status, L.K("ui.carmichael.orders.unavailable", "暂不可用", "Unavailable"), theme.Small);
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 				num3 += 36f;
 				continue;
 			}
 			GUI.Label(columns.Unit, $"{num4}₵", theme.Price);
-			Cart.TryGetValue(catalogEntry, out var value);
+			Orders.Cart.TryGetValue(catalogEntry, out var value);
 			value = Ui.Qty(columns.Quantity, value, Math.Min(10, val), theme.BtnStyle, theme.Center);
 			if (value > 0)
 			{
-				Cart[catalogEntry] = value;
+				Orders.Cart[catalogEntry] = value;
 			}
 			else
 			{
-				Cart.Remove(catalogEntry);
+				Orders.Cart.Remove(catalogEntry);
 			}
 			GUI.Label(columns.Subtotal, (value > 0) ? $"{num4 * value}₵" : "—", theme.Center);
 			num3 += 36f;
 		}
-		int num5 = Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => CarmUnitPrice(kv.Key) * kv.Value);
+		int num5 = Orders.Cart.Sum((KeyValuePair<CatalogEntry, int> kv) => CarmUnitPrice(kv.Key) * kv.Value);
 		float num6 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num6, 200f, 22f), (L.En ? L.K("ui.carmichael.orders.total", (System.FormattableString)$"Total {num5}₵") : $"合计 {num5}₵"), theme.Price);
 		int cashDue = DrawCheckoutBalance(new Rect(r.x, num6 + 22f, r.width - 170f, 20f), num5);
@@ -167,10 +167,10 @@ internal static partial class CompanyWindow
 		GUI.enabled = enabled2 && num5 > 0 && Services.CanAfford(cashDue) && flag;
 		if (Ui.Button(new Rect(r.xMax - 170f, num6 + 2f, 160f, 36f), L.K("ui.carmichael.orders.submitOrder", "提交订货单", "Submit order"), theme.BtnHotStyle))
 		{
-			string text3 = Services.PlaceOrder(_company, Cart, CarmUnitPrice);
+			string text3 = Services.PlaceOrder(_company, Orders.Cart, CarmUnitPrice);
 			if (text3 == null)
 			{
-				Cart.Clear();
+				Orders.Cart.Clear();
 				Toast(_company.FrontDeskDone);
 			}
 			else

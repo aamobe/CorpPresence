@@ -54,7 +54,7 @@ internal static partial class CompanyWindow
 		GUI.Label(new Rect(rect.x, rect.y, rect.width, 30f), SpacerTitle(_module), theme.HotTitle);
 		Ui.Fill(new Rect(rect.x, rect.y + 34f, rect.width, 1f), theme.Ink);
 		Rect rect2 = new Rect(rect.x, rect.y + 44f, rect.width, rect.height - 44f);
-		if (!DrawExtraIfSelected(SpacerPages.Length, rect2))
+		if (!DrawTermsIfSelected(SpacerPages.Length, rect2))
 		{
 			if (_company.Tier(state) < 1)
 			{
@@ -120,24 +120,24 @@ internal static partial class CompanyWindow
 			num6 = Math.Max(1, (int)((r.yMax - num5 - 40f - num4) / 33f));
 		}
 		int num7 = (list.Count + num6 - 1) / num6;
-		if (_orderPageKey != _company.Id + page)
+		if (Orders.PageKey != _company.Id + page)
 		{
-			_orderPageKey = _company.Id + page;
-			_orderPage = 0;
+			Orders.PageKey = _company.Id + page;
+			Orders.Page = 0;
 		}
-		_orderPage = Math.Max(0, Math.Min(_orderPage, num7 - 1));
+		Orders.Page = Math.Max(0, Math.Min(Orders.Page, num7 - 1));
 		if (num7 > 1)
 		{
 			float num8 = r.xMax - 150f;
 			float y = r.yMax - 84f;
-			if (Ui.Button(new Rect(num8, y, 34f, 30f), "‹", theme.BtnStyle) && _orderPage > 0)
+			if (Ui.Button(new Rect(num8, y, 34f, 30f), "‹", theme.BtnStyle) && Orders.Page > 0)
 			{
-				_orderPage--;
+				Orders.Page--;
 			}
-			GUI.Label(new Rect(num8 + 38f, y, 70f, 30f), $"{_orderPage + 1} / {num7}", theme.Center);
-			if (Ui.Button(new Rect(num8 + 112f, y, 34f, 30f), "›", theme.BtnStyle) && _orderPage < num7 - 1)
+			GUI.Label(new Rect(num8 + 38f, y, 70f, 30f), $"{Orders.Page + 1} / {num7}", theme.Center);
+			if (Ui.Button(new Rect(num8 + 112f, y, 34f, 30f), "›", theme.BtnStyle) && Orders.Page < num7 - 1)
 			{
-				_orderPage++;
+				Orders.Page++;
 			}
 		}
 		var prices = new Dictionary<CatalogEntry, int>();
@@ -147,7 +147,7 @@ internal static partial class CompanyWindow
 				prices[item] = price = SpacerUnitPrice(item);
 			return price;
 		}
-		foreach (CatalogEntry item in list.Skip(_orderPage * num6).Take(num6))
+		foreach (CatalogEntry item in list.Skip(Orders.Page * num6).Take(num6))
 		{
 			Ui.Fill(new Rect(r.x, num4 + 31f, r.width, 1f), theme.Line);
 			var columns = OrderColumns(new Rect(r.x, num4, r.width, 32f));
@@ -157,7 +157,7 @@ internal static partial class CompanyWindow
 			if (item.MinTier > num)
 			{
 				GUI.Label(status, (L.En ? L.K("ui.spacer.orders.value", (System.FormattableString)$"At {_company.TierNames[item.MinTier - 1]}") : _company.TierNames[item.MinTier - 1] + "才有"), theme.Small);
-				Cart.Remove(item);
+				Orders.Cart.Remove(item);
 				num4 += 33f;
 				continue;
 			}
@@ -165,20 +165,20 @@ internal static partial class CompanyWindow
 			if (num9 <= 0)
 			{
 				GUI.Label(status, L.K("ui.spacer.orders.unavailable", "暂不可用", "Unavailable"), theme.Small);
-				Cart.Remove(item);
+				Orders.Cart.Remove(item);
 				num4 += 33f;
 				continue;
 			}
 			GUI.Label(columns.Unit, $"{num9}₵", theme.Price);
-			Cart.TryGetValue(item, out var value);
+			Orders.Cart.TryGetValue(item, out var value);
 			value = Ui.Qty(columns.Quantity, value, Math.Min(10, Services.Left(State, item)), theme.BtnStyle, theme.Center);
 			if (value > 0)
 			{
-				Cart[item] = value;
+				Orders.Cart[item] = value;
 			}
 			else
 			{
-				Cart.Remove(item);
+				Orders.Cart.Remove(item);
 			}
 			GUI.Label(columns.Subtotal, (value > 0) ? $"{(long)num9 * value}₵" : "—", theme.Center);
 			num4 += 33f;
@@ -188,7 +188,7 @@ internal static partial class CompanyWindow
 			DrawSpacerCredits(new Rect(r.x, num4 + 16f, r.width, 160f));
 		}
 		int num10 = 0;
-		bool validTotal = Cart.All(kv => OrderAmounts.TryAdd(ref num10, QuotedUnitPrice(kv.Key), kv.Value, kv.Key.Bundle, out _));
+		bool validTotal = Orders.Cart.All(kv => OrderAmounts.TryAdd(ref num10, QuotedUnitPrice(kv.Key), kv.Value, kv.Key.Bundle, out _));
 		float num11 = r.yMax - 44f;
 		GUI.Label(new Rect(r.x, num11, 260f, 22f), !validTotal ? "—" : (L.En ? L.K("ui.spacer.orders.totalAllPages", (System.FormattableString)$"Total {num10}₵ (all pages)") : $"合计 {num10}₵（各页合计）"), theme.Price);
 		int cashDue = validTotal ? DrawCheckoutBalance(new Rect(r.x, num11 + 22f, r.width - 150f, 20f), num10) : 0;
@@ -196,10 +196,10 @@ internal static partial class CompanyWindow
 		GUI.enabled = enabled2 && validTotal && num10 > 0 && Services.CanAfford(cashDue) && flag;
 		if (Ui.Button(new Rect(r.xMax - 150f, num11 + 2f, 140f, 36f), L.K("ui.spacer.orders.order", "下单", "Order"), theme.BtnHotStyle))
 		{
-			string text2 = Services.PlaceOrder(_company, Cart, QuotedUnitPrice);
+			string text2 = Services.PlaceOrder(_company, Orders.Cart, QuotedUnitPrice);
 			if (text2 == null)
 			{
-				Cart.Clear();
+				Orders.Cart.Clear();
 				Toast(_company.FrontDeskDone);
 			}
 			else

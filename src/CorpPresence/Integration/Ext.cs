@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using CorpPresence.UI;
-using UnityEngine;
 
 namespace CorpPresence;
 
@@ -12,10 +10,6 @@ internal static class Ext
 	public static readonly ExtensionEvent DayStart = new("DayStart");
 
 	public static readonly ExtensionEvent StateReset = new("StateReset");
-
-	public static Func<Company, string> ExtraModule;
-
-	public static Action<Company, Rect, Theme> DrawExtraModule;
 
 	public static Func<Company, string, StoreClient> SpawnVisitor;
 

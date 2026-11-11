@@ -16,6 +16,8 @@ internal static partial class CompanyWindow
 
 	private static int _swapCount;
 
+	private static readonly OrderPageState Orders = new();
+
 	private static Company _company;
 
 	private static Theme _theme;
@@ -32,10 +34,6 @@ internal static partial class CompanyWindow
 
 	private static bool _openedThisFrame;
 
-	private static readonly Dictionary<CatalogEntry, int> Cart = new Dictionary<CatalogEntry, int>();
-
-	private static string _page = "日用";
-
 	private static Vector2 _size;
 
 	private const float DragBar = 80f;
@@ -49,8 +47,6 @@ internal static partial class CompanyWindow
 	private static Vector2 _center;
 
 	private static CatalogEntry _leviathan;
-
-	private static int _partsPage;
 
 	private const int PartsPerPage = 8;
 
@@ -68,11 +64,7 @@ internal static partial class CompanyWindow
 
 	private static readonly string[] AlliancePages = new string[6] { "军械", "药房", "码头", null, "阵线", "目录" };
 
-	private static int _orderPage;
-
-	private static string _orderPageKey;
-
-	private static string[] CarmModules => WithExtra(CarmBase);
+	private static string[] CarmModules => WithTerms(CarmBase);
 
 	private static string[] CarmBase => MenuLabels.Get(0, L.En);
 
@@ -127,15 +119,15 @@ internal static partial class CompanyWindow
 		return DrawVoucherDetails(new Rect(r.x + 126f, r.y, r.width - 126f, r.height), amount);
 	}
 
-	private static string[] DavreModules => WithExtra(DavreBase);
+	private static string[] DavreModules => WithTerms(DavreBase);
 
 	private static string[] DavreBase => MenuLabels.Get(1, L.En);
 
-	private static string[] MeridianModules => WithExtra(MeridianBase);
+	private static string[] MeridianModules => WithTerms(MeridianBase);
 
 	private static string[] MeridianBase => MenuLabels.Get(2, L.En);
 
-	private static string[] PastelModules => WithExtra(PastelBase);
+	private static string[] PastelModules => WithTerms(PastelBase);
 
 	private static string[] PastelBase => MenuLabels.Get(3, L.En);
 
@@ -161,11 +153,11 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static string[] SolanaModules => WithExtra(SolanaBase);
+	private static string[] SolanaModules => WithTerms(SolanaBase);
 
 	private static string[] SolanaBase => MenuLabels.Get(9, L.En);
 
-	private static string[] SpacerServices => WithExtra(SpacerBase);
+	private static string[] SpacerServices => WithTerms(SpacerBase);
 
 	private static string[] SpacerBase
 	{
@@ -229,10 +221,9 @@ internal static partial class CompanyWindow
 			}
 			_theme = theme;
 			_module = 0;
-			_page = "日用";
+			Orders.Reset();
 			_brandSel = null;
 			Brand.ScanOwned();
-			Cart.Clear();
 			_desk = c.FrontDesk[new System.Random().Next(c.FrontDesk.Length)];
 			_toast = null;
 			Vector2 size;
@@ -280,6 +271,7 @@ internal static partial class CompanyWindow
 	{
 		ResetStoryGuide();
 		Visible = false;
+		Orders.Reset();
 		Pointer.PendingClick = null;
 		InputShield.Update(visible: false, default);
 		Portraits.ReleasePanelTextures();
@@ -291,7 +283,7 @@ internal static partial class CompanyWindow
 		finally
 		{
 			_theme = null; _company = null; _toast = null; _brandSel = null;
-			Cart.Clear(); NameCache.Clear(); SwapRows.Clear(); RefurbRows.Clear(); BrandFit.Clear(); _brandFitTheme = null;
+			Orders.Reset(); NameCache.Clear(); SwapRows.Clear(); RefurbRows.Clear(); BrandFit.Clear(); _brandFitTheme = null;
 			_dragging = false; _openedThisFrame = false;
 			Ui.ResetCaches();
 		}
@@ -457,11 +449,10 @@ internal static partial class CompanyWindow
 		}
 	}
 
-	private static string[] WithExtra(string[] modules)
+	private static string[] WithTerms(string[] modules)
 	{
-		Func<Company, string> f = Ext.ExtraModule;
 		Company c = _company;
-		string text = ((f == null || c == null) ? null : Ext.Ask("ExtraModule", () => f(c), null));
+		string text = ((!Malice.Malice.IsInstalled || c == null) ? null : Ext.Ask("ExtraModule", () => Malice.Malice.Applies(c) ? L.K("malice.malice.install.corporateTerms", "巨企合约", "Corporate Terms") : null, null));
 		string[] array = MenuLabels.Append(modules, text);
 		if (_module >= array.Length)
 		{
@@ -470,20 +461,19 @@ internal static partial class CompanyWindow
 		return array;
 	}
 
-	private static bool DrawExtraIfSelected(int baseCount, Rect body)
+	private static bool DrawTermsIfSelected(int baseCount, Rect body)
 	{
 		if (_module < baseCount)
 		{
 			return false;
 		}
-		Action<Company, Rect, Theme> f = Ext.DrawExtraModule;
 		Company c = _company;
 		Theme t = _theme;
-		if (f != null)
+		if (Malice.Malice.IsInstalled)
 		{
 			Ext.Ask("DrawExtraModule", () =>
 			{
-				f(c, body, t);
+				MalicePanel.Draw(c, body, t);
 				return true;
 			}, fallback: false);
 		}

@@ -28,8 +28,6 @@ internal static partial class Malice
 			callbacks.Own(Ext.StateReset.Subscribe("malice", () => { MaliceState.Reset(); Envoy.ResetNotifications(); }));
 			callbacks.Own(Ext.DayStart.Subscribe("malice", OnDayStart));
 			callbacks.Own(CorpPresence.Runtime.RuntimeUpdates.Register("malice.envoy", Envoy.Tick));
-			callbacks.Replace(() => Ext.ExtraModule, value => Ext.ExtraModule = value, (Company c) => (!Applies(c)) ? null : L.K("malice.malice.install.corporateTerms", "巨企合约", "Corporate Terms"));
-			callbacks.Replace(() => Ext.DrawExtraModule, value => Ext.DrawExtraModule = value, MalicePanel.Draw);
 			callbacks.Replace(() => Ext.SpawnVisitor, value => Ext.SpawnVisitor = value, Rebels.SpawnVisitor);
 			callbacks.Replace(() => Ext.SoldToClient, value => Ext.SoldToClient = value, (StoreClient cl, GameItem it, int amt) =>
 			{
