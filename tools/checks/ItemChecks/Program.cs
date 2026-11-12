@@ -12,6 +12,24 @@ ModItemDirectory Directory()
     var directory=new ModItemDirectory();DirectoryMaster.Current=directory;ModHook.Fire(directory);return directory;
 }
 Reset();
+ItemRegistry.Install();
+GameResources.Ready = true;
+var retainedDirectory = new ModItemDirectory();
+Check(DirectoryMaster.TryAddDirectory(retainedDirectory), "first shop load registers the global directory");
+retainedDirectory.SceneObjectDestroyed = true;
+var nextShopDirectory = new ModItemDirectory();
+Check(retainedDirectory == null && !DirectoryMaster.TryAddDirectory(nextShopDirectory) && nextShopDirectory.Adds == 0,
+    "reloading keeps the first managed directory and skips init on the rejected duplicate");
+var crate = ItemRegistry.Create("corp_presence_other");
+var paidGoods = ItemRegistry.Create("corp_presence_test");
+var firstVisitCard = ItemRegistry.Create("corp_presence_card_test");
+Check(crate?.identifier == "corp_presence_other" && paidGoods?.identifier == "corp_presence_test"
+    && firstVisitCard?.identifier == "corp_presence_card_test",
+    "reloading can create the delivery crate, paid goods and first-visit business card");
+ItemRegistry.Uninstall();
+Check(retainedDirectory.factoryDictionary.Count == 0,
+    "uninstall releases owned entries from the retained managed directory");
+Reset();
 foreach(var nativeId in new[]{"ammo_box","blood_bag","c4","galaxy_blend"})
 {
     DirectoryMaster.Native[nativeId]=()=>new(){identifier=nativeId};

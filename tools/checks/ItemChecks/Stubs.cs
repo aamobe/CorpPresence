@@ -28,6 +28,16 @@ internal sealed class ModItemDirectory
     internal readonly Dictionary<string,Func<GameItem>> factoryDictionary=new(StringComparer.Ordinal);
     internal string RejectId, ThrowId, ThrowRemoveId;
     internal int Adds;
+    internal bool SceneObjectDestroyed;
+    public static bool operator ==(ModItemDirectory left, ModItemDirectory right)
+    {
+        if (left is null) return right is null || right.SceneObjectDestroyed;
+        if (right is null) return left.SceneObjectDestroyed;
+        return ReferenceEquals(left, right);
+    }
+    public static bool operator !=(ModItemDirectory left, ModItemDirectory right) => !(left == right);
+    public override bool Equals(object other) => ReferenceEquals(this, other);
+    public override int GetHashCode() => System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this);
     internal bool Has(string id)=>factoryDictionary.ContainsKey(id);
     internal bool Add(string id,Func<GameItem> factory)
     {
@@ -44,6 +54,13 @@ internal sealed class ModItemDirectory
 internal static class DirectoryMaster
 {
     internal static ModItemDirectory Current;
+    internal static bool TryAddDirectory(ModItemDirectory directory)
+    {
+        if (Current is not null) return false;
+        Current = directory;
+        ModHook.Fire(directory);
+        return true;
+    }
     internal static readonly Dictionary<string,Func<GameItem>> Native=new();
     internal static bool Has<T>(string id)=>Native.ContainsKey(id) || Current?.Has(id)==true;
     internal static Func<GameItem> GetFactory<T>(string id)=>Native.TryGetValue(id,out var factory)?factory:Current?.factoryDictionary.GetValueOrDefault(id);

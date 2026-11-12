@@ -63,7 +63,7 @@ internal static class ItemRegistry
 		{
 			try
 			{
-				if (_directory != null && Factories.TryGetValue(id, out var factory)
+				if (_directory is not null && Factories.TryGetValue(id, out var factory)
 					&& _directory.factoryDictionary.TryGetValue(id, out var current) && ReferenceEquals(factory, current))
 				{
 					_directory.Remove(id);
@@ -87,17 +87,17 @@ internal static class ItemRegistry
 		if (!GameResources.Ready) throw new InvalidOperationException("公司物品资源尚未就绪");
 		ModItemDirectory pending = _pendingDirectory;
 		_pendingDirectory = null;
-		if (pending != null) Register(pending);
+		if (pending is not null) Register(pending);
 	}
 
 	private static void Register(ModItemDirectory directory)
 	{
-		if (directory == null)
+		if (directory is null)
 		{
 			return;
 		}
 		if (!GameResources.Ready) { _pendingDirectory = directory; return; }
-		if ((object)_directory != directory)
+		if (!ReferenceEquals(_directory, directory))
 		{
 			ReleaseFactories();
 			if (LastReleaseFailed) return;
@@ -163,9 +163,10 @@ internal static class ItemRegistry
 			// This shared creation entry also serves vanilla ingredients, templates and rewards.
 			// Only our declared independent identities require registry ownership.
 			if (ItemIdentity.Find(id, null) == null) return DirectoryMaster.Has<GameItem>(id);
+			// DirectoryMaster retains the managed directory after its Unity scene object is destroyed.
 			return IsInstalled && GameResources.Ready && !LastReleaseFailed
 				&& Registered.Contains(id) && Factories.TryGetValue(id, out var owned)
-				&& _directory != null && _directory.factoryDictionary.TryGetValue(id, out var current)
+				&& _directory is not null && _directory.factoryDictionary.TryGetValue(id, out var current)
 				&& ReferenceEquals(owned, current) && ReferenceEquals(owned, DirectoryMaster.GetFactory<GameItem>(id));
 		}
 		catch (Exception ex)
