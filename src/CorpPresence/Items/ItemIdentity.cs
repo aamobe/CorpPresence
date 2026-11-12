@@ -63,6 +63,8 @@ internal static class ItemIdentity
 		new Entry(CargoWarehouse.ItemId, null, CargoWarehouse.SpriteKey, CargoWarehouse.GoodsKey, null),
 		new Entry(CargoWarehouse.MangoId, null, "corp_med_" + CargoWarehouse.MangoKey, CargoWarehouse.MangoKey, null),
 		new Entry("corp_presence_mango_backpack", null, "corp_med_mango_backpack", "mango_backpack", null),
+		new Entry(UfoBackpack.ItemId, null, "corp_med_ufo_backpack", UfoBackpack.Key, null),
+        new Entry(FufuDoll.ItemId, null, "corp_med_fufu_doll", FufuDoll.Key, null),
 		new Entry(WasteBattery.ItemId, null, "corp_med_waste_battery", WasteBattery.Key, null),
 		new Entry(CargoWarehouse.ModuleId, null, CargoWarehouse.ModuleSpriteKey, CargoWarehouse.ModuleKey, null),
 		new Entry(CargoWarehouse.ControllerId, null, CargoWarehouse.ControllerSpriteKey, CargoWarehouse.ControllerKey, null),

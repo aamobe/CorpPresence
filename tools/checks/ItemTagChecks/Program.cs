@@ -48,3 +48,10 @@ Check("AfterDecode repairs nested mod liquid without classifying its native root
  VerifyRepair(item,true,_=>ItemTags.AfterDecode(root));
 });
 Console.WriteLine($"ITEM TAG CHECKS PASSED: {passed}");
+
+Check("UFO backpack keeps native capability after category normalization",()=>{
+ var bag=new GameItem{identifier=UfoBackpack.ItemId};
+ bag.EnableTag("backpack");bag.EnableTag("equippable");bag.EnableTag("CONTAINER_TAG");
+ ItemTags.Apply(bag,Array.Empty<string>(),Array.Empty<string>());
+ Require(bag.IsTag("BACKPACK_TAG")&&bag.IsTag("backpack")&&bag.IsTag("equippable")&&bag.IsTag("CONTAINER_TAG"),"backpack capability lost");
+});

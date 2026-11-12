@@ -62,7 +62,7 @@ internal static class ProductionWorkBay
 
     internal static bool Allows(int page, string itemId) =>
         page >= 0 && page < AllowedIds.Length && itemId != null &&
-        (AllowedIds[page].Contains(itemId) || (page switch
+        (itemId == "powerblock" || AllowedIds[page].Contains(itemId) || (page switch
         {
             TobaccoPage => itemId is "hydroponic" or "packet_red_cigarette",
             FoodPage => itemId is "animal_cage" or "rat" or "livestock_feed_dispenser" or "auto_butcher"

@@ -89,3 +89,34 @@ foreach(int bad in new[]{-1,3,int.MaxValue}){
     if(SaveSlot.CanWrite("CorpPresence")||PlayerStore.Instance.modData["CorpPresence"]!=raw)throw new Exception("Invalid waste battery state was overwritten");
 }
 Console.WriteLine("6 passed: waste battery defaults, three-state roundtrip and invalid-state write protection");
+
+foreach(int giftStatus in new[]{0,1,2}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    var giftState=CorpState.Get();
+    if(giftState.UfoBackpackGiftStatus!=0)throw new Exception("Old saves must default ufo backpack to unclaimed");
+    giftState.UfoBackpackGiftStatus=giftStatus;CorpState.Save();CorpState.Current=null;
+    if(CorpState.Get().UfoBackpackGiftStatus!=giftStatus)throw new Exception("UFO backpack gift status lost on load");
+}
+foreach(int bad in new[]{-1,3,int.MaxValue}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    string raw="{\"RunId\":\"test\",\"UfoBackpackGiftStatus\":"+bad+"}";
+    PlayerStore.Instance.modData["CorpPresence"]=raw;
+    CorpState.Get();CorpState.Save();
+    if(SaveSlot.CanWrite("CorpPresence")||PlayerStore.Instance.modData["CorpPresence"]!=raw)throw new Exception("Invalid ufo backpack state was overwritten");
+}
+Console.WriteLine("6 passed: ufo backpack defaults, three-state roundtrip and invalid-state write protection");
+foreach(int giftStatus in new[]{0,1,2}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    var giftState=CorpState.Get();
+    if(giftState.FufuDollGiftStatus!=0)throw new Exception("Old saves must default fufu doll to unclaimed");
+    giftState.FufuDollGiftStatus=giftStatus;CorpState.Save();CorpState.Current=null;
+    if(CorpState.Get().FufuDollGiftStatus!=giftStatus)throw new Exception("Fufu doll gift status lost on load");
+}
+foreach(int bad in new[]{-1,3,int.MaxValue}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    string raw="{\"RunId\":\"test\",\"FufuDollGiftStatus\":"+bad+"}";
+    PlayerStore.Instance.modData["CorpPresence"]=raw;
+    CorpState.Get();CorpState.Save();
+    if(SaveSlot.CanWrite("CorpPresence")||PlayerStore.Instance.modData["CorpPresence"]!=raw)throw new Exception("Invalid fufu doll state was overwritten");
+}
+Console.WriteLine("6 passed: fufu doll defaults, three-state roundtrip and invalid-state write protection");

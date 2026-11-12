@@ -17,6 +17,7 @@ internal static partial class Hooks
 		Type typeFromHandle = typeof(Hooks);
 		Type typeFromHandle2 = typeof(ItemRegistry);
 		RatWheelGenerator.Install(h);
+        FufuTheft.Install(h);
 		Patch<SaveManager>(h, "DecodeNodes", typeFromHandle2, "BeforeDecode", null, new Type[1] { typeof(List<SaveItemNode>) });
 		Patch<SaveManager>(h, "DecodeNodes", typeof(ItemTags), null, "AfterDecode", new Type[1] { typeof(List<SaveItemNode>) });
 		Patch(h, AccessTools.Method(typeof(StorageExpansionHelper), nameof(StorageExpansionHelper.RestoreTabs), new[] { typeof(GameItem) }),

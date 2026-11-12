@@ -12,7 +12,7 @@ internal static class Settings{public static bool CleanupForUninstall;}
 internal class StorePhoneClient {public enum PhoneClientType{None,Supplier}public enum PhoneState{Regular,NotResponding}public PhoneClientType phoneClientType;public PhoneState phoneState;public string displayName,locID,dialogFuncId;public int cooldownDuration,currentCooldown;public bool dialedBefore;}
 internal class Dialogue {public string Name,Text;public Action Start,End;public Dialogue SetText(string n,string t){Name=n;Text=t;return this;}public Dialogue SetStartAction(Action a){Start=a;return this;}public Dialogue SetEndAction(Action a){End=a;return this;}}
 internal class PhoneUIManager {public static PhoneUIManager Instance=new();public StorePhoneClient currentPhoneClient;public int Ended;public void OnPhoneDialogEnd(){Ended++;currentPhoneClient=null;}}
-internal class CorpState {public static CorpState Current=new();public int MangoGiftStatus,WasteBatteryGiftStatus;public static CorpState Get()=>Current;}
+internal class CorpState {public static CorpState Current=new();public int MangoGiftStatus,WasteBatteryGiftStatus,UfoBackpackGiftStatus,FufuDollGiftStatus;public static CorpState Get()=>Current;}
 internal static class WasteBattery {public const string Key="waste_battery";}
 internal static class SaveSlot {public static PlayerStore CurrentStore=new();public static bool Writable=true;public static bool CanWrite(string k)=>Writable;}
 internal readonly struct StoreSession {private readonly PlayerStore owner;private StoreSession(PlayerStore s){owner=s;}public static StoreSession Capture()=>new(SaveSlot.CurrentStore);public bool IsCurrent=>owner!=null&&ReferenceEquals(owner,SaveSlot.CurrentStore);}
@@ -35,3 +35,6 @@ internal static class CargoWarehouse{public const string MangoId="corp_presence_
 namespace UnityEngine{public static class Object{public static T FindObjectOfType<T>() where T:new()=>new();}}
 
 namespace CorpPresence { internal class GameInventory { public Func<GameItem,GameInventory,bool> mayInventoryAddItemFunc; } internal static class DirectoryUtils {public static (object,GameInventory) CreateInventoryWindow(int w,int h)=>(new object(),new GameInventory());} internal static class ItemDirectory {public static GameItem CreateEmptyItem()=>new();} internal static class ContainerHelper {public static void InitBackpackItem(GameInventory inv,GameItem item){item.Backpack=true;inv.mayInventoryAddItemFunc=(i,v)=>i.identifier!=CargoWarehouse.MangoId;}} }
+
+namespace CorpPresence { internal static class UfoBackpack { public const string Key="ufo_backpack"; public static bool Fail; public static bool InitializeGift(GameItem bag)=>!Fail; } }
+namespace CorpPresence { internal static class FufuDoll { public const string Key = "fufu_doll"; } }

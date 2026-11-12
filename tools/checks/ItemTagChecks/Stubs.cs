@@ -43,3 +43,5 @@ static class Compat {public static T Cast<T>(object item)=>(T)item;}
 static class GraphUtils {public static List<T> FindAllChildrenType<T>(GraphNodeStorage root)=>root.Children.Cast<T>().ToList();}
 class EmporiumEntry {public static EmporiumEntry Instance;public List<GameItem> GetAllItems()=>new();}
 static class ModLog {public static void Warn(string text)=>throw new Exception(text);}
+
+static class UfoBackpack { public const string ItemId="corp_presence_ufo_backpack"; }

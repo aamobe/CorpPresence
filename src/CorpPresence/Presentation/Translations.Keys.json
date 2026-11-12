@@ -1,4 +1,42 @@
 {
+"fufuDoll.name": [
+    "Кукла Fufu",
+    "Poupée Fufu"
+  ],
+  "fufuDoll.description": [
+    "Пока кукла у вас, вероятность ночной кражи умножается на 50%. Работает в сумках и контейнерах магазина; несколько кукол не усиливают эффект.",
+    "Tant que vous la possédez, le risque de vol nocturne est multiplié par 50 %. Fonctionne dans les sacs et conteneurs du magasin ; les effets ne se cumulent pas."
+  ],
+  "fufuDoll.visitor.thanks": [
+    "Спасибо учителю Фу за поддержку.",
+    "Merci à Maître Fu pour son soutien."
+  ],
+  "fufuDoll.phone.notReady": [
+    "Сейчас нельзя организовать подарок. Позвоните позже.",
+    "Le cadeau ne peut être préparé pour le moment. Rappelez plus tard."
+  ],
+  "fufuDoll.phone.claimed": [
+    "Ваша кукла Fufu уже доставлена. Спасибо за поддержку!",
+    "Votre poupée Fufu a déjà été livrée. Merci de votre soutien !"
+  ],
+  "fufuDoll.phone.pending": [
+    "Ваша кукла Fufu отложена. Я принесу её лично. Оставьте на прилавке место 3 x 3.",
+    "Votre poupée Fufu est réservée. Je vous la livrerai en personne. Libérez une place de 3 x 3 sur le comptoir."
+  ],
+  "fufuDoll.delivery.full": [
+    "Освободите место 3 x 3 на прилавке. Куклу Fufu доставят снова.",
+    "Libérez une place de 3 x 3 sur le comptoir. La poupée Fufu sera livrée à nouveau."
+  ],
+
+  "ufoBackpack.name": ["Рюкзак-НЛО", "Sac à dos OVNI"],
+  "ufoBackpack.description": ["Основное отделение 8 x 9, как у большого рюкзака, и отдельный отсек со встроенным набором инструментов. Изначально 3 ячейки, расширяется до 9 металлоломом.", "Rangement 8 x 9 du grand sac à dos et compartiment séparé avec boîte à outils intégrée. 3 emplacements au départ, extensibles à 9 avec de la ferraille."],
+  "ufoBackpack.storage": ["Основное отделение", "Rangement"],
+  "ufoBackpack.toolbox": ["Встроенный набор инструментов", "Boîte à outils intégrée"],
+  "ufoBackpack.phone.notReady": ["Сейчас нельзя организовать подарок. Позвоните позже.", "Le cadeau ne peut être préparé pour le moment. Rappelez plus tard."],
+  "ufoBackpack.phone.claimed": ["Ваш рюкзак-НЛО уже доставлен. Спасибо за поддержку!", "Votre sac à dos OVNI a déjà été livré. Merci de votre soutien !"],
+  "ufoBackpack.phone.pending": ["Ваш рюкзак-НЛО отложен. Я принесу его лично. Оставьте на прилавке место 3 x 3.", "Votre sac à dos OVNI est réservé. Je vous le livrerai en personne. Libérez une place de 3 x 3 sur le comptoir."],
+  "ufoBackpack.visitor.thanks": ["Подарок от НЛО", "Un cadeau d’OVNI"],
+  "ufoBackpack.delivery.full": ["Освободите место 3 x 3 на прилавке. Рюкзак-НЛО доставят снова.", "Libérez une place de 3 x 3 sur le comptoir. Le sac à dos OVNI sera livré à nouveau."],
   "wasteBattery.phone.notReady": ["Сейчас нельзя организовать подарок. Позвоните позже.", "Le cadeau ne peut pas être préparé pour le moment. Rappelez plus tard."],
   "wasteBattery.phone.claimed": ["Ваша батарея на отходах уже доставлена. Спасибо за поддержку!", "Votre batterie à déchets a déjà été livrée. Merci pour votre soutien !"],
   "wasteBattery.phone.pending": ["Батарея на отходах отложена для вас. Я принесу её лично. Оставьте на прилавке место 1 x 2.", "Votre batterie à déchets est réservée. Je vous la livrerai en personne. Libérez une place de 1 x 2 sur le comptoir."],

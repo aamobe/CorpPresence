@@ -175,9 +175,9 @@ Check(IdentityContract.ValidateRejectedPairs((id,sprite)=>sprite==saved.LegacySp
 Check(IdentityContract.ValidateRejectedPairs((id,sprite)=>id==saved.LegacyId?saved.Id:null,new[]{saved}).Count>0,"resolver check rejects legacy-ID-only recognition");
 if(args.Length<1 || args.Length>2 || (args.Length==2 && args[1]!="--release-baseline"))throw new ArgumentException("Pass the freshly compiled regular CorpPresence.dll path and optional --release-baseline.");
 var baseline=IdentityContract.ReadBaseline(Path.Combine(AppContext.BaseDirectory,"IdentityBaseline.json"));
-Check(baseline.SourceCommit=="99719c4" && baseline.Entries.Count==91,"identity baseline is the reviewed 90-entry snapshot plus waste battery");
+Check(baseline.SourceCommit=="99719c4" && baseline.Entries.Count==93,"identity baseline preserves original provenance plus three reviewed additions");
 var actual=IdentityContract.ReadAssembly(args[0]);
 var errors=args.Length==2 ? IdentityContract.ValidateRelease(actual,baseline.Entries) : IdentityContract.Validate(actual,baseline.Entries);
 if(errors.Count!=0)throw new Exception(string.Join(Environment.NewLine,errors));
-Check(actual.Count>=91,$"actual compiled identity table preserves baseline; entries={actual.Count}");
+Check(actual.Count>=93,$"actual compiled identity table preserves baseline; entries={actual.Count}");
 Console.WriteLine($"ALL ITEM CHECKS PASSED: {passed}; no Unity factories or game loaded.");

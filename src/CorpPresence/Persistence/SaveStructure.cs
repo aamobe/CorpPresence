@@ -9,6 +9,8 @@ internal static class SaveStructure
     {
         Require(state.MangoGiftStatus is >= 0 and <= 2, "芒果礼物状态无效");
         Require(state.WasteBatteryGiftStatus is >= 0 and <= 2, "废料电池礼物状态无效");
+        Require(state.UfoBackpackGiftStatus is >= 0 and <= 2, "飞碟背包礼物状态无效");
+        Require(state.FufuDollGiftStatus is >= 0 and <= 2, "Fufu玩偶礼物状态无效");
         Require(state.Characters != null && state.Companies != null && state.Meds != null, "公司根状态集合缺失");
         if (state.Seline != null) Require(state.Seline.SideDone != null, "旧瑟琳支线记录缺失");
         foreach (var entry in state.Characters) Require(entry.Value != null && entry.Value.SideDone != null, "人物记录缺失：", entry.Key);
@@ -31,4 +33,3 @@ internal static class SaveStructure
         if (!valid) throw new InvalidOperationException(key == null ? message : message + key);
     }
 }
-

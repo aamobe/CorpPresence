@@ -446,6 +446,8 @@ internal static partial class Goods
             set.Add("CargoWarehouse", CargoWarehouse.MangoKey, CargoWarehouse.MangoDefinition());
             set.Add("MangoGift", MangoGift.BackpackKey, MangoGift.BackpackDefinition());
             set.Add("WasteBattery", WasteBattery.Key, WasteBattery.Definition());
+            set.Add("UfoBackpack", UfoBackpack.Key, UfoBackpack.Definition());
+            set.Add("FufuDoll", FufuDoll.Key, FufuDoll.Definition());
             set.Add("CargoWarehouse", CargoWarehouse.ModuleKey, CargoWarehouse.ModuleDefinition());
             set.Add("CargoWarehouse", CargoWarehouse.ControllerKey, CargoWarehouse.ControllerDefinition());
             set.AddRange("Forge", Forge.Defs);

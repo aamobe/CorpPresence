@@ -76,6 +76,8 @@ internal static partial class Hooks
 	{
 		Guard("芒果彩蛋来访", () => MangoGift.Schedule(manager));
 		Guard("废料电池彩蛋来访", () => WasteBatteryGift.Schedule(manager));
+		Guard("飞碟背包彩蛋来访", () => UfoBackpackGift.Schedule(manager));
+		Guard("Fufu玩偶彩蛋来访", () => FufuDollGift.Schedule(manager));
 		Guard("安排来访", () =>
 		{
 			Engine.Schedule(manager);
@@ -88,6 +90,8 @@ internal static partial class Hooks
 		if (!__runOriginal) return;
 		Guard("芒果彩蛋来访", () => MangoGift.Schedule(__instance?.storeClientManager));
 		Guard("废料电池彩蛋来访", () => WasteBatteryGift.Schedule(__instance?.storeClientManager));
+		Guard("飞碟背包彩蛋来访", () => UfoBackpackGift.Schedule(__instance?.storeClientManager));
+		Guard("Fufu玩偶彩蛋来访", () => FufuDollGift.Schedule(__instance?.storeClientManager));
 		Guard("安排来访", () =>
 		{
 			Engine.BuyActive = false;

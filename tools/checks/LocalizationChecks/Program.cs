@@ -286,6 +286,7 @@ Check("stable translations match legacy copy or current feature translations", (
             || entry.Key == "integration.hooks.load.inventoryDecodeFailed"
             || entry.Key.StartsWith("mango.", StringComparison.Ordinal)
             || entry.Key.StartsWith("wasteBattery.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("ufoBackpack.", StringComparison.Ordinal) || entry.Key.StartsWith("fufuDoll.", StringComparison.Ordinal)
             || entry.Key.StartsWith("production.workBay.", StringComparison.Ordinal)
             || entry.Key.StartsWith("production.cargoWarehouse.", StringComparison.Ordinal)
             ? catalog[entry.Key][locale == "ru" ? 0 : 1]

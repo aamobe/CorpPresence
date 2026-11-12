@@ -58,3 +58,29 @@ Goods.Made.Clear();SaveSlot.CurrentStore.Full=false;SaveSlot.CurrentStore.OnPlac
 Check(CorpState.Current.WasteBatteryGiftStatus==2&&Goods.Made.Count==1&&Goods.Made[0].Key=="waste_battery","waste gift delivers exactly one battery");
 DialWaste();visitor.mainDialogue.Start();Check(Goods.Made.Count==1&&CorpState.Current.MangoGiftStatus==0,"waste gift neither repeats nor claims mango");
 Reset();DialWaste();visitor=ArriveWaste();old=CorpState.Current;SaveSlot.CurrentStore=new();CorpState.Current=new();visitor.mainDialogue.Start();Check(Goods.Made.Count==0&&old.WasteBatteryGiftStatus==1,"waste gift rejects stale session");
+
+void DialUfo(){var phones=new Dictionary<long,StorePhoneClient>();UfoBackpackGift.Register(phones);PhoneUIManager.Instance.currentPhoneClient=phones[9985];UfoBackpackGift.Call().End?.Invoke();}
+StoreClient ArriveUfo(){var s=SaveSlot.CurrentStore;UfoBackpackGift.Schedule(s.storeClientManager);var c=s.storeClientManager.clientStack[0];s.storeClientManager.clientStack.RemoveAt(0);s.currentClientInstance=new Client{Blueprint=c};return c;}
+Reset();var ufoPhones=new Dictionary<long,StorePhoneClient>{{9985,foreign}};UfoBackpackGift.Register(ufoPhones);Check(ReferenceEquals(ufoPhones[9985],foreign),"9985 preserves foreign registration");
+DialUfo();DialUfo();Check(CorpState.Current.UfoBackpackGiftStatus==1&&SaveSlot.CurrentStore.storeClientManager.clientStack.Count==1,"9985 queues one gift");
+visitor=ArriveUfo();Check(visitor.mainDialogue.Text=="飞碟赠礼","exact UFO gift dialogue");
+SaveSlot.CurrentStore.Full=true;visitor.mainDialogue.Start();Check(CorpState.Current.UfoBackpackGiftStatus==1&&Goods.Made.All(i=>i.destroyed),"ufo gift full counter preserves pending");
+Goods.Made.Clear();SaveSlot.CurrentStore.Full=false;SaveSlot.CurrentStore.OnPlace=()=>visitor.mainDialogue.Start();visitor.mainDialogue.Start();
+Check(CorpState.Current.UfoBackpackGiftStatus==2&&Goods.Made.Count==1&&Goods.Made[0].Key=="ufo_backpack","ufo gift delivers exactly one backpack");
+DialUfo();visitor.mainDialogue.Start();Check(Goods.Made.Count==1&&CorpState.Current.MangoGiftStatus==0,"ufo gift neither repeats nor claims mango");
+Reset();DialUfo();visitor=ArriveUfo();old=CorpState.Current;SaveSlot.CurrentStore=new();CorpState.Current=new();visitor.mainDialogue.Start();Check(Goods.Made.Count==0&&old.UfoBackpackGiftStatus==1,"ufo gift rejects stale session");
+
+Reset();UfoBackpack.Fail=true;DialUfo();visitor=ArriveUfo();visitor.mainDialogue.Start();
+Check(CorpState.Current.UfoBackpackGiftStatus==1 && Goods.Made.Count==1 && Goods.Made[0].destroyed && SaveSlot.CurrentStore.Placed==null,"failed built-in toolbox prevents delivery and cleans bag");
+UfoBackpack.Fail=false;visitor.mainDialogue.Start();
+Check(CorpState.Current.UfoBackpackGiftStatus==2 && SaveSlot.CurrentStore.Placed!=null,"toolbox initialization failure remains retryable");
+void DialFufu(){var phones=new Dictionary<long,StorePhoneClient>();FufuDollGift.Register(phones);PhoneUIManager.Instance.currentPhoneClient=phones[1215];FufuDollGift.Call().End?.Invoke();}
+StoreClient ArriveFufu(){var s=SaveSlot.CurrentStore;FufuDollGift.Schedule(s.storeClientManager);var c=s.storeClientManager.clientStack[0];s.storeClientManager.clientStack.RemoveAt(0);s.currentClientInstance=new Client{Blueprint=c};return c;}
+Reset();var fufuPhones=new Dictionary<long,StorePhoneClient>{{1215,foreign}};FufuDollGift.Register(fufuPhones);Check(ReferenceEquals(fufuPhones[1215],foreign),"1215 preserves foreign phone");
+DialFufu();DialFufu();Check(CorpState.Current.FufuDollGiftStatus==1&&SaveSlot.CurrentStore.storeClientManager.clientStack.Count==1,"1215 queues exactly once");
+visitor=ArriveFufu();Check(visitor.mainDialogue.Text=="感谢芙老师的支持。","exact Fufu thank-you dialogue");
+SaveSlot.CurrentStore.Full=true;visitor.mainDialogue.Start();Check(CorpState.Current.FufuDollGiftStatus==1&&Goods.Made.All(i=>i.destroyed),"full counter retains Fufu gift");
+SaveSlot.CurrentStore.Full=false;Goods.Made.Clear();visitor.mainDialogue.Start();Check(CorpState.Current.FufuDollGiftStatus==2&&Goods.Made.Count==1&&Goods.Made[0].Key=="fufu_doll","Fufu delivered once");
+DialFufu();visitor.mainDialogue.Start();Check(Goods.Made.Count==1&&CorpState.Current.MangoGiftStatus==0,"Fufu no repeat or unrelated claims");
+Reset();DialFufu();visitor=ArriveFufu();old=CorpState.Current;SaveSlot.CurrentStore=new();CorpState.Current=new();visitor.mainDialogue.Start();Check(Goods.Made.Count==0&&old.FufuDollGiftStatus==1,"Fufu rejects stale save");
+Reset();SaveSlot.Writable=false;DialFufu();Check(CorpState.Current.FufuDollGiftStatus==0,"Fufu respects protected save");

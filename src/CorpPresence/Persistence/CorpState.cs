@@ -17,6 +17,8 @@ internal sealed class CorpState
 	public int MangoGiftStatus { get; set; }
 
 	public int WasteBatteryGiftStatus { get; set; }
+	public int UfoBackpackGiftStatus { get; set; }
+    public int FufuDollGiftStatus { get; set; }
 
 	public Dictionary<string, CharacterState> Characters { get; set; } = new Dictionary<string, CharacterState>();
 
@@ -106,5 +108,3 @@ internal sealed class CorpState
 		}
 	}
 }
-
-

@@ -96,6 +96,19 @@ internal static class CompiledContent
                 if (!resources.Contains(name)) errors.Add($"missing extra-state resource: {key}: {name}");
             }
             if (errors.Count != 0) throw new Exception(string.Join(Environment.NewLine, errors));
+            var workBay = assembly.GetType("CorpPresence.ProductionWorkBay", true);
+            var allows = workBay.GetMethod("Allows", Fields);
+            bool Accepts(int page, string id) => (bool)allows.Invoke(null, new object[] { page, id });
+            for (int page = 0; page < 5; page++)
+            {
+                if (!Accepts(page, "powerblock")) throw new Exception("Work bay rejects powerblock on page " + page);
+                if (Accepts(page, "unknown_item")) throw new Exception("Work bay accepts unrelated item");
+            }
+            if (Accepts(-1, "powerblock") || Accepts(5, "powerblock") || Accepts(0, null))
+                throw new Exception("Work bay accepts invalid page or item");
+            if (!Accepts(2, "metal_ingot") || Accepts(0, "metal_ingot"))
+                throw new Exception("Work bay changed existing forging restrictions");
+            Console.WriteLine("PASS work bay: powerblock on all five pages; invalid inputs and existing restrictions preserved");
             Console.WriteLine($"COMPILED CONTENT PASSED: {rows.Count} definitions, {identities.Count} identities, {extras.Length} explicit state images; no factories invoked.");
         }
         finally { AssemblyLoadContext.Default.Resolving -= Resolve; }

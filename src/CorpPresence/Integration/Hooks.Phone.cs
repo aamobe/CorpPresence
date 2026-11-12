@@ -22,6 +22,8 @@ internal static partial class Hooks
 	{
 		if (__instance?.locID == MangoGift.PhoneId) { __result = false; return; }
 		if (__instance?.locID == WasteBatteryGift.PhoneId) { __result = false; return; }
+		if (__instance?.locID == UfoBackpackGift.PhoneId) { __result = false; return; }
+		if (__instance?.locID == FufuDollGift.PhoneId) { __result = false; return; }
 		try
 		{
 			Notebook.AfterShownInPhoneBook(__instance, ref __result);
@@ -51,6 +53,8 @@ internal static partial class Hooks
 		{
 			if (__instance?.locID == MangoGift.PhoneId) { __result = MangoGift.Call(); return; }
 			if (__instance?.locID == WasteBatteryGift.PhoneId) { __result = WasteBatteryGift.Call(); return; }
+			if (__instance?.locID == UfoBackpackGift.PhoneId) { __result = UfoBackpackGift.Call(); return; }
+			if (__instance?.locID == FufuDollGift.PhoneId) { __result = FufuDollGift.Call(); return; }
 			Company company = Companies.ByLocId(__instance?.locID);
 			if (company != null)
 			{
@@ -67,7 +71,7 @@ internal static partial class Hooks
 	{
 		try
 		{
-			if (__instance?.locID == MangoGift.PhoneId || __instance?.locID == WasteBatteryGift.PhoneId || Companies.ByLocId(__instance?.locID) != null)
+			if (__instance?.locID == MangoGift.PhoneId || __instance?.locID == WasteBatteryGift.PhoneId || __instance?.locID == UfoBackpackGift.PhoneId || __instance?.locID == FufuDollGift.PhoneId || Companies.ByLocId(__instance?.locID) != null)
 			{
 				__result = __instance.displayName;
 			}

@@ -26,6 +26,8 @@ internal static class Phone
 		Company[] all = Companies.All;
 		MangoGift.Register(dict);
 		WasteBatteryGift.Register(dict);
+		UfoBackpackGift.Register(dict);
+		FufuDollGift.Register(dict);
 		foreach (Company company in all)
 		{
 			if (dict.ContainsKey(company.PhoneNumber))
@@ -147,6 +149,8 @@ internal static class Phone
 		int num = 0;
 		if (dictionary.TryGetValue(MangoGift.Number, out var mango) && mango.locID == MangoGift.PhoneId && dictionary.Remove(MangoGift.Number)) num++;
 		if (dictionary.TryGetValue(WasteBatteryGift.Number, out var waste) && waste.locID == WasteBatteryGift.PhoneId && dictionary.Remove(WasteBatteryGift.Number)) num++;
+		if (dictionary.TryGetValue(UfoBackpackGift.Number, out var ufo) && ufo.locID == UfoBackpackGift.PhoneId && dictionary.Remove(UfoBackpackGift.Number)) num++;
+		if (dictionary.TryGetValue(FufuDollGift.Number, out var fufu) && fufu.locID == FufuDollGift.PhoneId && dictionary.Remove(FufuDollGift.Number)) num++;
 		Company[] all = Companies.All;
 		foreach (Company company in all)
 		{
@@ -250,4 +254,3 @@ internal static class Phone
 		};
 	}
 }
-
