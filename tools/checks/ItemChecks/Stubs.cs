@@ -4,6 +4,7 @@ internal interface GraphNodeStorage { List<GraphNodeStorage> children { get; } }
 internal sealed class GameItem : GraphNodeStorage
 {
     internal string identifier, spritePath;
+    internal int uniqueId { get; set; }
     internal object parentInventory;
     public List<GraphNodeStorage> children { get; } = new();
     internal int unitCount = 1;
@@ -27,7 +28,9 @@ internal static class ItemDirectory
 internal sealed class SaveItemNode
 {
     internal string identifier, spritePath;
+    internal int uniqueId { get; set; }
     internal long uuid { get; set; }
+    internal int unitCount = 1;
     internal GameItem tempLink { get; set; }
     internal TagSystem itemState = new();
     internal List<long> childItems = new();

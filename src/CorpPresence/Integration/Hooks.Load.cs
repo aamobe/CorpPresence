@@ -20,9 +20,11 @@ internal static partial class Hooks
         internal bool CompanyItemsAffected;
         internal string CompanyDataFailure;
         internal int OmittedInventoryFailures;
+        internal int VerifiedReplacementCount;
         internal readonly bool PreviouslyPaused;
         internal readonly HashSet<int> RestoredInventories = new();
         internal readonly List<string> InventoryFailures = new();
+        internal readonly List<InventoryDecode> ReplacedInventories = new();
         internal LoadAttempt(PlayerStore store, bool previouslyPaused)
         { Store = store; PreviouslyPaused = previouslyPaused; }
         internal bool IsCurrent => StoreSession.Revision == Revision && ReferenceEquals(Store, SaveSlot.CurrentStore);
@@ -68,13 +70,13 @@ internal static partial class Hooks
     }
 
     [HarmonyPriority(Priority.First)]
-    private static void BeforeDecodeSaveItem(PlayerStore __instance, GameInventory __1,
+    private static void BeforeDecodeSaveItem(PlayerStore __instance, string __0, GameInventory __1,
         out InventoryDecode __state)
     {
         __state = default;
         var attempt = _activeLoad;
         if (attempt == null || !attempt.IsCurrent || !ReferenceEquals(attempt.Store, __instance)) return;
-        _inventoryDecode = __state = new InventoryDecode(attempt, InventoryIndex(__1), _inventoryDecode);
+        _inventoryDecode = __state = new InventoryDecode(attempt, InventoryIndex(__1), _inventoryDecode) { Target = __1, SavedJson = __0 };
     }
 
     [HarmonyPriority(Priority.First)]
@@ -85,13 +87,24 @@ internal static partial class Hooks
         if (ReferenceEquals(_inventoryDecode, __state)) _inventoryDecode = __state.Previous;
         var attempt = __state.Attempt;
         if (!IsCurrentInventory(__state)) return;
+        bool replaced = __exception == null && !__runOriginal;
+        __state.DecoderFinished = true;
+        foreach (var finding in __state.PendingFailures)
+            RecordInventoryFailure(__state, replaced ? "替代解码中间阶段：" + finding.Reason : finding.Reason,
+                finding.ItemId, finding.CompanyAffected, observationOnly: replaced);
+        __state.PendingFailures.Clear();
         if (__exception == null && __runOriginal)
         {
             if (__state.Index >= 0) attempt.RestoredInventories.Add(__state.Index);
             return;
         }
+        if (replaced)
+        {
+            attempt.ReplacedInventories.Add(__state);
+            return;
+        }
         attempt.HasHardDecodeFailure = true;
-        RecordInventoryFailure(__state, __exception == null ? "原版解码被跳过" : DescribeInventoryFailure(__exception),
+        RecordInventoryFailure(__state, DescribeInventoryFailure(__exception),
             companyAffected: HasUnrestoredCompanyItems(__state));
     }
 
@@ -140,7 +153,10 @@ internal static partial class Hooks
     {
         string result = completion;
         if (attempt.InventoryFailures.Count != 0)
-            result = attempt.HasHardDecodeFailure ? "解码失败" : "恢复不完整";
+            result = attempt.HasHardDecodeFailure ? "解码失败"
+                : attempt.ReplacedInventories.Count != 0 && HasCompleteInventoryDecode(attempt)
+                    && !attempt.CompanyItemsAffected && completion == null
+                    ? "公司物品已核验" : attempt.ReplacedInventories.Count == 0 ? "恢复不完整" : "恢复未确认";
         else if (attempt.Completed && completion == null)
             result = HasCompleteInventoryDecode(attempt) ? "完整解码" : "未验证";
         return "Late=" + (attempt.Completed ? "已到达" : "未到达") + " 库存恢复=" + result
@@ -169,6 +185,7 @@ internal static partial class Hooks
             _activeLoad = null;
             if (__state.IsCurrent)
             {
+                CheckReplacedInventories(__state, loadCompleted: false);
                 RecordLoadOutcome(__state, "读档未完成", __state.CompanyItemsAffected || __state.PreviouslyPaused);
             }
             MaintenanceDiagnostics.RecordRuntime("load", "completion",
@@ -176,6 +193,7 @@ internal static partial class Hooks
             return;
         }
 
+        CheckReplacedInventories(__state, loadCompleted: true);
         ResetState();
         if (!ReferenceEquals(_activeLoad, __state) || !ReferenceEquals(__state.Store, SaveSlot.CurrentStore)) return;
         _activeLoad = null;
@@ -228,7 +246,13 @@ internal static partial class Hooks
             if (companyAffected)
                 ModLog.Warn("[读档恢复失败] [维护信息] 检测到公司物品或存档数据受影响。" + attribution + " " + status + " " + report);
             else
-                ModLog.Info("[读档恢复失败] [维护信息] 未发现公司物品或存档数据受影响。" + attribution + " " + status + " " + report);
+            {
+                bool verified = attempt.ReplacedInventories.Count != 0
+                    && attempt.VerifiedReplacementCount == attempt.ReplacedInventories.Count
+                    && !attempt.HasHardDecodeFailure && !paused;
+                string label = verified ? "[读档核验]" : "[读档恢复失败]";
+                ModLog.Info(label + " [维护信息] 未发现公司物品或存档数据受影响。" + attribution + " " + status + " " + report);
+            }
         });
         if (!companyAffected) return;
         _inventoryNoticeRevision = StoreSession.Revision;
@@ -242,6 +266,7 @@ internal static partial class Hooks
             _activeLoad = null;
             if (__state.IsCurrent)
             {
+                CheckReplacedInventories(__state, loadCompleted: false);
                 RecordLoadOutcome(__state, "读档异常", __state.CompanyItemsAffected || __state.PreviouslyPaused);
             }
             MaintenanceDiagnostics.RecordRuntime("load", "completion", "load_exception", __exception);

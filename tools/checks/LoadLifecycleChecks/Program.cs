@@ -12,6 +12,8 @@ harmony.Patch(load, prefix: new HarmonyMethod(typeof(Probe), nameof(Probe.SkipLo
 harmony.Patch(AccessTools.Method(typeof(PlayerStore), nameof(PlayerStore.SaveGame)), prefix: Hook("BeforeSave"));
 harmony.Patch(AccessTools.Method(typeof(PlayerStore), nameof(PlayerStore.DecodeSaveItem)),
     prefix: Hook("BeforeDecodeSaveItem"), finalizer: Hook("AfterDecodeSaveItem"));
+harmony.Patch(AccessTools.Method(typeof(PlayerStore), nameof(PlayerStore.DecodeSaveItem)),
+    prefix: new HarmonyMethod(typeof(Probe), nameof(Probe.AlternateDecode)) { priority = Priority.Last });
 var nodes = AccessTools.Method(typeof(SaveManager), nameof(SaveManager.DecodeNodes));
 harmony.Patch(nodes, prefix: new HarmonyMethod(typeof(ItemRegistry), nameof(ItemRegistry.BeforeDecode)));
 harmony.Patch(nodes, prefix: Hook("BeforeInventoryNodes"), finalizer: Hook("AfterInventoryNodes"));
@@ -224,6 +226,26 @@ store.modData.Remove("CorpPresence");
 store.LoadGame();
 Check(!StoreSession.CompanyProgressPaused && Probe.RepairCalls.All(n => n == 1),
     "company work resumes when company data is readable");
+Probe.Alternate = true;
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("替代解码"),
+    "late live inventory confirms company restoration despite stale native links");
+Probe.DropCompany = true;
+store.LoadGame();
+Check(StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("corp_presence_test"),
+    "missing company item after replacement decoding pauses company work");
+Probe.DropCompany = false;
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused, "verified replacement load clears the previous pause");
+Probe.BypassNodes = true;
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("替代解码后已核验"),
+    "replacement can bypass native node decoding entirely");
+Probe.UnknownInput = Probe.DropCompany = true;
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("无法核验公司物品"),
+    "unverifiable replacement is logged but does not add a pause");
+Probe.Alternate = Probe.BypassNodes = Probe.UnknownInput = Probe.DropCompany = false;
 store.modData["CorpPresence.Malice"] = "unreadable";
 store.LoadGame();
 Check(!StoreSession.CompanyProgressPaused, "inactive Malice data does not pause company work");

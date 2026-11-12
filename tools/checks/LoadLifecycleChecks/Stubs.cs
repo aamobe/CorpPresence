@@ -20,6 +20,8 @@ namespace CorpPresence
         }
     }
 
+    internal sealed class SaveState { internal List<SaveItemNode> saveItems; }
+
     internal static class SaveManager
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -60,6 +62,8 @@ namespace CorpPresence
             DecodeSavedInventory("back room", "back", e.backInvinvElement);
             foreach (var inventory in e.OtherInventories)
                 DecodeSavedInventory("other", "other", inventory);
+            if (Probe.Alternate && !Probe.DropCompany)
+                e.invElement.Accept(new GameItem { identifier = "corp_presence_test", spritePath = "corp_test", uniqueId = 42 });
             ModHook.FireLate();
             ModHook.FireLate();
             if (ThrowAfterLate) throw new InvalidOperationException("Injected after the native completion signal.");
@@ -76,7 +80,7 @@ namespace CorpPresence
         internal void DecodeSaveItem(string json, GameInventory inventory)
         {
             if (FailInventory && (json == "main" || json == "back"))
-                throw new InvalidOperationException(json == "main" ? "打印机结构不兼容" : "FutureTech stopped an unsafe store decode");
+                throw new InvalidOperationException(json == "main" && !CorpPresence.Probe.UnknownInput ? "打印机结构不兼容" : "FutureTech stopped an unsafe store decode");
             if (json == "main") DecodeInventory(inventory);
         }
 
@@ -146,7 +150,17 @@ namespace CorpPresence
     {
         internal static readonly int[] RepairCalls = new int[4];
         internal static int Repairs => RepairCalls.Sum();
-        internal static bool SkipNativeLoad;
+        internal static bool SkipNativeLoad, Alternate, DropCompany, BypassNodes, UnknownInput;
+        internal static bool AlternateDecode(string json, GameInventory inventory)
+        {
+            if (!Alternate || json != "main") return true;
+            inventory.children.Clear();
+            if (BypassNodes) return false;
+            var saved = new SaveItemNode { identifier = "corp_presence_test", uniqueId = 42 };
+            SaveManager.DecodeNodes(new() { saved });
+            GraphUtils.DestroyIfUnplaced(saved.tempLink, "load: target inventory refused a saved item");
+            return false;
+        }
         internal static bool SkipLoadWithLateSignal()
         {
             if (!SkipNativeLoad) return true;
@@ -231,6 +245,13 @@ namespace CorpPresence.UI
 }
 namespace UnityEngine
 {
+    internal static class JsonUtility
+    {
+        internal static T FromJson<T>(string json) where T : class =>
+            (json == "main" && !CorpPresence.Probe.UnknownInput ? new CorpPresence.SaveState { saveItems = new() {
+                new CorpPresence.SaveItemNode { identifier = "corp_presence_test", uniqueId = 42 }
+            } } : null) as T;
+    }
     internal static class Time { internal static float realtimeSinceStartup; }
     internal sealed class GameObject { internal Scene scene; }
 }

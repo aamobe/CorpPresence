@@ -16,6 +16,11 @@ internal static partial class Hooks
         internal readonly int Index;
         internal readonly InventoryDecode Previous;
         internal bool NodesSeen;
+        internal GameInventory Target;
+        internal string SavedJson;
+        internal bool DecoderFinished;
+        internal bool PendingCompanyImpact;
+        internal readonly List<(string Reason, string ItemId, bool CompanyAffected)> PendingFailures = new();
         internal List<SaveItemNode> Nodes;
         internal HashSet<string> SavedIds;
         internal HashSet<long> CompanySubtrees;
@@ -28,10 +33,24 @@ internal static partial class Hooks
     private static bool IsCurrentInventory(InventoryDecode decode) => decode != null
         && ReferenceEquals(_activeLoad, decode.Attempt) && decode.Attempt.IsCurrent;
 
-    private static void RecordInventoryFailure(InventoryDecode decode, string reason, string itemId = null, bool companyAffected = false)
+    private static void RecordInventoryFailure(InventoryDecode decode, string reason, string itemId = null,
+        bool companyAffected = false, bool observationOnly = false)
     {
         var attempt = decode.Attempt;
-        companyAffected |= ItemIdentity.Find(itemId, null) != null;
+        companyAffected = !observationOnly && (companyAffected || ItemIdentity.Find(itemId, null) != null);
+        if (!decode.DecoderFinished)
+        {
+            bool firstCompanyImpact = companyAffected && !decode.PendingCompanyImpact;
+            decode.PendingCompanyImpact |= companyAffected;
+            if (decode.PendingFailures.Count == InventoryFailureDetailLimit)
+            {
+                attempt.OmittedInventoryFailures++;
+                if (!firstCompanyImpact) return;
+                decode.PendingFailures.RemoveAt(decode.PendingFailures.Count - 1);
+            }
+            decode.PendingFailures.Add((reason, itemId, companyAffected));
+            return;
+        }
         bool pauseNow = !attempt.CompanyItemsAffected && companyAffected;
         attempt.CompanyItemsAffected |= pauseNow;
         if (attempt.InventoryFailures.Count == InventoryFailureDetailLimit)
@@ -205,6 +224,73 @@ internal static partial class Hooks
                 if (companySubtrees.Add(parent)) pending.Enqueue(parent);
         }
         return companySubtrees;
+    }
+
+    private static void CheckReplacedInventories(LoadAttempt attempt, bool loadCompleted)
+    {
+        foreach (var decode in attempt.ReplacedInventories)
+        {
+            const string skipped = "原版解码被跳过";
+            if (!loadCompleted)
+            {
+                RecordInventoryFailure(decode, skipped + "，读档未完成，未核验公司物品");
+                continue;
+            }
+            List<SaveItemNode> saved;
+            Dictionary<(string Id, int UniqueId), long> actual = new();
+            try
+            {
+                // Use the original input: a replacement may bypass DecodeNodes or leave its links detached.
+                saved = UnityEngine.JsonUtility.FromJson<SaveState>(decode.SavedJson)?.saveItems;
+                if (saved == null || decode.Target == null || decode.Index < 0)
+                {
+                    RecordInventoryFailure(decode, skipped + "，无法核验公司物品");
+                    continue;
+                }
+                var pending = new Stack<GraphNodeStorage>();
+                var seen = new HashSet<GraphNodeStorage>();
+                pending.Push(decode.Target);
+                while (pending.Count != 0)
+                {
+                    var node = pending.Pop();
+                    if (node == null || !seen.Add(node)) continue;
+                    if (node is GameItem item)
+                    {
+                        if (StorePlacement.Destroyed(item) || item.parentInventory == null) continue;
+                        string id = ItemIdentity.ResolveId(item.identifier, item.spritePath);
+                        if (id != null && item.spritePath != "unknown" && item.unitCount > 0)
+                        {
+                            var key = (id, item.uniqueId);
+                            actual.TryGetValue(key, out long units);
+                            actual[key] = units + item.unitCount;
+                        }
+                    }
+                    foreach (var child in node.children) pending.Push(child);
+                }
+            }
+            catch (Exception)
+            {
+                RecordInventoryFailure(decode, skipped + "，无法核验公司物品");
+                continue;
+            }
+
+            bool missing = false;
+            foreach (var node in saved)
+            {
+                if (!IsSavedCompanyItem(node) || node.unitCount <= 0) continue;
+                var key = (ItemIdentity.ResolveId(node.identifier, node.spritePath), node.uniqueId);
+                actual.TryGetValue(key, out long units);
+                actual[key] = units - node.unitCount;
+                if (units >= node.unitCount) continue;
+                missing = true;
+                RecordInventoryFailure(decode, skipped + "，替代解码后未在目标库存找到足量公司物品", key.Item1,
+                    companyAffected: true);
+            }
+            if (missing) continue;
+            attempt.RestoredInventories.Add(decode.Index);
+            attempt.VerifiedReplacementCount++;
+            RecordInventoryFailure(decode, skipped + "，替代解码后已核验公司物品");
+        }
     }
 
     private static bool HasUnrestoredCompanyItems(InventoryDecode decode)
