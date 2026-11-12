@@ -204,6 +204,8 @@ internal static partial class Hooks
     private static void WarnInventoryLoadFailure()
     {
         _inventoryNoticeRevision = StoreSession.Revision;
+        Guard("写入库存恢复失败日志", () => ModLog.Warn(
+            "[读档恢复失败] " + StoreSession.InventoryLoadReport));
         ShowInventoryLoadNotice();
     }
 

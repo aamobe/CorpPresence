@@ -151,6 +151,7 @@ foreach (bool wrongIdentity in new[] { false, true })
 
 store.RefusePlacement = store.IncludeNestedItem = store.MissingChildSlot = true;
 int noticesBeforeLoss = StoreUIManager.Instance.Notices;
+int logsBeforeLoss = ModLog.Warnings.Count;
 store.LoadGame();
 Hooks.ShowInventoryLoadNotice();
 Check(store.NextDecoded.IsDestroyed && StoreSession.CompanyProgressPaused
@@ -160,14 +161,24 @@ Check(store.NextDecoded.IsDestroyed && StoreSession.CompanyProgressPaused
     && StoreUIManager.Instance.Notices == noticesBeforeLoss + 1
     && StoreUIManager.Instance.LastNotice.Contains("Do not overwrite the original save"),
     "silent refusal and missing child slot produce one warning after native cleanup");
+string[] automaticReports = ModLog.Warnings.Skip(logsBeforeLoss)
+    .Where(message => message.StartsWith("[读档恢复失败]", StringComparison.Ordinal)).ToArray();
+Check(automaticReports.Length == 1
+    && automaticReports[0].Contains("Late=已到达 库存恢复=恢复不完整")
+    && automaticReports[0].Contains("主库存 · 物品=vanilla_test · 原版目标库存拒收物品")
+    && automaticReports[0].Contains("主库存 · 物品=nested_item · 容器子槽缺失"),
+    "a failed load automatically logs one report containing both item failures");
 store.SaveGame();
 Check(store.Saves == 7, "native save still runs with placement losses");
 store.RefusePlacement = store.MissingChildSlot = false;
 Array.Clear(Probe.RepairCalls);
+int logsBeforeRecovery = ModLog.Warnings.Count;
 store.LoadGame();
 Check(!StoreSession.CompanyProgressPaused && Probe.RepairCalls.All(n => n == 1)
     && store.NextDecoded.parentInventory != null && StoreUIManager.Instance.Notices == noticesBeforeLoss + 1,
     "successful reload with a valid child slot resumes company work without repeating the warning");
+Check(!ModLog.Warnings.Skip(logsBeforeRecovery).Any(message => message.StartsWith("[读档恢复失败]", StringComparison.Ordinal)),
+    "successful reload does not log an inventory recovery warning");
 
 static HarmonyMethod Hook(string name) => new(typeof(Hooks), name);
 static bool Throws(Action run)
