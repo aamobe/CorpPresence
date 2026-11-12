@@ -283,7 +283,6 @@ Check("stable translations match legacy copy or current feature translations", (
     foreach (var entry in migration) foreach (var locale in new[] { "ru", "fr" }) {
         string expected = HasNewAidCopy(entry.Key)
             || entry.Key.StartsWith("diagnostics.report.", StringComparison.Ordinal)
-            || entry.Key == "integration.hooks.load.companyItemsUnavailable"
             || entry.Key == "integration.hooks.load.inventoryDecodeFailed"
             || entry.Key.StartsWith("mango.", StringComparison.Ordinal)
             || entry.Key.StartsWith("production.workBay.", StringComparison.Ordinal)

@@ -1,14 +1,38 @@
 namespace CorpPresence;
 
-internal sealed class GameItem
+internal interface GraphNodeStorage { List<GraphNodeStorage> children { get; } }
+internal sealed class GameItem : GraphNodeStorage
 {
     internal string identifier, spritePath;
     internal object parentInventory;
+    public List<GraphNodeStorage> children { get; } = new();
+    internal int unitCount = 1;
+    internal TagSystem state = new(), modifiedState = new();
+    internal bool IsTag(string id) => state.Tags.Contains(id);
+    internal void EnableTag(string id) { state.Tags.Add(id); modifiedState.Tags.Add(id); }
     internal bool IsDestroyed;
     internal int DestroyCalls;
     internal void Destroy() { DestroyCalls++; IsDestroyed=true; }
 }
-internal sealed class SaveItemNode { internal string identifier, spritePath; }
+internal sealed class TagSystem
+{
+    internal readonly HashSet<string> Tags = new();
+    internal TagSystem Clone() { var copy = new TagSystem(); copy.Tags.UnionWith(Tags); return copy; }
+}
+internal static class ItemDirectory
+{
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    internal static GameItem CreateEmptyItem(string id) => new() { identifier = id, spritePath = "unknown" };
+}
+internal sealed class SaveItemNode
+{
+    internal string identifier, spritePath;
+    internal long uuid { get; set; }
+    internal GameItem tempLink { get; set; }
+    internal TagSystem itemState = new();
+    internal List<long> childItems = new();
+    internal List<int> childItemInventoryNode = new();
+}
 internal static class StorePlacement { internal static bool Destroyed(GameItem item)=>item.IsDestroyed; }
 internal static class GameResources { internal static bool Ready; internal static long Generation { get; set; } }
 internal static class ModLog
@@ -68,7 +92,7 @@ internal static class DirectoryMaster
     internal static GameItem Item(string id,bool isOwned)
     {
         var item=GetFactory<GameItem>(id)?.Invoke();
-        if(item==null){DummyCreates++;return new(){identifier=id,spritePath="unknown"};}
+        if(item==null){DummyCreates++;return ItemDirectory.CreateEmptyItem(id);}
         item.identifier=id;PostprocessCalls++;return item;
     }
 }

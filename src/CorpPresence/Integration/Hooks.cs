@@ -24,6 +24,7 @@ internal static partial class Hooks
 		Patch<SaveManager>(h, "EncodeNode", typeFromHandle2, "BeforeEncode", null, new Type[1] { typeof(GameItem) });
 		Patch<PlayerStore>(h, "SaveGame", typeFromHandle, nameof(BeforeSave));
 		InstallLoadPatches(h);
+		InstallInventoryRestoreObservers(h);
 		PatchInstallation.Run("PlayerStore.DecodeSaveItem", () =>
 		{
 			var decode = AccessTools.Method(typeof(PlayerStore), "DecodeSaveItem", new[] { typeof(string), typeof(GameInventory) });
@@ -51,6 +52,32 @@ internal static partial class Hooks
 				finalizer: new HarmonyMethod(typeof(Hooks), nameof(FinalizeLoadGame)));
 			return true;
 		}, required: true);
+	}
+
+	private static void InstallInventoryRestoreObservers(Harmony h)
+	{
+		InstallInventoryObserver("SaveManager.DecodeNodes/restore",
+			AccessTools.Method(typeof(SaveManager), "DecodeNodes", new[] { typeof(List<SaveItemNode>) }),
+			nameof(BeforeInventoryNodes), nameof(AfterInventoryNodes), finalizer: true);
+		InstallInventoryObserver("ItemDirectory.CreateEmptyItem/load",
+			AccessTools.Method(typeof(ItemDirectory), "CreateEmptyItem", new[] { typeof(string) }),
+			null, nameof(AfterCreateSavedPlaceholder), finalizer: false);
+		InstallInventoryObserver("GraphUtils.DestroyIfUnplaced/load",
+			AccessTools.Method(typeof(GraphUtils), "DestroyIfUnplaced", new[] { typeof(GameItem), typeof(string) }),
+			nameof(BeforeNativePlacementCleanup), nameof(AfterNativePlacementCleanup), finalizer: false);
+
+		void InstallInventoryObserver(string label, MethodInfo target, string before, string after, bool finalizer)
+		{
+			PatchInstallation.Run(label, () =>
+			{
+				if (target == null) return false;
+				var prefix = before == null ? null : new HarmonyMethod(typeof(Hooks), before);
+				var observer = new HarmonyMethod(typeof(Hooks), after);
+				if (finalizer) h.Patch(target, prefix: prefix, finalizer: observer);
+				else h.Patch(target, prefix: prefix, postfix: observer);
+				return true;
+			}, required: false);
+		}
 	}
 
 	private static void InstallGameplay(Harmony h)

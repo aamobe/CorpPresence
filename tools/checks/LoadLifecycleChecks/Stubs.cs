@@ -3,14 +3,51 @@ using UnityEngine.SceneManagement;
 
 namespace CorpPresence
 {
-    internal sealed class GameInventory { }
+    internal sealed class GameInventory : GraphNodeStorage
+    {
+        public List<GraphNodeStorage> children { get; } = new();
+        internal void Accept(GameItem item) { children.Add(item); item.parentInventory = this; }
+    }
+
+    internal static class GraphUtils
+    {
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal static bool DestroyIfUnplaced(GameItem item, string context)
+        {
+            if (item.parentInventory != null) return true;
+            item.Destroy();
+            return false;
+        }
+    }
+
+    internal static class SaveManager
+    {
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal static void DecodeNodes(List<SaveItemNode> nodes)
+        {
+            foreach (var node in nodes)
+            {
+                node.tempLink = DirectoryMaster.Item(node.identifier, isOwned: true);
+                node.tempLink.state = node.itemState.Clone();
+                node.tempLink.modifiedState = node.itemState.Clone();
+            }
+            foreach (var node in nodes)
+            {
+                if (node.childItems.Count == 0 || node.childItemInventoryNode[0] != 0) continue;
+                var slot = new GameInventory();
+                node.tempLink.children.Add(slot);
+                slot.Accept(nodes.Single(child => child.uuid == node.childItems[0]).tempLink);
+            }
+        }
+    }
     internal sealed class PlayerStore
     {
         internal string runID = "test";
         internal Dictionary<string, string> modData = new();
         internal bool HasSave = true, ThrowAfterLate, HasCompanyItem;
         internal int Loads, Saves, DecodeFailures; internal bool FailInventory; internal string cassettePlayerInvJSON;
-        internal GameItem Decoded;
+        internal GameItem Decoded, NextDecoded;
+        internal bool RefusePlacement, IncludeNestedItem, MissingChildSlot, SavedMachineTags;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal void LoadGame()
@@ -39,20 +76,41 @@ namespace CorpPresence
         {
             if (FailInventory && (json == "main" || json == "back"))
                 throw new InvalidOperationException(json == "main" ? "打印机结构不兼容" : "FutureTech stopped an unsafe store decode");
-            if (json == "main") DecodeInventory();
+            if (json == "main") DecodeInventory(inventory);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private void DecodeInventory()
+        private void DecodeInventory(GameInventory inventory)
         {
-            Decoded = HasCompanyItem ? DecodeCompanyItem() : DirectoryMaster.Item("vanilla_test", isOwned: true);
+            var first = new SaveItemNode { identifier = HasCompanyItem ? "corp_presence_test" : "vanilla_test", uuid = 1 };
+            var next = new SaveItemNode { identifier = "vanilla_test", uuid = 2 };
+            var nodes = new List<SaveItemNode> { first, next };
+            if (SavedMachineTags)
+            {
+                first.itemState.Tags.Add("STANDARD_MACHINE_TAG");
+                first.itemState.Tags.Add("IS_OWNED_TAG");
+            }
+            if (IncludeNestedItem)
+            {
+                first.childItems.Add(3);
+                first.childItemInventoryNode.Add(MissingChildSlot ? 1 : 0);
+                nodes.Add(new SaveItemNode { identifier = "nested_item", uuid = 3 });
+            }
+            SaveManager.DecodeNodes(nodes);
+            if (first.tempLink.spritePath == "unknown" && first.tempLink.IsTag("STANDARD_MACHINE_TAG"))
+                throw new InvalidOperationException("Machine upgrade loader cannot handle a placeholder without module slots.");
+            Decoded = first.tempLink;
+            NextDecoded = next.tempLink;
+            inventory.Accept(Decoded);
+            if (!RefusePlacement) inventory.Accept(NextDecoded);
+            GraphUtils.DestroyIfUnplaced(NextDecoded, "load: target inventory refused a saved item");
         }
 
         internal static GameItem DecodeCompanyItem()
         {
             var node = new SaveItemNode { identifier = "corp_presence_test" };
-            ItemRegistry.BeforeDecode(new() { node });
-            return DirectoryMaster.Item(node.identifier, isOwned: true);
+            SaveManager.DecodeNodes(new() { node });
+            return node.tempLink;
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -137,7 +195,8 @@ namespace CorpPresence
     {
         internal static readonly StoreUIManager Instance = new();
         internal int Notices;
-        internal void Notify(string message) => Notices++;
+        internal string LastNotice;
+        internal void Notify(string message) { Notices++; LastNotice = message; }
     }
     internal static class L { internal static string K(string key, string zh, string en) => en; }
     internal static partial class Hooks

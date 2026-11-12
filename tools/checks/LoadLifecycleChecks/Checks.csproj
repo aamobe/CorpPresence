@@ -10,6 +10,7 @@
     <Compile Include="../ItemChecks/Stubs.cs" />
     <Compile Include="../../../src/CorpPresence/Items/ItemRegistry.cs" />
     <Compile Include="../../../src/CorpPresence/Integration/Hooks.Load.cs" />
+    <Compile Include="../../../src/CorpPresence/Integration/Hooks.InventoryRestore.cs" />
     <Compile Include="../../../src/CorpPresence/Integration/Hooks.Save.cs" />
     <Compile Include="../../../src/CorpPresence/Persistence/StoreSession.cs" />
     <Compile Include="../../../src/CorpPresence/Runtime/LoadedItemRepair.cs" />

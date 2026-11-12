@@ -7,7 +7,8 @@ internal static class ItemRegistry
 {
     internal static bool IsInstalled => _onInit != null;
     internal static bool LastReleaseFailed { get; private set; }
-    internal static event Action CompanyDecodeWarning;
+    internal static event Action<string, string, Exception> CompanyDecodeWarning;
+    internal static Func<string, string, Exception, bool> AllowLoadPlaceholder { get; set; }
     internal static void AppendDiagnostics(System.Collections.Generic.ICollection<MaintenanceCounter> target)
     {
         target.Add(new MaintenanceCounter("items.factories", Factories.Count));
@@ -260,6 +261,7 @@ internal static class ItemRegistry
 		catch (Exception ex)
 		{
 			Report("create", "factory_exception", ex, entry.Id);
+			if (TryUseLoadPlaceholder(entry.Id, "factory_exception", ex)) return null;
 			throw;
 		}
 		if (item != null && item.identifier == entry.Id) return item;
@@ -268,9 +270,17 @@ internal static class ItemRegistry
 			try { item.Destroy(); }
 			catch (Exception error) { Report("create", "discard_failed", error, entry.Id); }
 		}
-		Report("create", item == null ? "factory_returned_null" : "wrong_identity", null, entry.Id);
-		// Throw before DirectoryMaster can turn an empty result into a same-ID dummy.
+		string reason = item == null ? "factory_returned_null" : "wrong_identity";
+		Report("create", reason, null, entry.Id);
+		if (TryUseLoadPlaceholder(entry.Id, reason, null)) return null;
+		// Only saved-item decoding can accept the native placeholder.
 		throw new FactoryCreationException(entry.Id);
+	}
+
+	private static bool TryUseLoadPlaceholder(string id, string reason, Exception error)
+	{
+		try { return AllowLoadPlaceholder?.Invoke(id, reason, error) == true; }
+		catch { return false; }
 	}
 
 	private static string MigrationTarget(string id, string sprite)
@@ -298,7 +308,7 @@ internal static class ItemRegistry
 			if (reason == null) continue;
 			Report("decode", reason, error, id);
 			Warn("decode:" + id + ":" + reason, "读档时公司物品工厂不可用：" + id + " (" + reason + ")");
-			try { CompanyDecodeWarning?.Invoke(); } catch { }
+			try { CompanyDecodeWarning?.Invoke(id, reason, error); } catch { }
 		}
 		foreach (SaveItemNode item in __0)
 		{

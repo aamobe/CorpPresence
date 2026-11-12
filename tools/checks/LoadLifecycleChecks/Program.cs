@@ -12,6 +12,13 @@ harmony.Patch(load, prefix: new HarmonyMethod(typeof(Probe), nameof(Probe.SkipLo
 harmony.Patch(AccessTools.Method(typeof(PlayerStore), nameof(PlayerStore.SaveGame)), prefix: Hook("BeforeSave"));
 harmony.Patch(AccessTools.Method(typeof(PlayerStore), nameof(PlayerStore.DecodeSaveItem)),
     prefix: Hook("BeforeDecodeSaveItem"), finalizer: Hook("AfterDecodeSaveItem"));
+var nodes = AccessTools.Method(typeof(SaveManager), nameof(SaveManager.DecodeNodes));
+harmony.Patch(nodes, prefix: new HarmonyMethod(typeof(ItemRegistry), nameof(ItemRegistry.BeforeDecode)));
+harmony.Patch(nodes, prefix: Hook("BeforeInventoryNodes"), finalizer: Hook("AfterInventoryNodes"));
+harmony.Patch(AccessTools.Method(typeof(GraphUtils), nameof(GraphUtils.DestroyIfUnplaced)),
+    prefix: Hook("BeforeNativePlacementCleanup"), postfix: Hook("AfterNativePlacementCleanup"));
+harmony.Patch(AccessTools.Method(typeof(ItemDirectory), nameof(ItemDirectory.CreateEmptyItem)),
+    postfix: Hook("AfterCreateSavedPlaceholder"));
 Hooks.InstallLoadEvents();
 Hooks.InstallStoreScene();
 
@@ -45,8 +52,8 @@ GameResources.Ready = true;
 ItemRegistry.Activate();
 LoadedItemRepair.Tick();
 LoadedItemRepair.Tick();
-Check(Probe.RepairCalls.All(count => count == 1) && StoreUIManager.Instance.Notices == 1,
-    "the warned load repairs once when resources become ready");
+Check(Probe.Repairs == 0 && StoreSession.CompanyProgressPaused && StoreUIManager.Instance.Notices == 1,
+    "resource readiness alone cannot resume a load containing placeholders");
 Array.Clear(Probe.RepairCalls);
 store.LoadGame();
 Check(store.Decoded?.identifier == "corp_presence_test" && Goods.Builds == 1 && DirectoryMaster.DummyCreates == dummyCount,
@@ -111,6 +118,56 @@ Check(Probe.RepairCalls.All(count => count == 1) && StoreUIManager.Instance.Noti
     "successful reload repairs once without repeating the warning");
 Check(!StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("库存恢复=完整解码"),
     "complete inventory restoration releases the company pause");
+
+store.HasCompanyItem = true;
+DirectoryMaster.Native.Remove("corp_presence_test");
+store.NextDecoded = null;
+Goods.Throw = true;
+store.SavedMachineTags = true;
+int failedBeforeFactory = store.DecodeFailures;
+store.LoadGame();
+Goods.Throw = false;
+store.SavedMachineTags = false;
+Check(store.DecodeFailures == failedBeforeFactory && store.Decoded?.spritePath == "unknown"
+    && store.Decoded.IsTag("IS_OWNED_TAG") && store.NextDecoded?.identifier == "vanilla_test" && StoreSession.CompanyProgressPaused,
+    "single failed company factory leaves later vanilla objects in the same inventory recoverable");
+Check(StoreSession.InventoryLoadReport.Contains("主库存 · 物品=corp_presence_test · 公司物品创建失败"),
+    "factory diagnostic reports inventory, item and reason");
+
+Goods.Throw = true;
+Check(Throws(() => PlayerStore.DecodeCompanyItem()), "standalone creation never receives the load-only placeholder fallback");
+Goods.Throw = false;
+foreach (bool wrongIdentity in new[] { false, true })
+{
+    Goods.ReturnNull = !wrongIdentity;
+    Goods.Product = wrongIdentity ? new GameItem { identifier = "wrong_item" } : null;
+    store.LoadGame();
+    Check(store.Decoded?.spritePath == "unknown" && store.NextDecoded?.parentInventory != null
+        && StoreSession.InventoryLoadReport.Contains(wrongIdentity ? "wrong_identity" : "factory_returned_null"),
+        "other saved items survive factory " + (wrongIdentity ? "wrong identity" : "null result"));
+    Goods.ReturnNull = false;
+    Goods.Product = null;
+}
+
+store.RefusePlacement = store.IncludeNestedItem = store.MissingChildSlot = true;
+int noticesBeforeLoss = StoreUIManager.Instance.Notices;
+store.LoadGame();
+Hooks.ShowInventoryLoadNotice();
+Check(store.NextDecoded.IsDestroyed && StoreSession.CompanyProgressPaused
+    && StoreSession.InventoryLoadReport.Contains("Late=已到达 库存恢复=恢复不完整")
+    && StoreSession.InventoryLoadReport.Contains("主库存 · 物品=vanilla_test · 原版目标库存拒收物品")
+    && StoreSession.InventoryLoadReport.Contains("主库存 · 物品=nested_item · 容器子槽缺失")
+    && StoreUIManager.Instance.Notices == noticesBeforeLoss + 1
+    && StoreUIManager.Instance.LastNotice.Contains("Do not overwrite the original save"),
+    "silent refusal and missing child slot produce one warning after native cleanup");
+store.SaveGame();
+Check(store.Saves == 7, "native save still runs with placement losses");
+store.RefusePlacement = store.MissingChildSlot = false;
+Array.Clear(Probe.RepairCalls);
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused && Probe.RepairCalls.All(n => n == 1)
+    && store.NextDecoded.parentInventory != null && StoreUIManager.Instance.Notices == noticesBeforeLoss + 1,
+    "successful reload with a valid child slot resumes company work without repeating the warning");
 
 static HarmonyMethod Hook(string name) => new(typeof(Hooks), name);
 static bool Throws(Action run)

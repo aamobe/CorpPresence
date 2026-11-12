@@ -16,7 +16,8 @@ internal static partial class Hooks
         internal readonly PlayerStore Store;
         internal readonly long Revision = StoreSession.Revision;
         internal bool Completed;
-        internal bool HasDecodeWarning;
+        internal bool HasHardDecodeFailure;
+        internal int OmittedInventoryFailures;
         internal readonly bool PreviouslyPaused;
         internal readonly HashSet<int> RestoredInventories = new();
         internal readonly List<string> InventoryFailures = new();
@@ -28,6 +29,7 @@ internal static partial class Hooks
     internal static void InstallLoadEvents()
     {
         ItemRegistry.CompanyDecodeWarning += OnCompanyDecodeWarning;
+        ItemRegistry.AllowLoadPlaceholder = TryAllowLoadPlaceholder;
         ModHook.OnGameLoadedLate += OnGameLoadedLate;
     }
 
@@ -35,19 +37,22 @@ internal static partial class Hooks
     {
         ModHook.OnGameLoadedLate -= OnGameLoadedLate;
         ItemRegistry.CompanyDecodeWarning -= OnCompanyDecodeWarning;
+        ItemRegistry.AllowLoadPlaceholder = null;
         ClearLoadState();
     }
 
     private static void ClearLoadState()
     {
         _activeLoad = null;
+        _inventoryDecode = null;
+        _inventoryNoticeRevision = null;
     }
 
     [HarmonyPriority(Priority.First)]
     private static void BeforeLoadGame(PlayerStore __instance, out LoadAttempt __state)
     {
         __state = null;
-        _activeLoad = null;
+        ClearLoadState();
         bool previouslyPaused = ReferenceEquals(__instance, SaveSlot.CurrentStore) && StoreSession.CompanyProgressPaused;
         BeforeStoreTransition();
         _activeLoad = __state = new LoadAttempt(__instance, previouslyPaused);
@@ -60,39 +65,31 @@ internal static partial class Hooks
         if (attempt != null && attempt.IsCurrent) attempt.Completed = true;
     }
 
-    private static void OnCompanyDecodeWarning()
-    {
-        var attempt = _activeLoad;
-        if (attempt != null && attempt.IsCurrent) attempt.HasDecodeWarning = true;
-    }
-
     [HarmonyPriority(Priority.First)]
     private static void BeforeDecodeSaveItem(PlayerStore __instance, GameInventory __1,
-        out (LoadAttempt Attempt, int Inventory) __state)
+        out InventoryDecode __state)
     {
         __state = default;
         var attempt = _activeLoad;
         if (attempt == null || !attempt.IsCurrent || !ReferenceEquals(attempt.Store, __instance)) return;
-        __state = (attempt, InventoryIndex(__1));
+        _inventoryDecode = __state = new InventoryDecode(attempt, InventoryIndex(__1), _inventoryDecode);
     }
 
     [HarmonyPriority(Priority.First)]
     private static void AfterDecodeSaveItem(Exception __exception, bool __runOriginal,
-        (LoadAttempt Attempt, int Inventory) __state)
+        InventoryDecode __state)
     {
-        var (attempt, inventory) = __state;
-        if (attempt == null || !ReferenceEquals(_activeLoad, attempt) || !attempt.IsCurrent) return;
+        if (__state == null) return;
+        if (ReferenceEquals(_inventoryDecode, __state)) _inventoryDecode = __state.Previous;
+        var attempt = __state.Attempt;
+        if (!IsCurrentInventory(__state)) return;
         if (__exception == null && __runOriginal)
         {
-            if (inventory >= 0) attempt.RestoredInventories.Add(inventory);
+            if (__state.Index >= 0) attempt.RestoredInventories.Add(__state.Index);
             return;
         }
-        if (attempt.InventoryFailures.Count >= 16) return;
-        string name = inventory < 0 ? "未知库存" : InventoryNames[inventory];
-        string reason = __exception == null ? "原版解码被跳过" : DescribeInventoryFailure(__exception);
-        attempt.InventoryFailures.Add(name + " · " + reason);
-        if (attempt.InventoryFailures.Count == 1)
-            StoreSession.RecordInventoryLoad(FormatInventoryLoad(attempt, null), true);
+        attempt.HasHardDecodeFailure = true;
+        RecordInventoryFailure(__state, __exception == null ? "原版解码被跳过" : DescribeInventoryFailure(__exception));
     }
 
     private static readonly string[] InventoryNames = {
@@ -140,11 +137,12 @@ internal static partial class Hooks
     {
         string result = completion;
         if (attempt.InventoryFailures.Count != 0)
-            result = "解码失败";
+            result = attempt.HasHardDecodeFailure ? "解码失败" : "恢复不完整";
         else if (attempt.Completed && completion == null)
             result = HasCompleteInventoryDecode(attempt) ? "完整解码" : "未验证";
         return "Late=" + (attempt.Completed ? "已到达" : "未到达") + " 库存恢复=" + result
-            + (attempt.InventoryFailures.Count == 0 ? "" : "\n[维护] " + string.Join("\n[维护] ", attempt.InventoryFailures));
+            + (attempt.InventoryFailures.Count == 0 ? "" : "\n[维护] " + string.Join("\n[维护] ", attempt.InventoryFailures))
+            + (attempt.OmittedInventoryFailures == 0 ? "" : $"\n[维护] 另有 {attempt.OmittedInventoryFailures} 条库存问题未展开");
     }
 
     internal static void ShowInventoryLoadNotice()
@@ -154,8 +152,8 @@ internal static partial class Hooks
         _inventoryNoticeRevision = null;
         Guard("提示库存解码失败", () => StoreUIManager.Instance.Notify(L.K(
             "integration.hooks.load.inventoryDecodeFailed",
-            "本次读档有库存未能恢复。公司送货和来访结算已暂停。建议保留原档，排除问题后重读。详细原因可在公司增强设置中生成诊断报告。",
-            "Some inventories could not be restored. Company deliveries and visits are paused. Keep the original save and reload after resolving the problem. See the diagnostic report in CorpPresence settings.")));
+            "本次读档有物品未能恢复。请勿覆盖原档，排除问题后重读。公司送货和来访已暂停。详情见公司增强诊断报告。",
+            "Some items could not be restored. Do not overwrite the original save. Reload after resolving the issue. Company deliveries and visits are paused. See the CorpPresence diagnostic report.")));
     }
 
     [HarmonyPriority(Priority.Last)]
@@ -187,15 +185,7 @@ internal static partial class Hooks
             WarnInventoryLoadFailure();
             return;
         }
-        if (paused) return;
-        if (__state.HasDecodeWarning)
-        {
-            long revision = StoreSession.Revision;
-            Guard("提示公司物品未就绪", () => StoreUIManager.Instance?.Notify(
-                L.K("integration.hooks.load.companyItemsUnavailable", "部分公司物品尚未就绪，可能以占位物品加载。建议保留原存档，等物品工厂就绪后重读。", "Some CorpPresence items were unavailable and may have loaded as placeholders. Keep your original save and reload once the item factories are ready.")));
-            if (StoreSession.Revision != revision || !ReferenceEquals(__state.Store, SaveSlot.CurrentStore)) return;
-        }
-        else if (!GameResources.Ready) return;
+        if (paused || !GameResources.Ready) return;
         LoadedItemRepair.Request(() =>
         {
             if (!StoreSession.Capture().IsCurrent)
@@ -208,7 +198,7 @@ internal static partial class Hooks
             Guard("修复旧物品占格", Goods.RestoreLegacyFootprints);
             Guard("读档后定制刀分类", Forge.AfterStoreLoaded);
         });
-        if (!__state.HasDecodeWarning) Guard("读档后公司物品修复", LoadedItemRepair.Tick);
+        Guard("读档后公司物品修复", LoadedItemRepair.Tick);
     }
 
     private static void WarnInventoryLoadFailure()
