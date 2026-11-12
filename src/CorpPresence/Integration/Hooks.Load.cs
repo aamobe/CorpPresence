@@ -17,6 +17,8 @@ internal static partial class Hooks
         internal readonly long Revision = StoreSession.Revision;
         internal bool Completed;
         internal bool HasHardDecodeFailure;
+        internal bool CompanyItemsAffected;
+        internal string CompanyDataFailure;
         internal int OmittedInventoryFailures;
         internal readonly bool PreviouslyPaused;
         internal readonly HashSet<int> RestoredInventories = new();
@@ -89,7 +91,8 @@ internal static partial class Hooks
             return;
         }
         attempt.HasHardDecodeFailure = true;
-        RecordInventoryFailure(__state, __exception == null ? "原版解码被跳过" : DescribeInventoryFailure(__exception));
+        RecordInventoryFailure(__state, __exception == null ? "原版解码被跳过" : DescribeInventoryFailure(__exception),
+            companyAffected: HasUnrestoredCompanyItems(__state));
     }
 
     private static readonly string[] InventoryNames = {
@@ -141,6 +144,7 @@ internal static partial class Hooks
         else if (attempt.Completed && completion == null)
             result = HasCompleteInventoryDecode(attempt) ? "完整解码" : "未验证";
         return "Late=" + (attempt.Completed ? "已到达" : "未到达") + " 库存恢复=" + result
+            + (attempt.CompanyDataFailure == null ? "" : "\n[维护] " + attempt.CompanyDataFailure)
             + (attempt.InventoryFailures.Count == 0 ? "" : "\n[维护] " + string.Join("\n[维护] ", attempt.InventoryFailures))
             + (attempt.OmittedInventoryFailures == 0 ? "" : $"\n[维护] 另有 {attempt.OmittedInventoryFailures} 条库存问题未展开");
     }
@@ -152,8 +156,8 @@ internal static partial class Hooks
         _inventoryNoticeRevision = null;
         Guard("提示库存解码失败", () => StoreUIManager.Instance.Notify(L.K(
             "integration.hooks.load.inventoryDecodeFailed",
-            "本次读档有物品未能恢复。请勿覆盖原档，排除问题后重读。公司送货和来访已暂停。详情见公司增强诊断报告。",
-            "Some items could not be restored. Do not overwrite the original save. Reload after resolving the issue. Company deliveries and visits are paused. See the CorpPresence diagnostic report.")));
+            "本次读档有公司物品或公司存档数据未能恢复。公司送货和来访已暂停。请勿覆盖原档，排除问题后重读。详情已写入 Player.log。",
+            "Some company items or company save data could not be restored. Company deliveries and visits are paused. Do not overwrite the original save. Reload after resolving the issue. Details are in Player.log.")));
     }
 
     [HarmonyPriority(Priority.Last)]
@@ -165,9 +169,7 @@ internal static partial class Hooks
             _activeLoad = null;
             if (__state.IsCurrent)
             {
-                bool failed = __state.InventoryFailures.Count != 0;
-                StoreSession.RecordInventoryLoad(FormatInventoryLoad(__state, "读档未完成"), failed || __state.PreviouslyPaused);
-                if (failed) WarnInventoryLoadFailure();
+                RecordLoadOutcome(__state, "读档未完成", __state.CompanyItemsAffected || __state.PreviouslyPaused);
             }
             MaintenanceDiagnostics.RecordRuntime("load", "completion",
                 !__runOriginal ? "native_skipped" : __state.Completed ? "session_changed" : "late_signal_missing", null);
@@ -177,14 +179,10 @@ internal static partial class Hooks
         ResetState();
         if (!ReferenceEquals(_activeLoad, __state) || !ReferenceEquals(__state.Store, SaveSlot.CurrentStore)) return;
         _activeLoad = null;
-        bool inventoryFailed = __state.InventoryFailures.Count != 0;
-        bool paused = inventoryFailed || (__state.PreviouslyPaused && !HasCompleteInventoryDecode(__state));
-        StoreSession.RecordInventoryLoad(FormatInventoryLoad(__state, null), paused);
-        if (inventoryFailed)
-        {
-            WarnInventoryLoadFailure();
-            return;
-        }
+        Guard("检查公司存档数据", () => __state.CompanyDataFailure = CheckCompanySaveData());
+        bool paused = __state.CompanyItemsAffected || __state.CompanyDataFailure != null
+            || (__state.PreviouslyPaused && !HasCompleteInventoryDecode(__state));
+        RecordLoadOutcome(__state, null, paused);
         if (paused || !GameResources.Ready) return;
         LoadedItemRepair.Request(() =>
         {
@@ -201,11 +199,39 @@ internal static partial class Hooks
         Guard("读档后公司物品修复", LoadedItemRepair.Tick);
     }
 
-    private static void WarnInventoryLoadFailure()
+    private static string CheckCompanySaveData()
     {
+        var data = SaveSlot.CurrentStore?.modData;
+        if (data == null) return null;
+        if (data.ContainsKey("CorpPresence"))
+        {
+            CorpState.Get();
+            if (!SaveSlot.CanWrite("CorpPresence")) return "公司存档数据不可读，已写保护：CorpPresence";
+        }
+        if (!Settings.MaliceMode || !data.ContainsKey("CorpPresence.Malice")) return null;
+        Malice.MaliceState.Get();
+        return SaveSlot.CanWrite("CorpPresence.Malice") ? null : "公司存档数据不可读，已写保护：CorpPresence.Malice";
+    }
+
+    private static void RecordLoadOutcome(LoadAttempt attempt, string completion, bool paused)
+    {
+        string report = FormatInventoryLoad(attempt, completion);
+        StoreSession.RecordInventoryLoad(report, paused);
+        if (attempt.InventoryFailures.Count == 0 && attempt.CompanyDataFailure == null) return;
+
+        bool companyAffected = attempt.CompanyItemsAffected || attempt.CompanyDataFailure != null;
+        Guard("写入读档恢复日志", () =>
+        {
+            string status = "公司送货和来访暂停=" + paused;
+            if (paused && !companyAffected) status += "（已有暂停，等待完整重读核验）";
+            const string attribution = "仅记录读档现象，不代表故障由公司增强造成。";
+            if (companyAffected)
+                ModLog.Warn("[读档恢复失败] [维护信息] 检测到公司物品或存档数据受影响。" + attribution + " " + status + " " + report);
+            else
+                ModLog.Info("[读档恢复失败] [维护信息] 未发现公司物品或存档数据受影响。" + attribution + " " + status + " " + report);
+        });
+        if (!companyAffected) return;
         _inventoryNoticeRevision = StoreSession.Revision;
-        Guard("写入库存恢复失败日志", () => ModLog.Warn(
-            "[读档恢复失败] " + StoreSession.InventoryLoadReport));
         ShowInventoryLoadNotice();
     }
 
@@ -216,9 +242,7 @@ internal static partial class Hooks
             _activeLoad = null;
             if (__state.IsCurrent)
             {
-                bool failed = __state.InventoryFailures.Count != 0;
-                StoreSession.RecordInventoryLoad(FormatInventoryLoad(__state, "读档异常"), failed || __state.PreviouslyPaused);
-                if (failed) WarnInventoryLoadFailure();
+                RecordLoadOutcome(__state, "读档异常", __state.CompanyItemsAffected || __state.PreviouslyPaused);
             }
             MaintenanceDiagnostics.RecordRuntime("load", "completion", "load_exception", __exception);
         }

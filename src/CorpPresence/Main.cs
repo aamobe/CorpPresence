@@ -8,7 +8,7 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-    private const string ReleaseVersion = "1.2.4";
+    private const string ReleaseVersion = "1.2.5";
 #if MAINTENANCE
     public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-maintenance";
 #elif WATER_TRACE

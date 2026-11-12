@@ -1237,7 +1237,7 @@
   "production.tobacco.addManual.instructions": "{0} Instructions",
   "production.tobacco.addManual.howUse": "How to use the {0}.",
   "production.tobacco.manualText.activeSpriteStaysVisibleUntil": "The active sprite stays visible until the output tray is emptied.",
-  "integration.hooks.load.inventoryDecodeFailed": "Some items could not be restored. Do not overwrite the original save. Reload after resolving the issue. Company deliveries and visits are paused. See the CorpPresence diagnostic report.",
+  "integration.hooks.load.inventoryDecodeFailed": "Some company items or company save data could not be restored. Company deliveries and visits are paused. Do not overwrite the original save. Reload after resolving the issue. Details are in Player.log.",
   "runtime.rollbackNotice.update.corpPresenceFailedInitializeAttemptedRoll": "CorpPresence failed to initialize and attempted to roll back this startup. Temporarily disable CorpPresence and report this session's game log. Keep your original save.",
   "runtime.rollbackNotice.update.oK": "OK",
   "settings.init.maxCompanyCharactersPerDay": "Max company characters per day",

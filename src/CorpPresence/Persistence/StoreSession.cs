@@ -11,12 +11,12 @@ internal readonly struct StoreSession
 
     internal static bool CompanyProgressPaused => _companyProgressPaused && MatchesInventoryLoadStore;
     internal static string InventoryLoadReport => MatchesInventoryLoadStore ? _inventoryLoadReport : null;
-    internal static void RecordInventoryLoad(string report, bool failed)
+    internal static void RecordInventoryLoad(string report, bool paused)
     {
         var store = SaveSlot.CurrentStore;
         _inventoryLoadStore = store == null ? null : new System.WeakReference<PlayerStore>(store);
         _inventoryLoadReport = report;
-        _companyProgressPaused = failed;
+        _companyProgressPaused = paused;
     }
 
     internal static void Invalidate()

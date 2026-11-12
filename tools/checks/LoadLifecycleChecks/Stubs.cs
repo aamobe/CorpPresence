@@ -47,7 +47,8 @@ namespace CorpPresence
         internal bool HasSave = true, ThrowAfterLate, HasCompanyItem;
         internal int Loads, Saves, DecodeFailures; internal bool FailInventory; internal string cassettePlayerInvJSON;
         internal GameItem Decoded, NextDecoded;
-        internal bool RefusePlacement, IncludeNestedItem, MissingChildSlot, SavedMachineTags;
+        internal bool RefusePlacement, RefuseFirstPlacement, IncludeNestedItem, MissingChildSlot;
+        internal bool SavedMachineTags, CompanyNestedItem, CompanyGrandchild;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal void LoadGame()
@@ -94,14 +95,22 @@ namespace CorpPresence
             {
                 first.childItems.Add(3);
                 first.childItemInventoryNode.Add(MissingChildSlot ? 1 : 0);
-                nodes.Add(new SaveItemNode { identifier = "nested_item", uuid = 3 });
+                var nested = new SaveItemNode { identifier = CompanyNestedItem ? "corp_presence_test" : "nested_item", uuid = 3 };
+                nodes.Add(nested);
+                if (CompanyGrandchild)
+                {
+                    nested.childItems.Add(4);
+                    nested.childItemInventoryNode.Add(0);
+                    nodes.Add(new SaveItemNode { identifier = "corp_presence_test", uuid = 4 });
+                }
             }
             SaveManager.DecodeNodes(nodes);
             if (first.tempLink.spritePath == "unknown" && first.tempLink.IsTag("STANDARD_MACHINE_TAG"))
                 throw new InvalidOperationException("Machine upgrade loader cannot handle a placeholder without module slots.");
             Decoded = first.tempLink;
             NextDecoded = next.tempLink;
-            inventory.Accept(Decoded);
+            if (RefuseFirstPlacement) GraphUtils.DestroyIfUnplaced(Decoded, "load: target inventory refused a saved item");
+            else inventory.Accept(Decoded);
             if (!RefusePlacement) inventory.Accept(NextDecoded);
             GraphUtils.DestroyIfUnplaced(NextDecoded, "load: target inventory refused a saved item");
         }
@@ -117,7 +126,12 @@ namespace CorpPresence
         internal void SaveGame() => Saves++;
     }
 
-    internal static class SaveSlot { internal static PlayerStore CurrentStore; }
+    internal static class SaveSlot
+    {
+        internal static PlayerStore CurrentStore;
+        internal static bool CanWrite(string key) => CurrentStore?.modData.TryGetValue(key, out var data) != true || data != "unreadable";
+    }
+    internal static class Settings { internal static bool MaliceMode; }
     internal sealed class CorpState
     {
         private readonly PlayerStore _store = SaveSlot.CurrentStore;
@@ -204,6 +218,11 @@ namespace CorpPresence
         private static int _pendingVendingWater;
         private static void Guard(string _, Action action) => action();
     }
+}
+
+namespace CorpPresence.Malice
+{
+    internal static class MaliceState { internal static void Get() { } }
 }
 namespace CorpPresence.UI
 {

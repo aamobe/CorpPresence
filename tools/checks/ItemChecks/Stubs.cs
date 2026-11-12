@@ -38,8 +38,9 @@ internal static class GameResources { internal static bool Ready; internal stati
 internal static class ModLog
 {
     internal static readonly List<string> Warnings=new();
+    internal static readonly List<string> Information=new();
     internal static void Warn(string text)=>Warnings.Add(text);
-    internal static void Info(string text) { }
+    internal static void Info(string text)=>Information.Add(text);
 }
 internal static partial class ModHook
 {

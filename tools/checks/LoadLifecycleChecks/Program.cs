@@ -102,19 +102,20 @@ int noticesBeforeFailure = StoreUIManager.Instance.Notices;
 store.FailInventory = true;
 store.LoadGame();
 store.SaveGame();
-Check(store.DecodeFailures == 2 && Probe.Repairs == 0 && store.Saves == 6
-    && StoreUIManager.Instance.Notices == noticesBeforeFailure + 1 && StoreSession.CompanyProgressPaused
+Check(store.DecodeFailures == 2 && Probe.RepairCalls.All(n => n == 1) && store.Saves == 6
+    && StoreUIManager.Instance.Notices == noticesBeforeFailure && !StoreSession.CompanyProgressPaused
     && StoreSession.InventoryLoadReport.Contains("Late=已到达 库存恢复=解码失败")
     && StoreSession.InventoryLoadReport.Contains("主库存 · InvalidOperationException · 打印机结构不兼容")
     && StoreSession.InventoryLoadReport.Contains("后仓 · InvalidOperationException · Future Tech 拦截"),
-    "caught inventory failures still reach Late, warn once, skip company repair and allow native save");
+    "decode errors without evidence of company loss are logged without pausing company work");
 store.FailInventory = false;
+Array.Clear(Probe.RepairCalls);
 store.HasSave = false;
 store.LoadGame();
-Check(StoreSession.CompanyProgressPaused && Probe.Repairs == 0, "missing file does not lift a prior failure on the same store");
+Check(!StoreSession.CompanyProgressPaused && Probe.Repairs == 0, "missing file does not create a company pause");
 store.HasSave = true;
 store.LoadGame();
-Check(Probe.RepairCalls.All(count => count == 1) && StoreUIManager.Instance.Notices == noticesBeforeFailure + 1,
+Check(Probe.RepairCalls.All(count => count == 1) && StoreUIManager.Instance.Notices == noticesBeforeFailure,
     "successful reload repairs once without repeating the warning");
 Check(!StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("库存恢复=完整解码"),
     "complete inventory restoration releases the company pause");
@@ -133,6 +134,10 @@ Check(store.DecodeFailures == failedBeforeFactory && store.Decoded?.spritePath =
     "single failed company factory leaves later vanilla objects in the same inventory recoverable");
 Check(StoreSession.InventoryLoadReport.Contains("主库存 · 物品=corp_presence_test · 公司物品创建失败"),
     "factory diagnostic reports inventory, item and reason");
+store.HasSave = false;
+store.LoadGame();
+Check(StoreSession.CompanyProgressPaused, "missing file does not lift a confirmed company pause");
+store.HasSave = true;
 
 Goods.Throw = true;
 Check(Throws(() => PlayerStore.DecodeCompanyItem()), "standalone creation never receives the load-only placeholder fallback");
@@ -149,36 +154,83 @@ foreach (bool wrongIdentity in new[] { false, true })
     Goods.Product = null;
 }
 
+store.HasCompanyItem = false;
 store.RefusePlacement = store.IncludeNestedItem = store.MissingChildSlot = true;
+Array.Clear(Probe.RepairCalls);
 int noticesBeforeLoss = StoreUIManager.Instance.Notices;
-int logsBeforeLoss = ModLog.Warnings.Count;
+int logsBeforeLoss = ModLog.Information.Count;
+int warningsBeforeLoss = ModLog.Warnings.Count;
 store.LoadGame();
 Hooks.ShowInventoryLoadNotice();
-Check(store.NextDecoded.IsDestroyed && StoreSession.CompanyProgressPaused
+Check(store.NextDecoded.IsDestroyed && !StoreSession.CompanyProgressPaused && Probe.RepairCalls.All(n => n == 1)
     && StoreSession.InventoryLoadReport.Contains("Late=已到达 库存恢复=恢复不完整")
     && StoreSession.InventoryLoadReport.Contains("主库存 · 物品=vanilla_test · 原版目标库存拒收物品")
     && StoreSession.InventoryLoadReport.Contains("主库存 · 物品=nested_item · 容器子槽缺失")
-    && StoreUIManager.Instance.Notices == noticesBeforeLoss + 1
-    && StoreUIManager.Instance.LastNotice.Contains("Do not overwrite the original save"),
-    "silent refusal and missing child slot produce one warning after native cleanup");
-string[] automaticReports = ModLog.Warnings.Skip(logsBeforeLoss)
+    && StoreUIManager.Instance.Notices == noticesBeforeLoss,
+    "third-party placement loss and missing child slot leave company work active");
+string[] automaticReports = ModLog.Information.Skip(logsBeforeLoss)
     .Where(message => message.StartsWith("[读档恢复失败]", StringComparison.Ordinal)).ToArray();
 Check(automaticReports.Length == 1
+    && !ModLog.Warnings.Skip(warningsBeforeLoss).Any(message => message.StartsWith("[读档恢复失败]", StringComparison.Ordinal))
+    && automaticReports[0].Contains("[维护信息] 未发现公司物品或存档数据受影响。仅记录读档现象，不代表故障由公司增强造成。 公司送货和来访暂停=False")
     && automaticReports[0].Contains("Late=已到达 库存恢复=恢复不完整")
     && automaticReports[0].Contains("主库存 · 物品=vanilla_test · 原版目标库存拒收物品")
     && automaticReports[0].Contains("主库存 · 物品=nested_item · 容器子槽缺失"),
     "a failed load automatically logs one report containing both item failures");
 store.SaveGame();
 Check(store.Saves == 7, "native save still runs with placement losses");
+store.CompanyNestedItem = true;
+store.LoadGame();
+Check(StoreSession.CompanyProgressPaused
+    && StoreSession.InventoryLoadReport.Contains("物品=corp_presence_test · 容器子槽缺失")
+    && StoreUIManager.Instance.Notices == noticesBeforeLoss + 1
+    && StoreUIManager.Instance.LastNotice.Contains("Do not overwrite the original save"),
+    "a company item lost inside a third-party container still pauses company work");
+store.CompanyNestedItem = false;
 store.RefusePlacement = store.MissingChildSlot = false;
 Array.Clear(Probe.RepairCalls);
 int logsBeforeRecovery = ModLog.Warnings.Count;
+int infoBeforeRecovery = ModLog.Information.Count;
 store.LoadGame();
 Check(!StoreSession.CompanyProgressPaused && Probe.RepairCalls.All(n => n == 1)
     && store.NextDecoded.parentInventory != null && StoreUIManager.Instance.Notices == noticesBeforeLoss + 1,
     "successful reload with a valid child slot resumes company work without repeating the warning");
-Check(!ModLog.Warnings.Skip(logsBeforeRecovery).Any(message => message.StartsWith("[读档恢复失败]", StringComparison.Ordinal)),
+Check(!ModLog.Warnings.Skip(logsBeforeRecovery).Concat(ModLog.Information.Skip(infoBeforeRecovery))
+    .Any(message => message.StartsWith("[读档恢复失败]", StringComparison.Ordinal)),
     "successful reload does not log an inventory recovery warning");
+
+store.CompanyGrandchild = store.MissingChildSlot = true;
+store.LoadGame();
+Check(StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("物品=nested_item · 容器子槽缺失"),
+    "missing outer slot pauses when a company item remains attached to the detached inner container");
+store.MissingChildSlot = false;
+store.RefuseFirstPlacement = true;
+store.LoadGame();
+Check(StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("原版目标库存拒收物品"),
+    "refusing a third-party container with a company descendant pauses company work");
+store.RefuseFirstPlacement = false;
+store.RefusePlacement = true;
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused,
+    "successful company item restoration clears the pause even if an unrelated item still fails");
+store.CompanyGrandchild = store.RefusePlacement = false;
+
+store.modData["CorpPresence"] = "unreadable";
+Array.Clear(Probe.RepairCalls);
+store.LoadGame();
+Check(StoreSession.CompanyProgressPaused && Probe.Repairs == 0
+    && StoreSession.InventoryLoadReport.Contains("CorpPresence"), "unreadable company save data pauses company work");
+store.modData.Remove("CorpPresence");
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused && Probe.RepairCalls.All(n => n == 1),
+    "company work resumes when company data is readable");
+store.modData["CorpPresence.Malice"] = "unreadable";
+store.LoadGame();
+Check(!StoreSession.CompanyProgressPaused, "inactive Malice data does not pause company work");
+Settings.MaliceMode = true;
+store.LoadGame();
+Check(StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("CorpPresence.Malice"),
+    "unreadable active Malice data pauses company work");
 
 static HarmonyMethod Hook(string name) => new(typeof(Hooks), name);
 static bool Throws(Action run)

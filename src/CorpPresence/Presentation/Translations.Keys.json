@@ -4724,8 +4724,8 @@
     "La machine garde son apparence active jusqu’à ce que le bac de sortie soit vidé."
   ],
   "integration.hooks.load.inventoryDecodeFailed": [
-    "Часть предметов не удалось восстановить. Не перезаписывайте исходное сохранение. Устраните проблему и загрузите его снова. Доставки и визиты компаний приостановлены. Подробности в отчёте CorpPresence.",
-    "Certains objets n’ont pas pu être restaurés. N’écrasez pas la sauvegarde d’origine. Rechargez-la après avoir résolu le problème. Les livraisons et les visites des entreprises sont en pause. Consultez le rapport CorpPresence."
+    "Не удалось восстановить часть предметов или данных компаний. Доставки и визиты компаний приостановлены. Не перезаписывайте исходное сохранение. Устраните проблему и загрузите его снова. Подробности в Player.log.",
+    "Certains objets ou certaines données des entreprises n’ont pas pu être restaurés. Les livraisons et les visites des entreprises sont en pause. N’écrasez pas la sauvegarde d’origine. Rechargez-la après avoir résolu le problème. Détails dans Player.log."
   ],
   "runtime.rollbackNotice.update.corpPresenceFailedInitializeAttemptedRoll": [
     "Не удалось запустить CorpPresence. Мод попытался отменить изменения этого запуска. Временно отключите CorpPresence и отправьте журнал игры за этот сеанс. Сохраните исходный файл сохранения.",

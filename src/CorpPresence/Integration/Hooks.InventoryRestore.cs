@@ -7,6 +7,7 @@ namespace CorpPresence;
 internal static partial class Hooks
 {
     private const string NativeLoadPlacement = "load: target inventory refused a saved item";
+    private const int InventoryFailureDetailLimit = 64;
     private static InventoryDecode _inventoryDecode;
 
     private sealed class InventoryDecode
@@ -15,7 +16,9 @@ internal static partial class Hooks
         internal readonly int Index;
         internal readonly InventoryDecode Previous;
         internal bool NodesSeen;
+        internal List<SaveItemNode> Nodes;
         internal HashSet<string> SavedIds;
+        internal HashSet<long> CompanySubtrees;
         internal List<(GameItem Item, string Id, TagSystem State, TagSystem ModifiedState)> Placeholders;
 
         internal InventoryDecode(LoadAttempt attempt, int index, InventoryDecode previous)
@@ -25,17 +28,22 @@ internal static partial class Hooks
     private static bool IsCurrentInventory(InventoryDecode decode) => decode != null
         && ReferenceEquals(_activeLoad, decode.Attempt) && decode.Attempt.IsCurrent;
 
-    private static void RecordInventoryFailure(InventoryDecode decode, string reason, string itemId = null)
+    private static void RecordInventoryFailure(InventoryDecode decode, string reason, string itemId = null, bool companyAffected = false)
     {
         var attempt = decode.Attempt;
-        if (attempt.InventoryFailures.Count >= 64)
+        companyAffected |= ItemIdentity.Find(itemId, null) != null;
+        bool pauseNow = !attempt.CompanyItemsAffected && companyAffected;
+        attempt.CompanyItemsAffected |= pauseNow;
+        if (attempt.InventoryFailures.Count == InventoryFailureDetailLimit)
         {
             attempt.OmittedInventoryFailures++;
-            return;
+            if (!pauseNow) return;
+            attempt.InventoryFailures.RemoveAt(InventoryFailureDetailLimit - 1);
         }
         string name = decode.Index < 0 ? "未知库存" : InventoryNames[decode.Index];
-        attempt.InventoryFailures.Add(name + (itemId == null ? "" : " · 物品=" + SafeSavedId(itemId)) + " · " + reason);
-        if (attempt.InventoryFailures.Count == 1)
+        attempt.InventoryFailures.Add(name + (itemId == null ? "" : " · 物品=" + SafeSavedId(itemId)) + " · " + reason
+            + (companyAffected ? " · 涉及公司物品" : ""));
+        if (pauseNow)
             StoreSession.RecordInventoryLoad(FormatInventoryLoad(attempt, null), true);
     }
 
@@ -72,6 +80,7 @@ internal static partial class Hooks
         var decode = _inventoryDecode;
         if (__0 == null || !IsCurrentInventory(decode) || decode.NodesSeen) return;
         decode.NodesSeen = true;
+        decode.Nodes = __0;
         __state = decode;
         try
         {
@@ -152,11 +161,63 @@ internal static partial class Hooks
                     ? parent.childItemInventoryNode[i] : -1;
                 string location = " · 容器=" + SafeSavedId(parent.identifier) + " · 槽位=" + slot;
                 if (slot < 0 || slot >= slots.Count || slots[slot] is not GameInventory target)
-                    RecordInventoryFailure(decode, "容器子槽缺失" + location, child?.identifier ?? "未知");
+                    RecordInventoryFailure(decode, "容器子槽缺失" + location, child?.identifier ?? "未知",
+                        IsSavedCompanyItem(parent) || CompanySubtreeContains(decode, child));
                 else if (child?.tempLink == null || !ReferenceEquals(child.tempLink.parentInventory, target))
-                    RecordInventoryFailure(decode, "容器子槽未接收物品" + location, child?.identifier ?? "未知");
+                    RecordInventoryFailure(decode, "容器子槽未接收物品" + location, child?.identifier ?? "未知",
+                        CompanySubtreeContains(decode, child));
             }
         }
+    }
+
+    private static bool IsSavedCompanyItem(SaveItemNode node) =>
+        node != null && ItemIdentity.Find(node.identifier, node.spritePath) != null;
+
+    private static bool CompanySubtreeContains(InventoryDecode decode, SaveItemNode node)
+    {
+        if (node == null) return false;
+        decode.CompanySubtrees ??= FindCompanySubtrees(decode.Nodes);
+        return decode.CompanySubtrees.Contains(node.uuid);
+    }
+
+    // A missing outer container can strand company items even when their immediate inner slot decoded successfully.
+    private static HashSet<long> FindCompanySubtrees(List<SaveItemNode> nodes)
+    {
+        var companySubtrees = new HashSet<long>();
+        var parents = new Dictionary<long, List<long>>();
+        var pending = new Queue<long>();
+        foreach (var node in nodes)
+        {
+            if (node == null) continue;
+            if (IsSavedCompanyItem(node) && companySubtrees.Add(node.uuid))
+                pending.Enqueue(node.uuid);
+            if (node.childItems == null) continue;
+            foreach (long child in node.childItems)
+            {
+                if (!parents.TryGetValue(child, out var owners)) parents.Add(child, owners = new());
+                owners.Add(node.uuid);
+            }
+        }
+        while (pending.Count != 0)
+        {
+            if (!parents.TryGetValue(pending.Dequeue(), out var owners)) continue;
+            foreach (long parent in owners)
+                if (companySubtrees.Add(parent)) pending.Enqueue(parent);
+        }
+        return companySubtrees;
+    }
+
+    private static bool HasUnrestoredCompanyItems(InventoryDecode decode)
+    {
+        if (decode.Nodes == null) return false;
+        foreach (var node in decode.Nodes)
+        {
+            if (node == null) continue;
+            var item = node.tempLink;
+            if ((item == null || StorePlacement.Destroyed(item) || item.parentInventory == null)
+                && CompanySubtreeContains(decode, node)) return true;
+        }
+        return false;
     }
 
     // The native decoder indexes non-item descendants in breadth-first order.
@@ -177,18 +238,25 @@ internal static partial class Hooks
     }
 
     private static void BeforeNativePlacementCleanup(GameItem __0, string __1,
-        out (InventoryDecode Decode, string ItemId) __state)
+        out (InventoryDecode Decode, GameItem Item, string ItemId, bool CompanyItem) __state)
     {
         __state = default;
         var decode = _inventoryDecode;
         if (__1 != NativeLoadPlacement || !IsCurrentInventory(decode) || __0 == null || __0.unitCount <= 0) return;
-        __state = (decode, __0.identifier ?? "未知");
+        __state = (decode, __0, __0.identifier ?? "未知", ItemIdentity.Find(__0.identifier, __0.spritePath) != null);
     }
 
     private static void AfterNativePlacementCleanup(bool __runOriginal, bool __result,
-        (InventoryDecode Decode, string ItemId) __state)
+        (InventoryDecode Decode, GameItem Item, string ItemId, bool CompanyItem) __state)
     {
-        if (__runOriginal && !__result && IsCurrentInventory(__state.Decode))
-            RecordInventoryFailure(__state.Decode, "原版目标库存拒收物品", __state.ItemId);
+        var decode = __state.Decode;
+        if (!__runOriginal || __result || !IsCurrentInventory(decode)) return;
+        bool companyAffected = __state.CompanyItem;
+        if (!companyAffected && decode.Nodes != null)
+        {
+            var node = decode.Nodes.Find(saved => saved != null && ReferenceEquals(saved.tempLink, __state.Item));
+            companyAffected = CompanySubtreeContains(decode, node);
+        }
+        RecordInventoryFailure(decode, "原版目标库存拒收物品", __state.ItemId, companyAffected);
     }
 }
