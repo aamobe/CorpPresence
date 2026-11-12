@@ -1,7 +1,7 @@
 {
   "sourceCommit": "99719c4",
   "dllSha256": "92F95246D1156F726D57F51BB380C71E05CC15076115E1F1CEF37592E4C0E634",
-  "appendReview": "1.3.0: corp_presence_waste_battery reviewed against ItemIdentity.cs; see docs/releases/1.3.0.md. 1.4.0: two additional identities manually reviewed against ItemIdentity.cs, definitions and save contracts; no existing entries changed. Original baseline provenance retained.",
+  "appendReview": "1.3.0: corp_presence_waste_battery reviewed against ItemIdentity.cs; see docs/releases/1.3.0.md. 1.3.1: two additional identities manually reviewed against ItemIdentity.cs, definitions and save contracts; no existing entries changed. Original baseline provenance retained.",
   "entries": [
     {
       "Id": "corp_presence_ufo_backpack",
