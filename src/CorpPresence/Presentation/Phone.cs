@@ -25,6 +25,7 @@ internal static class Phone
 		}
 		Company[] all = Companies.All;
 		MangoGift.Register(dict);
+		WasteBatteryGift.Register(dict);
 		foreach (Company company in all)
 		{
 			if (dict.ContainsKey(company.PhoneNumber))
@@ -145,6 +146,7 @@ internal static class Phone
 		}
 		int num = 0;
 		if (dictionary.TryGetValue(MangoGift.Number, out var mango) && mango.locID == MangoGift.PhoneId && dictionary.Remove(MangoGift.Number)) num++;
+		if (dictionary.TryGetValue(WasteBatteryGift.Number, out var waste) && waste.locID == WasteBatteryGift.PhoneId && dictionary.Remove(WasteBatteryGift.Number)) num++;
 		Company[] all = Companies.All;
 		foreach (Company company in all)
 		{

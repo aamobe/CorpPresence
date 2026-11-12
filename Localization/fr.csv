@@ -1660,3 +1660,10 @@ diagnostics.report.help,Diagnostic : lecture de l’état sans modifier les sauv
 diagnostics.report.button,Générer un rapport de diagnostic
 diagnostics.report.success,Rapport écrit dans Player.log.
 diagnostics.report.failure,Échec de l’écriture du rapport. Conservez le journal actuel.
+wasteBattery.delivery.full,"Libérez une place de 1 x 2 sur le comptoir. La batterie sera livrée à nouveau."
+wasteBattery.item.description,"Capacité : 2000. Glissez des Déchets du jeu de base sur la batterie : une unité fournit 10 énergie. Nécessite de la place pour les 10 unités. Recharge ordinaire impossible. Livrée vide."
+wasteBattery.item.name,"Batterie à déchets"
+wasteBattery.phone.claimed,"Votre batterie à déchets a déjà été livrée. Merci pour votre soutien !"
+wasteBattery.phone.notReady,"Le cadeau ne peut pas être préparé pour le moment. Rappelez plus tard."
+wasteBattery.phone.pending,"Votre batterie à déchets est réservée. Je vous la livrerai en personne. Libérez une place de 1 x 2 sur le comptoir."
+wasteBattery.visitor.thanks,"Merci à Jiu pour son généreux soutien."

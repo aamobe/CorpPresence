@@ -42,6 +42,7 @@ internal static class GoodsText
         ["fate_coin_solana"] = new Keys("items.definitions.solanaSCoinOfFate.name", "items.definitions.solanaSCoinOfFate.flavor", "items.definitions.solanaSCoinOfFate.description", null, null),
         ["mango_warehouse"] = new Keys("mango.warehouse.name", "mango.warehouse.flavor", "mango.warehouse.description", null, null),
         ["mango_backpack"] = new Keys("mango.backpack.name", "mango.backpack.flavor", "mango.backpack.description", null, null),
+        ["waste_battery"] = new Keys("wasteBattery.item.name", "wasteBattery.visitor.thanks", "wasteBattery.item.description", null, null),
         ["fine_mince"] = new Keys("items.definitions.primeMince.name", "items.definitions.primeMince.flavor", "items.definitions.primeMince.description", null, null),
         ["fish_can"] = new Keys("items.definitions.davreCannedFish.name", "items.definitions.davreCannedFish.flavor", "items.definitions.davreCannedFish.description", null, null),
         ["fish_mince"] = new Keys("items.definitions.fishMince.name", "items.definitions.fishMince.flavor", "items.definitions.fishMince.description", null, null),

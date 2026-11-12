@@ -47,3 +47,14 @@ Reset();SaveSlot.Writable=false;Dial();Check(CorpState.Current.MangoGiftStatus==
 Reset();Dial();visitor=Arrive();var old=CorpState.Current;SaveSlot.CurrentStore=new();CorpState.Current=new();visitor.mainDialogue.Start();Check(Goods.Made.Count==0&&old.MangoGiftStatus==1,"old visitor cannot deliver into new save");
 Reset();Dial();visitor=Arrive();Goods.FailKey=CargoWarehouse.ControllerKey;visitor.mainDialogue.Start();Check(CorpState.Current.MangoGiftStatus==1&&Goods.Made.All(i=>i.destroyed),"missing controller aborts entire gift without claiming");
 Reset();Dial();visitor=Arrive();SaveSlot.CurrentStore.ThrowAfterPlacement=true;visitor.mainDialogue.Start();Check(CorpState.Current.MangoGiftStatus==2&&!SaveSlot.CurrentStore.Placed.destroyed,"native post-placement exception still commits observed delivery");
+
+void DialWaste(){var phones=new Dictionary<long,StorePhoneClient>();WasteBatteryGift.Register(phones);PhoneUIManager.Instance.currentPhoneClient=phones[119];WasteBatteryGift.Call().End?.Invoke();}
+StoreClient ArriveWaste(){var s=SaveSlot.CurrentStore;WasteBatteryGift.Schedule(s.storeClientManager);var c=s.storeClientManager.clientStack[0];s.storeClientManager.clientStack.RemoveAt(0);s.currentClientInstance=new Client{Blueprint=c};return c;}
+Reset();var wastePhones=new Dictionary<long,StorePhoneClient>{{119,foreign}};WasteBatteryGift.Register(wastePhones);Check(ReferenceEquals(wastePhones[119],foreign),"0119 preserves foreign registration");
+DialWaste();DialWaste();Check(CorpState.Current.WasteBatteryGiftStatus==1&&SaveSlot.CurrentStore.storeClientManager.clientStack.Count==1,"0119 queues one gift");
+visitor=ArriveWaste();Check(visitor.mainDialogue.Text=="感谢久的大力支持","exact Jiu dialogue");
+SaveSlot.CurrentStore.Full=true;visitor.mainDialogue.Start();Check(CorpState.Current.WasteBatteryGiftStatus==1&&Goods.Made.All(i=>i.destroyed),"waste gift full counter preserves pending");
+Goods.Made.Clear();SaveSlot.CurrentStore.Full=false;SaveSlot.CurrentStore.OnPlace=()=>visitor.mainDialogue.Start();visitor.mainDialogue.Start();
+Check(CorpState.Current.WasteBatteryGiftStatus==2&&Goods.Made.Count==1&&Goods.Made[0].Key=="waste_battery","waste gift delivers exactly one battery");
+DialWaste();visitor.mainDialogue.Start();Check(Goods.Made.Count==1&&CorpState.Current.MangoGiftStatus==0,"waste gift neither repeats nor claims mango");
+Reset();DialWaste();visitor=ArriveWaste();old=CorpState.Current;SaveSlot.CurrentStore=new();CorpState.Current=new();visitor.mainDialogue.Start();Check(Goods.Made.Count==0&&old.WasteBatteryGiftStatus==1,"waste gift rejects stale session");

@@ -75,6 +75,7 @@ internal static partial class Hooks
 	private static void OnGenerateCustomer(StoreClientManager manager)
 	{
 		Guard("芒果彩蛋来访", () => MangoGift.Schedule(manager));
+		Guard("废料电池彩蛋来访", () => WasteBatteryGift.Schedule(manager));
 		Guard("安排来访", () =>
 		{
 			Engine.Schedule(manager);
@@ -86,6 +87,7 @@ internal static partial class Hooks
 	{
 		if (!__runOriginal) return;
 		Guard("芒果彩蛋来访", () => MangoGift.Schedule(__instance?.storeClientManager));
+		Guard("废料电池彩蛋来访", () => WasteBatteryGift.Schedule(__instance?.storeClientManager));
 		Guard("安排来访", () =>
 		{
 			Engine.BuyActive = false;

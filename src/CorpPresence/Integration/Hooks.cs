@@ -155,6 +155,7 @@ internal static partial class Hooks
 		Patch(h, AccessTools.Method(typeof(ChemicalHelper), "HandleTemperatureReaction", new Type[1] { typeof(GameItem) }), "ChemicalHelper.HandleTemperatureReaction", typeof(SilverBlood), null, "AfterTemperatureReaction");
 		Patch(h, AccessTools.Method(typeof(ChemicalHelper), "HandleTemperatureReaction", new Type[1] { typeof(GameItem) }), "ChemicalHelper.HandleTemperatureReaction.Perfume", typeof(Perfume), null, "AfterTemperatureReaction");
 		Patch<MaterialDirectory>(h, "MetalIngot", typeof(MachineUpgrade), null, "AfterMakeIngot");
+		Patch<MaterialDirectory>(h, "Junk", typeof(WasteBattery), null, nameof(WasteBattery.AfterMakeJunk));
 		Patch<MachineHelper>(h, nameof(MachineHelper.GetBodyStorage), typeof(Canning), null, nameof(Canning.AfterMachineBodyStorage),
 			new[] { typeof(GameItem), typeof(int) });
 		Patch<MaterialDirectory>(h, "Electronic", typeof(MachineUpgrade), null, "AfterMakeElectronic");

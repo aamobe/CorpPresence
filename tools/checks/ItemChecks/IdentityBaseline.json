@@ -1,7 +1,15 @@
 {
   "sourceCommit": "99719c4",
   "dllSha256": "92F95246D1156F726D57F51BB380C71E05CC15076115E1F1CEF37592E4C0E634",
+  "appendReview": "1.3.0: corp_presence_waste_battery reviewed against ItemIdentity.cs; see docs/releases/1.3.0.md. Original baseline provenance retained.",
   "entries": [
+    {
+      "Id": "corp_presence_waste_battery",
+      "LegacyId": null,
+      "LegacySprite": "corp_med_waste_battery",
+      "Goods": "waste_battery",
+      "Company": null
+    },
     {
       "Id": "corp_presence_stamina",
       "LegacyId": "pink_alt_injector",

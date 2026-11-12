@@ -73,3 +73,19 @@ foreach(int bad in new[]{-1,3,int.MaxValue}){
     if(SaveSlot.CanWrite("CorpPresence")||PlayerStore.Instance.modData["CorpPresence"]!=raw)throw new Exception("Invalid gift state was overwritten");
 }
 Console.WriteLine("6 passed: mango defaults, three-state roundtrip and invalid-state write protection");
+
+foreach(int giftStatus in new[]{0,1,2}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    var giftState=CorpState.Get();
+    if(giftState.WasteBatteryGiftStatus!=0)throw new Exception("Old saves must default waste battery to unclaimed");
+    giftState.WasteBatteryGiftStatus=giftStatus;CorpState.Save();CorpState.Current=null;
+    if(CorpState.Get().WasteBatteryGiftStatus!=giftStatus)throw new Exception("Waste battery gift status lost on load");
+}
+foreach(int bad in new[]{-1,3,int.MaxValue}){
+    PlayerStore.Instance=new PlayerStore();CorpState.Current=null;
+    string raw="{\"RunId\":\"test\",\"WasteBatteryGiftStatus\":"+bad+"}";
+    PlayerStore.Instance.modData["CorpPresence"]=raw;
+    CorpState.Get();CorpState.Save();
+    if(SaveSlot.CanWrite("CorpPresence")||PlayerStore.Instance.modData["CorpPresence"]!=raw)throw new Exception("Invalid waste battery state was overwritten");
+}
+Console.WriteLine("6 passed: waste battery defaults, three-state roundtrip and invalid-state write protection");

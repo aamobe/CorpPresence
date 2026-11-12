@@ -87,7 +87,7 @@ internal static partial class Hooks
 	{
 		try
 		{
-			return Goods.IdOf(__0) != "anchor_cell";
+			return Goods.IdOf(__0) != "anchor_cell" && !WasteBattery.BlocksCharging(__0);
 		}
 		catch
 		{

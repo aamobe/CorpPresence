@@ -1660,3 +1660,10 @@ diagnostics.report.help,Diagnostics: reads runtime state without changing saves.
 diagnostics.report.button,Generate diagnostic report
 diagnostics.report.success,Report written to Player.log.
 diagnostics.report.failure,Report could not be written. Keep the current log.
+wasteBattery.delivery.full,"Leave a 1 x 2 space on the counter. The Waste Battery will be delivered again."
+wasteBattery.item.description,"Capacity: 2000. Drag native Junk onto the battery: one unit adds 10 energy. Requires room for all 10 energy. Cannot recharge normally. Delivered empty."
+wasteBattery.item.name,"Waste Battery"
+wasteBattery.phone.claimed,"Your Waste Battery has already arrived. Thank you for your support!"
+wasteBattery.phone.notReady,"The gift cannot be arranged right now. Please call again later."
+wasteBattery.phone.pending,"Your Waste Battery is reserved. I will bring it personally. Leave a 1 x 2 space on the counter."
+wasteBattery.visitor.thanks,"Thank you, Jiu, for your generous support."

@@ -26,7 +26,7 @@ internal static class PhoneDialogueLayout
 	{
 		var client = PhoneUIManager.Instance?.currentPhoneClient;
 		string locId = client?.locID;
-		if (locId != MangoGift.PhoneId && Companies.ByLocId(locId) == null)
+		if (locId != MangoGift.PhoneId && locId != WasteBatteryGift.PhoneId && Companies.ByLocId(locId) == null)
 		{
 			Reset();
 			return;

@@ -1,4 +1,11 @@
 {
+  "wasteBattery.phone.notReady": "The gift cannot be arranged right now. Please call again later.",
+  "wasteBattery.phone.claimed": "Your Waste Battery has already arrived. Thank you for your support!",
+  "wasteBattery.phone.pending": "Your Waste Battery is reserved. I will bring it personally. Leave a 1 x 2 space on the counter.",
+  "wasteBattery.visitor.thanks": "Thank you, Jiu, for your generous support.",
+  "wasteBattery.delivery.full": "Leave a 1 x 2 space on the counter. The Waste Battery will be delivered again.",
+  "wasteBattery.item.name": "Waste Battery",
+  "wasteBattery.item.description": "Capacity: 2000. Drag native Junk onto the battery: one unit adds 10 energy. Requires room for all 10 energy. Cannot recharge normally. Delivered empty.",
   "mango.backpack.flavor": "A delicious giant mango",
   "mango.warehouse.flavor": "Open, mango",
   "mango.phone.notReady": "The gift cannot be arranged right now. Please call again later.",

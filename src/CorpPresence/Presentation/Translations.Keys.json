@@ -1,4 +1,11 @@
 {
+  "wasteBattery.phone.notReady": ["Сейчас нельзя организовать подарок. Позвоните позже.", "Le cadeau ne peut pas être préparé pour le moment. Rappelez plus tard."],
+  "wasteBattery.phone.claimed": ["Ваша батарея на отходах уже доставлена. Спасибо за поддержку!", "Votre batterie à déchets a déjà été livrée. Merci pour votre soutien !"],
+  "wasteBattery.phone.pending": ["Батарея на отходах отложена для вас. Я принесу её лично. Оставьте на прилавке место 1 x 2.", "Votre batterie à déchets est réservée. Je vous la livrerai en personne. Libérez une place de 1 x 2 sur le comptoir."],
+  "wasteBattery.visitor.thanks": ["Спасибо Цзю за щедрую поддержку.", "Merci à Jiu pour son généreux soutien."],
+  "wasteBattery.delivery.full": ["Освободите место 1 x 2 на прилавке. Батарею доставят снова.", "Libérez une place de 1 x 2 sur le comptoir. La batterie sera livrée à nouveau."],
+  "wasteBattery.item.name": ["Батарея на отходах", "Batterie à déchets"],
+  "wasteBattery.item.description": ["Ёмкость: 2000. Перетащите обычный Хлам на батарею: одна единица даёт 10 энергии. Нужно место для всех 10 единиц. Обычная зарядка невозможна. Поставляется пустой.", "Capacité : 2000. Glissez des Déchets du jeu de base sur la batterie : une unité fournit 10 énergie. Nécessite de la place pour les 10 unités. Recharge ordinaire impossible. Livrée vide."],
   "mango.backpack.flavor": ["Вкусное большое манго", "Une délicieuse mangue géante"],
   "mango.warehouse.flavor": ["Манго, откройся", "Mangue, ouvre-toi"],
   "mango.phone.notReady": ["Сейчас нельзя организовать подарок. Позвоните позже.", "Le cadeau ne peut pas être préparé pour le moment. Rappelez plus tard."],

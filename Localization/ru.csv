@@ -1660,3 +1660,10 @@ diagnostics.report.help,Диагностика: чтение состояния 
 diagnostics.report.button,Создать диагностический отчёт
 diagnostics.report.success,Отчёт записан в Player.log.
 diagnostics.report.failure,Не удалось записать отчёт. Сохраните текущий журнал.
+wasteBattery.delivery.full,"Освободите место 1 x 2 на прилавке. Батарею доставят снова."
+wasteBattery.item.description,"Ёмкость: 2000. Перетащите обычный Хлам на батарею: одна единица даёт 10 энергии. Нужно место для всех 10 единиц. Обычная зарядка невозможна. Поставляется пустой."
+wasteBattery.item.name,"Батарея на отходах"
+wasteBattery.phone.claimed,"Ваша батарея на отходах уже доставлена. Спасибо за поддержку!"
+wasteBattery.phone.notReady,"Сейчас нельзя организовать подарок. Позвоните позже."
+wasteBattery.phone.pending,"Батарея на отходах отложена для вас. Я принесу её лично. Оставьте на прилавке место 1 x 2."
+wasteBattery.visitor.thanks,"Спасибо Цзю за щедрую поддержку."
