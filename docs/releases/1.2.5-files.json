@@ -1,0 +1,43 @@
+{
+  "version": "1.2.5",
+  "tag": "v1.2.5",
+  "sourceRevision": "7f1e00b93d9ceaed66a1ab28a6e1111d4912f12d",
+  "workshopItem": "3828913695",
+  "files": [
+    {
+      "path": "CHANGELOG-1.2.5.txt",
+      "bytes": 413,
+      "sha256": "CD0F786C82BC7D4B560658C0E23D6796EAB8A1EEBFDE576F7D1D14A45C9AD012"
+    },
+    {
+      "path": "CorpPresence.dll",
+      "bytes": 8167424,
+      "sha256": "AA55219110E9CC3F64868C075829EB2BB7CFABF258CA99F7825E1CDB51CA4313"
+    },
+    {
+      "path": "Localization/en.csv",
+      "bytes": 173816,
+      "sha256": "E1AC2A30B54FB0D354BA0882A00B5F792D96508E2292EBBAC0A815885EF16BBC"
+    },
+    {
+      "path": "Localization/fr.csv",
+      "bytes": 199476,
+      "sha256": "9D3A5F92D15BC31421B8C9AF551358A1EE7CE5C2A08B76D55B52D0EE3BDB67F4"
+    },
+    {
+      "path": "Localization/ru.csv",
+      "bytes": 254812,
+      "sha256": "9C48696225D96E002D79782C8A43BB7ABB501DA0E069F4C804C5FAA3A25BB6FF"
+    },
+    {
+      "path": "manifest.xml",
+      "bytes": 644,
+      "sha256": "2BB259121ACF3858479A78D0EDC77884A9C72BC6C8CC6BC4E5A224FDB105092C"
+    },
+    {
+      "path": "TRANSLATIONS.txt",
+      "bytes": 503,
+      "sha256": "1E9090F2D0545A5FEE838B7BD6F125C4EB17CB2BEB63FDA9F48FE4316FB17211"
+    }
+  ]
+}
