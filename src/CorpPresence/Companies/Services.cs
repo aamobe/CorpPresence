@@ -214,45 +214,6 @@ internal static partial class Services
 		return false;
 	}
 
-	public static void MaybeGiveCard(string charId)
-	{
-		Company company = Companies.ByCharacter(charId);
-		CompanyState companyState = ((company == null) ? null : Companies.StateOf(company));
-		if (companyState == null || companyState.CardGiven || companyState.Coop < 20)
-		{
-			return;
-		}
-		try
-		{
-			GameItem gameItem = Cards.Make(company);
-			if (gameItem == null)
-			{
-				ModLog.Warn(company.Name + "的名片没生成出来，下次再给");
-				return;
-			}
-			if (!PlayerStore.Instance.TryAddDirectSellingItemToTable(gameItem, isOwend: true))
-			{
-				ModLog.Info("柜台放满了，" + company.Name + "的名片明天由跑腿送来");
-				return;
-			}
-		}
-		catch (Exception ex)
-		{
-			ModLog.Warn("名片生成失败，下次再给：" + ex.Message);
-			return;
-		}
-		companyState.CardGiven = true;
-		Phone.Activate(company);
-		try
-		{
-			Notebook.Refresh();
-		}
-		catch
-		{
-		}
-		ModLog.Info($"拿到{company.Name}的名片，电话 {company.PhoneNumber}");
-	}
-
 	public static int Fee(string companyId, string key, int basePrice)
 	{
 		if (!Malice.Malice.IsInstalled)

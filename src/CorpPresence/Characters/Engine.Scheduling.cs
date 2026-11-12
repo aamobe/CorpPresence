@@ -7,7 +7,7 @@ internal static partial class Engine
 	public static void OnDayStart()
 	{
 		BuyActive = false;
-		if (!GameResources.Ready || SaveSlot.CurrentStore == null || !SaveSlot.CanWrite("CorpPresence")) return;
+		if (StoreSession.CompanyProgressPaused || !GameResources.Ready || SaveSlot.CurrentStore == null || !SaveSlot.CanWrite("CorpPresence")) return;
 		CorpState corpState = CorpState.Get();
 		if (corpState == null)
 		{
@@ -18,7 +18,7 @@ internal static partial class Engine
 		Character[] all = All;
 		foreach (Character character in all)
 		{
-			if (!session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
+			if (StoreSession.CompanyProgressPaused || !session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
 			CharacterState characterState = corpState.Of(character.Id);
 			if (characterState.PendingDay >= 0 && characterState.PendingDay < dayCounter)
 			{
@@ -29,7 +29,7 @@ internal static partial class Engine
 
 	public static void OnDayEnd()
 	{
-		if (!GameResources.Ready || SaveSlot.CurrentStore == null || !SaveSlot.CanWrite("CorpPresence")) return;
+		if (StoreSession.CompanyProgressPaused || !GameResources.Ready || SaveSlot.CurrentStore == null || !SaveSlot.CanWrite("CorpPresence")) return;
 		CorpState corpState = CorpState.Get();
 		if (corpState == null)
 		{
@@ -41,7 +41,7 @@ internal static partial class Engine
 		Character[] all = All;
 		foreach (Character character in all)
 		{
-			if (!session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
+			if (StoreSession.CompanyProgressPaused || !session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
 			try
 			{
 				ScheduleNext(character, corpState.Of(character.Id), dayCounter, cash);
@@ -51,7 +51,7 @@ internal static partial class Engine
 				WarnVisit(character.Name + "预约来访失败：" + ex.Message);
 			}
 		}
-		if (!session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
+		if (StoreSession.CompanyProgressPaused || !session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
 		try
 		{
 			ApplyDailyCap(corpState, dayCounter + 1);
@@ -163,7 +163,7 @@ internal static partial class Engine
 
 	public static void Schedule(StoreClientManager manager)
 	{
-		if (_scheduling || !GameResources.Ready || manager?.clientStack == null || SaveSlot.CurrentStore == null || !SaveSlot.CanWrite("CorpPresence")) return;
+		if (StoreSession.CompanyProgressPaused || _scheduling || !GameResources.Ready || manager?.clientStack == null || SaveSlot.CurrentStore == null || !SaveSlot.CanWrite("CorpPresence")) return;
 		_scheduling = true;
 		try
 		{
@@ -175,7 +175,7 @@ internal static partial class Engine
 			int day = StoreStation.GetDayCounter();
 			foreach (Character character in All)
 			{
-				if (!session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
+				if (StoreSession.CompanyProgressPaused || !session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
 				CharacterState state = null;
 				try
 				{

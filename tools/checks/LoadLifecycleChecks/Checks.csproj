@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>0649;0067;0414</NoWarn>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../ItemChecks/Stubs.cs" />
+    <Compile Include="../../../src/CorpPresence/Items/ItemRegistry.cs" />
+    <Compile Include="../../../src/CorpPresence/Integration/Hooks.Load.cs" />
+    <Compile Include="../../../src/CorpPresence/Integration/Hooks.Save.cs" />
+    <Compile Include="../../../src/CorpPresence/Persistence/StoreSession.cs" />
+    <Compile Include="../../../src/CorpPresence/Runtime/LoadedItemRepair.cs" />
+    <Compile Include="../../../src/CorpPresence/Maintenance/MaintenanceSnapshot.cs" />
+    <Reference Include="0Harmony"><HintPath>$(GameManaged)/0Harmony.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

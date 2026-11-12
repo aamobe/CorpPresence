@@ -41,10 +41,9 @@ internal static partial class Services
 			_closedDay = -1;
 			CorpState root = CorpState.Get();
 			if (root == null) return;
-			string run = store.runID;
-			long generation = GameResources.Generation;
-			bool IsCurrent() => StoreSession.Matches(store, root, run, generation);
-			bool CanSettle() => IsCurrent() && SaveSlot.CanWrite("CorpPresence") && (!Settings.MaliceMode || SaveSlot.CanWrite("CorpPresence.Malice"));
+			StoreSession session = StoreSession.Capture(store, root);
+			bool IsCurrent() => session.IsCurrent;
+			bool CanSettle() => !StoreSession.CompanyProgressPaused && IsCurrent() && SaveSlot.CanWrite("CorpPresence") && (!Settings.MaliceMode || SaveSlot.CanWrite("CorpPresence.Malice"));
 			if (Settings.MaliceMode) CorpPresence.Malice.MaliceState.Get();
 			if (!SaveSlot.CanWrite("CorpPresence") || (Settings.MaliceMode && !SaveSlot.CanWrite("CorpPresence.Malice")))
 			{

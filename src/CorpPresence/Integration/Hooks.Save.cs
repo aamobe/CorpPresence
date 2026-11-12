@@ -5,14 +5,15 @@ using CorpPresence.Runtime;
 using CorpPresence.UI;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CorpPresence;
 
 internal static partial class Hooks
 {
-	private static void BeforeSave()
+	private static void BeforeSave(PlayerStore __instance)
 	{
-		// Skip only our recursive preparation; the void prefix never cancels vanilla.
+		if (!ReferenceEquals(SaveSlot.CurrentStore, __instance)) return;
 		if (!SavePreparation.TryEnter()) return;
 		try
 		{
@@ -27,30 +28,35 @@ internal static partial class Hooks
 		finally { SavePreparation.Exit(); }
 	}
 
-	private static void AfterLoadGame(bool __runOriginal)
-	{
-		ResetState();
-		if (__runOriginal)
-		{
-			LoadedItemRepair.Request(() =>
-			{
-				Guard("读档后配送箱清理绑定", Crates.RebindLoaded);
-				Guard("清理旧药品的纯度特征", ItemTags.RemoveRestoredMedicinePurity);
-				Guard("修复旧物品占格", Goods.RestoreLegacyFootprints);
-				Guard("读档后定制刀分类", Forge.AfterStoreLoaded);
-			});
-			Guard("读档后公司物品修复", LoadedItemRepair.Tick);
-		}
-	}
-
 	private static void BeforeStoreTransition()
 	{
+		StoreSession.Invalidate();
 		CargoSortWindow.Close();
 		CargoWarehouse.ResetControllerStock();
 		_pendingVendingWater = 0;
 		LoadedItemRepair.Reset();
 		Guard("换档配送清理", Crates.Reset);
 		Guard("换档估价清理", CatalogPricing.Reset);
+	}
+
+	internal static void InstallStoreScene() => SceneManager.activeSceneChanged += OnStoreSceneChanged;
+
+	internal static void UninstallStoreScene() => SceneManager.activeSceneChanged -= OnStoreSceneChanged;
+
+	private static void OnStoreSceneChanged(Scene previous, Scene next)
+	{
+		if (next.name == "EmporiumMenu")
+		{
+			ClearLoadState();
+			Guard("返回主菜单清理公司会话", ResetState);
+		}
+	}
+
+	private static void AfterStartNewGame(bool __runOriginal)
+	{
+		if (!__runOriginal) return;
+		ClearLoadState();
+		ResetState();
 	}
 
 	private static void ResetState()

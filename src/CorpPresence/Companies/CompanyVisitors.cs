@@ -16,7 +16,7 @@ internal static partial class CompanyVisitors
 
 	public static void Schedule(StoreClientManager manager)
 	{
-		if (manager?.clientStack == null) return;
+		if (StoreSession.CompanyProgressPaused || manager?.clientStack == null) return;
 		foreach (Company c in Companies.All)
 		{
 			CompanyState state;

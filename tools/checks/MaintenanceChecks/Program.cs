@@ -53,6 +53,28 @@ MaintenanceDiagnostics.Record("test","phase","session-only",null);PlayerStore.In
 Check(MaintenanceDiagnostics.Capture().Faults.Single().Source=="startup","changing saves clears only session faults");
 MaintenanceDiagnostics.Record("test","phase","reset",null);MaintenanceDiagnostics.Reset();Check(MaintenanceDiagnostics.Capture().Faults.Count==0,"disable reset clears diagnostics");
 
+MaintenanceDiagnostics.RecordRuntime("items", "register", "collision", null, "corp_presence_a");
+MaintenanceDiagnostics.Record("items", "resolve", "global_entry_missing", null, "corp_presence_a");
+MaintenanceDiagnostics.Record("items", "resolve", "global_entry_missing", null, "corp_presence_b");
+MaintenanceDiagnostics.Record("items", "resolve", "global_entry_missing", null, "corp_presence_b");
+MaintenanceDiagnostics.Record("items", "resolve", "global_entry_missing", null, "private/path");
+snap = MaintenanceDiagnostics.Capture();
+Check(snap.Faults.Count == 4 && snap.Faults.Single(f => f.ItemId == "corp_presence_b").Count == 2
+    && snap.Faults.Any(f => f.ItemId == "unknown"), "item IDs separate counters and reject arbitrary paths");
+Check(MaintenanceFormatter.Format(snap).Contains("items/resolve/global_entry_missing item=corp_presence_b"),
+    "maintenance log names the item and failure stage");
+StoreSession.RecordInventoryLoad("Late=已到达 库存恢复=解码失败\n[维护] 主库存 · 打印机结构不兼容", true);
+var inventoryReport = MaintenanceFormatter.Format(MaintenanceDiagnostics.Capture());
+Check(inventoryReport.Contains("公司送货和来访暂停=True") && inventoryReport.Contains("主库存 · 打印机结构不兼容"),
+    "inventory failure and paused company state appear in the maintenance report");
+StoreSession.Invalidate();
+snap = MaintenanceDiagnostics.Capture();
+Check(!snap.CompanyProgressPaused && snap.InventoryLoadReport == null, "menu transition clears inventory load diagnostics");
+Check(snap.Faults.Single().Scope == MaintenanceFaultScope.Runtime &&
+    snap.Counters.Single(c => c.Name == "save.session_revision").Value == StoreSession.Revision,
+    "menu transition expires save faults but preserves runtime registration evidence");
+MaintenanceDiagnostics.Reset();
+
 UnityEngine.Time.unscaledTime=0;UnityEngine.Input.Down=false;MaintenanceConsole.Tick();Check(ModLog.Reports==0,"console does not report automatically");
 UnityEngine.Input.Held.Add(UnityEngine.KeyCode.LeftControl);UnityEngine.Input.Held.Add(UnityEngine.KeyCode.RightShift);UnityEngine.Input.Down=true;
 MaintenanceConsole.Tick();Check(ModLog.Reports==1,"modifier chord reports once");

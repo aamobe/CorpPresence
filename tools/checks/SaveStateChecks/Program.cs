@@ -34,6 +34,13 @@ Console.WriteLine($"{passed} passed: malformed/null records protected; legacy pr
 
 var blueprint = new StoreClient();
 PlayerStore.Instance.currentClientInstance = new Client { Blueprint = blueprint };
+var blockedVisit = new CharacterVisitSession("seline", state.Of("seline"), blueprint);
+StoreSession.RecordInventoryLoad("partial", true);
+if (blockedVisit.IsCurrent || blockedVisit.TryFinish())
+    throw new Exception("Incomplete inventory allowed a visit to finish");
+StoreSession.Invalidate();
+if (blockedVisit.TryFinish()) throw new Exception("Old visit completed after reload");
+Console.WriteLine("PASS incomplete inventory preserves visit completion until a new session");
 var visit = new CharacterVisitSession("seline", state.Of("seline"), blueprint);
 if (!visit.IsCurrent || !visit.TryFinish() || visit.TryFinish())
     throw new Exception("Visit completion was not exactly once");

@@ -23,13 +23,34 @@ internal static partial class Hooks
 			"StorageExpansionHelper.RestoreTabs", typeof(ProductionWorkBay), prefix: nameof(ProductionWorkBay.BeforeRestoreNativeTabs));
 		Patch<SaveManager>(h, "EncodeNode", typeFromHandle2, "BeforeEncode", null, new Type[1] { typeof(GameItem) });
 		Patch<PlayerStore>(h, "SaveGame", typeFromHandle, nameof(BeforeSave));
-		Patch<PlayerStore>(h, "LoadGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(AfterLoadGame));
-		Patch<PlayerStore>(h, "StartNewGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(ResetState));
+		InstallLoadPatches(h);
+		PatchInstallation.Run("PlayerStore.DecodeSaveItem", () =>
+		{
+			var decode = AccessTools.Method(typeof(PlayerStore), "DecodeSaveItem", new[] { typeof(string), typeof(GameInventory) });
+			if (decode == null) return false;
+			h.Patch(decode, prefix: new HarmonyMethod(typeof(Hooks), nameof(BeforeDecodeSaveItem)),
+				finalizer: new HarmonyMethod(typeof(Hooks), nameof(AfterDecodeSaveItem)));
+			return true;
+		}, required: false);
+		Patch<PlayerStore>(h, "StartNewGame", typeFromHandle, nameof(BeforeStoreTransition), nameof(AfterStartNewGame));
 		Patch(h, AccessTools.Method(typeof(ModConfigWindow), nameof(ModConfigWindow.Open), new[] { typeof(LoadedMod) }),
 			"ModConfigWindow.Open", typeof(ConfigLocalization), postfix: nameof(ConfigLocalization.AfterOpen));
 #if TESTKIT
 		SaveDiag.Install(h);   // 测试版：存档出错时把出错物品写进日志
 #endif
+	}
+
+	private static void InstallLoadPatches(Harmony h)
+	{
+		var load = AccessTools.Method(typeof(PlayerStore), nameof(PlayerStore.LoadGame), Type.EmptyTypes);
+		PatchInstallation.Run("PlayerStore.LoadGame", () =>
+		{
+			if (load == null) return false;
+			h.Patch(load, prefix: new HarmonyMethod(typeof(Hooks), nameof(BeforeLoadGame)),
+				postfix: new HarmonyMethod(typeof(Hooks), nameof(AfterLoadGame)),
+				finalizer: new HarmonyMethod(typeof(Hooks), nameof(FinalizeLoadGame)));
+			return true;
+		}, required: true);
 	}
 
 	private static void InstallGameplay(Harmony h)

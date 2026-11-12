@@ -85,12 +85,14 @@ internal static partial class Hooks
 
 	private static void AfterWillAnswer(long number, ref bool __result)
 	{
+		if (!__result) return;
 		try
 		{
 			Company company = Companies.ByNumber(number);
-			if (company != null)
+			var phones = SaveSlot.CurrentStore?.PhoneClientDict;
+			if (company != null && phones != null && phones.TryGetValue(number, out var client) && Phone.Owns(client, company))
 			{
-				__result = Companies.StateOf(company)?.CardGiven ?? false;
+				__result = Phone.Available(company);
 			}
 		}
 		catch

@@ -31,14 +31,17 @@ internal sealed class MaintenanceFault
     public string Code { get; }
     public string ExceptionType { get; }
     public string Detail { get; }
+    public string ItemId { get; }
     public int Count { get; }
-    public MaintenanceFault(string source, string stage, string code, string type, string detail, int count = 1, MaintenanceFaultScope scope = MaintenanceFaultScope.Session)
-    { Scope = scope; Source = source; Stage = stage; Code = code; ExceptionType = type; Detail = detail; Count = count; }
+    public MaintenanceFault(string source, string stage, string code, string type, string detail, int count = 1, MaintenanceFaultScope scope = MaintenanceFaultScope.Session, string itemId = null)
+    { Scope = scope; Source = source; Stage = stage; Code = code; ExceptionType = type; Detail = detail; Count = count; ItemId = itemId; }
     internal static int Increment(int value) => value == int.MaxValue ? value : value + 1;
-    internal MaintenanceFault Repeated() => new(Source, Stage, Code, ExceptionType, Detail, Increment(Count), Scope);
+    internal MaintenanceFault Repeated() => new(Source, Stage, Code, ExceptionType, Detail, Increment(Count), Scope, ItemId);
 }
 internal sealed class MaintenanceSnapshot
 {
+    public string InventoryLoadReport { get; }
+    public bool CompanyProgressPaused { get; }
     public string Version { get; }
     public bool ResourcesReady { get; }
     public long Generation { get; }
@@ -54,8 +57,10 @@ internal sealed class MaintenanceSnapshot
     public MaintenanceSnapshot(string version, bool ready, long generation, SaveDiagnosticStatus status,
         bool? corpProtected, bool? maliceProtected, int? orders, long? units,
         IEnumerable<MaintenanceCounter> counters, IEnumerable<MaintenanceFault> faults,
-        IEnumerable<MaintenanceRegistration> registrations, IEnumerable<MaintenanceModuleState> modules)
+        IEnumerable<MaintenanceRegistration> registrations, IEnumerable<MaintenanceModuleState> modules, string inventoryLoadReport = null, bool companyProgressPaused = false)
     {
+        InventoryLoadReport = inventoryLoadReport;
+        CompanyProgressPaused = companyProgressPaused;
         Version = version; ResourcesReady = ready; Generation = generation; SaveStatus = status;
         CorpWriteProtected = corpProtected; MaliceWriteProtected = maliceProtected;
         PendingOrders = orders; PendingItemUnits = units;

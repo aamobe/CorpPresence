@@ -1,10 +1,10 @@
 namespace CorpPresence {
 static class GeneralHelper {public static void SetItemOwned(GameItem item){}}
 class Visitor {public int Day;public string Kind;}
-static class Companies {public static List<Company> All=new();public static CompanyState StateOf(Company company)=>CorpState.Current.Companies[company.Id];}
+static class Companies {public static List<Company> All=new();public static Company ByCharacter(string id)=>All.SingleOrDefault(c=>c.CharacterId==id);public static CompanyState StateOf(Company company)=>CorpState.Current.Companies[company.Id];}
 static class NightSettlement {public static bool TryBegin(CompanyState s,int day)=>true;}
-class Company {public string Id="pastel",CharacterId="character",Name="Company";public List<CatalogEntry> Catalog;}
-class CompanyState {public bool TrafficOn,VipOn,DealerJoined;public int DealerSinceDay;public double WeekSales;public List<Visitor> Visitors=new();public Dictionary<string,int> LimitedBought=new();public List<Order> Orders=new();}
+class Company {public string Id="pastel",CharacterId="character",Name="Company";public List<CatalogEntry> Catalog;public string PhoneNumber="72783";}
+class CompanyState {public bool TrafficOn,VipOn,DealerJoined;public int DealerSinceDay,Coop;public bool CardGiven;public double WeekSales;public List<Visitor> Visitors=new();public Dictionary<string,int> LimitedBought=new();public List<Order> Orders=new();}
 class Order {public int Day,Cash;public string Kind;public List<string> Items=new();}
 class GameInventory {public List<GameItem> childItems=new();public Func<GameItem,GameInventory,SlotMarker,int> maxSlotAmountItemFunc;public Func<GameItem,GameInventory,bool> mayInventoryAddItemFunc;public Action<GameItem,GameInventory,SlotMarker> onSlotRemoveItemEndFunc;}
 class GameGridInventory:GameInventory {public bool HasCrateSlot=true;public bool CanTakeAnything()=>true;public SlotMarker TryFindOneValidInventorySlot(GameItem item)=>HasCrateSlot?new SlotMarker():null;}
@@ -23,7 +23,7 @@ class Client {public StoreClient GetClientBlueprint()=>null;}
 class DialogUIManager {public void CurrentClientLeave(){}}
 class StoreUIManager {public static StoreUIManager Instance;public void Notify(string message){}}
 static partial class CompanyVisitors {private static int Day=>StoreStation.Day;public static Action Receipt(Company c,CompanyState s,List<Order> orders)=>CreateDeliveryReceipt(c,s,orders,false);}
-static partial class Services {private static int _closedDay=-1;private static bool _nightlyRunning;private static int Day=>StoreStation.Day;public static Func<string> PayHook;public static string Pay(Company c,int fee,string kind)=>PayHook?.Invoke();public static void MaybeGiveCard(string id){}}
+static partial class Services {private static int _closedDay=-1;private static bool _nightlyRunning;private static int Day=>StoreStation.Day;public static Func<string> PayHook;public static string Pay(Company c,int fee,string kind)=>PayHook?.Invoke();}
 static class CompanyMoney {public static void DeliverCash(PlayerStore store,Order o){o.Cash=0;}}
 static class OrderContents {public static void ExpandModBoxes(Order o,Func<string> roll){}}
 class Character {public GameItem MakeItem(string id)=>Goods.Factory();}
@@ -34,3 +34,12 @@ namespace UnityEngine {class Object {public static T FindObjectOfType<T>() where
 namespace CorpPresence.Malice {static class MaliceState {public static void Get(){}}}
 
 namespace CorpPresence.Malice {static class Malice {public static bool IsInstalled => false; public static int? Limit(CorpPresence.CatalogEntry entry) => null;}}
+
+namespace CorpPresence.UI
+{
+    internal static class Notebook
+    {
+        internal static int Refreshes;
+        internal static void Refresh() => Refreshes++;
+    }
+}

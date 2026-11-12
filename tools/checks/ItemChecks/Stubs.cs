@@ -10,14 +10,14 @@ internal sealed class GameItem
 }
 internal sealed class SaveItemNode { internal string identifier, spritePath; }
 internal static class StorePlacement { internal static bool Destroyed(GameItem item)=>item.IsDestroyed; }
-internal static class GameResources { internal static bool Ready; }
+internal static class GameResources { internal static bool Ready; internal static long Generation { get; set; } }
 internal static class ModLog
 {
     internal static readonly List<string> Warnings=new();
     internal static void Warn(string text)=>Warnings.Add(text);
     internal static void Info(string text) { }
 }
-internal static class ModHook
+internal static partial class ModHook
 {
     internal static event Action<ModItemDirectory> OnModItemDirectoryInit;
     internal static int Count=>OnModItemDirectoryInit?.GetInvocationList().Length??0;
@@ -67,7 +67,7 @@ internal static class DirectoryMaster
     internal static int DummyCreates, PostprocessCalls;
     internal static GameItem Item(string id,bool isOwned)
     {
-        var item=Native.TryGetValue(id,out var factory)?factory():Current.factoryDictionary[id]();
+        var item=GetFactory<GameItem>(id)?.Invoke();
         if(item==null){DummyCreates++;return new(){identifier=id,spritePath="unknown"};}
         item.identifier=id;PostprocessCalls++;return item;
     }
@@ -82,12 +82,18 @@ internal static class ItemIdentity
     internal static Entry Find(string id,string sprite)=>All.FirstOrDefault(e=>e.Id==id || (e.LegacyId==id && e.LegacySprite==sprite));
     internal static string ResolveId(string id,string sprite)=>Find(id,sprite)?.Id;
 }
-internal static class Goods
+internal static partial class Goods
 {
     internal static int Builds;
     internal static GameItem Product;
     internal static bool ReturnNull;
-    internal static GameItem Build(ItemIdentity.Entry entry) { Builds++;return ReturnNull?null:Product ?? new(){identifier=entry.Id}; }
+    internal static bool Throw;
+    internal static GameItem Build(ItemIdentity.Entry entry)
+    {
+        Builds++;
+        if (Throw) throw new InvalidOperationException("injected construction failure");
+        return ReturnNull ? null : Product ?? new() { identifier = entry.Id };
+    }
 }
 internal static class Cards
 {
@@ -96,8 +102,9 @@ internal static class Cards
 }
 internal static class MaintenanceDiagnostics
 {
-    internal static readonly List<(string Source,string Stage,string Code)> Faults=new();
+    internal static readonly List<(string Source,string Stage,string Code,string ItemId)> Faults=new();
     internal static bool Fail;
-    internal static void Record(string source,string stage,string code,Exception error)
-    { if(Fail) throw new Exception("diagnostic failure"); Faults.Add((source,stage,code)); }
+    internal static void RecordRuntime(string source,string stage,string code,Exception error,string itemId=null) => Record(source,stage,code,error,itemId);
+    internal static void Record(string source,string stage,string code,Exception error,string itemId=null)
+    { if(Fail) throw new Exception("diagnostic failure"); Faults.Add((source,stage,code,itemId)); }
 }

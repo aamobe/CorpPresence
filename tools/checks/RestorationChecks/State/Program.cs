@@ -1,4 +1,5 @@
 using CorpPresence;
+using CorpPresence.UI;
 int passed = 0, failed = 0;
 void Check(string name, Action test) { try { SaveSlot.CurrentStore = new PlayerStore(); CorpState.Current = new CorpState(SaveSlot.CurrentStore); GameResources.Ready = true; GameResources.Generation++; Goods.Factory = () => new GameItem(); StoreStation.Day = 1; GraphUtils.Stacking=false; GraphUtils.IgnoreDeclaredLimit=false; test(); passed++; Console.WriteLine("PASS " + name); } catch(Exception e) { failed++; Console.WriteLine("FAIL " + name + ": " + e.Message); } }
 void Assert(bool value) { if(!value) throw new Exception("assertion"); }
@@ -183,17 +184,191 @@ Check("placed crate retains a live controller after clearing its order", () =>
     Assert(crate.parentInventory != null && controller.parentInventory == inventory && controller.unitCount == 1
         && controller.identifier == "corp_presence_cargo_sort_controller" && controller.DestroyCount == 0);
 });
+void WithReload(Action exercise)
+{
+    ItemRegistry.Install();
+    try
+    {
+        var original = new ModItemDirectory();
+        Assert(DirectoryMaster.AddDirectory(original));
+        var store = SaveSlot.CurrentStore;
+        var state = CorpState.Current;
+        SaveSlot.CurrentStore = null;
+        CorpState.Current = null;
+        StoreSession.Invalidate();
+        original.SceneObjectDestroyed = true;
+        Assert(original == null && !DirectoryMaster.AddDirectory(new ModItemDirectory()));
+        SaveSlot.CurrentStore = store;
+        CorpState.Current = state;
+        exercise();
+    }
+    finally { ItemRegistry.Uninstall(); DirectoryMaster.Current = null; }
+}
+
+Check("paid order after menu reload delivers physical goods exactly once", () =>
+{
+    var company = new Company();
+    var state = new CompanyState();
+    var order = new Order { Items = new() { "corp_presence_paid_goods", "corp_presence_paid_goods" } };
+    state.Orders.Add(order);
+    CorpState.Current.Companies[company.Id] = state;
+    WithReload(() =>
+    {
+        Crates.Reset();
+        PlayerStore.Placed.Clear();
+        GraphUtils.Capacity = 10;
+        var receive = CompanyVisitors.Receipt(company, state, new() { order });
+        StoreSession.RecordInventoryLoad("partial", true);
+        receive();
+        Assert(PlayerStore.Placed.Count == 0 && state.Orders.Contains(order) && order.Items.Count == 2);
+        StoreSession.Invalidate();
+        receive();
+        Assert(PlayerStore.Placed.Count == 0 && order.Items.Count == 2);
+        receive = CompanyVisitors.Receipt(company, state, new() { order });
+        receive();
+        receive();
+        CompanyVisitors.Receipt(company, state, new() { order })();
+        var crate = PlayerStore.Placed.Single();
+        Assert(crate.identifier == "corp_presence_crate_pastel" && crate.parentInventory != null);
+        Assert(Crates.InnerOf(crate).childItems.Count == 2 &&
+            Crates.InnerOf(crate).childItems.All(item => item.identifier == "corp_presence_paid_goods" && item.DestroyCount == 0));
+        Assert(state.Orders.Count == 0 && order.Items.Count == 0);
+    });
+});
+
+Check("first visit after menu reload places a card and unlocks its contact once", () => WithReload(() =>
+{
+    PlayerStore.Placed.Clear();
+    Phone.Activations = Notebook.Refreshes = 0;
+    var company = new Company { CharacterId = "milo-reload-check" };
+    var state = new CompanyState { Coop = 20 };
+    Companies.All.Add(company);
+    CorpState.Current.Companies[company.Id] = state;
+    try
+    {
+        StoreSession.RecordInventoryLoad("partial", true);
+        Services.MaybeGiveCard(company.CharacterId);
+        Assert(PlayerStore.Placed.Count == 0 && !state.CardGiven && Phone.Activations == 0);
+        StoreSession.Invalidate();
+        Services.MaybeGiveCard(company.CharacterId);
+        Services.MaybeGiveCard(company.CharacterId);
+        var card = PlayerStore.Placed.Single();
+        Assert(card.identifier == "corp_presence_card_pastel" && card.parentInventory != null);
+        Assert(state.CardGiven && Phone.Activations == 1 && Notebook.Refreshes == 1);
+    }
+    finally { Companies.All.Remove(company); }
+}));
+
+Check("grinder after menu reload places mince and paste and commits input calories", () => WithReload(() =>
+{
+    GraphUtils.Capacity = 10;
+    var machine = new GameItem();
+    var output = new GameInventory();
+    foreach (var (id, calories, result, portions) in new[]
+    {
+        ("raw_meat", 1200, "corp_presence_fine_mince", 4),
+        ("fish_fillet", 400, "corp_presence_fish_mince", 2),
+        ("nutrifruit", 300, "corp_presence_fruit_paste", 1)
+    })
+    {
+        var input = new GameInventory();
+        var food = new GameItem { identifier = id };
+        food.ModifyTag("CALORIE_VALUE_TAG", tag => tag.SetInt(calories));
+        GraphUtils.TryAcceptAll(input, food);
+        Canning.Process(machine, input, output);
+        Assert(input.childItems.Count == 0 && food.DestroyCount == 1);
+        Assert(output.childItems.Count(item => item.identifier == result && item.parentInventory == output) == portions);
+    }
+    Assert(Canning.FruitReserve(machine) == 60);
+}));
+
+Check("menu transition invalidates old callbacks even if original save references return", () =>
+{
+    PlayerStore.Placed.Clear();
+    var company = new Company();
+    var state = new CompanyState();
+    var order = new Order { Items = new() { "a" } };
+    state.Orders.Add(order);
+    CorpState.Current.Companies[company.Id] = state;
+    var oldReceipt = CompanyVisitors.Receipt(company, state, new() { order });
+    var session = StoreSession.Capture();
+    Assert(session.IsCurrent);
+    WithReload(() =>
+    {
+        oldReceipt();
+        Assert(PlayerStore.Placed.Count == 0 && order.Items.Count == 1 && state.Orders.Contains(order));
+    });
+    Assert(!session.IsCurrent && StoreSession.Capture().IsCurrent);
+});
+
+Check("receipt from save A cannot place goods or settle orders in save B", () =>
+{
+    PlayerStore.Placed.Clear();
+    var company = new Company();
+    var original = new CompanyState();
+    var order = new Order { Items = new() { "a" }, Cash = 20 };
+    original.Orders.Add(order);
+    CorpState.Current.Companies[company.Id] = original;
+    var receipt = CompanyVisitors.Receipt(company, original, new() { order });
+    WithReload(() =>
+    {
+        SaveSlot.CurrentStore = new PlayerStore { runID = "B" };
+        CorpState.Current = new CorpState(SaveSlot.CurrentStore) { RunId = "B" };
+        var current = new CompanyState();
+        CorpState.Current.Companies[company.Id] = current;
+        receipt();
+        Assert(PlayerStore.Placed.Count == 0 && current.Orders.Count == 0);
+        Assert(original.Orders.Contains(order) && order.Items.Count == 1 && order.Cash == 20);
+    });
+});
+
+Check("grinder keeps a full batch on factory failure and credits a small fish to its own reserve", () => WithReload(() =>
+{
+    GraphUtils.Capacity = 10;
+    var machine = new GameItem();
+    var input = new GameInventory();
+    var output = new GameInventory();
+    var fish = new GameItem { identifier = "small_fish_fillet" };
+    fish.ModifyTag("CALORIE_VALUE_TAG", tag => tag.SetInt(120));
+    GraphUtils.TryAcceptAll(input, fish);
+    MaintenanceDiagnostics.Faults.Clear();
+    Canning.Process(machine, input, output);
+    Assert(fish.DestroyCount == 1 && Canning.FruitReserve(machine) == 0 && output.childItems.Count == 0);
+    Assert(machine.GetTagReadonly("CORP_GRIND_FISH_KCAL_INT").GetInt() == 120);
+    Assert(!MaintenanceDiagnostics.Faults.Any());
+    var fruit = new GameItem { identifier = "nutrifruit" };
+    fruit.ModifyTag("CALORIE_VALUE_TAG", tag => tag.SetInt(300));
+    GraphUtils.TryAcceptAll(input, fruit);
+    DirectoryMaster.Current.factoryDictionary.Remove("corp_presence_fruit_paste");
+    Canning.Process(machine, input, output);
+    Assert(fruit.DestroyCount == 0 && input.childItems.Contains(fruit));
+    Assert(Canning.FruitReserve(machine) == 0 && output.childItems.Count == 0);
+}));
+
+Check("diagnostics distinguish a missing local factory and identify its item", () => WithReload(() =>
+{
+    const string id = "corp_presence_fruit_paste";
+    MaintenanceDiagnostics.Faults.Clear();
+    DirectoryMaster.Current.factoryDictionary.Remove(id);
+    Assert(ItemRegistry.Create(id) == null);
+    Assert(MaintenanceDiagnostics.Faults.Any(fault => fault.Stage == "resolve" && fault.Code == "local_entry_missing" && fault.ItemId == id));
+    var counters = new List<MaintenanceCounter>();
+    ItemRegistry.AppendDiagnostics(counters);
+    Assert(counters.Single(counter => counter.Name == "items.registered").Value == ItemIdentity.All.Count);
+    Assert(counters.Single(counter => counter.Name == "items.resolvable").Value == ItemIdentity.All.Count - 1);
+}));
+
 Console.WriteLine($"{passed} passed, {failed} failed"); return failed==0?0:1;
 namespace CorpPresence {
 class PlayerStore {public List<(string,int)> ActivePermits=new(); public int contrabandMarkupLow=35, contrabandMarkupMid=70, contrabandMarkupHigh=100, contrabandMarkupCritial=150;public string runID="run"; public Dictionary<string,string> modData=new();public static PlayerStore Instance=>SaveSlot.CurrentStore;public void AddNightLog(string text,string color=null){}public Client currentClientInstance; public static List<GameItem> Placed=new();public bool RefusePlacement; public bool TryAddDirectSellingItemToTable(GameItem crate,bool isOwend){if(RefusePlacement)return false;Placed.Add(crate);crate.parentInventory=new GameInventory();return true;}}
 static class SaveSlot {public static PlayerStore CurrentStore;public static bool CanWrite(string key)=>true;}
 static class GameResources {public static bool Ready=true;public static long Generation;}
 class CorpState {public static CorpState Current;public string RunId="run";public Dictionary<string,CompanyState> Companies=new();SaveBinding binding; public CorpState(PlayerStore s){binding=new SaveBinding(s,"CorpPresence");} public bool IsBoundTo(PlayerStore s)=>binding.Matches(s);public static CorpState Get()=>Current;}
-class TagState {public string Value; public string GetString()=>Value;}
-class GameItem:GraphNodeStorage {public bool IsContraband; public string Level; public string RestrictedType; public bool IsGameItemType(string type)=>type==RestrictedType; public int EventPercent; public bool IsTag(string tag)=>tag=="CONTRABAND_ITEM_TAG" && IsContraband; public TagState GetTagReadonly(string tag)=>new TagState{Value=Level};public GameInventory parentInventory;public GameInventory Inner;public string identifier="item"; public int unitCount=1; public long Value=10;public int DestroyCount;public Func<long> Read;public Action OnDestroy; public long GetCurrentValue(bool useRetailMarkup,bool withChild,bool includeEvents,bool forceMarkup,long extraMarketMod)=>Read?.Invoke()??(long)Math.Round(Value*(1+((includeEvents?EventPercent:0)+extraMarketMod)/100.0));public void Destroy(){DestroyCount++;OnDestroy?.Invoke();}public string GetDisplayName()=>L.En?"English":"中文";public GameItem SetContentWindow(PixelWindow window){Inner=window.Inventory;return this;}public void EnableTag(string tag){}}
-static partial class Goods {public static Func<GameItem> Factory;public static bool Has(string id)=>false;public static GameItem MakeSpecial(string id)=>Factory();public static string IdOf(GameItem item)=>item.identifier;public static GameItem Make(string id)=>id.StartsWith("crate_")?(RegisteredCrates.Contains(id)?Crates.CreateShell():null):Factory();}
-static class ItemRegistry {public static GameItem Create(string id)=>Goods.Factory();}
-static class DirectoryMaster {public static GameItem Item(string id,bool isOwned)=>Goods.Factory();}
+
+class GameItem:GraphNodeStorage {public bool IsContraband; public string Level; public string RestrictedType; public bool IsGameItemType(string type)=>type==RestrictedType; public int EventPercent; private readonly Dictionary<string,TagState> tags=new(); public bool IsTag(string tag)=>tags.ContainsKey(tag) || tag=="CONTRABAND_ITEM_TAG" && IsContraband; public TagState GetTagReadonly(string tag)=>tags.GetValueOrDefault(tag) ?? new TagState{Value=Level}; public void ModifyTag(string tag,Action<TagState> change){if(!tags.TryGetValue(tag,out var state))tags[tag]=state=new TagState();change(state);} public string spritePath; public void SetUnitCount(int count)=>unitCount=count;public GameInventory parentInventory;public GameInventory Inner;public string identifier="item"; public int unitCount=1; public long Value=10;public int DestroyCount;public Func<long> Read;public Action OnDestroy; public long GetCurrentValue(bool useRetailMarkup,bool withChild,bool includeEvents,bool forceMarkup,long extraMarketMod)=>Read?.Invoke()??(long)Math.Round(Value*(1+((includeEvents?EventPercent:0)+extraMarketMod)/100.0));public void Destroy(){DestroyCount++;parentInventory?.childItems.Remove(this);parentInventory=null;OnDestroy?.Invoke();}public string GetDisplayName()=>L.En?"English":"中文";public GameItem SetContentWindow(PixelWindow window){Inner=window.Inventory;return this;}public void EnableTag(string tag){}}
+static partial class Goods {public static Func<GameItem> Factory;public static GameItem Build(ItemIdentity.Entry entry){var item=entry.Goods.StartsWith("crate_")?Crates.CreateShell():new GameItem();item.identifier=entry.Id;return item;}public static bool Has(string id)=>false;public static GameItem MakeSpecial(string id)=>DirectoryMaster.Current is null ? Factory() : null;public static string IdOf(GameItem item)=>item.identifier;public static GameItem Make(string id)=>DirectoryMaster.Current is not null ? ItemRegistry.Create("corp_presence_"+id) : id.StartsWith("crate_")?(RegisteredCrates.Contains(id)?Crates.CreateShell():null):Factory();}
+
+
 static class PastelCo {public const int TrafficFee=10,RebatePeriod=7;public static GameItem GenuineHemingway(bool limited=false)=>Goods.Factory();}
 class CarmichaelCo:Company {public static GameItem MakeGenuine(string id)=>Goods.Factory();}
 static class MeridianCo {public static GameItem MakeNew(string id)=>Goods.Factory();public static GameItem MakeRefurbished(string id)=>Goods.Factory();}

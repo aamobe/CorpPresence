@@ -8,7 +8,7 @@ namespace CorpPresence;
 
 public class Main : IMod
 {
-    private const string ReleaseVersion = "1.2.1";
+    private const string ReleaseVersion = "1.2.2";
 #if MAINTENANCE
     public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-maintenance";
 #elif WATER_TRACE
@@ -46,6 +46,8 @@ public class Main : IMod
         _runtime.Own(Ext.ResetWarnings, Ext.ResetWarnings);
         _runtime.Own(Noop, LoadedItemRepair.Reset);
         _runtime.Own(ItemRegistry.Install, ItemRegistry.Uninstall);
+        _runtime.Own(Hooks.InstallLoadEvents, Hooks.UninstallLoadEvents);
+        _runtime.Own(Hooks.InstallStoreScene, Hooks.UninstallStoreScene);
         _runtime.Own(() => Hooks.InstallCore(_harmony), () =>
         {
             _harmony?.UnpatchAll(_harmony.Id);

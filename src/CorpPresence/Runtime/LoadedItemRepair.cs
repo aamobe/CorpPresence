@@ -11,6 +11,7 @@ internal static class LoadedItemRepair
     private static WeakReference<Dictionary<string, string>> _data;
     private static string _run;
     private static long _generation;
+    private static long _revision;
     private static Action _repair;
 
     public static void Request(Action repair)
@@ -22,6 +23,7 @@ internal static class LoadedItemRepair
         _data = store.modData == null ? null : new WeakReference<Dictionary<string, string>>(store.modData);
         _run = store.runID;
         _generation = GameResources.Generation;
+        _revision = StoreSession.Revision;
         _repair = repair;
     }
 
@@ -37,7 +39,8 @@ internal static class LoadedItemRepair
     {
         if (_repair == null) return;
         PlayerStore current = SaveSlot.CurrentStore;
-        if (_generation != GameResources.Generation || _store == null || !_store.TryGetTarget(out var owner)
+        if (_generation != GameResources.Generation || _revision != StoreSession.Revision
+            || _store == null || !_store.TryGetTarget(out var owner)
             || !ReferenceEquals(current, owner) || current.runID != _run
             || (_data == null ? current.modData != null : !_data.TryGetTarget(out var data) || !ReferenceEquals(current.modData, data)))
         {

@@ -28,18 +28,23 @@ internal static partial class CompanyVisitors
 	{
 		PlayerStore store = SaveSlot.CurrentStore;
 		CorpState root = CorpState.Current;
-		string run = store?.runID;
-		long generation = GameResources.Generation;
+		StoreSession session = StoreSession.Capture(store, root);
 		bool done = false;
 		bool IsCurrent()
 		{
-			return StoreSession.Matches(store, root, run, generation) && c != null && s?.Orders != null && orders != null
+			return !StoreSession.CompanyProgressPaused && session.IsCurrent && c != null && s?.Orders != null && orders != null
 				&& root.Companies != null && root.Companies.TryGetValue(c.Id, out CompanyState current)
 				&& ReferenceEquals(current, s) && SaveSlot.CanWrite("CorpPresence");
 		}
 		return () =>
 		{
-			if (done || !IsCurrent()) return;
+			if (done) return;
+			if (!session.IsCurrent)
+			{
+				MaintenanceDiagnostics.RecordRuntime("delivery", "session", "expired", null);
+				return;
+			}
+			if (!IsCurrent()) return;
 			done = true;
 			try
 			{
@@ -104,7 +109,13 @@ internal static partial class CompanyVisitors
 			{
 				// A free cell does not mean the actual crate will fit. Probe with the
 				// real shell before creating the order items.
-				if (!isCurrent() || !CounterMayFit(crate) || !isCurrent()) break;
+				if (!isCurrent()) break;
+				if (!CounterMayFit(crate))
+				{
+					MaintenanceDiagnostics.Record("delivery", "placement", "counter_no_space", null, crate.identifier);
+					break;
+				}
+				if (!isCurrent()) break;
 				foreach (var order in orders)
 				{
 					foreach (string id in order.Items)
@@ -137,7 +148,12 @@ internal static partial class CompanyVisitors
 						finally { DiscardUnshipped(item); }
 					}
 				}
-				if (packed.Count == 0 || !isCurrent() || !TryPlaceDelivery(crate)) break;
+				if (packed.Count == 0 || !isCurrent()) break;
+				if (!TryPlaceDelivery(crate))
+				{
+					MaintenanceDiagnostics.Record("delivery", "placement", "counter_rejected", null, crate.identifier);
+					break;
+				}
 				placed = true;
 				if (!isCurrent()) return;
 				foreach (var entry in packed) entry.Order.Items.Remove(entry.Id);

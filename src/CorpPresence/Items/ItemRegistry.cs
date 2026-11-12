@@ -7,10 +7,15 @@ internal static class ItemRegistry
 {
     internal static bool IsInstalled => _onInit != null;
     internal static bool LastReleaseFailed { get; private set; }
+    internal static event Action CompanyDecodeWarning;
     internal static void AppendDiagnostics(System.Collections.Generic.ICollection<MaintenanceCounter> target)
     {
         target.Add(new MaintenanceCounter("items.factories", Factories.Count));
         target.Add(new MaintenanceCounter("items.registered", Registered.Count));
+        int resolvable = 0;
+        foreach (string id in Registered)
+            if (ResolveFailure(id, companyItem: true, out _) == null) resolvable++;
+        target.Add(new MaintenanceCounter("items.resolvable", resolvable));
     }
 
 	private static readonly Dictionary<string, Func<GameItem>> Factories = new Dictionary<string, Func<GameItem>>(StringComparer.Ordinal);
@@ -75,7 +80,7 @@ internal static class ItemRegistry
 			catch (Exception ex)
 			{
 				LastReleaseFailed = true;
-				Report("release", "remove_failed", ex);
+				ReportRuntime("release", "remove_failed", ex, id);
 				Warn("release:" + id, "清理独立物品失败，保留所有权供重试：" + id);
 			}
 		}
@@ -113,13 +118,14 @@ internal static class ItemRegistry
 				if (Registered.Contains(entry.Id) && Factories.TryGetValue(entry.Id, out var owned)
 					&& directory.factoryDictionary.TryGetValue(entry.Id, out var current) && ReferenceEquals(owned, current))
 				{
-					if (!IsAvailable(entry.Id)) Report("register", "shadowed");
+					string failure = ResolveFailure(entry.Id, companyItem: true, out var error);
+					if (failure != null) ReportRuntime("resolve", failure, error, entry.Id);
 					continue;
 				}
 				Registered.Remove(entry.Id);
 				if (directory.Has(entry.Id) || DirectoryMaster.Has<GameItem>(entry.Id))
 				{
-					Report("register", "collision");
+					ReportRuntime("register", "collision", null, entry.Id);
 					Warn("collision:" + entry.Id, "独立物品 ID 已被占用，保留现有工厂：" + entry.Id);
 					continue;
 				}
@@ -134,13 +140,13 @@ internal static class ItemRegistry
 				}
 				else
 				{
-					Report("register", "add_refused");
+					ReportRuntime("register", "add_refused", null, entry.Id);
 					Warn("add:" + entry.Id, "注册独立物品失败：" + entry.Id);
 				}
 			}
 			catch (Exception ex)
 			{
-				Report("register", "add_failed", ex);
+				ReportRuntime("register", "add_failed", ex, entry.Id);
 				Warn("register:" + entry.Id, "注册 " + entry.Id + " 失败：" + ex.Message);
 			}
 		}
@@ -152,27 +158,31 @@ internal static class ItemRegistry
 		}
 	}
 
-	public static bool IsAvailable(string id)
+	public static bool IsAvailable(string id) => id != null
+		&& ResolveFailure(id, ItemIdentity.Find(id, null) != null, out _) == null;
+
+	private static string ResolveFailure(string id, bool companyItem, out Exception error)
 	{
-		if (id == null)
-		{
-			return false;
-		}
+		error = null;
 		try
 		{
-			// This shared creation entry also serves vanilla ingredients, templates and rewards.
-			// Only our declared independent identities require registry ownership.
-			if (ItemIdentity.Find(id, null) == null) return DirectoryMaster.Has<GameItem>(id);
-			// DirectoryMaster retains the managed directory after its Unity scene object is destroyed.
-			return IsInstalled && GameResources.Ready && !LastReleaseFailed
-				&& Registered.Contains(id) && Factories.TryGetValue(id, out var owned)
-				&& _directory is not null && _directory.factoryDictionary.TryGetValue(id, out var current)
-				&& ReferenceEquals(owned, current) && ReferenceEquals(owned, DirectoryMaster.GetFactory<GameItem>(id));
+			if (!companyItem) return DirectoryMaster.Has<GameItem>(id) ? null : "global_entry_missing";
+			if (!IsInstalled) return "registry_disabled";
+			if (!GameResources.Ready) return "resources_not_ready";
+			if (LastReleaseFailed) return "cleanup_incomplete";
+			// The native global directory can retain this managed dictionary across scene changes.
+			if (_directory is null) return "directory_not_initialized";
+			if (!Registered.Contains(id) || !Factories.TryGetValue(id, out var owned)) return "not_registered";
+			if (!_directory.factoryDictionary.TryGetValue(id, out var current)) return "local_entry_missing";
+			if (!ReferenceEquals(owned, current)) return "local_factory_replaced";
+			var global = DirectoryMaster.GetFactory<GameItem>(id);
+			if (global == null) return "global_entry_missing";
+			return ReferenceEquals(owned, global) ? null : "global_factory_replaced";
 		}
 		catch (Exception ex)
 		{
-			Warn("available:" + id, "检查 " + id + " 失败：" + ex.Message);
-			return false;
+			error = ex;
+			return "lookup_exception";
 		}
 	}
 
@@ -182,10 +192,12 @@ internal static class ItemRegistry
 		{
 			return null;
 		}
-		if (!IsAvailable(id))
+		bool companyItem = ItemIdentity.Find(id, null) != null;
+		string failure = ResolveFailure(id, companyItem, out var error);
+		if (failure != null)
 		{
-			Report("create", "unavailable");
-			if (ItemIdentity.Find(id, null) != null)
+			Report("resolve", failure, error, id);
+			if (companyItem)
 			{
 				Warn("missing:" + id, "物品目录未就绪，暂不生成：" + id);
 			}
@@ -194,6 +206,11 @@ internal static class ItemRegistry
 		GameItem gameItem;
 		try { gameItem = DirectoryMaster.Item(id, isOwned: false); }
 		catch (FactoryCreationException) { return null; }
+		catch (Exception ex) when (!companyItem)
+		{
+			Report("create", "native_creation_exception", ex, id);
+			throw;
+		}
 		if (gameItem != null && gameItem.identifier == id)
 		{
 			return gameItem;
@@ -204,7 +221,7 @@ internal static class ItemRegistry
 			catch (Exception ex) { Warn("discard:" + id, "回收错误身份的临时物品失败：" + id + "；" + ex.Message); }
 		}
 		Warn("create:" + id, "物品工厂返回了不匹配的身份：" + id);
-		Report("create", "wrong_identity");
+		Report("create", gameItem == null ? "native_returned_null" : "wrong_identity", null, id);
 		return null;
 	}
 
@@ -238,14 +255,20 @@ internal static class ItemRegistry
 
 	private static GameItem BuildRegistered(ItemIdentity.Entry entry)
 	{
-		var item = entry.Goods == null ? Cards.Build(entry) : Goods.Build(entry);
+		GameItem item;
+		try { item = entry.Goods == null ? Cards.Build(entry) : Goods.Build(entry); }
+		catch (Exception ex)
+		{
+			Report("create", "factory_exception", ex, entry.Id);
+			throw;
+		}
 		if (item != null && item.identifier == entry.Id) return item;
 		if (item != null && item.parentInventory == null && !StorePlacement.Destroyed(item))
 		{
 			try { item.Destroy(); }
-			catch (Exception error) { Report("create", "discard_failed", error); }
+			catch (Exception error) { Report("create", "discard_failed", error, entry.Id); }
 		}
-		Report("create", item == null ? "factory_failed" : "wrong_identity");
+		Report("create", item == null ? "factory_returned_null" : "wrong_identity", null, entry.Id);
 		// Throw before DirectoryMaster can turn an empty result into a same-ID dummy.
 		throw new FactoryCreationException(entry.Id);
 	}
@@ -265,6 +288,17 @@ internal static class ItemRegistry
 		if (__0 == null)
 		{
 			return;
+		}
+		// Report unavailable company factories and leave fallback handling to the native decoder.
+		foreach (var node in __0)
+		{
+			string id = ItemIdentity.Find(node?.identifier, node?.spritePath)?.Id;
+			if (id == null) continue;
+			string reason = ResolveFailure(id, companyItem: true, out var error);
+			if (reason == null) continue;
+			Report("decode", reason, error, id);
+			Warn("decode:" + id + ":" + reason, "读档时公司物品工厂不可用：" + id + " (" + reason + ")");
+			try { CompanyDecodeWarning?.Invoke(); } catch { }
 		}
 		foreach (SaveItemNode item in __0)
 		{
@@ -287,14 +321,20 @@ internal static class ItemRegistry
 		}
 	}
 
+
 	public static void BeforeEncode(GameItem __0)
 	{
 		Migrate(__0);
 	}
 
-	private static void Report(string stage, string code, Exception error = null)
+	private static void Report(string stage, string code, Exception error, string id)
 	{
-		try { MaintenanceDiagnostics.Record("items", stage, code, error); } catch { }
+		try { MaintenanceDiagnostics.Record("items", stage, code, error, id); } catch { }
+	}
+
+	private static void ReportRuntime(string stage, string code, Exception error, string id)
+	{
+		try { MaintenanceDiagnostics.RecordRuntime("items", stage, code, error, id); } catch { }
 	}
 
 	private static void Warn(string key, string message)

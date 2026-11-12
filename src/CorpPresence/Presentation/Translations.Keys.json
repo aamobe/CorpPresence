@@ -4723,6 +4723,14 @@
     "Рабочий вид машины отображается, пока на выходе есть продукция.",
     "La machine garde son apparence active jusqu’à ce que le bac de sortie soit vidé."
   ],
+  "integration.hooks.load.inventoryDecodeFailed": [
+    "Не удалось восстановить часть инвентарей. Доставки и визиты компаний приостановлены. Сохраните исходный файл и загрузите его после устранения проблемы. Подробности доступны в диагностическом отчёте в настройках CorpPresence.",
+    "Certains inventaires n’ont pas pu être restaurés. Les livraisons et les visites des entreprises sont en pause. Conservez la sauvegarde d’origine et rechargez-la après avoir résolu le problème. Consultez le rapport de diagnostic dans les paramètres de CorpPresence."
+  ],
+  "integration.hooks.load.companyItemsUnavailable": [
+    "Некоторые предметы CorpPresence были недоступны и могли загрузиться как заглушки. Сохраните исходный файл и загрузите его снова, когда фабрики предметов будут готовы.",
+    "Certains objets de CorpPresence étaient indisponibles et ont pu être chargés sous forme d’objets de substitution. Conservez votre sauvegarde d’origine et rechargez-la quand les fabriques d’objets seront prêtes."
+  ],
   "runtime.rollbackNotice.update.corpPresenceFailedInitializeAttemptedRoll": [
     "Не удалось запустить CorpPresence. Мод попытался отменить изменения этого запуска. Временно отключите CorpPresence и отправьте журнал игры за этот сеанс. Сохраните исходный файл сохранения.",
     "CorpPresence n’a pas pu démarrer et a tenté d’annuler les changements de ce lancement. Désactivez temporairement CorpPresence et transmettez le journal de cette session. Conservez votre sauvegarde d’origine."

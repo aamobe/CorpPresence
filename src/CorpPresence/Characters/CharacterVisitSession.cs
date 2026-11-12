@@ -13,7 +13,7 @@ internal sealed class CharacterVisitSession
     public CharacterVisitSession(string id, CharacterState state, StoreClient client)
     { _id = id; _state = state; _client = client; }
 
-    public bool IsCurrent => _session.IsCurrent && SaveSlot.CanWrite("CorpPresence")
+    public bool IsCurrent => !StoreSession.CompanyProgressPaused && _session.IsCurrent && SaveSlot.CanWrite("CorpPresence")
         && _root != null && _root.Characters.TryGetValue(_id, out var current) && ReferenceEquals(current, _state)
         && ReferenceEquals(SaveSlot.CurrentStore?.currentClientInstance?.GetClientBlueprint(), _client);
 

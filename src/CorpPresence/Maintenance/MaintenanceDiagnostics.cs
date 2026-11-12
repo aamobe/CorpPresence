@@ -12,6 +12,7 @@ internal static class MaintenanceDiagnostics
     private static WeakReference<PlayerStore> _store;
     private static WeakReference<Dictionary<string, string>> _data;
     private static long _generation;
+    private static long _sessionRevision;
     private static bool _sessionKnown;
 
     internal static void RegisterLifetime(CorpPresence.Runtime.RuntimeLifetime lifetime)
@@ -26,11 +27,13 @@ internal static class MaintenanceDiagnostics
         var store = SaveSlot.CurrentStore;
         var data = store?.modData;
         long generation = GameResources.Generation;
-        if (_sessionKnown && Same(_store, store) && Same(_data, data) && _generation == generation) return;
+        long revision = StoreSession.Revision;
+        if (_sessionKnown && Same(_store, store) && Same(_data, data) && _generation == generation && _sessionRevision == revision) return;
         Faults.Clear();
         _store = store == null ? null : new WeakReference<PlayerStore>(store);
         _data = data == null ? null : new WeakReference<Dictionary<string, string>>(data);
         _generation = generation;
+        _sessionRevision = revision;
         _sessionKnown = true;
     }
 
@@ -41,13 +44,22 @@ internal static class MaintenanceDiagnostics
 
     private static string Bound(string value, int limit) => string.IsNullOrEmpty(value) ? "unknown" : value.Length <= limit ? value : value.Substring(0, limit);
 
-    internal static void Record(string source, string stage, string code, Exception error)
-        => RecordCore(source, stage, code, error, false);
+    private static string BoundItemId(string id)
+    {
+        string bounded = Bound(id, 128);
+        foreach (char ch in bounded)
+            if (!(ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch >= '0' && ch <= '9' || ch == '_' || ch == '-' || ch == '.'))
+                return "unknown";
+        return bounded;
+    }
 
-    internal static void RecordRuntime(string source, string stage, string code, Exception error)
-        => RecordCore(source, stage, code, error, true);
+    internal static void Record(string source, string stage, string code, Exception error, string itemId = null)
+        => RecordCore(source, stage, code, error, false, itemId);
 
-    private static void RecordCore(string source, string stage, string code, Exception error, bool runtime)
+    internal static void RecordRuntime(string source, string stage, string code, Exception error, string itemId = null)
+        => RecordCore(source, stage, code, error, true, itemId);
+
+    private static void RecordCore(string source, string stage, string code, Exception error, bool runtime, string itemId)
     {
         try
         {
@@ -55,11 +67,13 @@ internal static class MaintenanceDiagnostics
             bool runtimeScope = runtime || SaveSlot.CurrentStore == null;
             var faults = runtimeScope ? RuntimeFaults : Faults;
             source = Bound(source, 128); stage = Bound(stage, 128); code = Bound(code, 128);
+            if (itemId != null) itemId = BoundItemId(itemId);
             string type = error == null ? "none" : Bound(error.GetType().FullName, 256);
             for (int i = 0; i < faults.Count; i++)
             {
                 var previous = faults[i];
-                if (previous.Source == source && previous.Stage == stage && previous.Code == code && previous.ExceptionType == type)
+                if (previous.Source == source && previous.Stage == stage && previous.Code == code
+                    && previous.ExceptionType == type && previous.ItemId == itemId)
                 { faults[i] = previous.Repeated(); return; }
             }
             var detail = new StringBuilder();
@@ -74,7 +88,8 @@ internal static class MaintenanceDiagnostics
                 }
             }
             if (faults.Count == 64) faults.RemoveAt(16);
-            faults.Add(new MaintenanceFault(source, stage, code, type, detail.ToString(0, Math.Min(detail.Length, 4096)), scope: runtimeScope ? MaintenanceFaultScope.Runtime : MaintenanceFaultScope.Session));
+            faults.Add(new MaintenanceFault(source, stage, code, type, detail.ToString(0, Math.Min(detail.Length, 4096)),
+                scope: runtimeScope ? MaintenanceFaultScope.Runtime : MaintenanceFaultScope.Session, itemId: itemId));
         }
         catch { /* Diagnostics must not escape into the business operation. */ }
     }
@@ -88,6 +103,7 @@ internal static class MaintenanceDiagnostics
             var data = store?.modData;
             var state = CorpState.Current;
             long generation = GameResources.Generation;
+            long revision = StoreSession.Revision;
             bool ready = GameResources.Ready;
             var status = store == null ? SaveDiagnosticStatus.NoStore : state == null ? SaveDiagnosticStatus.NotLoaded
                 : state.IsBoundReadonly(store) ? SaveDiagnosticStatus.Bound : SaveDiagnosticStatus.Stale;
@@ -103,6 +119,7 @@ internal static class MaintenanceDiagnostics
                 orders = count; units = remaining;
             }
             var counters = new List<MaintenanceCounter>();
+            counters.Add(new MaintenanceCounter("save.session_revision", revision));
             Portraits.AppendDiagnostics(counters);
             CatalogPricing.AppendDiagnostics(counters);
             ItemRegistry.AppendDiagnostics(counters);
@@ -116,13 +133,14 @@ internal static class MaintenanceDiagnostics
                 new MaintenanceModuleState("items", ItemRegistry.IsInstalled, ItemRegistry.LastReleaseFailed)
             };
             if (!ReferenceEquals(store, SaveSlot.CurrentStore) || !ReferenceEquals(data, store?.modData)
-                || generation != GameResources.Generation || ready != GameResources.Ready || !ReferenceEquals(state, CorpState.Current)
+                || generation != GameResources.Generation || revision != StoreSession.Revision
+                || ready != GameResources.Ready || !ReferenceEquals(state, CorpState.Current)
                 || (status == SaveDiagnosticStatus.Bound && !state.IsBoundReadonly(store)))
             { CheckSession(); return Unknown(); }
             var faults = new List<MaintenanceFault>(RuntimeFaults);
             faults.AddRange(Faults);
             return new MaintenanceSnapshot(Main.Version, ready, generation, status, corp, malice, orders, units,
-                counters, faults, registrations, modules);
+                counters, faults, registrations, modules, StoreSession.InventoryLoadReport, StoreSession.CompanyProgressPaused);
         }
         catch { return Unknown(); }
     }

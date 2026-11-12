@@ -9,9 +9,9 @@ internal static class PhoneDialogueLayout
 	private static BubbleLayout _client;
 	private static BubbleLayout _player;
 
-	internal static void AfterClientText(DialoguePhoneUIManager __instance) => Fit(__instance.clientBubble, ref _client);
+	internal static void AfterClientText(DialoguePhoneUIManager __instance) => FitOwned(__instance.clientBubble, ref _client);
 
-	internal static void AfterPlayerText(DialoguePhoneUIManager __instance) => Fit(__instance.playerBubble, ref _player);
+	internal static void AfterPlayerText(DialoguePhoneUIManager __instance) => FitOwned(__instance.playerBubble, ref _player);
 
 	internal static void AfterBubbleScale(DialoguePhoneUIManager __instance)
 	{
@@ -20,6 +20,18 @@ internal static class PhoneDialogueLayout
 			AfterClientText(__instance);
 		if (__instance.playerBubble != null && __instance.playerBubble.gameObject.activeSelf)
 			AfterPlayerText(__instance);
+	}
+
+	private static void FitOwned(TextBubble bubble, ref BubbleLayout state)
+	{
+		var client = PhoneUIManager.Instance?.currentPhoneClient;
+		string locId = client?.locID;
+		if (locId != MangoGift.PhoneId && Companies.ByLocId(locId) == null)
+		{
+			Reset();
+			return;
+		}
+		Fit(bubble, ref state);
 	}
 
 	private static void Fit(TextBubble bubble, ref BubbleLayout state)

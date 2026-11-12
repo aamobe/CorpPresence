@@ -50,9 +50,20 @@ Check(ItemRegistry.Create("corp_presence_card_test")?.identifier=="corp_presence
 int dummyBefore=DirectoryMaster.DummyCreates, postBefore=DirectoryMaster.PostprocessCalls;
 Goods.ReturnNull=true;
 Check(ItemRegistry.Create("corp_presence_test")==null && DirectoryMaster.DummyCreates==dummyBefore && DirectoryMaster.PostprocessCalls==postBefore,"failed owned factory never becomes an official dummy success");
+Check(MaintenanceDiagnostics.Faults.Any(f => f.Code == "factory_returned_null" && f.ItemId == "corp_presence_test"),
+    "reports a null factory result for the affected item");
 bool directFailure=false;try{latest.factoryDictionary["corp_presence_test"]();}catch(InvalidOperationException){directFailure=true;}
 Check(directFailure,"direct official use of registered factory also rejects null product");
 Goods.ReturnNull=false;Goods.Builds=1;
+Goods.Throw = true;
+bool constructionThrew = false;
+try { ItemRegistry.Create("corp_presence_test"); }
+catch (InvalidOperationException) { constructionThrew = true; }
+Check(constructionThrew && DirectoryMaster.DummyCreates == dummyBefore
+    && MaintenanceDiagnostics.Faults.Any(f => f.Code == "factory_exception" && f.ItemId == "corp_presence_test"),
+    "reports a throwing factory separately and does not create a dummy");
+Goods.Throw = false;
+Goods.Builds = 1;
 DirectoryMaster.Native["native_empty"]=()=>null;
 Check(ItemRegistry.Create("native_empty")?.spritePath=="unknown" && DirectoryMaster.DummyCreates==dummyBefore+1,"unowned vanilla empty factories retain official behavior");
 DirectoryMaster.Native.Remove("native_empty");
@@ -88,6 +99,8 @@ var node=new SaveItemNode {identifier="ammo_box",spritePath="corp_med_test"};
 ItemRegistry.BeforeDecode(new(){null,node});Check(node.identifier=="corp_presence_test","decode migrates only recognized old node");
 DirectoryMaster.Current=null;var unavailable=new GameItem {identifier="ammo_box",spritePath="corp_med_test"};
 Check(!ItemRegistry.Migrate(unavailable) && unavailable.identifier=="ammo_box" && ItemRegistry.Create("corp_presence_test")==null,"unavailable destination prevents migration and creation");
+Check(MaintenanceDiagnostics.Faults.Any(f => f.Stage == "resolve" && f.Code == "global_entry_missing" && f.ItemId == "corp_presence_test"),
+    "reports a missing global entry while retaining the local registration");
 DirectoryMaster.Current=migration;
 var ownedFactory=migration.factoryDictionary["corp_presence_test"];
 foreignCalls=0;
@@ -96,6 +109,8 @@ Check(ItemRegistry.Create("corp_presence_test")==null && foreignCalls==0,"replac
 migration.factoryDictionary["corp_presence_test"]=ownedFactory;
 DirectoryMaster.Native["corp_presence_test"]=()=>{foreignCalls++;return new(){identifier="corp_presence_test"};};
 Check(ItemRegistry.Create("corp_presence_test")==null && foreignCalls==0,"global factory shadowing blocks creation even while local registration survives");
+Check(MaintenanceDiagnostics.Faults.Any(f => f.Stage == "resolve" && f.Code == "global_factory_replaced" && f.ItemId == "corp_presence_test"),
+    "reports a conflicting global factory separately from a missing entry");
 ModHook.Fire(migration);
 var shadowCounters=new List<MaintenanceCounter>();ItemRegistry.AppendDiagnostics(shadowCounters);
 Check(shadowCounters.Single(c=>c.Name=="items.registered").Value==3,"directory notification retains local ownership when a global factory shadows it");

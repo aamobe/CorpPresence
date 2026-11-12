@@ -8,6 +8,7 @@ namespace CorpPresence;
 internal sealed class Host : MonoBehaviour
 {
     private readonly RuntimeTask[] _updates = {
+        new RuntimeTask("提示库存解码失败", Hooks.ShowInventoryLoadNotice, Report),
         new RuntimeTask("读档后公司物品修复", LoadedItemRepair.Tick, Report),
         new RuntimeTask("面板更新", CompanyWindow.Tick, Report),
         new RuntimeTask("记事簿", Notebook.Tick, Report),

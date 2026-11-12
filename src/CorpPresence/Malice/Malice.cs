@@ -357,7 +357,7 @@ internal static partial class Malice
 		{
 			return;
 		}
-		Rebels.OnDayStart();
+		if (!StoreSession.CompanyProgressPaused) Rebels.OnDayStart();
 		string[] corpIds = CorpIds;
 		foreach (string text in corpIds)
 		{
@@ -380,8 +380,11 @@ internal static partial class Malice
 				}
 			}
 		}
-		Envoy.OnDayStart();
-		RebelStory.OnDayStart();
+		if (!StoreSession.CompanyProgressPaused)
+		{
+			Envoy.OnDayStart();
+			RebelStory.OnDayStart();
+		}
 	}
 
 	private static void Enabled(MaliceState state)
