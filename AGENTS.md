@@ -22,7 +22,7 @@ project:
   release: Steam 创意工坊，appid 4348910，项目 ID 3828913695
   stage: released
   ingame_verify: user-manual     # 本仓库不自行启动游戏；游戏内验证由用户做，按 待用户验证清单 交接
-  baseline: 1.1.0；工坊 DLL SHA256 2F1ADC484DCF4C71ADE242892DAEA2D6D91DC3322CF3C0099373042981EF2229；构建源码 6e67ad5，回下载 7 个文件一致（见 docs/releases/1.1.0.md）
+  baseline: 1.2.4；工坊 DLL SHA256 45175E0CAF332E63D96064DE18F7D8E2765F7EF61B24C3C460A5A6A412C29F76；构建源码 af9f1b5，回下载 7 个文件一致（见 docs/releases/1.2.4.md）
   repo: https://github.com/aamobe/CorpPresence  主分支 main
   machines: 两台机器轮流开发。游戏路径各不相同，用 -p:GameManaged 传入；不要把本机路径写进任何提交的文件
 
