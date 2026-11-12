@@ -4,7 +4,7 @@
 
 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3828913695) · [游玩流程](share/公司增强游玩流程.txt) · [文档总目录](docs/README.md) · [维护指南](docs/maintenance/README.md)
 
-当前工坊版本为 **1.2.2 — 库存解码失败保护**，发布源码提交 `4d6745d`，标签 `v1.2.2`。工坊回下载的 7 个文件哈希与上传文件一致。详见[发布记录](docs/releases/1.2.2.md)和[版本目录](docs/releases/README.md)。
+当前工坊版本为 **1.2.3 — 单件物品读档容错**，发布源码提交 `19cbbf9`，标签 `v1.2.3`。工坊回下载的 7 个文件哈希与上传文件一致。详见[发布记录](docs/releases/1.2.3.md)和[版本目录](docs/releases/README.md)。
 
 ## 常用入口
 
