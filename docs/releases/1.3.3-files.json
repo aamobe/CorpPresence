@@ -1,0 +1,33 @@
+{
+  "version": "1.3.3",
+  "sourceRevision": "7afc71382f0bdd738e6932ad5b322536b9689e75",
+  "tag": "v1.3.3",
+  "workshopItem": "3828913695",
+  "files": [
+    {
+      "path": "CorpPresence.dll",
+      "bytes": 8201216,
+      "sha256": "5768AC98A1B2CB06100EBE774369A6EFC8F2F36993350A69F35A8DFD53263FAA"
+    },
+    {
+      "path": "Localization/en.csv",
+      "bytes": 176013,
+      "sha256": "1A49D561FD977745B5EF76D2697A557E5E4DEB1CB6C9676FA59BBFCA503B903F"
+    },
+    {
+      "path": "Localization/fr.csv",
+      "bytes": 201915,
+      "sha256": "0D383905372C873FFD364CC1E7AC3D0072E2D79C0733FB7D9B951354A6FB9AA4"
+    },
+    {
+      "path": "Localization/ru.csv",
+      "bytes": 257996,
+      "sha256": "4ACC2B5907AE3448C5735D1EF3A6925CB96D8D606A3DAD3FB506B509A18695BF"
+    },
+    {
+      "path": "manifest.xml",
+      "bytes": 644,
+      "sha256": "B3E1FB205B6402E01A5EF57AA09DC452E02E5DF123DA55C1CECA393C049537CF"
+    }
+  ]
+}
