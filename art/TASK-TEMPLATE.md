@@ -14,10 +14,10 @@
 原版参考资源及游戏版本哈希：
 结构主参考：资源名＋继承的轮廓／视角／部件安排
 材质参考：资源名＋外壳／玻璃／标签／指示色
-风格对照：STYLE-REFERENCE.md中的类别及与原版并排检查结果
+风格对照：STYLE-REFERENCE.md中的类别及原生PNG、像素数据比较结果
 最终原生画布：W×H px
 库存网格与形状：
-主体包围盒／需保留留白：
+主体包围盒／需保留留白（忠实重绘继承原图，重新设计单独确定）：
 锁定区域：
 允许改装区域：
 PPU / pivot / 纹理路径：
@@ -26,7 +26,7 @@ Alpha：参考实测 / 新作约束
 状态：空载、工作等；每个差分的变化掩膜
 制作尺寸＝导出尺寸：禁止缩放
 机械结构：工作过程、部件用途、连接／遮挡／支撑关系
-金属高光：原版取样区域、RGB及像素段排列
+金属高光：STYLE-REFERENCE.md具体范例、原图坐标、主亮带与邻行暗带RGB、段长、接缝和端部收束
 预计运行时纹理内存：
 ```
 
@@ -49,14 +49,14 @@ Flat color fills only. No gradients, no dithering, no noise, no texture.
 
 Background: pure flat #00FF00 everywhere outside the object, including all internal gaps and spaces between separate parts. Every edge is a hard stair-step of whole blocks. No anti-aliasing, no semi-transparent pixels, no glow, no drop shadow, no halo, no white fringe.
 
-Match the viewing angle and orientation of the reference. Center the complete object within the canvas. Keep every part fully visible, with a margin of at least 3 logical pixels on every side.
+Match the viewing angle and orientation of the reference. Preserve the reference object’s placement, bounding-box proportions, and margins within the logical canvas. Keep all parts present in the reference visible. Do not shrink or recenter the object to impose a uniform margin.
 
 One object only. No additional objects, scenery, captions, borders, or visible grid lines.
 ```
 
 ### 重新设计分支
 
-用户要求以原版物品为参照重新设计时，将首句换成 `Design a new [SUBJECT] using the reference image as a visual guide, as true pixel art with a strict pixel period.`，并将 `Keep the design of the reference` 整段替换为下段；其余像素、平涂、背景和构图约束保留，不同时要求完全保留原设计。
+用户要求以原版物品为参照重新设计时，将首句换成 `Design a new [SUBJECT] using the reference image as a visual guide, as true pixel art with a strict pixel period.`，并将 `Keep the design of the reference` 整段替换为下段；其余像素、平涂和背景约束保留，不同时要求完全保留原设计。构图段同时替换为：`Keep the complete object visible. Use the explicitly specified placement and margins for the new design: [PLACEMENT AND MARGINS].` 制作前按功能和占格填写具体位置及四边留白，不保留占位符，不统一要求至少3像素。
 
 ```text
 Use the reference as a guide for visual style, palette, outlines, and level of detail. Create a new design for [SUBJECT], with a distinct silhouette and component arrangement. Keep all details readable at the specified logical resolution.
