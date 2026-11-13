@@ -1,4 +1,39 @@
 {
+  "items.definitions.craftingStation.name": ["Сборочный верстак", "Établi de montage"],
+  "items.definitions.siliconPlate.name": ["Кремниевая пластина", "Plaque de silicium"],
+  "items.definitions.electronicSubstrate.name": ["Электронная подложка", "Substrat électronique"],
+  "items.definitions.electronicBlueprint.name": ["Чертёж обычного электронного компонента", "Plan de composant électronique courant"],
+  "production.crafting.assemble": ["Собрать", "Assembler"],
+  "production.crafting.blueprint": ["Чертёж", "Plan"],
+  "production.crafting.materials": ["Материалы", "Matériaux"],
+  "production.crafting.assembly": ["Сборка", "Assemblage"],
+  "production.crafting.output": ["Выход", "Sortie"],
+  "production.crafting.needBlueprint": ["Вставьте чертёж обычного электронного компонента", "Insérez le plan de composant électronique courant"],
+  "production.crafting.needMaterials": ["Нужны кремниевая пластина, провод и электронная подложка", "Il faut une plaque de silicium, un fil et un substrat électronique"],
+  "production.crafting.full": ["Нет места для готовой детали", "Espace de sortie insuffisant"],
+  "production.crafting.ready": ["Можно собрать один обычный электронный компонент", "Prêt à assembler un composant électronique courant"],
+  "items.definitions.sinteringStation.name": ["Станция спекания", "Poste de frittage"],
+  "production.sintering.boxes": ["Контейнеры с порошком", "Boîtes de poudre"],
+  "production.sintering.recipe": ["Рецепт", "Recette"],
+  "production.sintering.output": ["Выход", "Sortie"],
+  "production.sintering.missing": ["Недостаточно порошка или чистоты", "Quantité ou pureté insuffisante"],
+  "production.sintering.full": ["Освободите выходной слот", "Libérez l’emplacement de sortie"],
+  "production.sintering.noPower": ["Недостаточно энергии", "Énergie insuffisante"],
+  "production.sintering.ready": ["Готово к ночному спеканию", "Prêt pour le frittage de nuit"],
+  "production.sintering.purity": ["Ожидаемая чистота слитка · {0}", "Pureté prévue du lingot · {0}"],
+  "production.sintering.perfect": ["Идеальная", "Parfaite"],
+  "production.sintering.veryHigh": ["Очень высокая", "Très élevée"],
+  "production.sintering.high": ["Высокая", "Élevée"],
+  "production.crusher.qualityOn": ["Качественное дробление · Вкл.", "Broyage de qualité · Activé"],
+  "production.crusher.qualityOff": ["Качественное дробление · Выкл.", "Broyage de qualité · Désactivé"],
+  "production.powder.mixed": ["Смешанный порошок · основной компонент {0}%", "Poudre mixte · composant majoritaire {0}%"],
+  "production.powder.coarse": ["{0} · грубый отсев {1}%", "{0} · tamisage grossier {1}%"],
+  "production.powder.pure": ["{0} · чистый порошок {1}%", "{0} · poudre pure {1}%"],
+  "production.powder.metal": ["Металлический порошок", "Poudre métallique"],
+  "production.powder.silica": ["Кремнезёмный порошок", "Poudre de silice"],
+  "production.powder.rareMetal": ["Порошок редких металлов", "Poudre de métaux rares"],
+  "production.powder.conductive": ["Проводящий порошок", "Poudre conductrice"],
+  "production.powder.residue": ["Шлаковый порошок", "Poudre de scories"],
 "fufuDoll.name": [
     "Кукла Fufu",
     "Poupée Fufu"
@@ -4672,6 +4707,10 @@
     "В магазине нет места. Освободите его перед забором крови.",
     "La boutique est pleine. Faites de la place avant de prélever du sang."
   ],
+  "production.silverBlood.tooltip.bloodReserve": [
+    "Запас крови: {0}/{1} мл",
+    "Réserve de sang : {0}/{1} mL"
+  ],
   "production.silverBlood.species.silverbloodTrilobite": [
     "Сереброкровый трилобит",
     "Trilobite à sang d’argent"
@@ -5751,6 +5790,66 @@
   "items.definitions.staminaBooster.flavor": [
     "Препарат длительного действия, немного повышающий выносливость. «Кармайкл» ещё не выпустила его в продажу, а заявку могут подать только руководители отделов. Каждая инъекция навсегда добавляет 1 попытку поиска на Свалке в день. При исходном балансе услуг общий бонус ограничен +2.",
     "Un produit à action prolongée qui améliore légèrement la constitution. Carmicheal ne l’a pas encore commercialisé et seuls les responsables de service peuvent en faire la demande. Chaque injection ajoute définitivement une fouille quotidienne à la Décharge, jusqu’à +2 au total si l’équilibrage des services est réglé sur « Jeu de base »."
+  ],
+  "items.definitions.powderSieve.name": [
+    "Сито для порошка",
+    "Tamis à poudre"
+  ],
+  "items.definitions.mineralCrusher.name": [
+    "Дробилка для руды",
+    "Broyeur de minéraux"
+  ],
+  "items.definitions.powderBox.name": [
+    "Контейнер для порошка",
+    "Boîte à poudre"
+  ],
+  "items.definitions.cartelReactor.name": [
+    "Двухкамерный реактор",
+    "Réacteur à deux cuves"
+  ],
+  "items.definitions.cartelBlueShellResin.name": [
+    "Синяя панцирная смола",
+    "Résine de carapace bleue"
+  ],
+  "items.definitions.cartelLightSaltCore.name": [
+    "Ядро светосоли",
+    "Noyau de sel lumineux"
+  ],
+  "items.definitions.cartelSleepMossGel.name": [
+    "Гель сонного мха",
+    "Gel de mousse du sommeil"
+  ],
+  "items.definitions.cartelLightSaltPrecipitate.name": [
+    "Осадок светосоли",
+    "Précipité de sel lumineux"
+  ],
+  "items.definitions.cartelZolTablets.name": [
+    "Таблетки Зол",
+    "Comprimés Zol"
+  ],
+  "items.definitions.cartelNicotineTin.name": [
+    "Пакетики Нико",
+    "Sachets Nico"
+  ],
+  "items.definitions.cartelIceShardPouch.name": [
+    "Ледяные осколки",
+    "Éclats de glace"
+  ],
+  "items.definitions.sleepMossSeed.name": [
+    "Закваска сонного мха",
+    "Culture de mousse du sommeil"
+  ],
+  "items.definitions.sleepMossSeed.description": [
+    "Поместите в гидропонную установку. Созревший мох даст три блока и одну закваску.",
+    "Placez en culture hydroponique. À maturité, récoltez trois blocs et une culture."
+  ],
+  "items.definitions.sleepMossBlock.name": [
+    "Блок сонного мха",
+    "Bloc de mousse du sommeil"
+  ],
+  "items.definitions.sleepMossBlock.description": [
+    "Блок сонного мха, выращенного на гидропонике.",
+    "Un bloc de mousse du sommeil cultivée en hydroponie."
   ],
   "items.definitions.tobaccoLeaves.name": [
     "Табачные листья",

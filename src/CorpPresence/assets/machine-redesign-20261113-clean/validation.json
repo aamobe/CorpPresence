@@ -1,0 +1,122 @@
+[
+  {
+    "Group": "machine-redesign-20261113-clean",
+    "File": "alcohol-preparation-station.png",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 12,
+    "ChangedRGBA": 45,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      3,
+      3
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "D52BD6C2AB14F0557D42DB7694EFDF682E630D6C354C4E8738633E726071913C"
+  },
+  {
+    "Group": "machine-redesign-20261113-clean",
+    "File": "mineral-crusher.png",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 12,
+    "ChangedRGBA": 39,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      3,
+      3
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "DEE095805D1F4CE9E31E3308A4A8D5CF7CF67B4C8E185AB9AC44CE445324EDB7"
+  },
+  {
+    "Group": "machine-redesign-20261113-clean",
+    "File": "mineral-growth-station.png",
+    "Width": 48,
+    "Height": 64,
+    "Colors": 12,
+    "ChangedRGBA": 29,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      3,
+      4
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "C0F5206DD66A21E9C8EFDCB21952F76BAF192AE64FCBC648E37D2FE9C05229EF"
+  },
+  {
+    "Group": "machine-redesign-20261113-clean",
+    "File": "powder-sieve.png",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 11,
+    "ChangedRGBA": 58,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      3,
+      3
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "5E84F7A0D3283B5BEB870A5D59672F079FE54FA0BCDB6B42281CCC2D30C76212"
+  },
+  {
+    "Group": "machine-redesign-20261113-clean",
+    "File": "sintering-station.png",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 14,
+    "ChangedRGBA": 62,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      3,
+      3
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "0839F66F137CC54E14B2263B5B39C9C682C80A581BA051AD966DAE3C93DD3086"
+  },
+  {
+    "Group": "machine-redesign-20261113-clean",
+    "File": "twin-vessel-reactor.png",
+    "Width": 64,
+    "Height": 48,
+    "Colors": 12,
+    "ChangedRGBA": 19,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      4,
+      3
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "A20379A10D92C219B6136AAE89FFB5548097AEA38D04F309E8BA9F904F0EEACA"
+  }
+]

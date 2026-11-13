@@ -1,0 +1,32 @@
+{
+  "basePrompt": "Create an isolated native pixel-art growth specimen overlay for Probably Stolen. The supplied machine is context for style/scale only; DO NOT draw any machine, pedestal, tray, frame, floor or background. Only the specified mineral specimen, fully transparent outside it. Front elevated shallow view, no side yaw. Match the original inventory pixel art: hard stair edges, large contiguous flat discrete colors, dark purple-gray outline #292234, gray #777081 #80929B #A8AEA5 #C4C4B0 and ivory #D5D2B8. No glow, no soft shadow, no antialiasing, no gradients, no dithering. One logical pixel is the smallest detail. A single specimen centered with a flat contact base suitable for placement on a pedestal. Tiny simple silhouette. Return only the transparent sprite; no lettering.",
+  "initialSubjects": [
+    [
+      "ore-growing",
+      8,
+      5,
+      "One small growing ordinary ore nucleus, low rough asymmetrical dark gray rock with two muted steel-gray facets, compact solid mass."
+    ],
+    [
+      "ore-mature",
+      16,
+      11,
+      "One mature ordinary ore mass, larger broad jagged charcoal-gray rock with connected medium gray mineral facets and a few restrained pale seams. One solid deposit, not crystals, not gold."
+    ],
+    [
+      "light-salt-core-growing",
+      8,
+      7,
+      "A small growing light-salt core cluster, two short pale ivory mineral points connected at their base, cool gray shadows, tiny pale yellow-white top facet. This is the cartel raw light_salt_core, NOT processed light-salt precipitate or loose powder."
+    ],
+    [
+      "light-salt-core-mature",
+      14,
+      13,
+      "A mature light-salt core cluster with two distinct connected tall faceted pale ivory cores, one slightly shorter, cool gray side facets and restrained warm ivory highlights. Clearly a solid harvestable crystal core, not processed salt powder or a heap of white granules."
+    ]
+  ],
+  "revision": "Ordinary ore must be upright: growing up to 6x8; mature up to 10x16. Same contact row y=37, centered x=20. Source images ore-growing-vertical-generated.png and ore-mature-vertical-generated.png supersede horizontal ore images.",
+  "machine": "src/CorpPresence/assets/machine-redesign-20261113/mineral-growth-station.png",
+  "glow": "Only chamber material pixels in x9..29,y22..44: 275654->2F756F and 2F756F->45918B. No halo or external light."
+}

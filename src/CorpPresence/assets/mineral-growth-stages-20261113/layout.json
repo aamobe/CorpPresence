@@ -1,0 +1,114 @@
+[
+  {
+    "Name": "ore-growing",
+    "SourceBounds": [
+      299,
+      385,
+      456,
+      744
+    ],
+    "PlacedRect": [
+      18,
+      30,
+      5,
+      8
+    ],
+    "ContactY": 37,
+    "Canvas": [
+      48,
+      64
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Offset": [
+      0,
+      0
+    ]
+  },
+  {
+    "Name": "ore-mature",
+    "SourceBounds": [
+      172,
+      53,
+      648,
+      1487
+    ],
+    "PlacedRect": [
+      17,
+      22,
+      7,
+      16
+    ],
+    "ContactY": 37,
+    "Canvas": [
+      48,
+      64
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Offset": [
+      0,
+      0
+    ]
+  },
+  {
+    "Name": "light-salt-core-growing",
+    "SourceBounds": [
+      326,
+      705,
+      434,
+      453
+    ],
+    "PlacedRect": [
+      17,
+      31,
+      7,
+      7
+    ],
+    "ContactY": 37,
+    "Canvas": [
+      48,
+      64
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Offset": [
+      0,
+      0
+    ]
+  },
+  {
+    "Name": "light-salt-core-mature",
+    "SourceBounds": [
+      277,
+      456,
+      500,
+      639
+    ],
+    "PlacedRect": [
+      15,
+      25,
+      10,
+      13
+    ],
+    "ContactY": 37,
+    "Canvas": [
+      48,
+      64
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "Offset": [
+      0,
+      0
+    ]
+  }
+]

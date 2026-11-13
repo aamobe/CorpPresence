@@ -1,0 +1,92 @@
+[
+  {
+    "File": "alcohol-preparation-station.png",
+    "Width": 48,
+    "Height": 48,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "Filter": "Point",
+    "FootprintWidth": 3,
+    "FootprintHeight": 3,
+    "Shape": "full rectangle; preserve existing logical shape; do not derive from alpha",
+    "SHA256": "D2D53A6E8E8613F167A880F0FA767BCDF5E358A92DE62CFCE189A796FE39B35E"
+  },
+  {
+    "File": "mineral-crusher.png",
+    "Width": 48,
+    "Height": 48,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "Filter": "Point",
+    "FootprintWidth": 3,
+    "FootprintHeight": 3,
+    "Shape": "full rectangle; preserve existing logical shape; do not derive from alpha",
+    "SHA256": "657C5F453EB728FFDAFB7579AEA04FFE357605042557E2B60089FD44EDFF6AD3"
+  },
+  {
+    "File": "mineral-growth-station.png",
+    "Width": 48,
+    "Height": 64,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "Filter": "Point",
+    "FootprintWidth": 3,
+    "FootprintHeight": 4,
+    "Shape": "full rectangle; preserve existing logical shape; do not derive from alpha",
+    "SHA256": "51A29ECFAF613918625978B0F0FAC14FAD9CCEE3B50BCE197300F469AE93CA88"
+  },
+  {
+    "File": "powder-sieve.png",
+    "Width": 48,
+    "Height": 48,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "Filter": "Point",
+    "FootprintWidth": 3,
+    "FootprintHeight": 3,
+    "Shape": "full rectangle; preserve existing logical shape; do not derive from alpha",
+    "SHA256": "D2F445B4C119C9E9D539377E044DFCD8A93DB8D48208ACE93F2C1F2245EF4CC6"
+  },
+  {
+    "File": "sintering-station.png",
+    "Width": 48,
+    "Height": 48,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "Filter": "Point",
+    "FootprintWidth": 3,
+    "FootprintHeight": 3,
+    "Shape": "full rectangle; preserve existing logical shape; do not derive from alpha",
+    "SHA256": "407E33C75F2E6985392D9968C757B5E5051C0A86F53CCE84AC37317CE80596DB"
+  },
+  {
+    "File": "twin-vessel-reactor.png",
+    "Width": 64,
+    "Height": 48,
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "Filter": "Point",
+    "FootprintWidth": 4,
+    "FootprintHeight": 3,
+    "Shape": "full rectangle; preserve existing logical shape; do not derive from alpha",
+    "SHA256": "50A06F74C4DBDEA9B171CDAD4119299F250E22B25C36C4E8EDEBAF2F1E152CA9"
+  }
+]

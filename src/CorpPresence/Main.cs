@@ -15,6 +15,8 @@ public class Main : IMod
     public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-watertrace";
 #elif LOCAL_TEST_FUNDS
     public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-localtest";
+#elif LOCAL_TEST_KIT
+    public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix + "-testkit";
 #else
     public const string Version = ReleaseVersion + BuildIdentity.DevelopmentSuffix;
 #endif
@@ -65,8 +67,10 @@ public class Main : IMod
     private void EnableResources()
     {
         _runtime.Own(SilverBlood.InstallResources, SilverBlood.UninstallResources);
+        _runtime.Own(SleepMoss.Register, SleepMoss.Unregister);
         _runtime.Own(Tobacco.RegisterPlant, Tobacco.UnregisterPlant);
         _runtime.Own(Perfume.InstallResources, Perfume.UninstallResources);
+        _runtime.Own(CartelChemistry.Register, CartelChemistry.Unregister);
         Hooks.InstallResources(_harmony); // The core owner release also covers a partial resource install.
         _runtime.Own(Hooks.InstallEvents, Hooks.UninstallEvents);
         _runtime.Own(Malice.Malice.Install, Malice.Malice.Uninstall);
@@ -74,6 +78,7 @@ public class Main : IMod
         _runtime.Own(Noop, Crates.Reset);
         ItemRegistry.Activate();
         _runtime.Own(Noop, Tex.ReleaseUi);
+        _runtime.Own(Noop, PowderBox.Release);
         _runtime.Own(Noop, CardView.Release);
         _runtime.Own(Noop, Theme.ResetCachedFont);
         _runtime.Own(Noop, Portraits.Release);

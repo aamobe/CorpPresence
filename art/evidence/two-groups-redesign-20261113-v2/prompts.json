@@ -1,0 +1,26 @@
+[
+  {
+    "name": "silicon-plate"
+  },
+  {
+    "name": "electronic-substrate"
+  },
+  {
+    "name": "electronic-blueprint"
+  },
+  {
+    "name": "crafting-station"
+  },
+  {
+    "name": "ore-growing"
+  },
+  {
+    "name": "ore-mature"
+  },
+  {
+    "name": "light-salt-core-growing"
+  },
+  {
+    "name": "light-salt-core-mature"
+  }
+]

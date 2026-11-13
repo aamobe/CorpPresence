@@ -57,7 +57,8 @@ internal static partial class Canning
 
     internal static void AfterMachineBodyStorage(GameItem machine, int index, ref GraphNodeStorage __result)
     {
-        if (index == 1 && (Goods.IdOf(machine) is "seafood_sealer" or Perfume.CollectorKey) &&
+        if (index == 1 && (Goods.IdOf(machine) is "seafood_sealer" or Perfume.CollectorKey
+            or MineralCrusher.Key or SinteringStation.Key) &&
             machine.contentWindow?.childElement is MachineryPanelRow row)
         {
             // The base game uses storage 1 for module operations. Keep the saved

@@ -287,6 +287,20 @@ Check("stable translations match legacy copy or current feature translations", (
             || entry.Key.StartsWith("mango.", StringComparison.Ordinal)
             || entry.Key.StartsWith("wasteBattery.", StringComparison.Ordinal)
             || entry.Key.StartsWith("ufoBackpack.", StringComparison.Ordinal) || entry.Key.StartsWith("fufuDoll.", StringComparison.Ordinal)
+            || entry.Key == "items.definitions.powderSieve.name"
+            || entry.Key is "items.definitions.craftingStation.name" or "items.definitions.siliconPlate.name"
+                or "items.definitions.electronicSubstrate.name" or "items.definitions.electronicBlueprint.name"
+            || entry.Key.StartsWith("production.crafting.", StringComparison.Ordinal)
+            || entry.Key == "items.definitions.sinteringStation.name"
+            || entry.Key.StartsWith("production.sintering.", StringComparison.Ordinal)
+            || entry.Key == "items.definitions.mineralCrusher.name"
+            || entry.Key == "items.definitions.powderBox.name"
+            || entry.Key.StartsWith("items.definitions.cartel", StringComparison.Ordinal)
+            || entry.Key.StartsWith("items.definitions.sleepMossSeed.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("items.definitions.sleepMossBlock.", StringComparison.Ordinal)
+            || entry.Key == "production.silverBlood.tooltip.bloodReserve"
+            || entry.Key.StartsWith("production.powder.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("production.crusher.", StringComparison.Ordinal)
             || entry.Key.StartsWith("production.workBay.", StringComparison.Ordinal)
             || entry.Key.StartsWith("production.cargoWarehouse.", StringComparison.Ordinal)
             ? catalog[entry.Key][locale == "ru" ? 0 : 1]

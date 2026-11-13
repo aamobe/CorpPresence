@@ -426,6 +426,10 @@ internal static partial class Goods
                 ["seafood_sealer_running"] = ("davre", "seafood_sealer_running"),
                 ["forge_furnace_running"] = ("forge", "forge_furnace"),
                 ["isomer_reactor_running"] = ("carmicheal", "isomer_reactor_running"),
+                [MineralCrusher.Key + "_running"] = ("mineral", "mineral-crusher-running"),
+                [PowderSieve.Key + "_running"] = ("mineral", "powder-sieve-running"),
+                [CraftingStation.Key + "_running"] = ("mineral", "crafting-station-running"),
+                [SinteringStation.Key + "_running"] = ("mineral", "sintering-station-running"),
                 ["rat_wheel_generator_occupied"] = ("husbandry", "rat_wheel_generator_retrofit_occupied"),
                 ["candle_lit"] = ("solana", "solana_candle_lit"),
                 ["hemingway_limited"] = ("pastel", "hemingway_limited"),
@@ -437,6 +441,16 @@ internal static partial class Goods
             set.AddRange("Goods", initial);
             set.AddRange("Guns", Guns);
             set.AddRange("Spacer", Spacer);
+            set.Add("PowderSieve", PowderSieve.Key, PowderSieve.Definition);
+            set.Add("CraftingStation", CraftingStation.Key, CraftingStation.Definition);
+            set.Add("SiliconPlate", CraftingStation.SiliconPlate, CraftingStation.SiliconPlateDefinition);
+            set.Add("ElectronicSubstrate", CraftingStation.Substrate, CraftingStation.SubstrateDefinition);
+            set.Add("ElectronicBlueprint", CraftingStation.Blueprint, CraftingStation.BlueprintDefinition);
+            set.Add("SinteringStation", SinteringStation.Key, SinteringStation.Definition);
+            set.Add("MineralCrusher", MineralCrusher.Key, MineralCrusher.Definition);
+            set.Add("PowderBox", PowderBox.Key, PowderBox.Definition);
+            set.AddRange("CartelReactor", CartelReactor.Defs);
+            set.AddRange("SleepMoss", SleepMoss.Defs);
             set.AddRange("Tobacco", Tobacco.Defs);
             set.AddRange("Perfume", Perfume.Defs);
             set.AddRange("Canning", Canning.Defs);

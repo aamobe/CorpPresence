@@ -1,0 +1,133 @@
+{
+  "Sprites": [
+    {
+      "Width": 48,
+      "OpaquePixels": 898,
+      "MatrixMatches": true,
+      "SHA256": "4BCDA01BDE0BCBC573D158E1459E2662D6A788C87E6AB74994448D635F2F368A",
+      "Colors": 11,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "alcohol-preparation-station.png"
+    },
+    {
+      "Width": 48,
+      "OpaquePixels": 1248,
+      "MatrixMatches": true,
+      "SHA256": "7FC5B5B79FE5B39A4AC230B3D47EB00A0A1DE332CE41EEBFB0571075CF5CCFC1",
+      "Colors": 11,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "mineral-crusher-running.png"
+    },
+    {
+      "Width": 48,
+      "OpaquePixels": 1248,
+      "MatrixMatches": true,
+      "SHA256": "82A4D61B6E3E22EE2F87D63B3A84F48E954F8247C10CF8FC0D686A4A36301801",
+      "Colors": 11,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "mineral-crusher.png"
+    },
+    {
+      "Width": 48,
+      "OpaquePixels": 1606,
+      "MatrixMatches": true,
+      "SHA256": "0E57CEAC15FC0F0D04E01781EA38B995E7CF28B6E0026FC0F500A1B3659BEAFA",
+      "Colors": 10,
+      "BinaryAlpha": true,
+      "Height": 64,
+      "File": "mineral-growth-station.png"
+    },
+    {
+      "Width": 48,
+      "OpaquePixels": 1242,
+      "MatrixMatches": true,
+      "SHA256": "7398F620C1491870A5433ED2C6A10FB61FB1855F625B078154D889C8AA5EC316",
+      "Colors": 10,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "powder-sieve-running.png"
+    },
+    {
+      "Width": 48,
+      "OpaquePixels": 1242,
+      "MatrixMatches": true,
+      "SHA256": "BDE55B975E0906514E3C8F5EC17BA213240A8620B0F17BF97BFE8A70AD7B5179",
+      "Colors": 10,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "powder-sieve.png"
+    },
+    {
+      "Width": 48,
+      "OpaquePixels": 1081,
+      "MatrixMatches": true,
+      "SHA256": "728200AA1DC804B23B43475B3C4C161403F1F71AFF455EC5EC4BB4BF3222ECAB",
+      "Colors": 11,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "sintering-station-running.png"
+    },
+    {
+      "Width": 48,
+      "OpaquePixels": 1081,
+      "MatrixMatches": true,
+      "SHA256": "53B145114E8A685AEE2DE9EAF86E6B6B03957FFAC89C29CA4A6BD6B88F71499A",
+      "Colors": 11,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "sintering-station.png"
+    },
+    {
+      "Width": 64,
+      "OpaquePixels": 1421,
+      "MatrixMatches": true,
+      "SHA256": "F7CCE8E413B06ED9B375808C9CB65C34A2D3736471E63069249078212E3149EF",
+      "Colors": 11,
+      "BinaryAlpha": true,
+      "Height": 48,
+      "File": "twin-vessel-reactor.png"
+    }
+  ],
+  "States": [
+    {
+      "ChangedPixels": 2,
+      "File": "sintering-station-running.png",
+      "OutsideMask": 0,
+      "Mask": [
+        25,
+        42,
+        2,
+        1
+      ],
+      "AlphaChanges": 0
+    },
+    {
+      "ChangedPixels": 2,
+      "File": "powder-sieve-running.png",
+      "OutsideMask": 0,
+      "Mask": [
+        43,
+        23,
+        2,
+        1
+      ],
+      "AlphaChanges": 0
+    },
+    {
+      "ChangedPixels": 3,
+      "File": "mineral-crusher-running.png",
+      "OutsideMask": 0,
+      "Mask": [
+        39,
+        12,
+        3,
+        1
+      ],
+      "AlphaChanges": 0
+    }
+  ],
+  "SourceSHA256": "A8EBEDFD2A8EEBFC16D166AB72FD59090CDE36BB6D7C006782C0CF89C7CE9F78"
+}

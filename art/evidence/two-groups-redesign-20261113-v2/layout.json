@@ -1,0 +1,97 @@
+[
+  {
+    "SourceBounds": [
+      39,
+      117,
+      1176,
+      1019
+    ],
+    "PlacedRect": [
+      1,
+      3,
+      30,
+      26
+    ],
+    "SourceSize": [
+      1254,
+      1254
+    ],
+    "Name": "silicon-plate"
+  },
+  {
+    "SourceBounds": [
+      28,
+      222,
+      1718,
+      470
+    ],
+    "PlacedRect": [
+      1,
+      4,
+      30,
+      8
+    ],
+    "SourceSize": [
+      1774,
+      887
+    ],
+    "Name": "electronic-substrate"
+  },
+  {
+    "SourceBounds": [
+      136,
+      137,
+      982,
+      993
+    ],
+    "PlacedRect": [
+      1,
+      1,
+      14,
+      14
+    ],
+    "SourceSize": [
+      1254,
+      1254
+    ],
+    "Name": "electronic-blueprint"
+  },
+  {
+    "SourceBounds": [
+      56,
+      182,
+      1130,
+      1002
+    ],
+    "PlacedRect": [
+      1,
+      3,
+      46,
+      41
+    ],
+    "SourceSize": [
+      1254,
+      1254
+    ],
+    "Name": "crafting-station"
+  },
+  {
+    "SourceBounds": [
+      53,
+      51,
+      933,
+      1421
+    ],
+    "PlacedRect": [
+      15,
+      22,
+      11,
+      16
+    ],
+    "SourceSize": [
+      1038,
+      1515
+    ],
+    "Name": "ore-mature"
+  }
+]

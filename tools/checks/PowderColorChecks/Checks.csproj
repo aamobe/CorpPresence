@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework></PropertyGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/PowderColor.cs" /><Compile Include="../../../src/CorpPresence/Production/CrusherBatch.cs" /><Compile Include="../../../src/CorpPresence/Production/PowderSieveRules.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/PowderClassification.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/SinteringBatch.cs" /><Compile Include="../../../src/CorpPresence/Production/SinteringRecipes.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/PowderPricing.cs" /></ItemGroup>
+</Project>

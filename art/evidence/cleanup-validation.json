@@ -1,0 +1,137 @@
+[
+  {
+    "Group": "machine-redesign-20261113",
+    "File": "alcohol-preparation-station.png",
+    "ChangedPixels": 45,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 48,
+    "SHA256": "D52BD6C2AB14F0557D42DB7694EFDF682E630D6C354C4E8738633E726071913C"
+  },
+  {
+    "Group": "machine-redesign-20261113",
+    "File": "mineral-crusher.png",
+    "ChangedPixels": 39,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 48,
+    "SHA256": "DEE095805D1F4CE9E31E3308A4A8D5CF7CF67B4C8E185AB9AC44CE445324EDB7"
+  },
+  {
+    "Group": "machine-redesign-20261113",
+    "File": "mineral-growth-station.png",
+    "ChangedPixels": 29,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 64,
+    "SHA256": "C0F5206DD66A21E9C8EFDCB21952F76BAF192AE64FCBC648E37D2FE9C05229EF"
+  },
+  {
+    "Group": "machine-redesign-20261113",
+    "File": "powder-sieve.png",
+    "ChangedPixels": 58,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 48,
+    "SHA256": "5E84F7A0D3283B5BEB870A5D59672F079FE54FA0BCDB6B42281CCC2D30C76212"
+  },
+  {
+    "Group": "machine-redesign-20261113",
+    "File": "sintering-station.png",
+    "ChangedPixels": 62,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 48,
+    "SHA256": "0839F66F137CC54E14B2263B5B39C9C682C80A581BA051AD966DAE3C93DD3086"
+  },
+  {
+    "Group": "machine-redesign-20261113",
+    "File": "twin-vessel-reactor.png",
+    "ChangedPixels": 19,
+    "AlphaDifferences": 0,
+    "Width": 64,
+    "Height": 48,
+    "SHA256": "A20379A10D92C219B6136AAE89FFB5548097AEA38D04F309E8BA9F904F0EEACA"
+  },
+  {
+    "Group": "powder-crafting-20261113",
+    "File": "crafting-station-running.png",
+    "ChangedPixels": 15,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 48,
+    "SHA256": "EDED45DBD6E979A7D2BABED7452EC5133DD828E7F68D43F69E9E582C6673EE9F"
+  },
+  {
+    "Group": "powder-crafting-20261113",
+    "File": "crafting-station.png",
+    "ChangedPixels": 15,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 48,
+    "SHA256": "5B24217E35EFB0086559FE5D7D2CE830AA0B83CA501CA6131FA7E642D71AC461"
+  },
+  {
+    "Group": "powder-crafting-20261113",
+    "File": "electronic-blueprint.png",
+    "ChangedPixels": 2,
+    "AlphaDifferences": 0,
+    "Width": 16,
+    "Height": 16,
+    "SHA256": "C545D8633CF8EA3585BA2178EAC69121B7200A31C73876F4FCCF1E02EAF5B9DA"
+  },
+  {
+    "Group": "powder-crafting-20261113",
+    "File": "electronic-substrate.png",
+    "ChangedPixels": 4,
+    "AlphaDifferences": 0,
+    "Width": 32,
+    "Height": 16,
+    "SHA256": "EBB073DB6D8E353BC86489B4EB3A6CCF00C4C0B17B7CE4439A29E78618D14E8C"
+  },
+  {
+    "Group": "powder-crafting-20261113",
+    "File": "silicon-plate.png",
+    "ChangedPixels": 16,
+    "AlphaDifferences": 0,
+    "Width": 32,
+    "Height": 32,
+    "SHA256": "367AE8BD42FB4B797DF3E98D1D985CF862401237C69BCC38AAA8335B72411BC8"
+  },
+  {
+    "Group": "mineral-growth-stages-20261113",
+    "File": "light-salt-core-growing.png",
+    "ChangedPixels": 0,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 64,
+    "SHA256": "72FB2C430E4C934BFCBD40343784AA649885D295F77E94AFC4C736D3346FC3D8"
+  },
+  {
+    "Group": "mineral-growth-stages-20261113",
+    "File": "light-salt-core-mature.png",
+    "ChangedPixels": 0,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 64,
+    "SHA256": "280C2DC54E506550050D2822A5F756D6EB4D43C412452E2035B8B1B40AA61D2C"
+  },
+  {
+    "Group": "mineral-growth-stages-20261113",
+    "File": "ore-growing.png",
+    "ChangedPixels": 3,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 64,
+    "SHA256": "D40A1F955C930E5E867D110D02C455AE8397D559EBBBECFB0339E2F85BDE246E"
+  },
+  {
+    "Group": "mineral-growth-stages-20261113",
+    "File": "ore-mature.png",
+    "ChangedPixels": 6,
+    "AlphaDifferences": 0,
+    "Width": 48,
+    "Height": 64,
+    "SHA256": "BE00B44C1D24590E037CAA9F919D01DF14132CBC23FF9CB77B859B35896596CE"
+  }
+]

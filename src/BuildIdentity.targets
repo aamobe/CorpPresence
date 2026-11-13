@@ -14,7 +14,9 @@
     </PropertyGroup>
     <Error Condition="'$(PublishRelease)' != '' and '$(PublishRelease)' != 'true' and '$(PublishRelease)' != 'false'"
            Text="PublishRelease must be true or false." />
-    <Error Condition="'$(PublishRelease)' == 'true' and ('$(Configuration)' != 'Release' or '$(Maintenance)' == 'true' or '$(WaterTrace)' == 'true' or '$(LocalTestFunds)' == 'true' or $([System.String]::Copy('$(DefineConstants)').Contains('TESTKIT')) or $([System.String]::Copy('$(DefineConstants)').Contains('MAINTENANCE')) or $([System.String]::Copy('$(DefineConstants)').Contains('WATER_TRACE')) or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_FUNDS')))"
+    <Error Condition="'$(PublishRelease)' == 'true' and ('$(LocalTestKit)' == 'true' or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_KIT')))"
+           Text="PublishRelease cannot include the local production test kit." />
+    <Error Condition="'$(PublishRelease)' == 'true' and ('$(Configuration)' != 'Release' or '$(Maintenance)' == 'true' or '$(WaterTrace)' == 'true' or '$(LocalTestFunds)' == 'true' or $([System.String]::Copy('$(DefineConstants)').Contains('TESTKIT')) or $([System.String]::Copy('$(DefineConstants)').Contains('MAINTENANCE')) or $([System.String]::Copy('$(DefineConstants)').Contains('WATER_TRACE')) or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_FUNDS')) or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_SPECIMEN')))"
            Text="PublishRelease requires Release configuration without maintenance or test flags." />
     <Exec Command="git rev-parse HEAD" WorkingDirectory="$(_CorpPresenceSourceRoot)"
           Condition="Exists('$(_CorpPresenceSourceRoot)/.git')"

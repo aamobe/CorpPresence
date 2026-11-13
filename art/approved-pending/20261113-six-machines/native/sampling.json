@@ -1,0 +1,62 @@
+[
+  {
+    "SourcePixelsPerNativePixel": 5.7,
+    "Height": 48,
+    "Name": "mineral-crusher",
+    "Origin": [
+      0,
+      184
+    ],
+    "Width": 48
+  },
+  {
+    "SourcePixelsPerNativePixel": 5.7,
+    "Height": 48,
+    "Name": "powder-sieve",
+    "Origin": [
+      346,
+      184
+    ],
+    "Width": 48
+  },
+  {
+    "SourcePixelsPerNativePixel": 5.7,
+    "Height": 48,
+    "Name": "sintering-station",
+    "Origin": [
+      700,
+      181
+    ],
+    "Width": 48
+  },
+  {
+    "SourcePixelsPerNativePixel": 5.7,
+    "Height": 64,
+    "Name": "mineral-growth-station",
+    "Origin": [
+      1040,
+      178
+    ],
+    "Width": 48
+  },
+  {
+    "SourcePixelsPerNativePixel": 5.7,
+    "Height": 48,
+    "Name": "alcohol-preparation-station",
+    "Origin": [
+      1380,
+      184
+    ],
+    "Width": 48
+  },
+  {
+    "SourcePixelsPerNativePixel": 5.8,
+    "Height": 48,
+    "Name": "twin-vessel-reactor",
+    "Origin": [
+      1730,
+      184
+    ],
+    "Width": 64
+  }
+]

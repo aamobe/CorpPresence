@@ -12,15 +12,46 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(WaterTrace)' == 'true'"><DefineConstants>$(DefineConstants);WATER_TRACE</DefineConstants></PropertyGroup>
   <PropertyGroup Condition="'$(LocalTestFunds)' == 'true'"><DefineConstants>$(DefineConstants);LOCAL_TEST_FUNDS</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(LocalTestKit)' == 'true'"><DefineConstants>$(DefineConstants);LOCAL_TEST_KIT;LOCAL_TEST_SPECIMEN</DefineConstants></PropertyGroup>
   <PropertyGroup Condition="'$(Maintenance)' == 'true'"><DefineConstants>$(DefineConstants);MAINTENANCE</DefineConstants></PropertyGroup>
-  <Target Name="CheckMaintenanceFlags" BeforeTargets="CoreCompile" Condition="'$(Maintenance)' == 'true' and ('$(LocalTestFunds)' == 'true' or '$(WaterTrace)' == 'true')">
-    <Error Text="Maintenance cannot be combined with LocalTestFunds or WaterTrace." />
+  <Target Name="CheckMaintenanceFlags" BeforeTargets="CoreCompile" Condition="'$(Maintenance)' == 'true' and ('$(LocalTestFunds)' == 'true' or '$(WaterTrace)' == 'true' or '$(LocalTestKit)' == 'true')">
+    <Error Text="Maintenance cannot be combined with LocalTestFunds, WaterTrace or LocalTestKit." />
   </Target>
   <ItemGroup>
     <Reference Include="$(GameManaged)\Unity*.dll;$(GameManaged)\Assembly-CSharp.dll;$(GameManaged)\0Harmony.dll;$(GameManaged)\Newtonsoft.Json.dll">
       <Private>false</Private>
     </Reference>
     <EmbeddedResource Include="Assets\**\*.png" LogicalName="%(Filename)%(Extension)" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/twin-vessel-reactor.png" LogicalName="CorpPresence.art.cartel.twin-vessel-reactor.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/blue-shell-resin.png" LogicalName="CorpPresence.art.cartel.blue-shell-resin.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/light-salt-core.png" LogicalName="CorpPresence.art.cartel.light-salt-core.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-gel.png" LogicalName="CorpPresence.art.cartel.sleep-moss-gel.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/light-salt-precipitate.png" LogicalName="CorpPresence.art.cartel.light-salt-precipitate.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/zol-tablets.png" LogicalName="CorpPresence.art.cartel.zol-tablets.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/nicotine-tin.png" LogicalName="CorpPresence.art.cartel.nicotine-tin.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/ice-shard-pouch.png" LogicalName="CorpPresence.art.cartel.ice-shard-pouch.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-seed.png" LogicalName="CorpPresence.art.cartel.sleep-moss-seed.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-block.png" LogicalName="CorpPresence.art.cartel.sleep-moss-block.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-hydroponic-inoculated.png" LogicalName="CorpPresence.art.cartel.sleep-moss-hydroponic-inoculated.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-hydroponic-spreading.png" LogicalName="CorpPresence.art.cartel.sleep-moss-hydroponic-spreading.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-hydroponic-harvestable.png" LogicalName="CorpPresence.art.cartel.sleep-moss-hydroponic-harvestable.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-sieve.png" LogicalName="CorpPresence.art.mineral.powder-sieve.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-crusher.png" LogicalName="CorpPresence.art.mineral.mineral-crusher.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-crusher-running.png" LogicalName="CorpPresence.art.mineral.mineral-crusher-running.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-sieve-running.png" LogicalName="CorpPresence.art.mineral.powder-sieve-running.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/sintering-station.png" LogicalName="CorpPresence.art.mineral.sintering-station.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/sintering-station-running.png" LogicalName="CorpPresence.art.mineral.sintering-station-running.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crafting-station.png" LogicalName="CorpPresence.art.mineral.crafting-station.png" Condition="Exists('CorpPresence/assets/mineral-recycling/crafting-station.png')" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crafting-station-running.png" LogicalName="CorpPresence.art.mineral.crafting-station-running.png" Condition="Exists('CorpPresence/assets/mineral-recycling/crafting-station-running.png')" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/silicon-plate.png" LogicalName="CorpPresence.art.mineral.silicon-plate.png" Condition="Exists('CorpPresence/assets/mineral-recycling/silicon-plate.png')" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/electronic-substrate.png" LogicalName="CorpPresence.art.mineral.electronic-substrate.png" Condition="Exists('CorpPresence/assets/mineral-recycling/electronic-substrate.png')" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/electronic-blueprint.png" LogicalName="CorpPresence.art.mineral.electronic-blueprint.png" Condition="Exists('CorpPresence/assets/mineral-recycling/electronic-blueprint.png')" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-body.png" LogicalName="CorpPresence.art.mineral.powder-box-body.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-fill-20.png" LogicalName="CorpPresence.art.mineral.powder-box-fill-20.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-fill-40.png" LogicalName="CorpPresence.art.mineral.powder-box-fill-40.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-fill-60.png" LogicalName="CorpPresence.art.mineral.powder-box-fill-60.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-fill-80.png" LogicalName="CorpPresence.art.mineral.powder-box-fill-80.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-fill.png" LogicalName="CorpPresence.art.mineral.powder-box-fill.png" />
     <EmbeddedResource Include="CorpPresence/Presentation/Translations.json" LogicalName="CorpPresence.Translations.json" />
     <EmbeddedResource Include="CorpPresence/Presentation/Translations.Keys.json" LogicalName="CorpPresence.Translations.Keys.json" />
   </ItemGroup>

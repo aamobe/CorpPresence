@@ -86,6 +86,7 @@ internal static partial class Hooks
 		Type typeFromHandle = typeof(Hooks);
 		Patch<PlayerStore>(h, "BeginDay", typeFromHandle, null, nameof(AfterBeginDay));
 		Patch<PlayerStore>(h, "GetNextClient", typeFromHandle, nameof(BeforeNextClient));
+		Patch<MachineHydroponic>(h, nameof(MachineHydroponic.Hydroponic), typeof(SleepMoss), postfix: nameof(SleepMoss.AddStageOverlay));
 		Patch<HydroponicHelper>(h, nameof(HydroponicHelper.ContinueGrowing), typeof(CropHealth),
 			postfix: nameof(CropHealth.AfterContinueGrowing), args: new[] { typeof(GameItem), typeof(int), typeof(GameItem) });
 		Patch<GameItem>(h, "GetNegociatedValue", typeFromHandle, null, nameof(AfterNegociatedValue));
@@ -231,6 +232,9 @@ internal static partial class Hooks
 
 	public static void InstallResources(Harmony h)
 	{
+		Patch<MachineChemFinisher>(h, nameof(MachineChemFinisher.CanOutput), typeof(CartelChemistry), postfix: nameof(CartelChemistry.CheckOutputSpace), args: new[] { typeof(GameItem), typeof(GameSlotInventory) });
+		Patch<ChemicalHelper>(h, nameof(ChemicalHelper.HandleTemperatureReaction), typeof(CartelChemistry), postfix: nameof(CartelChemistry.ReactIce), args: new[] { typeof(GameItem) });
+		Patch<ChemFinisherRecipe>(h, nameof(ChemFinisherRecipe.CanOutput), typeof(CartelChemistry), postfix: nameof(CartelChemistry.CheckIngredients), args: new[] { typeof(GameItem) });
 		if (!GameResources.Ready) throw new InvalidOperationException("液体补丁资源尚未就绪");
 		InstallGameplay(h);
 #if WATER_TRACE

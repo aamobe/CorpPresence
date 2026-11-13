@@ -1,0 +1,160 @@
+{
+  "Sprites": [
+    {
+      "File": "silicon-plate.png",
+      "Width": 32,
+      "Height": 32,
+      "Footprint": [
+        2,
+        2
+      ],
+      "Shape": "full rectangle",
+      "Pivot": [
+        0.5,
+        0.5
+      ],
+      "PPU": 100,
+      "Filter": "Point",
+      "Colors": 8,
+      "OpaquePixels": 463,
+      "BBox": [
+        5,
+        5,
+        26,
+        26
+      ],
+      "CenterAlphaMask": "11/11",
+      "SHA256": "DF2F87246AC1D5C80B11E49942B024DB7247762E868C48D32A19E7BBE4F27124",
+      "SourceMatrixVerified": true
+    },
+    {
+      "File": "electronic-substrate.png",
+      "Width": 32,
+      "Height": 16,
+      "Footprint": [
+        2,
+        1
+      ],
+      "Shape": "full rectangle",
+      "Pivot": [
+        0.5,
+        0.5
+      ],
+      "PPU": 100,
+      "Filter": "Point",
+      "Colors": 9,
+      "OpaquePixels": 333,
+      "BBox": [
+        0,
+        2,
+        31,
+        12
+      ],
+      "CenterAlphaMask": "11",
+      "SHA256": "8936E4F6B3CC26B4CBC1A3354F9480E354CA005AE7C655A931F1C09A245B7253",
+      "SourceMatrixVerified": true
+    },
+    {
+      "File": "electronic-blueprint.png",
+      "Width": 16,
+      "Height": 16,
+      "Footprint": [
+        1,
+        1
+      ],
+      "Shape": "full rectangle",
+      "Pivot": [
+        0.5,
+        0.5
+      ],
+      "PPU": 100,
+      "Filter": "Point",
+      "Colors": 7,
+      "OpaquePixels": 169,
+      "BBox": [
+        1,
+        1,
+        14,
+        13
+      ],
+      "CenterAlphaMask": "1",
+      "SHA256": "35577D89B79201449631963C13E520CF5639FB6E44A2A46A676EC23632C41AC8",
+      "SourceMatrixVerified": true
+    },
+    {
+      "File": "crafting-station.png",
+      "Width": 48,
+      "Height": 48,
+      "Footprint": [
+        3,
+        3
+      ],
+      "Shape": "full rectangle",
+      "Pivot": [
+        0.5,
+        0.5
+      ],
+      "PPU": 100,
+      "Filter": "Point",
+      "Colors": 12,
+      "OpaquePixels": 1558,
+      "BBox": [
+        2,
+        4,
+        45,
+        45
+      ],
+      "CenterAlphaMask": "100/111/111",
+      "SHA256": "3AC1B6A448BF31A42FA05E2945DB1C9039140C5A9853F91D7DB3363F2A48C725",
+      "SourceMatrixVerified": true
+    },
+    {
+      "File": "crafting-station-running.png",
+      "Width": 48,
+      "Height": 48,
+      "Footprint": [
+        3,
+        3
+      ],
+      "Shape": "full rectangle",
+      "Pivot": [
+        0.5,
+        0.5
+      ],
+      "PPU": 100,
+      "Filter": "Point",
+      "Colors": 12,
+      "OpaquePixels": 1558,
+      "BBox": [
+        2,
+        4,
+        45,
+        45
+      ],
+      "CenterAlphaMask": "100/111/111",
+      "SHA256": "BF46B7ED61A99985D1FE3E1B2601B08CFC4D3243DCCA23A372CAB623839DB039",
+      "SourceMatrixVerified": true
+    }
+  ],
+  "RunningState": {
+    "ChangedRGBA": 26,
+    "ChangedAlpha": 0,
+    "OutsideMask": 0,
+    "Masks": [
+      [
+        16,
+        22,
+        6,
+        4
+      ],
+      [
+        33,
+        35,
+        1,
+        2
+      ]
+    ],
+    "Coordinates": "top-left x,y,width,height"
+  },
+  "GameIntegration": "not performed"
+}

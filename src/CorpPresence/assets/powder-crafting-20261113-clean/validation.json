@@ -1,0 +1,102 @@
+[
+  {
+    "Group": "powder-crafting-20261113-clean",
+    "File": "crafting-station-running.png",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 12,
+    "ChangedRGBA": 15,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      3,
+      3
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "EDED45DBD6E979A7D2BABED7452EC5133DD828E7F68D43F69E9E582C6673EE9F"
+  },
+  {
+    "Group": "powder-crafting-20261113-clean",
+    "File": "crafting-station.png",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 12,
+    "ChangedRGBA": 15,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      3,
+      3
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "5B24217E35EFB0086559FE5D7D2CE830AA0B83CA501CA6131FA7E642D71AC461"
+  },
+  {
+    "Group": "powder-crafting-20261113-clean",
+    "File": "electronic-blueprint.png",
+    "Width": 16,
+    "Height": 16,
+    "Colors": 6,
+    "ChangedRGBA": 2,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      1,
+      1
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "C545D8633CF8EA3585BA2178EAC69121B7200A31C73876F4FCCF1E02EAF5B9DA"
+  },
+  {
+    "Group": "powder-crafting-20261113-clean",
+    "File": "electronic-substrate.png",
+    "Width": 32,
+    "Height": 16,
+    "Colors": 8,
+    "ChangedRGBA": 4,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      2,
+      1
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "EBB073DB6D8E353BC86489B4EB3A6CCF00C4C0B17B7CE4439A29E78618D14E8C"
+  },
+  {
+    "Group": "powder-crafting-20261113-clean",
+    "File": "silicon-plate.png",
+    "Width": 32,
+    "Height": 32,
+    "Colors": 8,
+    "ChangedRGBA": 16,
+    "ChangedAlpha": 0,
+    "MatrixMatches": true,
+    "Footprint": [
+      2,
+      2
+    ],
+    "Pivot": [
+      0.5,
+      0.5
+    ],
+    "PPU": 100,
+    "SHA256": "367AE8BD42FB4B797DF3E98D1D985CF862401237C69BCC38AAA8335B72411BC8"
+  }
+]

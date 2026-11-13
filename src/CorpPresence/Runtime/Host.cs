@@ -28,10 +28,13 @@ internal sealed class Host : MonoBehaviour
 #if MAINTENANCE
         MaintenanceConsole.Tick();
 #endif
+#if LOCAL_TEST_SPECIMEN
+        LocalTestSpecimen.Tick();
+#endif
 #if LOCAL_TEST_FUNDS
         LocalTestFunds.Tick();
 #endif
-#if TESTKIT
+#if LOCAL_TEST_KIT
         TestKit.Tick();
 #endif
     }

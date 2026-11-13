@@ -11,14 +11,16 @@ namespace CorpPresence;
 internal static partial class Hooks
 {
 	private static Action _nightly;
-	private static bool _customerHookInstalled;
+	private static bool _gameplayHooksInstalled;
 
 	public static void InstallEvents()
 	{
-		if (!_customerHookInstalled)
+		if (!_gameplayHooksInstalled)
 		{
+			ModHook.OnCreateTooltipLate += SilverBlood.AppendBloodProgress;
+			ModHook.OnCreateTooltipLate += PowderBox.AppendClassification;
 			ModHook.OnGenerateCustomerVeryLate += OnGenerateCustomer;
-			_customerHookInstalled = true;
+			_gameplayHooksInstalled = true;
 		}
 		if (_nightly == null)
 		{
@@ -32,10 +34,12 @@ internal static partial class Hooks
 
 	public static void UninstallEvents()
 	{
-		if (_customerHookInstalled)
+		if (_gameplayHooksInstalled)
 		{
+			ModHook.OnCreateTooltipLate -= SilverBlood.AppendBloodProgress;
+			ModHook.OnCreateTooltipLate -= PowderBox.AppendClassification;
 			ModHook.OnGenerateCustomerVeryLate -= OnGenerateCustomer;
-			_customerHookInstalled = false;
+			_gameplayHooksInstalled = false;
 		}
 		if (_nightly != null)
 		{

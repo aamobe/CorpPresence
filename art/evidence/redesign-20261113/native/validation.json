@@ -1,0 +1,98 @@
+[
+  {
+    "Name": "alcohol-preparation-station.pixels.json",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 12,
+    "NonBinaryAlpha": 0,
+    "Opaque": 1403,
+    "BBox": [
+      4,
+      3,
+      43,
+      45
+    ],
+    "CenterAlphaMask": "010/111/111",
+    "DeclaredFootprint": "3x3"
+  },
+  {
+    "Name": "mineral-crusher.pixels.json",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 12,
+    "NonBinaryAlpha": 0,
+    "Opaque": 1664,
+    "BBox": [
+      1,
+      5,
+      46,
+      45
+    ],
+    "CenterAlphaMask": "110/111/111",
+    "DeclaredFootprint": "3x3"
+  },
+  {
+    "Name": "mineral-growth-station.pixels.json",
+    "Width": 48,
+    "Height": 64,
+    "Colors": 12,
+    "NonBinaryAlpha": 0,
+    "Opaque": 2156,
+    "BBox": [
+      5,
+      2,
+      42,
+      62
+    ],
+    "CenterAlphaMask": "111/111/111/111",
+    "DeclaredFootprint": "3x4"
+  },
+  {
+    "Name": "powder-sieve.pixels.json",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 11,
+    "NonBinaryAlpha": 0,
+    "Opaque": 1760,
+    "BBox": [
+      1,
+      2,
+      46,
+      45
+    ],
+    "CenterAlphaMask": "111/111/111",
+    "DeclaredFootprint": "3x3"
+  },
+  {
+    "Name": "sintering-station.pixels.json",
+    "Width": 48,
+    "Height": 48,
+    "Colors": 14,
+    "NonBinaryAlpha": 0,
+    "Opaque": 1601,
+    "BBox": [
+      4,
+      1,
+      43,
+      46
+    ],
+    "CenterAlphaMask": "111/111/111",
+    "DeclaredFootprint": "3x3"
+  },
+  {
+    "Name": "twin-vessel-reactor.pixels.json",
+    "Width": 64,
+    "Height": 48,
+    "Colors": 13,
+    "NonBinaryAlpha": 0,
+    "Opaque": 2318,
+    "BBox": [
+      1,
+      4,
+      62,
+      45
+    ],
+    "CenterAlphaMask": "0110/1111/1111",
+    "DeclaredFootprint": "4x3"
+  }
+]

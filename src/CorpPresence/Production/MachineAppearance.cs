@@ -17,6 +17,7 @@ internal static class MachineAppearance
     {
         public GameInventory Output;
         public Func<string> ReadyProduct;
+        public Func<bool> Ready;
         public Func<int> BatchSize;
         public string CheckedProduct;
         public bool Dirty = true;
@@ -33,8 +34,13 @@ internal static class MachineAppearance
     }
 
     internal static void WatchCycle(GameItem machine, GameInventory output, Func<string> readyProduct, Func<int> batchSize = null)
+        => WatchCycle(machine, new Cycle { Output = output, ReadyProduct = readyProduct, BatchSize = batchSize });
+
+    internal static void WatchCycle(GameItem machine, Func<bool> ready)
+        => WatchCycle(machine, new Cycle { Ready = ready });
+
+    private static void WatchCycle(GameItem machine, Cycle cycle)
     {
-        var cycle = new Cycle { Output = output, ReadyProduct = readyProduct, BatchSize = batchSize };
         Cycles.Add(machine, cycle);
         Machines.Add(new WeakReference<GameItem>(machine));
 
@@ -96,6 +102,11 @@ internal static class MachineAppearance
 
     private static void RefreshCycle(GameItem machine, Cycle cycle)
     {
+        if (cycle.Ready != null)
+        {
+            SetRunning(machine, cycle, cycle.Ready());
+            return;
+        }
         string product = cycle.ReadyProduct();
         if (!cycle.Dirty && product == cycle.CheckedProduct) return;
         SetRunning(machine, cycle, product != null && CanFit(cycle.Output, product, cycle.BatchSize?.Invoke() ?? 1));
@@ -103,7 +114,7 @@ internal static class MachineAppearance
         cycle.Dirty = false;
     }
 
-    private static bool CanFit(GameInventory output, string product, int count)
+    internal static bool CanFit(GameInventory output, string product, int count = 1)
     {
         if (!DirectoryMaster.Has<GameItem>(product)) return false;
         var sample = DirectoryMaster.Item(product, isOwned: true);

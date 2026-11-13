@@ -1,0 +1,100 @@
+{
+  "ApprovedDate": "2026-11-13",
+  "UserApproval": "图中全部通过，标记一下为待替换素材。",
+  "ReferenceSHA256": "A8EBEDFD2A8EEBFC16D166AB72FD59090CDE36BB6D7C006782C0CF89C7CE9F78",
+  "ApprovalScope": "附件中六台机器的视觉方案；以保存的确认图为准，不自动扩展到其他批次或不同像素版本",
+  "Items": [
+    {
+      "Name": "破碎机",
+      "TargetFile": "mineral-crusher.png",
+      "Status": "审核通过，待替换素材",
+      "NativeSize": [
+        48,
+        48
+      ],
+      "Footprint": [
+        3,
+        3
+      ],
+      "ApprovedReference": "approved-reference.png",
+      "NativeReplacementApplied": false
+    },
+    {
+      "Name": "筛分机",
+      "TargetFile": "powder-sieve.png",
+      "Status": "审核通过，待替换素材",
+      "NativeSize": [
+        48,
+        48
+      ],
+      "Footprint": [
+        3,
+        3
+      ],
+      "ApprovedReference": "approved-reference.png",
+      "NativeReplacementApplied": false
+    },
+    {
+      "Name": "烧结站",
+      "TargetFile": "sintering-station.png",
+      "Status": "审核通过，待替换素材",
+      "NativeSize": [
+        48,
+        48
+      ],
+      "Footprint": [
+        3,
+        3
+      ],
+      "ApprovedReference": "approved-reference.png",
+      "NativeReplacementApplied": false
+    },
+    {
+      "Name": "矿化机",
+      "TargetFile": "mineral-growth-station.png",
+      "Status": "审核通过，待替换素材",
+      "NativeSize": [
+        48,
+        64
+      ],
+      "Footprint": [
+        3,
+        4
+      ],
+      "ApprovedReference": "approved-reference.png",
+      "NativeReplacementApplied": false
+    },
+    {
+      "Name": "酒精制备站",
+      "TargetFile": "alcohol-preparation-station.png",
+      "Status": "审核通过，待替换素材",
+      "NativeSize": [
+        48,
+        48
+      ],
+      "Footprint": [
+        3,
+        3
+      ],
+      "ApprovedReference": "approved-reference.png",
+      "NativeReplacementApplied": false
+    },
+    {
+      "Name": "双胆反应槽",
+      "TargetFile": "twin-vessel-reactor.png",
+      "Status": "审核通过，待替换素材",
+      "NativeSize": [
+        64,
+        48
+      ],
+      "Footprint": [
+        4,
+        3
+      ],
+      "ApprovedReference": "approved-reference.png",
+      "NativeReplacementApplied": false
+    }
+  ],
+  "NextStep": "依据确认图核对或整理独立原生替换素材，再由接入任务处理资源调用",
+  "Deployed": false
+}

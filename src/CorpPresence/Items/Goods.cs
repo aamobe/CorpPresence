@@ -218,6 +218,8 @@ internal static partial class Goods
 		}
 	}
 
+	internal static string NameOf(string id) => Defs[id].LName;
+
 	public static long ValueOf(string id)
 	{
 		if (id == null || !Defs.TryGetValue(id, out var value))
@@ -1142,4 +1144,3 @@ internal static partial class Goods
 		m.CandleUntil = -1;
 	}
 }
-

@@ -1,0 +1,38 @@
+[
+  {
+    "File": "alcohol-preparation-station-generated.png",
+    "Width": 1254,
+    "Height": 1254,
+    "SHA256": "120A1F85C68FC9A416B913AB8B9EC700305F56A595390F8DEE15439234CDC041"
+  },
+  {
+    "File": "mineral-crusher-generated.png",
+    "Width": 1254,
+    "Height": 1254,
+    "SHA256": "C7DDDA46BE4309160B47458847A03BAD4B8022AB180DC0C616807408BBCABB0F"
+  },
+  {
+    "File": "mineral-growth-station-generated.png",
+    "Width": 1086,
+    "Height": 1448,
+    "SHA256": "9B3D6FA09F7CEA38FBE4DD26BC42261188ED478203CC29B4815944C0DF0C2F6B"
+  },
+  {
+    "File": "powder-sieve-generated.png",
+    "Width": 1254,
+    "Height": 1254,
+    "SHA256": "CCC561A52286851A1305CB2405781AD10E10DE3F150641F3098E1371CE694396"
+  },
+  {
+    "File": "sintering-station-generated.png",
+    "Width": 1254,
+    "Height": 1254,
+    "SHA256": "ABB9D8540FADED2F0A1F7679324B594EEAAB520FD9241B0AC52F13067B1260E4"
+  },
+  {
+    "File": "twin-vessel-reactor-generated.png",
+    "Width": 1448,
+    "Height": 1086,
+    "SHA256": "4DA0126CB945B6A87ADD6B1031C7FF464D2A986DAF4D634F22B3DBBEF074A9B9"
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-13",
+  "status": "Native sprites completed; pixel validation passed; awaiting user visual review; not integrated",
+  "assets": [
+    [
+      "silicon-plate",
+      32,
+      32,
+      "A single small silicon substrate plate, pale cool blue-gray ceramic, thin stepped beveled square slab seen shallowly from above, one notched corner and one dark inset contact track; no attached microchips. Strong simple solid silhouette."
+    ],
+    [
+      "electronic-substrate",
+      32,
+      16,
+      "A single wide rectangular electronic substrate blank, a structural base made from refined rare metals, muted purple-gray laminated carrier with three restrained pale brass contact pads along front edge and two mounting holes. Bare assembly material, not a finished populated circuit board. Low thin shallow-beveled slab with a distinct wide 2:1 silhouette. Clear large flat surfaces, no chips or tiny complex circuitry."
+    ],
+    [
+      "electronic-blueprint",
+      16,
+      16,
+      "A single reusable blue-green folded schematic card, clipped corner, pale simple circuit symbol of one rectangular component with two short tracks, small worn metal retaining clip. No readable text, no complex diagram. Clearly paper/card rather than a circuit board."
+    ],
+    [
+      "crafting-station",
+      48,
+      48,
+      "A compact manually operated electronics assembly workbench. Squat box chassis with shallow visible worktop; rear-left upright clipped blueprint card, three small parts wells on rear-right; central inset rectangular assembly jig; one side-mounted short mechanical hand lever with pivot and connected press foot; front shallow output drawer and two tiny indicator lamps. Add one asymmetric metal repair patch with two rivets and one replaced pipe coupling. Solid functional tabletop, visually clear hand-operated workbench; not furnace, not reactor, no tanks, no giant futuristic arch."
+    ]
+  ],
+  "commonPrompt": "Create new Probably Stolen native inventory pixel art using the attached original sprites ONLY for angle and color language. Orthographic front with shallow elevated view, zero horizontal yaw: horizontal front edges; visible shallow top and thin side bevels. Large solid flat discrete color clusters with deep purple #292234 outlines and recesses, #6B5269 #777081 shadow shifts, #303A41 #80929B metal, #A8AEA5 #C4C4B0 #D5D2B8 light surfaces; restrained teal #275654 #2F756F #8ABFBB accents. Muted scrap-workshop aesthetic, purposeful repairs, no random dirt or decorative noise. Strict uniform native pixel lattice; no detail smaller than one logical pixel. No gradients, no antialiasing, no glow, no dithering, no labels. One object only, solid pure green #00FF00 background including gaps. Full silhouette with 1-2 logical pixel margin. Supply exact requested native canvas if possible.",
+  "references": [
+    "purifier 48x64",
+    "furnace 48x48",
+    "manual1 32x48"
+  ],
+  "reused": {
+    "wire": "Items/items_construction / wire",
+    "common_electronic": "Items/items_material / electronic1"
+  },
+  "output": "src/CorpPresence/assets/powder-crafting-20261113/"
+}

@@ -1,0 +1,3665 @@
+[
+  {
+    "Name": "purifier",
+    "Class": "MachinePurifier",
+    "Status": "visible",
+    "CodeLines": [
+      42,
+      109
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\purifier.png",
+    "SHA256": "131AA2364BDE1EB79E0B2F970EFEE0BAEAD11B2521C92E5B9327878916B3A582",
+    "Width": 48,
+    "Height": 64,
+    "BBox": [
+      2,
+      3,
+      45,
+      62
+    ],
+    "MainPixels": 2512,
+    "Alpha": {
+      "1": 560,
+      "255": 2512
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 524
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 406
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 388
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 287
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 194
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 158
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 153
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 89
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 58
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 52
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 52
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 52
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 45
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 43
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 9
+      },
+      {
+        "RGB": "853737",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "purifier_w",
+    "Class": "MachinePurifier",
+    "Status": "visible",
+    "CodeLines": 105,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\purifier_w.png",
+    "SHA256": "6BF1D7FCEBE0297E670ECC77092D44B2B843A28CF9925F0D1E39DF101C5C6B29",
+    "Width": 48,
+    "Height": 64,
+    "BBox": [
+      2,
+      2,
+      45,
+      61
+    ],
+    "MainPixels": 2512,
+    "Alpha": {
+      "1": 560,
+      "255": 2512
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 524
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 406
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 386
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 287
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 210
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 194
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 153
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 73
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 58
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 52
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 52
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 45
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 43
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 16
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 9
+      },
+      {
+        "RGB": "853737",
+        "Pixels": 2
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "purifier_on",
+    "Class": "MachinePurifier",
+    "Status": "visible",
+    "CodeLines": null,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\purifier_on.png",
+    "SHA256": "B93C012F5E81268BE80ABC50A105E41E527038CE6086AF798DC7DBA02EBF5630",
+    "Width": 48,
+    "Height": 64,
+    "BBox": [
+      2,
+      3,
+      45,
+      62
+    ],
+    "MainPixels": 2512,
+    "Alpha": {
+      "1": 560,
+      "255": 2512
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 475
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 406
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 386
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 287
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 210
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 196
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 154
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 73
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 58
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 57
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 52
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 45
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 43
+      },
+      {
+        "RGB": "7AB053",
+        "Pixels": 19
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 16
+      },
+      {
+        "RGB": "74313B",
+        "Pixels": 10
+      },
+      {
+        "RGB": "B26B4E",
+        "Pixels": 8
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 8
+      },
+      {
+        "RGB": "9B4A3D",
+        "Pixels": 4
+      },
+      {
+        "RGB": "DC4A4A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "853737",
+        "Pixels": 2
+      },
+      {
+        "RGB": "A8BB7F",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "furnace",
+    "Class": "MachineFurnace",
+    "Status": "visible",
+    "CodeLines": 31,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\furnace.png",
+    "SHA256": "6BC3B29AA491DBDDF760324BD2FB828868B7C92D07D8087F8D9F611E6120055B",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      1,
+      2,
+      46,
+      46
+    ],
+    "MainPixels": 2024,
+    "Alpha": {
+      "1": 280,
+      "255": 2024
+    },
+    "Palette": [
+      {
+        "RGB": "303A41",
+        "Pixels": 400
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 392
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 367
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 299
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 270
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 132
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 95
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 55
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 14
+      }
+    ]
+  },
+  {
+    "Name": "furnace_on",
+    "Class": "MachineFurnace",
+    "Status": "visible",
+    "CodeLines": null,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\furnace_on.png",
+    "SHA256": "1D6C46F45C9483994090CE6B5A4BCC5071A602F7C8B76EED8147119B3CBD81C5",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      1,
+      2,
+      46,
+      46
+    ],
+    "MainPixels": 2024,
+    "Alpha": {
+      "1": 280,
+      "255": 2024
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 392
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 367
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 299
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 270
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 222
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 161
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 132
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 95
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 55
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 17
+      },
+      {
+        "RGB": "9C3738",
+        "Pixels": 14
+      }
+    ]
+  },
+  {
+    "Name": "gibber",
+    "Class": "MachineAutoButcher",
+    "Status": "visible",
+    "CodeLines": [
+      126,
+      308,
+      764
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\gibber.png",
+    "SHA256": "57E360270F5419A4F083721813B576EB8246B7696789A41485550779C2458AF5",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      3,
+      1,
+      44,
+      46
+    ],
+    "MainPixels": 1762,
+    "Alpha": {
+      "1": 542,
+      "255": 1762
+    },
+    "Palette": [
+      {
+        "RGB": "44464C",
+        "Pixels": 684
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 284
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 264
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 233
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 103
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 95
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 54
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 14
+      },
+      {
+        "RGB": "9B4A3D",
+        "Pixels": 14
+      },
+      {
+        "RGB": "7AB053",
+        "Pixels": 7
+      },
+      {
+        "RGB": "B26B4E",
+        "Pixels": 5
+      },
+      {
+        "RGB": "64343B",
+        "Pixels": 2
+      },
+      {
+        "RGB": "324638",
+        "Pixels": 2
+      },
+      {
+        "RGB": "9C3738",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "blender",
+    "Class": "MachineBlender",
+    "Status": "visible",
+    "CodeLines": [
+      10,
+      17,
+      33,
+      104
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\blender.png",
+    "SHA256": "C5EA9DD2B2EA384A335CB9423829697AF544E5B85EAA2478756B175686ADCF0A",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      5,
+      1,
+      42,
+      46
+    ],
+    "MainPixels": 1483,
+    "Alpha": {
+      "1": 821,
+      "255": 1483
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 392
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 247
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 195
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 160
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 156
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 150
+      },
+      {
+        "RGB": "79746E",
+        "Pixels": 92
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 42
+      },
+      {
+        "RGB": "645355",
+        "Pixels": 36
+      },
+      {
+        "RGB": "7AB053",
+        "Pixels": 6
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 5
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "blender_b",
+    "Class": "MachineBlender",
+    "Status": "visible",
+    "CodeLines": 13,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\blender_b.png",
+    "SHA256": "98F166AE3B1DD02771DEBC1BDDDFE48F8E5F8FF91A4FB27C1AFA9FA28491A61A",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      5,
+      1,
+      42,
+      46
+    ],
+    "MainPixels": 1483,
+    "Alpha": {
+      "1": 821,
+      "255": 1483
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 376
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 247
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 195
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 156
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 150
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 58
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 48
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 42
+      },
+      {
+        "RGB": "79746E",
+        "Pixels": 38
+      },
+      {
+        "RGB": "645355",
+        "Pixels": 36
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 34
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 27
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 25
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 24
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 19
+      },
+      {
+        "RGB": "7AB053",
+        "Pixels": 6
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "bottle_printer",
+    "Class": "MachineBottlePrinter",
+    "Status": "visible",
+    "CodeLines": [
+      25,
+      126,
+      150
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\bottle_printer.png",
+    "SHA256": "6CC476CA04918A864556E7B4E2FBF7167D3B42258F651F4DD26CAEC291726355",
+    "Width": 32,
+    "Height": 48,
+    "BBox": [
+      1,
+      2,
+      30,
+      46
+    ],
+    "MainPixels": 1350,
+    "Alpha": {
+      "3": 186,
+      "255": 1350
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 323
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 273
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 129
+      },
+      {
+        "RGB": "3F4A52",
+        "Pixels": 125
+      },
+      {
+        "RGB": "363F4A",
+        "Pixels": 95
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 92
+      },
+      {
+        "RGB": "4B5B5D",
+        "Pixels": 87
+      },
+      {
+        "RGB": "21282B",
+        "Pixels": 54
+      },
+      {
+        "RGB": "445056",
+        "Pixels": 51
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 32
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 28
+      },
+      {
+        "RGB": "273456",
+        "Pixels": 23
+      },
+      {
+        "RGB": "596B6A",
+        "Pixels": 14
+      },
+      {
+        "RGB": "516164",
+        "Pixels": 6
+      },
+      {
+        "RGB": "9F526D",
+        "Pixels": 4
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 3
+      },
+      {
+        "RGB": "B68B74",
+        "Pixels": 2
+      },
+      {
+        "RGB": "8F6B5A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "4F464B",
+        "Pixels": 2
+      },
+      {
+        "RGB": "7D4F4A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 1
+      },
+      {
+        "RGB": "334246",
+        "Pixels": 1
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "chem_finisher",
+    "Class": "MachineChemFinisher",
+    "Status": "visible",
+    "CodeLines": [
+      19,
+      26,
+      95
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\chem_finisher.png",
+    "SHA256": "F1674FC25E673FC43B5C890E8196DD79B9BC71D9D4E042DE93F098459E467FF9",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      2,
+      46,
+      46
+    ],
+    "MainPixels": 1917,
+    "Alpha": {
+      "1": 387,
+      "255": 1917
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 549
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 406
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 354
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 276
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 75
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 70
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 64
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 49
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 45
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 16
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 13
+      }
+    ]
+  },
+  {
+    "Name": "chem_finisher_b",
+    "Class": "MachineChemFinisher",
+    "Status": "visible",
+    "CodeLines": 22,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\chem_finisher_b.png",
+    "SHA256": "96A5B014A9049585848F5EC410FAB554CF9F77ADB98F349191AC5FEFF2B6F543",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      2,
+      46,
+      46
+    ],
+    "MainPixels": 1917,
+    "Alpha": {
+      "1": 387,
+      "255": 1917
+    },
+    "Palette": [
+      {
+        "RGB": "44464C",
+        "Pixels": 406
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 385
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 354
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 192
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 135
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 115
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 107
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 82
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 55
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 49
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 22
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 15
+      }
+    ]
+  },
+  {
+    "Name": "evaporator",
+    "Class": "MachineEvaporator",
+    "Status": "visible",
+    "CodeLines": [
+      15,
+      33
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\evaporator.png",
+    "SHA256": "C17A6C93B6A663A001D5FCF658DE583E4B8B3BDE1B526192E43E940203941879",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      1,
+      1,
+      46,
+      46
+    ],
+    "MainPixels": 2010,
+    "Alpha": {
+      "1": 294,
+      "255": 2010
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 613
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 527
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 486
+      },
+      {
+        "RGB": "373248",
+        "Pixels": 164
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 133
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 55
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 32
+      }
+    ]
+  },
+  {
+    "Name": "evaporator_b",
+    "Class": "MachineEvaporator",
+    "Status": "visible",
+    "CodeLines": 29,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\evaporator_b.png",
+    "SHA256": "750C431AD32345C4C9287FE9E099EE7DCB1727B1961F00B68F0814471EA96D05",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      1,
+      1,
+      46,
+      46
+    ],
+    "MainPixels": 2010,
+    "Alpha": {
+      "1": 294,
+      "255": 2010
+    },
+    "Palette": [
+      {
+        "RGB": "44464C",
+        "Pixels": 527
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 486
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 474
+      },
+      {
+        "RGB": "373248",
+        "Pixels": 116
+      },
+      {
+        "RGB": "64343B",
+        "Pixels": 75
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 60
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 55
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 42
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 39
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 37
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 32
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 26
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 22
+      },
+      {
+        "RGB": "7AB053",
+        "Pixels": 13
+      },
+      {
+        "RGB": "9C3738",
+        "Pixels": 4
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "heating_plate",
+    "Class": "MachineHeatingPlate",
+    "Status": "visible",
+    "CodeLines": [
+      32,
+      39,
+      138
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\heating_plate.png",
+    "SHA256": "66016770A084FD06BAA63D7165E3E980B096A6F11BCE6331391C5901C3D40C8D",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      4,
+      1,
+      43,
+      46
+    ],
+    "MainPixels": 1216,
+    "Alpha": {
+      "1": 1088,
+      "255": 1216
+    },
+    "Palette": [
+      {
+        "RGB": "6B5269",
+        "Pixels": 310
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 281
+      },
+      {
+        "RGB": "9B4A3D",
+        "Pixels": 175
+      },
+      {
+        "RGB": "64343B",
+        "Pixels": 124
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 89
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 80
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 77
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 48
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 28
+      },
+      {
+        "RGB": "A8BB7F",
+        "Pixels": 4
+      }
+    ]
+  },
+  {
+    "Name": "heating_plate_b",
+    "Class": "MachineHeatingPlate",
+    "Status": "visible",
+    "CodeLines": 35,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\heating_plate_b.png",
+    "SHA256": "D0A6BEE33565CA00F840FA98570B6532EB8910337DD0AB81C2CE0A28F9A2DF33",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      4,
+      1,
+      43,
+      46
+    ],
+    "MainPixels": 1313,
+    "Alpha": {
+      "1": 991,
+      "255": 1313
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 275
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 242
+      },
+      {
+        "RGB": "9B4A3D",
+        "Pixels": 160
+      },
+      {
+        "RGB": "64343B",
+        "Pixels": 124
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 81
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 77
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 60
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 60
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 48
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 37
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 32
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 31
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 30
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 28
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 22
+      },
+      {
+        "RGB": "A8BB7F",
+        "Pixels": 4
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "printer_off",
+    "Class": "MachinePrinter",
+    "Status": "visible",
+    "CodeLines": [
+      81,
+      249
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\printer_off.png",
+    "SHA256": "8601D971354CE7E9AB26064B67E08948B7A385E3F586781A1FA77D944F12A7A2",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      1,
+      2,
+      46,
+      46
+    ],
+    "MainPixels": 2070,
+    "Alpha": {
+      "1": 234,
+      "255": 2070
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 531
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 353
+      },
+      {
+        "RGB": "363F4A",
+        "Pixels": 162
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 161
+      },
+      {
+        "RGB": "3F4A52",
+        "Pixels": 150
+      },
+      {
+        "RGB": "4B5B5D",
+        "Pixels": 144
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 140
+      },
+      {
+        "RGB": "445056",
+        "Pixels": 124
+      },
+      {
+        "RGB": "21282B",
+        "Pixels": 70
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 47
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 45
+      },
+      {
+        "RGB": "424F55",
+        "Pixels": 33
+      },
+      {
+        "RGB": "39434D",
+        "Pixels": 31
+      },
+      {
+        "RGB": "273456",
+        "Pixels": 23
+      },
+      {
+        "RGB": "596B6A",
+        "Pixels": 19
+      },
+      {
+        "RGB": "516164",
+        "Pixels": 15
+      },
+      {
+        "RGB": "9F526D",
+        "Pixels": 4
+      },
+      {
+        "RGB": "3B4D4D",
+        "Pixels": 4
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 3
+      },
+      {
+        "RGB": "8F6B5A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "4F464B",
+        "Pixels": 2
+      },
+      {
+        "RGB": "7D4F4A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "B68B74",
+        "Pixels": 2
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 1
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 1
+      },
+      {
+        "RGB": "334246",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "printer_on",
+    "Class": "MachinePrinter",
+    "Status": "visible",
+    "CodeLines": [
+      154,
+      165
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\printer_on.png",
+    "SHA256": "29CB714ACBE8C2A3D7C2C2DB68220C809D1CC84CFCD3DA435340DEB45C287E1A",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      1,
+      2,
+      46,
+      46
+    ],
+    "MainPixels": 2070,
+    "Alpha": {
+      "1": 234,
+      "255": 2070
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 531
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 353
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 161
+      },
+      {
+        "RGB": "316669",
+        "Pixels": 152
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 139
+      },
+      {
+        "RGB": "397774",
+        "Pixels": 120
+      },
+      {
+        "RGB": "367C6D",
+        "Pixels": 111
+      },
+      {
+        "RGB": "3E817A",
+        "Pixels": 74
+      },
+      {
+        "RGB": "21282B",
+        "Pixels": 68
+      },
+      {
+        "RGB": "2F6A63",
+        "Pixels": 55
+      },
+      {
+        "RGB": "449384",
+        "Pixels": 48
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 47
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 45
+      },
+      {
+        "RGB": "3C7F78",
+        "Pixels": 32
+      },
+      {
+        "RGB": "346C6D",
+        "Pixels": 31
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 23
+      },
+      {
+        "RGB": "339881",
+        "Pixels": 20
+      },
+      {
+        "RGB": "51AD97",
+        "Pixels": 19
+      },
+      {
+        "RGB": "499D8E",
+        "Pixels": 15
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 8
+      },
+      {
+        "RGB": "2C8476",
+        "Pixels": 6
+      },
+      {
+        "RGB": "7D4F4A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "8F6B5A",
+        "Pixels": 2
+      },
+      {
+        "RGB": "9F526D",
+        "Pixels": 2
+      },
+      {
+        "RGB": "B68B74",
+        "Pixels": 2
+      },
+      {
+        "RGB": "4F464B",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "alarm_system",
+    "Class": "MachineAlarm",
+    "Status": "visible",
+    "CodeLines": [
+      16,
+      63,
+      68,
+      88,
+      93
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\alarm_system.png",
+    "SHA256": "629CF10C1DC3C32A9E2F2CFFC49C8F0758D07200E5969FB95EE5CA4F1C224D96",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      3,
+      5,
+      44,
+      42
+    ],
+    "MainPixels": 1561,
+    "Alpha": {
+      "3": 743,
+      "255": 1561
+    },
+    "Palette": [
+      {
+        "RGB": "44464C",
+        "Pixels": 648
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 453
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 259
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 136
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 35
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 27
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 3
+      }
+    ]
+  },
+  {
+    "Name": "alarm_system_r",
+    "Class": "MachineAlarm",
+    "Status": "visible",
+    "CodeLines": [
+      59,
+      84
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\alarm_system_r.png",
+    "SHA256": "D5F47EA6E0C906DF858E7999CF87BC927D61F4C79AE35E1B622158C42B77C8E9",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      3,
+      5,
+      44,
+      42
+    ],
+    "MainPixels": 1561,
+    "Alpha": {
+      "3": 743,
+      "255": 1561
+    },
+    "Palette": [
+      {
+        "RGB": "44464C",
+        "Pixels": 648
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 376
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 259
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 136
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 61
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 35
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 27
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 12
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 4
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 3
+      }
+    ]
+  },
+  {
+    "Name": "alarm_system_b",
+    "Class": "MachineAlarm",
+    "Status": "no opaque pixels",
+    "CodeLines": null,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\alarm_system_b.png",
+    "SHA256": "5DB437CBAA19C56EB684D6DBE028057729D43F49D5755F0802446638FAFBBFB6",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      48,
+      48,
+      -1,
+      -1
+    ],
+    "MainPixels": 0,
+    "Alpha": {
+      "3": 2304
+    },
+    "Palette": []
+  },
+  {
+    "Name": "moisture_farm",
+    "Class": "MachineMoistureFarm",
+    "Status": "visible",
+    "CodeLines": [
+      32,
+      82,
+      86,
+      96,
+      107,
+      127,
+      281
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\moisture_farm.png",
+    "SHA256": "4A95857961A637AF9EC6AB8564DACFB99FFCF5FA7F749306DB2BA347F902D86B",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      1,
+      45,
+      46
+    ],
+    "MainPixels": 1995,
+    "Alpha": {
+      "3": 309,
+      "255": 1995
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 703
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 365
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 321
+      },
+      {
+        "RGB": "79746E",
+        "Pixels": 250
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 164
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 96
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 69
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 23
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 4
+      }
+    ]
+  },
+  {
+    "Name": "moisture_farm_w",
+    "Class": "MachineMoistureFarm",
+    "Status": "visible",
+    "CodeLines": [
+      92,
+      103
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\moisture_farm_w.png",
+    "SHA256": "6BA94B2927FFE392A2B0DFA28FBCA1E4767351AC9041A2A3E5B4989D19DDDA94",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      1,
+      45,
+      46
+    ],
+    "MainPixels": 1995,
+    "Alpha": {
+      "3": 309,
+      "255": 1995
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 703
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 365
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 329
+      },
+      {
+        "RGB": "79746E",
+        "Pixels": 250
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 164
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 69
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 38
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 23
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 17
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 17
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 16
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 4
+      }
+    ]
+  },
+  {
+    "Name": "moisture_farm_r",
+    "Class": "MachineMoistureFarm",
+    "Status": "no opaque pixels",
+    "CodeLines": null,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\moisture_farm_r.png",
+    "SHA256": "AD369AEA9838E199C57E94C04BD818A191748329C49141D7106AA1C8822FC57A",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      48,
+      48,
+      -1,
+      -1
+    ],
+    "MainPixels": 0,
+    "Alpha": {
+      "3": 2304
+    },
+    "Palette": []
+  },
+  {
+    "Name": "dealmaker",
+    "Class": "MachineDealMaker",
+    "Status": "visible",
+    "CodeLines": 17,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\dealmaker.png",
+    "SHA256": "839FDEE9A502D02B5AB67F6FE88E19F0881C339FFA1D3833330456C2F0BE692E",
+    "Width": 48,
+    "Height": 32,
+    "BBox": [
+      2,
+      2,
+      45,
+      29
+    ],
+    "MainPixels": 1045,
+    "Alpha": {
+      "3": 491,
+      "255": 1045
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 637
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 270
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 64
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 48
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 22
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 2
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "desequencer",
+    "Class": "MachineDesequencer",
+    "Status": "visible",
+    "CodeLines": [
+      48,
+      159,
+      164
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\desequencer.png",
+    "SHA256": "6F1B72E997A568258539896E0BA3B87054CC5EBDF4463BDDC2956ED23BF3AD45",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      1,
+      45,
+      46
+    ],
+    "MainPixels": 1516,
+    "Alpha": {
+      "0": 788,
+      "255": 1516
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 660
+      },
+      {
+        "RGB": "453943",
+        "Pixels": 192
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 184
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 156
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 88
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 88
+      },
+      {
+        "RGB": "645355",
+        "Pixels": 84
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 32
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 20
+      },
+      {
+        "RGB": "955C4B",
+        "Pixels": 6
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 4
+      },
+      {
+        "RGB": "A4715D",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "desequencer_r",
+    "Class": "MachineDesequencer",
+    "Status": "visible",
+    "CodeLines": 155,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\desequencer_r.png",
+    "SHA256": "56CF209ACE8029EC870CF2BA43F09C9ABD273F0278C0B8D8FF676276E77D433B",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      1,
+      45,
+      46
+    ],
+    "MainPixels": 1516,
+    "Alpha": {
+      "0": 788,
+      "255": 1516
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 484
+      },
+      {
+        "RGB": "453943",
+        "Pixels": 192
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 184
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 164
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 156
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 88
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 88
+      },
+      {
+        "RGB": "645355",
+        "Pixels": 84
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 32
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 20
+      },
+      {
+        "RGB": "84A251",
+        "Pixels": 12
+      },
+      {
+        "RGB": "955C4B",
+        "Pixels": 6
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 4
+      },
+      {
+        "RGB": "A4715D",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "dna_manipulator",
+    "Class": "MachineDnaManipulator",
+    "Status": "visible",
+    "CodeLines": [
+      53,
+      114,
+      181
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\dna_manipulator.png",
+    "SHA256": "20F0181370BF598902D64C8064B3D20FA3C387B03789FDF05ACC3DFC82EAC436",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      2,
+      45,
+      45
+    ],
+    "MainPixels": 1656,
+    "Alpha": {
+      "3": 648,
+      "255": 1656
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 403
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 373
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 324
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 141
+      },
+      {
+        "RGB": "743D70",
+        "Pixels": 112
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 74
+      },
+      {
+        "RGB": "A272AC",
+        "Pixels": 58
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 48
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 47
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 40
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 10
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 7
+      },
+      {
+        "RGB": "9B4A3D",
+        "Pixels": 7
+      },
+      {
+        "RGB": "BA8953",
+        "Pixels": 5
+      },
+      {
+        "RGB": "B26B4E",
+        "Pixels": 4
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 1
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 1
+      },
+      {
+        "RGB": "9C3738",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "dna_manipulator_working",
+    "Class": "MachineDnaManipulator",
+    "Status": "visible",
+    "CodeLines": [
+      55,
+      181
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\dna_manipulator_working.png",
+    "SHA256": "8D1C18D01230F8D5F97733C15BE2650F1A8E79119BD885895A1CA764AB83A92C",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      2,
+      2,
+      45,
+      45
+    ],
+    "MainPixels": 1656,
+    "Alpha": {
+      "3": 648,
+      "255": 1656
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 403
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 323
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 193
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 141
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 122
+      },
+      {
+        "RGB": "743D70",
+        "Pixels": 112
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 74
+      },
+      {
+        "RGB": "BB9165",
+        "Pixels": 58
+      },
+      {
+        "RGB": "A272AC",
+        "Pixels": 58
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 48
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 47
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 41
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 10
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 7
+      },
+      {
+        "RGB": "9B4A3D",
+        "Pixels": 7
+      },
+      {
+        "RGB": "BA8953",
+        "Pixels": 5
+      },
+      {
+        "RGB": "B26B4E",
+        "Pixels": 4
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 1
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 1
+      },
+      {
+        "RGB": "9C3738",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "animal_feeder",
+    "Class": "MachineFeedDispenser",
+    "Status": "visible",
+    "CodeLines": 67,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\animal_feeder.png",
+    "SHA256": "8A90ED539CBA17316BFDB399B95DAA3B246C65C7CB9D56B379E6290D1484FD8C",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      4,
+      5,
+      46,
+      44
+    ],
+    "MainPixels": 1355,
+    "Alpha": {
+      "3": 949,
+      "255": 1355
+    },
+    "Palette": [
+      {
+        "RGB": "5F6868",
+        "Pixels": 564
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 409
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 179
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 115
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 43
+      },
+      {
+        "RGB": "7AB053",
+        "Pixels": 30
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 6
+      },
+      {
+        "RGB": "BB9165",
+        "Pixels": 3
+      },
+      {
+        "RGB": "9C3738",
+        "Pixels": 3
+      },
+      {
+        "RGB": "B26B4E",
+        "Pixels": 1
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 1
+      },
+      {
+        "RGB": "64343B",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "fridge",
+    "Class": "MachineFridge",
+    "Status": "visible",
+    "CodeLines": 65,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\fridge.png",
+    "SHA256": "85C3D0DF80D8EBA618BA3C8B07FB40BADE387D007CD76CA1BD634F49B0021CA2",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      5,
+      4,
+      42,
+      43
+    ],
+    "MainPixels": 1470,
+    "Alpha": {
+      "3": 834,
+      "255": 1470
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 923
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 191
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 128
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 80
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 56
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 28
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 27
+      },
+      {
+        "RGB": "292233",
+        "Pixels": 20
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 7
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 2
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 2
+      },
+      {
+        "RGB": "273456",
+        "Pixels": 2
+      },
+      {
+        "RGB": "3E6979",
+        "Pixels": 2
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "hydroponic",
+    "Class": "MachineHydroponic",
+    "Status": "visible",
+    "CodeLines": [
+      33,
+      151
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\hydroponic.png",
+    "SHA256": "EF4D5CE6D59A61037C4C939127CBF3FE63EF1D4368A895DC2B84C263FE29E5E9",
+    "Width": 48,
+    "Height": 64,
+    "BBox": [
+      1,
+      1,
+      46,
+      62
+    ],
+    "MainPixels": 2144,
+    "Alpha": {
+      "3": 928,
+      "255": 2144
+    },
+    "Palette": [
+      {
+        "RGB": "5F6868",
+        "Pixels": 713
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 537
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 222
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 184
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 181
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 104
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 56
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 44
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 36
+      },
+      {
+        "RGB": "273456",
+        "Pixels": 31
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 12
+      },
+      {
+        "RGB": "67AAA5",
+        "Pixels": 10
+      },
+      {
+        "RGB": "CC7755",
+        "Pixels": 8
+      },
+      {
+        "RGB": "D59F75",
+        "Pixels": 6
+      }
+    ]
+  },
+  {
+    "Name": "hydroponic_off",
+    "Class": "MachineHydroponic",
+    "Status": "no opaque pixels",
+    "CodeLines": 151,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\hydroponic_off.png",
+    "SHA256": "F7E07BEFC23286868542B1B6AE8766C9129D1E4279DADEFBF1135C7E5B280934",
+    "Width": 48,
+    "Height": 64,
+    "BBox": [
+      48,
+      64,
+      -1,
+      -1
+    ],
+    "MainPixels": 0,
+    "Alpha": {
+      "0": 3072
+    },
+    "Palette": []
+  },
+  {
+    "Name": "meat_culture_machine",
+    "Class": "MachineMeatCulture",
+    "Status": "missing export",
+    "CodeLines": 12
+  },
+  {
+    "Name": "projector",
+    "Class": "MachineProjector",
+    "Status": "visible",
+    "CodeLines": 16,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\projector.png",
+    "SHA256": "45E72629E5F364A33146F271B9B4B692D9259A886B4CD5682D04DD833FC190AA",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      3,
+      4,
+      44,
+      43
+    ],
+    "MainPixels": 1484,
+    "Alpha": {
+      "1": 820,
+      "255": 1484
+    },
+    "Palette": [
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 436
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 398
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 256
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 171
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 74
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 63
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 34
+      },
+      {
+        "RGB": "955699",
+        "Pixels": 26
+      },
+      {
+        "RGB": "79746E",
+        "Pixels": 22
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 4
+      }
+    ]
+  },
+  {
+    "Name": "ras_empty",
+    "Class": "MachineRAS",
+    "Status": "visible",
+    "CodeLines": [
+      6,
+      101,
+      434
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\ras_empty.png",
+    "SHA256": "95C785D8B9B77FC586FBD4D7DA596C93F18BD3318CADEE6FAC1BEF9751027918",
+    "Width": 64,
+    "Height": 48,
+    "BBox": [
+      1,
+      1,
+      62,
+      46
+    ],
+    "MainPixels": 2468,
+    "Alpha": {
+      "3": 604,
+      "255": 2468
+    },
+    "Palette": [
+      {
+        "RGB": "5F6868",
+        "Pixels": 733
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 438
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 362
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 184
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 122
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 117
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 84
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 75
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 74
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 55
+      },
+      {
+        "RGB": "3E6979",
+        "Pixels": 51
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 50
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 43
+      },
+      {
+        "RGB": "273456",
+        "Pixels": 38
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 34
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 8
+      }
+    ]
+  },
+  {
+    "Name": "ras",
+    "Class": "MachineRAS",
+    "Status": "visible",
+    "CodeLines": [
+      8,
+      225,
+      430
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\ras.png",
+    "SHA256": "E0EE53525C5FA7346FB1D9EABCA214A81B8CA6ED60D14EFEB7239F18C4264473",
+    "Width": 64,
+    "Height": 48,
+    "BBox": [
+      1,
+      1,
+      62,
+      46
+    ],
+    "MainPixels": 2468,
+    "Alpha": {
+      "3": 604,
+      "255": 2468
+    },
+    "Palette": [
+      {
+        "RGB": "5F6868",
+        "Pixels": 549
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 331
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 303
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 229
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 210
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 122
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 117
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 84
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 84
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 75
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 74
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 55
+      },
+      {
+        "RGB": "3E6979",
+        "Pixels": 51
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 50
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 49
+      },
+      {
+        "RGB": "273456",
+        "Pixels": 38
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 34
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 8
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 5
+      }
+    ]
+  },
+  {
+    "Name": "ras_full",
+    "Class": "MachineRAS",
+    "Status": "visible",
+    "CodeLines": [
+      10,
+      430
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\ras_full.png",
+    "SHA256": "BCBECEC1143716997F721926ABC57332929B24B2A90F5922391D2B283529D03B",
+    "Width": 64,
+    "Height": 48,
+    "BBox": [
+      1,
+      1,
+      62,
+      46
+    ],
+    "MainPixels": 2468,
+    "Alpha": {
+      "3": 604,
+      "255": 2468
+    },
+    "Palette": [
+      {
+        "RGB": "5F6868",
+        "Pixels": 549
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 331
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 303
+      },
+      {
+        "RGB": "2F756F",
+        "Pixels": 191
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 170
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 122
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 117
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 84
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 84
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 75
+      },
+      {
+        "RGB": "355271",
+        "Pixels": 74
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 55
+      },
+      {
+        "RGB": "3E6979",
+        "Pixels": 51
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 50
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 49
+      },
+      {
+        "RGB": "303A41",
+        "Pixels": 47
+      },
+      {
+        "RGB": "273456",
+        "Pixels": 38
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 34
+      },
+      {
+        "RGB": "275654",
+        "Pixels": 31
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 8
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 5
+      }
+    ]
+  },
+  {
+    "Name": "ras_tank",
+    "Class": "MachineRAS",
+    "Status": "visible",
+    "CodeLines": [
+      12,
+      122,
+      240
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\ras_tank.png",
+    "SHA256": "D27B4ED2C174ED083F90CF6EF3AD513B05C2EFAA36E413E49EBF93D64EDF79D0",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      3,
+      1,
+      44,
+      46
+    ],
+    "MainPixels": 1904,
+    "Alpha": {
+      "3": 400,
+      "255": 1904
+    },
+    "Palette": [
+      {
+        "RGB": "44464C",
+        "Pixels": 536
+      },
+      {
+        "RGB": "79746E",
+        "Pixels": 434
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 330
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 277
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 139
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 97
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 77
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 14
+      }
+    ]
+  },
+  {
+    "Name": "recharger_base",
+    "Class": "MachineRecharger",
+    "Status": "visible",
+    "CodeLines": 20,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\recharger_base.png",
+    "SHA256": "29E8353C31D72B4FEA2FC1C68ABF1A5DC67036596436EDAF1E699294FAD572B2",
+    "Width": 64,
+    "Height": 32,
+    "BBox": [
+      0,
+      9,
+      63,
+      31
+    ],
+    "MainPixels": 1466,
+    "Alpha": {
+      "3": 582,
+      "255": 1466
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 932
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 237
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 155
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 94
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 28
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 20
+      }
+    ]
+  },
+  {
+    "Name": "recharger_top",
+    "Class": "MachineRecharger",
+    "Status": "visible",
+    "CodeLines": 77,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\recharger_top.png",
+    "SHA256": "2F1088F3C05BBE129459D859BE0BB21BC72640767ECBFE4926E5414020871C0D",
+    "Width": 64,
+    "Height": 32,
+    "BBox": [
+      0,
+      0,
+      63,
+      9
+    ],
+    "MainPixels": 630,
+    "Alpha": {
+      "3": 1418,
+      "255": 630
+    },
+    "Palette": [
+      {
+        "RGB": "53585B",
+        "Pixels": 298
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 178
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 84
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 70
+      }
+    ]
+  },
+  {
+    "Name": "recharger_g",
+    "Class": "MachineRecharger",
+    "Status": "visible",
+    "CodeLines": 87,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\recharger_g.png",
+    "SHA256": "75C82B9067AB46C7E405663C2C5E937BCE945CA3FBDAFB65137A433131AB68CE",
+    "Width": 3,
+    "Height": 3,
+    "BBox": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "MainPixels": 2,
+    "Alpha": {
+      "0": 7,
+      "255": 2
+    },
+    "Palette": [
+      {
+        "RGB": "7AB053",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "recharger_o",
+    "Class": "MachineRecharger",
+    "Status": "visible",
+    "CodeLines": 91,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\recharger_o.png",
+    "SHA256": "65CAD2C0242B3980EAA0583C060112681D0B96792BE35F0ACE5C4C0B547C17F0",
+    "Width": 3,
+    "Height": 3,
+    "BBox": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "MainPixels": 2,
+    "Alpha": {
+      "0": 7,
+      "255": 2
+    },
+    "Palette": [
+      {
+        "RGB": "CC7755",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "storage_coordinator",
+    "Class": "MachineStorageCoordinator",
+    "Status": "visible",
+    "CodeLines": [
+      68,
+      153,
+      573,
+      597,
+      612,
+      629,
+      701,
+      755
+    ],
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\storage_coordinator.png",
+    "SHA256": "1BEC90F2244AFA8D8291319435DF98B80E6B4364A99D2F4ED81E2DEAED49B9E5",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      3,
+      4,
+      44,
+      44
+    ],
+    "MainPixels": 1687,
+    "Alpha": {
+      "3": 617,
+      "255": 1687
+    },
+    "Palette": [
+      {
+        "RGB": "88948A",
+        "Pixels": 646
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 365
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 218
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 202
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 157
+      },
+      {
+        "RGB": "BB9165",
+        "Pixels": 65
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 27
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 6
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 1
+      }
+    ]
+  },
+  {
+    "Name": "turbo_booster_adv",
+    "Class": "MachineTurboBoosterAdv",
+    "Status": "visible",
+    "CodeLines": 188,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\turbo_booster_adv.png",
+    "SHA256": "663FA05B5FA56F70F590B467D4700118D12EAF50B983021C57BFEA1ACE17D929",
+    "Width": 48,
+    "Height": 32,
+    "BBox": [
+      1,
+      1,
+      46,
+      30
+    ],
+    "MainPixels": 1152,
+    "Alpha": {
+      "3": 384,
+      "255": 1152
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 399
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 217
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 196
+      },
+      {
+        "RGB": "743D70",
+        "Pixels": 125
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 69
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 40
+      },
+      {
+        "RGB": "5E2B45",
+        "Pixels": 40
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 39
+      },
+      {
+        "RGB": "CC7755",
+        "Pixels": 12
+      },
+      {
+        "RGB": "9C3738",
+        "Pixels": 9
+      },
+      {
+        "RGB": "9F526D",
+        "Pixels": 6
+      }
+    ]
+  },
+  {
+    "Name": "turbo_booster_adv_ready",
+    "Class": "MachineTurboBoosterAdv",
+    "Status": "visible",
+    "CodeLines": 180,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\turbo_booster_adv_ready.png",
+    "SHA256": "DAD38F869E37D79FBF53D5AAAD5A9E3288047BC360348E9865340EB8B9DBB9F6",
+    "Width": 48,
+    "Height": 32,
+    "BBox": [
+      1,
+      1,
+      46,
+      30
+    ],
+    "MainPixels": 1152,
+    "Alpha": {
+      "3": 384,
+      "255": 1152
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 399
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 217
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 196
+      },
+      {
+        "RGB": "743D70",
+        "Pixels": 125
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 69
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 40
+      },
+      {
+        "RGB": "5E2B45",
+        "Pixels": 40
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 39
+      },
+      {
+        "RGB": "CC7755",
+        "Pixels": 12
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 9
+      },
+      {
+        "RGB": "9F526D",
+        "Pixels": 6
+      }
+    ]
+  },
+  {
+    "Name": "turbo_booster_adv_charging",
+    "Class": "MachineTurboBoosterAdv",
+    "Status": "visible",
+    "CodeLines": 184,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\turbo_booster_adv_charging.png",
+    "SHA256": "D93F7A96F0398B75D1866F43C8AA2E2F018D7F15E73F5351B5E455A3E2C185A7",
+    "Width": 48,
+    "Height": 32,
+    "BBox": [
+      1,
+      1,
+      46,
+      30
+    ],
+    "MainPixels": 1152,
+    "Alpha": {
+      "3": 384,
+      "255": 1152
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 399
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 217
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 196
+      },
+      {
+        "RGB": "743D70",
+        "Pixels": 125
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 69
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 40
+      },
+      {
+        "RGB": "5E2B45",
+        "Pixels": 40
+      },
+      {
+        "RGB": "E0D09B",
+        "Pixels": 39
+      },
+      {
+        "RGB": "CC7755",
+        "Pixels": 21
+      },
+      {
+        "RGB": "9F526D",
+        "Pixels": 6
+      }
+    ]
+  },
+  {
+    "Name": "wine_rack",
+    "Class": "MachineWineRack",
+    "Status": "visible",
+    "CodeLines": 27,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\wine_rack.png",
+    "SHA256": "BF136D986F87526F4D83D99F1CC2571F4FE925DCCC8FEBF2253566593A743344",
+    "Width": 48,
+    "Height": 48,
+    "BBox": [
+      5,
+      1,
+      42,
+      46
+    ],
+    "MainPixels": 1743,
+    "Alpha": {
+      "3": 561,
+      "255": 1743
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 597
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 492
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 284
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 93
+      },
+      {
+        "RGB": "5A3D4C",
+        "Pixels": 89
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 78
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 77
+      },
+      {
+        "RGB": "D6D2B7",
+        "Pixels": 33
+      }
+    ]
+  },
+  {
+    "Name": "wine_bottom",
+    "Class": "MachineWineRack",
+    "Status": "visible",
+    "CodeLines": 85,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\wine_bottom.png",
+    "SHA256": "57E97000948DE9CBDD020FBA30E1198F65405C2BEDD34224540E54C4E96E01AA",
+    "Width": 10,
+    "Height": 8,
+    "BBox": [
+      0,
+      0,
+      9,
+      7
+    ],
+    "MainPixels": 74,
+    "Alpha": {
+      "3": 6,
+      "255": 74
+    },
+    "Palette": [
+      {
+        "RGB": "292234",
+        "Pixels": 30
+      },
+      {
+        "RGB": "5E2B45",
+        "Pixels": 22
+      },
+      {
+        "RGB": "373248",
+        "Pixels": 11
+      },
+      {
+        "RGB": "74313B",
+        "Pixels": 5
+      },
+      {
+        "RGB": "743D70",
+        "Pixels": 3
+      },
+      {
+        "RGB": "AD696B",
+        "Pixels": 3
+      }
+    ]
+  },
+  {
+    "Name": "cassette_player",
+    "Class": "MachineCassettePlayer",
+    "Status": "visible",
+    "CodeLines": 40,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\cassette_player.png",
+    "SHA256": "945A921834E9E8968235CF60D4BBBD13511BB37426B4D4070DD4D717C9A04A32",
+    "Width": 80,
+    "Height": 80,
+    "BBox": [
+      6,
+      4,
+      79,
+      79
+    ],
+    "MainPixels": 3574,
+    "Alpha": {
+      "3": 2826,
+      "255": 3574
+    },
+    "Palette": [
+      {
+        "RGB": "79746E",
+        "Pixels": 991
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 681
+      },
+      {
+        "RGB": "645355",
+        "Pixels": 457
+      },
+      {
+        "RGB": "4F464B",
+        "Pixels": 288
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 254
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 169
+      },
+      {
+        "RGB": "453943",
+        "Pixels": 167
+      },
+      {
+        "RGB": "64343B",
+        "Pixels": 73
+      },
+      {
+        "RGB": "6B5269",
+        "Pixels": 58
+      },
+      {
+        "RGB": "853737",
+        "Pixels": 58
+      },
+      {
+        "RGB": "B26B4E",
+        "Pixels": 56
+      },
+      {
+        "RGB": "7D4F4A",
+        "Pixels": 52
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 47
+      },
+      {
+        "RGB": "4A2F38",
+        "Pixels": 43
+      },
+      {
+        "RGB": "80929B",
+        "Pixels": 39
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 38
+      },
+      {
+        "RGB": "392E3C",
+        "Pixels": 25
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 21
+      },
+      {
+        "RGB": "9B4A3D",
+        "Pixels": 19
+      },
+      {
+        "RGB": "74313B",
+        "Pixels": 15
+      },
+      {
+        "RGB": "A24043",
+        "Pixels": 9
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 8
+      },
+      {
+        "RGB": "435A5F",
+        "Pixels": 6
+      }
+    ]
+  },
+  {
+    "Name": "broken_alarm",
+    "Class": "MachineBrokenHelper",
+    "Status": "missing export",
+    "CodeLines": 19
+  },
+  {
+    "Name": "broken_furnace",
+    "Class": "MachineBrokenHelper",
+    "Status": "missing export",
+    "CodeLines": 23
+  },
+  {
+    "Name": "broken_moisture_farm",
+    "Class": "MachineBrokenHelper",
+    "Status": "missing export",
+    "CodeLines": 27
+  },
+  {
+    "Name": "portable_water_purifier",
+    "Class": "Comparison",
+    "Status": "visible",
+    "CodeLines": null,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\portable_water_purifier.png",
+    "SHA256": "CF210231792F96FAF5660A852FB133D9F489081BA3CFC7B56B43031542D4D3CE",
+    "Width": 32,
+    "Height": 32,
+    "BBox": [
+      2,
+      4,
+      29,
+      27
+    ],
+    "MainPixels": 642,
+    "Alpha": {
+      "3": 382,
+      "255": 642
+    },
+    "Palette": [
+      {
+        "RGB": "67AAA5",
+        "Pixels": 148
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 145
+      },
+      {
+        "RGB": "8ABFBB",
+        "Pixels": 106
+      },
+      {
+        "RGB": "A8AEA5",
+        "Pixels": 74
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 46
+      },
+      {
+        "RGB": "5F6868",
+        "Pixels": 29
+      },
+      {
+        "RGB": "2F2B3A",
+        "Pixels": 27
+      },
+      {
+        "RGB": "D5D2B8",
+        "Pixels": 20
+      },
+      {
+        "RGB": "C4C4B0",
+        "Pixels": 16
+      },
+      {
+        "RGB": "45918B",
+        "Pixels": 15
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 10
+      },
+      {
+        "RGB": "777081",
+        "Pixels": 4
+      },
+      {
+        "RGB": "853737",
+        "Pixels": 2
+      }
+    ]
+  },
+  {
+    "Name": "animal_cage",
+    "Class": "Comparison",
+    "Status": "visible",
+    "CodeLines": null,
+    "Source": "../原版参考-100-Rev13\\美术\\Sprite\\animal_cage.png",
+    "SHA256": "06A67148602B0603B4603F1CEA2BA3C71BED884394D9182776E5C54889C4BBC4",
+    "Width": 64,
+    "Height": 48,
+    "BBox": [
+      0,
+      1,
+      63,
+      46
+    ],
+    "MainPixels": 2672,
+    "Alpha": {
+      "3": 400,
+      "255": 2672
+    },
+    "Palette": [
+      {
+        "RGB": "5F6868",
+        "Pixels": 1232
+      },
+      {
+        "RGB": "292234",
+        "Pixels": 526
+      },
+      {
+        "RGB": "44464C",
+        "Pixels": 350
+      },
+      {
+        "RGB": "53585B",
+        "Pixels": 284
+      },
+      {
+        "RGB": "373541",
+        "Pixels": 123
+      },
+      {
+        "RGB": "88948A",
+        "Pixels": 121
+      },
+      {
+        "RGB": "7AB053",
+        "Pixels": 34
+      },
+      {
+        "RGB": "3D823F",
+        "Pixels": 2
+      }
+    ]
+  }
+]
