@@ -1,0 +1,1959 @@
+{
+  "version": "1.3.4",
+  "recordedOn": "2026-11-13",
+  "sourceFileCount": 386,
+  "assetFileCount": 178,
+  "hashPolicy": "Text: UTF-8 without BOM, CRLF/CR normalized to LF. Binary: exact bytes.",
+  "files": [
+    {
+      "path": "Localization/en.csv",
+      "hashMode": "utf8-lf",
+      "sha256": "EE693833B8150FD018155E04AB5E5072BE744BEA4CA0C5BA48B4E5D47A543E33"
+    },
+    {
+      "path": "Localization/fr.csv",
+      "hashMode": "utf8-lf",
+      "sha256": "1C6223A9FD11CC8A7AE427382B98BF7ACD3E4C11D037C7AC5DE87A1623C47440"
+    },
+    {
+      "path": "Localization/ru.csv",
+      "hashMode": "utf8-lf",
+      "sha256": "E92F899455FE1FE1A179A90E504E79A7FD5BD61CE495AF93E1E2E93A3C831423"
+    },
+    {
+      "path": "manifest.xml",
+      "hashMode": "utf8-lf",
+      "sha256": "C9AC75CA031FD149418D429EF705020FDF93237C3B955536AE3ACBD228B17DB7"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.anon_parcel.png",
+      "hashMode": "binary",
+      "sha256": "FF5ADA0CE69FCDF023229BA859E9E4555F9AD7081211F62F286145209DF6DFC4"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.banner.png",
+      "hashMode": "binary",
+      "sha256": "96A9103FBC489C0362143533FF67F9B662598E772D203A31C09D4A3FC9F4EF6E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.blood_drawer.png",
+      "hashMode": "binary",
+      "sha256": "AF87910A6F957D5F2C69C46F8F60D41B9CC0FE090F5F95850A31495F9BDBC12A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.carapace_full.png",
+      "hashMode": "binary",
+      "sha256": "F1B45E4AFB6FEF3FF167C2CEABE367BEEA34A10A3AFF1D40AB72CC6F5924201A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.carapace_medium.png",
+      "hashMode": "binary",
+      "sha256": "10884F6B425C7F3AF771DC150E6C17A50BFBD06A2ED0970EDECFAB3ED1F95F6D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.carapace_small.png",
+      "hashMode": "binary",
+      "sha256": "7B798D02137E3208B524708F8633A0460B339791701C7896EAEB1D9030F7EB1C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.card_big.png",
+      "hashMode": "binary",
+      "sha256": "ABD8E4C85AF221EFD1DBE4E3ED6FD25F4028ABFAA298D08949BDF9FFBFBF7449"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.card.png",
+      "hashMode": "binary",
+      "sha256": "62E6EA70D33CF68E56466708336DF989746803004F0C75641579AF4E852DB720"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.crate.png",
+      "hashMode": "binary",
+      "sha256": "87071104D070E16D29D0889B9D2A3275A29E21388C5A90BA319BE0C3E812A755"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.implant_compat.png",
+      "hashMode": "binary",
+      "sha256": "5108EE7F42558ADE7F3EE7ABEE63E48974DCDA2E903318D871C27C9B08D15F91"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.isomer_gel.png",
+      "hashMode": "binary",
+      "sha256": "104A2C92928F8D46EBD0D1C487CE41955422641D60E4F072EFFB52D07F2218DB"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.isomer_reactor_running.png",
+      "hashMode": "binary",
+      "sha256": "8EA12E48C2078D3D2220E89BB112958FE4740CD3407BBE383C50BD7003CD343D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.isomer_reactor.png",
+      "hashMode": "binary",
+      "sha256": "954E776DACE71E3BC2E62F5FADA25CFC655F0E43B6DB172EFE1A0637951E48D4"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.isomer_vial.png",
+      "hashMode": "binary",
+      "sha256": "546D1D0E02EE0E2B85F8F832F410A8F49D2B0C316672FBDF2FEFF04B49992B73"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.pain_blocker.png",
+      "hashMode": "binary",
+      "sha256": "61B1FFD8C3FD26DE1381755C60700DB0FF81FFC0152A8A6781B3CB2E575BCC6B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.rejuvenation.png",
+      "hashMode": "binary",
+      "sha256": "153CA1F96B3E94B33B38F0B3E9B1DBD4FC44F5CEC274871EF50899022E0F0054"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.silver_blood.png",
+      "hashMode": "binary",
+      "sha256": "57EE8028864880EF10A61B7677C645C06704822B428D75D5F6B9EEE78389E87C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.silverblood_large.png",
+      "hashMode": "binary",
+      "sha256": "EC8D7F971B2A924A5B5D7572D2F5C363C3F591581BABB8B1F3564F7F1FEF0E3C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.silverblood_small.png",
+      "hashMode": "binary",
+      "sha256": "71E50D1827837E1A0C5A0403561CA23C173B86A8B388AD4F32D6C768BAB144CD"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.silverblood.png",
+      "hashMode": "binary",
+      "sha256": "0D93247BFD93933AEAF67F68D63E928BC46F8C71EFADDF7877D084A4FAB7716D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.carmicheal.stamina_booster.png",
+      "hashMode": "binary",
+      "sha256": "725EF8524FE6AC3DAD33E67DC8F34346477512B77F65D6259198051FCC4DE5A7"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.banner.png",
+      "hashMode": "binary",
+      "sha256": "B6417E505F20C96194B04BC8DF66A3633C3156C1907FC751D3B440B596CBA1EF"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.canning_machine_running.png",
+      "hashMode": "binary",
+      "sha256": "E6A7B0B6CD407732455EC20A7F3ADD72DA88DB6B1E5CE16234457F8B2A32F124"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.canning_machine.png",
+      "hashMode": "binary",
+      "sha256": "63FF8FC11B5807ECC5F4528A1C689CD07ECAEAD9E0733893EBE8310270C04309"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.card_big.png",
+      "hashMode": "binary",
+      "sha256": "014CD326F9231569396FFA5E689AB65BDD70B82F3789FF82B17F85E4527C5E1D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.card.png",
+      "hashMode": "binary",
+      "sha256": "EFD732B45FDA897FC644CF2C8CE21AD933C91E85CB82F8003E84A83A1272EEE7"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.coarse_minced_meat.png",
+      "hashMode": "binary",
+      "sha256": "E32A4BEB7929D522FF6EA8448F91EE4D87DEE3BAEA43D50916E15F1D586FD286"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.crab_stick.png",
+      "hashMode": "binary",
+      "sha256": "BDF020DAE5B3633F7035B3ED08131D60A96265BBABF98277E6D59A4CB595E4E8"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.crate.png",
+      "hashMode": "binary",
+      "sha256": "E051ECD9A4A8F116F01F75BF3B3E62D3EFF1259205CBF045968E328FD6381C5E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.fish_can.png",
+      "hashMode": "binary",
+      "sha256": "AA4048DB32212F4FB1462A370A6878A4042F27F713D0C5A7DDB318139C1AC13B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.fish_mince.png",
+      "hashMode": "binary",
+      "sha256": "81D4096321905487891775B32FB3A4B0119703D5A3C1B4C0B076883CFB5BCB17"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.fresh_meat_can.png",
+      "hashMode": "binary",
+      "sha256": "93619E2573356C9BC1D0562B8307083DBA879F64E5BADB10F9D9A4D02A80B393"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.leviathan.png",
+      "hashMode": "binary",
+      "sha256": "CE7516807EDCE5A2AC7737F88E4D25C4DAC6937B6CAD39EBFCF6F3E24ADCCF24"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.meat_grinder_running.png",
+      "hashMode": "binary",
+      "sha256": "E547BBC6C909FFFAF3CD03ACCE4920F800C9B65795937AE2C654FBDCE68F1B2E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.meat_grinder.png",
+      "hashMode": "binary",
+      "sha256": "4C39AE71769DA98CE89B3430518BCCC1116E4FF7CA4D6A1D8D8790BA52C85252"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.minced_meat.png",
+      "hashMode": "binary",
+      "sha256": "3637336194AD60A8D3274F73E9637B6E8B7FBA9F58CFB055DB2D9CA761ACDE82"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.nutrifruit_paste.png",
+      "hashMode": "binary",
+      "sha256": "B300F1FEC0E6A538579B1DF65FD713C4834ABE4F9927F0958BB65D988273D698"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.seafood_sealer_running.png",
+      "hashMode": "binary",
+      "sha256": "588A11BD4A2223F5E0F6D0CCFC850546B20B97A93CC82A0C08F050FB23EE4EB3"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.davre.seafood_sealer.png",
+      "hashMode": "binary",
+      "sha256": "12E1691A8F308A0F8D17B22B87C2E8BA903C66C7EAE0DBE0630C364FAF4FDB16"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.forge.custom_dagger.png",
+      "hashMode": "binary",
+      "sha256": "F25BA33EB4D5943410623A739B4B292E3265CC3938D496BD66A8576E7A8534DD"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.forge.custom_machete.png",
+      "hashMode": "binary",
+      "sha256": "2E4944E42903032D4D7ECCEF54D3EEBA36459A3CD08B80941FBF82683179307B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.forge.custom_saber.png",
+      "hashMode": "binary",
+      "sha256": "612C62DE1658F6A7C331C48DF44CBDDC01347523453BA14F57F3E88772C991B6"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.forge.forge_anvil.png",
+      "hashMode": "binary",
+      "sha256": "8C9AE69AEAEA88EC78C448B6B504B178B7D3FD9692C8CF8E66754A279090D8E5"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.forge.forge_furnace_open.png",
+      "hashMode": "binary",
+      "sha256": "7BA93EA161BD11DD98A1CEFDF8A6BC2DD84AC917C8A74AF93782B1514207684A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.forge.forge_furnace.png",
+      "hashMode": "binary",
+      "sha256": "C344A54F23E90B75DD67BCB0AA69A7EB455789B8ADAEBC65915D3FE158A8A679"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.forge.forged_billet.png",
+      "hashMode": "binary",
+      "sha256": "3EC696D6D50A09AE028EC8E86C3789FBA59767BAF557D149D7073D9DF9D8071C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.husbandry.rat_wheel_generator_retrofit_occupied.png",
+      "hashMode": "binary",
+      "sha256": "07E1D50605C28C326B8CD629B4190443BC185EF5299B64635D35D4736E37B342"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.husbandry.rat_wheel_generator_retrofit.png",
+      "hashMode": "binary",
+      "sha256": "4ADEEDE689FD18E60052EB02D74BAF0124459ED9E5D7ECBC8740127D0078984B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.husbandry.rat_wheel_generator.png",
+      "hashMode": "binary",
+      "sha256": "128F985442A15779F8468D2B8A021F574E9A176F7FB1D21BA471FABE43104CFF"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.cargo_sort_controller.png",
+      "hashMode": "binary",
+      "sha256": "5DC67BA185BD174506E1B3EA59792CC69787128177FF559645625B8682035F9B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.cargo_warehouse_module.png",
+      "hashMode": "binary",
+      "sha256": "953E90BB6C21DD49EEA94B16B1D9227FE937BBFA90F460B2C1514A3481198905"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.cargo_warehouse.png",
+      "hashMode": "binary",
+      "sha256": "CF89C1E2D34A64862C132740FB5B16B64EE9CAEBDC5AD59F636F374462AE12AD"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.crate.png",
+      "hashMode": "binary",
+      "sha256": "E468B3AC38FE78DBAD2EB7481608FF0C940D0E580548FC52B1F5CD1442D24DCE"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.fufu_doll.png",
+      "hashMode": "binary",
+      "sha256": "B14B904EB88EFB59627F34FA642C485B4A80DD6343552C14D53A954D28EDCDAD"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.mango_backpack.png",
+      "hashMode": "binary",
+      "sha256": "F0D74D095474E3B2B1DCA4CB70462042DB47A4A0E3C42B232E843EB6A0C41466"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.mango_warehouse.png",
+      "hashMode": "binary",
+      "sha256": "19074CF5CDD9683647EB0534239F2A7F83ED2B431DE8A89FA8B0DEB145DFBE0D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.production_work_bay.png",
+      "hashMode": "binary",
+      "sha256": "14EC5B285D90B60046B56DFD10D150AA2E1BCF025EA6A68DF73954F1081A68B0"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.ufo_backpack.png",
+      "hashMode": "binary",
+      "sha256": "494EE585F191F59E2541F3DBC56BCC020994A77A714683968B87F7811B354A7E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.waste_battery_empty.png",
+      "hashMode": "binary",
+      "sha256": "3BBED4D4B6CA9A82339D1FDBB8FC2DAF4B9C9304C337FA5C5E10EC14DBD0B4A7"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.waste_battery_half.png",
+      "hashMode": "binary",
+      "sha256": "B80F3D0518D7FB14014D4C11FE8616036B5A488AD718D0CCC19BF001E66B1DEA"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.jackson_private.waste_battery.png",
+      "hashMode": "binary",
+      "sha256": "01FA00624A79E84AA2637647A3703CDE3D466AAE8F0CB34ACE73AC47693CAC94"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.malice.agent_cert.png",
+      "hashMode": "binary",
+      "sha256": "C22B93067CF42653333BFDD617E3F34DDAE43FDB436E869FFF213DC3ADC8BE31"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.malice.friend_medal.png",
+      "hashMode": "binary",
+      "sha256": "15AB7DFAC40E8145E0A66D0EFBEFA39D42C4ECDADC32CB95B513EDD288765F3E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.malice.lower_rep_cert.png",
+      "hashMode": "binary",
+      "sha256": "36695E02B33C8C2E8216DD7D011F71C06EF42D0D4AA03960404903EB7464B234"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.malice.rebel_token.png",
+      "hashMode": "binary",
+      "sha256": "1B96C7596E3D4E6C010CFC2B13F7559D24B287D6AB85FACD0A5E6E65A8D1D230"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.meridian.banner.png",
+      "hashMode": "binary",
+      "sha256": "80E4DC2D6417BBF13B60D6FF34539D672103D003A40BD392E2473FE1A2E9CD91"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.meridian.card_big.png",
+      "hashMode": "binary",
+      "sha256": "50DE0150DD0C911E2B399AE4E75D4C510E54C2F589CF9BB8A1B1E48FAF2DA864"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.meridian.card.png",
+      "hashMode": "binary",
+      "sha256": "D78099802AC7DBB443B00923384FD9502CE0B0865A35ECEAEE77A2755A221D50"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.meridian.crate.png",
+      "hashMode": "binary",
+      "sha256": "25EDFEF9395D100F7528CF7D7E39E60E60993FC570DCBC9CC1D731BB3E35697F"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.meridian.meridian_cert.png",
+      "hashMode": "binary",
+      "sha256": "FC02AF0F74B0DD2028AC1333767C0BB832DAE5717D315053E8231D28144F2B76"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.meridian.rosen_revolver.png",
+      "hashMode": "binary",
+      "sha256": "7768216F53712D56DF73CCE3A58412DBC4BDFB635FE6F4E08BB9ABCDED626CE3"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.meridian.rosen_rifle.png",
+      "hashMode": "binary",
+      "sha256": "5A0040B1E9FA1D8AE32CF80CB603C0ED475AAC40326B5FCA6F9B61BB3D8C80B3"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.banner.png",
+      "hashMode": "binary",
+      "sha256": "CBD3EF18E1237C2A96D50F4464C755257806D34CD7A2381174975DDAB7E4CC9C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.card_big.png",
+      "hashMode": "binary",
+      "sha256": "CA6453A30C06290995741C00D27F6A6A6E60DBDF3A4F5086ABFCA49B879FDF37"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.card.png",
+      "hashMode": "binary",
+      "sha256": "ECFF68BE6EB5951E7FEAA2DA3DB5C098EDC90EE86F118DDE4DFDFBF6BC9BCE9A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.crate.png",
+      "hashMode": "binary",
+      "sha256": "BE36D2B327062AA8F60B39C3CC3D09812A5AD832DFD6F2EDFE810462813CC07E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.hemingway_limited_overlay.png",
+      "hashMode": "binary",
+      "sha256": "3AE0AF5F65E7F27066782F1D62FFECFBE68502E8A2A5EFA9ADD3031B5B7B540E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.hemingway_limited.png",
+      "hashMode": "binary",
+      "sha256": "F93AE7012AEAB193EF3F73D5BEC6DD175D28A27BC4C5FB30DDC985A0A7AEA897"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.hemingway_patch.png",
+      "hashMode": "binary",
+      "sha256": "A88267EA1D72724E2E84D6E7B818EFA436969DF9C5869EA8BA2BEB21C29D8851"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.hemingway_stamp.png",
+      "hashMode": "binary",
+      "sha256": "387E12AD9141D84BF5F74E529CF7B1E536454BFFDAD623FA401346AAE8C369E9"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.loose_cigarette.png",
+      "hashMode": "binary",
+      "sha256": "65D42AD80089436E21F6A00AAA2719E5F05AA33EEFD10A7FB279AD0209064D7A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.packaging_machine_running.png",
+      "hashMode": "binary",
+      "sha256": "90A8A47F54DC1E6C81D17D030781066A49847AFBA4A27D628FD126EE8BA4E66C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.packaging_machine.png",
+      "hashMode": "binary",
+      "sha256": "F41709B7562EF7A9CB12221B2B506C535323E0A9245BA11E602F653FBAD2D03A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.pastel_gloves.png",
+      "hashMode": "binary",
+      "sha256": "B8CC8136DCD4F6E8C61307A755D6086E3C54073C4EAAEED694221ED0A232DD3A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.pastel_sign.png",
+      "hashMode": "binary",
+      "sha256": "599D7F6C52B7439B5955AE18EE6A1BF68ABF0350AA7F1D759BEFAC268E79B043"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.rolling_machine_running.png",
+      "hashMode": "binary",
+      "sha256": "8EF6FFE2734568518060339AFB7DAA546FB2FCA11AA9B4B5F5DBF18744D26642"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.rolling_machine.png",
+      "hashMode": "binary",
+      "sha256": "C4A69E360DA34495FE96A018FA694CB561A1826ADB4E3931A97A5D416C53BD7D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.tobacco_leaf_p.png",
+      "hashMode": "binary",
+      "sha256": "6C994C42FFC3FA5B0600ACCFB8461B0BFEBA34D0037197E91CEDA42A7C7E5431"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.tobacco_leaf.png",
+      "hashMode": "binary",
+      "sha256": "E098370A6CEA06C2E8A00E0D3742C21B5C33BC3ECD23A3891FB11E197C8F00E2"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.pastel.tobacco_seed.png",
+      "hashMode": "binary",
+      "sha256": "D84B81F9AC03D4B45B1B05D6AE1B84B921DBAB44159CA502ADCE12100AD82A5C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.banner.png",
+      "hashMode": "binary",
+      "sha256": "8E0BFA94477A73C4F8AC222E837B294F00CB20BC33F0C668C4CF089503492FF1"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.card_big.png",
+      "hashMode": "binary",
+      "sha256": "2DEBFC0B9E7915EE9BB552501E44DE01929C771EA7F3EC996A2E95923A20A146"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.card.png",
+      "hashMode": "binary",
+      "sha256": "055A43FE6A4000D2453A26927CF55411705B941400779C2801A0D81496E68A59"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.crate.png",
+      "hashMode": "binary",
+      "sha256": "E0291978DBF89F8B1B23E44DA389D1B496018F6FA5AA77AA58D1D9C929E19556"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.oilflower_p.png",
+      "hashMode": "binary",
+      "sha256": "3197A23CF734E9766D17EBF24B8BAD525B5420A570663FF721487037A3437388"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.oilflower_seed.png",
+      "hashMode": "binary",
+      "sha256": "AE62892CFF60819FC1A242E072862E806626CF1CC454C06D3951D9186B0D9B21"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.oilflower.png",
+      "hashMode": "binary",
+      "sha256": "4B3C7CB0F722BF00C7388F30566642342CA74C1B062A7FB87FF7B592A0BEB90A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_base_oil.png",
+      "hashMode": "binary",
+      "sha256": "DD10F9C71709BC28C7C0B4D55A89B42FB028A8A71EED22E9AC6EFCE0B5FCBFA1"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_blood_collector_running.png",
+      "hashMode": "binary",
+      "sha256": "29319833D3B64AD7F19A572DD118513E63F00AFF1039ACFDA49F0DE9A471C853"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_blood_collector.png",
+      "hashMode": "binary",
+      "sha256": "3F52765E42BBB04EA4F2187B5EDFC832F1100AA5F7D458628FCC55FD97CB13B6"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_blood_extractor_blue.png",
+      "hashMode": "binary",
+      "sha256": "0315486BAFA577AD78ED40EB8C94679FFDD58643CD971D0A8030D1AE4BE04799"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_blood_extractor_red.png",
+      "hashMode": "binary",
+      "sha256": "C7BB1710696E9E4389606683C61EBB4B4FA9F7E94E0DFAF18BFAEDEC7E0E23D0"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_blood_extractor.png",
+      "hashMode": "binary",
+      "sha256": "F13D87E4F0841BA30565A07FFE0D77468DDD132ABE691A10C6EA46948E5C5A25"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_blue_extract.png",
+      "hashMode": "binary",
+      "sha256": "974D5DFE74B0CF902C230EBFA1A3EDBA244A639572C0D653150EB7EA11337D03"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_extract.png",
+      "hashMode": "binary",
+      "sha256": "541BA3C34BE2531EBCEEC93D7742B7F360D18300AB82AF37D4F8A0A0AE4B6C6A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_mixer_blue.png",
+      "hashMode": "binary",
+      "sha256": "CC92A922B891AF6373ADC57680EB27BC2D123BDFEE2CF24FCC44C4F6B86585E9"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_mixer_red.png",
+      "hashMode": "binary",
+      "sha256": "76483A1C26965FEF5155E806C661C48335AD796921C129489D5A6DF2D456E0CA"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_mixer.png",
+      "hashMode": "binary",
+      "sha256": "E44B3C03B625F557FF5A7B97B13B666B4F3D7CAA48A178F197C205AC6CC5D8E0"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_oil_extractor_running.png",
+      "hashMode": "binary",
+      "sha256": "CCCCE26B73096C7518009724CA9A3E11128869DD6B4FE92721E7926118E8166F"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.perfume_oil_extractor.png",
+      "hashMode": "binary",
+      "sha256": "D559AAED2534BC355FD90726F4136D3269F1FD949551465BAF50AE867DB69777"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.solana_candle_lit.png",
+      "hashMode": "binary",
+      "sha256": "E9DE1855A27DFC82453A4FD69F7B412233D4883FA6E40AFAC4C3E038E947C2AA"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.solana_candle.png",
+      "hashMode": "binary",
+      "sha256": "4B4BA84A5CB74E571A088385CC5E5DADC45FD3B1A517EDB042697758D5018F99"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.solana_elixir.png",
+      "hashMode": "binary",
+      "sha256": "C5C9FB31454E19B346C58598C369A4EA138C248B77D9BACB331FAC615502021B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.solana.solana_mask.png",
+      "hashMode": "binary",
+      "sha256": "1D8AD60578491907A0B3BAC89266AA2002891D42B9A7C4117AA55A2182EDD74F"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.anchor_cell_empty.png",
+      "hashMode": "binary",
+      "sha256": "5D1776BE306A184AB22B06CD649050040A3FA382E625F0FF33198DE49331B543"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.anchor_cell_half.png",
+      "hashMode": "binary",
+      "sha256": "DD6D175545350AB85ED62542EAD232E636944D183CE7A2C792E3F14BB058BEBC"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.anchor_cell.png",
+      "hashMode": "binary",
+      "sha256": "A0FBD232CC05E4670D4E8400A739FC44FD91EFA5A03065CA4BA3EE8573F69DF0"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.banner.png",
+      "hashMode": "binary",
+      "sha256": "D992FE63851B3310D764925C53BC1F2D4EF08A4E66526ECA7832B8B6E067892C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.crate.png",
+      "hashMode": "binary",
+      "sha256": "96298FA30F011C17EB7382F62FDE4A90EAD8D4BCBE914C0AB9A9BA2DF8D0E02B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.freedom_walkman.png",
+      "hashMode": "binary",
+      "sha256": "6937049C42DF2E312D9B07EFF2E31E4BE11F793357CC896E65BEE8994B46E3FD"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.mutual_medkit.png",
+      "hashMode": "binary",
+      "sha256": "BF830743E5DBA0E0339063F7ECB54DBAE6601921B3BD2E1026193F1DF4C2A5F4"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.zhuoyue_battery_empty.png",
+      "hashMode": "binary",
+      "sha256": "7F7B3F16D0F8E0E0AB3827526901129459079B5188004809689F4F86745E39BB"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.zhuoyue_battery_half.png",
+      "hashMode": "binary",
+      "sha256": "258DCE0AF03B3830F68B0052BA68555C1E3E87583DCC93B897579FC46CEB3F6E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.art.spacer.zhuoyue_battery.png",
+      "hashMode": "binary",
+      "sha256": "7B9E6558F70C17187A104ED11EED17BFB39DFD177FBE5A4EE1995B5DDA9DCC04"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_2x.png",
+      "hashMode": "binary",
+      "sha256": "84D8D5E49C6DA583F8B284394924B328925E4DC394ADEC4D4B8805BEFB1CAC5D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_3x.png",
+      "hashMode": "binary",
+      "sha256": "0779D7F1FE7F8A9E38FA955CB1BAA1FF29A790A796DA4DA159CE1D855AC26016"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_n1x.png",
+      "hashMode": "binary",
+      "sha256": "1376C72A75244F85E5B3F7EB3C854637F3C5BC7D17CB99401A6F6ADF5DBE2861"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_n2x.png",
+      "hashMode": "binary",
+      "sha256": "708E1FBA29F17A77D260A1327AD6F4E1158FDC099C59C5962DBB5B6A63099162"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_n3x.png",
+      "hashMode": "binary",
+      "sha256": "AFF85218B3B313E87A74892EF7C55E20088FCDA0C43629DF558E1D3FEDDACA12"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_s1x.png",
+      "hashMode": "binary",
+      "sha256": "C405DAB5AE7B25077F29F642ABF5D2CD3858AAA8A3E48462C086A313A5F84E50"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_s2x.png",
+      "hashMode": "binary",
+      "sha256": "15334EA1C28620BCF26CCF33F0A900BA8F34643F096C1D2FBCA9126BFE7CD55D"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.carmicheal_isa_s3x.png",
+      "hashMode": "binary",
+      "sha256": "B3AB4CD52EF4D43F8D3404FEBCF9BB9A964D0FE1DE903397EABC0ED84132368F"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_2x.png",
+      "hashMode": "binary",
+      "sha256": "30B0CF072A371E6B2CECC3CA65529B5782CB3DBC38C361CCFF1DB70FBC9A8B5F"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_3x.png",
+      "hashMode": "binary",
+      "sha256": "569DBC84979D01F0C32B3A2AFA853C51A7409EF5C0C6BAD4197BF314F61F9C45"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_n1x.png",
+      "hashMode": "binary",
+      "sha256": "5B9BD64488C926AF6587C857189419AAD2C1033B92332BFEF838A9CA477F173F"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_n2x.png",
+      "hashMode": "binary",
+      "sha256": "D8CC5AC12DDF6FF15E1EFF3E514BCD1FA9FB00CD88FF790D98E6B0F23DCD2495"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_n3x.png",
+      "hashMode": "binary",
+      "sha256": "9EAE745B6BE463C334A5923CB20DEFE82639262BCA4749303AFD01322B6E37F2"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_s1x.png",
+      "hashMode": "binary",
+      "sha256": "07C8809E4A7190E007091923F7FBE87CE062CFD09DD9ACF4FD7C73DAAFF1DEDE"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_s2x.png",
+      "hashMode": "binary",
+      "sha256": "F700E829D05D73885D9E21C0898D8988F5452E6162FEBA6789B738FDA26D828E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.davre_doreen_s3x.png",
+      "hashMode": "binary",
+      "sha256": "B7B78459523DDA7ED44DA167E06C86BADE2E4BB3ACD58DFC73886CAB25B0E626"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.malice_envoy_n1x.png",
+      "hashMode": "binary",
+      "sha256": "805D00F1DFDEEF309992125BF4C5F32A44E4A63D283B5056EA9500981A614F15"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.malice_envoy_n2x.png",
+      "hashMode": "binary",
+      "sha256": "5115CFED49BF384746ABE25476D0C85A6AF85DDDE468E6B148D0B8CD73E7318A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.malice_envoy_n3x.png",
+      "hashMode": "binary",
+      "sha256": "4E159CE827C3BCB0B74E43E248E2B1DD6CEC65ED85C646DCD7AA243CF467697B"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.malice_envoy_s1x.png",
+      "hashMode": "binary",
+      "sha256": "372AA169EB5FB7240655D0BA30867DAEA15D24514533F2A222A89EA7770F970C"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.malice_envoy_s2x.png",
+      "hashMode": "binary",
+      "sha256": "476BDBC3E18402286CA2347E03F579450F2F9289FE99E00A3352025922970875"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.malice_envoy_s3x.png",
+      "hashMode": "binary",
+      "sha256": "56E49E19B9BEBE611302CD1B93328C57FA04F903BF475326C6972FAD5C7B5263"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_2x.png",
+      "hashMode": "binary",
+      "sha256": "969C604BD3BAA7089245CB2964A36E64B3153BC640AE845BCC7878E9A7FEE3BA"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_3x.png",
+      "hashMode": "binary",
+      "sha256": "92945941A933EB445E279AE90E189CC69E193AC1F523B4A1E40ABBDA4877BC4E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_n1x.png",
+      "hashMode": "binary",
+      "sha256": "E90B483280017B41A999ED9FF59D6E6A87D5F85A277DB1375906CB59DD506137"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_n2x.png",
+      "hashMode": "binary",
+      "sha256": "D8CEF084F3880B2E07F66624DB75F86929F4D050FF74C11AB0F92C6D0F99A4E0"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_n3x.png",
+      "hashMode": "binary",
+      "sha256": "254FF54256062C6ADA2B949ABF65DF0D659F6B9F4E1AD932D7FFB6FC56E918BD"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_s1x.png",
+      "hashMode": "binary",
+      "sha256": "DCEF4801F31B18D4B1D618476B8339D456EF7740F274AC084E723D7C795B17DE"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_s2x.png",
+      "hashMode": "binary",
+      "sha256": "D9EAD2A701B06431A8749DF97A17570F86353DB44517DEDE147988B2A9C4A630"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.meridian_rosen_s3x.png",
+      "hashMode": "binary",
+      "sha256": "6510C4EDBA94094A8AF31C80290E104C731311C3558CB92EBC1B57D1B3FC4546"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_2x.png",
+      "hashMode": "binary",
+      "sha256": "98799134839AA705889553AF23A7C981C73C63607122B0FA78C68F1E07B643B7"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_3x.png",
+      "hashMode": "binary",
+      "sha256": "93EADE5749F8B210C25AD6C68DC2FB7C09579CD2347234BFE40C87C34ADC9AB9"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_2x.png",
+      "hashMode": "binary",
+      "sha256": "EDA71979F995CA9379F1403064E82D434CB24D88420A593D35DE3C53151D2D9F"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_3x.png",
+      "hashMode": "binary",
+      "sha256": "A48763773E810AA7F51D9848E7678CB3950B525E843867A6255B2F737B2DFB70"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_n1x.png",
+      "hashMode": "binary",
+      "sha256": "85C34BF3AE45BD53BBA0C607B460071B84088531B8418E899CE41F2638584A06"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_n2x.png",
+      "hashMode": "binary",
+      "sha256": "8897B02077155502FA2AD04F0379814EAF958289018E835F7F558FAFAF08D942"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_n3x.png",
+      "hashMode": "binary",
+      "sha256": "717C0258D39DE565FFD26CD65F9184F0B89EFCB6CAF4E05F8125D271C06F1C19"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_s1x.png",
+      "hashMode": "binary",
+      "sha256": "0084DD0E6CD1A27BFABF49B3F94003FDCD562386C3063CCCF2A486FE8AFC6FD8"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_s2x.png",
+      "hashMode": "binary",
+      "sha256": "BA87F5BF8B9B321FE81347EF1327B396429FC7730CA636C2DF2418ED18CFA6A4"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_hemingway_s3x.png",
+      "hashMode": "binary",
+      "sha256": "65C2E18978267794358EC7D7155DD0284A50E61F70F8F8C21B6EB223C9D00A7A"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_n1x.png",
+      "hashMode": "binary",
+      "sha256": "CF9145CBEF4F82FDD855B07DEDF19C791481493A04F35B0703C7F8DE7D66C467"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_n2x.png",
+      "hashMode": "binary",
+      "sha256": "F3A017BEB0CE484E5CDDD77716A24AC8CDCB044593CB9AD7E5A39AAE8A6204E9"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_n3x.png",
+      "hashMode": "binary",
+      "sha256": "5E34A11900DE91731FFB9D87AEE3F5D2AD74B3BB01E6E34714D86A5C997F6585"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_s1x.png",
+      "hashMode": "binary",
+      "sha256": "86D29326E94F06C0B0A1F3EE48AE93B9A661F83411722BB95739240B1BB9DEAF"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_s2x.png",
+      "hashMode": "binary",
+      "sha256": "9978B3DF9EB2263A996C12D49A42D91CA5D919969FD7D44DFA28D7B24EC85093"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.pastel_milo_s3x.png",
+      "hashMode": "binary",
+      "sha256": "C6C677FD5D1CA0EE46E9120E765DEB9C06768A14FC9FC8258AFCDFBD15386DBC"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_2x.png",
+      "hashMode": "binary",
+      "sha256": "B0D2CC4E2EB1AFBE1C79C8E6085643737295CE25088B6A04774D285A9301F222"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_3x.png",
+      "hashMode": "binary",
+      "sha256": "74D2AD7EE133B314E183307E1A3411DE7EA9478340E12395BBE78FDF16BD5E47"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_n1x.png",
+      "hashMode": "binary",
+      "sha256": "EAA66E13021939FF9B1A35A9486F5B963B9B0E04A82519533C28F549FF6F3F19"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_n2x.png",
+      "hashMode": "binary",
+      "sha256": "B159F016787E81F3BA4A312136699A417B8DFCD234F05BE2BB6E3EAA36800BCF"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_n3x.png",
+      "hashMode": "binary",
+      "sha256": "C2ED8277B29B57648070E8727831BC30C4F96517AE6A3FBE7241B198D531D8CF"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_s1x.png",
+      "hashMode": "binary",
+      "sha256": "0EE6CBF6F22446FBD170C4D97FE6230328C5346E6D996F7582331CD99031358E"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_s2x.png",
+      "hashMode": "binary",
+      "sha256": "A0750099266BE1904E73BE74BC0C17272F2D4A6A018C6A99ECBA32ABF46F9ABF"
+    },
+    {
+      "path": "src/Assets/CorpPresence.portraits.solana_seline_s3x.png",
+      "hashMode": "binary",
+      "sha256": "4DA3F2C483524EE257F34D2A9311A479DAF90E8BD78288B98C84982EE686CE57"
+    },
+    {
+      "path": "src/BuildIdentity.targets",
+      "hashMode": "utf8-lf",
+      "sha256": "840CEF86F9CC9EF69256DA64E603BC5235924B217D72A7E5FB01DCCB0E32B0BD"
+    },
+    {
+      "path": "src/CorpPresence.csproj",
+      "hashMode": "utf8-lf",
+      "sha256": "47CD1862FF23CB43C32B11F66827F225B61DC2BAB304AA7B55C8F51DC3202AB4"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Character.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5C1317CE690563B225D389D35FB658B71EB42DE2ACAB0B533FA09EF4A9555FA7"
+    },
+    {
+      "path": "src/CorpPresence/Characters/CharacterState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "D5BD35326BE7166C5C22A677CD0F41937730BCF32863003B1586E641CA777143"
+    },
+    {
+      "path": "src/CorpPresence/Characters/CharacterVisitSession.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B6A51349C72D48EB046E4D1F408E5086271E8B59A3DC923CEC3E4228CAE22471"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Choice.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8847B2267FE28A89ED3067858DE4D0B4F43712C3331F33D263892D2A6A8AEF64"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Doreen.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "03F83A3D238C9FD9ECB9828F5EC846F03A14EF4AD255D90151FCCC5DB07B3180"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Engine.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "834189DAB1F16F0F900F90D1F1777D8636D840ECE9710F3A329F899469D932B8"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Engine.Dialogues.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "82074852AD3F301CEABEDD68ADF44A4B8087D2EA6C1E383FCFD6D09832659E21"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Engine.Scheduling.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E1C675555C9AB33C705C3FF568643E501B0F67EFBDC61DEB4B87170F4C47012B"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Engine.Trading.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B8D079D9F719F0E963163DAB0E48D92C74B2099C7B2633DCFA256B9D4B4A7423"
+    },
+    {
+      "path": "src/CorpPresence/Characters/FufuDollGift.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "262D5C0AE421AF3E078C5E1EE0690B23C8A0E81C30DC62DB7FB6260B2C42695D"
+    },
+    {
+      "path": "src/CorpPresence/Characters/GiftDeliveryGate.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "D4E3D1768AF7C6C323D068C54ECE00FF78563A66896BF74EFE82B2C32E7AB72D"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Isa.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "DBE8E8BAE78331D03C0A9C6DA0A77AF6A391A57E109179E9A2CC833D43A4B207"
+    },
+    {
+      "path": "src/CorpPresence/Characters/MangoGift.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "EDCE3172ABA1FC58868C793D31636745B01535A45D3D29DC6F7443F74E3CDF2C"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Mentor.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "2D631EC53754DCCD791E6EFAD705AE9AA575E66F6B90E159DCABB9F115D3296C"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Milo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "ABD742F4CCB4439248C65F5076F115A392E9CF1BF80DCB13DDB516A2FE23C881"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Rosen.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "7B6CFD49D2FB2A64FFBCDE271A03888FC3064489A94DD9246454DA1BD8336F23"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Seline.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8DF3957007C2908081E55732DA65FC23E1328D0CF98A318FF84503234BBF2959"
+    },
+    {
+      "path": "src/CorpPresence/Characters/UfoBackpackGift.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "ECA677D486968EC6EAB5B4DA8056EF14E7FE75ED7DFDBA62545CF3E7719D314B"
+    },
+    {
+      "path": "src/CorpPresence/Characters/Visit.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "57C12C1F5DD9F687677DED835255D1BFE3BD4028B9933C24093BF505ECEF3F60"
+    },
+    {
+      "path": "src/CorpPresence/Characters/WasteBatteryGift.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E959B60141520031FA1E5A0D641DBC21E9D6057C89FF14C2AD551FB6741C26C3"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Brand.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8DC7EE179574A6DC268A81287093E3E2BE58750D487DA06D0987CA4582B34106"
+    },
+    {
+      "path": "src/CorpPresence/Companies/CarmichaelCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F38B2594A1EAAF818AB9940655A14FC5FD315DA5CE513946BA04E2E1130E9F0C"
+    },
+    {
+      "path": "src/CorpPresence/Companies/CatalogEntry.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "6968705E342FA3E2DC1DEBF2129A25B2BC56D3D8B8C98B4FDC55255532BE8D17"
+    },
+    {
+      "path": "src/CorpPresence/Companies/CatalogPricing.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "18F318C282A5E39A5AF4DE5F64AD9D7E00169664A0D8D72042B300B255AAF995"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Companies.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "D7ECB28A08E545928121442485EB50AB3E19C85DEEA1BF7321895BA86FD8E8FE"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Company.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C57D3CDFCEC7F242AA57DB5099C78A0114A3B12B893A13AB8519E652551CF8B1"
+    },
+    {
+      "path": "src/CorpPresence/Companies/CompanyMoney.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "7C0A5A1D1D25B4CE0682279DCE03880966726982A81228A8BA077406506E710B"
+    },
+    {
+      "path": "src/CorpPresence/Companies/CompanyState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9E9FFCBB2077F4DAE2A6C5BD3C6730125B697E28FE0F39FABE6AE4D4C4E4DBCF"
+    },
+    {
+      "path": "src/CorpPresence/Companies/CompanyVisitors.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8F3D56000B983703974B00A4197881A42644BEA2951A2DCFE89C2C4833B8B72F"
+    },
+    {
+      "path": "src/CorpPresence/Companies/CompanyVisitors.Deliveries.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "53B93C88462161249D5445DAEB924475458D81F69CE277CC653FFE9621063551"
+    },
+    {
+      "path": "src/CorpPresence/Companies/DavreCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "6CC52B6F42345E76B5B19176D7F17C84F25408158A86C194B823B14FE3117EC9"
+    },
+    {
+      "path": "src/CorpPresence/Companies/EscapeePlacement.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C87BA1AD9ECF6A2551467D012CB96B87ABA7E3840A6347302E7DF34CF63589BA"
+    },
+    {
+      "path": "src/CorpPresence/Companies/JacksonContact.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "649E2334B7E44B9F256FC05C6DC0F244C3D10899A753A8746E18A2303E694039"
+    },
+    {
+      "path": "src/CorpPresence/Companies/MeridianCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "1D57D701A6B4DC05496A12B058559E37350BF85F30A9754C5676153AADB6DAA1"
+    },
+    {
+      "path": "src/CorpPresence/Companies/NightSettlement.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "0B35F1D0ABCAF17BAB73261996EEEAC152BC489A464C2F03E1E088D762E07D2E"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Order.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "6E9AFAA2105350ACBD625D663850A4FE354FFE6EBAE160A97D87EC8EE27E3CE3"
+    },
+    {
+      "path": "src/CorpPresence/Companies/OrderAmounts.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "1D3A81DE4B283173B8CEA9C6EAD7068E7FD4032657EC14CB1FBDAA45E465A60B"
+    },
+    {
+      "path": "src/CorpPresence/Companies/OrderContents.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "6658B028AF477B9D755212A35B8C820468EBC824AFFC485FCDF8014F4D16B325"
+    },
+    {
+      "path": "src/CorpPresence/Companies/PastelCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "19647DDC59CE00DA8815F990A680ED7B9F09267BA9D554AE0F9BF40241EA9353"
+    },
+    {
+      "path": "src/CorpPresence/Companies/QuotaCounts.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9478D74D71A425C26CDD67DB9371EC936AF0C29621A9F8150118860158CEA1B8"
+    },
+    {
+      "path": "src/CorpPresence/Companies/ServiceRetry.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8A55AFE9D29EF9F9A76A3472B8DA2F805A242DD277D72B5D2FCD101F58D5773B"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.BloodRecovery.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "14B026D9CA4B99E941B16CA54F57191242043BD8A75F7B5E728E2CC6B3B2792A"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.Card.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3CA64F0C9D3B417A5FE7C89A7ECC9BCA0ABC69A6C2D44F15879DE0E63956E6F7"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "23EAC0C12E39CAC78040F10E38ED83F5DA7EA264CBAD86EB1FF9719D090D0EB8"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.Nightly.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "BF072DBC1478B7A7826A8744E359E4216B6C049A87743057B4C16A6F05A0DB39"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.Orders.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B65608884FF3297CE3F0B928B8E546D24B9B241B51142588214B9E721F495B69"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.Payment.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F57A30C008810FACC666738DBD1B3AAC9FBFF79777BF1F313FC2430D91EF4208"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.Replacements.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3392A0800AE1FDE9F71B3780340B6E150725F49E613C6C80010E08628A4436A0"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Services.Special.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "A79647A86EFDE64A99E2E4F15D4619FC02DE933FC14DC21CF582A3003F991772"
+    },
+    {
+      "path": "src/CorpPresence/Companies/SolanaCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9FBB9295D65C3007EB3754D5053CDC59AA573D975C2684351A263E649B15AA14"
+    },
+    {
+      "path": "src/CorpPresence/Companies/SpacerCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C4BEFCFA4ED904C55EE4664E36BE2FB99352155565B43943915FBB4FD79D8B35"
+    },
+    {
+      "path": "src/CorpPresence/Companies/SpacerCo.ModValues.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "24EDAB2D86B880741AC09D66A41C3B26A890F3B179DA339C49E8AF251B66F23D"
+    },
+    {
+      "path": "src/CorpPresence/Companies/Visitor.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3D4A16E0AA5CDB2ADFD67FC67C05D4AF7F7387703F47006199DAAE2871533E4F"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Compat.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9A3A9B8ABAF723593E0F02EB49408A61C87722CD50E4E878C655C8F0BC40D01B"
+    },
+    {
+      "path": "src/CorpPresence/Integration/ConfigDiagnostics.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "4638946DD6A0CB4E957586F32E143E1484666F5DFE49C19EEC0C8249C1611711"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Ext.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "891493F1D235B43199D4DEBEA4FA82A88013645F90FC86329AF412E15599CC3F"
+    },
+    {
+      "path": "src/CorpPresence/Integration/ExtensionEvent.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "92B17FB581C3564301A1F3050EED8C28722686FC7FCFB8AF2CD5891B6AC2CE0E"
+    },
+    {
+      "path": "src/CorpPresence/Integration/FufuTheft.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E0209704BB226466D790A56EDF79680E7ADE6AF682D468342263753F3095CBE9"
+    },
+    {
+      "path": "src/CorpPresence/Integration/HookGuard.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "96D2F51602BD344AC575F31892470B40BE64F33233406E98E2C22899867C6EB8"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "BACE7367061D8C343C52FE0761B9F2F31852FA79CCE5B15AB32AF06824BDC752"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.Effects.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B77C6243CEB200C8DFC441B534DDE0DF975235CC847932C9480179748B6EE762"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.Events.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "D71657102834F12F8863ACFEABBE5909513DF97804BCE100A4568C46CBA4C630"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.InventoryRestore.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "AAE7845B2F15F84EAAD8A42656C0B2F1420C1FBB0E1578E8CA403BD371972043"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.Items.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C8AE95EAF38A1FE2EFEA3B490544664FFDF64C8254A0875347435B0501169B40"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.Load.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C3930302961CCDB717355A76B92988B66844E623301E0893ADABDB0DDFE521E6"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.Phone.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E37CB4B526C3CF4BA3F341911026D27BCF71707043B717ABEC03184BFED494A1"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.Save.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "15CD73A8F0EFBAB2E48F1231888DB11A5C855AD248AEE701703FF807EC6F8F81"
+    },
+    {
+      "path": "src/CorpPresence/Integration/Hooks.Trade.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "6F281F622C72BC02B1EF16AA765124CA8A0FBC92543C39CECFFD502B9A6929ED"
+    },
+    {
+      "path": "src/CorpPresence/Integration/PatchInstallation.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "CA248F45082B6BECE50A78F42FC64ABA5225FA3FAB967CA6D91564906C241DD8"
+    },
+    {
+      "path": "src/CorpPresence/Integration/ShopInventory.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9A8C515231D9BE53704CF6E48D1037611216CBE3D50CBB07D21340CCD5DDF5B3"
+    },
+    {
+      "path": "src/CorpPresence/Integration/WaterTrace.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "766761EE7F541417E34F761FF97E525BC26A0F9B7E51A32078F1286AE54ADAEA"
+    },
+    {
+      "path": "src/CorpPresence/Items/Cards.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "1609AAF50B1B1C0184A1C00CEA674148D7DC46EBFACB6D0074A99111E1671364"
+    },
+    {
+      "path": "src/CorpPresence/Items/DefinitionSet.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "06E87AC45DBC172AFFD66AC92401F2E9C35A51853452CD94DDF0D52C61FD01A1"
+    },
+    {
+      "path": "src/CorpPresence/Items/FufuDoll.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9912A70F22CEF49778C171E78059C14B286A2C5691FEC0CCDB2334FB3F9DB243"
+    },
+    {
+      "path": "src/CorpPresence/Items/FufuTheftChance.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "347EE345D2FA20578215783E2C69C5DC29D22C7379076BBD935E2733F057FE28"
+    },
+    {
+      "path": "src/CorpPresence/Items/Goods.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "2CCE454AC031E2CAD05871806BF6D619B16E38419DCAE31B7CEDC653A0B80B8A"
+    },
+    {
+      "path": "src/CorpPresence/Items/Goods.Definitions.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "7AC05D577D985B3F04CC237E34D41C7429B4B50212554BCF537FDCAB1B6C842E"
+    },
+    {
+      "path": "src/CorpPresence/Items/ItemHitArea.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C3E62E8A292D518B1FF9EF4FCFB88F97927DD5FE82D6F422B7EBDB7F6F35C101"
+    },
+    {
+      "path": "src/CorpPresence/Items/ItemIdentity.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5FC0583A39CE69B747F9D335BAE24B723F64427B9B25CF00416ECF7F48721014"
+    },
+    {
+      "path": "src/CorpPresence/Items/ItemRegistry.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "584E42971345CD9012AF42801341DA0459D5C8A9BEFFC05DCE6B5985DBADE0F6"
+    },
+    {
+      "path": "src/CorpPresence/Items/ItemTags.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E02E654EEEF5E503CBD2FBD9DB0FFF990D4940E618F4CB028A9A540F13D63CB2"
+    },
+    {
+      "path": "src/CorpPresence/Items/RifleMods.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E970E49B9C4B6A9BBE2FB3C25F8917EAD73F23BE1EFCAF0549821C1EE8B204C3"
+    },
+    {
+      "path": "src/CorpPresence/Items/StorePlacement.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "80585FC00DD2933A3810676DC353A1AF3A0958E1F448A18AC0B0EC2A96901AEB"
+    },
+    {
+      "path": "src/CorpPresence/Items/UfoBackpack.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "98F75ABA93639F3DFE585EDC96516C22DB748964E68C518E34A43234BD994D3D"
+    },
+    {
+      "path": "src/CorpPresence/Items/Wilde.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "71DBF6657EE779CB3EF3ADC4B6C7D857F225EE6EAB61286549A5300FCCCACB0B"
+    },
+    {
+      "path": "src/CorpPresence/Main.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "72ED43C0617B6483BC558E7D8FFE37AEC19B852E195449C69ECC02018E65780D"
+    },
+    {
+      "path": "src/CorpPresence/Maintenance/MaintenanceConsole.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B00D0E884AC18C18BB3BC25026CFF48EFE51EDD88DFE36E18A4246DEF2BBFAD7"
+    },
+    {
+      "path": "src/CorpPresence/Maintenance/MaintenanceDiagnostics.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "DE9115FAB2730ADE1FD8E5A8009E82B017DB50EB1439454B67E7845167581EED"
+    },
+    {
+      "path": "src/CorpPresence/Maintenance/MaintenanceFormatter.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "DBD5BA2164B0867BBB5757C4FA45684A3EABED198969975339667F86600AEF97"
+    },
+    {
+      "path": "src/CorpPresence/Maintenance/MaintenanceReport.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5C15B4AF5C3858D480C77179454FD7354CB45304AC6C2990F175B86E1DED6F02"
+    },
+    {
+      "path": "src/CorpPresence/Maintenance/MaintenanceSnapshot.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3A79499FB35664B8F94DA285A312C9ACA476AECB1FC88FAF042358A74431AC5C"
+    },
+    {
+      "path": "src/CorpPresence/Malice/CorpTerms.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "CF62460E6CFE77E6D7E001CF5E239362247504453367540D4606DE63086F2AB5"
+    },
+    {
+      "path": "src/CorpPresence/Malice/Envoy.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "AAE87817F7080D4EF4886016DB25CC2B202904F02CEE16896C97F5BF1DA9941F"
+    },
+    {
+      "path": "src/CorpPresence/Malice/Envoy.Notifications.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "A784BDA1EFC69B84299BD9459576FAAFD5666F945AC8117F01462972166463BE"
+    },
+    {
+      "path": "src/CorpPresence/Malice/EnvoyCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F939C2BCB8BEDF6509CE781DC7B0EDF23214B5B0BD490661A73352860D1F9912"
+    },
+    {
+      "path": "src/CorpPresence/Malice/EnvoyState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "15BDF159916433988A6FA1A62B6ECDAAB6B59F5D4091DFF1BFEA69CA82CDE1EF"
+    },
+    {
+      "path": "src/CorpPresence/Malice/EnvoyVisit.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "7980A3AF00D0FBFE96C088386168EECF3B58FED53A3A2A09D5C997A7BA8593BB"
+    },
+    {
+      "path": "src/CorpPresence/Malice/Malice.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9D9CEDBED0A39A133C9129BDDFA20EFCA2D62D1B9E218D26FAE9D9DA5CEC370A"
+    },
+    {
+      "path": "src/CorpPresence/Malice/Malice.Install.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "AA2E75DC334C13D711297CA11EA9E39A95AEE3224C2A2800144E5C9BAE62EBC6"
+    },
+    {
+      "path": "src/CorpPresence/Malice/MaliceGuards.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B1ED8093899EEEC80D222906276DA29CBE18849D22452CA1054A542C95209C46"
+    },
+    {
+      "path": "src/CorpPresence/Malice/MaliceItems.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F7E503D2EDDE2827843A9FF6239F7FA9AB670568E625A2FF65AB2F95AD491D8F"
+    },
+    {
+      "path": "src/CorpPresence/Malice/MalicePanel.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "4238BB9D16DF2D6A863647A466DDF20F93B5732CFDFE64B25D40709B6272BCAC"
+    },
+    {
+      "path": "src/CorpPresence/Malice/MaliceState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C320A7B942D7B729B30DAC3633103836E78F117BBDF053F9F8D831A57B12EEF7"
+    },
+    {
+      "path": "src/CorpPresence/Malice/RebelCo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "71EC7B6437273BEB1099B0B671B8D4EE96D9CCF485804C0636443DAEEEDC406A"
+    },
+    {
+      "path": "src/CorpPresence/Malice/Rebels.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "372908D94A71A649BF4B568412F57F0C3778ADB2BC61BEDAA15B28019E6524C8"
+    },
+    {
+      "path": "src/CorpPresence/Malice/RebelState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "120DA411223FCF1D5EAE25BAE895F4B933E049C4121A179726825E266E72FD97"
+    },
+    {
+      "path": "src/CorpPresence/Malice/RebelStory.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "34E2422855E62FDE563E875947A55B2B98A947FE285617D94C25069FAF2B76DB"
+    },
+    {
+      "path": "src/CorpPresence/ModLog.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "233625323A8597F94240994FE514192DC7E0EB680F3C8F3298BC8A8AF574F876"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/Cleanup.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "60F08464E5FA7163D4AA82946E45F4AC89BF0F047797F43E3D0D97445E35CE1C"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/CorpState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "702D3F32B8DE67C13443A5CA0E15956B6BE64A16B11A230A48CDB71AE541CE6D"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/Json.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "92A397892B4FCE0B69227C9E95DB01E7C7F0555ED138E7418B6AD6983CC548E8"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/MedState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "DCE50DE0CD79FF2EC0C53CB4976381FA1FA993F7AD26F6A648185D0CBC787425"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/SaveBinding.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "DAC6803E18506C6C7C7EC81DEAB30932C63A8AEFCEE99F063B0AEC01DDD53AF7"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/SavePreparation.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "51B5F57B8A5413E65BC3655A276C69F3CE8A3A1F8DBF8D69480B5D1C81E4538D"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/SaveSlot.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B3F8BD02055CE8764FC39255A4C985A615BC906A9C1A94C2F59123E2734AF6FF"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/SaveStructure.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B1EC5ACE748356FBF67F9831AD5111E21B677C64B076C362197D4268B440A24E"
+    },
+    {
+      "path": "src/CorpPresence/Persistence/StoreSession.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3DA18B49DC75E68287106BEAB4CFB002B91B649F0175E844896889BCAE4FEEAB"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/CardView.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "591A1263B5DA1E89075757D26E197ACBE8B3B8E320C2B1038268EB6029E5E77C"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/CjkFallback.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "966280EF478798CEE6C2363DD1C404A7E4F8F277CB03987F3F66A28E3F715DD1"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/ConfigDisplay.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "851AAE8D6F8BE9A6D974BEDC03FFA852F4F340C3FBC5FF0647AE55D9DC864EA3"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/ConfigLocalization.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3149B9055DDA1B0CB4133955864B256B050237045A27A98F0EBF7CCF1A02F56E"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/DialogueText.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "23B0AA0F22E3B876E6E7EA29858B21434AA6AE09E4775B2971B5E5457C683342"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/GoodsText.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "A467D90968C670AF617500970DD5048FD264DE94A942D8F68E08029FA2BEF9EC"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/L.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "DEF47EB48585851A0058FDBD84674F85C5CDF8DE07E21602D5FDB8560E8B0940"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/OfficialTranslations.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B9428C3D7CC54E655B501A49E1192CC1537D82372A8451C663BD4C1145BB150D"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/Phone.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C1ABB5C819507FD2BC2EEE8C760985086B215FFF25E7C2E5B6BAECDA9E251B03"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/PhoneDialogueLayout.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "91B25765F139A4A540447E07FD82AA138D5E5C1D7537B44CE242609F2C450AAE"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/PortraitResources.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "51A46C20F4790F57B19B42F2BB1202D22B387B0D5E2DBAC2165118E6F087829B"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/Portraits.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C94D2D1F259FE7E22EB773A730A26BBCAF75E039AEED26FBA29BB435B7A07207"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/StoryGuide.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B9EF724B832BF2B0D1C58B2D26A5F32288C9E4693B3F16D5E8997652CD5EC5EC"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/TextTranslations.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "BF799B1FFD644891F8C96036783F028D3DD1B4A43D0F858E7E088D60FF6D3081"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/TranslationFormat.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5C986B7A59FD6CADF498B099497DE9A44AD04EF3692A94FB00E87D259CE1BF6E"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/Translations.json",
+      "hashMode": "utf8-lf",
+      "sha256": "892F3AD80D7AF4D77382E880267ED870D5D104392D2D7EB5A8E3B27D5068123D"
+    },
+    {
+      "path": "src/CorpPresence/Presentation/Translations.Keys.json",
+      "hashMode": "utf8-lf",
+      "sha256": "A8AB7E0364ED24A9E0C7BF5D8417BE3B4644F90B95FFD8DB0759C0C90739DA61"
+    },
+    {
+      "path": "src/CorpPresence/Production/Canning.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "986233B7477E2A0AFB2639CA98DB3C4F8F1AE208F0C95FC0887726BD2BFC9CFB"
+    },
+    {
+      "path": "src/CorpPresence/Production/Canning.Grinder.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "78820820A10790F39D3FC326766F3CA40C95D03A3D87373AD5DED99ED89CD612"
+    },
+    {
+      "path": "src/CorpPresence/Production/Canning.Seafood.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "20952D080F6225076EA490299B25E5ECD0D4879CD4E28A33FC6EFA7B3F6A61A6"
+    },
+    {
+      "path": "src/CorpPresence/Production/CargoWarehouse.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E5732D86078E3B35FE69D531887301DE032D913A5B0AF7D34C21AD7698A96576"
+    },
+    {
+      "path": "src/CorpPresence/Production/CargoWarehouse.Sorting.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "0F10FE27C381078A59CB78FEFF75403E14E795DB6D66C0DC51B93F8821D55727"
+    },
+    {
+      "path": "src/CorpPresence/Production/CrateFillGate.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "53DC626A797EF0FFA61092F297833841E1EBAE1FD9D830680A6675769B3BD80A"
+    },
+    {
+      "path": "src/CorpPresence/Production/Crates.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "89DA97EC6EBDB247E44C097FEF1AB90DA3FF56D6C0C7FFD37B0429F53454D606"
+    },
+    {
+      "path": "src/CorpPresence/Production/CropHealth.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F31F7E0EEFD19F11E85AAD28B9DC935659BBB760F9D5D94B8A93E8124424EC56"
+    },
+    {
+      "path": "src/CorpPresence/Production/EquipmentOrderRule.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "D3173BBCA4DE8AEE77429B778C40403E3632A4BB2D46DB50B3607BC0CE5076E5"
+    },
+    {
+      "path": "src/CorpPresence/Production/Forge.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "FC7596E3039DA34128E665B4CC49F746890495FDAC6135955B2949BBA6235AA6"
+    },
+    {
+      "path": "src/CorpPresence/Production/MachineAppearance.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "29DE31C0ED71A94743C6AF800EB4DED9362D6179859F80AD09BE05BCBABD72CE"
+    },
+    {
+      "path": "src/CorpPresence/Production/MachineUpgrade.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E5292418F23524FD4EF90177B8489CFECF3434B6105DD9C20C3A7AAA34AB423D"
+    },
+    {
+      "path": "src/CorpPresence/Production/Perfume.Blood.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9D5F65A5AC22B9B9FCAD0C514D5D55F04AA537730184D9B81F0B68AB48F97919"
+    },
+    {
+      "path": "src/CorpPresence/Production/Perfume.Chemistry.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "96E9E6B404385D67D34F6DF7200B503A8344FBECED35BA739DA4651B65AD2CF9"
+    },
+    {
+      "path": "src/CorpPresence/Production/Perfume.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8E8E88D74C4DA50148462130CE129D78554A0C57B5741B8CC6BD1C5AE3C86406"
+    },
+    {
+      "path": "src/CorpPresence/Production/Perfume.Machines.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "2211C00861DAC4CF956A630BD5600FC259C4A193643FEAB3CD42E9E9E8E97727"
+    },
+    {
+      "path": "src/CorpPresence/Production/Perfume.Modules.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "52BA6C5B0ECC8EB22EBE83ECC08A7BC610A42C664F112AEFB5505ACE38761EF6"
+    },
+    {
+      "path": "src/CorpPresence/Production/Perfume.Plants.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5D4DC5A9EC5F62CED28C67455B83398943E72A8EDB8CE8D8A1B3B6DC2D848CCB"
+    },
+    {
+      "path": "src/CorpPresence/Production/ProductionCompatibility.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "54AB019DE67953CB419C2241A5997C0A706C1DFD77260FE2BD699ABF0535ECBF"
+    },
+    {
+      "path": "src/CorpPresence/Production/ProductionOutput.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B9366E2D8BA29022A493F6E3D3D09BC2BC76790D2824402B59B6B626974779DA"
+    },
+    {
+      "path": "src/CorpPresence/Production/ProductionWorkBay.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "FB1B6F21AAE8F4AF75495EC96B6A0A70B48B8CFDB6D4DA8030BBF1D00D983F8A"
+    },
+    {
+      "path": "src/CorpPresence/Production/RatWheelCapacity.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "0CDB62BD940E9A81826DD99EF6B6867A022A2FEE910061746C093CE1009B89DD"
+    },
+    {
+      "path": "src/CorpPresence/Production/RatWheelGenerator.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "89DF113A4F7AB0F10CCF3C1ABFC079A0C796A0264D5CBC747F27DB771C1BE8DE"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.Aquaculture.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "CC68C07059C7083A4D66AA620525B593B6DAA1B417ABBA7D4E88661B4B2AA478"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.BloodDrawing.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "D676A25A6606B2FF805DA0E5F2520DA85CE40C9E030873763D0302C4D4631922"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "61C956A3266AD2A93361FAC322ECCE33E6B504194053C3A556B71FC9AC858F5B"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.Liquids.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F308B73DC9AC60A14250D517C8C09762AC2A8DC09D2B0BCEFCFD1E45FDB5C67F"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.Medicines.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8B061E7CB20D9248F7D5F22E0C7BB47A8172BF08A130C7FA9655993A1BCC470B"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.Reactor.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C5B00303B78C149AFD551C1660F05AE591E4EC76688DAC0C22302A5D192A2200"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.Rewards.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "390A4E397F9EF7E2B851E871000F5C5175CFE2ED998D4520FD3E5BE7461C4247"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBlood.Tooltip.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E879B942E7763FCAA97B12E144B7A8D82AE46BA27E463B36B70C8369A9F2F76D"
+    },
+    {
+      "path": "src/CorpPresence/Production/SilverBloodFlow.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "61A903D5C4C81906D47F773452B6899D0BBC604C3E64191F3475DAFE21B1EC82"
+    },
+    {
+      "path": "src/CorpPresence/Production/Tobacco.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9E46FE75C5B26311588CF4CF4DEBA5586DF3BA9BC12FE755CFE8F4C623AAA522"
+    },
+    {
+      "path": "src/CorpPresence/Production/WasteBattery.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "CF0AE887E2C83C7D8C024C6859349D5607F2A89E386D6C6B66FEAF4B7FC205BF"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/GameResources.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C3C6C342562BFAECDE2061BF1E2D465912136D1D3F1B9F7CA5046FAA9148E9B5"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/Host.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "D777C088ADE1CC3785076EE4BC17DB9CC437DA0164E55E86AA2264741F0040AC"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/LoadedItemRepair.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B0337EC3DFC3B8D9F8638EBB92207F3BBE1C72C5ECF7DCAE06F553100608B8C0"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/LocalTestFunds.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "6A973A91C81260E6CF203DCC505101EB2E70A4E8031687BD562605E18A0CC928"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/OwnedCallbacks.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "56D76E78ACD746CD0DB230DFE1300675AE41DF878E15CAF4505E80F59FB66DCC"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/ResourceBootstrap.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F30E2795DB9F3234AC598BCE4E168851B56596F44505DF0E2EA0EC8772222BDC"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/RollbackNotice.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C1B5CF2BF2FE89341ED24A48BFF7E18B82E072C31B162858069BA07C077C41A7"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/RuntimeLifetime.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "B2DB5A2F1C40DBF7945F1F30460560CFFD85DC9DA0B92BA793E8CAE4633D9357"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/RuntimeTask.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E4C6FA0E4936EADC08487E174DCB941084B4802CA7DC231E78D3EB879D4B77BD"
+    },
+    {
+      "path": "src/CorpPresence/Runtime/RuntimeUpdates.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9C60299CAF141D68CE089ED5E2C6B5E0E9ECB10C246491202D8E9186526C1839"
+    },
+    {
+      "path": "src/CorpPresence/Settings.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "8BE1A766AC598AF34BC35866DB6C197FE07E1641C648D2795DDC46324284B7EC"
+    },
+    {
+      "path": "src/CorpPresence/UI/ArtResource.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3D2E7D0A31D63CADCE8085288FBF7807C8C9C6E2602536C80ADDDA7AB384ED6E"
+    },
+    {
+      "path": "src/CorpPresence/UI/CargoSortWindow.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9CD591D2E26F6B7D2AABD4C6A0167A7AC70CA80F89619EC311C40CEFE7DF3D17"
+    },
+    {
+      "path": "src/CorpPresence/UI/CargoTabRename.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3DDF7C20E8FA25C6872AC04338A86E2B814BDE57189CAC9F035E5A4F50629C97"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Carmichael.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "C75A2BFB2F2879F2378D0D1FB73B00189D96FF900F4EB3C2057D45010DCCA445"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Catalog.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "4C64B2932F1671469415E3D61B0DC1187EF6C8D608679380F19C0AF037D95431"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "4ADF5AE5FBEA3875BE0F51592C4B8DA550898D3D7C6840D4FAB50F23F6EE0BCF"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Davre.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5DE437ADB194C7977B1A7FD4225AE4CB5DFCC860A38B09A412EF4BA1637EDCCC"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Jackson.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "E5F4C48DBA5D32BEE2441B12E793C1B2138DD43A2883585E3816B0B8EE22027F"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Malice.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "36826122CEE68D7B3726E3FBFE21129051017ADF1BFC47A1363706555B8165A7"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Meridian.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "73B12500278FC3A149B1F9FF2D60977BA2DA9578C0620662C382D68C8C2760DC"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Pastel.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "ED1F754716CE6DE3F19F12E45E3BE1FAF7D0072E833AD102F7D4D0BA88970A34"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Solana.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "365EAB19E2703ECE601EBB2FBCBD4649AD5251D054E632CFEA1F6E57A760378C"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.Spacer.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "1F2011277F7D59809072482DFC79D16FA9DC0DD3330EE49C6200BEEC0B6E6896"
+    },
+    {
+      "path": "src/CorpPresence/UI/CompanyWindow.StoryGuide.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "5FD096BFD0E3CBCFF6CE7CF0A2FC1D4607E4A41E68687C9328EE4C4302159E96"
+    },
+    {
+      "path": "src/CorpPresence/UI/InputShield.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "0972C29885686E4A3CA9A62FF3A55C7FB1F38E703FC387A0BCDA1FA41AECFE71"
+    },
+    {
+      "path": "src/CorpPresence/UI/Lay.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "897F810848EB3E838D2946DF4277503A5119CDABB2D5EAB1145777A08EC68FE5"
+    },
+    {
+      "path": "src/CorpPresence/UI/MenuLabels.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "1040790EA99EEA453261ABAD2AE2E6B33A5A3702C048851BBBF6700A87517D84"
+    },
+    {
+      "path": "src/CorpPresence/UI/Notebook.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "3A69EC2E0E70FBA482C327163CCCDEEF400224338B677F6C9D21422ECC0F95D0"
+    },
+    {
+      "path": "src/CorpPresence/UI/OrderPageState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "275424202D17494C1BD15E458CDAE2A799054ECBFCD25CAEA2D1CFF3CDB610E3"
+    },
+    {
+      "path": "src/CorpPresence/UI/PanelCatalogState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "CEEA74B1C409C977A5A98792D9E8C5FBF3C0BE3A64092891EE54AD32072A4984"
+    },
+    {
+      "path": "src/CorpPresence/UI/Pointer.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "AF9603A3AC5653AA7CBF4965A81F014DC0098B476D9818A27FC3DF30144305B8"
+    },
+    {
+      "path": "src/CorpPresence/UI/ServicePageState.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "F339E095ADFC10165337A1BCA179277DF27636627ECE056855AE7B3C0E915452"
+    },
+    {
+      "path": "src/CorpPresence/UI/Tex.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "9A18DFE51C64ABA1091FE9F3D062E8851E783E57B6F15CE23519D752807B0446"
+    },
+    {
+      "path": "src/CorpPresence/UI/Theme.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "15D72B703D1A0A7764FFF0BC5AF0E2689AFFEECDE9959D1A8D8EA4DBA8056102"
+    },
+    {
+      "path": "src/CorpPresence/UI/Ui.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "295414C02242E31B3A31C2D0C5F22EB47B90B416BF3F9D034CC40382381855F3"
+    },
+    {
+      "path": "src/Properties/AssemblyInfo.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "EA99915ADFD617131002676B2DD8E70DD50F08A84FFC506A975F0F03D7F50837"
+    },
+    {
+      "path": "src/System/Runtime/CompilerServices/IsExternalInit.cs",
+      "hashMode": "utf8-lf",
+      "sha256": "CBE76793568B3333810959FB74071BC9ABDB564ABD6EA4485A06DC273947D573"
+    }
+  ]
+}
