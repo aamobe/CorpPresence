@@ -1,86 +1,59 @@
 # 素材任务记录模板
 
-> **首选生图规范已更新：使用下方严格像素周期模板，取代旧提示词骨架。** 生图与正式原生精灵按用户指定的交付阶段执行；最终接入仍按[美术规范](AGENTS.md)检查尺寸、Alpha及像素结构。
-
-复制到具体素材的工作目录，填写后再制作。不确定项先查资源或代码，不通过猜测补全。
+先选路线，实际验收按 [AGENTS.md](AGENTS.md) 与 [NATIVE-WORKFLOW.md](NATIVE-WORKFLOW.md)。
 
 ## 规格
 
 ```text
 名称／资源键：
-类别：库存物品 / 机器 / 动物 / UI图标 / 其他
-交付阶段：原生精灵 / 导入测试
-本地 Aseprite／集成检查结果：
-原版参考资源及游戏版本哈希：
-结构主参考：资源名＋继承的轮廓／视角／部件安排
-材质参考：资源名＋外壳／玻璃／标签／指示色
-风格对照：STYLE-REFERENCE.md中的类别及原生PNG、像素数据比较结果
-最终原生画布：W×H px
-库存网格与形状：
-主体包围盒／需保留留白（忠实重绘继承原图，重新设计单独确定）：
-锁定区域：
-允许改装区域：
-PPU / pivot / 纹理路径：
-调色板：继承RGB列表＋新增材质色及用途
-Alpha：参考实测 / 新作约束
-状态：空载、工作等；每个差分的变化掩膜
-制作尺寸＝导出尺寸：禁止缩放
-机械结构：工作过程、部件用途、连接／遮挡／支撑关系
-金属高光：STYLE-REFERENCE.md具体范例、原图坐标、主亮带与邻行暗带RGB、段长、接缝和端部收束
-预计运行时纹理内存：
+类别：物品 / 机器 / 人物 / UI
+路线：模型直出测试 / 原生直接绘制 / 生成稿转换后原生整理 / 游戏接入
+交付范围与造型确认：
+结构主参考／材质参考（资源名、版本、继承内容）：
+最终真实W×H／玩法占格／主体包围盒与留白：
+锁定区域／允许修改区域：
+光源约定：
+色板RGB及每组来源（原版与MOD分开）：
+Alpha原始分布／目标规则：
+PPU / pivot / 图集 / 过滤（未接入则写未验证）：
+机械连接、支撑与遮挡：
+高光二维范例：主亮带、邻行暗带、端部、坐标、段长：
+Aseprite与集成可用性（原生路线）：
 ```
 
-## 首选生图提示词：严格像素周期（重点）
+## 生图提示词：严格像素周期（约束目标）
 
-> **2026-11-12 用户指定：以下通用模板取代原有生成工具提示词骨架，作为物品、机器、布偶等单件像素素材的首选。** 用户最满意的是统一像素方块、平涂、完整轮廓与纯绿背景的生成效果。后续生图沿用这套核心约束，仅替换主体、尺寸、排除内容与设计分支，不擅自加入渐变、纹理、抖动或柔光。
-
-### 忠实重绘模板
+这些是要求，不是能力保证。已测入口不能稳定按提示输出准确小尺寸或精确RGB；不得据模板宣布验收通过。默认透明；单色不透明背景只在实验或用户指定时替换。
 
 ```text
-Redraw the object from the reference image as true pixel art with a strict pixel period.
-
-Subject: only [SUBJECT]. Completely remove [UNWANTED ELEMENTS]; do not draw them or anything in their place.
-
-Logical resolution: exactly [WIDTH]×[HEIGHT] pixels. Every logical pixel is one exact square block filled uniformly with a single RGB color. Different blocks may use different colors. All blocks are the same size everywhere and sit on one lattice that starts at the top-left corner of the canvas: no half blocks, no smaller blocks for fine detail, no drifting, stretched or rotated grid. Do not add detail finer than one block.
-
-Keep the design of the reference: preserve the silhouette, proportions, pose, colors, major components, and their relative positions. Do not enlarge, move or restyle individual elements. Simplify details that cannot fit within the logical resolution into clear whole-pixel shapes instead of introducing smaller pixels. Render any tiny lettering or symbols as simple blocky marks one block wide; they do not need to be readable.
-
-Flat color fills only. No gradients, no dithering, no noise, no texture.
-
-Background: pure flat #00FF00 everywhere outside the object, including all internal gaps and spaces between separate parts. Every edge is a hard stair-step of whole blocks. No anti-aliasing, no semi-transparent pixels, no glow, no drop shadow, no halo, no white fringe.
-
-Match the viewing angle and orientation of the reference. Preserve the reference object’s placement, bounding-box proportions, and margins within the logical canvas. Keep all parts present in the reference visible. Do not shrink or recenter the object to impose a uniform margin.
-
-One object only. No additional objects, scenery, captions, borders, or visible grid lines.
+Faithfully reproduce [SUBJECT] from the supplied reference as a standalone [WIDTH]×[HEIGHT] pixel-art sprite.
+Preserve its silhouette, proportions, component positions, viewing angle and specified margins.
+Use one coherent logical pixel grid. Every pixel block has one constant RGB value.
+Use only this measured palette: [HEX COLORS AND MATERIAL ROLES].
+Use flat continuous color regions and hard-edged patches to describe planes, seams and short highlights.
+Preserve functional connections and thin details that fit the target grid. No invented decorative noise.
+Transparent background and internal gaps; opaque object pixels. No gradients, texture, dithering, antialiasing, glow or shadow outside the object.
+Only the sprite; no captions, grid lines or surrounding scene.
 ```
 
-### 重新设计分支
+重新设计时将忠实复现两句替换为“Design a new [SUBJECT] using [REFERENCE] for [STRUCTURE/MATERIAL]. Follow this component layout and margins: [LAYOUT].” 不同时要求新造型和完全保留旧造型。填写实际参数，删除不适用句。
 
-用户要求以原版物品为参照重新设计时，将首句换成 `Design a new [SUBJECT] using the reference image as a visual guide, as true pixel art with a strict pixel period.`，并将 `Keep the design of the reference` 整段替换为下段；其余像素、平涂和背景约束保留，不同时要求完全保留原设计。构图段同时替换为：`Keep the complete object visible. Use the explicitly specified placement and margins for the new design: [PLACEMENT AND MARGINS].` 制作前按功能和占格填写具体位置及四边留白，不保留占位符，不统一要求至少3像素。
+## 转换与原生整理记录
 
 ```text
-Use the reference as a guide for visual style, palette, outlines, and level of detail. Create a new design for [SUBJECT], with a distinct silhouette and component arrangement. Keep all details readable at the specified logical resolution.
+生成原文件路径／SHA256／实际宽高／Alpha／RGB：
+是否有可信统一网格，检测方法与局限：
+转换参数：目标尺寸、取样、色距、色板、Alpha阈值、裁切、原点：
+未修整草稿及哈希：
+原生编辑图层／逐像素修改清单：
+每轮修改数／相对自动稿净修改数（去除重叠）：
+连接、管路、支承、格栅、连续平面检查：
+最终PNG／Aseprite／哈希：
+实际宽高、RGB数、Alpha分布：
+1×检查及必要的最近邻检查预览（另存）：
+源稿重新导出RGBA差异：
+已完成：生成 / 原生像素验收 / 编译部署 / 游戏实测
+未验证项与接入时待测场景：
 ```
 
-### 填写与交付
-
-- `[SUBJECT]` 填具体主体；没有排除对象时删掉排除句，不保留空占位符。不沿用塔楼、樱花等示例专属部件。
-- 尺寸用确定值，不用 `about`。本游戏默认每格16像素：3×3占格对应48×48；96×128只是原示例尺寸，不是所有素材的默认值。
-- 默认纯绿背景 `#00FF00`，内部空隙同色。用户指定透明时替换背景要求为真正透明、Alpha仅0或255，并启用工具透明输出；游戏导入的透明PNG与绿底生成原图分别记录。
-- 用户只要生图时，按此模板使用图像生成工具交付，并如实标明实际尺寸与网格偏差；不要擅自用手工重绘替换已确认造型。
-- 用户要求正式原生精灵或接入游戏时，再按原生画布流程整理与验收；不得仅凭提示词宣称严格网格已达标，也不得将自动缩小认定为验收通过。
-
-## 完成记录
-
-```text
-最终PNG及SHA256：
-宽高／主体色数／Alpha统计：
-原生PNG与参考检查结果（不生成预览）：
-机械结构与多色金属高光检查结果：
-差分共同区不同像素数：
-游戏导入方式与占格路径：
-编译结果／部署目标／部署哈希：
-实际游戏测试：已观察项、待测项
-```
-
-“同尺寸”“同色数”“提示词写了原版风格”都不是最终完成条件。
+只交模型原文件时，转换与修整字段写“未执行”，不补做转换后再称直出。

@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "date": "2026-11-13",
+  "classification": "generated source -> deterministic conversion -> authored native edits; not model-direct output",
+  "files": [
+    {
+      "path": "generated.png",
+      "sha256": "959C5569AB8A93A475145D8BCFBAC497857ECA05E13AB5EEC854A6E1020B9220",
+      "hashMode": "binary"
+    },
+    {
+      "path": "automatic.png",
+      "sha256": "B7E570B9439341A1BB1B545D196CE4E5BB64FE458507D456D887EB98A814C3FE",
+      "hashMode": "binary"
+    },
+    {
+      "path": "refined.png",
+      "sha256": "40C7C3BD3BFE9F18F6F87CA00484B171B11B5E3592437D187FDF8C5173ACF6AC",
+      "hashMode": "binary"
+    },
+    {
+      "path": "mineral.png",
+      "sha256": "BAF4551E7AD487787A267274697710E36FBE0F65311E8B667780D4E62F8AA196",
+      "hashMode": "binary"
+    },
+    {
+      "path": "mineral.aseprite",
+      "sha256": "85B3F198B57BEC8BA35A511D54E20BF3E3B9EB05EEB23631185409A9AC693684",
+      "hashMode": "binary"
+    },
+    {
+      "path": "palette.json",
+      "sha256": "4C8447C18E05236A3BF69058EC04AABC512B4DDC452ED3BBBAE274650EE24841",
+      "hashMode": "utf8-lf"
+    },
+    {
+      "path": "refinement-edits.json",
+      "sha256": "6DD3CDE423C60EED18F9393B88331065EF73E6339564BB617719216C592D8D0B",
+      "hashMode": "utf8-lf"
+    },
+    {
+      "path": "material-edits.json",
+      "sha256": "38008FB4AE21080C6637BE37D7260D0615A6FA7ED80F00F02B1B1723DE078E4D",
+      "hashMode": "utf8-lf"
+    }
+  ],
+  "conversion": {
+    "input": "generated.png",
+    "output": "automatic.png",
+    "width": 48,
+    "height": 64,
+    "method": "center",
+    "palette": "palette.json",
+    "distance": "Euclidean RGB",
+    "alphaThreshold": 128,
+    "outputAlpha": [
+      0,
+      255
+    ],
+    "crop": "none"
+  },
+  "edits": {
+    "first": 351,
+    "second": 108,
+    "net": 422,
+    "bodyPixels": 1252,
+    "netFractionOfBody": 0.33706070287539935
+  },
+  "final": {
+    "path": "mineral.png",
+    "width": 48,
+    "height": 64,
+    "rgbCount": 23,
+    "opaque": 1252,
+    "transparent": 1820,
+    "partialAlpha": 0,
+    "bounds": [
+      2,
+      14,
+      45,
+      55
+    ],
+    "alphaChangesFromAutomatic": 0
+  },
+  "asepriteExportVerification": {
+    "date": "2026-11-13",
+    "rgbaDifferences": 0,
+    "scope": "Observed local re-export of the hashed source; replay test does not invoke Aseprite"
+  },
+  "gameIntegration": "not performed"
+}

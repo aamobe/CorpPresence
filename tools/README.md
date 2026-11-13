@@ -55,3 +55,5 @@
 ## 液体动态分类回归
 
 `ItemTagChecks` 链接真实ItemTags，覆盖静态标签修复后的原版液体分类委托、新建/读档/重复修复、空瓶、无water成分混合物及原版/外部物品隔离，已接入维护和便携检查。游戏对象和WaterHelper为边界替身，验证调用时序及状态不被改写，不重新实现或验证原版纯度公式，也不证明实际售水通过。完整证据见[液体分类修复](../docs/maintenance/liquid-classification-fix-2026-11-12.md)。
+
+美术诊断与原生转换工具见 [art/tools/native](../art/tools/native/README.md)，可重放矿化机样例；不修改运行时素材或启动游戏。
