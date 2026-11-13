@@ -1169,6 +1169,7 @@ production.silverBlood.rewards.onDayStart.thereSParcelDoorWith,"Un colis sans ex
 production.silverBlood.rewards.tryDeliverParcel.gratitudeDirectiveApprovedThank,"Directive de gratitude approuvée. Merci."
 production.silverBlood.rewards.tryDeliverParcel.unsignedNote,"Mot non signé"
 production.silverBlood.species.numberedSpecimenCarmichealLabIts,"Un spécimen numéroté d’un laboratoire Carmicheal. Sa carapace se divise en trois lobes. Une lumière argentée filtre par les jointures."
+production.silverBlood.tooltip.bloodReserve,"Réserve de sang : {0}/{1} mL"
 production.silverBlood.species.silverbloodTrilobite,"Trilobite à sang d’argent"
 production.tobacco.addManual.howUse,"Comment utiliser l’appareil « {0} »."
 production.tobacco.addManual.instructions,"Mode d’emploi — {0}"

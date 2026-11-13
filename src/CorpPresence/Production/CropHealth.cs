@@ -9,7 +9,10 @@ internal static class CropHealth
         // The native grow tick has already applied this cycle's mineral and contaminant effects.
         int baseWork = HydroponicHelper.GetRequiredProgress(seed);
         int health = Math.Max(0, Math.Min(100, HydroponicHelper.GetHealthPercent(seed)));
-        int target = (int)Math.Ceiling(baseWork * (200 - health) / 100d);
+        int healthTarget = (int)Math.Ceiling(baseWork * (200 - health) / 100d);
+        // Work is integral: round the cap down so the increase never exceeds 20%.
+        int maximumTarget = baseWork + baseWork / 5;
+        int target = Math.Min(healthTarget, maximumTarget);
 
         // The seed displays progress; the machine checks its own target to decide when to harvest.
         seed.ModifyTag("REQUIRED_PROGRESS", state => state.Enable().SetInt(target));

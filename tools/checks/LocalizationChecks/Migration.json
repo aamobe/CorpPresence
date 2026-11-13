@@ -1237,6 +1237,7 @@
   "production.ratWheelGenerator.build.chargeSlotSecondary": "Charge slot 2",
   "production.ratWheelGenerator.build.maxKJSlotNight": "Max {0} kJ/slot/night",
   "production.silverBlood.bloodDrawing.draw.noRoomShopMakeSome": "No room in the shop. Make some space before drawing blood.",
+  "production.silverBlood.tooltip.bloodReserve": "Blood reserve: {0}/{1} mL",
   "production.silverBlood.species.silverbloodTrilobite": "Silverblood Trilobite",
   "production.silverBlood.species.numberedSpecimenCarmichealLabIts": "A numbered specimen from a Carmicheal lab. Its carapace splits into three lobes, silver light leaking from the seams.",
   "production.silverBlood.liquids.registerLiquid.rawIsomerProtein": "Raw Isomer Protein",

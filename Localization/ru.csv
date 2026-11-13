@@ -1169,6 +1169,7 @@ production.silverBlood.rewards.onDayStart.thereSParcelDoorWith,"У двери л
 production.silverBlood.rewards.tryDeliverParcel.gratitudeDirectiveApprovedThank,"Директива о благодарности одобрена. Спасибо."
 production.silverBlood.rewards.tryDeliverParcel.unsignedNote,"Записка без подписи"
 production.silverBlood.species.numberedSpecimenCarmichealLabIts,"Номерной экземпляр из лаборатории «Кармайкл». Панцирь разделён на три доли, между которыми пробивается серебристый свет."
+production.silverBlood.tooltip.bloodReserve,"Запас крови: {0}/{1} мл"
 production.silverBlood.species.silverbloodTrilobite,"Сереброкровый трилобит"
 production.tobacco.addManual.howUse,"Как пользоваться устройством «{0}»."
 production.tobacco.addManual.instructions,"Инструкция — {0}"

@@ -4672,6 +4672,10 @@
     "В магазине нет места. Освободите его перед забором крови.",
     "La boutique est pleine. Faites de la place avant de prélever du sang."
   ],
+  "production.silverBlood.tooltip.bloodReserve": [
+    "Запас крови: {0}/{1} мл",
+    "Réserve de sang : {0}/{1} mL"
+  ],
   "production.silverBlood.species.silverbloodTrilobite": [
     "Сереброкровый трилобит",
     "Trilobite à sang d’argent"

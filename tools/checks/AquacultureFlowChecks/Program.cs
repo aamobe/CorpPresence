@@ -19,3 +19,15 @@ Check(SilverBloodFlow.WaterChecks<int>(null,x=>true,x=>{},true)==null,"空列表
 int delivered=0,committed=0;
 SilverBloodFlow.DeliverPending(5,()=>++delivered<=2,()=>committed++);
 Check(delivered==3&&committed==2,"配送失败保留余量并逐件提交成功数");
+
+var tooltip = new RichTextBuilder();
+SilverBlood.AppendBloodProgress(tooltip, new GameItem { IsCreature = false, Capacity = 144 });
+SilverBlood.AppendBloodProgress(tooltip, new GameItem { IsDead = true, Capacity = 144 });
+SilverBlood.AppendBloodProgress(tooltip, new GameItem());
+Check(tooltip.Progress.Count == 0 && tooltip.Labels.Count == 0, "普通鱼、死亡与未成年的三叶蜥不显示储血进度");
+SilverBlood.AppendBloodProgress(tooltip, new GameItem { Capacity = 144 });
+SilverBlood.AppendBloodProgress(tooltip, new GameItem { Blood = 40, Capacity = 144 });
+SilverBlood.AppendBloodProgress(tooltip, new GameItem { Blood = 144, Capacity = 144 });
+SilverBlood.AppendBloodProgress(tooltip, new GameItem { Blood = 94, Capacity = 144 });
+Check(tooltip.Progress.SequenceEqual(new[] { 0f, 40f / 144, 1f, 94f / 144 }), "空储血、过夜、满血与采血后显示真实比例");
+Check(tooltip.Labels.SequenceEqual(new[] { "Blood reserve: 0/144 mL", "Blood reserve: 40/144 mL", "Blood reserve: 144/144 mL", "Blood reserve: 94/144 mL" }), "显示当前毫升和储血上限");

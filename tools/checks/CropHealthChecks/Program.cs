@@ -18,9 +18,21 @@ static int Nights(int baseWork, int score, int speed) {
     } while (progress < machine.Tags["MACHINE_PROGRESS_TARGET_TAG"]);
     return nights;
 }
-Eq(4, Nights(28, 100, 8)); Eq(6, Nights(28, 50, 8));
-Eq(6, Nights(42, 100, 8)); Eq(8, Nights(42, 50, 8));
-Eq(6, Nights(21, -1, 8)); Eq(2, Nights(14, 110, 8));
+Eq(4, Nights(28, 100, 8)); Eq(5, Nights(28, 50, 8));
+Eq(6, Nights(42, 100, 8)); Eq(7, Nights(42, 50, 8));
+Eq(4, Nights(21, -1, 8)); Eq(2, Nights(14, 110, 8));
+foreach (var (baseWork, health, expected) in new[] {
+    (28, 100, 28), (28, 90, 31), (28, 50, 33), (28, 0, 33),
+    (28, -26, 33), (14, 0, 16), (1, 0, 1), (42, 0, 50)
+}) {
+    var seed = new GameItem { BaseWork = baseWork, Score = health };
+    var machine = new GameItem();
+    seed.Tags["REQUIRED_PROGRESS"] = 56;
+    CropHealth.UpdateMaturityTarget(seed, machine);
+    Eq(expected, seed.Tags["REQUIRED_PROGRESS"]);
+    Eq(expected, seed.Tags["PROGRESS_ITEM_TARGET_TAG"]);
+    Eq(expected, machine.Tags["MACHINE_PROGRESS_TARGET_TAG"]);
+}
 foreach (var (score, flowers, leaves) in new[] {(100,4,10),(71,4,10),(70,3,7),(31,3,7),(30,2,5),(0,2,5)}) {
     Eq(flowers, CropHealth.HarvestCount(4, score));
     Eq(leaves, CropHealth.HarvestCount(10, score));

@@ -1169,6 +1169,7 @@ production.silverBlood.rewards.onDayStart.thereSParcelDoorWith,"There's a parcel
 production.silverBlood.rewards.tryDeliverParcel.gratitudeDirectiveApprovedThank,"Gratitude directive: approved. Thank you."
 production.silverBlood.rewards.tryDeliverParcel.unsignedNote,"Unsigned Note"
 production.silverBlood.species.numberedSpecimenCarmichealLabIts,"A numbered specimen from a Carmicheal lab. Its carapace splits into three lobes, silver light leaking from the seams."
+production.silverBlood.tooltip.bloodReserve,"Blood reserve: {0}/{1} mL"
 production.silverBlood.species.silverbloodTrilobite,"Silverblood Trilobite"
 production.tobacco.addManual.howUse,"How to use the {0}."
 production.tobacco.addManual.instructions,"{0} Instructions"
