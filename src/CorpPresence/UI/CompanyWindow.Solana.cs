@@ -89,7 +89,7 @@ internal static partial class CompanyWindow
 		case 4:
 			DrawEquipmentOrder(rect3, Perfume.Catalog,
 				L.K("ui.solana.overview.goldWorkshopSuppliesSeedsPer", "金卡工艺供应：花种每7天限购2颗。价格固定，次日配送。", "Gold workshop supplies: 2 seeds per rolling 7 days. Fixed prices; next-day delivery."),
-				Perfume.CatalogPrice, L.K("ui.solana.overview.placeOrder", "提交订货", "Place Order"));
+				entry => _company.OrderUnitPrice(entry, State), L.K("ui.solana.overview.placeOrder", "提交订货", "Place Order"));
 			break;
 		default:
 			DrawBrand(rect3);

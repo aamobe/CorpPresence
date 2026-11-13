@@ -81,6 +81,7 @@ internal abstract class Company
 	public int OrderUnitPrice(CatalogEntry entry, CompanyState state)
 	{
 		if (entry == null || state == null) return 0;
+		if (this is SolanaCo && Perfume.Catalog.Contains(entry)) return Perfume.CatalogPrice(entry);
 		int fixedPrice = EquipmentOrderRule.For(entry.Id)?.FixedPrice ?? 0;
 		return fixedPrice > 0 ? fixedPrice : entry.Quote(OrderPriceRate(entry, state));
 	}
