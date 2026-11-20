@@ -451,7 +451,7 @@ internal static partial class Goods
 		foreach (GameItem item in store.GetAllItems())
 		{
 			string key = IdOf(item);
-			if (key is "stamina" or "forge_furnace") RestoreFixedFootprint(item, Defs[key]);
+			if (key is "stamina" or "forge_furnace" or CartelReactor.Salt) RestoreFixedFootprint(item, Defs[key]);
 			if (key == CargoWarehouse.GoodsKey && item.shape.width == 3 && item.shape.height == 3)
 				RestoreFixedFootprint(item, Defs[key]);
 			if (key == ProductionWorkBay.GoodsKey && item.spritePath == "machine_bay_ext" &&

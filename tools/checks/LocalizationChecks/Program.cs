@@ -291,6 +291,13 @@ Check("stable translations match legacy copy or current feature translations", (
             || entry.Key is "items.definitions.craftingStation.name" or "items.definitions.siliconPlate.name"
                 or "items.definitions.electronicSubstrate.name" or "items.definitions.electronicBlueprint.name"
             || entry.Key.StartsWith("production.crafting.", StringComparison.Ordinal)
+            || entry.Key is "items.definitions.mineralGrowthStation.name" or "items.definitions.mineralOreBlueprint.name"
+                or "items.definitions.lightSaltBlueprint.name" or "items.definitions.lightSaltBlueprint.description"
+                or "items.definitions.alcoholStation.name"
+            || entry.Key.StartsWith("production.mineralGrowth.", StringComparison.Ordinal)
+            || entry.Key is "story.cen.nextVisit" or "story.shizuka.mineralizerHint"
+            || entry.Key.StartsWith("production.alcohol.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("production.reactor.", StringComparison.Ordinal)
             || entry.Key == "items.definitions.sinteringStation.name"
             || entry.Key.StartsWith("production.sintering.", StringComparison.Ordinal)
             || entry.Key == "items.definitions.mineralCrusher.name"

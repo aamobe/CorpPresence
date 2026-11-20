@@ -428,8 +428,12 @@ internal static partial class Goods
                 ["isomer_reactor_running"] = ("carmicheal", "isomer_reactor_running"),
                 [MineralCrusher.Key + "_running"] = ("mineral", "mineral-crusher-running"),
                 [PowderSieve.Key + "_running"] = ("mineral", "powder-sieve-running"),
-                [CraftingStation.Key + "_running"] = ("mineral", "crafting-station-running"),
+                [CraftingStation.Key + "_running"] = ("mineral", "crafting-station"),
                 [SinteringStation.Key + "_running"] = ("mineral", "sintering-station-running"),
+                [MineralGrowthStation.Key + "_ore-growing"] = ("mineral", "mineral-growth-ore-growing"),
+                [MineralGrowthStation.Key + "_ore-mature"] = ("mineral", "mineral-growth-ore-mature"),
+                [MineralGrowthStation.Key + "_light-salt-core-growing"] = ("mineral", "mineral-growth-light-salt-core-growing"),
+                [MineralGrowthStation.Key + "_light-salt-core-mature"] = ("mineral", "mineral-growth-light-salt-core-mature"),
                 ["rat_wheel_generator_occupied"] = ("husbandry", "rat_wheel_generator_retrofit_occupied"),
                 ["candle_lit"] = ("solana", "solana_candle_lit"),
                 ["hemingway_limited"] = ("pastel", "hemingway_limited"),
@@ -448,7 +452,11 @@ internal static partial class Goods
             set.Add("ElectronicBlueprint", CraftingStation.Blueprint, CraftingStation.BlueprintDefinition);
             set.Add("SinteringStation", SinteringStation.Key, SinteringStation.Definition);
             set.Add("MineralCrusher", MineralCrusher.Key, MineralCrusher.Definition);
+            set.Add("MineralGrowthStation", MineralGrowthStation.Key, MineralGrowthStation.Definition);
+            set.Add("MineralOreBlueprint", MineralGrowthBatch.OreBlueprint, MineralGrowthStation.OreBlueprint);
+            set.Add("LightSaltBlueprint", MineralGrowthBatch.LightSaltBlueprint, MineralGrowthStation.LightSaltBlueprint);
             set.Add("PowderBox", PowderBox.Key, PowderBox.Definition);
+            set.Add("AlcoholPreparationStation", AlcoholPreparationStation.Key, AlcoholPreparationStation.Definition);
             set.AddRange("CartelReactor", CartelReactor.Defs);
             set.AddRange("SleepMoss", SleepMoss.Defs);
             set.AddRange("Tobacco", Tobacco.Defs);

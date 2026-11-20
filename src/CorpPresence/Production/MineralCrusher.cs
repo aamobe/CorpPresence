@@ -15,7 +15,7 @@ internal static class MineralCrusher
     };
 
     private static bool IsFeed(GameItem item) =>
-        item != null && (item.identifier == "junk" || item.identifier == "scrap_metal")
+        item != null && CrusherBatch.Classify(item.identifier) != CrusherFeed.None
         && item.unitCount > 0 && GeneralHelper.IsItemOwned(item);
 
     private static bool PreserveResidue(GameItem machine) => machine.GetTagReadonly(PreserveResidueTag).GetBool();
@@ -32,7 +32,7 @@ internal static class MineralCrusher
         var status = new MachineryText(uppercase: false);
         var qualitySwitch = new MachineryButton();
         var window = MachineHelper.CreateMachineryWindow(true,
-            MachineHelper.Panel(L.T("垃圾／废金属", "Junk / scrap metal"), input, "input"),
+            MachineHelper.Panel(L.T("垃圾／废金属／玻璃", "Junk / scrap metal / glass"), input, "input"),
             MachineHelper.Panel(L.T("接粉盒", "Powder box"), receiver, "receiver"),
             MachineHelper.PowerPanel(battery),
             MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"),
@@ -91,7 +91,7 @@ internal static class MineralCrusher
             Span<int> parts = stackalloc int[PowderBox.ComponentCount];
             long total = PowderBox.Read(box, parts);
             int quality = EffectiveQuality(machine);
-            return CrusherBatch.CanFitFeed(total, item.identifier == "scrap_metal", quality);
+            return CrusherBatch.CanFitFeed(total, CrusherBatch.Classify(item.identifier), quality);
         }
         return false;
     }
@@ -110,12 +110,12 @@ internal static class MineralCrusher
         foreach (var item in input.childItems)
         {
             if (!IsFeed(item)) continue;
-            bool scrap = item.identifier == "scrap_metal";
+            var feed = CrusherBatch.Classify(item.identifier);
             int used = 0;
             while (used < item.unitCount && count < limit)
             {
-                if (!CrusherBatch.CanFitFeed(total, scrap, quality)) break;
-                var batch = scrap ? CrusherBatch.Parts(true, 0) : CrusherBatch.Parts(false,
+                if (!CrusherBatch.CanFitFeed(total, feed, quality)) break;
+                var batch = feed != CrusherFeed.Junk ? CrusherBatch.Parts(feed, 0) : CrusherBatch.Parts(feed,
                     RNG.GetRandomIntExculsive(0, 100), RNG.GetRandomIntExculsive(-5, 6),
                     RNG.GetRandomIntExculsive(-1, 2), RNG.GetRandomIntExculsive(-CrusherBatch.MaxResidueShift, CrusherBatch.MaxResidueShift + 1));
                 int residue = CrusherBatch.Residue(batch[4], quality);

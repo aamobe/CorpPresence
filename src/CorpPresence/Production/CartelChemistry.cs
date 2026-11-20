@@ -77,6 +77,9 @@ internal static class CartelChemistry
         if (component != null)
         {
             ChemicalHelper.InitChemItem(item, isBlendable: true);
+            // The small salt sprite should receive hover and drag across its 1x1 cell.
+            if (component == Salt && item is GameItemElement element && element.background?.image != null)
+                element.background.image.alphaHitTestMinimumThreshold = 0f;
             ChemicalHelper.SetChemContentUL(item, component, 8000);
             ChemicalHelper.SetChemContentUL(item, "physical_contaminant", 1000);
             return;

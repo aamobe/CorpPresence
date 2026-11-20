@@ -33,7 +33,7 @@ internal static class CraftingStation
     {
         Name = "普通电子元件蓝图", NameEn = "Common Electronics Blueprint", Value = 35,
         Company = "mineral", Art = "electronic-blueprint", Fallback = "printer_chip_10_mag",
-        W = 1, H = 1, Shell = () => ItemDirectory.CreateEmptyItem()
+        W = 1, H = 1, Shape = "#", Shell = () => ItemDirectory.CreateEmptyItem()
     };
 
     private static GameItem Build()
@@ -45,7 +45,7 @@ internal static class CraftingStation
         var inputs = new GameSlotInventory[3];
         for (int i = 0; i < inputs.Length; i++)
             inputs[i] = new GameSlotInventory(3, 3) { mayInventoryAddItemFunc = (item, _) => MaterialIndex(item) >= 0 };
-        var output = new GameGridInventory(4, 3) { mayInventoryAddItemFunc = (_, _) => false };
+        var output = new GameGridInventory(6, 4) { mayInventoryAddItemFunc = (_, _) => false };
         var assemble = new MachineryButton(L.K("production.crafting.assemble", "装配", "Assemble"));
         var status = new MachineryText(uppercase: false);
         var window = MachineHelper.CreateMachineryWindow(true, new[] { 0, 1, 2, 3 },

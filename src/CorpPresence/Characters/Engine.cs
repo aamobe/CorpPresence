@@ -7,14 +7,16 @@ namespace CorpPresence;
 
 internal static partial class Engine
 {
-	public static readonly Character[] All = new Character[6]
+	public static readonly Character[] All = new Character[]
 	{
 		new Isa(),
 		new Milo(),
 		new Seline(),
 		new Rosen(),
 		new Doreen(),
-		new Mentor()
+		new Mentor(),
+		new CartelShizuka(),
+		new LowerMachinist()
 	};
 
 	public static volatile bool BuyActive;

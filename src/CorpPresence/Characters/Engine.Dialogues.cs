@@ -127,10 +127,26 @@ internal static partial class Engine
 				client.OnIntroduced();
 			}
 		};
+		bool purchaseAttempted = false;
 		Action endAction = () =>
 		{
+			if (!visitSession.IsCurrent) return;
+			if (v.TryComplete != null)
+			{
+				if (purchaseAttempted) return;
+				purchaseAttempted = true;
+				bool purchased = false;
+				try { purchased = v.TryComplete(); }
+				catch (Exception error) { WarnVisit(c.Name + "套装交付异常：" + error.Message); }
+				if (!purchased)
+				{
+					if (visitSession.TryFinish())
+						UnityEngine.Object.FindObjectOfType<DialogUIManager>()?.CurrentClientLeave();
+					return;
+				}
+			}
 			startTrade();
-			if (!done || !visitSession.TryFinish()) return;
+			if ((!done && !v.TalkOnly) || !visitSession.TryFinish()) return;
 			try
 			{
 				UnityEngine.Object.FindObjectOfType<DialogUIManager>()?.CurrentClientLeave();

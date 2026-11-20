@@ -76,11 +76,11 @@ internal static partial class Engine
             item = c.MakeItem(id);
             if (item == null || !session.IsCurrent) return false;
             bool attached;
-            try { attached = store.TryAddDirectSellingItemToTable(item, owned) || item.parentInventory != null; }
+            try { attached = store.TryAddDirectSellingItemToTable(item, owned) || StorePlacement.Attached(item); }
             catch (Exception error)
             {
                 WarnVisit(c.Name + "摆货异常：" + error.Message);
-                attached = item.parentInventory != null;
+                attached = StorePlacement.Attached(item);
             }
             if (!attached) return false;
             try { value = item.GetCurrentValue(useRetailMarkup: false, withChild: true, includeEvents: false, forceMarkup: false, 0L); }
@@ -90,7 +90,7 @@ internal static partial class Engine
         catch (Exception error) { WarnVisit(c.Name + "摆货失败：" + error.Message); return false; }
         finally
         {
-            if (item != null && item.parentInventory == null)
+            if (item != null && !StorePlacement.Destroyed(item) && item.parentInventory == null)
                 try { item.Destroy(); } catch (Exception error) { WarnVisit("未放置物品回收失败：" + error.Message); }
         }
     }
@@ -99,6 +99,15 @@ internal static partial class Engine
     {
         if (gifts.Length == 0) return true;
         if (!visit.IsCurrent) return false;
+        if (c is CartelShizuka)
+        {
+            if (gifts.Length != 1) return false;
+            if (gifts[0] == "corp_presence_" + MineralGrowthBatch.LightSaltBlueprint
+                && !CartelShizuka.MineralizerUnlocked(CorpState.Current)) return false;
+            if (TryPlace(c, gifts[0], owned: true, out _)) return true;
+            StoreUIManager.Instance?.Notify(L.T("请腾出柜台空间领取黑羽静带来的物品。", "Clear space on the counter for the gift from Shizuka."));
+            return false;
+        }
         Company company = Companies.ByCharacter(c.Id);
         CompanyState state = company == null ? null : Companies.StateOf(company);
         if (state?.Orders == null) return false;
@@ -166,7 +175,7 @@ internal static partial class Engine
             return Math.Max(0L, item?.GetCurrentValue(useRetailMarkup: false, withChild: true, includeEvents: false, forceMarkup: false, 0L) ?? 0);
         }
         catch { return 0; }
-        finally { if (item != null && item.parentInventory == null) try { item.Destroy(); } catch { } }
+        finally { if (item != null && !StorePlacement.Destroyed(item) && item.parentInventory == null) try { item.Destroy(); } catch { } }
     }
 }
 

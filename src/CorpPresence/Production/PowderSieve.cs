@@ -182,6 +182,16 @@ internal static class PowderSieve
         return true;
     }
 
+    internal static long QualifyingStock(GameItem machine)
+    {
+        long total = 0;
+        foreach (string tag in Bins) total += Read(machine, tag);
+        var tailings = ReadBin(machine, Bins.Length);
+        if (PowderClassification.FromParts(tailings).PurityBasisPoints >= 8100)
+            foreach (int amount in tailings) total += amount;
+        return total;
+    }
+
     private static int[] ReadBin(GameItem machine, int index)
     {
         var parts = new int[PowderBox.ComponentCount];

@@ -4,4 +4,5 @@
   <ItemGroup><Compile Include="../../../src/CorpPresence/Production/PowderClassification.cs" /></ItemGroup>
   <ItemGroup><Compile Include="../../../src/CorpPresence/Production/SinteringBatch.cs" /><Compile Include="../../../src/CorpPresence/Production/SinteringRecipes.cs" /></ItemGroup>
   <ItemGroup><Compile Include="../../../src/CorpPresence/Production/PowderPricing.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/MineralGrowthBatch.cs" /></ItemGroup>
 </Project>

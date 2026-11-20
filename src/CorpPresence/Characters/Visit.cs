@@ -24,6 +24,7 @@ internal sealed class Visit
 	public string Wrong = L.K("characters.visit.labels.donTTryFoolMe", "别糊弄我。", "Don't try to fool me.");
 
 	public bool TalkOnly;
+	public Func<bool> TryComplete;
 
 	public string Ask;
 

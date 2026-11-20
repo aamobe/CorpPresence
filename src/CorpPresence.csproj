@@ -23,6 +23,8 @@
     </Reference>
     <EmbeddedResource Include="Assets\**\*.png" LogicalName="%(Filename)%(Extension)" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/twin-vessel-reactor.png" LogicalName="CorpPresence.art.cartel.twin-vessel-reactor.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/alcohol-preparation-station.png" LogicalName="CorpPresence.art.cartel.alcohol-preparation-station.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/alcohol-preparation-station-running.png" LogicalName="CorpPresence.art.cartel.alcohol-preparation-station-running.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/blue-shell-resin.png" LogicalName="CorpPresence.art.cartel.blue-shell-resin.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/light-salt-core.png" LogicalName="CorpPresence.art.cartel.light-salt-core.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-gel.png" LogicalName="CorpPresence.art.cartel.sleep-moss-gel.png" />
@@ -36,6 +38,12 @@
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-hydroponic-spreading.png" LogicalName="CorpPresence.art.cartel.sleep-moss-hydroponic-spreading.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-hydroponic-harvestable.png" LogicalName="CorpPresence.art.cartel.sleep-moss-hydroponic-harvestable.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-sieve.png" LogicalName="CorpPresence.art.mineral.powder-sieve.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-station.png" LogicalName="CorpPresence.art.mineral.mineral-growth-station.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-station-running.png" LogicalName="CorpPresence.art.mineral.mineral-growth-station-running.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-ore-growing.png" LogicalName="CorpPresence.art.mineral.mineral-growth-ore-growing.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-ore-mature.png" LogicalName="CorpPresence.art.mineral.mineral-growth-ore-mature.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-light-salt-core-growing.png" LogicalName="CorpPresence.art.mineral.mineral-growth-light-salt-core-growing.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-light-salt-core-mature.png" LogicalName="CorpPresence.art.mineral.mineral-growth-light-salt-core-mature.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-crusher.png" LogicalName="CorpPresence.art.mineral.mineral-crusher.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-crusher-running.png" LogicalName="CorpPresence.art.mineral.mineral-crusher-running.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-sieve-running.png" LogicalName="CorpPresence.art.mineral.powder-sieve-running.png" />
@@ -45,7 +53,9 @@
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crafting-station-running.png" LogicalName="CorpPresence.art.mineral.crafting-station-running.png" Condition="Exists('CorpPresence/assets/mineral-recycling/crafting-station-running.png')" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/silicon-plate.png" LogicalName="CorpPresence.art.mineral.silicon-plate.png" Condition="Exists('CorpPresence/assets/mineral-recycling/silicon-plate.png')" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/electronic-substrate.png" LogicalName="CorpPresence.art.mineral.electronic-substrate.png" Condition="Exists('CorpPresence/assets/mineral-recycling/electronic-substrate.png')" />
-    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/electronic-blueprint.png" LogicalName="CorpPresence.art.mineral.electronic-blueprint.png" Condition="Exists('CorpPresence/assets/mineral-recycling/electronic-blueprint.png')" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/electronic-blueprint.png" LogicalName="CorpPresence.art.mineral.electronic-blueprint.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-ore-blueprint.png" LogicalName="CorpPresence.art.mineral.mineral-ore-blueprint.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/light-salt-blueprint.png" LogicalName="CorpPresence.art.mineral.light-salt-blueprint.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-body.png" LogicalName="CorpPresence.art.mineral.powder-box-body.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-fill-20.png" LogicalName="CorpPresence.art.mineral.powder-box-fill-20.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-box-fill-40.png" LogicalName="CorpPresence.art.mineral.powder-box-fill-40.png" />

@@ -19,6 +19,8 @@ internal static class SinteringRecipes
             new SinteringIngredient(PowderComponent.Conductive, 12));
         Register("electronic_substrate", "corp_presence_electronic_substrate", null, false,
             new SinteringIngredient(PowderComponent.RareMetal, 4));
+        Register("wine_bottle", "wine_bottle", "item_wine_bottle_name", false,
+            new SinteringIngredient(PowderComponent.Silica, 20));
     }
 
     internal static void Register(string id, string product, string nameKey, bool gradeIngot, params SinteringIngredient[] ingredients)

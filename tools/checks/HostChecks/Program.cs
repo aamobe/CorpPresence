@@ -28,6 +28,7 @@ namespace CorpPresence.UI {
     internal static class Notebook { internal static void Tick(){} }
 }
 namespace CorpPresence {
+    internal static class Hooks { internal static void ShowInventoryLoadNotice(){} }
     internal static class LoadedItemRepair { internal static void Tick(){} }
     internal static class CjkFallback { internal static void Tick(){} }
     internal static class Crates { internal static void Tick(){} }

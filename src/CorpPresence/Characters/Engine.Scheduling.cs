@@ -62,7 +62,10 @@ internal static partial class Engine
 		}
 	}
 
-	private static void ApplyDailyCap(CorpState state, int tomorrow)
+	private static bool CanQueue(Character c, CharacterState s, CorpState root) =>
+        c is not CartelShizuka || s.PendingKind != "ch2" || CartelShizuka.MineralizerUnlocked(root);
+
+    private static void ApplyDailyCap(CorpState state, int tomorrow)
 	{
 		int dailyCap = Settings.DailyCap;
 		if (dailyCap <= 0)
@@ -71,7 +74,7 @@ internal static partial class Engine
 		}
 		foreach (var item in (from c in All
 			select (c: c, s: state.Of(c.Id)) into x
-			where x.s.PendingDay == tomorrow
+			where x.s.PendingDay == tomorrow && CanQueue(x.c, x.s, state)
 			orderby (!(x.s.PendingKind?.StartsWith("ch") ?? false)) ? 1 : 0, x.s.LastVisitDay
 			select x).ToList().Skip(dailyCap))
 		{
@@ -141,6 +144,8 @@ internal static partial class Engine
 
 	private static bool Ready(Character c, int ch, int cash)
 	{
+		if (c is CartelShizuka && ch == 2) return CartelShizuka.MineralizerUnlocked(CorpState.Current);
+		if (c is LowerMachinist && ch == 2) return LowerMachinist.HasPowder();
 		if (!c.IsBuyChapter(ch))
 		{
 			return cash > c.CashFor(ch);
@@ -182,6 +187,7 @@ internal static partial class Engine
 					state = root.Of(character.Id);
 					// 今天排过了就不再排。未到店的预约和未完成的剧情可能仍然保留。
 					if (state.PendingDay < 0 || state.PendingDay > day || state.QueuedDay == day) continue;
+					if (!CanQueue(character, state, root)) continue;
 					string prefix = character.Prefix;
 					StoreClient active = SaveSlot.CurrentStore?.currentClientInstance?.GetClientBlueprint();
 					bool present = active?.identifier?.StartsWith(prefix, StringComparison.Ordinal) == true;

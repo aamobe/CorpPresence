@@ -96,9 +96,15 @@ internal static partial class Perfume
         int processed = Math.Min(mash, Math.Max(2, (int)Math.Round(mash * 0.15 / 2) * 2));
         double solvent = Math.Min(1, alcohol / (5.0 * processed));
         int oil = Math.Min(processed / 2, (int)Math.Round(processed * 0.5 * solvent));
+#if LOCAL_TEST_KIT
+        bool firstOil = oil > 0 && Parts(container, OilLiquid) == 0;
+#endif
         SetParts(container, MashLiquid, mash - processed);
         SetParts(container, OilLiquid, checked(Parts(container, OilLiquid) + oil));
         SetParts(container, "plant_matter", checked(Parts(container, "plant_matter") + processed - oil));
+#if LOCAL_TEST_KIT
+        if (firstOil) ModLog.Info($"索拉纳花材提取开始出油：容器酒精 {alcohol} µL，本轮生成基底油 {oil} µL。");
+#endif
         WaterFeatureHelper.OnLiquidChanged(container, WaterFeatureHelper.GetWaterFeature(container).IsExposed());
     }
 

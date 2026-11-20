@@ -168,6 +168,12 @@ internal static class MachineAppearance
     {
         if (item == null || item.spritePath?.StartsWith("corp_med_", System.StringComparison.Ordinal) != true)
             return null;
+        if (item.spritePath == "corp_med_" + MineralGrowthStation.Key)
+        {
+            string stage = MineralGrowthStation.Appearance(item);
+            return stage == null ? null : Goods.FindSprite(item.spritePath + stage);
+        }
+
         bool running = Outputs.TryGetValue(item, out var output)
             ? output.childItems.Any(product => product != null && product.unitCount > 0)
             : Cycles.TryGetValue(item, out var cycle) && cycle.Running;
@@ -177,7 +183,7 @@ internal static class MachineAppearance
         return running ? Goods.FindSprite(sprite) : null;
     }
 
-    private static void Refresh(GameItem machine)
+    internal static void Refresh(GameItem machine)
     {
         // Invalidate the rendered sprite while keeping the saved sprite key and shape.
         machine.SetSprite(machine.spriteAtlasPath, machine.spritePath);

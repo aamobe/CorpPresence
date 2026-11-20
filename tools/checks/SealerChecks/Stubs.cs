@@ -185,3 +185,6 @@ internal static class Perfume { public const string CollectorKey = "perfume_coll
 
 
 internal static class MachineAppearance { public static void Rearm(GameItem item) {} public static void WatchCycle(GameItem item,GameGridInventory output,Func<string> ready) {} public static bool CanPowerCycle(GameItem item,GameSlotInventory battery,string carry) => true; }
+internal static class MineralCrusher { public const string Key = "mineral_crusher"; }
+internal static class SinteringStation { public const string Key = "sintering_station"; }
+internal static class MineralGrowthStation { public const string Key = "mineral_growth_station"; }
