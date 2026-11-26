@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using CorpPresence.Malice;
@@ -29,7 +29,7 @@ internal static class Crates
 
 	public static string GoodsKey(Company c)
 	{
-		if (!(c is RebelCo))
+		if (c is not (RebelCo or WorkshopContact))
 		{
 			return "crate_" + c.Id;
 		}

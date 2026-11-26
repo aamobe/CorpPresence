@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using CorpPresence;
 static void Check(bool pass) { if (!pass) throw new Exception("Powder color assertion failed"); }
@@ -8,6 +9,25 @@ Check(PowderColor.Mix(new[] {100, 0, 0, 0, 0}) == 0xB8C1CA);
 Check(PowderColor.Mix(new[] {0, 100, 0, 0, 0}) == 0xF2F0E8);
 Check(PowderColor.Mix(new[] {50, 50, 0, 0, 0}) == 0xD5D9D9);
 Console.WriteLine("6 powder color checks passed.");
+
+var flow = ClassifierBatch.Plan(0, null, 0);
+var fine = ClassifierBatch.Plan(1, "fine_screen", 0);
+var basicMill = ClassifierBatch.Plan(2, "crystal_sleeve", 0);
+var quickMill = ClassifierBatch.Plan(2, "crystal_sleeve", 3);
+Check(flow.Nights == 1 && flow.Coarse == 2 && flow.Fine == 1);
+Check(fine.Nights == 2 && fine.Coarse == 1 && fine.Fine == 2);
+Check(basicMill.Nights == 2 && basicMill.Crystal == 2 && quickMill.Nights == 1 && quickMill.Crystal == 2);
+Check(ClassifierBatch.Plan(1, "crystal_sleeve", 3) == null && ClassifierBatch.Plan(2, "fine_screen", 0) == null);
+Check(ClassifierBatch.Restore(basicMill.Id) == basicMill && ClassifierBatch.Restore(quickMill.Id) == quickMill);
+Check(ClassifierBatch.Restore("") == null && ClassifierBatch.Restore("other.v2") == null && ClassifierBatch.Power == 8);
+var exactSilica = new[] { 9, 81, 4, 3, 3 };
+Check(ClassifierBatch.TakeSilica(exactSilica) && exactSilica.SequenceEqual(new[] { 9, 21, 4, 3, 3 }));
+foreach (var rejected in new[] { new[] { 0, 59, 0, 0, 0 }, new[] { 20, 80, 0, 0, 0 }, new[] { 0, 501, 0, 0, 0 } })
+{
+    var before = rejected.ToArray();
+    Check(!ClassifierBatch.TakeSilica(rejected) && rejected.SequenceEqual(before));
+}
+Console.WriteLine("Classifier modes, frozen recipes, charge and exact silica checks passed.");
 
 foreach (var (roll, expected) in new[] {
     (0, "25,20,3,7,45"), (39, "25,20,3,7,45"), (40, "45,15,5,10,25"),
@@ -113,7 +133,21 @@ int tailings = 0;
 for (int i = 0; i < feed.Length; i++) tailings += feed[i] - sorted[i];
 Check(tailings == 151);
 
-Check(SinteringRecipes.All.Count == 5);
+Check(SinteringRecipes.All.Count == 12);
+var standardRod = SinteringRecipes.All[SinteringRecipes.IndexOf("standard_alloy_rod")];
+Check(standardRod.OutputCount == 2 && standardRod.Exact && standardRod.Product == "corp_presence_standard_alloy_rod");
+var rodBoxes = new[] { new[] {60, 0, 0, 0, 5}, new[] {0, 12, 0, 0, 2} };
+var rodBatch = SinteringBatch.Plan(rodBoxes, standardRod.Ingredients, null, standardRod.Exact);
+Check(rodBatch != null && rodBatch.Remaining[0][0] == 0 && rodBatch.Remaining[0][4] == 5
+    && rodBatch.Remaining[1][1] == 0 && rodBatch.Remaining[1][4] == 2);
+rodBoxes[1][1]--;
+Check(SinteringBatch.Plan(rodBoxes, standardRod.Ingredients, null, standardRod.Exact) == null);
+var alloyRecipe = SinteringRecipes.All[SinteringRecipes.IndexOf(IndustrialRecipes.Billet)];
+var alloyParts = SinteringBatch.Plan(new[]{new[]{45,0,0,0,10},new[]{0,0,5,0,1}}, alloyRecipe.Ingredients,null,alloyRecipe.Exact);
+Check(alloyParts != null && alloyParts.Remaining[0][4] == 10 && alloyParts.Remaining[1][4] == 1 && alloyParts.Total == 50);
+Check(SinteringBatch.Plan(new[]{new[]{45,0,0,0,11},new[]{0,0,5,0,0}},alloyRecipe.Ingredients,null,true) == null);
+Check(CrusherBatch.CanFitFeed(480,CrusherFeed.SpentContact,0) && !CrusherBatch.CanFitFeed(481,CrusherFeed.SpentContact,100));
+Check(CrusherBatch.Parts(CrusherFeed.SpentContact,0).SequenceEqual(new[]{0,0,10,10,0}));
 Check(SinteringRecipes.IndexOf("common_electronic") == 0);
 Check(SinteringRecipes.All[1].Ingredients[0] == new SinteringIngredient(PowderComponent.Silica, 30));
 Check(SinteringRecipes.All[2].Product == "wire");
@@ -158,3 +192,112 @@ Check(MineralGrowthBatch.Appearance(MineralGrowthBatch.OreBlueprint, 200) == "_o
 Check(MineralGrowthBatch.Appearance(MineralGrowthBatch.LightSaltBlueprint, 199) == "_light-salt-core-growing");
 Check(MineralGrowthBatch.Appearance(MineralGrowthBatch.LightSaltBlueprint, 200) == "_light-salt-core-mature");
 Console.WriteLine("Mineral growth recipe, purity, cost and progress checks passed.");
+var salvage = CrusherBatch.Parts(CrusherBatch.Classify("corp_presence_salvage_electronics"), 0).ToArray();
+var lining = CrusherBatch.Parts(CrusherBatch.Classify("corp_presence_spent_lining"), 0).ToArray();
+Check(string.Join(",", salvage) == "15,25,8,22,30" && string.Join(",", lining) == "5,10,0,0,85");
+var scrap = CrusherBatch.Parts(CrusherFeed.Scrap, 0).ToArray();
+var load = new int[5];
+for (int i = 0; i < 5; i++) load[i] = scrap[i] + salvage[i] + lining[i];
+Check(string.Join(",", PowderSieveRules.Sort(load, 50)) == "47,22,6,13,60");
+Check(PowderSieveRules.Sort(new[] {1,1,1,1,1}, 50) == null);
+var source = new[] {45,0,0,0,0};
+int[] SplitPure(int[] parts, int amount) => new[] {Math.Min(parts[0], amount),0,0,0,0};
+var ingot = requirements[0];
+foreach (var (amount, qualified, missing) in new[] {(31,false,14),(32,true,13),(45,true,0)})
+{
+    var transfer = PowderTransfer.Plan(source, scrap, 500, amount, SplitPure);
+    Check(transfer != null && transfer.Missing(ingot) == missing && transfer.Qualified(ingot) == qualified);
+    Check(transfer.SourceAfter[0] == 45-amount && transfer.TargetAfter[0] == 75+amount);
+}
+Check(PowderTransfer.ToGoal(source, scrap, 500, ingot, SplitPure) == 45);
+Check(PowderTransfer.Plan(source, scrap, 500, 46, SplitPure) == null);
+Check(PowderTransfer.Plan(source, new[] {490,0,0,0,0}, 500, 11, SplitPure) == null);
+Check(PowderTransfer.Plan(new[] {1499,0,0,0,0}, scrap, 1500, 1, SplitPure).SourceAfter[0] == 1498);
+Check(source[0] == 45 && scrap[0] == 75);
+var tile = SinteringRecipes.All[SinteringRecipes.IndexOf("hearth_tile")];
+Check(tile.Product == "corp_presence_hearth_tile" && tile.Ingredients[0] == new SinteringIngredient(PowderComponent.Residue,40));
+Console.WriteLine("Workshop feed, recovery, transfer and hearth tile checks passed.");
+
+// Largest remainders, with the native splitter's tie-break on the original component amount.
+int[] SplitMixture(int[] parts, int amount)
+{
+    int total = parts.Sum();
+    if (amount >= total) return (int[])parts.Clone();
+    var taken = parts.Select(x => x * amount / total).ToArray();
+    var priority = Enumerable.Range(0, parts.Length)
+        .OrderByDescending(i => parts[i] * amount % total).ThenByDescending(i => parts[i]);
+    foreach (int i in priority.Take(amount - taken.Sum())) taken[i]++;
+    return taken;
+}
+var glass = CrusherBatch.Parts(CrusherFeed.Glass, 0).ToArray().Select(x => 3*x).ToArray();
+Check(PowderClassification.FromParts(glass).Grade == PowderGrade.Coarse && glass.Sum() == 300);
+var firstScrap = scrap.Select(x => x * 3).ToArray();
+var firstSort = PowderSieveRules.Sort(firstScrap, 50);
+var firstTail = firstScrap.Zip(firstSort, (a,b) => a-b).ToArray();
+Check(string.Join("/", firstSort) == "112/15/7/7/7" && firstTail.Sum() == 152);
+Check(string.Join("/", PowderSieveRules.Sort(firstTail, 50)) == "56/7/4/4/4");
+var last = PowderTransfer.Plan(firstTail, new int[5], 1500, 151, SplitMixture);
+Check(last.SourceAfter.Sum() == 1 && last.TargetAfter.Sum() == 151);
+Check(PowderSieveRules.Sort(last.SourceAfter, 50) == null);
+var lastDraw = PowderTransfer.Plan(last.SourceAfter, last.TargetAfter, 1500, 1, SplitMixture);
+Check(lastDraw.TargetAfter.SequenceEqual(firstTail) && lastDraw.SourceAfter.Sum() == 0);
+var junkRange = CrusherBatch.Range(CrusherFeed.Junk, 0);
+Check(string.Join("/", junkRange.Min) == "10/7/1/6/22" && string.Join("/", junkRange.Max) == "50/53/9/23/48");
+Check(CrusherBatch.CanFitFeed(485, CrusherFeed.SpentLining, 100));
+Check(!CrusherBatch.CanFitFeed(486, CrusherFeed.SpentLining, 100));
+foreach (int added in new[] {31,32,45})
+{
+    var mixture = PowderTransfer.Plan(source, scrap, 500, added, SplitMixture).TargetAfter;
+    var ingotPlan = SinteringBatch.Plan(new[] {mixture}, requirements, SplitMixture);
+    Check(added != 45 ? ingotPlan == null : ingotPlan != null && ingotPlan.Metal == 120
+        && ingotPlan.Total == 145 && SinteringBatch.GetIngotGrade(ingotPlan.Metal, ingotPlan.Total) == SinteringIngotGrade.High);
+}
+var tilePlan = SinteringBatch.Plan(new[] { lining }, tile.Ingredients, SplitMixture);
+Check(tilePlan != null && tilePlan.Remaining[0][4] == 45 && tilePlan.Remaining[0].Sum() == 100 - tilePlan.Total);
+Check(SinteringBatch.Plan(new[] { new[] {0,10,0,0,39} }, tile.Ingredients, SplitMixture) == null);
+Console.WriteLine("Three starter routes, last-point conservation, junk bounds and actual sintering plans passed.");
+
+var hopper = new GameGridInventory();
+GameItem FeedItem(string id, int x, int y) => new() { identifier = id, modifiedShape = (x,y) };
+var early = FeedItem("scrap_metal", 5, 5);
+var later = FeedItem("glass_shard", 0, 0);
+hopper.childItems.Add(early);
+MineralCrusher.QueueFeed(early, hopper, null);
+hopper.childItems.Insert(0, later); // Native grid can sort by position before exposing childItems.
+MineralCrusher.QueueFeed(later, hopper, null);
+Check(MineralCrusher.FeedInOrder(hopper).SequenceEqual(new[] { early, later }));
+MineralCrusher.QueueFeed(early, hopper, null); // Loading a tagged item preserves its sequence.
+Check(MineralCrusher.FeedInOrder(hopper).First() == early);
+hopper.childItems.Remove(early);
+MineralCrusher.DequeueFeed(early, hopper, null);
+hopper.childItems.Add(early);
+MineralCrusher.QueueFeed(early, hopper, null);
+Check(MineralCrusher.FeedInOrder(hopper).SequenceEqual(new[] { later, early }));
+var legacy = FeedItem("junk", 6, 1);
+var otherLegacy = FeedItem("scrap_metal", 0, 2);
+SaveManager.IsDecoding = true;
+foreach (var restored in new[] { otherLegacy, legacy })
+{
+    hopper.childItems.Add(restored);
+    MineralCrusher.QueueFeed(restored, hopper, null);
+}
+SaveManager.IsDecoding = false;
+Check(MineralCrusher.FeedInOrder(hopper).SequenceEqual(new[] { legacy, otherLegacy, later, early }));
+
+var existingWire = new GameItem { unitCount = 3 };
+var grid = new GameGridInventory { Slots = 1 };
+grid.childItems.Add(existingWire);
+existingWire.parentInventory = grid;
+var newWire = new GameItem();
+var stackRule = newWire.mayStackItemFunc;
+Check(GraphUtils.CanAccept(grid, newWire)); // With native rules this item would merge into the old stack.
+Check(!ProductionOutput.WithSeparateUnit(newWire, () => GraphUtils.CanAccept(grid, newWire)));
+Check(!ProductionOutput.WithSeparateUnit(newWire, () => ProductionOutput.TryAdd(grid, newWire)));
+Check(existingWire.unitCount == 3 && newWire.unitCount == 1 && newWire.parentInventory == null && newWire.mayStackItemFunc == stackRule);
+grid.Slots++;
+Check(ProductionOutput.WithSeparateUnit(newWire, () => GraphUtils.CanAccept(grid, newWire)));
+Check(ProductionOutput.WithSeparateUnit(newWire, () => ProductionOutput.TryAdd(grid, newWire)));
+Check(existingWire.unitCount == 3 && newWire.parentInventory == grid && newWire.mayStackItemFunc == stackRule);
+try { ProductionOutput.WithSeparateUnit(newWire, () => throw new InvalidOperationException()); } catch (InvalidOperationException) { }
+Check(newWire.mayStackItemFunc == stackRule);
+Console.WriteLine("Crusher queue insertion, reload, reinsert and legacy order; staged stack fit and placement checks passed.");

@@ -41,6 +41,14 @@ internal static class CartelReactor
 
     private static string Id(string key) => "corp_presence_" + key;
 
+    private const string blueTag = "CORP_CARTEL_BLUE_BATCH";
+    private const string whiteTag = "CORP_CARTEL_WHITE_BATCH";
+    internal static int ReadVessel(GameItem machine, bool blue) =>
+        machine.GetTagReadonly(blue ? blueTag : whiteTag).GetInt();
+
+    internal static bool HasLegacyBatch(GameItem machine) => machine?.identifier == "corp_presence_" + Key
+        && (machine.GetTagReadonly(blueTag).GetInt() is 1 or 2 || machine.GetTagReadonly(whiteTag).GetInt() is 1 or 2);
+
     private static bool Matches(GameItem item, string id) =>
         item != null && item.identifier == id && item.unitCount > 0 && GeneralHelper.IsItemOwned(item);
 
@@ -66,8 +74,6 @@ internal static class CartelReactor
 
     private static GameItem Build()
     {
-        const string blueTag = "CORP_CARTEL_BLUE_BATCH";
-        const string whiteTag = "CORP_CARTEL_WHITE_BATCH";
         var battery = new GameSlotInventory();
         var moss = Feed(SleepMoss.BlockId);
         var resin = Feed(Id(Resin));
@@ -100,7 +106,7 @@ internal static class CartelReactor
         MachineHelper.SetupBatterySlot(battery, machine);
         MachineryHelper.InitMachinery(machine, BasePower);
         int State(string tag) => machine.GetTagReadonly(tag).GetInt();
-        void SetState(string tag, int value) => machine.ModifyTag(tag, state => state.Enable().SetInt(value));
+        void SetState(string tag, int value) => machine.ModifyTag(tag, state => state.Enable().SetInt(value), skipValidate: true);
         string VesselStatus(int state, bool hasMoss, GameGridInventory feed, string reagent, GameGridInventory output, string product)
         {
             if (state == 0)
@@ -110,7 +116,7 @@ internal static class CartelReactor
                     return reagent == Resin ? L.K("production.reactor.needResin", "缺蓝壳树脂", "Needs blue shell resin")
                         : L.K("production.reactor.needSalt", "缺光盐芯", "Needs light salt core");
             }
-            if (!MachineAppearance.CanFit(output, Id(product))) return L.K("production.reactor.outputFull", "清出出料格", "Clear output space");
+            if (!MachineAppearance.CanFit(output, Id(product), separateUnit: true)) return L.K("production.reactor.outputFull", "清出出料格", "Clear output space");
             if (state == 2) return L.K("production.reactor.collectible", "旧批次可取", "Old batch ready to collect");
             if (state == 1) return L.K("production.reactor.legacyOvernight", "旧批次待过夜", "Old batch pending overnight");
             return L.K("production.reactor.loaded", "原料已齐", "Ingredients ready");
@@ -133,7 +139,7 @@ internal static class CartelReactor
         }
         bool Ready() => GeneralHelper.IsItemOwned(machine) && SaveSlot.CanWrite("CorpPresence");
 
-        bool DrawPower() => MachineHelper.TryDrawCyclePower(machine, battery);
+        bool DrawPower() => WorkshopCycle.DrawPower(machine, battery);
 
         void Produce(string tag, GameGridInventory ingredient, string id, string key, GameGridInventory output)
         {
@@ -165,8 +171,8 @@ internal static class CartelReactor
             Refresh();
         }
 
-        collect.SetCallback(() => HookGuard.Run("反应槽取料", () => Settle(false)));
-        machine.onCycleEndSlotItemFunc = (_, _, _) => HookGuard.Run("反应槽过夜", () => Settle(true));
+        collect.SetCallback(() => HookGuard.Run("反应槽取料", () => WorkshopCycle.Run(machine, () => Settle(false))));
+        machine.onCycleEndSlotItemFunc = (_, _, _) => HookGuard.Run("反应槽过夜", () => WorkshopCycle.Run(machine, () => Settle(true)));
         refine.onSlotRemoveItemEndFunc += (_, _, _) => Refresh();
         products.onSlotRemoveItemEndFunc += (_, _, _) => Refresh();
         foreach (var inventory in new GameInventory[] { battery, moss, resin, salt, blueOutput, whiteOutput })
@@ -181,8 +187,18 @@ internal static class CartelReactor
 
     private static void Consume(GameItem item)
     {
-        if (item.unitCount == 1) item.Destroy();
-        else item.SetUnitCount(item.unitCount - 1);
+        int before = item.unitCount;
+        try
+        {
+            if (before == 1) item.Destroy();
+            else item.SetUnitCount(before - 1);
+        }
+        catch (Exception error) when (before == 1
+            ? item.parentInventory == null || item is GameItemElement element && element.IsDestroyed()
+            : item.unitCount == before - 1)
+        {
+            ModLog.Warn("反应槽原料已实扣，继续结清本批：" + error.GetType().Name);
+        }
     }
 
     private static bool Place(GameGridInventory output, string key, Func<bool> drawPower)
@@ -194,7 +210,8 @@ internal static class CartelReactor
         try
         {
             GeneralHelper.SetItemOwned(item);
-            committed = ProductionOutput.TryAdd(output, item) && (drawPower == null || drawPower());
+            committed = ProductionOutput.TryAddSeparate(output, item)
+                && (drawPower == null || drawPower());
             return committed;
         }
         finally

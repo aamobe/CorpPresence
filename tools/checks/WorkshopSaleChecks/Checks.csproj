@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../src/CorpPresence/Persistence/WorkshopSaleState.cs" />
+    <Compile Include="../../../src/CorpPresence/Persistence/WorkshopState.cs" />
+    <Compile Include="../../../src/CorpPresence/Companies/WorkshopSales.cs" />
+    <Compile Include="../../../src/CorpPresence/Companies/CompanyTransaction.cs" />
+    <Compile Include="../../../src/CorpPresence/Production/PowderClassification.cs" />
+    <Compile Include="../../../src/CorpPresence/Production/CrusherBatch.cs;../../../src/CorpPresence/Production/PowderSieveRules.cs" />
+    <Compile Include="../../../src/CorpPresence/Production/PowderTransfer.cs;../../../src/CorpPresence/Production/SinteringBatch.cs;../../../src/CorpPresence/Production/SinteringRecipes.cs" />
+    <Compile Include="../../../src/CorpPresence/Production/IndustrialRecipes.cs;../../../src/CorpPresence/Production/PowderColor.cs" />
+    <Compile Include="../../../src/CorpPresence/Production/RodMaterial.cs;../../../src/CorpPresence/Production/RodCondition.cs" />
+    <Compile Include="../../../src/CorpPresence/Persistence/FirstOverhaulState.cs" /><Compile Include="../../../src/CorpPresence/Persistence/RotationContract.cs" />
+    <Compile Include="../../../src/CorpPresence/Companies/FirstOverhaulQuote.cs" />
+  </ItemGroup>
+</Project>

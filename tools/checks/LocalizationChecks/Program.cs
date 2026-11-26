@@ -287,6 +287,10 @@ Check("stable translations match legacy copy or current feature translations", (
             || entry.Key.StartsWith("mango.", StringComparison.Ordinal)
             || entry.Key.StartsWith("wasteBattery.", StringComparison.Ordinal)
             || entry.Key.StartsWith("ufoBackpack.", StringComparison.Ordinal) || entry.Key.StartsWith("fufuDoll.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("workshop.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("items.definitions.hearthTile.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("items.definitions.spentLining.", StringComparison.Ordinal)
+            || entry.Key.StartsWith("items.definitions.salvageElectronics.", StringComparison.Ordinal)
             || entry.Key == "items.definitions.powderSieve.name"
             || entry.Key is "items.definitions.craftingStation.name" or "items.definitions.siliconPlate.name"
                 or "items.definitions.electronicSubstrate.name" or "items.definitions.electronicBlueprint.name"

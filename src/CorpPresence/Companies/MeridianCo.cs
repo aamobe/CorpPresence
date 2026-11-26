@@ -145,7 +145,14 @@ internal sealed class MeridianCo : Company
 		}
 	};
 
-	private static readonly CatalogEntry[] AllEntries = Entries.Concat(Parts).ToArray();
+	internal static readonly CatalogEntry SpentContacts = new()
+	{
+		Id = Order.SpentContacts, MinTier = 0, FixedBaseValue = 40, FixedListValue = 40,
+		Bundle = 2, IgnoreOrderRate = true, NoQuantityQuota = true,
+		LabelKey = "workshop.meridian.contacts", Label = "罗森报废触点（一对）", LabelEn = "Rosen’s spent contacts (pair)"
+	};
+
+	private static readonly CatalogEntry[] AllEntries = Entries.Concat(Parts).Append(SpentContacts).ToArray();
 
 	public const int RefurbishOwn = 60;
 
@@ -193,7 +200,8 @@ internal sealed class MeridianCo : Company
 
 	protected override double OrderPriceRate(CatalogEntry entry, CompanyState state) => Array.IndexOf(Parts, entry) >= 0 ? PartsRate : base.OrderPriceRate(entry, state);
 
-	protected override string ContentOrderError(CatalogEntry entry) => Rosen.SaleBlocked(entry.Id);
+	protected override string ContentOrderError(CatalogEntry entry) => entry == SpentContacts
+		? MeridianIndustrial.RecipeError(CorpState.Current) : Rosen.SaleBlocked(entry.Id);
 
 	public override CatalogEntry[] Catalog => AllEntries;
 

@@ -31,13 +31,14 @@ internal static class StoryGuide
 			stringBuilder.AppendLine(L.F("presentation.storyGuide.build.chapter", "第 {0} 章（{1}）", "Chapter {0} ({1})", i,
 				flag ? L.K("presentation.storyGuide.build.sideStory", "支线", "side story") : L.K("presentation.storyGuide.build.mainStory", "主线", "main story")));
 			stringBuilder.AppendLine(L.K("presentation.storyGuide.build.bookingRequirementsAllRequired", "预约条件（须同时满足）：", "Booking requirements (all required):"));
-			stringBuilder.AppendLine(L.K("presentation.storyGuide.build.reputation", $"• {Faction(character)}声望 ≥ {thresholds[i - 1]}。", (System.FormattableString)$"• {Faction(character)} reputation ≥ {thresholds[i - 1]}."));
+			if (thresholds[i - 1] != int.MinValue)
+				stringBuilder.AppendLine(L.K("presentation.storyGuide.build.reputation", $"• {Faction(character)}声望 ≥ {thresholds[i - 1]}。", (System.FormattableString)$"• {Faction(character)} reputation ≥ {thresholds[i - 1]}."));
 			stringBuilder.AppendLine((num == 0) ? L.K("presentation.storyGuide.build.noPreviousChapterRequired", "• 无前置章节。", "• No previous chapter required.") : L.K("presentation.storyGuide.build.mainProgressLeastChapterThis", $"• 主线进度达到第 {num} 章；本章尚未完成。", (System.FormattableString)$"• Main progress at least chapter {num}; this chapter not completed."));
 			if (character.IsBuyChapter(i))
 			{
 				stringBuilder.AppendLine(L.K("presentation.storyGuide.build.holdLeastQualifyingItemS", $"• 店内持有符合收购要求的物品 ≥ {character.BuyGoodsNeeded} 件；本章不检查现金门槛。", (System.FormattableString)$"• Hold at least {character.BuyGoodsNeeded} qualifying item(s) in the shop; no cash gate for this chapter."));
 			}
-			else
+			else if (character.CashFor(i) != int.MinValue)
 			{
 				stringBuilder.AppendLine(L.K("presentation.storyGuide.build.cashEqualityDoesNotQualify", $"• 现金 > {character.CashFor(i)}₵（恰好相等不满足）。", (System.FormattableString)$"• Cash > {character.CashFor(i)}₵ (equality does not qualify)."));
 			}
@@ -72,6 +73,7 @@ internal static class StoryGuide
 		}
 		return c.Faction switch
 		{
+			"FACTION_CARTEL" => L.K("workshop.shizuka.faction", "卡尔特", "Cartel"),
 			"FACTION_UPPER_LEVEL" => L.K("presentation.storyGuide.faction.upperLevels", "上层区", "Upper Levels"), 
 			"FACTION_SECURITY" => L.K("presentation.storyGuide.faction.security", "治安部", "Security"), 
 			"FACTION_LOWER_LEVEL" => L.K("presentation.storyGuide.faction.lowerLevels", "下层区", "Lower Levels"), 
@@ -83,6 +85,12 @@ internal static class StoryGuide
 	{
 		switch (id)
 		{
+		case CartelShizuka.CharacterId:
+			return ch == 1 ? L.K("workshop.shizuka.guideIntro", "• 接下眠苔接种包后，在电话记事簿找黑羽静领试料。带电池即可开蓝胆，首单收 1 份胶。", "• Accept the moss starter, then call Shizuka from the phone notebook for sample supplies. Power the blue vessel with a battery and deliver one gel for the first order.") :
+				L.K("workshop.shizuka.guideBlueprint", "• 阿岑二访设备成交后，黑羽静才会预约送光盐芯图。收图后可向她补订图纸和磨套。", "• Shizuka books her blueprint visit after you buy Cen’s second equipment set. Once you receive the light salt blueprint, you can reorder it and buy a grinding sleeve.");
+		case LowerMachinist.CharacterId:
+			return ch == 1 ? L.K("workshop.cen.guideFirst", "• 首套设备成交价 300 元。买下后可从电话记事簿联络下层互助，选开工筐。", "• The first set costs 300 credits. After buying it, call Lower Levels Mutual Aid from the phone notebook to choose a starter basket.") :
+				L.K("workshop.cen.guideSecond", "• 自有粉盒与筛分仓逐个达到 81% 的，合计须有 300 点。二访套装 450 元，粉留给你。", "• Hold 300 points across owned powder boxes and sieve bins that individually reach 81% purity. The second set costs 450 credits. You keep the powder.");
 		case "doreen":
 			switch (ch)
 			{

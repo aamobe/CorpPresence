@@ -39,6 +39,7 @@ internal static partial class Services
 
 	public static void AddCoop(Company c, double points, string why)
 	{
+		if (c is WorkshopContact) return;
 		CompanyState companyState = Companies.StateOf(c);
 		if (companyState == null || points <= 0.0 || companyState.Coop >= 100)
 		{
@@ -142,6 +143,12 @@ internal static partial class Services
 	public static void OnChapterDone(string charId)
 	{
 		Company company = Companies.ByCharacter(charId);
+		if (company is WorkshopContact)
+		{
+			Phone.Activate(company);
+			Notebook.Refresh();
+			return;
+		}
 		if (company != null)
 		{
 			AddCoop(company, 5.0, "剧情推进");
@@ -202,6 +209,7 @@ internal static partial class Services
 
 	public static bool CardDue(Company c, CompanyState s)
 	{
+		if (c is WorkshopContact) return false;
 		if (s != null && s.CardCourierDay == Day)
 		{
 			return false;

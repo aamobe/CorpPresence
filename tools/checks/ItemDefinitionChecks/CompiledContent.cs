@@ -63,6 +63,29 @@ internal static class CompiledContent
             var texts = json.RootElement.EnumerateObject().Select(p => p.Name).ToHashSet(StringComparer.Ordinal);
             var resources = assembly.GetManifestResourceNames().ToHashSet(StringComparer.Ordinal);
             var errors = ContentContract.Validate(rows, identities, texts, resources);
+            foreach (var (key, group) in new[] {
+                ("powder_classifier", "classifier"), ("coarse_silica_grit", "coarse"),
+                ("fine_silica_grit", "fine"), ("light_salt_grit", "crystal"),
+                ("crystal_sleeve", "sleeve"), ("fine_screen", "screen") })
+            {
+                var row = rows.SingleOrDefault(r => r.Key == key);
+                if (row == null || !row.IndependentShell || !row.TextKeys.Contains("workshop.mill." + group + ".name")
+                    || !row.TextKeys.Contains("workshop.mill." + group + ".description")
+                    || !identities.Any(i => i.Id == "corp_presence_" + key && i.Goods == key && i.LegacyId == null))
+                    errors.Add("Invalid classifier registration: " + key);
+            }
+            foreach (var key in new[] { "wear_alloy_blank", "wear_alloy_powder", "conductive_blend", "pump_contact",
+                "filter_blank", "filter_liner", "pump_frame", "filter_unit", "rosen_spent_contact",
+                "heavy_screen_pad", "returned_filter_shell", "cleaned_filter_shell" })
+            {
+                var segments = key.Split('_');
+                string group = segments[0] + string.Concat(segments.Skip(1).Select(word => char.ToUpperInvariant(word[0]) + word.Substring(1)));
+                var row = rows.SingleOrDefault(r => r.Key == key);
+                if (row == null || !row.IndependentShell || !row.TextKeys.Contains("workshop.industrial." + group + ".name")
+                    || !row.TextKeys.Contains("workshop.industrial." + group + ".description")
+                    || !identities.Any(i => i.Id == "corp_presence_" + key && i.Goods == key && i.LegacyId == null))
+                    errors.Add("Invalid industrial part registration: " + key);
+            }
             var companyType = assembly.GetType("CorpPresence.Companies", true);
             var artLookup = catalog.GetMethod("TryGetArt", Fields) ?? throw new Exception("Missing production art lookup");
             void CheckLookup(string key, string expectedCompany, string expectedArt)

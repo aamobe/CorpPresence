@@ -1,23 +1,40 @@
 namespace CorpPresence {
+class WorkshopContact : Company {}
+class CenContact : WorkshopContact {}
+class ShizukaContact : WorkshopContact {}
+static class CartelShizuka { internal static bool Introduced(CorpState state) => state?.ShizukaChapter >= 1; internal static bool BlueprintDelivered(CorpState state) => state?.ShizukaChapter >= 2; }
+static class PowderClassifier { internal const string Key = "powder_classifier"; }
+static class ClassifierGoods { internal const string Sleeve = "crystal_sleeve"; }
+static class CartelReactor { internal const string Key = "cartel_reactor", Resin = "blue_shell_resin"; }
+static class AlcoholPreparationStation { internal const string Key = "alcohol_preparation_station"; }
+static class MineralGrowthBatch { internal const string LightSaltBlueprint = "light_salt_blueprint"; }
+static class LowerMachinist { public static bool StarterUnlocked(CorpState state) => state != null; }
+static class WorkshopMaterials { public const string Electronics = "salvage_electronics", Lining = "spent_lining"; }
+static class PowderBox { public const string Key = "powder_box"; }
 static class GeneralHelper {public static void SetItemOwned(GameItem item){}}
 class Visitor {public int Day;public string Kind;}
 static class Companies {public static List<Company> All=new();public static Company ByCharacter(string id)=>All.SingleOrDefault(c=>c.CharacterId==id);public static CompanyState StateOf(Company company)=>CorpState.Current.Companies[company.Id];}
 static class NightSettlement {public static bool TryBegin(CompanyState s,int day)=>true;}
 class Company {public string Id="pastel",CharacterId="character",Name="Company";public List<CatalogEntry> Catalog;public string PhoneNumber="72783";}
 class CompanyState {public bool TrafficOn,VipOn,DealerJoined;public int DealerSinceDay,Coop;public bool CardGiven;public double WeekSales;public List<Visitor> Visitors=new();public Dictionary<string,int> LimitedBought=new();public List<Order> Orders=new();}
-class Order {public int Day,Cash;public string Kind;public List<string> Items=new();}
-class GameInventory {public List<GameItem> childItems=new();public Func<GameItem,GameInventory,SlotMarker,int> maxSlotAmountItemFunc;public Func<GameItem,GameInventory,bool> mayInventoryAddItemFunc;public Action<GameItem,GameInventory,SlotMarker> onSlotRemoveItemEndFunc;}
-class GameGridInventory:GameInventory {public bool HasCrateSlot=true;public bool CanTakeAnything()=>true;public SlotMarker TryFindOneValidInventorySlot(GameItem item)=>HasCrateSlot?new SlotMarker():null;}
+class GameInventory {public Action AfterAttach;public List<GameItem> childItems=new();public Func<GameItem,GameInventory,SlotMarker,int> maxSlotAmountItemFunc;public Func<GameItem,GameInventory,bool> mayInventoryAddItemFunc;public Action<GameItem,GameInventory,SlotMarker> onSlotRemoveItemEndFunc;}
+class GameGridInventory:GameInventory {public bool HasCrateSlot=true, HasSpace=true;public bool CanTakeAnything()=>HasSpace;public SlotMarker TryFindOneValidInventorySlot(GameItem item)=>HasCrateSlot?new SlotMarker { inventory=this, item=item, numTransfer=item.unitCount }:null;}
 class GameItemElement:GameItem {public bool IsDestroyed()=>DestroyCount>0;}
 class GraphNodeStorage {}
-class SlotMarker {}
+class SlotMarker
+{
+    public GameInventory inventory;
+    public GameItem item, targetItem;
+    public int numTransfer;
+    public void TryAcceptOnce() => GraphUtils.TryAcceptAll(inventory, item);
+}
 class PixelWindow {public GameInventory Inventory;}
 static class DirectoryUtils {public static (PixelWindow,GameInventory) CreateInventoryWindow(int w,int h){var inv=new GameInventory();return (new PixelWindow{Inventory=inv},inv);}}
 static class ItemDirectory {public static GameItem CreateEmptyItem()=>new GameItem();}
 static class Compat {public static T Cast<T>(object value)=>(T)value;}
-static class GraphUtils {public static void EmporiumTryAdd(GameInventory inventory,GameItem item){}public static bool CanAccept(GameInventory inventory,GameItem item)=>inventory.childItems.Count<Capacity;public static int Capacity=2;public static bool Stacking,IgnoreDeclaredLimit;public static List<T> FindChildrenType<T>(GraphNodeStorage node)=>new(){(T)(object)((GameItem)node).Inner};public static List<T> FindAllChildrenType<T>(GraphNodeStorage node)=>((GameItem)node).Inner.childItems.Cast<T>().ToList();public static void TryAcceptAll(GameInventory inv,GameItem item){if(Stacking){var cap=IgnoreDeclaredLimit?5:(inv.maxSlotAmountItemFunc?.Invoke(item,inv,null)??5);var target=inv.childItems.FirstOrDefault(x=>x.identifier==item.identifier&&x.unitCount<cap);if(target!=null){target.unitCount+=item.unitCount;item.unitCount=0;return;}}if(inv.childItems.Count>=Capacity)return; inv.childItems.Add(item);item.parentInventory=inv;}}
+static class GraphUtils {public static void EmporiumTryAdd(GameInventory inventory,GameItem item){}public static bool CanAccept(GameInventory inventory,GameItem item)=>inventory.childItems.Count<Capacity;public static int Capacity=2;public static bool Stacking,IgnoreDeclaredLimit;public static List<T> FindChildrenType<T>(GraphNodeStorage node)=>new(){(T)(object)((GameItem)node).Inner};public static List<T> FindAllChildrenType<T>(GraphNodeStorage node)=>((GameItem)node).Inner.childItems.Cast<T>().ToList();public static void TryAcceptAll(GameInventory inv,GameItem item){if(Stacking){var cap=IgnoreDeclaredLimit?5:(inv.maxSlotAmountItemFunc?.Invoke(item,inv,null)??5);var target=inv.childItems.FirstOrDefault(x=>x.identifier==item.identifier&&x.unitCount<cap);if(target!=null){target.unitCount+=item.unitCount;item.unitCount=0;return;}}if(inv.childItems.Count>=Capacity)return; inv.childItems.Add(item);item.parentInventory=inv;inv.AfterAttach?.Invoke();}}
 class ItemMouseDragHandler {public static ItemMouseDragHandler current;public bool IsDraggingItem;}
-class EmporiumEntry {public static EmporiumEntry Instance;public GameGridInventory frontInvinvElement;public GameInventory invElement,backInvinvElement;public List<GameItem> OwnedItems=new();public List<GameItem> GetAllOwnedItems(bool isBurglary=false,bool includeAfterhour=true)=>OwnedItems;}
+class EmporiumEntry {public static EmporiumEntry Instance;public GameGridInventory frontInvinvElement,backInvinvElement;public GameInventory invElement;public List<GameItem> OwnedItems=new();public List<GameItem> GetAllOwnedItems(bool isBurglary=false,bool includeAfterhour=true)=>OwnedItems;}
 class StoreClient {}
 class Client {public StoreClient GetClientBlueprint()=>null;}
 class DialogUIManager {public void CurrentClientLeave(){}}

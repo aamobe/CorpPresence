@@ -14,6 +14,8 @@ internal sealed class CorpState
 
 	public string RunId { get; set; }
 
+	public WorkshopState Workshop { get; set; } = new();
+
 	public int MangoGiftStatus { get; set; }
 
 	public int WasteBatteryGiftStatus { get; set; }

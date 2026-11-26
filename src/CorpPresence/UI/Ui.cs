@@ -14,9 +14,32 @@ internal static class Ui
 
 	public static Rect? Clip { get; set; }
 
+	// CompanyWindow draws only on Repaint. Native ScrollWheel events never reach this
+	// view, so apply the sampled wheel before computing the scrolled button origin.
+	private static int wheelFrame = -1;
+
+	internal static Vector2 BeginPanelScrollView(Rect area, Vector2 scroll, Rect content)
+	{
+		if (!CargoSortWindow.Active)
+			scroll = ScrollAtPointer(area, scroll, content, Pointer.Local, Pointer.WheelNotches);
+		return GUI.BeginScrollView(area, scroll, content);
+	}
+
+	internal static Vector2 ScrollAtPointer(Rect area, Vector2 scroll, Rect content, Vector2 point, float notches)
+	{
+		if (notches == 0 || wheelFrame == Time.frameCount || !area.Contains(point)
+			|| Event.current?.type != EventType.Repaint || content.height <= area.height) return scroll;
+		wheelFrame = Time.frameCount;
+		scroll.y = Mathf.Clamp(scroll.y - notches * 30f, 0, content.height - area.height);
+		return scroll;
+	}
+
 	public static bool Button(Rect r, string text, GUIStyle style)
 	{
 		Rect rect = new Rect(r.x + Origin.x, r.y + Origin.y, r.width, r.height);
+#if LOCAL_PLAYTEST
+		PanelPlaytest.Record(rect, Clip, text, GUI.enabled);
+#endif
 		bool flag = rect.Contains(Pointer.Local) && (!Clip.HasValue || Clip.Value.Contains(Pointer.Local));
 		GUI.Box(r, text, (flag && GUI.enabled) ? HoverOf(style) : style);
 		Event current = Event.current;

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CorpPresence;
 
-internal static class Forge
+internal static partial class Forge
 {
 	private sealed record Blade(string Goods, int Billets);
 
@@ -36,7 +36,6 @@ internal static class Forge
 
 	private const string Ingot = "metal_ingot";
 
-	private static readonly string[] GoodPurity = new string[3] { "INGOT_PURITY_HIGH", "INGOT_PURITY_VERY_HIGH", "INGOT_PURITY_PERFECT" };
 
 	private static readonly Blade[] Blades = new Blade[3]
 	{
@@ -271,17 +270,6 @@ internal static class Forge
 		}
 	}
 
-	private static bool IsGoodIngot(GameItem item)
-	{
-		try
-		{
-			return item?.identifier == "metal_ingot" && GoodPurity.Contains(IngotPurityHelper.GetPurity(item));
-		}
-		catch
-		{
-			return false;
-		}
-	}
 
 	private static GameItem BuildFurnace()
 	{
@@ -311,70 +299,12 @@ internal static class Forge
 		MachineUpgrade.Attach(machine, 2, input, output);
 		machine.onCycleEndSlotItemFunc = (GameItem _, GameInventory _, SlotMarker _) =>
 		{
-			Smelt(machine, battery, modules, input, output);
+			FinishFurnaceNight(machine, battery, modules, input, output);
 		};
 		MachineAppearance.WatchCycle(machine, output, () =>
 			input.childItems.Any(IsGoodIngot) && MachineAppearance.CanPowerCycle(machine, battery, CarryTag)
 				? "corp_presence_forged_billet" : null);
 		return machine;
-	}
-
-	private static void Smelt(GameItem machine, GameSlotInventory battery, GameGridInventory modules, GameInventory input, GameInventory output)
-	{
-		try
-		{
-			machine.ModifyTag("MACHINERY_DRAWN_POWER_BASE", (TagState s) =>
-			{
-				s.Enable().SetInt(15);
-			});
-			ModuleHelper.ComputeModuleEffect(modules.childItems.ToList(), machine);
-			ModuleHelper.ApplyBasicModuleEffect(modules, null, machine);
-			int num = Math.Max(0, machine.GetTagReadonly("CURRENT_PROCESSING_SPEED_TAG").GetInt());
-			int num2 = machine.GetTagReadonly("CORP_FORGE_CARRY_INT").GetInt();
-			List<GameItem> list = input.childItems.Where(IsGoodIngot).ToList();
-			int num3 = num + num2;
-			int n = Math.Min(num3 / 100, list.Count);
-			if (n <= 0)
-			{
-				return;
-			}
-			int made;
-			for (made = 0; made < n; made++)
-			{
-				GameItem gameItem = Goods.Make("forged_billet");
-				if (gameItem == null)
-				{
-					break;
-				}
-				bool readyToConsume = false;
-				try
-				{
-					GeneralHelper.SetItemOwned(gameItem);
-					if (!ProductionOutput.TryAdd(output, gameItem)) break;
-					if (made == 0 && !MachineHelper.TryDrawCyclePower(machine, battery)) break;
-					readyToConsume = true;
-				}
-				finally
-				{
-					if (!readyToConsume) gameItem.Destroy();
-				}
-				list[made].Destroy();
-			}
-			int left = Math.Min(99, Math.Max(0, num3 - made * 100));
-			machine.ModifyTag("CORP_FORGE_CARRY_INT", (TagState s) =>
-			{
-				s.Enable().SetInt((made == n) ? left : 0);
-			});
-			if (made > 0)
-			{
-				MachineHelper.OnMachineActioned(machine, modules);
-			}
-			ModLog.Info($"精锻熔炉：炼了 {made} 块钢胚（速度 {num}，耗电 {MachineryHelper.GetMachinePowerUsage(machine)}）");
-		}
-		catch (Exception ex)
-		{
-			ModLog.Warn("精锻失败：" + ex.Message);
-		}
 	}
 
 	private static GameItem BuildAnvil()
@@ -403,8 +333,11 @@ internal static class Forge
 			}).SetDescription(L.K("production.forge.buildAnvil.billetSMlWater", $"{Blades[i].Billets} 块钢胚，{Blades[i].Billets * 100} 毫升水", (System.FormattableString)$"{Blades[i].Billets} billet(s), {Blades[i].Billets * 100} ml of water"));
 			machineryRadioGroup.Add(radios[i]);
 		}
+		var alloy = new GameSlotInventory();
+		alloy.mayInventoryAddItemFunc = (item, _) => GeneralHelper.IsItemOwned(item) && item.identifier == MeridianIndustrial.AlloyId;
+		var frameButton = new MachineryButton(L.K("workshop.meridian.strike", "锻工业框架", "Forge industrial frame"));
 		MachineryButton machineryButton = new MachineryButton(L.K("production.forge.buildAnvil.forge", "锻造", "Forge"));
-		PixelWindow pixelWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.forge.buildAnvil.billets", "钢胚", "Billets"), input, "input"), MachineHelper.Panel(L.K("production.forge.buildAnvil.quenchTank", "水箱", "Quench tank"), water, "input"), MachineHelper.Panel(L.K("production.forge.buildAnvil.style", "款式", "Style"), MachineryStack.Vertical(radios[0], radios[1], radios[2], machineryButton), "control"), MachineHelper.Panel(L.K("production.forge.buildAnvil.output", "成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory));
+		PixelWindow pixelWindow = MachineHelper.CreateMachineryWindow(true, MachineHelper.PowerPanel(battery), MachineHelper.Panel(L.K("production.forge.buildAnvil.billets", "钢胚", "Billets"), input, "input"), MachineHelper.Panel(L.K("production.forge.buildAnvil.quenchTank", "水箱", "Quench tank"), water, "input"), MachineHelper.Panel(L.K("production.forge.buildAnvil.style", "款式", "Style"), MachineryStack.Vertical(radios[0], radios[1], radios[2], machineryButton, frameButton), "control"), MachineHelper.Panel(L.K("production.forge.buildAnvil.output", "成品", "Output"), output, "output"), MachineHelper.NotePanel(gameSlotInventory), MachineHelper.Panel(L.K("workshop.meridian.alloy", "合金粉", "Alloy powder"), alloy, "alloy"));
 		MachineHelper.SetupManualSlot(gameSlotInventory);
 		machine = Empty().SetContentWindow(pixelWindow);
 		machine.EnableTag("CONTAINER_TAG");
@@ -423,6 +356,11 @@ internal static class Forge
 			sync();
 		}));
 		pixelWindow.openCallback = (Action)Delegate.Combine(pixelWindow.openCallback, sync);
+		frameButton.SetCallback(() => WorkshopCycle.Run(machine, () =>
+		{
+			string error = StrikeFrame(input, alloy, water, battery, output);
+			if (error != null) Tell(error);
+		}));
 		machineryButton.SetCallback(() =>
 		{
 			Strike(machine, battery, input, water, output);
@@ -514,6 +452,3 @@ internal static class Forge
 		}
 	}
 }
-
-
-

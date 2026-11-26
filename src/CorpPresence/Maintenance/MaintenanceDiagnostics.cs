@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 namespace CorpPresence;
 
@@ -94,6 +95,17 @@ internal static class MaintenanceDiagnostics
         catch { /* Diagnostics must not escape into the business operation. */ }
     }
 
+    private static void AppendReceipt(List<MaintenanceCounter> counters, string group, WorkshopSaleReceipt receipt)
+    {
+        if (receipt == null) return;
+        string prefix = "workshop." + group + "." + receipt.Offer + ".";
+        counters.Add(new MaintenanceCounter(prefix + "day", receipt.Day));
+        counters.Add(new MaintenanceCounter(prefix + "received", receipt.Received));
+        counters.Add(new MaintenanceCounter(prefix + "paid", receipt.Paid));
+        counters.Add(new MaintenanceCounter(prefix + "amount", receipt.Amount));
+        counters.Add(new MaintenanceCounter(prefix + "frozen", receipt.InFlight ? 1 : 0));
+    }
+
     internal static MaintenanceSnapshot Capture()
     {
         try
@@ -120,6 +132,109 @@ internal static class MaintenanceDiagnostics
             }
             var counters = new List<MaintenanceCounter>();
             counters.Add(new MaintenanceCounter("save.session_revision", revision));
+            if (status == SaveDiagnosticStatus.Bound && corp == false && state.Workshop is { } workshop)
+            {
+                counters.Add(new MaintenanceCounter("workshop.cen.starter_chosen", workshop.CenKit == null ? 0 : 1));
+                counters.Add(new MaintenanceCounter("workshop.cen.starter_remaining", workshop.CenKitRemaining));
+                counters.Add(new MaintenanceCounter("workshop.shizuka.starter_remaining", workshop.ShizukaKitRemaining));
+                AppendReceipt(counters, "shizuka.first", workshop.GelOrder);
+                AppendReceipt(counters, "shizuka.daily", workshop.CartelDaily);
+                AppendReceipt(counters, "cen.product", workshop.Sales?.Product);
+                AppendReceipt(counters, "cen.powder", workshop.Sales?.Powder);
+                AppendReceipt(counters, "cen.contacts", workshop.Sales?.Contacts);
+                AppendReceipt(counters, "cen.rods", workshop.Sales?.Rods);
+                if (workshop.FeederTrial is { } feeder)
+                {
+                    counters.Add(new MaintenanceCounter("workshop.cen.feeder.batches", feeder.Batches));
+                    counters.Add(new MaintenanceCounter("workshop.cen.feeder.tools_remaining", feeder.ToolsRemaining));
+                    counters.Add(new MaintenanceCounter("workshop.cen.feeder.returned", feeder.Returned ? 1 : 0));
+                    AppendReceipt(counters, "meridian.feeder", feeder.Spec);
+                }
+                if (workshop.PumpRepair is { } repair)
+                {
+                    counters.Add(new MaintenanceCounter("workshop.pump_repair.received", repair.ReceivedDay.HasValue ? 1 : 0));
+                    counters.Add(new MaintenanceCounter("workshop.pump_repair.paid", repair.Paid));
+                    counters.Add(new MaintenanceCounter("workshop.pump_repair.complete", repair.CompletedDay.HasValue ? 1 : 0));
+                    counters.Add(new MaintenanceCounter("workshop.pump_repair.fabricated", repair.FabricatedPumpId.HasValue ? 1 : 0));
+                }
+                if (workshop.CoreIntake is { } cores)
+                {
+                    counters.Add(new MaintenanceCounter("workshop.cores.timing_issued", cores.TimingId.HasValue ? 1 : 0));
+                    counters.Add(new MaintenanceCounter("workshop.cores.phase_issued", cores.PhaseId.HasValue ? 1 : 0));
+                }
+                if (workshop.PhaseSite is { } recovery)
+                {
+                    counters.Add(new MaintenanceCounter("workshop.phase.route", (int)recovery.Route));
+                    counters.Add(new MaintenanceCounter("workshop.phase.crew_paid", recovery.CrewPaid));
+                    counters.Add(new MaintenanceCounter("workshop.phase.power", recovery.PowerSpent));
+                    counters.Add(new MaintenanceCounter("workshop.phase.cargo_received", recovery.CargoId.HasValue ? 1 : 0));
+                }
+                if (workshop.JointWaterWork is { } work)
+                {
+                    counters.Add(new MaintenanceCounter("workshop.joint.earned", work.Earned));
+                    counters.Add(new MaintenanceCounter("workshop.joint.paid", work.Paid));
+                    counters.Add(new MaintenanceCounter("workshop.joint.service_nights", work.ServiceNights));
+                }
+                if (workshop.Commission is { } commission)
+                {
+                    counters.Add(new MaintenanceCounter("workshop.commission.quantity", commission.Quantity));
+                    counters.Add(new MaintenanceCounter("workshop.commission.ingots", commission.Ingots));
+                    counters.Add(new MaintenanceCounter("workshop.commission.alloy", commission.Alloy));
+                    counters.Add(new MaintenanceCounter("workshop.commission.paid", commission.Paid));
+                    counters.Add(new MaintenanceCounter("workshop.commission.frozen", commission.InFlight ? 1 : 0));
+                }
+                if (state.Companies.TryGetValue("meridian", out var meridian))
+                    counters.Add(new MaintenanceCounter("workshop.commission.in_transit",
+                        meridian.Orders.Where(o => o.Kind == MeridianCommissionReceipt.OrderKind).Sum(o => o.Items.Count)));
+                counters.Add(new MaintenanceCounter("workshop.rotation.history", workshop.Rotations.Count));
+                // Include the latest window and older contracts with property or payments still outstanding.
+                var latestJob = workshop.Rotations.LastOrDefault();
+                foreach (var job in workshop.Rotations.Where(c => c == latestJob || c.HasOpenObligations))
+                {
+                    string key = "workshop.rotation." + job.Serial + ".";
+                    counters.Add(new MaintenanceCounter(key+"signed_day", job.SignedDay));
+                    counters.Add(new MaintenanceCounter(key+"suspended", job.Abandoned ? 1 : 0));
+                    counters.Add(new MaintenanceCounter(key+"completed_day", job.CompletedDay ?? -1));
+                    for (int i=0; i<job.Trucks.Length; i++)
+                    {
+                        var truck=job.Trucks[i];
+                        string prefix=key+"truck"+(i+1)+".";
+                        counters.Add(new MaintenanceCounter(prefix+"received", truck.Received.Sum()));
+                        counters.Add(new MaintenanceCounter(prefix+"amount", truck.Amount));
+                        counters.Add(new MaintenanceCounter(prefix+"paid", truck.Paid));
+                        counters.Add(new MaintenanceCounter(prefix+"frozen", truck.InFlight ? 1 : 0));
+                    }
+                    for (int i=0; i<job.Shells.Length; i++)
+                    {
+                        var shell=job.Shells[i];
+                        string prefix=key+"shell"+(i+1)+".";
+                        counters.Add(new MaintenanceCounter(prefix+"issued", shell.Issued ? 1 : 0));
+                        counters.Add(new MaintenanceCounter(prefix+"returned", shell.Returned ? 1 : 0));
+                        counters.Add(new MaintenanceCounter(prefix+"delivered", shell.Delivered ? 1 : 0));
+                        counters.Add(new MaintenanceCounter(prefix+"frozen", shell.InFlight ? 1 : 0));
+                    }
+                    if (job.Kind == RotationKind.Repair)
+                    {
+                        counters.Add(new MaintenanceCounter(key+"lining.claimed", job.LiningClaimed ? 1 : 0));
+                        counters.Add(new MaintenanceCounter(key+"lining.frozen", job.LiningInFlight ? 1 : 0));
+                    }
+                }
+                if (workshop.FirstOverhaul is { } contract)
+                {
+                    counters.Add(new MaintenanceCounter("workshop.overhaul.signed_day",contract.SignedDay));
+                    counters.Add(new MaintenanceCounter("workshop.overhaul.suspended",contract.Abandoned ? 1 : 0));
+                    for (int i=0;i<contract.Trucks.Length;i++)
+                    {
+                        var truck=contract.Trucks[i];
+                        string prefix="workshop.overhaul.truck" + (i+1) + ".";
+                        counters.Add(new MaintenanceCounter(prefix+"due_day",truck.DueDay));
+                        counters.Add(new MaintenanceCounter(prefix+"received",truck.Received.Sum()));
+                        counters.Add(new MaintenanceCounter(prefix+"amount",truck.Amount));
+                        counters.Add(new MaintenanceCounter(prefix+"paid",truck.Paid));
+                        counters.Add(new MaintenanceCounter(prefix+"frozen",truck.InFlight ? 1 : 0));
+                    }
+                }
+            }
             Portraits.AppendDiagnostics(counters);
             CatalogPricing.AppendDiagnostics(counters);
             ItemRegistry.AppendDiagnostics(counters);

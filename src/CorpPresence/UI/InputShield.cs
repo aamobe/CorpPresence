@@ -23,6 +23,11 @@ internal static class InputShield
 		get
 		{
 			if (CargoSortWindow.Active) return true;
+#if LOCAL_PLAYTEST
+			// Native event dispatch may run before CompanyWindow.Tick in this frame.
+			if (PanelPlaytest.Frame is { } sample)
+				return CompanyWindow.Dragging || CompanyWindow.ContainsScreenPoint(sample.Item2);
+#endif
 			if (!Pointer.OverWindow)
 			{
 				return CompanyWindow.Dragging;
@@ -47,7 +52,7 @@ internal static class InputShield
 	{
 		try
 		{
-			if (Blocking && (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)))
+			if (Blocking && Pointer.Released)
 			{
 				ItemMouseDragHandler current = ItemMouseDragHandler.current;
 				if (current != null && current.GetCurrentItem() != null)
@@ -60,7 +65,7 @@ internal static class InputShield
 				return true;
 			}
 			__instance.Reset();
-			___lastMousePosition = Input.mousePosition;
+			___lastMousePosition = Pointer.ScreenPosition;
 			return false;
 		}
 		catch

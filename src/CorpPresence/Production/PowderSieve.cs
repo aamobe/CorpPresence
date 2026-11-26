@@ -2,9 +2,11 @@ using System;
 
 namespace CorpPresence;
 
-internal static class PowderSieve
+internal static partial class PowderSieve
 {
     internal const string Key = "powder_sieve";
+    private const string ReturnTag = "CORP_SIEVE_RESIEVE_ONCE", ReturnNightTag = "CORP_SIEVE_RETURN_NIGHT";
+    internal const string TailingsRecord = "tailings";
     private static readonly (string Zh, string En)[] Names =
     {
         ("金属", "Metal"), ("硅质", "Silica"), ("稀有金属", "Rare metal"),
@@ -40,6 +42,19 @@ internal static class PowderSieve
     private static int Recovery(GameItem machine) =>
         PowderSieveRules.RecoveryRate(machine.GetTagReadonly("TOTAL_PERCENTAGE_QUALITY_BONUS_INT").GetInt());
 
+    private static bool IsScreen(GameItem item) => Goods.IdOf(item) == ClassifierGoods.Screen
+        && item.unitCount == 1 && GeneralHelper.IsItemOwned(item) && !StorePlacement.Destroyed(item);
+
+    private static bool IsGuide(GameItem item) => MachineService.IsStockPart(item, RodMaterial.ReturnGuide)
+        && AlloyForms.QualifiesReturnGuide(RodCondition.Read(item));
+
+    internal static bool TailingsQueued(GameItem machine) => machine.GetTagReadonly(ReturnTag).GetBool();
+
+    private static bool ReturnedThisNight(GameItem machine) =>
+        machine.GetTagReadonly(ReturnNightTag).GetLong() is > 0 and var settled && settled == (long)StoreStation.GetDayCounter() + 1;
+
+    internal static bool AcceptsFactoryFeed(GameItem machine) => !TailingsQueued(machine) && !ReturnedThisNight(machine);
+
     private static GameItem Build()
     {
         var battery = new GameSlotInventory();
@@ -48,7 +63,16 @@ internal static class PowderSieve
         var legacy = new GameSlotInventory(3, 3) { mayInventoryAddItemFunc = (_, _) => false };
         var legacyPanel = MachineHelper.Panel(L.T("取回旧接粉盒", "Retrieve old powder box"), legacy, "output");
         legacyPanel.SetHidden(true);
+        var coil = new GameSlotInventory(2, 2) { mayInventoryAddItemFunc = (item, _) => MachineService.Handbook
+            && MachineService.IsStockPart(item, RodMaterial.IndustrialCoil) };
+        var coilPanel = MachineHelper.Panel(L.T("动力 · 工业线圈", "Power · Industrial coil"), coil, "service_coil").SetHidden(true);
+        var screen = new GameSlotInventory(2, 2) { mayInventoryAddItemFunc = (item, _) => MachineService.Handbook && IsScreen(item) };
+        var guide = new GameSlotInventory(2, 2) { mayInventoryAddItemFunc = (item, _) => MachineService.Handbook && IsGuide(item) };
+        var screenPanel = MachineHelper.Panel(Goods.NameOf(ClassifierGoods.Screen), screen, "return_screen").SetHidden(true);
+        var guidePanel = MachineHelper.Panel(Goods.NameOf(RodMaterial.ReturnGuide), guide, "return_guide").SetHidden(true);
         var status = new MachineryText(uppercase: false);
+        var closeCover = new MachineryButton(L.T("合上检修盖", "Close cover"));
+        var queueReturn = new MachineryButton(MineralNightReport.Reason(MineralStop.SieveParts));
         var bins = new GameSlotInventory[Names.Length];
         var labels = new MachineryText[Names.Length];
         var displays = new MachineryStack[Names.Length];
@@ -58,16 +82,44 @@ internal static class PowderSieve
             labels[i] = new MachineryText(uppercase: false);
             displays[i] = MachineryStack.Vertical(labels[i], bins[i]);
         }
+        GameItem machine = null;
+        var receiver = new GameSlotInventory(3, 3) { mayInventoryAddItemFunc = (item, _) => PowderBox.IsOwnedBox(item) };
+        var tabs = new MachineryTabs();
+        tabs.AddTab(L.K("workshop.sieve.bins", "粉仓", "Bins"), MachineryStack.Vertical(
+            MachineryStack.Horizontal(displays[0], displays[1], displays[2]),
+            MachineryStack.Horizontal(displays[3], displays[4], displays[5])));
+        Action refreshMix = null;
+        var mixing = MixingPanel(() => machine, input, bins, receiver, Refresh, out var updateMix);
+        refreshMix = updateMix;
+        tabs.AddTab(L.K("workshop.sieve.mix", "配料", "Blend"), mixing);
+        tabs.onChanged += _ => refreshMix();
         var window = MachineHelper.CreateMachineryWindow(true,
             MachineHelper.PowerPanel(battery),
             MachineHelper.Panel(L.T("模组", "Modules"), modules, "module"),
             MachineHelper.Panel(L.T("进料盒", "Feed box"), input, "input"),
             legacyPanel,
-            MachineHelper.Panel(L.T("过夜筛分", "Overnight sieving"), status, "control"),
-            MachineHelper.Panel(L.T("内置粉盒", "Internal powder boxes"), MachineryStack.Vertical(
-                MachineryStack.Horizontal(displays[0], displays[1], displays[2]),
-                MachineryStack.Horizontal(displays[3], displays[4], displays[5])), "bins"));
-        var machine = ItemDirectory.CreateEmptyItem().SetContentWindow(window);
+            MachineHelper.Panel(L.T("过夜筛分", "Overnight sieving"), MachineryStack.Vertical(status,
+                MineralNightReport.Button(() => machine, MineralNightReport.Sieve), closeCover, queueReturn), "control"),
+            MachineHelper.Panel(L.T("内置粉盒", "Internal powder boxes"), tabs, "bins"),
+            coilPanel, screenPanel, guidePanel);
+        machine = ItemDirectory.CreateEmptyItem().SetContentWindow(window);
+        MachineService.Register(machine, () => machine.identifier == "corp_presence_" + Key && MachineService.Handbook,
+            visible =>
+            {
+                coilPanel.SetHidden(!visible);
+                screenPanel.SetHidden(!visible);
+                guidePanel.SetHidden(!visible);
+            });
+        closeCover.SetCallback(() => MachineService.Close(machine));
+        bool ReturnFitted() => MachineService.Handbook && IsScreen(screen.childItem) && IsGuide(guide.childItem);
+        queueReturn.SetCallback(() =>
+        {
+            if (!Ready(machine)) return;
+            bool queued = TailingsQueued(machine);
+            if (!queued && !ReturnFitted()) return;
+            machine.ModifyTag(ReturnTag, tag => tag.Enable().SetBool(!queued), skipValidate: true);
+            Refresh();
+        });
         machine.EnableTag("CONTAINER_TAG");
         machine.EnableTag("STANDARD_MACHINE_TAG");
         MachineHelper.SetupBatterySlot(battery, machine);
@@ -77,9 +129,31 @@ internal static class PowderSieve
 
         void Refresh()
         {
-            int power = MachineryHelper.GetMachinePowerUsage(machine);
+            int power = MachineService.CoilCharge(machine, coil.childItem);
+            bool returning = TailingsQueued(machine);
+            var condition = PlanNight(machine, battery, input.childItem, power, ReturnFitted(), out var night);
+            string forecast = night == null ? MineralNightReport.Reason(condition, returning) :
+                L.F("workshop.sieve.forecast", "预计入分类仓 {0}", "Expected in sorted bins {0}", MineralNightReport.Vector(night.Sorted));
+            if (returning)
+                forecast = L.K("workshop.sieve.returning", "已排一批回筛 · 新料等一夜", "Tailings queued · new feed waits one night") + "\n" + forecast;
+            queueReturn.SetText(returning ? L.K("workshop.sieve.cancelReturn", "取消回筛", "Cancel tailings batch") :
+                ReturnFitted() ? L.K("workshop.sieve.queueReturn", "排一批尾粉回筛", "Queue one tailings batch") :
+                MineralNightReport.Reason(MineralStop.SieveParts));
+            string goalId = machine.GetTagReadonly(TargetTag).GetString();
+            if (!string.IsNullOrEmpty(goalId))
+            {
+                var target = GoalFor(goalId);
+                var goal = target.Ingredient;
+                int bin = (int)goal.Component;
+                int stocked = Read(machine, Bins[bin]);
+                int projected = night?.Sorted[bin] ?? 0;
+                forecast += "\n" + L.F("workshop.sieve.goalStock", "{0}：仓有 {1}，预计新增 {2}，还差 {3}",
+                    "{0}: bin holds {1}, expected gain {2}, still short {3}", GoalName(target),
+                    stocked, projected, Math.Max(0, goal.Points - stocked - projected));
+            }
             status.SetText(L.T($"每夜 {Throughput(machine)} 点 · {power} 电\n回收率 {Recovery(machine)}%\n选中内置粉盒，再点目标盒",
-                $"{Throughput(machine)} points/night · {power} charge\n{Recovery(machine)}% recovery\nSelect a bin, then click the target box"));
+                $"{Throughput(machine)} points/night · {power} charge\n{Recovery(machine)}% recovery\nSelect a bin, then click the target box") + "\n" + forecast);
+            refreshMix?.Invoke();
             long tailings = 0;
             for (int i = 0; i < Bins.Length; i++)
             {
@@ -112,11 +186,13 @@ internal static class PowderSieve
                         continue;
                     }
                 }
-                PowderBox.BindBin(box, () => ReadBin(machine, index), parts =>
+                PowderBox.BindBin(box, machine, () => ReadBin(machine, index), parts =>
                 {
                     if (index < Bins.Length) Write(machine, Bins[index], parts[index]);
                     else
                         for (int j = 0; j < Tailings.Length; j++) Write(machine, Tailings[j], parts[j]);
+                }, () =>
+                {
                     machine.ValidateShapeState();
                     Refresh();
                 });
@@ -124,75 +200,130 @@ internal static class PowderSieve
             Refresh();
         }
 
+        input.onSlotAddItemEndFunc += (_, _, _) => Refresh();
+        input.onSlotRemoveItemEndFunc += (_, _, _) => Refresh();
+        battery.onSlotAddItemEndFunc += (_, _, _) => Refresh();
+        battery.onSlotRemoveItemEndFunc += (_, _, _) => Refresh();
+        coil.onSlotAddItemEndFunc += (_, _, _) => Refresh();
+        coil.onSlotRemoveItemEndFunc += (_, _, _) => Refresh();
+        screen.onSlotAddItemEndFunc += (_, _, _) => Refresh();
+        screen.onSlotRemoveItemEndFunc += (_, _, _) => Refresh();
+        guide.onSlotAddItemEndFunc += (_, _, _) => Refresh();
+        guide.onSlotRemoveItemEndFunc += (_, _, _) => Refresh();
         MachineHelper.SetupModuleBay(modules, machine, Refresh);
         legacy.onSlotRemoveItemEndFunc += (_, _, _) => legacyPanel.SetHidden(legacy.childItem == null);
+        window.openCallback += () => MachineService.OpenWindow(machine);
         window.openCallback += Open;
+        window.closeCallback += () => MachineService.Close(machine);
         machine.onLoaded += _ => Open();
-        machine.onCycleEndSlotItemFunc = (_, _, _) => HookGuard.Run("过夜筛粉", () =>
+        FoldedFactory.RegisterSieve(machine, input, () =>
         {
             if (!Ready(machine)) return;
             ModuleHelper.ComputeModuleEffect(modules, null, machine);
             ModuleHelper.ApplyBasicModuleEffect(modules, null, machine);
-            Sieve(machine, battery, input.childItem, preview: false);
+            RunNight(machine, battery, input.childItem, MachineService.CoilCharge(machine, coil.childItem), ReturnFitted());
             Refresh();
-        });
-        MachineAppearance.WatchCycle(machine, () => Sieve(machine, battery, input.childItem, preview: true));
+        }, Refresh);
+        MachineAppearance.WatchCycle(machine, () => PlanNight(machine, battery, input.childItem,
+            MachineService.CoilCharge(machine, coil.childItem), ReturnFitted(), out _) == MineralStop.Ready);
         Refresh();
         return machine;
     }
 
-    private static bool Sieve(GameItem machine, GameSlotInventory battery, GameItem box, bool preview)
+    private sealed record SieveNight(int[] Remaining, int[] Feed, int[] Sorted, int[] Tailings, int[] Deposits);
+
+    private static MineralStop PlanNight(GameItem machine, GameSlotInventory battery, GameItem box, int charge,
+        bool returnFitted, out SieveNight night)
     {
-        if (!Ready(machine) || !machine.GetTagReadonly(MachineryHelper.IS_MACHINERY_POWERED).GetBool()
-            || !PowderBox.IsOwnedBox(box) || !MachineHelper.CanPower(machine, battery)) return false;
-
+        night = null;
+        if (!Ready(machine)) return MineralStop.Locked;
+        if (ReturnedThisNight(machine)) return MineralStop.SieveSettled;
+        bool returning = TailingsQueued(machine);
         var parts = new int[PowderBox.ComponentCount];
-        long total = PowderBox.Read(box, parts);
-        if (total <= 0 || total > PowderColor.Capacity) return false;
-        int amount = Math.Min((int)total, Throughput(machine));
-        if (amount <= 0) return false;
-        var batch = WaterHelper.SplitProportionally(parts, amount);
-        Span<int> sorted = stackalloc int[PowderBox.ComponentCount];
-        Span<int> tailings = stackalloc int[PowderBox.ComponentCount];
-        int rate = Recovery(machine);
+        long total = 0;
+        if (returning)
+        {
+            if (!returnFitted) return MineralStop.SieveParts;
+            parts = ReadBin(machine, Bins.Length);
+            foreach (int part in parts) total += part;
+        }
+        else
+        {
+            if (!PowderBox.IsOwnedBox(box)) return MineralStop.NoBox;
+            total = PowderBox.Read(box, parts);
+        }
+        if (total <= 0 || total > (returning ? PowderSieveRules.BinCapacity : PowderColor.Capacity) || Throughput(machine) == 0)
+            return MineralStop.NoFeed;
+        var batch = WaterHelper.SplitProportionally(parts, Math.Min((int)total, Throughput(machine)));
+        var sorted = PowderSieveRules.Sort(batch, Recovery(machine));
+        if (sorted == null) return MineralStop.NoRecovery;
+        var tailings = new int[parts.Length];
+        var deposits = new int[parts.Length];
         long tailingsTotal = 0;
-
         for (int i = 0; i < parts.Length; i++)
         {
-            int recovered = PowderSieveRules.Recovered(batch[i], rate);
-            long sortedAmount = (long)Read(machine, Bins[i]) + recovered;
-            if (sortedAmount > PowderSieveRules.BinCapacity) return false;
-            sorted[i] = (int)sortedAmount;
-            long tailing = (long)Read(machine, Tailings[i]) + batch[i] - recovered;
-            tailingsTotal += tailing;
-            if (tailingsTotal > PowderSieveRules.BinCapacity) return false;
-            tailings[i] = (int)tailing;
+            if ((long)Read(machine, Bins[i]) + sorted[i] > PowderSieveRules.BinCapacity) return MineralStop.Full;
+            deposits[i] = batch[i] - sorted[i];
+            long after = (long)Read(machine, Tailings[i]) + deposits[i] - (returning ? batch[i] : 0);
+            tailingsTotal += after;
+            if (tailingsTotal > PowderSieveRules.BinCapacity) return MineralStop.Full;
+            tailings[i] = (int)after;
             parts[i] -= batch[i];
         }
-        if (preview) return true;
-        if (!MachineHelper.TryDrawCyclePower(machine, battery)) return false;
-
-        for (int i = 0; i < parts.Length; i++)
-        {
-            Write(machine, Bins[i], sorted[i]);
-            Write(machine, Tailings[i], tailings[i]);
-        }
-        machine.ValidateShapeState();
-        PowderBox.WriteComposition(box, parts);
-        return true;
+        if (!machine.GetTagReadonly(MachineryHelper.IS_MACHINERY_POWERED).GetBool()
+            || !WorkshopCycle.CanDrawPower(battery, charge)) return MineralStop.NoPower;
+        night = new SieveNight(parts, batch, sorted, tailings, deposits);
+        return MineralStop.Ready;
     }
 
-    internal static long QualifyingStock(GameItem machine)
+    private static void RunNight(GameItem machine, GameSlotInventory battery, GameItem box, int charge, bool returnFitted)
+    {
+        var condition = PlanNight(machine, battery, box, charge, returnFitted, out var night);
+        if (condition == MineralStop.SieveSettled) return;
+        bool returning = TailingsQueued(machine);
+        if (condition == MineralStop.Ready && !WorkshopCycle.DrawPower(battery, charge)) condition = MineralStop.NoPower;
+        if (condition != MineralStop.Ready)
+        {
+            MineralNightReport.Save(machine, MineralNightReport.Sieve, condition, recipe: returning ? TailingsRecord : "");
+            return;
+        }
+        for (int i = 0; i < night.Sorted.Length; i++)
+        {
+            Write(machine, Bins[i], Read(machine, Bins[i]) + night.Sorted[i]);
+            Write(machine, Tailings[i], night.Tailings[i]);
+        }
+        if (returning)
+        {
+            machine.ModifyTag(ReturnNightTag, tag => tag.Enable().SetLong((long)StoreStation.GetDayCounter() + 1), skipValidate: true);
+            machine.DisableTag(ReturnTag, skipValidate: true);
+        }
+        else PowderBox.CommitComposition(box, night.Remaining);
+        MineralNightReport.Save(machine, MineralNightReport.Sieve, condition, 1, charge,
+            night.Feed, night.Sorted, returning ? night.Sorted : night.Deposits, returning ? TailingsRecord : "");
+        PowderBox.Changed(machine);
+        if (!returning) PowderBox.RefreshComposition(box, night.Remaining);
+        machine.ValidateShapeState();
+    }
+
+    internal static long QualifyingStock(GameItem machine, long[] contributions = null, Action<int, int, long, long> report = null)
     {
         long total = 0;
-        foreach (string tag in Bins) total += Read(machine, tag);
-        var tailings = ReadBin(machine, Bins.Length);
-        if (PowderClassification.FromParts(tailings).PurityBasisPoints >= 8100)
-            foreach (int amount in tailings) total += amount;
+        for (int i = 0; i < Names.Length; i++)
+        {
+            var parts = ReadBin(machine, i);
+            long amount = 0;
+            foreach (int part in parts) amount += part;
+            if (amount == 0) continue;
+            int purity = PowderClassification.FromParts(parts).PurityBasisPoints;
+            long credit = purity >= 8100 ? amount : 0;
+            total += credit;
+            if (contributions != null) contributions[i] += credit;
+            report?.Invoke(i, purity, amount, credit);
+        }
         return total;
     }
 
-    private static int[] ReadBin(GameItem machine, int index)
+    internal static int[] ReadBin(GameItem machine, int index)
     {
         var parts = new int[PowderBox.ComponentCount];
         if (index < Bins.Length)
@@ -200,5 +331,23 @@ internal static class PowderSieve
         else
             for (int i = 0; i < parts.Length; i++) parts[i] = Read(machine, Tailings[i]);
         return parts;
+    }
+
+    internal static int FeedFactory(GameItem machine, PowderComponent component, GameItem target, int[] targetParts,
+        int reserve, int needed)
+    {
+        if (!Ready(machine) || !PowderBox.IsOwnedBox(target)) return 0;
+        int index = (int)component;
+        int before = Read(machine, Bins[index]);
+        int space = PowderColor.Capacity;
+        foreach (int part in targetParts) space -= part;
+        int amount = Math.Min(Math.Min(before - reserve, space), needed);
+        if (amount <= 0) return 0;
+        targetParts[index] += amount;
+        PowderBox.CommitComposition(target, targetParts);
+        Write(machine, Bins[index], before - amount);
+        PowderBox.Changed(machine);
+        HookGuard.Run("刷新折叠粉料盒", () => PowderBox.RefreshComposition(target, targetParts));
+        return amount;
     }
 }

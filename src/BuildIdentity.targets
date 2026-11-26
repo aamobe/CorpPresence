@@ -16,6 +16,14 @@
            Text="PublishRelease must be true or false." />
     <Error Condition="'$(PublishRelease)' == 'true' and ('$(LocalTestKit)' == 'true' or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_KIT')))"
            Text="PublishRelease cannot include the local production test kit." />
+    <Error Condition="'$(PublishRelease)' == 'true' and ('$(LocalPlaytestPointer)' == 'true' or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_PLAYTEST')))"
+           Text="PublishRelease cannot include the local playtest controls." />
+    <Error Condition="'$(PublishRelease)' == 'true' and ('$(LocalWorkshopTestRun)' != '' or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_WORKSHOP_TEST')))"
+           Text="PublishRelease cannot include the local workshop test pack." />
+    <Error Condition="'$(LocalWorkshopTestRun)' != '' and !$([System.Text.RegularExpressions.Regex]::IsMatch('$(LocalWorkshopTestRun)', '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'))"
+           Text="LocalWorkshopTestRun must be the test save's lowercase run GUID." />
+    <Error Condition="'$(LocalWorkshopTestRun)' != '' and ('$(LocalTestFunds)' == 'true' or '$(LocalTestKit)' == 'true' or '$(Maintenance)' == 'true')"
+           Text="LocalWorkshopTestRun cannot use other local key sets." />
     <Error Condition="'$(PublishRelease)' == 'true' and ('$(Configuration)' != 'Release' or '$(Maintenance)' == 'true' or '$(WaterTrace)' == 'true' or '$(LocalTestFunds)' == 'true' or $([System.String]::Copy('$(DefineConstants)').Contains('TESTKIT')) or $([System.String]::Copy('$(DefineConstants)').Contains('MAINTENANCE')) or $([System.String]::Copy('$(DefineConstants)').Contains('WATER_TRACE')) or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_FUNDS')) or $([System.String]::Copy('$(DefineConstants)').Contains('LOCAL_TEST_SPECIMEN')))"
            Text="PublishRelease requires Release configuration without maintenance or test flags." />
     <Exec Command="git rev-parse HEAD" WorkingDirectory="$(_CorpPresenceSourceRoot)"
@@ -70,6 +78,13 @@
     <ItemGroup>
       <Compile Include="$(_CorpPresenceIdentityFile)" />
       <FileWrites Include="$(_CorpPresenceIdentityFile)" />
+    </ItemGroup>
+    <WriteLinesToFile Condition="'$(LocalWorkshopTestRun)' != ''" File="$(IntermediateOutputPath)WorkshopTestRun.g.cs"
+                      Overwrite="true" WriteOnlyWhenDifferent="true"
+                      Lines="namespace CorpPresence.Runtime { internal static class WorkshopTestRun { internal const string Id = &quot;$(LocalWorkshopTestRun)&quot;%3B } }" />
+    <ItemGroup Condition="'$(LocalWorkshopTestRun)' != ''">
+      <Compile Include="$(IntermediateOutputPath)WorkshopTestRun.g.cs" />
+      <FileWrites Include="$(IntermediateOutputPath)WorkshopTestRun.g.cs" />
     </ItemGroup>
   </Target>
 </Project>

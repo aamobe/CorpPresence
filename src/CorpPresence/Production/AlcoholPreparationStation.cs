@@ -24,10 +24,20 @@ internal static class AlcoholPreparationStation
     private static bool IsFruit(GameItem item) => item?.identifier == "nutrifruit"
         && GeneralHelper.IsItemOwned(item) && !item.IsTag("ANIMAL_PRION_TAG");
 
-    private static bool IsWaterContainer(GameItem item) => item != null
+    internal static bool IsWaterContainer(GameItem item) => item != null
         && GeneralHelper.IsItemOwned(item) && item.IsTag("LIQUID_CONTAINER_TAG")
         && item.IsTag("LIQUID_CONTAINER_BASE_PRICE_TAG") && !item.IsTag("WINE_CONTAINER_TAG")
         && WaterFeatureHelper.GetWaterFeature(item) != null;
+
+    internal static int AlcoholUlAvailable(GameItem item)
+    {
+        if (item?.unitCount < 1 || !IsWaterContainer(item)) return 0;
+        int index = Index("alcohol");
+        return index < 0 ? 0 : Math.Max(0, WaterHelper.GetLiquidParts(item)[index]);
+    }
+
+    internal static void CommitAlcohol(GameItem item, int remaining) =>
+        item.ModifyTag(Liquid.GetCurrentPartFromId("alcohol"), tag => tag.Enable().SetInt(remaining), skipValidate: true);
 
     private static GameGridInventory Slot(Func<GameItem, bool> accepts) =>
         new(9, 6) { mayInventoryAddItemFunc = (item, _) => accepts(item) };
@@ -80,11 +90,8 @@ internal static class AlcoholPreparationStation
                 $"{readiness}\nHeat {available:N0} / 240 kcal\nPer batch: {power} charge, 100 mL water, 30 mL alcohol\nCarried in {carried}, added {added / 1000.0:0.##} mL"));
         }
 
-        bool busy = false;
-        machine.onCycleEndSlotItemFunc = (_, _, _) => HookGuard.Run("酒精制备站过夜", () =>
+        void PrepareOvernight()
         {
-            if (busy || !GeneralHelper.IsItemOwned(machine) || !SaveSlot.CanWrite("CorpPresence")) return;
-            busy = true;
             try
             {
                 int impurity = Impurity();
@@ -98,10 +105,10 @@ internal static class AlcoholPreparationStation
             }
             finally
             {
-                busy = false;
                 Refresh();
             }
-        });
+        }
+        machine.onCycleEndSlotItemFunc = (_, _, _) => HookGuard.Run("酒精制备站过夜", () => WorkshopCycle.Run(machine, PrepareOvernight));
         foreach (var inventory in new GameInventory[] { modules, fruit, water, receiver, battery })
         {
             inventory.onSlotAddItemEndFunc += (_, _, _) => Refresh();
@@ -169,26 +176,22 @@ internal static class AlcoholPreparationStation
         nextDestination[alcoholIndex] = checked(nextDestination[alcoholIndex] + AlcoholUl);
         nextDestination[dirtIndex] = checked(nextDestination[dirtIndex] + impurity);
 
-        if (!MachineHelper.TryDrawCyclePower(machine, battery)) return;
+        if (!WorkshopCycle.DrawPower(machine, battery)) return;
 
+        // All native tag and unit-count writes here are silent. Redraw/removal callbacks
+        // may throw after the item has changed, so invoke them only after the whole batch is committed.
         long remaining = available - FruitCost;
-        try
+        WriteParts(input, source, nextSource);
+        WriteParts(output, destination, nextDestination);
+        machine.ModifyTag(FruitReserve, tag => tag.Enable().SetLong(remaining), skipValidate: true);
+        foreach (var (fruit, eaten) in consumed) fruit.unitCount -= eaten;
+        foreach (var (fruit, _) in consumed)
         {
-            WriteParts(input, source, nextSource);
-            WriteParts(output, destination, nextDestination);
-            machine.ModifyTag(FruitReserve, tag => tag.Enable().SetLong(remaining), skipValidate: true);
-            foreach (var (fruit, eaten) in consumed)
+            HookGuard.Run("酒精制备站刷新已扣营养果", () =>
             {
-                if (eaten == fruit.unitCount) fruit.Destroy();
-                else fruit.SetUnitCount(fruit.unitCount - eaten);
-            }
-        }
-        catch
-        {
-            WriteParts(input, nextSource, source);
-            WriteParts(output, nextDestination, destination);
-            machine.ModifyTag(FruitReserve, tag => tag.Enable().SetLong(reserve), skipValidate: true);
-            throw;
+                if (fruit.unitCount == 0) fruit.Destroy();
+                else fruit.SetUnitCount(fruit.unitCount);
+            });
         }
 
 #if LOCAL_TEST_KIT
@@ -217,7 +220,7 @@ internal static class AlcoholPreparationStation
         return total;
     }
 
-    private static void WriteParts(GameItem item, int[] before, int[] after)
+    internal static void WriteParts(GameItem item, int[] before, int[] after)
     {
         for (int i = 0; i < after.Length; i++)
         {
@@ -227,6 +230,6 @@ internal static class AlcoholPreparationStation
         }
     }
 
-    private static void RefreshLiquid(GameItem item) =>
+    internal static void RefreshLiquid(GameItem item) =>
         WaterFeatureHelper.OnLiquidChanged(item, WaterFeatureHelper.GetWaterFeature(item).IsExposed());
 }

@@ -19,7 +19,11 @@ internal static class PowderBox
     };
     private static readonly Sprite[] Layers = new Sprite[5];
     private static readonly List<ItemSpriteModifier> EmptyLayer = new(0);
-    private sealed record BuiltIn(Func<int[]> Read, Action<int[]> Write);
+    private sealed record BuiltIn(GameItem Machine, Func<int[]> Read, Action<int[]> Write, Action Refresh);
+    private sealed class Revision { public long Value; }
+    private static readonly ConditionalWeakTable<GameItem, Revision> Revisions = new();
+    internal static void Changed(GameItem owner) => Revisions.GetOrCreateValue(owner).Value++;
+    private static long Version(GameItem owner) => Revisions.TryGetValue(owner, out var state) ? state.Value : 0;
     private static readonly ConditionalWeakTable<GameItem, BuiltIn> BuiltIns = new();
 
     internal static readonly Goods.Def Definition = new()
@@ -65,10 +69,10 @@ internal static class PowderBox
 
     internal static bool IsBoundBin(GameItem item) => BuiltIns.TryGetValue(item, out _);
 
-    internal static void BindBin(GameItem box, Func<int[]> read, Action<int[]> write)
+    internal static void BindBin(GameItem box, GameItem machine, Func<int[]> read, Action<int[]> write, Action refresh)
     {
         BuiltIns.Remove(box);
-        BuiltIns.Add(box, new BuiltIn(read, write));
+        BuiltIns.Add(box, new BuiltIn(machine, read, write, refresh));
         box.mayInventoryRemoveItemFunc = (_, _) => false;
     }
 
@@ -81,20 +85,50 @@ internal static class PowderBox
     private static void Pour(GameItem source, GameItem target)
     {
         if (!SaveSlot.CanWrite("CorpPresence") || !MayPourInto(source, target)) return;
+        var stock = InspectTransfer(source, target);
+        if (stock != null) Transfer(stock, stock.Limit);
+    }
+
+    internal sealed record TransferStock(GameItem Source, GameItem Target, int[] From, int[] To, int Capacity, long SourceVersion, long TargetVersion)
+    {
+        internal int Limit => PowderTransfer.Limit(From, To, Capacity);
+        internal PowderTransfer Plan(int amount) =>
+            PowderTransfer.Plan(From, To, Capacity, amount, WaterHelper.SplitProportionally);
+    }
+
+    internal static TransferStock InspectTransfer(GameItem source, GameItem target)
+    {
+        if (source == target || !IsBox(source) || !GeneralHelper.IsItemOwned(source) || !IsOwnedBox(target)) return null;
         var from = new int[ComponentCount];
         var to = new int[ComponentCount];
         Read(source, from);
-        int free = PowderColor.Capacity - (int)Read(target, to);
-        var moved = WaterHelper.SplitProportionally(from, free);
-        for (int i = 0; i < moved.Length; i++)
+        Read(target, to);
+        bool bound = BuiltIns.TryGetValue(source, out var bin);
+        return new TransferStock(source, target, from, to, bound ? PowderSieveRules.BinCapacity : PowderColor.Capacity,
+            Version(bound ? bin.Machine : source), Version(target));
+    }
+
+    internal static bool Transfer(TransferStock expected, int amount)
+    {
+        if (!SaveSlot.CanWrite("CorpPresence") || expected == null) return false;
+        var stock = InspectTransfer(expected.Source, expected.Target);
+        if (stock == null || stock.Capacity != expected.Capacity || stock.SourceVersion != expected.SourceVersion
+            || stock.TargetVersion != expected.TargetVersion || !stock.From.AsSpan().SequenceEqual(expected.From)
+            || !stock.To.AsSpan().SequenceEqual(expected.To)) return false;
+        var plan = stock.Plan(amount);
+        if (plan == null) return false;
+        if (BuiltIns.TryGetValue(stock.Source, out var bin))
         {
-            from[i] -= moved[i];
-            to[i] += moved[i];
+            bin.Write(plan.SourceAfter);
+            Changed(bin.Machine);
         }
-        if (BuiltIns.TryGetValue(source, out var bin)) bin.Write(from);
-        else WriteComposition(source, from);
-        WriteComposition(target, to);
-        Goods.Redraw(source);
+        else StoreParts(stock.Source, plan.SourceAfter);
+        StoreParts(stock.Target, plan.TargetAfter);
+        // Both sides are committed before layout or valuation callbacks can run.
+        RefreshComposition(stock.Target, plan.TargetAfter);
+        if (bin == null) RefreshComposition(stock.Source, plan.SourceAfter);
+        else bin.Refresh();
+        return true;
     }
 
     internal static PowderClassification Classify(GameItem item)
@@ -122,6 +156,10 @@ internal static class PowderBox
             _ => L.F("production.powder.pure", "{0} · 纯粉 {1}%", "{0} · pure {1}%", ComponentName(powder.Branch.Value), purity)
         };
         builder.AddLine(label, ignoreEmpty: true);
+        var points = new int[ComponentCount];
+        Read(item, points);
+        for (int i = 0; i < points.Length; i++)
+            builder.AddLine($"{ComponentName((PowderComponent)i)}  {points[i]}  ({points[i] * 10000L / total / 100m:0.##}%)", ignoreEmpty: true);
     }
 
     internal static string ComponentName(PowderComponent component) => component switch
@@ -135,6 +173,12 @@ internal static class PowderBox
 
     internal static void WriteComposition(GameItem item, ReadOnlySpan<int> parts)
     {
+        CommitComposition(item, parts);
+        RefreshComposition(item, parts);
+    }
+
+    internal static void CommitComposition(GameItem item, ReadOnlySpan<int> parts)
+    {
         if (!IsOwnedBox(item)) throw new ArgumentException("Expected an owned powder box.", nameof(item));
         if (parts.Length != ComponentCount) throw new ArgumentException("Expected five powder components.", nameof(parts));
         long total = 0;
@@ -145,12 +189,21 @@ internal static class PowderBox
         }
         if (total > PowderColor.Capacity) throw new ArgumentOutOfRangeException(nameof(parts));
 
+        StoreParts(item, parts);
+    }
 
+    private static void StoreParts(GameItem item, ReadOnlySpan<int> parts)
+    {
+        Changed(item);
         for (int i = 0; i < Parts.Length; i++)
         {
             int amount = parts[i];
             item.ModifyTag(Parts[i], tag => tag.Enable().SetInt(amount), skipValidate: true);
         }
+    }
+
+    internal static void RefreshComposition(GameItem item, ReadOnlySpan<int> parts)
+    {
         item.unitValue = PowderPricing.BoxValue(parts);
         item.ValidateShapeState();
         Goods.Redraw(item);

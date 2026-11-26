@@ -6,7 +6,6 @@ namespace CorpPresence;
 
 internal static partial class Services
 {
-	private static bool _placingOrder;
 	public static bool CanOrderToday(Company c)
 	{
 		return Companies.StateOf(c)?.LastOrderDay != Day;
@@ -23,11 +22,10 @@ internal static partial class Services
 
 	public static string PlaceOrder(Company c, Dictionary<CatalogEntry, int> cart, Func<CatalogEntry, int> unitPrice)
 	{
-		if (_placingOrder)
+		if (!CompanyTransaction.TryEnter(c is WorkshopContact or MeridianCo ? SaveSlot.CurrentStore : null))
 			return L.K("companies.services.orders.placeOrder.orderNotReadyHaveNot", "订单未就绪，尚未扣款。", "Order not ready. You have not been charged.");
-		_placingOrder = true;
 		try { return PlaceOrderCore(c, cart, unitPrice); }
-		finally { _placingOrder = false; }
+		finally { CompanyTransaction.Exit(); }
 	}
 
 	private static string PlaceOrderCore(Company c, Dictionary<CatalogEntry, int> cart, Func<CatalogEntry, int> unitPrice)
@@ -87,9 +85,14 @@ internal static partial class Services
 			int actualPrice = c.OrderUnitPrice(item.Key, s);
 			if (shownPrice != actualPrice || !OrderAmounts.TryAdd(ref num, actualPrice, item.Value, bundle, out int count))
 				return L.K("companies.services.orders.placeOrder.invalidOrderQuantityOrAmount", "订单数量或金额无效，尚未扣款。", "Invalid order quantity or amount. You have not been charged.");
-			for (int i = 0; i < count; i++) order.Items.Add(id);
+			for (int i = 0; i < count; i++)
+			{
+				if (item.Key.Contents is { } contents) order.Items.AddRange(contents);
+				else order.Items.Add(id);
+			}
 			limits[line++] = (id, window, item.Value, key, equipment);
 		}
+		if (c is MeridianCo && order.Items.Contains(Order.SpentContacts)) order.Kind = Order.SpentContacts;
 		if (num <= 0) return L.K("companies.services.orders.placeOrder.nothingSelectedYet", "还没有选货", "Nothing selected yet");
 		// Finish allocating and validating the order before invoking payment.
 		if (!session.IsCurrent || !ReferenceEquals(Companies.StateOf(c), s) || !session.IsCurrent || Day != orderDay)
@@ -172,4 +175,3 @@ internal static partial class Services
 	}
 
 }
-

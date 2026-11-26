@@ -24,10 +24,14 @@ internal sealed class CatalogEntry
 
 	public int Bundle;
 
+	// Heterogeneous packs are persisted as their deliverable pieces at checkout.
+	public string[] Contents { get; init; }
+
 	// Per catalog unit, including any bundle. Null retains sampled valuation.
 	public int? FixedBaseValue;
 	public int? FixedListValue;
 	public bool IgnoreOrderRate;
+	public bool NoQuantityQuota;
 
 	private GameItem _sample;
 	private (string, int)[] _samplePermits;
@@ -306,6 +310,7 @@ internal sealed class CatalogEntry
 
 	public int Limit()
 	{
+		if (NoQuantityQuota) return 0;
 		if (WeeklyLimit > 0)
 		{
 			return WeeklyLimit;

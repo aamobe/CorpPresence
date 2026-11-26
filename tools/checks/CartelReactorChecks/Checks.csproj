@@ -1,4 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework></PropertyGroup>
-  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/CartelBatch.cs" Link="CartelBatch.cs" /></ItemGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../src/CorpPresence/Production/CartelBatch.cs;../../../src/CorpPresence/Production/CartelReactor.cs;../../../src/CorpPresence/Production/MineralGrowthStation.cs;../../../src/CorpPresence/Production/MineralGrowthBatch.cs;../../../src/CorpPresence/Production/PowderClassification.cs;../../../src/CorpPresence/Production/ProductionOutput.cs;../../../src/CorpPresence/Production/WorkshopCycle.cs" />
+    <Compile Include="../../../src/CorpPresence/Items/DefinitionSet.cs" />
+    <Compile Include="../../../src/CorpPresence/Production/AlcoholPreparationStation.cs" />
+    <Compile Include="../../../src/CorpPresence/Integration/HookGuard.cs" />
+    <Compile Include="../../../src/CorpPresence/Persistence/WorkshopState.cs;../../../src/CorpPresence/Persistence/WorkshopSaleState.cs;../../../src/CorpPresence/Companies/WorkshopSales.cs;../../../src/CorpPresence/Companies/ShizukaSupplies.cs;../../../src/CorpPresence/Integration/ShopInventory.cs;../../../src/CorpPresence/Companies/CompanyTransaction.cs" />
+    <Compile Include="../../../src/CorpPresence/Production/PowderClassifier.cs;../../../src/CorpPresence/Production/ClassifierBatch.cs;../../../src/CorpPresence/Items/ClassifierGoods.cs;../../../src/CorpPresence/Production/CraftingStation.cs" />
+    <Compile Include="../../../src/CorpPresence/Persistence/FirstOverhaulState.cs" />
+    <Compile Include="../../../src/CorpPresence/Persistence/RotationContract.cs;../../../src/CorpPresence/Companies/RepairReturns.cs" />
+    <Compile Include="../../../src/CorpPresence/Companies/FirstOverhaulQuote.cs" />
+  </ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/IndustrialRecipes.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Presentation/RodVisual.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/RodCladding.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/WetPumpContact.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Items/IndustrialGoods.cs;../../../src/CorpPresence/Production/IndustrialWorkbench.cs;../../../src/CorpPresence/Production/SinteringBatch.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/SinteringStation.cs;../../../src/CorpPresence/Production/SinteringStation.Trial.cs;../../../src/CorpPresence/Production/SinteringRecipes.cs;../../../src/CorpPresence/Production/RodMaterial.cs;../../../src/CorpPresence/Production/TrialAlloy.cs;../../../src/CorpPresence/Production/MineralCrusher.cs;../../../src/CorpPresence/Production/MineralCrusher.Feed.cs;../../../src/CorpPresence/Production/CrusherBatch.cs;../../../src/CorpPresence/Production/MineralNightReport.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/RodCondition.cs;../../../src/CorpPresence/Production/RodTreatmentJob.cs;../../../src/CorpPresence/Production/SinteringStation.Treatment.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/MineralCrusher.Hard.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/MineralGrowthStation.Retrofit.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/AlloyForms.cs;../../../src/CorpPresence/Production/SleeveOiling.cs;../../../src/CorpPresence/Production/FeederAssembly.cs;../../../src/CorpPresence/Production/MachineService.cs;../../../src/CorpPresence/Integration/ScrewdriverService.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Companies/MeridianIndustrial.cs;../../../src/CorpPresence/Companies/MeridianFrameDelivery.cs;../../../src/CorpPresence/Companies/WorkshopCounter.cs;../../../src/CorpPresence/Production/Forge.Industrial.cs;../../../src/CorpPresence/Companies/Order.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Companies/CenFeederTrial.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/OverhaulPlan.cs;../../../src/CorpPresence/Companies/OverhaulWorkshopStock.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/PowderSieve.cs;../../../src/CorpPresence/Production/PowderSieve.Mixing.cs;../../../src/CorpPresence/Production/PowderSieveRules.cs;../../../src/CorpPresence/Production/PowderTransfer.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/IndustrialPump.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Companies/WaterStationRepair.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Companies/MeridianCoreIntake.cs;../../../src/CorpPresence/Production/CoreCalibration.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Production/FoldedFactory.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Companies/PhaseSite.cs;../../../src/CorpPresence/Production/PhaseRecoveryStation.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../../src/CorpPresence/Companies/JointWaterWork.cs" /></ItemGroup>
 </Project>

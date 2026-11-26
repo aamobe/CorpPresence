@@ -5,5 +5,5 @@
 <Compile Include="../../../src/CorpPresence/Companies/Services.Orders.cs" />
 <Compile Include="../../../src/CorpPresence/Companies/OrderAmounts.cs" />
 <Compile Include="../../../src/CorpPresence/Companies/QuotaCounts.cs" />
-<Compile Include="../../../src/CorpPresence/Companies/Services.Payment.cs"/><Compile Include="../../../src/CorpPresence/Companies/CompanyMoney.cs"/><Compile Include="../../../src/CorpPresence/Persistence/SaveSlot.cs"/></ItemGroup>
+<Compile Include="../../../src/CorpPresence/Companies/Services.Payment.cs"/><Compile Include="../../../src/CorpPresence/Companies/CompanyMoney.cs"/><Compile Include="../../../src/CorpPresence/Persistence/SaveSlot.cs"/><Compile Include="../../../src/CorpPresence/Companies/CompanyTransaction.cs"/><Compile Include="../../../src/CorpPresence/Companies/Order.cs"/></ItemGroup>
 </Project>

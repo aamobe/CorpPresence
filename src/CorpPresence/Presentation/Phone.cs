@@ -90,7 +90,7 @@ internal static class Phone
 	}
 
 	public static bool Available(Company c) =>
-		c.Active && (c is JacksonContact || (Companies.StateOf(c)?.CardGiven ?? false));
+		c.Active && (c is JacksonContact or WorkshopContact || (Companies.StateOf(c)?.CardGiven ?? false));
 
 	private static void Sync(Company c, StorePhoneClient client)
 	{

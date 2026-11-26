@@ -8,4 +8,10 @@ internal static class PowderSieveRules
     internal const int BaseThroughput = 300;
     internal static int RecoveryRate(int quality) => 50 + Math.Clamp(quality, 0, 35);
     internal static int Recovered(int amount, int rate) => amount * rate / 100;
+
+    internal static int[] Sort(int[] feed, int rate)
+    {
+        var sorted = Array.ConvertAll(feed, points => Recovered(points, rate));
+        return Array.Exists(sorted, points => points > 0) ? sorted : null;
+    }
 }

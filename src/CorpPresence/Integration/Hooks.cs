@@ -85,6 +85,7 @@ internal static partial class Hooks
 	{
 		Type typeFromHandle = typeof(Hooks);
 		Patch<PlayerStore>(h, "BeginDay", typeFromHandle, null, nameof(AfterBeginDay));
+		Patch<ToolDirectory>(h, "CreateScrewdriver", typeof(ScrewdriverService), postfix: nameof(ScrewdriverService.AfterCreate));
 		Patch<PlayerStore>(h, "GetNextClient", typeFromHandle, nameof(BeforeNextClient));
 		Patch<MachineHydroponic>(h, nameof(MachineHydroponic.Hydroponic), typeof(SleepMoss), postfix: nameof(SleepMoss.AddStageOverlay));
 		Patch<HydroponicHelper>(h, nameof(HydroponicHelper.ContinueGrowing), typeof(CropHealth),

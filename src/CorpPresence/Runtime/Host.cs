@@ -37,6 +37,9 @@ internal sealed class Host : MonoBehaviour
 #if LOCAL_TEST_KIT
         TestKit.Tick();
 #endif
+#if LOCAL_PLAYTEST || LOCAL_WORKSHOP_TEST
+        PlaytestStoryKeys.Tick();
+#endif
     }
 
     private void OnGUI()

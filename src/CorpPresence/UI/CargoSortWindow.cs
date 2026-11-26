@@ -133,8 +133,16 @@ internal static class CargoSortWindow
             L.K("production.cargoWarehouse.controller.unrestricted", "全部不勾选时接受通用物品。", "Leave all unchecked for unrestricted storage."), _hint);
         float column = (width - 54f) / 2f;
         var list = new Rect(16f, 77f, width - 32f, height - 137f);
-        _scroll = GUI.BeginScrollView(list, _scroll,
-            new Rect(0, 0, width - 54f, ((_options.Length + 1) / 2) * 33f));
+        var content = new Rect(0, 0, width - 54f, ((_options.Length + 1) / 2) * 33f);
+#if LOCAL_PLAYTEST
+        if (PanelPlaytest.Frame is { } sample)
+        {
+            var origin = new Vector2((Screen.width - width) / 2f, (Screen.height - height) / 2f);
+            var point = Pointer.ToLogical(sample.Item2, 1f) - origin;
+            _scroll = Ui.ScrollAtPointer(list, _scroll, content, point, sample.Item6);
+        }
+#endif
+        _scroll = GUI.BeginScrollView(list, _scroll, content);
         try
         {
             for (int i = 0; i < _options.Length; i++)

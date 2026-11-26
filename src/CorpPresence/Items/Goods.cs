@@ -188,7 +188,17 @@ internal static partial class Goods
 	{
 		try
 		{
-			item.SetName(d.LName);
+			string name = d.LName;
+			if (item.identifier == "corp_presence_" + IndustrialPump.Key)
+			{
+				if (!string.IsNullOrEmpty(item.GetTagReadonly(WaterStationRepair.LoanTag).GetString()))
+					name = L.K("workshop.pumpRepair.loanName", "水站旧泵（返修）", "Water Station Pump (Repair)");
+				else if (!string.IsNullOrEmpty(item.GetTagReadonly(PhaseSite.RecoveredTag).GetString()))
+					name = L.K("workshop.phase.recoveredName", "运输井回收泵", "Recovered Shaft Pump");
+			}
+			if (FoldedFactory.HasFoldedStamp(item))
+				name = L.K("workshop.joint.foldedPlate", "折叠硅板", "Folded Silicon Plate");
+			item.SetName(name);
 		}
 		catch
 		{
@@ -766,6 +776,13 @@ internal static partial class Goods
 		{
 			ModLog.Warn("物品重画失败：" + ex.Message);
 		}
+	}
+
+	internal static void RefreshRodSprite(GameItem item)
+	{
+		if (!RodMaterial.IsRod(item.identifier) && !RodMaterial.IsShortRod(item.identifier)) return;
+		item.SetSprite(item.spriteAtlasPath, item.spritePath);
+		Redraw(item);
 	}
 
 	public static void RefreshBattery(GameItem item)

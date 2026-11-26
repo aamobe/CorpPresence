@@ -24,7 +24,7 @@ internal static partial class Hooks
 	{
 		try
 		{
-			Sprite appearance = MachineAppearance.SpriteOverride(__instance);
+			Sprite appearance = MachineAppearance.SpriteOverride(__instance) ?? RodAppearance.SpriteOverride(__instance);
 			if (appearance != null)
 			{
 				__result = appearance;

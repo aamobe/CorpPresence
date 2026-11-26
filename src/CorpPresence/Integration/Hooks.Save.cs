@@ -11,10 +11,11 @@ namespace CorpPresence;
 
 internal static partial class Hooks
 {
-	private static void BeforeSave(PlayerStore __instance)
+	private static bool BeforeSave(PlayerStore __instance)
 	{
-		if (!ReferenceEquals(SaveSlot.CurrentStore, __instance)) return;
-		if (!SavePreparation.TryEnter()) return;
+		if (!ReferenceEquals(SaveSlot.CurrentStore, __instance)) return true;
+		if (CompanyTransaction.DeferSave(__instance, () => Guard("工坊结算后保存", __instance.SaveGame))) return false;
+		if (!SavePreparation.TryEnter()) return true;
 		try
 		{
 			Guard("写入存档", CorpState.Save);
@@ -26,6 +27,7 @@ internal static partial class Hooks
 			try { ModLog.Warn("公司保存准备失败，继续原版保存：" + error.Message); } catch { }
 		}
 		finally { SavePreparation.Exit(); }
+		return true;
 	}
 
 	private static void BeforeStoreTransition()

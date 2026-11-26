@@ -6,6 +6,8 @@ namespace CorpPresence.UI;
 
 internal static partial class CompanyWindow
 {
+	private static Rect StoryGuideButton => new(_rect.width - 214f, 8f, 170f, 24f);
+
 	private static int _guideStage;
 	private static int _guidePage;
 	private static string[] _guidePages;

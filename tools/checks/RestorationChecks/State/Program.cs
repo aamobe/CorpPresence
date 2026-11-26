@@ -2,10 +2,215 @@ using CorpPresence;
 using CorpPresence.UI;
 int passed = 0, failed = 0;
 void Check(string name, Action test) { try { SaveSlot.CurrentStore = new PlayerStore(); CorpState.Current = new CorpState(SaveSlot.CurrentStore); GameResources.Ready = true; GameResources.Generation++; Goods.Factory = () => new GameItem(); StoreStation.Day = 1; GraphUtils.Stacking=false; GraphUtils.IgnoreDeclaredLimit=false; test(); passed++; Console.WriteLine("PASS " + name); } catch(Exception e) { failed++; Console.WriteLine("FAIL " + name + ": " + e.Message); } }
-void Assert(bool value) { if(!value) throw new Exception("assertion"); }
+void Assert(bool value, [System.Runtime.CompilerServices.CallerLineNumber] int line = 0) { if(!value) throw new Exception($"assertion at line {line}"); }
+Check("Cen keeps one starter choice, ships only the remainder and supplies an actual 24-charge cell", () =>
+{
+    var session = StoreSession.Capture();
+    var state = CorpState.Current.Workshop;
+    PlayerStore.Placed.Clear();
+    var counter = new GameGridInventory { HasCrateSlot = false };
+    EmporiumEntry.Instance = new EmporiumEntry { backInvinvElement = counter };
+    Assert(CenSupplies.Kit("salvage").Contents.SequenceEqual(new[] { "scrap_metal", "@salvage_electronics", "@spent_lining" }));
+    Assert(CenSupplies.Kit("glass").Quote(1.9) == 30 && CenSupplies.Kit("metal").Quote(1.9) == 45);
+    Assert(CenSupplies.All.Single(entry => entry.Id == "@powder_classifier").Quote(1.9) == 220);
+    Assert(CenSupplies.All.Take(6).Select(entry => entry.Quote(1.9)).SequenceEqual(new[] { 30, 45, 55, 20, 16, 65 }));
+    CenStarterKit.Claim("glass", session);
+    Assert(state.CenKit == "glass" && state.CenKitRemaining == 4 && counter.childItems.Count == 0);
+    CenStarterKit.Claim("metal", session);
+    Assert(state.CenKit == "glass" && state.CenKitRemaining == 4);
+    counter.HasCrateSlot = true;
+    Goods.Factory = () => new GameItem { identifier = "empty_beer_bottle" };
+    GraphUtils.Capacity = 2;
+    string saved = null;
+    int saves = 0;
+    counter.AfterAttach = () =>
+    {
+        void Save() { saves++; saved = System.Text.Json.JsonSerializer.Serialize(state); }
+        if (!CompanyTransaction.DeferSave(SaveSlot.CurrentStore, Save)) Save();
+        throw new InvalidOperationException("after native attachment");
+    };
+    CenStarterKit.Claim("glass", session);
+    Assert(saves == 1 && state.CenKitRemaining == 2 && counter.childItems.Single().Inner.childItems.Count == 2);
+    CorpState.Current = new CorpState(SaveSlot.CurrentStore) { Workshop = System.Text.Json.JsonSerializer.Deserialize<WorkshopState>(saved) };
+    state = CorpState.Current.Workshop;
+    CenStarterKit.Claim("glass", session);
+    Assert(state.CenKitRemaining == 2 && counter.childItems.Count == 1);
+    session = StoreSession.Capture();
+    CenStarterKit.Claim("glass", session);
+    CenStarterKit.Claim("glass", session);
+    var items = counter.childItems.SelectMany(crate => crate.Inner.childItems).ToArray();
+    Assert(state.CenKitRemaining == 0 && items.Count(i => i.identifier == "empty_beer_bottle") == 3);
+    Assert(items.Single(i => i.identifier == "energy_credit").GetTagReadonly("power_source_item_energy").GetInt() == 24);
+    Assert(Crates.GoodsKey(new CenContact()) == "crate_spacer");
+    EmporiumEntry.Instance = null;
+});
+Check("Shizuka starter resumes from the actually delivered items across a save", () =>
+{
+    var counter = new GameGridInventory { HasCrateSlot = false };
+    EmporiumEntry.Instance = new EmporiumEntry { backInvinvElement = counter };
+    var session = StoreSession.Capture();
+    var root = CorpState.Current;
+    GraphUtils.Capacity = 2;
+    ShizukaSupplies.Claim(session);
+    Assert(root.Workshop.ShizukaKitRemaining == 5);
+    counter.HasCrateSlot = true;
+    ShizukaSupplies.Claim(session);
+    Assert(counter.childItems.Count == 0);
+    root.ShizukaChapter = 1;
+    string saved = null;
+    counter.AfterAttach = () =>
+    {
+        void Save() => saved = System.Text.Json.JsonSerializer.Serialize(root.Workshop);
+        if (!CompanyTransaction.DeferSave(SaveSlot.CurrentStore, Save)) Save();
+    };
+    ShizukaSupplies.Claim(session);
+    Assert(root.Workshop.ShizukaKitRemaining == 3);
+    root = CorpState.Current = new CorpState(SaveSlot.CurrentStore) { ShizukaChapter = 1, Workshop = System.Text.Json.JsonSerializer.Deserialize<WorkshopState>(saved) };
+    ShizukaSupplies.Claim(session);
+    Assert(root.Workshop.ShizukaKitRemaining == 3 && counter.childItems.Count == 1);
+    session = StoreSession.Capture();
+    GraphUtils.Capacity = 3;
+    ShizukaSupplies.Claim(session);
+    ShizukaSupplies.Claim(session);
+    var ids = counter.childItems.SelectMany(box => box.Inner.childItems).Select(item => item.identifier);
+    Assert(ids.SequenceEqual(new[] { "corp_presence_cartel_reactor", "corp_presence_sleep_moss_block", "corp_presence_sleep_moss_block", "corp_presence_blue_shell_resin", "corp_presence_blue_shell_resin" }));
+    Assert(root.Workshop.ShizukaKitRemaining == 0 && Crates.GoodsKey(new ShizukaContact()) == "crate_spacer");
+    EmporiumEntry.Instance = null;
+});
+Check("Shizuka resupply keeps fixed prices and checks blueprint and paid first order independently", () =>
+{
+    var root = CorpState.Current;
+    var stock = ShizukaSupplies.All.ToDictionary(entry => entry.Id, entry => entry.Quote(1.9));
+    Assert(stock["@blue_shell_resin"] == 12 && stock["@sleep_moss_block"] == 16 && stock["@sleep_moss_seed"] == 35 && stock["@cartel_reactor"] == 300);
+    Assert(stock["@alcohol_preparation_station"] == 300 && stock["@crystal_sleeve"] == 40 && stock["@light_salt_blueprint"] == 35);
+    root.ShizukaChapter = 1;
+    Assert(ShizukaSupplies.OrderError("@crystal_sleeve", root) != null && ShizukaSupplies.OrderError("@light_salt_blueprint", root) != null);
+    Assert(ShizukaSupplies.OrderError("@alcohol_preparation_station", root) != null);
+    root.ShizukaChapter = 2;
+    Assert(ShizukaSupplies.OrderError("@crystal_sleeve", root) == null && ShizukaSupplies.OrderError("@light_salt_blueprint", root) == null);
+    Assert(ShizukaSupplies.OrderError("@alcohol_preparation_station", root) != null);
+    root.Workshop.GelOrder = new WorkshopSaleReceipt { Offer = "first_gel", Day = 0, CompletedDay = 0, Amount = 55, Paid = 55, Received = 1 };
+    Assert(ShizukaSupplies.OrderError("@alcohol_preparation_station", root) == null);
+});
+Check("Meridian courier signs only arrived frames and saves the remainder after native placement", () =>
+{
+    var company = new Company { Id = "meridian" };
+    var state = CorpState.Current.Companies[company.Id] = new CompanyState();
+    var order = new Order { Kind = MeridianCommissionReceipt.OrderKind, Day = StoreStation.Day,
+        Items = Enumerable.Repeat(MeridianFrameDelivery.FrameId, 3).ToList() };
+    state.Orders.Add(order);
+    Action Book()
+    {
+        Action sign = null;
+        int day = StoreStation.Day;
+        Assert(CompanyVisitors.BookDelivery(state.Orders, day, false, () => false, due =>
+        {
+            sign = CompanyVisitors.Receipt(company, state, due);
+            return true;
+        }, out _) == true);
+        Assert(order.Day == day && order.CourierBookedDay == day);
+        Assert(CompanyVisitors.BookDelivery(state.Orders, day, false, () => false, due => throw new Exception("duplicate booking"), out _) == null);
+        return sign;
+    }
+    Assert(CompanyVisitors.BookDelivery(state.Orders, StoreStation.Day - 1, false, () => false,
+        due => throw new Exception("early booking"), out _) == null);
+    var counter = new GameGridInventory { HasCrateSlot = false };
+    EmporiumEntry.Instance = new EmporiumEntry { backInvinvElement = counter };
+    Goods.Factory = () => new GameItem { identifier = MeridianFrameDelivery.FrameId };
+    GraphUtils.Capacity = 2;
+    Book()();
+    Assert(order.Items.Count == 3 && counter.childItems.Count == 0 && order.Day == StoreStation.Day + 1);
+    StoreStation.Day++;
+    counter.HasCrateSlot = true;
+    int saved = -1;
+    counter.AfterAttach = () =>
+    {
+        Assert(CompanyTransaction.DeferSave(SaveSlot.CurrentStore, () => saved = state.Orders.Sum(o => o.Items.Count)));
+        throw new Exception("redraw after placement");
+    };
+    var sign = Book();
+    sign(); sign();
+    Assert(saved == 1 && order.Items.Count == 1 && counter.childItems.Single().Inner.childItems.Count == 2);
+    StoreStation.Day++;
+    Book()();
+    Assert(saved == 0 && state.Orders.Count == 0 && counter.childItems.SelectMany(crate => crate.Inner.childItems).Count() == 3);
+    EmporiumEntry.Instance = null;
+});
+Check("Meridian spent contacts reach saved back inventory; concurrent ordinary goods still reach the front", () =>
+{
+    var company = new Company { Id = "meridian", Catalog = new() { new CatalogEntry { Id = Order.SpentContacts } } };
+    var state = CorpState.Current.Companies[company.Id] = new CompanyState();
+    var contacts = new Order { Day = StoreStation.Day, Items = new() { Order.SpentContacts, Order.SpentContacts } };
+    var regular = new Order { Day = StoreStation.Day, Items = new() { "ordinary_part" } };
+    state.Orders.Add(contacts); state.Orders.Add(regular);
+    var counter = new GameGridInventory { HasCrateSlot = false };
+    EmporiumEntry.Instance = new EmporiumEntry { backInvinvElement = counter, frontInvinvElement = new GameGridInventory() };
+    PlayerStore.Placed.Clear();
+    GraphUtils.Capacity = 10;
+    Action Book()
+    {
+        Action receipt = null;
+        Assert(CompanyVisitors.BookDelivery(state.Orders, StoreStation.Day, false, () => false, due =>
+        {
+            receipt = CompanyVisitors.Receipt(company, state, due);
+            return true;
+        }, out _) == true);
+        return receipt;
+    }
+    Book()();
+    Assert(contacts.Kind == Order.SpentContacts && contacts.Items.Count == 2 && counter.childItems.Count == 0);
+    Assert(!state.Orders.Contains(regular) && PlayerStore.Placed.Count == 1);
+    Assert(contacts.Day == StoreStation.Day + 1);
+    StoreStation.Day++;
+    counter.HasCrateSlot = true;
+    string saved = null;
+    counter.AfterAttach = () =>
+    {
+        void Save() => saved = System.Text.Json.JsonSerializer.Serialize(new Dictionary<string,string[]>
+        {
+            ["backInvJSON"] = counter.childItems.SelectMany(box => box.Inner.childItems).Select(i => i.identifier).ToArray(),
+            ["meridianOrders"] = state.Orders.SelectMany(o => o.Items).ToArray()
+        });
+        Assert(CompanyTransaction.DeferSave(SaveSlot.CurrentStore, Save));
+    };
+    var sign = Book();
+    sign(); sign();
+    var restored = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string,string[]>>(saved);
+    Assert(restored["backInvJSON"].SequenceEqual(new[] { "corp_presence_rosen_spent_contact", "corp_presence_rosen_spent_contact" }));
+    Assert(restored["meridianOrders"].Length == 0 && state.Orders.Count == 0 && PlayerStore.Placed.Count == 1);
+    EmporiumEntry.Instance = null;
+});
+Check("Cen courier settles once on the save-backed counter even when the front counter is full", () =>
+{
+    Crates.Reset();
+    GraphUtils.Capacity = 10;
+    var counter = new GameGridInventory { HasCrateSlot = false };
+    EmporiumEntry.Instance = new EmporiumEntry { backInvinvElement = counter, frontInvinvElement = new GameGridInventory { HasSpace = false } };
+    var company = new CenContact { Id = "lower_mutual", Catalog = CenSupplies.All.ToList() };
+    var state = new CompanyState();
+    var order = new Order { Items = new() { "empty_beer_bottle", CenSupplies.BatteryOrder } };
+    CorpState.Current.Companies[company.Id] = state;
+    state.Orders.Add(order);
+    CompanyVisitors.Receipt(company, state, new() { order })();
+    Assert(order.Items.Count == 2 && counter.childItems.Count == 0);
+    counter.HasCrateSlot = true;
+    Goods.Factory = () => new GameItem { identifier = "empty_beer_bottle" };
+    int savedOrders = -1, savedPieces = -1;
+    counter.AfterAttach = () =>
+    {
+        void Save() { savedOrders = state.Orders.Count; savedPieces = counter.childItems.Single().Inner.childItems.Count; }
+        if (!CompanyTransaction.DeferSave(SaveSlot.CurrentStore, Save)) Save();
+    };
+    var receipt = CompanyVisitors.Receipt(company, state, new() { order });
+    receipt();
+    receipt();
+    Assert(savedOrders == 0 && savedPieces == 2 && state.Orders.Count == 0 && counter.childItems.Count == 1);
+    Assert(counter.childItems[0].Inner.childItems.Single(item => item.identifier == "energy_credit").GetTagReadonly("power_source_item_energy").GetInt() == 24);
+    EmporiumEntry.Instance = null;
+});
 Check("escapee ignores the unsaved front counter", () =>
 {
-    var store = new EmporiumEntry { invElement = new GameInventory(), backInvinvElement = new GameInventory(), frontInvinvElement = new GameGridInventory() };
+    var store = new EmporiumEntry { invElement = new GameInventory(), backInvinvElement = new GameGridInventory(), frontInvinvElement = new GameGridInventory() };
     var creature = new GameItemElement();
     Assert(EscapeePlacement.TryPlace(store, creature) && store.invElement.childItems.Contains(creature));
     while (GraphUtils.CanAccept(store.invElement, null)) store.invElement.childItems.Add(new GameItem());
@@ -363,10 +568,12 @@ namespace CorpPresence {
 class PlayerStore {public List<(string,int)> ActivePermits=new(); public int contrabandMarkupLow=35, contrabandMarkupMid=70, contrabandMarkupHigh=100, contrabandMarkupCritial=150;public string runID="run"; public Dictionary<string,string> modData=new();public static PlayerStore Instance=>SaveSlot.CurrentStore;public void AddNightLog(string text,string color=null){}public Client currentClientInstance; public static List<GameItem> Placed=new();public bool RefusePlacement; public bool TryAddDirectSellingItemToTable(GameItem crate,bool isOwend){if(RefusePlacement)return false;Placed.Add(crate);crate.parentInventory=new GameInventory();return true;}}
 static class SaveSlot {public static PlayerStore CurrentStore;public static bool CanWrite(string key)=>true;}
 static class GameResources {public static bool Ready=true;public static long Generation;}
-class CorpState {public static CorpState Current;public string RunId="run";public Dictionary<string,CompanyState> Companies=new();SaveBinding binding; public CorpState(PlayerStore s){binding=new SaveBinding(s,"CorpPresence");} public bool IsBoundTo(PlayerStore s)=>binding.Matches(s);public static CorpState Get()=>Current;}
+class CorpState {public int ShizukaChapter;public WorkshopState Workshop=new();public static CorpState Current;public string RunId="run";public Dictionary<string,CompanyState> Companies=new();SaveBinding binding; public CorpState(PlayerStore s){binding=new SaveBinding(s,"CorpPresence");} public bool IsBoundTo(PlayerStore s)=>binding.Matches(s);public static CorpState Get()=>Current;}
 
-class GameItem:GraphNodeStorage {public bool IsContraband; public string Level; public string RestrictedType; public bool IsGameItemType(string type)=>type==RestrictedType; public int EventPercent; private readonly Dictionary<string,TagState> tags=new(); public bool IsTag(string tag)=>tags.ContainsKey(tag) || tag=="CONTRABAND_ITEM_TAG" && IsContraband; public TagState GetTagReadonly(string tag)=>tags.GetValueOrDefault(tag) ?? new TagState{Value=Level}; public void ModifyTag(string tag,Action<TagState> change){if(!tags.TryGetValue(tag,out var state))tags[tag]=state=new TagState();change(state);} public string spritePath; public void SetUnitCount(int count)=>unitCount=count;public GameInventory parentInventory;public GameInventory Inner;public string identifier="item"; public int unitCount=1; public long Value=10;public int DestroyCount;public Func<long> Read;public Action OnDestroy; public long GetCurrentValue(bool useRetailMarkup,bool withChild,bool includeEvents,bool forceMarkup,long extraMarketMod)=>Read?.Invoke()??(long)Math.Round(Value*(1+((includeEvents?EventPercent:0)+extraMarketMod)/100.0));public void Destroy(){DestroyCount++;parentInventory?.childItems.Remove(this);parentInventory=null;OnDestroy?.Invoke();}public string GetDisplayName()=>L.En?"English":"中文";public GameItem SetContentWindow(PixelWindow window){Inner=window.Inventory;return this;}public void EnableTag(string tag){}}
-static partial class Goods {public static Func<GameItem> Factory;public static GameItem Build(ItemIdentity.Entry entry){var item=entry.Goods.StartsWith("crate_")?Crates.CreateShell():new GameItem();item.identifier=entry.Id;return item;}public static bool Has(string id)=>false;public static GameItem MakeSpecial(string id)=>DirectoryMaster.Current is null ? Factory() : null;public static string IdOf(GameItem item)=>item.identifier;public static GameItem Make(string id)=>DirectoryMaster.Current is not null ? ItemRegistry.Create("corp_presence_"+id) : id.StartsWith("crate_")?(RegisteredCrates.Contains(id)?Crates.CreateShell():null):Factory();}
+class GameItem:GraphNodeStorage {
+    public System.Func<GameItem, GameItem, bool> mayStackItemFunc { get; set; }
+public bool IsContraband; public string Level; public string RestrictedType; public bool IsGameItemType(string type)=>type==RestrictedType; public int EventPercent; private readonly Dictionary<string,TagState> tags=new(); public bool IsTag(string tag)=>tags.ContainsKey(tag) || tag=="CONTRABAND_ITEM_TAG" && IsContraband; public TagState GetTagReadonly(string tag)=>tags.GetValueOrDefault(tag) ?? new TagState{Value=Level}; public void ModifyTag(string tag,Action<TagState> change){if(!tags.TryGetValue(tag,out var state))tags[tag]=state=new TagState();change(state);} public string spritePath; public void SetUnitCount(int count)=>unitCount=count;public GameInventory parentInventory;public GameInventory Inner;public string identifier="item"; public int unitCount=1; public long Value=10;public int DestroyCount;public Func<long> Read;public Action OnDestroy; public long GetCurrentValue(bool useRetailMarkup,bool withChild,bool includeEvents,bool forceMarkup,long extraMarketMod)=>Read?.Invoke()??(long)Math.Round(Value*(1+((includeEvents?EventPercent:0)+extraMarketMod)/100.0));public void Destroy(){DestroyCount++;parentInventory?.childItems.Remove(this);parentInventory=null;OnDestroy?.Invoke();}public string GetDisplayName()=>L.En?"English":"中文";public GameItem SetContentWindow(PixelWindow window){Inner=window.Inventory;return this;}public void EnableTag(string tag){}}
+static partial class Goods {public static Func<GameItem> Factory;public static GameItem Build(ItemIdentity.Entry entry){var item=entry.Goods.StartsWith("crate_")?Crates.CreateShell():new GameItem();item.identifier=entry.Id;return item;}public static bool Has(string id)=>false;public static GameItem MakeSpecial(string id){var item=DirectoryMaster.Current is null ? Factory() : null;if(item != null && id.StartsWith("@") && item.identifier == "item") item.identifier="corp_presence_"+id.Substring(1);return item;}public static string IdOf(GameItem item)=>item.identifier;public static GameItem Make(string id)=>DirectoryMaster.Current is not null ? ItemRegistry.Create("corp_presence_"+id) : id.StartsWith("crate_")?(RegisteredCrates.Contains(id)?Crates.CreateShell():null):Factory();}
 
 
 static class PastelCo {public const int TrafficFee=10,RebatePeriod=7;public static GameItem GenuineHemingway(bool limited=false)=>Goods.Factory();}
@@ -381,6 +588,7 @@ static class L
     public static string T(string zh, string en) => En ? en : zh;
     public static string Translate(FormattableString text) => text.ToString();
     public static string K(string key, string zh, string en) => T(zh, en);
+    public static string F(string key, string zh, string en, params object[] args) => string.Format(T(zh, en), args);
     public static string K(string key, string zh, FormattableString en) => En ? en.ToString() : zh;
     public static string K(string key, FormattableString zh, FormattableString en) =>
         (En ? en : zh).ToString();

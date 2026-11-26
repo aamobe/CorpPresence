@@ -99,12 +99,10 @@ internal static partial class Engine
     {
         if (gifts.Length == 0) return true;
         if (!visit.IsCurrent) return false;
-        if (c is CartelShizuka)
+        if (c is CartelShizuka shizuka)
         {
             if (gifts.Length != 1) return false;
-            if (gifts[0] == "corp_presence_" + MineralGrowthBatch.LightSaltBlueprint
-                && !CartelShizuka.MineralizerUnlocked(CorpState.Current)) return false;
-            if (TryPlace(c, gifts[0], owned: true, out _)) return true;
+            if (shizuka.DeliverGift(gifts[0])) return true;
             StoreUIManager.Instance?.Notify(L.T("请腾出柜台空间领取黑羽静带来的物品。", "Clear space on the counter for the gift from Shizuka."));
             return false;
         }

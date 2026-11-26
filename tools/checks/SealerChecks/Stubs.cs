@@ -9,6 +9,8 @@ internal static partial class Canning
 internal class GameItem(string id)
 {
     public string identifier = id;
+    public System.Func<GameItem, GameItem, bool> mayStackItemFunc { get; set; }
+
     public GameInventory parentInventory;
     public bool owned = true;
     public int unitCount = 1;

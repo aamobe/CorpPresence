@@ -14,6 +14,8 @@
   <PropertyGroup Condition="'$(LocalTestFunds)' == 'true'"><DefineConstants>$(DefineConstants);LOCAL_TEST_FUNDS</DefineConstants></PropertyGroup>
   <PropertyGroup Condition="'$(LocalTestKit)' == 'true'"><DefineConstants>$(DefineConstants);LOCAL_TEST_KIT;LOCAL_TEST_SPECIMEN</DefineConstants></PropertyGroup>
   <PropertyGroup Condition="'$(Maintenance)' == 'true'"><DefineConstants>$(DefineConstants);MAINTENANCE</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(LocalPlaytestPointer)' == 'true'"><DefineConstants>$(DefineConstants);LOCAL_PLAYTEST</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(LocalWorkshopTestRun)' != ''"><DefineConstants>$(DefineConstants);LOCAL_WORKSHOP_TEST</DefineConstants></PropertyGroup>
   <Target Name="CheckMaintenanceFlags" BeforeTargets="CoreCompile" Condition="'$(Maintenance)' == 'true' and ('$(LocalTestFunds)' == 'true' or '$(WaterTrace)' == 'true' or '$(LocalTestKit)' == 'true')">
     <Error Text="Maintenance cannot be combined with LocalTestFunds, WaterTrace or LocalTestKit." />
   </Target>
@@ -29,6 +31,7 @@
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/light-salt-core.png" LogicalName="CorpPresence.art.cartel.light-salt-core.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-gel.png" LogicalName="CorpPresence.art.cartel.sleep-moss-gel.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/light-salt-precipitate.png" LogicalName="CorpPresence.art.cartel.light-salt-precipitate.png" />
+    <EmbeddedResource Include="CorpPresence/assets/cartel-production/light-salt-grit.png" LogicalName="CorpPresence.art.cartel.light-salt-grit.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/zol-tablets.png" LogicalName="CorpPresence.art.cartel.zol-tablets.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/nicotine-tin.png" LogicalName="CorpPresence.art.cartel.nicotine-tin.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/ice-shard-pouch.png" LogicalName="CorpPresence.art.cartel.ice-shard-pouch.png" />
@@ -38,6 +41,65 @@
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-hydroponic-spreading.png" LogicalName="CorpPresence.art.cartel.sleep-moss-hydroponic-spreading.png" />
     <EmbeddedResource Include="CorpPresence/assets/cartel-production/sleep-moss-hydroponic-harvestable.png" LogicalName="CorpPresence.art.cartel.sleep-moss-hydroponic-harvestable.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-sieve.png" LogicalName="CorpPresence.art.mineral.powder-sieve.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/powder-classifier.png" LogicalName="CorpPresence.art.mineral.powder-classifier.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/returned-filter-shell.png" LogicalName="CorpPresence.art.mineral.returned-filter-shell.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/cleaned-filter-shell.png" LogicalName="CorpPresence.art.mineral.cleaned-filter-shell.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/industrial-frame.png" LogicalName="CorpPresence.art.mineral.industrial-frame.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/filter-blank.png" LogicalName="CorpPresence.art.mineral.filter-blank.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/filter-unit.png" LogicalName="CorpPresence.art.mineral.filter-unit.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/coarse-silica-grit.png" LogicalName="CorpPresence.art.mineral.coarse-silica-grit.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/fine-silica-grit.png" LogicalName="CorpPresence.art.mineral.fine-silica-grit.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/wear-alloy-powder.png" LogicalName="CorpPresence.art.mineral.wear-alloy-powder.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/conductive-blend.png" LogicalName="CorpPresence.art.mineral.conductive-blend.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/fine-screen.png" LogicalName="CorpPresence.art.mineral.fine-screen.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crystal-grinding-sleeve.png" LogicalName="CorpPresence.art.mineral.crystal-grinding-sleeve.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/heavy-screen-pad.png" LogicalName="CorpPresence.art.mineral.heavy-screen-pad.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/wear-alloy-billet.png" LogicalName="CorpPresence.art.mineral.wear-alloy-billet.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod.png" LogicalName="CorpPresence.art.mineral.alloy-rod.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-temper.png" LogicalName="CorpPresence.art.mineral.alloy-rod-temper.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-densify.png" LogicalName="CorpPresence.art.mineral.alloy-rod-densify.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-align.png" LogicalName="CorpPresence.art.mineral.alloy-rod-align.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-harden.png" LogicalName="CorpPresence.art.mineral.alloy-rod-harden.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-short.png" LogicalName="CorpPresence.art.mineral.alloy-rod-short.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-short-temper.png" LogicalName="CorpPresence.art.mineral.alloy-rod-short-temper.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-short-densify.png" LogicalName="CorpPresence.art.mineral.alloy-rod-short-densify.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-short-align.png" LogicalName="CorpPresence.art.mineral.alloy-rod-short-align.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-rod-short-harden.png" LogicalName="CorpPresence.art.mineral.alloy-rod-short-harden.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/alloy-offcut.png" LogicalName="CorpPresence.art.mineral.alloy-offcut.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/folded-factory.png" LogicalName="CorpPresence.art.mineral.folded-factory.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/phase-recovery-station.png" LogicalName="CorpPresence.art.mineral.phase-recovery-station.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/industrial-pump.png" LogicalName="CorpPresence.art.mineral.industrial-pump.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/core-calibration-bench.png" LogicalName="CorpPresence.art.mineral.core-calibration-bench.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/cen-feeder.png" LogicalName="CorpPresence.art.mineral.cen-feeder.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/water-service-kit.png" LogicalName="CorpPresence.art.mineral.water-service-kit.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/wet-pump-contact.png" LogicalName="CorpPresence.art.mineral.wet-pump-contact.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/sieve-return-guide.png" LogicalName="CorpPresence.art.mineral.sieve-return-guide.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crusher-tooth-roller.png" LogicalName="CorpPresence.art.mineral.crusher-tooth-roller.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/dense-trial-die.png" LogicalName="CorpPresence.art.mineral.dense-trial-die.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/classifier-support.png" LogicalName="CorpPresence.art.mineral.classifier-support.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-guide.png" LogicalName="CorpPresence.art.mineral.mineral-growth-guide.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/porous-sleeve-blank.png" LogicalName="CorpPresence.art.mineral.porous-sleeve-blank.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/feed-sleeve.png" LogicalName="CorpPresence.art.mineral.feed-sleeve.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/industrial-coil.png" LogicalName="CorpPresence.art.mineral.industrial-coil.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/axial-lead.png" LogicalName="CorpPresence.art.mineral.axial-lead.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/feed-shaft.png" LogicalName="CorpPresence.art.mineral.feed-shaft.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/pump-filter-basket.png" LogicalName="CorpPresence.art.mineral.pump-filter-basket.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/pump-pressure-shell.png" LogicalName="CorpPresence.art.mineral.pump-pressure-shell.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mechanical-lubricant.png" LogicalName="CorpPresence.art.mineral.mechanical-lubricant.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/phase-heavy-winch.png" LogicalName="CorpPresence.art.mineral.phase-heavy-winch.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/phase-conductor.png" LogicalName="CorpPresence.art.mineral.phase-conductor.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/spent-timing-controller.png" LogicalName="CorpPresence.art.mineral.spent-timing-controller.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/retired-phase-locator.png" LogicalName="CorpPresence.art.mineral.retired-phase-locator.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/verified-timing-core.png" LogicalName="CorpPresence.art.mineral.verified-timing-core.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/verified-phase-core.png" LogicalName="CorpPresence.art.mineral.verified-phase-core.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/rolled-alloy-strip.png" LogicalName="CorpPresence.art.mineral.rolled-alloy-strip.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/drawn-wire-blank.png" LogicalName="CorpPresence.art.mineral.drawn-wire-blank.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/pump-contact.png" LogicalName="CorpPresence.art.mineral.pump-contact.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/industrial-liner.png" LogicalName="CorpPresence.art.mineral.industrial-liner.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/spent-pump-contact.png" LogicalName="CorpPresence.art.mineral.spent-pump-contact.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/salvage-electronics.png" LogicalName="CorpPresence.art.mineral.salvage-electronics.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/spent-furnace-lining.png" LogicalName="CorpPresence.art.mineral.spent-furnace-lining.png" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/hearth-tile.png" LogicalName="CorpPresence.art.mineral.hearth-tile.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-station.png" LogicalName="CorpPresence.art.mineral.mineral-growth-station.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-station-running.png" LogicalName="CorpPresence.art.mineral.mineral-growth-station-running.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/mineral-growth-ore-growing.png" LogicalName="CorpPresence.art.mineral.mineral-growth-ore-growing.png" />
@@ -50,7 +112,7 @@
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/sintering-station.png" LogicalName="CorpPresence.art.mineral.sintering-station.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/sintering-station-running.png" LogicalName="CorpPresence.art.mineral.sintering-station-running.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crafting-station.png" LogicalName="CorpPresence.art.mineral.crafting-station.png" Condition="Exists('CorpPresence/assets/mineral-recycling/crafting-station.png')" />
-    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crafting-station-running.png" LogicalName="CorpPresence.art.mineral.crafting-station-running.png" Condition="Exists('CorpPresence/assets/mineral-recycling/crafting-station-running.png')" />
+    <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/crafting-station-running.png" LogicalName="CorpPresence.art.mineral.crafting-station-running.png" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/silicon-plate.png" LogicalName="CorpPresence.art.mineral.silicon-plate.png" Condition="Exists('CorpPresence/assets/mineral-recycling/silicon-plate.png')" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/electronic-substrate.png" LogicalName="CorpPresence.art.mineral.electronic-substrate.png" Condition="Exists('CorpPresence/assets/mineral-recycling/electronic-substrate.png')" />
     <EmbeddedResource Include="CorpPresence/assets/mineral-recycling/electronic-blueprint.png" LogicalName="CorpPresence.art.mineral.electronic-blueprint.png" />

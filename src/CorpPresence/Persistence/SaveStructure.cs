@@ -7,6 +7,7 @@ internal static class SaveStructure
 {
     public static void Validate(CorpState state)
     {
+        Require(state.Workshop?.Valid() == true, "下层工坊记录缺失、超出范围或版本不受支持");
         Require(state.MangoGiftStatus is >= 0 and <= 2, "芒果礼物状态无效");
         Require(state.WasteBatteryGiftStatus is >= 0 and <= 2, "废料电池礼物状态无效");
         Require(state.UfoBackpackGiftStatus is >= 0 and <= 2, "飞碟背包礼物状态无效");
@@ -22,6 +23,10 @@ internal static class SaveStructure
             foreach (Order order in company.Orders)
             {
                 Require(order != null && order.Items != null, "配送明细缺失：", entry.Key);
+                if (order.Kind == MeridianCommissionReceipt.OrderKind)
+                    Require(entry.Key == "meridian" && order.Day >= 0 && order.Cash == 0
+                        && order.Items.Count is >= 1 and <= MeridianCommissionReceipt.Maximum
+                        && order.Items.TrueForAll(id => id == MeridianCommissionReceipt.FrameId), "子午线框架代工在途明细无效：", entry.Key);
                 foreach (string item in order.Items) Require(item != null, "配送物品标识为空：", entry.Key);
             }
             foreach (Visitor visitor in company.Visitors) Require(visitor != null, "预约记录为空：", entry.Key);

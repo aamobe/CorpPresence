@@ -254,6 +254,25 @@ store.LoadGame();
 Check(StoreSession.CompanyProgressPaused && StoreSession.InventoryLoadReport.Contains("CorpPresence.Malice"),
     "unreadable active Malice data pauses company work");
 
+int beforeWorkshop = store.Saves;
+Check(CompanyTransaction.TryEnter(store), "workshop settlement entered");
+store.SaveGame();
+store.SaveGame();
+Check(store.Saves == beforeWorkshop, "Harmony postpones both native saves inside the workshop callback");
+CompanyTransaction.Exit();
+Check(store.Saves == beforeWorkshop + 1, "native save replays once after workshop settlement");
+Check(CompanyTransaction.TryEnter(), "ordinary shopping entered");
+store.SaveGame();
+Check(store.Saves == beforeWorkshop + 2, "ordinary shopping leaves native saves immediate");
+CompanyTransaction.Exit();
+CompanyTransaction.TryEnter(store);
+store.SaveGame();
+StoreSession.Invalidate();
+CompanyTransaction.Exit();
+Check(store.Saves == beforeWorkshop + 2, "an expired workshop session cannot save into the replacement session");
+store.SaveGame();
+Check(store.Saves == beforeWorkshop + 3, "subsequent native saves pass after invalidation");
+
 static HarmonyMethod Hook(string name) => new(typeof(Hooks), name);
 static bool Throws(Action run)
 {

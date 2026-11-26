@@ -142,6 +142,30 @@ internal static partial class Engine
 		return null;
 	}
 
+#if LOCAL_PLAYTEST || LOCAL_WORKSHOP_TEST
+	internal static string BookPlaytestStory(string id)
+	{
+		var store = SaveSlot.CurrentStore;
+		var session = StoreSession.Capture();
+		if (!session.IsCurrent || StoreSession.CompanyProgressPaused || !GameResources.Ready ||
+			store?.storeClientManager == null || !SaveSlot.CanWrite("CorpPresence"))
+			return "测试：店铺尚未就绪。";
+
+		var character = Find(id);
+		var state = CorpState.Current.Of(id);
+		int day = StoreStation.GetDayCounter();
+		if (state.QueuedDay == day && state.PendingDay >= 0)
+			return $"测试：{character.Name}今天已在来客队列。";
+		string kind = DecideStory(character, state, store.GetCash());
+		if (kind == null) return $"测试：{character.Name}没有符合条件的下一段剧情。";
+		Book(character, state, kind, day, store.GetCash());
+		Schedule(store.storeClientManager);
+		return state.QueuedDay == day
+			? $"测试：{character.Name}已安排今天来访。"
+			: $"测试：已预约{character.Name}，等来客队列就绪。";
+	}
+#endif
+
 	private static bool Ready(Character c, int ch, int cash)
 	{
 		if (c is CartelShizuka && ch == 2) return CartelShizuka.MineralizerUnlocked(CorpState.Current);

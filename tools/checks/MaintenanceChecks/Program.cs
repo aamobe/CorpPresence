@@ -7,6 +7,42 @@ var before=data["CorpPresence"];var snap=MaintenanceDiagnostics.Capture();
 Check(snap.SaveStatus==SaveDiagnosticStatus.NotLoaded && CorpState.Current==null && data["CorpPresence"]==before && !SaveSlot.CanWrite("CorpPresence"),"CaptureDoesNotLoadOrRepairState");
 PlayerStore.Instance=new();var state=CorpState.Get();state.Companies["test"]=new CompanyState();state.Companies["test"].Orders.Add(new Order{Items=new(){"a","b"}});
 snap=MaintenanceDiagnostics.Capture();Check(snap.PendingOrders==1 && snap.PendingItemUnits==2,"counts are remaining items, not orders");
+state.Workshop.CenKit = "salvage";
+state.Workshop.CenKitRemaining = 2;
+state.Workshop.Sales.Product = new WorkshopSaleReceipt { Day=4, Offer="wire", Amount=64, Received=2, Paid=12, InFlight=true };
+state.Workshop.Sales.Rods = new WorkshopSaleReceipt { Day=4, Offer=WorkshopSaleOffer.FatigueRod.Id, Amount=54, Received=1, Paid=19 };
+state.Workshop.ShizukaKitRemaining = 3;
+state.Workshop.GelOrder = new WorkshopSaleReceipt { Day=5, Offer="first_gel", Amount=55, Received=1, Paid=20, InFlight=true };
+state.Workshop.FirstOverhaul = FirstOverhaulState.Sign(8);
+state.Workshop.FirstOverhaul.Trucks[0].Paid=17;
+state.Workshop.FirstOverhaul.Trucks[0].Amount=360;
+state.Workshop.FirstOverhaul.Trucks[0].InFlight=true;
+state.Workshop.Commission=new MeridianCommissionReceipt { Quantity=2, Ingots=1 };
+var repair = RotationContract.Sign(2, 16);
+state.Workshop.Rotations.Add(repair);
+repair.Shells[0].Issued = true;
+repair.Shells[1].InFlight = true;
+var workshopSnapshot = MaintenanceDiagnostics.Capture();
+Check(workshopSnapshot.Counters.Any(c => c.Name == "workshop.cen.starter_remaining" && c.Value == 2)
+    && workshopSnapshot.Counters.Any(c => c.Name == "workshop.cen.product.wire.paid" && c.Value == 12)
+    && workshopSnapshot.Counters.Any(c => c.Name == "workshop.cen.product.wire.frozen" && c.Value == 1),
+    "maintenance reports remaining starter units and ambiguous sale without settling it");
+Check(workshopSnapshot.Counters.Any(c => c.Name == "workshop.cen.rods.rod_fatigue_stock.received" && c.Value == 1)
+    && workshopSnapshot.Counters.Any(c => c.Name == "workshop.cen.rods.rod_fatigue_stock.paid" && c.Value == 19)
+    && state.Workshop.Sales.Rods.Paid == 19, "Rod receipt diagnostics preserve partially paid stock");
+Check(workshopSnapshot.Counters.Any(c => c.Name == "workshop.shizuka.starter_remaining" && c.Value == 3)
+    && workshopSnapshot.Counters.Any(c => c.Name == "workshop.shizuka.first.first_gel.paid" && c.Value == 20)
+    && workshopSnapshot.Counters.Any(c => c.Name == "workshop.shizuka.first.first_gel.frozen" && c.Value == 1)
+    && state.Workshop.GelOrder.InFlight, "Shizuka snapshot reports partial payment without changing receipt");
+Check(workshopSnapshot.Counters.Any(c=>c.Name=="workshop.overhaul.truck1.paid" && c.Value==17)
+    && workshopSnapshot.Counters.Any(c=>c.Name=="workshop.overhaul.truck1.frozen" && c.Value==1)
+    && workshopSnapshot.Counters.Any(c=>c.Name=="workshop.commission.ingots" && c.Value==1)
+    && state.Workshop.FirstOverhaul.Trucks[0].InFlight, "overhaul and commission snapshot leaves both ledgers untouched");
+Check(workshopSnapshot.Counters.Any(c=>c.Name=="workshop.rotation.history" && c.Value==1)
+    && workshopSnapshot.Counters.Any(c=>c.Name=="workshop.rotation.4.shell1.issued" && c.Value==1)
+    && workshopSnapshot.Counters.Any(c=>c.Name=="workshop.rotation.4.shell2.frozen" && c.Value==1)
+    && workshopSnapshot.Counters.Any(c=>c.Name=="workshop.rotation.4.truck2.paid" && c.Value==0)
+    && repair.Shells[1].InFlight, "rotation diagnostics preserve each shell and truck receipt");
 state.Companies["test"].Orders.Clear();Check(snap.PendingOrders==1 && snap.PendingItemUnits==2,"SnapshotDoesNotExposeLiveCollections");
 PlayerStore.Instance.modData=new();Check(MaintenanceDiagnostics.Capture().SaveStatus==SaveDiagnosticStatus.Stale && MaintenanceDiagnostics.Capture().PendingOrders==null,"StaleBindingHasUnknownOrderCount");
 CorpState.Get();Portraits.Probe=()=>PlayerStore.Instance=new();Check(MaintenanceDiagnostics.Capture().SaveStatus==SaveDiagnosticStatus.Unstable,"SessionChangeDiscardsCounts");Portraits.Probe=null;

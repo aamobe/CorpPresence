@@ -11,6 +11,7 @@ internal static partial class Services
 		var session = StoreSession.Capture();
 		if (StoreSession.CompanyProgressPaused || !session.IsCurrent || !SaveSlot.CanWrite("CorpPresence")) return;
 		Company company = Companies.ByCharacter(charId);
+		if (company is WorkshopContact) return;
 		CompanyState companyState = ((company == null) ? null : Companies.StateOf(company));
 		if (companyState == null || companyState.CardGiven || companyState.Coop < 20)
 		{

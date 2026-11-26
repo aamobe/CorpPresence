@@ -127,8 +127,18 @@ internal static partial class Engine
 				client.OnIntroduced();
 			}
 		};
+		if (c is CartelShizuka && v.Gift.Length != 0)
+		{
+			Action giveAndRecord = startTrade;
+			startTrade = () =>
+			{
+				if (!visitSession.IsCurrent || !CompanyTransaction.TryEnter(SaveSlot.CurrentStore)) return;
+				try { giveAndRecord(); }
+				finally { CompanyTransaction.Exit(); }
+			};
+		}
 		bool purchaseAttempted = false;
-		Action endAction = () =>
+		void FinishVisit()
 		{
 			if (!visitSession.IsCurrent) return;
 			if (v.TryComplete != null)
@@ -155,7 +165,17 @@ internal static partial class Engine
 			{
 				WarnVisit("离开失败：" + ex.Message);
 			}
-		};
+		}
+		Action endAction = FinishVisit;
+		if (c is LowerMachinist && v.TryComplete != null)
+		{
+			endAction = () =>
+			{
+				if (!visitSession.IsCurrent || !CompanyTransaction.TryEnter(SaveSlot.CurrentStore)) return;
+				try { FinishVisit(); }
+				finally { CompanyTransaction.Exit(); }
+			};
+		}
 		bool flag2 = !string.IsNullOrEmpty(v.Ask) && v.Choices.Length != 0;
 		if (flag2)
 		{

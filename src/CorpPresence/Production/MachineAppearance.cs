@@ -18,9 +18,11 @@ internal static class MachineAppearance
         public GameInventory Output;
         public Func<string> ReadyProduct;
         public Func<bool> Ready;
+        public Func<bool?> InPlaceReady;
         public Func<int> BatchSize;
         public string CheckedProduct;
         public bool Dirty = true;
+        public bool SeparateUnit;
         public bool Settling;
         public bool Running;
     }
@@ -33,8 +35,10 @@ internal static class MachineAppearance
         machine.onLoaded += _ => Refresh(machine);
     }
 
-    internal static void WatchCycle(GameItem machine, GameInventory output, Func<string> readyProduct, Func<int> batchSize = null)
-        => WatchCycle(machine, new Cycle { Output = output, ReadyProduct = readyProduct, BatchSize = batchSize });
+    internal static void WatchCycle(GameItem machine, GameInventory output, Func<string> readyProduct, Func<int> batchSize = null,
+        bool separateUnit = false, Func<bool?> inPlaceReady = null)
+        => WatchCycle(machine, new Cycle { Output = output, ReadyProduct = readyProduct, BatchSize = batchSize,
+            SeparateUnit = separateUnit, InPlaceReady = inPlaceReady });
 
     internal static void WatchCycle(GameItem machine, Func<bool> ready)
         => WatchCycle(machine, new Cycle { Ready = ready });
@@ -102,6 +106,12 @@ internal static class MachineAppearance
 
     private static void RefreshCycle(GameItem machine, Cycle cycle)
     {
+        if (cycle.InPlaceReady?.Invoke() is bool inPlaceReady)
+        {
+            cycle.Dirty = true;
+            SetRunning(machine, cycle, inPlaceReady);
+            return;
+        }
         if (cycle.Ready != null)
         {
             SetRunning(machine, cycle, cycle.Ready());
@@ -109,17 +119,22 @@ internal static class MachineAppearance
         }
         string product = cycle.ReadyProduct();
         if (!cycle.Dirty && product == cycle.CheckedProduct) return;
-        SetRunning(machine, cycle, product != null && CanFit(cycle.Output, product, cycle.BatchSize?.Invoke() ?? 1));
+        SetRunning(machine, cycle, product != null && CanFit(cycle.Output, product, cycle.BatchSize?.Invoke() ?? 1, cycle.SeparateUnit));
         cycle.CheckedProduct = product;
         cycle.Dirty = false;
     }
 
-    internal static bool CanFit(GameInventory output, string product, int count = 1)
+    internal static bool CanFit(GameInventory output, string product, int count = 1, bool separateUnit = false)
     {
         if (!DirectoryMaster.Has<GameItem>(product)) return false;
         var sample = DirectoryMaster.Item(product, isOwned: true);
         if (sample == null) return false;
-        try { return CanFitOutput(output, sample, count); }
+        try
+        {
+            return separateUnit
+                ? ProductionOutput.WithSeparateUnit(sample, () => CanFitOutput(output, sample, count))
+                : CanFitOutput(output, sample, count);
+        }
         finally { sample.Destroy(); }
     }
 

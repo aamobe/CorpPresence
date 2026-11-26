@@ -27,20 +27,17 @@ internal static partial class CompanyVisitors
 			{
 				if (state.Orders != null && ServiceRetry.Ready(state, Time.unscaledTime))
 				{
-					List<Order> due = state.Orders.Where(o => o != null && o.Day <= Day).ToList();
 					bool card = Services.CardDue(c, state);
-					if ((due.Count > 0 || card) && !Queued(manager, "corp_" + c.Id + "_courier"))
+					bool? booked = BookDelivery(state.Orders, Day, card, () => Queued(manager, "corp_" + c.Id + "_courier"),
+						due => Insert(manager, Courier(c, state, due, card), front: true), out var orders);
+					if (booked == true)
 					{
-						if (Insert(manager, Courier(c, state, due, card), front: true))
-						{
-							foreach (Order order in due) order.Day = Day + 1;
-							if (card) state.CardCourierDay = Day;
-							ServiceRetry.Succeeded(state);
-							if (c is JacksonContact && due.Count > 0)
-								LogScheduled($"杰克逊配送：第 {Day} 天已排入送货员，待签收 {due.Sum(order => order.Items.Count)} 件。");
-						}
-						else ServiceRetry.Failed(state, Time.unscaledTime);
+						if (card) state.CardCourierDay = Day;
+						ServiceRetry.Succeeded(state);
+						if (c is JacksonContact && orders.Count > 0)
+							LogScheduled($"杰克逊配送：第 {Day} 天已排入送货员，待签收 {orders.Sum(order => order.Items.Count)} 件。");
 					}
+					else if (booked == false) ServiceRetry.Failed(state, Time.unscaledTime);
 				}
 			}
 			catch (Exception error) { ServiceRetry.Failed(state, Time.unscaledTime); WarnScheduling("配送安排失败，保留待送订单：" + error.Message); }
@@ -210,7 +207,15 @@ internal static partial class CompanyVisitors
 		bool flag6 = c is RebelCo;
 		bool flag7 = flag | flag2;
 		string text;
-		if (L.En)
+		if (c is ShizukaContact)
+		{
+			text = L.K("workshop.shizuka.courier", "卡尔特送货员", "Cartel courier");
+		}
+		else if (c is CenContact)
+		{
+			text = L.K("workshop.cen.courier", "下层互助送货员", "Lower Levels workshop courier");
+		}
+		else if (L.En)
 		{
 			if (jackson)
 			{
@@ -290,7 +295,15 @@ internal static partial class CompanyVisitors
 		{
 			List<string> list2 = list;
 			string item;
-			if (L.En)
+			if (c is ShizukaContact)
+			{
+				item = L.K("workshop.shizuka.delivery", "黑羽静让我送来的。你的补订都在这箱里。", "Shizuka sent me. Here are the supplies you ordered.");
+			}
+			else if (c is CenContact)
+			{
+				item = L.K("workshop.cen.delivery", "阿岑按你的单子装的。清点一下吧。", "Cen packed this to your order. Give it a count.");
+			}
+			else if (L.En)
 			{
 				if (jackson)
 				{
@@ -420,7 +433,7 @@ internal static partial class CompanyVisitors
 		{
 			identifier = $"corp_{c.Id}_courier_{Day}",
 			displayName = text,
-			clientFaction = (flag4 ? "FACTION_SECURITY" : (flag7 ? "FACTION_UPPER_LEVEL" : "FACTION_LOWER_LEVEL")),
+			clientFaction = c is ShizukaContact ? "FACTION_CARTEL" : (flag4 ? "FACTION_SECURITY" : (flag7 ? "FACTION_UPPER_LEVEL" : "FACTION_LOWER_LEVEL")),
 			spriteName = spriteName,
 			clientIntent = StoreClient.ClientIntent.DIALOGUE,
 			dismissable = true
@@ -573,8 +586,3 @@ internal static partial class CompanyVisitors
 		}
 	}
 }
-
-
-
-
-

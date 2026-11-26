@@ -79,6 +79,7 @@ public class Main : IMod
         ItemRegistry.Activate();
         _runtime.Own(Noop, Tex.ReleaseUi);
         _runtime.Own(Noop, PowderBox.Release);
+        _runtime.Own(Noop, RodAppearance.Release);
         _runtime.Own(Noop, CardView.Release);
         _runtime.Own(Noop, Theme.ResetCachedFont);
         _runtime.Own(Noop, Portraits.Release);

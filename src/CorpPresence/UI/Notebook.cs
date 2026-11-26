@@ -202,7 +202,7 @@ internal static class Notebook
 		}
 		Canvas componentInParent = _root.GetComponentInParent<Canvas>();
 		Camera cam = ((componentInParent != null && componentInParent.renderMode != RenderMode.ScreenSpaceOverlay) ? componentInParent.worldCamera : null);
-		Vector2 screenPoint = Input.mousePosition;
+		Vector2 screenPoint = Pointer.ScreenPosition;
 		foreach (var (rectTransform, image) in Hover)
 		{
 			if (rectTransform != null && image != null)

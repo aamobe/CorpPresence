@@ -9,6 +9,8 @@ readonly struct StoreSession
 }
 class Company { public int OrderUnitPrice(CatalogEntry entry, CompanyState state) => EquipmentOrderRule.For(entry.Id)?.FixedPrice is > 0 ? EquipmentOrderRule.For(entry.Id).FixedPrice : 100; public string EntryError; public string OrderEntryError(CatalogEntry entry, CompanyState state) => EntryError; public string Name => "Test"; public int CatalogTier(CompanyState s) => 2; }
 class JacksonContact : Company {}
+class WorkshopContact : Company {}
+class CenContact : WorkshopContact {}
 class SolanaCo : Company {}
 class MeridianCo : Company {}
 class CompanyState {
@@ -18,8 +20,8 @@ class CompanyState {
  public List<object> Visitors = new();
  public Dictionary<string,int> LimitedBought = new();
 }
-class Order { public int Cash; public int Day; public List<string> Items = new(); }
 class CatalogEntry {
+ public string[] Contents;
  public string Id = "item";
  public int WindowDays = 7, Bundle = 1, MinTier = 1, Quota = 10;
  public int BaseValue() => 100;

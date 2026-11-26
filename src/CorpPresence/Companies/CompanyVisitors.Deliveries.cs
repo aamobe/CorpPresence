@@ -6,6 +6,21 @@ namespace CorpPresence;
 
 internal static partial class CompanyVisitors
 {
+	// Null means no appointment was needed. False leaves every date intact for a retry.
+	internal static bool? BookDelivery(List<Order> orders, int day, bool card, Func<bool> queued,
+		Func<List<Order>, bool> insert, out List<Order> due)
+	{
+		due = orders.Where(o => o != null && o.Day <= day && (!IsCommission(o) || o.CourierBookedDay != day)).ToList();
+		if (due.Count == 0 && !card || queued()) return null;
+		if (!insert(due)) return false;
+		foreach (Order order in due)
+		{
+			if (IsCommission(order)) order.CourierBookedDay = day;
+			else order.Day = day + 1;
+		}
+		return true;
+	}
+
 	private static Action CreateCourierLeave(StoreClient client)
 	{
 		StoreSession session = StoreSession.Capture();
@@ -28,6 +43,7 @@ internal static partial class CompanyVisitors
 	{
 		PlayerStore store = SaveSlot.CurrentStore;
 		CorpState root = CorpState.Current;
+		int bookingDay = Day;
 		StoreSession session = StoreSession.Capture(store, root);
 		bool done = false;
 		bool IsCurrent()
@@ -45,15 +61,29 @@ internal static partial class CompanyVisitors
 				return;
 			}
 			if (!IsCurrent()) return;
+			bool workshop = c is WorkshopContact || orders.Any(o => IsCommission(o) || IsContactSupply(c, o));
+			if (workshop && !CompanyTransaction.TryEnter(store)) return;
 			done = true;
 			try
 			{
-				Deliver(c, s, orders.Where(order => order != null && s.Orders.Contains(order)).Distinct().ToList(), IsCurrent);
+				var due = orders.Where(order => order != null && s.Orders.Contains(order)).Distinct().ToList();
+				foreach (var order in due.Where(IsCommission))
+					MeridianFrameDelivery.Deliver(s, order, Day, () => bookingDay == Day && IsCurrent());
+				var regular = due.Where(order => !IsCommission(order));
+				foreach (var group in regular.GroupBy(o => c is WorkshopContact || IsContactSupply(c, o)))
+				{
+					if (!IsCurrent()) return;
+					var ordersForCounter = group.ToList();
+					if (group.Key && c.Id == "meridian")
+						foreach (var order in ordersForCounter) order.Kind = Order.SpentContacts;
+					Deliver(c, s, ordersForCounter, IsCurrent, group.Key);
+				}
 			}
 			catch (Exception error)
 			{
 				try { ModLog.Warn("本次订单配送中断，保留未完成明细：" + error.Message); } catch { }
 			}
+			finally { if (workshop) CompanyTransaction.Exit(); }
 			if (card && IsCurrent())
 			{
 				try { Services.MaybeGiveCard(c.CharacterId); }
@@ -80,10 +110,16 @@ internal static partial class CompanyVisitors
 
 	private const int MaxCratesPerDelivery = 3;
 
-	private static void Deliver(Company company, CompanyState state, List<Order> orders, Func<bool> isCurrent)
+	private static bool IsCommission(Order order) => order?.Kind == MeridianCommissionReceipt.OrderKind;
+
+	private static bool IsContactSupply(Company company, Order order) => company.Id == "meridian" && order != null
+		&& (order.Kind == Order.SpentContacts || order.Items.Contains(Order.SpentContacts));
+
+	private static void Deliver(Company company, CompanyState state, List<Order> orders, Func<bool> isCurrent, bool workshop)
 	{
+		bool Room() => workshop ? WorkshopCounter.HasRoom : !CounterFull();
 		foreach (var order in orders) { if (!isCurrent()) return; order.Day = Day + 1; }
-		if (!CounterFull())
+		if (Room())
 		{
 			foreach (var order in orders)
 			{
@@ -93,7 +129,7 @@ internal static partial class CompanyVisitors
 		}
 
 		var failed = new HashSet<string>(StringComparer.Ordinal);
-		for (int i = 0; i < MaxCratesPerDelivery && isCurrent() && !CounterFull(); i++)
+		for (int i = 0; i < MaxCratesPerDelivery && isCurrent() && Room(); i++)
 		{
 			if (!orders.Any(order => order.Items.Any(id => id != "@modbox" && !failed.Contains(id)))) break;
 			var crate = Goods.Make(Crates.GoodsKey(company));
@@ -110,7 +146,7 @@ internal static partial class CompanyVisitors
 				// A free cell does not mean the actual crate will fit. Probe with the
 				// real shell before creating the order items.
 				if (!isCurrent()) break;
-				if (!CounterMayFit(crate))
+				if (!(workshop ? WorkshopCounter.CanFit(crate) : CounterMayFit(crate)))
 				{
 					MaintenanceDiagnostics.Record("delivery", "placement", "counter_no_space", null, crate.identifier);
 					break;
@@ -149,7 +185,7 @@ internal static partial class CompanyVisitors
 					}
 				}
 				if (packed.Count == 0 || !isCurrent()) break;
-				if (!TryPlaceDelivery(crate))
+				if (!(workshop ? WorkshopCounter.TryPlaceOnCounter(crate) : TryPlaceDelivery(crate)))
 				{
 					MaintenanceDiagnostics.Record("delivery", "placement", "counter_rejected", null, crate.identifier);
 					break;
@@ -193,7 +229,7 @@ internal static partial class CompanyVisitors
 		}
 	}
 
-	private static void DiscardUnshipped(GameItem item)
+	internal static void DiscardUnshipped(GameItem item)
 	{
 		try { if (item != null && item.parentInventory == null && !StorePlacement.Destroyed(item)) item.Destroy(); }
 		catch (Exception error) { ModLog.Warn("清理未交付物品失败：" + error.Message); }
@@ -254,4 +290,3 @@ internal static partial class CompanyVisitors
 	}
 
 }
-

@@ -57,6 +57,10 @@ internal static partial class CompanyWindow
 
 	public static bool Visible { get; private set; }
 
+#if LOCAL_PLAYTEST
+	internal static bool ContainsScreenPoint(Vector2 point) => Visible && _rect.Contains(Pointer.ToLogical(point, Scale));
+#endif
+
 	private static float Scale
 	{
 		get
@@ -180,7 +184,13 @@ internal static partial class CompanyWindow
 		{
 			Ui.ClearHoverCache();
 			ResetStoryGuide();
+			ResetWorkshopSales();
+			ResetOverhaul();
+			ResetMeridianCommission();
+			CenStock.Clear();
+			_workshopSession = c is WorkshopContact ? StoreSession.Capture() : default;
 			_company = c;
+			if (c is CenContact) OpenCen();
 			Theme theme;
 			if (c is SolanaCo || c is EnvoyCo)
 			{
@@ -194,7 +204,7 @@ internal static partial class CompanyWindow
 			{
 				theme = Theme.Rebel();
 			}
-			else if (c is SpacerCo || c is JacksonContact)
+			else if (c is SpacerCo or JacksonContact or WorkshopContact)
 			{
 				theme = Theme.Spacer();
 			}
@@ -226,6 +236,10 @@ internal static partial class CompanyWindow
 			{
 				size = new Vector2(700f, 473f);
 			}
+			else if (c is WorkshopContact)
+			{
+				size = new Vector2(872f, 640f);
+			}
 			else if (c is SpacerCo || c is RebelCo)
 			{
 				size = new Vector2(820f, 640f);
@@ -254,7 +268,15 @@ internal static partial class CompanyWindow
 
 	public static void Close()
 	{
+#if LOCAL_PLAYTEST
+		PanelPlaytest.ClearControls();
+#endif
 		ResetStoryGuide();
+		ResetWorkshopSales();
+		ResetOverhaul();
+		ResetMeridianCommission();
+		CenStock.Clear();
+		_workshopSession = default;
 		Visible = false;
 		Orders.Reset();
 		Swap.Reset(); Refurbishment.Reset(); Brands.Reset(); Catalog.Reset();
@@ -286,6 +308,14 @@ internal static partial class CompanyWindow
 		float scale = Scale;
 		Pointer.Update(_rect, scale, Visible);
 		InputShield.Update(Visible, new Rect(_rect.x * scale, (float)Screen.height - _rect.yMax * scale, _rect.width * scale, _rect.height * scale));
+#if LOCAL_PLAYTEST
+		if (CargoSortWindow.Active && PanelPlaytest.Frame != null)
+		{
+			_dragging = false;
+			Pointer.PendingClick = null;
+			return;
+		}
+#endif
 		if (Visible)
 		{
 			if (_openedThisFrame)
@@ -293,7 +323,7 @@ internal static partial class CompanyWindow
 				_openedThisFrame = false;
 				Pointer.PendingClick = null;
 			}
-			else if (!Drag() && Input.GetMouseButtonDown(0) && !Pointer.OverWindow)
+			else if (!Drag() && Pointer.Down && !Pointer.OverWindow)
 			{
 				Close();
 			}
@@ -304,7 +334,7 @@ internal static partial class CompanyWindow
 	{
 		if (_dragging)
 		{
-			if (!Input.GetMouseButton(0))
+			if (!Pointer.Held)
 			{
 				_dragging = false;
 				return true;
@@ -316,13 +346,15 @@ internal static partial class CompanyWindow
 			Pointer.PendingClick = null;
 			return true;
 		}
-		if (!Input.GetMouseButtonDown(0) || !Pointer.OverWindow)
+		if (!Pointer.Down || !Pointer.OverWindow)
 		{
 			return false;
 		}
 		Vector2 local = Pointer.Local;
-		bool flag = local.x > _rect.width - (_company is JacksonContact ? 40f : 220f) && local.y < 38f;
-		if ((local.y >= 80f) | flag)
+		bool headerAction = local.x > _rect.width - (_company is JacksonContact ? 40f : 220f) && local.y < 38f
+			|| _company is CenContact && _guideStage == 0 && ShowCenFeederButton && CenFeederButton.Contains(local);
+		float headerHeight = _company is WorkshopContact ? 44f : DragBar;
+		if (local.y >= headerHeight || headerAction)
 		{
 			return false;
 		}
@@ -359,6 +391,9 @@ internal static partial class CompanyWindow
 		Ui.Clip = null;
 		try
 		{
+#if LOCAL_PLAYTEST
+			PanelPlaytest.Begin(_rect, Scale);
+#endif
 			if (_guideStage != 0)
 			{
 				DrawStoryGuide();
@@ -366,6 +401,14 @@ internal static partial class CompanyWindow
 			else if (_company is JacksonContact)
 			{
 				DrawJackson();
+			}
+			else if (_company is CenContact)
+			{
+				DrawCen();
+			}
+			else if (_company is ShizukaContact)
+			{
+				DrawShizuka();
 			}
 			else if (_company is EnvoyCo)
 			{
@@ -399,7 +442,7 @@ internal static partial class CompanyWindow
 			{
 				DrawPastel();
 			}
-			if (_company is not JacksonContact && _guideStage == 0 && Ui.Button(new Rect(_rect.width - 214f, 8f, 170f, 24f), L.K("ui.storyGuide.open", "剧情流程与条件", "Story requirements"), _theme.BtnStyle))
+			if (_company is not JacksonContact && _guideStage == 0 && Ui.Button(StoryGuideButton, L.K("ui.storyGuide.open", "剧情流程与条件", "Story requirements"), _theme.BtnStyle))
 			{
 				_guideStage = 1;
 			}
@@ -416,6 +459,9 @@ internal static partial class CompanyWindow
 		}
 		catch (Exception ex)
 		{
+#if LOCAL_PLAYTEST
+			PanelPlaytest.ClearControls();
+#endif
 			ModLog.Warn("面板绘制出错：" + ex.Message);
 		}
 		finally
@@ -428,6 +474,9 @@ internal static partial class CompanyWindow
 			GUI.color = color;
 			GUI.contentColor = contentColor;
 			GUI.backgroundColor = backgroundColor;
+#if LOCAL_PLAYTEST
+			PanelPlaytest.Publish();
+#endif
 		}
 		Event current = Event.current;
 		if (current != null && current.type == EventType.Repaint)

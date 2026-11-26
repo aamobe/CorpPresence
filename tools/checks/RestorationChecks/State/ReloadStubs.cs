@@ -35,7 +35,7 @@ internal static class DirectoryMaster
     internal static bool Has<T>(string id) => Current is null || GetFactory<T>(id) != null;
     internal static Func<GameItem> GetFactory<T>(string id) => Current?.factoryDictionary.GetValueOrDefault(id);
     internal static GameItem Item(string id, bool isOwned) =>
-        Current is null ? Goods.Factory() : GetFactory<GameItem>(id)?.Invoke();
+        Current is null ? (id == "energy_credit" ? new GameItem { identifier = id } : Goods.Factory()) : GetFactory<GameItem>(id)?.Invoke();
 }
 
 internal static class ItemIdentity
@@ -114,5 +114,6 @@ internal static class PowerHelper
 {
     internal static bool CanDrawPowerSource(GameItem item, int _) => item != null;
     internal static bool DrawPowerSource(GameItem item, int _) => item != null;
-    internal static void SetPowerSourceAt(GameItem item, int _) { }
+    internal static void SetPowerSourceAt(GameItem item, int energy) =>
+        item.ModifyTag("power_source_item_energy", tag => tag.SetInt(energy));
 }

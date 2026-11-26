@@ -199,7 +199,169 @@ internal static partial class CompanyWindow
 		}
 	}
 
+	private static int _forgeDesk;
+	private static WorkshopSaleQuote _feederSpecQuote;
+	private static List<GameItem> _feederSpecStock = new();
+	private static int _feederSpecIndex;
+	private static int _frameQuantity = 1;
+	private static MeridianCommission _frameQuote;
+
+	private static void ResetMeridianCommission()
+	{
+		_forgeDesk = 0;
+		_feederSpecQuote = null;
+		_feederSpecStock.Clear();
+		_feederSpecIndex = 0;
+		_frameQuantity = 1;
+		_frameQuote = null;
+		_pumpRepairScroll = Vector2.zero;
+		ResetPumpRepairSelection();
+	}
+
 	private static void DrawMeridianForge(Rect r)
+	{
+		var tabs = new[] { L.K("ui.menu.meridian.forging", "锻造", "Forging"),
+			L.K("workshop.meridian.tab", "工业框架与触点", "Industrial frames and contacts"), L.T("检修规格单", "Service specification"),
+			L.K("workshop.pumpRepair.tab", "工程调度", "Engineering desk") };
+		int columns = r.width < 560f ? 2 : tabs.Length;
+		float w = (r.width - 6f * (columns - 1)) / columns;
+		for (int i = 0; i < tabs.Length; i++)
+			if (Ui.Button(new Rect(r.x + (w + 6f) * (i % columns), r.y + 36f * (i / columns), w, 30f),
+				tabs[i], _forgeDesk == i ? _theme.NavOnStyle : _theme.NavStyle))
+			{
+				_forgeDesk = i;
+				if (i == 2) RefreshFeederSpecStock();
+				if (i == 3) ResetPumpRepairSelection();
+			}
+		r.yMin += 36f * ((tabs.Length + columns - 1) / columns) + 2f;
+		if (_forgeDesk == 3) { DrawPumpRepair(r); return; }
+		if (_forgeDesk == 2) { DrawFeederSpec(r); return; }
+		if (_forgeDesk == 1) { DrawMeridianIndustrial(r); return; }
+		DrawMeridianTools(r);
+	}
+
+	private static void RefreshFeederSpecStock()
+	{
+		_feederSpecQuote = null;
+		_feederSpecIndex = 0;
+		_feederSpecStock = EmporiumEntry.Instance?.GetAllOwnedItems(includeAfterhour: false)
+			?.Where(item => WorkshopSaleQuote.Eligible(item, WorkshopSaleOffer.MeridianFeederSpec)).Distinct().ToList() ?? new();
+	}
+
+	private static void DrawFeederSpec(Rect r)
+	{
+		var trial = CorpState.Current?.Workshop?.FeederTrial;
+		if (trial?.Handbook == true)
+		{
+			GUI.Label(r, L.T("规格单已结清 · 旧机检修图册已发放", "Specification paid · service handbook issued"), _theme.Wrap);
+			return;
+		}
+		var offer = WorkshopSaleOffer.MeridianFeederSpec;
+		if (!WorkshopSaleQuote.Unlocked(offer, CorpState.Current))
+		{
+			GUI.Label(r, L.T("先完成阿岑的两批试机，并解锁罗森的工业锻造。", "Complete Cen’s two feeder batches and unlock Rosen’s industrial forging."), _theme.Wrap);
+			return;
+		}
+		GUI.Label(new Rect(r.x, r.y, r.width, 64), L.T("交给料轴 1 件 · 承力 ≥50，耐磨 ≥40，脆裂 ≤10。工钱 68 元，结清后开放旧机检修图册。",
+			"Deliver one feed shaft. Load ≥50, wear resistance ≥40, brittleness ≤10. Pays 68 credits and unlocks the service handbook."), _theme.Wrap);
+		float y = r.y + 68;
+		if (trial.Spec is { Received: 1 } receipt)
+		{
+			GUI.Label(new Rect(r.x, y, r.width, 30), L.T($"实收 1 · 实付 {receipt.Paid}/{receipt.Amount}₵",
+				$"Received 1 · Paid {receipt.Paid}/{receipt.Amount}₵"), _theme.Body);
+			y += 33;
+			if (Ui.Button(new Rect(r.x, y, r.width, 35), L.T("续结余款", "Pay remaining balance"), _theme.BtnStyle))
+				Toast(SaleMessage(new WorkshopSaleQuote(offer).Submit()));
+			return;
+		}
+		if (Ui.Button(new Rect(r.x, y, 144, 33), L.K("workshop.sales.refresh", "刷新库存", "Refresh stock"), _theme.BtnStyle))
+			RefreshFeederSpecStock();
+		y += 37;
+		if (_feederSpecStock.Count == 0)
+		{
+			GUI.Label(new Rect(r.x, y, r.width, 34), SaleMessage(SaleStatus.Short), _theme.Wrap);
+			return;
+		}
+		var selected = _feederSpecStock[_feederSpecIndex];
+		if (WorkshopSaleQuote.Eligible(selected, offer))
+		{
+			string text = SaleSourceName(new WorkshopSaleStock(selected, false));
+			if (Ui.Button(new Rect(r.x, y, r.width, 34), $"{_feederSpecIndex + 1}/{_feederSpecStock.Count} · {text}  ›", _theme.BtnStyle))
+			{
+				_feederSpecIndex = (_feederSpecIndex + 1) % _feederSpecStock.Count;
+				_feederSpecQuote = null;
+			}
+		}
+		else GUI.Label(new Rect(r.x, y, r.width, 34), SaleMessage(SaleStatus.Changed), _theme.Wrap);
+		y += 40;
+		if (_feederSpecQuote == null)
+		{
+			if (Ui.Button(new Rect(r.x, y, r.width, 34), L.T("验货并报价", "Inspect and quote"), _theme.BtnStyle))
+				_feederSpecQuote = new WorkshopSaleQuote(offer, _feederSpecStock[_feederSpecIndex]);
+			return;
+		}
+		var status = _feederSpecQuote.Check();
+		if (status != SaleStatus.Ready) GUI.Label(new Rect(r.x, y, r.width, 42), SaleMessage(status), _theme.Wrap);
+		else if (Ui.Button(new Rect(r.x, y, r.width, 34), L.K("workshop.sales.confirm", "确认交货并结款", "Confirm delivery and payment"), _theme.BtnStyle))
+		{
+			Toast(SaleMessage(_feederSpecQuote.Submit()));
+			RefreshFeederSpecStock();
+		}
+	}
+
+	private static void DrawMeridianIndustrial(Rect r)
+	{
+		var blocked = MeridianIndustrial.RecipeError(CorpState.Current);
+		if (blocked != null) { GUI.Label(r, blocked, _theme.Wrap); return; }
+		GUI.Label(new Rect(r.x, r.y, r.width, 68f), L.K("workshop.meridian.terms",
+			"自制：每件用 1 钢胚、1 合金粉、100 毫升水、6 电。委托：每件交 1 高纯以上金属锭、1 合金粉、35 元。两天后送到，与订货共用每日一次额度。",
+			"At your anvil, use one billet, one alloy powder, 100 ml water and 6 charge per frame. Meridian takes one high-purity or better ingot, one powder and 35 credits per frame. Delivery takes two days and uses your daily order."), _theme.Wrap);
+		float y = r.y + 76f;
+		var receipt = CorpState.Current.Workshop.Commission;
+		if (receipt != null) _frameQuantity = receipt.Quantity;
+		bool enabled = GUI.enabled;
+		GUI.enabled = enabled && receipt == null;
+		int quantity = Math.Max(1, Ui.Qty(new Rect(r.x, y, 144f, 30f), _frameQuantity, MeridianCommissionReceipt.Maximum, _theme.BtnStyle, _theme.Center));
+		GUI.enabled = enabled;
+		if (_frameQuantity != quantity) { _frameQuantity = quantity; _frameQuote = null; }
+		if (Ui.Button(new Rect(r.x + 160f, y, 168f, 30f), L.K("workshop.meridian.inspect", "核对委托用料", "Inspect materials"), _theme.BtnStyle))
+			_frameQuote = new MeridianCommission(_company, _frameQuantity);
+		y += 38f;
+		int due = receipt == null ? _frameQuantity * MeridianCommissionReceipt.Fee : receipt.Quantity * MeridianCommissionReceipt.Fee - receipt.Paid;
+		int ingots = _frameQuantity - (receipt?.Ingots ?? 0), powder = _frameQuantity - (receipt?.Alloy ?? 0);
+		GUI.Label(new Rect(r.x, y, r.width, 42f), L.K("workshop.meridian.quote",
+			(FormattableString)$"本次还需 {ingots} 锭、{powder} 包合金粉、{due} 元。办妥后预计第 {Day + 2} 天送回。",
+			(FormattableString)$"Still due: {ingots} ingots, {powder} powder packets and {due} credits. If confirmed today, delivery is due on day {Day + 2}."), _theme.Wrap);
+		y += 46f;
+		DrawCheckoutBalance(new Rect(r.x, y, r.width, 24f), due);
+		y += 27f;
+		string error = _frameQuote?.Check() ?? Services.OrderBlocked(_company);
+		if (receipt?.InFlight == true) error = MeridianIndustrial.Frozen;
+		if (!Services.CanOrderToday(_company)) error = L.K("companies.services.orders.placeOrder.alreadyOrderedToday", "今天已经下过单了", "Already ordered today");
+		if (error != null) GUI.Label(new Rect(r.x, y, r.width, 44f), error, _theme.Wrap);
+		y += 46f;
+		GUI.enabled = enabled && _frameQuote != null && error == null;
+		if (Ui.Button(new Rect(r.x, y, r.width, 32f), L.K("workshop.meridian.confirm", "确认交料并委托", "Hand over materials and commission frames"), _theme.BtnHotStyle))
+		{
+			Toast(_frameQuote.Submit() ?? L.K("workshop.meridian.accepted", "子午线已收单，两天后送回框架。", "Meridian accepted your order. Frames are due in two days."));
+			_frameQuote = null;
+		}
+		GUI.enabled = enabled;
+		y += 44f;
+		GUI.enabled = enabled && Services.OrderBlocked(_company) == null && Services.CanOrderToday(_company) && Services.CanAfford(Services.CashDue(_company, 40));
+		if (Ui.Button(new Rect(r.x, y, r.width, 32f), L.K("workshop.meridian.buyContacts", "订罗森报废触点 · 两件 40 元 · 次日送达", "Order two spent contacts · 40 credits · next-day delivery"), _theme.BtnStyle))
+			Toast(Services.PlaceOrder(_company, new Dictionary<CatalogEntry, int> { [MeridianCo.SpentContacts] = 1 }, MeridianUnitPrice) ?? _company.FrontDeskDone);
+		GUI.enabled = enabled;
+		y += 40f;
+		foreach (var order in State.Orders.Where(o => o.Kind == MeridianIndustrial.OrderKind).OrderBy(o => o.Day).Take(2))
+		{
+			GUI.Label(new Rect(r.x, y, r.width, 22f), L.K("workshop.meridian.transit",
+				(FormattableString)$"待送框架 {order.Items.Count} 件 · 第 {order.Day} 天", (FormattableString)$"{order.Items.Count} frames awaiting delivery · day {order.Day}"), _theme.Small);
+			y += 24f;
+		}
+	}
+
+	private static void DrawMeridianTools(Rect r)
 	{
 		Theme theme = _theme;
 		GUI.Label(new Rect(r.x, r.y, r.width, 66f), L.K("ui.meridian.forging.precisionForgeTurnsHighPurity", "精锻熔炉每晚把高纯度的金属锭炼成钢胚；锻台用钢胚锻刀，淬火的水越干净，刀的成色越好。", "The precision forge turns high-purity ingots into billets overnight; the anvil forges blades from billets, and the cleaner the quench water, the better the finish."), theme.Wrap);
@@ -314,4 +476,3 @@ internal static partial class CompanyWindow
 	}
 
 }
-
